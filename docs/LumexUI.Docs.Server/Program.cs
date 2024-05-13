@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using TailwindMerge.Extensions;
+
 var builder = WebApplication.CreateBuilder( args );
 
 // Add services to the container.
@@ -9,6 +11,7 @@ var builder = WebApplication.CreateBuilder( args );
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddTailwindMerge();
 
 var app = builder.Build();
 

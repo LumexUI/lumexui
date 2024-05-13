@@ -12,6 +12,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.2" />
+		<PackageReference Include="TailwindMerge.NET" Version="0.1.0-rc" />
 	</ItemGroup>
 
 	<ItemGroup>
