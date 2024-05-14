@@ -399,5 +399,5 @@ FodyWeavers.xsd
 
 # Automatically generated assets
 /src/LumexUI/wwwroot/*
-/src/LumexUI.Grid/wwwroot/*
 /docs/LumexUI.Docs/wwwroot/css/*
+/docs/LumexUI.Docs/*.exe

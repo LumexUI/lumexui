@@ -18,5 +18,15 @@
 		<ProjectReference Include="..\..\src\LumexUI\LumexUI.csproj" />
 		<ProjectReference Include="..\..\src\LumexUI.Utilities\LumexUI.Utilities.csproj" />
 	</ItemGroup>
+	
+	<Target Name="InstallTailwind" AfterTargets="BeforeBuild" Condition="'$(Configuration)'=='Debug' And !Exists('tailwindcss.exe')">
+		<Exec Command="curl -LO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe" />
+		<Exec Command="ren tailwindcss-windows-x64.exe tailwindcss.exe" />
+	</Target>
 
+	<Target Name="CompileCSS" AfterTargets="InstallTailwind" Condition=" '$(Configuration)'=='Debug' ">
+		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" />
+		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.min.css --minify" />
+	</Target>
+	
 </Project>
