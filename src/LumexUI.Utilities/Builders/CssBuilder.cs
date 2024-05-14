@@ -4,7 +4,7 @@
 
 namespace LumexUI.Utilities;
 
-public struct CssBuilder
+public record struct CssBuilder
 {
 	private string? stringBuffer;
 	private string prefix;
@@ -129,12 +129,10 @@ public struct CssBuilder
 	/// Finalize the completed CSS Classes as a string.
 	/// </summary>
 	/// <returns>string</returns>
-	public string Build()
+	public readonly string Build()
 	{
-		// String buffer finalization code
 		return stringBuffer != null ? stringBuffer.Trim() : string.Empty;
 	}
 
-	// ToString should only and always call Build to finalize the rendered string.
-	public override string ToString() => Build();
+	public readonly override string ToString() => Build();
 }
