@@ -1,0 +1,12 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexComponent As="button"
+                Class="@RootClass"
+                Style="@Style"
+                type="@Type"
+                disabled="@Disabled"
+                @attributes="@AdditionalAttributes"
+                @onclick="@OnClickAsync">
+    @ChildContent
+</LumexComponent>
