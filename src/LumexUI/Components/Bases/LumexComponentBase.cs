@@ -4,6 +4,8 @@
 
 using Microsoft.AspNetCore.Components;
 
+using TailwindMerge;
+
 namespace LumexUI;
 
 public abstract class LumexComponentBase : ComponentBase
@@ -11,7 +13,7 @@ public abstract class LumexComponentBase : ComponentBase
 	/// <summary>
 	/// Gets or sets an HTML tag of the component.
 	/// </summary>
-	[Parameter] public string As { get; set; } = "span";
+	[Parameter] public string As { get; set; } = "div";
 
 	/// <summary>
 	/// Gets or sets CSS class names that will be applied to the component.
@@ -28,4 +30,6 @@ public abstract class LumexComponentBase : ComponentBase
 	/// </summary>
 	[Parameter( CaptureUnmatchedValues = true )]
 	public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; } = new Dictionary<string, object>();
+
+	[Inject] protected TwMerge TwMerge { get; set; } = default!;
 }
