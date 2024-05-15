@@ -76,7 +76,8 @@ public partial class LumexButton : LumexComponentBase
     /// </summary>
     [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
-	private protected override string? RootClass => TwMerge.Merge( Button.GetStyles( this ) );
+	private protected override string? RootClass 
+        => TwMerge.Merge( Button.GetStyles( this ) );
 
     protected virtual Task OnClickAsync( MouseEventArgs args ) =>
         Disabled ? Task.CompletedTask : OnClick.InvokeAsync( args );

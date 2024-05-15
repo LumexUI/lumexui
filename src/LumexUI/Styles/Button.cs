@@ -12,7 +12,7 @@ namespace LumexUI.Styles;
 [ExcludeFromCodeCoverage]
 internal readonly record struct Button
 {
-    private static string _base = CssBuilder.Empty()
+    private readonly static string _base = CssBuilder.Empty()
         .AddClass( "inline-flex" )
         .AddClass( "items-center" )
         .AddClass( "justify-center" )
@@ -28,12 +28,12 @@ internal readonly record struct Button
         .AddClass( "hover:opacity-80" )
         .Build();
 
-    private static string _disabled = CssBuilder.Empty()
+    private readonly static string _disabled = CssBuilder.Empty()
         .AddClass( "opacity-disabled" )
         .AddClass( "pointer-events-none" )
         .Build();
 
-    private static string _fullWidth = CssBuilder.Empty()
+    private readonly static string _fullWidth = CssBuilder.Empty()
         .AddClass( "w-full" )
         .Build();
 
