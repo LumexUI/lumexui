@@ -19,13 +19,13 @@ public partial class LumexButton : LumexComponentBase
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
-	/// <summary>
-	/// Gets or sets the type of the button.
-	/// </summary>
-	/// <remarks>
-	/// Default value is <see cref="ButtonType.Button"/>
-	/// </remarks>
-	[Parameter] public ButtonType Type { get; set; }
+    /// <summary>
+    /// Gets or sets the type of the button.
+    /// </summary>
+    /// <remarks>
+    /// Default value is <see cref="ButtonType.Button"/>
+    /// </remarks>
+    [Parameter] public ButtonType Type { get; set; }
 
     /// <summary>
     /// Gets or sets a variant of the button.
@@ -61,10 +61,20 @@ public partial class LumexButton : LumexComponentBase
 	/// </summary>
 	[Parameter] public bool FullWidth { get; set; }
 
-	/// <summary>
-	/// Gets or sets a callback that is fired whenever the button is clicked.
-	/// </summary>
-	[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+    /// <summary>
+    /// Gets or sets the icon to be rendered before the label of the button.
+    /// </summary>
+    [Parameter] public string? StartIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon to be rendered after the label of the button.
+    /// </summary>
+    [Parameter] public string? EndIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that is fired whenever the button is clicked.
+    /// </summary>
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 	private protected override string? RootClass => TwMerge.Merge( Button.GetStyles( this ) );
 

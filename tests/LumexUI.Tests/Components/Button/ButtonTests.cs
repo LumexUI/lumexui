@@ -2,10 +2,6 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using Bunit;
-
-using FluentAssertions;
-
 using LumexUI.Common;
 using LumexUI.Utilities;
 
@@ -13,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using TailwindMerge;
 
-namespace LumexUI.Tests;
+namespace LumexUI.Tests.Components;
 
 public class ButtonTests : TestContext
 {
@@ -87,4 +83,26 @@ public class ButtonTests : TestContext
 
 		button.GetAttribute( "type" ).Should().Be( ButtonType.Submit.ToDescription() );
 	}
+
+    [Fact]
+    public void Button_StartIcon_ShouldRenderWithStartIcon()
+    {
+        var icon = "start-icon";
+        var cut = RenderComponent<LumexButton>( p => p
+            .Add( p => p.StartIcon, icon )
+        );
+
+        cut.Markup.Should().Contain( icon );
+    }
+
+    [Fact]
+    public void Button_EndIcon_ShouldRenderWithEndIcon()
+    {
+        var icon = "end-icon";
+        var cut = RenderComponent<LumexButton>( p => p
+            .Add( p => p.EndIcon, icon )
+        );
+
+        cut.Markup.Should().Contain( icon );
+    }
 }

@@ -30,6 +30,8 @@
 
   <ItemGroup>
     <Using Include="Xunit" />
+    <Using Include="Bunit" />
+    <Using Include="FluentAssertions" />
   </ItemGroup>
 
 </Project>
