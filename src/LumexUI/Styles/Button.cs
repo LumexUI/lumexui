@@ -7,9 +7,9 @@ using LumexUI.Utilities;
 
 namespace LumexUI.Styles;
 
-internal record Button
+internal readonly record struct Button
 {
-	private static string Base => CssBuilder.Empty()
+	private static string _base = CssBuilder.Empty()
 		.AddClass( "inline-flex" )
 		.AddClass( "items-center" )
 		.AddClass( "justify-center" )
@@ -25,12 +25,12 @@ internal record Button
 		.AddClass( "hover:opacity-80" )
 		.Build();
 
-	private static string Disabled => CssBuilder.Empty()
+	private static string _disabled = CssBuilder.Empty()
 		.AddClass( "opacity-disabled" )
 		.AddClass( "pointer-events-none" )
 		.Build();
 
-	private static string FullWidth => CssBuilder.Empty()
+	private static string _fullWidth = CssBuilder.Empty()
 		.AddClass( "w-full" )
 		.Build();
 
@@ -45,10 +45,11 @@ internal record Button
 	public static string GetStyles( LumexButton button )
 	{
 		var styles = new CssBuilder()
-			.AddClass( Base )
-			.AddClass( Disabled, when: button.Disabled )
-			.AddClass( FullWidth, when: button.FullWidth )
+			.AddClass( _base )
+			.AddClass( _disabled, when: button.Disabled )
+			.AddClass( _fullWidth, when: button.FullWidth )
 			.AddClass( GetSize( button.Size ) )
+			.AddClass( button.Class )
 			.Build();
 
 		return styles;
