@@ -23,65 +23,68 @@ public class ButtonTests : TestContext
 	}
 
 	[Fact]
-	public void Button_ChildContent_ShouldRenderDisabledAttribute()
+	public void Button_ChildContent_ShouldRenderCorrectly()
 	{
-		// Arrange
 		var content = "Button";
 
-		// Act
 		var cut = RenderComponent<LumexButton>( p => p
 			.AddChildContent( content )
 		);
 
-		// Assert
 		cut.Markup.Should().Contain( content );
 	}
 
 	[Fact]
-	public void Button_Disabled_ShouldRenderDisabledAttribute()
+	public void Button_Disabled_ShouldHaveDisabledAttribute()
 	{
-		// Arrange
 		var cut = RenderComponent<LumexButton>( p => p
 			.Add( p => p.Disabled, true )
 		);
 
-		// Act
 		var button = cut.Find( "button" );
 
-		// Assert
 		button.HasAttribute( "disabled" ).Should().BeTrue();
 	}
 
 	[Fact]
-	public void Button_Disabled_ShouldNotClick()
+	public void Button_Disabled_ShouldNotTriggerClick()
 	{
-		// Arrange
-		var counter = 0;
+		var clicked = false;
 		var cut = RenderComponent<LumexButton>( p => p
 			.Add( p => p.Disabled, true )
-			.Add( p => p.OnClick, () => counter++ )
+			.Add( p => p.OnClick, () => clicked = true )
 		);
 
-		// Act
 		var button = cut.Find( "button" );
 		button.Click();
 
-		// Assert
-		counter.Should().Be( 0 );
+        clicked.Should().BeFalse();
 	}
 
-	[Fact]
-	public void Button_Type_ShouldRenderCorrectTypeAttribute()
+    [Fact]
+    public void Button_NotDisabled_ShouldTriggerClick()
+    {
+        var clicked = false;
+        var cut = RenderComponent<LumexButton>( p => p
+            .Add( p => p.Disabled, false )
+            .Add( p => p.OnClick, () => clicked = true )
+        );
+
+        var button = cut.Find( "button" );
+        button.Click();
+
+        clicked.Should().BeTrue();
+    }
+
+    [Fact]
+	public void Button_Type_ShouldHaveCorrectTypeAttribute()
 	{
-		// Arrange
 		var cut = RenderComponent<LumexButton>( p => p
 			.Add( p => p.Type, ButtonType.Submit )
 		);
 
-		// Act
 		var button = cut.Find( "button" );
 
-		// Assert
 		button.GetAttribute( "type" ).Should().Be( ButtonType.Submit.ToDescription() );
 	}
 }
