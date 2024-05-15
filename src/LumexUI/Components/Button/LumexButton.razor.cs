@@ -28,6 +28,15 @@ public partial class LumexButton : LumexComponentBase
 	[Parameter] public ButtonType Type { get; set; }
 
 	/// <summary>
+    /// <summary>
+    /// Gets or sets a color of the button.
+    /// </summary>
+    /// <remarks>
+    /// Default value is <see cref="ThemeColor.Default"/>
+    /// </remarks>
+    [Parameter] public ThemeColor Color { get; set; }
+
+    /// <summary>
 	/// Gets or sets the size of the button.
 	/// </summary>
 	/// <remarks>
