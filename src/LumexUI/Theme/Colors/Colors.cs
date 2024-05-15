@@ -176,4 +176,18 @@ public static class Colors
         ["800"] = "#18181B",
         ["900"] = "#09090B"
     };
+
+    public static Dictionary<string, string> ReverseColorValues( Dictionary<string, string> colors )
+    {
+        var reversedColorValues = new Dictionary<string, string>();
+        var keys = colors.Keys.ToList();
+        var values = colors.Values.ToList();
+
+        for( var i = 0; i < values.Count; i++ )
+        {
+            reversedColorValues[keys[i]] = values[values.Count - 1 - i];
+        }
+
+        return reversedColorValues;
+    }
 }
