@@ -32,4 +32,8 @@ public abstract class LumexComponentBase : ComponentBase
 	public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; } = new Dictionary<string, object>();
 
 	[Inject] protected TwMerge TwMerge { get; set; } = default!;
+
+	private protected virtual string? RootClass => Class;
+
+	private protected virtual string? RootStyle => Style;
 }
