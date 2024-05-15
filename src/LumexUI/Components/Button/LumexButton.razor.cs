@@ -27,7 +27,14 @@ public partial class LumexButton : LumexComponentBase
 	/// </remarks>
 	[Parameter] public ButtonType Type { get; set; }
 
-	/// <summary>
+    /// <summary>
+    /// Gets or sets a variant of the button.
+    /// </summary>
+    /// <remarks>
+    /// Default value is <see cref="Variant.Solid"/>
+    /// </remarks>
+    [Parameter] public Variant Variant { get; set; }
+
     /// <summary>
     /// Gets or sets a color of the button.
     /// </summary>
@@ -37,12 +44,12 @@ public partial class LumexButton : LumexComponentBase
     [Parameter] public ThemeColor Color { get; set; }
 
     /// <summary>
-	/// Gets or sets the size of the button.
-	/// </summary>
-	/// <remarks>
-	/// Default value is <see cref="Size.Medium"/>
-	/// </remarks>
-	[Parameter] public Size Size { get; set; } = Size.Medium;
+    /// Gets or sets the size of the button.
+    /// </summary>
+    /// <remarks>
+    /// Default value is <see cref="Size.Medium"/>
+    /// </remarks>
+    [Parameter] public Size Size { get; set; } = Size.Medium;
 
 	/// <summary>
 	/// Gets or sets a value indicating whether the button is disabled.
