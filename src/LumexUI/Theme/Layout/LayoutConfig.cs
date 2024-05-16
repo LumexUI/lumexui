@@ -10,8 +10,10 @@ namespace LumexUI.Theme;
 /// <param name="DisabledOpacity">The opacity value for disabled elements.</param>
 /// <param name="FocusOpacity">The opacity value for elements in focus.</param>
 /// <param name="HoverOpacity">The opacity value for elements when hovered over.</param>
+/// <param name="DividerOpacity">The opacity value for borders and dividers.</param>
 public readonly record struct LayoutConfig(
-    double DisabledOpacity = .6,
-    double FocusOpacity = .7,
-    double HoverOpacity = .8
+    double DisabledOpacity,
+    double FocusOpacity,
+    double HoverOpacity,
+    double DividerOpacity
 );

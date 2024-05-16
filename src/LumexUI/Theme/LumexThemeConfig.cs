@@ -31,7 +31,14 @@ public record LumexThemeConfig
     /// </summary>
     public LumexThemeConfig()
     {
-        LightTheme = new( ThemeType.Light, SemanticColors.Light, Layout: new() );
-        DarkTheme = new( ThemeType.Dark, SemanticColors.Dark, Layout: new() );
+        var layoutConfig = new LayoutConfig( 
+            DisabledOpacity: .6, 
+            FocusOpacity: .7,
+            HoverOpacity: .8,
+            DividerOpacity: .15 
+        );
+
+        LightTheme = new( ThemeType.Light, SemanticColors.Light, layoutConfig );
+        DarkTheme = new( ThemeType.Dark, SemanticColors.Dark, layoutConfig );
     }
 }
