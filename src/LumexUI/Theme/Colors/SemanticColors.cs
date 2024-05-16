@@ -31,8 +31,8 @@ internal static class SemanticColors
         ],
         Default = [
             .. Colors.Gray,
-            new( Default, Colors.Gray["300"] ),
-            new( Foreground, GetReadableColor( Colors.Gray["300"] ) )
+            new( Default, Colors.Gray["200"] ),
+            new( Foreground, GetReadableColor( Colors.Gray["200"] ) )
         ],
         Primary = [
             .. Colors.Blue,
