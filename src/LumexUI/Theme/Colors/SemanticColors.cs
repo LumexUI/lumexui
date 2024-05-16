@@ -6,12 +6,12 @@ using static LumexUI.Utilities.ColorUtils;
 
 namespace LumexUI.Theme;
 
-public static class SemanticColors
+internal static class SemanticColors
 {
     private const string Default = "default";
     private const string Foreground = "foreground";
 
-    public static ThemeColors Light => new()
+    public readonly static ThemeColors Light = new()
     {
         Background = [
             new( Default, Colors.White )
@@ -66,7 +66,7 @@ public static class SemanticColors
         ],
     };
 
-    public static ThemeColors Dark => new()
+    public readonly static ThemeColors Dark = new()
     {
         Background = [
             new( Default, Colors.Black )
