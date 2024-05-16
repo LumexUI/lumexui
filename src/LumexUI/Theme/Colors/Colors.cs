@@ -4,11 +4,24 @@
 
 namespace LumexUI.Theme;
 
+/// <summary>
+/// Provides predefined colors and color scales for themes.
+/// </summary>
 public static class Colors
 {
+    /// <summary>
+    /// The white color.
+    /// </summary>
     public const string White = "#FFFFFF";
+
+    /// <summary>
+    /// The black color.
+    /// </summary>
     public const string Black = "#000000";
 
+    /// <summary>
+    /// The scale of pink colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Pink = new()
     {
         ["50"] = "#FFF0F8",
@@ -23,6 +36,9 @@ public static class Colors
         ["900"] = "#4A0722"
     };
 
+    /// <summary>
+    /// The scale of rose colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Rose = new()
     {
         ["50"] = "#FFF0F2",
@@ -37,6 +53,9 @@ public static class Colors
         ["900"] = "#510B20"
     };
 
+    /// <summary>
+    /// The scale of red colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Red = new()
     {
         ["50"] = "#FFF0F0",
@@ -51,6 +70,9 @@ public static class Colors
         ["900"] = "#420000"
     };
 
+    /// <summary>
+    /// The scale of orange colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Orange = new()
     {
         ["50"] = "#FFF7F0",
@@ -65,6 +87,9 @@ public static class Colors
         ["900"] = "#4E1C09"
     };
 
+    /// <summary>
+    /// The scale of yellow colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Yellow = new()
     {
         ["50"] = "#FFFCEB",
@@ -79,6 +104,9 @@ public static class Colors
         ["900"] = "#48250E"
     };
 
+    /// <summary>
+    /// The scale of green colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Green = new()
     {
         ["50"] = "#F0FFF3",
@@ -93,6 +121,9 @@ public static class Colors
         ["900"] = "#062D15"
     };
 
+    /// <summary>
+    /// The scale of teal colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Teal = new()
     {
         ["50"] = "#ECFDF5",
@@ -107,6 +138,9 @@ public static class Colors
         ["900"] = "#012D24"
     };
 
+    /// <summary>
+    /// The scale of lightblue colors.
+    /// </summary>
     public readonly static Dictionary<string, string> LightBlue = new()
     {
         ["50"] = "#F0FBFF",
@@ -121,6 +155,9 @@ public static class Colors
         ["900"] = "#082A45"
     };
 
+    /// <summary>
+    /// The scale of blue colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Blue = new()
     {
         ["50"] = "#F0F8FF",
@@ -135,6 +172,9 @@ public static class Colors
         ["900"] = "#0F1C43"
     };
 
+    /// <summary>
+    /// The scale of indigo colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Indigo = new()
     {
         ["50"] = "#F0F2FF",
@@ -149,6 +189,9 @@ public static class Colors
         ["900"] = "#1D1B4B"
     };
 
+    /// <summary>
+    /// The scale of violet colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Violet = new()
     {
         ["50"] = "#F4F0FF",
@@ -163,6 +206,9 @@ public static class Colors
         ["900"] = "#311560"
     };
 
+    /// <summary>
+    /// The scale of gray colors.
+    /// </summary>
     public readonly static Dictionary<string, string> Gray = new()
     {
         ["50"] = "#FAFAFA",
@@ -177,6 +223,11 @@ public static class Colors
         ["900"] = "#09090B"
     };
 
+    /// <summary>
+    /// Reverses the order of color values in a given color scale.
+    /// </summary>
+    /// <param name="colors">The color scale to reverse.</param>
+    /// <returns>A <see cref="Dictionary{TKey, TValue}"/> with the color values reversed.</returns>
     public static Dictionary<string, string> ReverseColorValues( Dictionary<string, string> colors )
     {
         var reversedColorValues = new Dictionary<string, string>();

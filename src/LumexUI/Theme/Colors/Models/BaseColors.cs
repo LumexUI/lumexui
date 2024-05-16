@@ -4,11 +4,33 @@
 
 namespace LumexUI.Theme;
 
+/// <summary>
+/// Represents a set of base colors used in a theme.
+/// </summary>
 public record BaseColors
 {
+    /// <summary>
+    /// Gets or sets the color scale for the background.
+    /// </summary>
     public ColorScale Background { get; set; }
+
+    /// <summary>
+    /// Gets or sets the color scale for the foreground.
+    /// </summary>
     public ColorScale Foreground { get; set; }
+
+    /// <summary>
+    /// Gets or sets the color scale for the overlay.
+    /// </summary>
     public ColorScale Overlay { get; set; }
+
+    /// <summary>
+    /// Gets or sets the color scale for the divider and borders.
+    /// </summary>
     public ColorScale Divider { get; set; }
+
+    /// <summary>
+    /// Gets or sets the color scale for the focus state.
+    /// </summary>
     public ColorScale Focus { get; set; }
 }
