@@ -4,7 +4,7 @@ namespace LumexUI.Styles;
 
 internal record ColorVariants
 {
-    public static Dictionary<ThemeColor, string> Solid = new()
+    public readonly static Dictionary<ThemeColor, string> Solid = new()
     {
         [ThemeColor.Default] = "bg-default text-default-foreground",
         [ThemeColor.Primary] = "bg-primary text-primary-foreground",
@@ -15,7 +15,7 @@ internal record ColorVariants
         [ThemeColor.Info] = "bg-info text-info-foreground"
     };
 
-    public static Dictionary<ThemeColor, string> Outlined = new()
+    public readonly static Dictionary<ThemeColor, string> Outlined = new()
     {
         [ThemeColor.Default] = "border-default text-foreground",
         [ThemeColor.Primary] = "border-primary text-primary",
@@ -26,7 +26,7 @@ internal record ColorVariants
         [ThemeColor.Info] = "border-info text-info"
     };
 
-    public static Dictionary<ThemeColor, string> Flat = new()
+    public readonly static Dictionary<ThemeColor, string> Flat = new()
     {
         [ThemeColor.Default] = "bg-default-100 text-default-foreground",
         [ThemeColor.Primary] = "bg-primary-50 text-primary",
@@ -37,7 +37,7 @@ internal record ColorVariants
         [ThemeColor.Info] = "bg-info-50 text-info"
     };
 
-    public static Dictionary<ThemeColor, string> Shadow = new()
+    public readonly static Dictionary<ThemeColor, string> Shadow = new()
     {
         [ThemeColor.Default] = "shadow-lg shadow-default/40 bg-default text-default-foreground",
         [ThemeColor.Primary] = "shadow-lg shadow-primary/40 bg-primary text-primary-foreground",
@@ -48,7 +48,7 @@ internal record ColorVariants
         [ThemeColor.Info] = "shadow-lg shadow-info/40 bg-info text-info-foreground"
     };
 
-    public static Dictionary<ThemeColor, string> Ghost = new()
+    public readonly static Dictionary<ThemeColor, string> Ghost = new()
     {
         [ThemeColor.Default] = "borde-default text-default-foreground hover:bg-default",
         [ThemeColor.Primary] = "border-primary text-primary hover:text-primary-foreground hover:bg-primary",
@@ -59,7 +59,7 @@ internal record ColorVariants
         [ThemeColor.Info] = "border-info text-info hover:text-info-foreground hover:bg-info"
     };
 
-    public static Dictionary<ThemeColor, string> Light = new()
+    public readonly static Dictionary<ThemeColor, string> Light = new()
     {
         [ThemeColor.Default] = "text-default-foreground",
         [ThemeColor.Primary] = "text-primary",
