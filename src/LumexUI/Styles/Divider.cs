@@ -13,8 +13,7 @@ namespace LumexUI.Styles;
 internal readonly record struct Divider
 {
     private readonly static string _base = CssBuilder.Empty()
-        // TODO: Uncomment when the theme provider is ready
-        //.AddClass( "bg-border" )
+        .AddClass( "bg-divider" )
         .AddClass( "border-none" )
         .Build();
 
