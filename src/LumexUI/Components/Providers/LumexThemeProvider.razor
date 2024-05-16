@@ -1,2 +1,10 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
+
+<style>
+    @((MarkupString)GenerateTheme(Config.LightTheme))
+</style>
+
+<style>
+    @((MarkupString)GenerateTheme(Config.DarkTheme))
+</style>
