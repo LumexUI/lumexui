@@ -11,7 +11,7 @@ internal static class SemanticColors
     private const string Default = "default";
     private const string Foreground = "foreground";
 
-    public readonly static ThemeColors Light = new()
+    public static ThemeColors Light => new()
     {
         Background = [
             new( Default, Colors.White )
@@ -63,10 +63,10 @@ internal static class SemanticColors
             .. Colors.LightBlue,
             new( Default, Colors.LightBlue["500"] ),
             new( Foreground, GetReadableColor( Colors.LightBlue["500"] ) )
-        ],
+        ]
     };
 
-    public readonly static ThemeColors Dark = new()
+    public static ThemeColors Dark => new()
     {
         Background = [
             new( Default, Colors.Black )
@@ -118,6 +118,6 @@ internal static class SemanticColors
             .. Colors.ReverseColorValues( Colors.LightBlue ),
             new( Default, Colors.LightBlue["500"] ),
             new( Foreground, GetReadableColor( Colors.LightBlue["500"] ) )
-        ],
+        ]
     };
 }

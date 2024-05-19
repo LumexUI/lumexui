@@ -7,19 +7,10 @@ using System.Text;
 
 using AngleSharp.Html.Dom;
 
-using Microsoft.Extensions.DependencyInjection;
-
-using TailwindMerge;
-
 namespace LumexUI.Tests.Components;
 
 public class ThemeProviderTests : TestContext
 {
-    public ThemeProviderTests()
-    {
-        Services.AddSingleton<TwMerge>();
-    }
-
     [Fact]
     public void ThemeProvider_ShouldRenderCorrectly()
     {
@@ -34,7 +25,7 @@ public class ThemeProviderTests : TestContext
     [InlineData( "de-DE" )]
     [InlineData( "he-IL" )]
     [InlineData( "ar-ER" )]
-    public void ThemeProvider_DifferentCultures_ShouldRenderCorrectTheme( string cultureName )
+    public void ThemeProvider_DifferentCultures_ShouldRenderCorrectly( string cultureName )
     {
         var culture = new CultureInfo( cultureName, false );
 

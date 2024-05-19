@@ -24,7 +24,7 @@ public record ColorScale : IEnumerable<KeyValuePair<string, string>>
     /// <returns>The color associated with the specified key, or null if the key is not found.</returns>
     /// <exception cref="ArgumentNullException">Thrown when the key or value are null or empty.</exception>
     /// <exception cref="KeyNotFoundException">Thrown when the key is not found in the color scale.</exception>
-    public string? this[string key]
+    public string this[string key]
     {
         get
         {
@@ -33,8 +33,8 @@ public record ColorScale : IEnumerable<KeyValuePair<string, string>>
                 throw new ArgumentNullException( nameof( key ), "Key cannot be null or empty." );
             }
 
-            return _colors.TryGetValue( key, out var value ) 
-                ? value 
+            return _colors.TryGetValue( key, out var value )
+                ? value
                 : throw new KeyNotFoundException( $"The key '{key}' was not found in the color scale." );
         }
         set
