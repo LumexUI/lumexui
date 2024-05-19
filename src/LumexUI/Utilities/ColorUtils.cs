@@ -2,20 +2,16 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 using LumexUI.Theme;
 
 namespace LumexUI.Utilities;
 
+[ExcludeFromCodeCoverage]
 internal static class ColorUtils
 {
-    internal static string HexToRgb( string color )
-    {
-        HexToRgb( color, out var R, out var G, out var B );
-        return $"{R} {G} {B}";
-    }
-
     internal static string HexToHsl( string color )
     {
         HexToHsl( color, out var H, out var S, out var L );
@@ -33,7 +29,7 @@ internal static class ColorUtils
 
         if( color == null || !uint.TryParse( color, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var decimalValue ) )
         {
-            throw new ArgumentException( $"Color hexadecimal value `{color}` is not in the correct format.", nameof( color ) );
+            throw new ArgumentException( $"Color hexadecimal value '{color}' is not in the correct format.", nameof( color ) );
         }
 
         R = (byte)( decimalValue >> 16 );
@@ -89,19 +85,21 @@ internal static class ColorUtils
 
     private static double Luminance( string color )
     {
-        HexToRgb( color, out var R, out var G, out var B );
-
-        double[] RGB = [R, G, B];
-
-        for( var i = 0; i < RGB.Length; i++ )
+        if( color == "transparent" )
         {
-            RGB[i] /= 255.0;
-
-            RGB[i] = RGB[i] <= 0.04045
-                ? RGB[i] / 12.92
-                : Math.Pow( ( RGB[i] + 0.055 ) / 1.055, 2.4 );
+            return 0;
         }
 
-        return ( RGB[0] * 0.2126 ) + ( RGB[1] * 0.7152 ) + ( RGB[2] * 0.0722 );
+        HexToRgb( color, out var R, out var G, out var B );
+        return 0.2126 * Linear( R ) + 0.7152 * Linear( G ) + 0.0722 * Linear( B );
+
+        static double Linear( double x )
+        {
+            var channel = x / 255;
+
+            return channel <= 0.04045
+                ? channel / 12.92
+                : Math.Pow( ( channel + 0.055 ) / 1.055, 2.4 );
+        }
     }
 }
