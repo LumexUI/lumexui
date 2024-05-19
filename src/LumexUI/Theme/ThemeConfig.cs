@@ -24,7 +24,7 @@ public record ThemeConfigLight : ThemeConfig
     /// <summary>
     /// Initializes a new instance of the <see cref="ThemeConfigLight" />.
     /// </summary>
-    public ThemeConfigLight() : base( new ThemeColorsLight(), LayoutConfig.Default() ) 
+    public ThemeConfigLight() : base( new ThemeColorsLight(), new LayoutConfig() ) 
     {
         Type = ThemeType.Light;
     }
@@ -38,7 +38,7 @@ public record ThemeConfigDark : ThemeConfig
     /// <summary>
     /// Initializes a new instance of the <see cref="ThemeConfigDark" />.
     /// </summary>
-    public ThemeConfigDark() : base( new ThemeColorsDark(), LayoutConfig.Default() ) 
+    public ThemeConfigDark() : base( new ThemeColorsDark(), new LayoutConfig() ) 
     { 
         Type = ThemeType.Dark;
     }
