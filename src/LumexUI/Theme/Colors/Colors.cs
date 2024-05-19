@@ -228,7 +228,7 @@ public static class Colors
     /// </summary>
     /// <param name="colors">The color scale to reverse.</param>
     /// <returns>A <see cref="Dictionary{TKey, TValue}"/> with the color values reversed.</returns>
-    public static Dictionary<string, string> ReverseColorValues( Dictionary<string, string> colors )
+    internal static Dictionary<string, string> ReverseColorValues( Dictionary<string, string> colors )
     {
         var reversedColorValues = new Dictionary<string, string>();
         var keys = colors.Keys.ToList();
