@@ -9,7 +9,37 @@ namespace LumexUI.Theme;
 /// <summary>
 /// Represents the configuration settings for a theme.
 /// </summary>
-/// <param name="Type">The type of the theme.</param>
 /// <param name="Colors">The colors associated with the theme.</param>
 /// <param name="Layout">The layout settings for the theme.</param>
-public record ThemeConfig( ThemeType Type, ThemeColors Colors, LayoutConfig Layout );
+public abstract record ThemeConfig( ThemeColors Colors, LayoutConfig Layout )
+{
+    internal ThemeType Type { get; init; }
+}
+
+/// <summary>
+/// Represents the configuration settings for a light theme.
+/// </summary>
+public record ThemeConfigLight : ThemeConfig
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ThemeConfigLight" />.
+    /// </summary>
+    public ThemeConfigLight() : base( new ThemeColorsLight(), LayoutConfig.Default() ) 
+    {
+        Type = ThemeType.Light;
+    }
+}
+
+/// <summary>
+/// Represents the configuration settings for a dark theme.
+/// </summary>
+public record ThemeConfigDark : ThemeConfig
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ThemeConfigDark" />.
+    /// </summary>
+    public ThemeConfigDark() : base( new ThemeColorsDark(), LayoutConfig.Default() ) 
+    { 
+        Type = ThemeType.Dark;
+    }
+}
