@@ -37,4 +37,13 @@ public record LumexTheme
         Light = new();
         Dark = new();
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LumexTheme"/> with a specified default theme.
+    /// </summary>
+    /// <param name="defaultTheme">The default theme to be set.</param>
+    public LumexTheme( ThemeType defaultTheme ) : this()
+    {
+        DefaultTheme = defaultTheme;
+    }
 }
