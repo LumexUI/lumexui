@@ -22,11 +22,9 @@ internal static class ColorUtils
         return $"{H} {S}% {L}%";
     }
 
-    internal static string? GetReadableColor( string? color )
+    internal static string GetReadableColor( string color )
     {
-        return !string.IsNullOrWhiteSpace( color )
-            ? Luminance( color ) < .3 ? Colors.White : Colors.Black
-            : null;
+        return Luminance( color ) < .3 ? Colors.White : Colors.Black;
     }
 
     private static void HexToRgb( string color, out byte R, out byte G, out byte B )
