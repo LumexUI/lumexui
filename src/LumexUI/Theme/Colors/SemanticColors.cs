@@ -86,8 +86,8 @@ internal static class SemanticColors
         ],
         Default = [
             .. Colors.ReverseColorValues( Colors.Gray ),
-            new( Default, Colors.Gray["700"] ),
-            new( Foreground, GetReadableColor( Colors.Gray["700"] ) )
+            new( Default, Colors.Gray["300"] ),
+            new( Foreground, GetReadableColor( Colors.Gray["300"] ) )
         ],
         Primary = [
             .. Colors.ReverseColorValues( Colors.Blue ),
