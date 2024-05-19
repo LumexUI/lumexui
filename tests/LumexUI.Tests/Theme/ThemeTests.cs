@@ -135,7 +135,7 @@ public class ThemeTests : TestContext
         };
         theme.Light.Colors.Primary["default"] = Colors.Black;
 
-        theme.Light.Colors.Background!["default"].Should().Be( "background" );
-        theme.Light.Colors.Primary!["default"].Should().Be( Colors.Black );
+        theme.Light.Colors.Background["default"].Should().Be( "background" );
+        theme.Light.Colors.Primary["default"].Should().Be( Colors.Black );
     }
 }

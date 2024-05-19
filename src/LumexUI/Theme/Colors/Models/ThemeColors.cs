@@ -12,37 +12,37 @@ public record ThemeColors : BaseColors
     /// <summary>
     /// Gets or sets the default color scale.
     /// </summary>
-    public ColorScale? Default { get; init; }
+    public ColorScale Default { get; init; } = [];
 
     /// <summary>
     /// Gets or sets the primary color scale.
     /// </summary>
-    public ColorScale? Primary { get; init; }
+    public ColorScale Primary { get; init; } = [];
 
     /// <summary>
     /// Gets or sets the secondary color scale.
     /// </summary>
-    public ColorScale? Secondary { get; init; }
+    public ColorScale Secondary { get; init; } = [];
 
     /// <summary>
     /// Gets or sets the success color scale.
     /// </summary>
-    public ColorScale? Success { get; init; }
+    public ColorScale Success { get; init; } = [];
 
     /// <summary>
     /// Gets or sets the warning color scale.
     /// </summary>
-    public ColorScale? Warning { get; init; }
+    public ColorScale Warning { get; init; } = [];
 
     /// <summary>
     /// Gets or sets the danger color scale.
     /// </summary>
-    public ColorScale? Danger { get; init; }
+    public ColorScale Danger { get; init; } = [];
 
     /// <summary>
     /// Gets or sets the info color scale.
     /// </summary>
-    public ColorScale? Info { get; init; }
+    public ColorScale Info { get; init; } = [];
 }
 
 /// <summary>

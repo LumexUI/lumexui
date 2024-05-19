@@ -66,18 +66,18 @@ public partial class LumexThemeProvider : ComponentBase
     {
         return new()
         {
-            ["background"] = colors.Background!,
-            ["foreground"] = colors.Foreground!,
-            ["overlay"] = colors.Overlay!,
-            ["focus"] = colors.Focus!,
-            ["divider"] = colors.Divider!,
-            ["default"] = colors.Default!,
-            ["primary"] = colors.Primary!,
-            ["secondary"] = colors.Secondary!,
-            ["success"] = colors.Success!,
-            ["warning"] = colors.Warning!,
-            ["danger"] = colors.Danger!,
-            ["info"] = colors.Info!,
+            ["background"] = colors.Background,
+            ["foreground"] = colors.Foreground,
+            ["overlay"] = colors.Overlay,
+            ["focus"] = colors.Focus,
+            ["divider"] = colors.Divider,
+            ["default"] = colors.Default,
+            ["primary"] = colors.Primary,
+            ["secondary"] = colors.Secondary,
+            ["success"] = colors.Success,
+            ["warning"] = colors.Warning,
+            ["danger"] = colors.Danger,
+            ["info"] = colors.Info,
         };
     }
 }
