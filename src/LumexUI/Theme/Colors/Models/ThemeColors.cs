@@ -12,35 +12,85 @@ public record ThemeColors : BaseColors
     /// <summary>
     /// Gets or sets the default color scale.
     /// </summary>
-    public ColorScale Default { get; set; }
+    public ColorScale? Default { get; init; }
 
     /// <summary>
     /// Gets or sets the primary color scale.
     /// </summary>
-    public ColorScale Primary { get; set; }
+    public ColorScale? Primary { get; init; }
 
     /// <summary>
     /// Gets or sets the secondary color scale.
     /// </summary>
-    public ColorScale Secondary { get; set; }
+    public ColorScale? Secondary { get; init; }
 
     /// <summary>
     /// Gets or sets the success color scale.
     /// </summary>
-    public ColorScale Success { get; set; }
+    public ColorScale? Success { get; init; }
 
     /// <summary>
     /// Gets or sets the warning color scale.
     /// </summary>
-    public ColorScale Warning { get; set; }
+    public ColorScale? Warning { get; init; }
 
     /// <summary>
     /// Gets or sets the danger color scale.
     /// </summary>
-    public ColorScale Danger { get; set; }
+    public ColorScale? Danger { get; init; }
 
     /// <summary>
     /// Gets or sets the info color scale.
     /// </summary>
-    public ColorScale Info { get; set; }
+    public ColorScale? Info { get; init; }
+}
+
+/// <summary>
+/// Represents a set of light theme colors.
+/// </summary>
+public record ThemeColorsLight : ThemeColors
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ThemeColorsLight" />.
+    /// </summary>
+    public ThemeColorsLight()
+    {
+        Background = SemanticColors.Light.Background;
+        Foreground = SemanticColors.Light.Foreground;
+        Overlay = SemanticColors.Light.Overlay;
+        Divider = SemanticColors.Light.Divider;
+        Focus = SemanticColors.Light.Focus;
+        Default = SemanticColors.Light.Default;
+        Primary = SemanticColors.Light.Primary;
+        Secondary = SemanticColors.Light.Secondary;
+        Success = SemanticColors.Light.Success;
+        Warning = SemanticColors.Light.Warning;
+        Danger = SemanticColors.Light.Danger;
+        Info = SemanticColors.Light.Info;
+    }
+}
+
+/// <summary>
+/// Represents a set of dark theme colors.
+/// </summary>
+public record ThemeColorsDark : ThemeColors
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ThemeColorsDark" />.
+    /// </summary>
+    public ThemeColorsDark()
+    {
+        Background = SemanticColors.Dark.Background;
+        Foreground = SemanticColors.Dark.Foreground;
+        Overlay = SemanticColors.Dark.Overlay;
+        Divider = SemanticColors.Dark.Divider;
+        Focus = SemanticColors.Dark.Focus;
+        Default = SemanticColors.Dark.Default;
+        Primary = SemanticColors.Dark.Primary;
+        Secondary = SemanticColors.Dark.Secondary;
+        Success = SemanticColors.Dark.Success;
+        Warning = SemanticColors.Dark.Warning;
+        Danger = SemanticColors.Dark.Danger;
+        Info = SemanticColors.Dark.Info;
+    }
 }
