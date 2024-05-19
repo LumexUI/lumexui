@@ -61,8 +61,8 @@ internal static class SemanticColors
         ],
         Info = [
             .. Colors.LightBlue,
-            new( Default, Colors.LightBlue["400"] ),
-            new( Foreground, GetReadableColor( Colors.LightBlue["400"] ) )
+            new( Default, Colors.LightBlue["500"] ),
+            new( Foreground, GetReadableColor( Colors.LightBlue["500"] ) )
         ],
     };
 
