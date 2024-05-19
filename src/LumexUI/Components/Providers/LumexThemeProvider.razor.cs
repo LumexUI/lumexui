@@ -2,6 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Globalization;
 using System.Text;
 
 using LumexUI.Theme;
@@ -11,30 +12,25 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-public partial class LumexThemeProvider : LumexComponentBase
+public partial class LumexThemeProvider : ComponentBase
 {
     private const string Prefix = "lumex";
 
     /// <summary>
     /// Gets or sets the configuration of the theme.
     /// </summary>
-    [Parameter] public LumexThemeConfig? Config { get; set; }
+    [Parameter] public LumexTheme Theme { get; set; }
 
-    protected override void OnInitialized()
+    public LumexThemeProvider()
     {
-        Config ??= new();
+        Theme = new();
     }
 
     private string? GenerateTheme( ThemeConfig theme )
     {
-        if( Config is null )
-        {
-            return null;
-        }
+        var cssSelector = $"[data-theme={theme.Type.ToDescription()}]";
 
-        var cssSelector = $@"[data-theme=""{theme.Type.ToDescription()}""]";
-
-        if( theme.Type == Config.DefaultTheme )
+        if( theme.Type == Theme.DefaultTheme )
         {
             cssSelector = $":root, {cssSelector}";
         }
@@ -50,19 +46,17 @@ public partial class LumexThemeProvider : LumexComponentBase
             foreach( var scale in color.Value )
             {
                 var scaleKey = scale.Key == "default" ? "" : $"-{scale.Key}";
-                var scaleValue = !string.IsNullOrWhiteSpace( scale.Value ) 
-                    ? ColorUtils.HexToHsl( scale.Value ) 
-                    : null;
+                var scaleValue = ColorUtils.HexToHsl( scale.Value );
 
                 sb.AppendLine( $"--{Prefix}-{color.Key}{scaleKey}: {scaleValue};" );
             }
         }
 
         // Layout
-        sb.AppendLine( $"--{Prefix}-divider-opacity: {theme.Layout.DividerOpacity};" );
-        sb.AppendLine( $"--{Prefix}-disabled-opacity: {theme.Layout.DisabledOpacity};" );
-        sb.AppendLine( $"--{Prefix}-focus-opacity: {theme.Layout.FocusOpacity};" );
-        sb.AppendLine( $"--{Prefix}-hover-opacity: {theme.Layout.HoverOpacity};" );
+        sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-divider-opacity: {theme.Layout.DividerOpacity};" );
+        sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-disabled-opacity: {theme.Layout.DisabledOpacity};" );
+        sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-focus-opacity: {theme.Layout.FocusOpacity};" );
+        sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-hover-opacity: {theme.Layout.HoverOpacity};" );
 
         sb.AppendLine( "}" );
         return sb.ToString();
@@ -72,18 +66,18 @@ public partial class LumexThemeProvider : LumexComponentBase
     {
         return new()
         {
-            ["background"] = colors.Background,
-            ["foreground"] = colors.Foreground,
-            ["overlay"] = colors.Overlay,
-            ["focus"] = colors.Focus,
-            ["divider"] = colors.Divider,
-            ["default"] = colors.Default,
-            ["primary"] = colors.Primary,
-            ["secondary"] = colors.Secondary,
-            ["success"] = colors.Success,
-            ["warning"] = colors.Warning,
-            ["danger"] = colors.Danger,
-            ["info"] = colors.Info,
+            ["background"] = colors.Background!,
+            ["foreground"] = colors.Foreground!,
+            ["overlay"] = colors.Overlay!,
+            ["focus"] = colors.Focus!,
+            ["divider"] = colors.Divider!,
+            ["default"] = colors.Default!,
+            ["primary"] = colors.Primary!,
+            ["secondary"] = colors.Secondary!,
+            ["success"] = colors.Success!,
+            ["warning"] = colors.Warning!,
+            ["danger"] = colors.Danger!,
+            ["info"] = colors.Info!,
         };
     }
 }
