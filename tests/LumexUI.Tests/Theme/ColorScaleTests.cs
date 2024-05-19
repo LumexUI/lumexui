@@ -60,7 +60,7 @@ public class ColorScaleTests : TestContext
     public void IndexerGet_NullOrEmptyKey_ShouldThrowArgumentNull( string? key )
     {
         var scale = new ColorScale( Colors.Orange, "500" );
-        
+
         var action = () => scale[key!];
 
         action.Should().Throw<ArgumentNullException>();
@@ -96,6 +96,17 @@ public class ColorScaleTests : TestContext
         var action = () => scale["500"] = null!;
 
         action.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    public void IndexerSet_ValidValue_ShouldSetNewValue()
+    {
+        var scale = new ColorScale( Colors.Orange, "500" )
+        {
+            ["500"] = "value"
+        };
+
+        scale["500"].Should().Be( "value" );
     }
 
     [Theory]
