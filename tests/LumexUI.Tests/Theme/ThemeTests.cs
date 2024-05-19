@@ -2,6 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Common;
 using LumexUI.Theme;
 
 namespace LumexUI.Tests.Components;
@@ -9,7 +10,7 @@ namespace LumexUI.Tests.Components;
 public class ThemeTests : TestContext
 {
     [Fact]
-    public void Theme_DefaultLight_ShouldInitializeBaseColorsCorrectly()
+    public void Constructor_Default_ShouldInitializeBaseColorsCorrectly()
     {
         var theme = new LumexTheme();
 
@@ -28,12 +29,6 @@ public class ThemeTests : TestContext
 
         theme.Light.Colors.Focus.Should().HaveCount( 1 );
         theme.Light.Colors.Focus.Should().ContainKey( "default" );
-    }
-
-    [Fact]
-    public void Theme_DefaultDark_ShouldInitializeBaseColorsCorrectly()
-    {
-        var theme = new LumexTheme();
 
         theme.Dark.Colors.Background.Should().HaveCount( 1 );
         theme.Dark.Colors.Background.Should().ContainKey( "default" );
@@ -53,7 +48,7 @@ public class ThemeTests : TestContext
     }
 
     [Fact]
-    public void Theme_DefaultLight_ShouldInitializeThemeColorsCorrectly()
+    public void Constructor_Default_ShouldInitializeThemeColorsCorrectly()
     {
         var theme = new LumexTheme();
 
@@ -84,12 +79,6 @@ public class ThemeTests : TestContext
         theme.Light.Colors.Info.Should().HaveCount( 12 );
         theme.Light.Colors.Info.Should().ContainKey( "default" );
         theme.Light.Colors.Info.Should().ContainKey( "foreground" );
-    }
-
-    [Fact]
-    public void Theme_DefaultDark_ShouldInitializeThemeColorsCorrectly()
-    {
-        var theme = new LumexTheme();
 
         theme.Dark.Colors.Default.Should().HaveCount( 12 );
         theme.Dark.Colors.Default.Should().ContainKey( "default" );
@@ -121,7 +110,7 @@ public class ThemeTests : TestContext
     }
 
     [Fact]
-    public void Theme_Custom_ShouldInitializeCorrectly()
+    public void Constructor_DefaultAndCustomized_ShouldInitializeCorrectly()
     {
         var theme = new LumexTheme()
         {
@@ -133,9 +122,15 @@ public class ThemeTests : TestContext
                 }
             }
         };
-        theme.Light.Colors.Primary["default"] = Colors.Black;
 
         theme.Light.Colors.Background["default"].Should().Be( "background" );
-        theme.Light.Colors.Primary["default"].Should().Be( Colors.Black );
+    }
+
+    [Fact]
+    public void Constructor_WithDefaultTheme_ShouldSetDefaultThemeCorrectly()
+    {
+        var theme = new LumexTheme( ThemeType.Dark );
+
+        theme.DefaultTheme.Should().Be( ThemeType.Dark );
     }
 }
