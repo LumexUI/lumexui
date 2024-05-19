@@ -16,4 +16,15 @@ public readonly record struct LayoutConfig(
     double FocusOpacity,
     double HoverOpacity,
     double DividerOpacity
-);
+)
+{
+    public static LayoutConfig Default()
+    {
+        return new LayoutConfig(
+            DisabledOpacity: .6,
+            FocusOpacity: .7,
+            HoverOpacity: .8,
+            DividerOpacity: .15
+        );
+    }
+}
