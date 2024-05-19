@@ -9,36 +9,32 @@ namespace LumexUI.Theme;
 /// <summary>
 /// Represents the configuration settings for themes.
 /// </summary>
-public record LumexThemeConfig
+public record LumexTheme
 {
     /// <summary>
     /// Gets or sets the configuration for the light theme.
     /// </summary>
-    public ThemeConfig LightTheme { get; set; }
+    public ThemeConfigLight Light { get; set; }
 
     /// <summary>
     /// Gets or sets the configuration for the dark theme.
     /// </summary>
-    public ThemeConfig DarkTheme { get; set; }
+    public ThemeConfigDark Dark { get; set; }
 
     /// <summary>
     /// Gets or sets the default theme type.
     /// </summary>
+    /// <remarks>
+    /// Default value is <see cref="ThemeType.Light" />.
+    /// </remarks>
     public ThemeType DefaultTheme { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LumexThemeConfig" />.
+    /// Initializes a new instance of the <see cref="LumexTheme" />.
     /// </summary>
-    public LumexThemeConfig()
+    public LumexTheme()
     {
-        var layoutConfig = new LayoutConfig( 
-            DisabledOpacity: .6, 
-            FocusOpacity: .7,
-            HoverOpacity: .8,
-            DividerOpacity: .15 
-        );
-
-        LightTheme = new( ThemeType.Light, SemanticColors.Light, layoutConfig );
-        DarkTheme = new( ThemeType.Dark, SemanticColors.Dark, layoutConfig );
+        Light = new();
+        Dark = new();
     }
 }
