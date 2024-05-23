@@ -25,6 +25,10 @@ public record LayoutConfig
     public FontFamily? FontFamily { get; set; }
 
     /// <summary>
+    /// Gets or sets the border radius.
+    /// </summary>
+    public BaseScale Radius { get; set; }
+    /// <summary>
     /// Gets or sets the opacity for disabled elements.
     /// </summary>
     public double DisabledOpacity { get; set; }
@@ -67,6 +71,13 @@ public record LayoutConfig
             Sm = "1.25rem",
             Md = "1.5rem",
             Lg = "1.75rem"
+        };
+
+        Radius = new BaseScale()
+        {
+            Sm = ".375rem",
+            Md = ".625rem",
+            Lg = ".875rem"
         };
     }
 }

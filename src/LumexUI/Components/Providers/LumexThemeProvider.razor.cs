@@ -21,12 +21,15 @@ public partial class LumexThemeProvider : ComponentBase
     /// </summary>
     [Parameter] public LumexTheme Theme { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LumexThemeProvider"/>.
+    /// </summary>
     public LumexThemeProvider()
     {
         Theme = new();
     }
 
-    private string? GenerateTheme( ThemeConfig theme )
+    private string GenerateTheme( ThemeConfig theme )
     {
         var cssSelector = $"[data-theme={theme.Type.ToDescription()}]";
 
@@ -55,14 +58,17 @@ public partial class LumexThemeProvider : ComponentBase
         // Layout
         sb.AppendLine( $"--{Prefix}-font-sans: {theme.Layout.FontFamily?.Sans};" );
         sb.AppendLine( $"--{Prefix}-font-mono: {theme.Layout.FontFamily?.Mono};" );
-        sb.AppendLine( $"--{Prefix}-font-size-xs: {theme.Layout.FontSize.Xs};" );
-        sb.AppendLine( $"--{Prefix}-font-size-sm: {theme.Layout.FontSize.Sm};" );
-        sb.AppendLine( $"--{Prefix}-font-size-md: {theme.Layout.FontSize.Md};" );
-        sb.AppendLine( $"--{Prefix}-font-size-lg: {theme.Layout.FontSize.Lg};" );
+        sb.AppendLine( $"--{Prefix}-font-size-tiny: {theme.Layout.FontSize.Xs};" );
+        sb.AppendLine( $"--{Prefix}-font-size-small: {theme.Layout.FontSize.Sm};" );
+        sb.AppendLine( $"--{Prefix}-font-size-medium: {theme.Layout.FontSize.Md};" );
+        sb.AppendLine( $"--{Prefix}-font-size-large: {theme.Layout.FontSize.Lg};" );
         sb.AppendLine( $"--{Prefix}-line-height-xs: {theme.Layout.LineHeight.Xs};" );
-        sb.AppendLine( $"--{Prefix}-line-height-sm: {theme.Layout.LineHeight.Sm};" );
-        sb.AppendLine( $"--{Prefix}-line-height-md: {theme.Layout.LineHeight.Md};" );
-        sb.AppendLine( $"--{Prefix}-line-height-lg: {theme.Layout.LineHeight.Lg};" );
+        sb.AppendLine( $"--{Prefix}-line-height-small: {theme.Layout.LineHeight.Sm};" );
+        sb.AppendLine( $"--{Prefix}-line-height-medium: {theme.Layout.LineHeight.Md};" );
+        sb.AppendLine( $"--{Prefix}-line-height-large: {theme.Layout.LineHeight.Lg};" );
+        sb.AppendLine( $"--{Prefix}-radius-small: {theme.Layout.Radius.Sm};" );
+        sb.AppendLine( $"--{Prefix}-radius-medium: {theme.Layout.Radius.Md};" );
+        sb.AppendLine( $"--{Prefix}-radius-large: {theme.Layout.Radius.Lg};" );
         sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-divider-opacity: {theme.Layout.DividerOpacity};" );
         sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-disabled-opacity: {theme.Layout.DisabledOpacity};" );
         sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-focus-opacity: {theme.Layout.FocusOpacity};" );
