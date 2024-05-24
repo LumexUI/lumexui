@@ -27,9 +27,6 @@ public partial class LumexCardFooter : LumexComponentBase
 
     protected override void OnInitialized()
     {
-        if( Context is null )
-        {
-            CardContext.ThrowMissingParentComponentException( nameof( LumexCardFooter ) );
-        }
+        CardContext.ThrowMissingParentComponentException( Context, nameof( LumexCardFooter ) );
     }
 }

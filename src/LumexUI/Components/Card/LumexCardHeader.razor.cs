@@ -22,9 +22,6 @@ public partial class LumexCardHeader : LumexComponentBase
 
     protected override void OnInitialized()
     {
-        if( Context is null )
-        {
-            CardContext.ThrowMissingParentComponentException( nameof( LumexCardHeader ) );
-        }
+        CardContext.ThrowMissingParentComponentException( Context, nameof( LumexCardHeader ) );
     }
 }

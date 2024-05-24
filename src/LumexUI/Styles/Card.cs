@@ -112,7 +112,7 @@ internal readonly record struct Card
             .Add( _fullWidth, when: card.FullWidth )
             .Add( GetShadowStyles( card.Shadow ) )
             .Add( GetRadiusStyles( card.Radius ) )
-            .Add( card.Classes?.Base )
+            .Add( card.Classes?.Root )
             .Add( card.Class )
             .ToString();
     }
