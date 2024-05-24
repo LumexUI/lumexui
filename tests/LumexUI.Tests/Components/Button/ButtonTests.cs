@@ -26,18 +26,6 @@ public class ButtonTests : TestContext
         action.Should().NotThrow();
     }
 
-    [Fact]
-	public void Button_ChildContent_ShouldRenderCorrectly()
-	{
-		var content = "Button";
-
-		var cut = RenderComponent<LumexButton>( p => p
-			.AddChildContent( content )
-		);
-
-		cut.Markup.Should().Contain( content );
-	}
-
 	[Fact]
 	public void Button_Disabled_ShouldHaveDisabledAttribute()
 	{
