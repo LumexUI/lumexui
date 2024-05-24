@@ -1,0 +1,25 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexComponent Class="@RootClass"
+                Style="@RootStyle"
+                @attributes="@AdditionalAttributes"
+                data-slot="item">
+    <h2 class="@HeadingClass" data-slot="heading">
+        <button class="@TriggerClass" type="button" data-slot="trigger" @onclick="@OnClickAsync">
+            <div class="@TitleWrapperClass">
+                @if( !string.IsNullOrEmpty( Title ) )
+                {
+                    <span class="@TitleClass" data-slot="title">@Title</span>
+                }
+
+                @if( !string.IsNullOrEmpty( Subtitle ) )
+                {
+                    <span class="@SubtitleClass" data-slot="subtitle">@Subtitle</span>
+                }
+            </div>
+        </button>
+    </h2>
+    @* TODO: Collapse *@
+    @ChildContent
+</LumexComponent>

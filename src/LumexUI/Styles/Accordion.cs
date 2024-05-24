@@ -24,3 +24,73 @@ internal readonly record struct Accordion
             .ToString();
     }
 }
+
+[ExcludeFromCodeCoverage]
+internal readonly record struct AccordionItem
+{
+    private readonly static string _trigger = ElementClass.Empty()
+        .Add( "flex" )
+        .Add( "py-4" )
+        .Add( "w-full" )
+        .Add( "items-center" )
+        .Add( "outline-none" )
+        .ToString();
+
+    private readonly static string _titleWrapper = ElementClass.Empty()
+        .Add( "flex" )
+        .Add( "flex-1" )
+        .Add( "flex-col" )
+        .Add( "text-start" )
+        .ToString();
+
+    private readonly static string _title = ElementClass.Empty()
+        .Add( "text-foreground" )
+        .Add( "text-large" )
+        .ToString();
+
+    private readonly static string _subtitle = ElementClass.Empty()
+        .Add( "text-foreground-500" )
+        .Add( "text-small" )
+        .ToString();
+
+    public static string GetStyles( LumexAccordionItem accordionItem )
+    {
+        return ElementClass.Empty()
+            .Add( accordionItem.Class )
+            .ToString();
+    }
+
+    public static string GetHeadingStyles( LumexAccordionItem accordionItem )
+    {
+        return ElementClass.Empty()
+            .ToString();
+    }
+
+    public static string GetTriggerStyles( LumexAccordionItem accordionItem )
+    {
+        return ElementClass.Empty()
+            .Add( _trigger )
+            .ToString();
+    }
+
+    public static string GetTitleWrapperStyles( LumexAccordionItem accordionItem )
+    {
+        return ElementClass.Empty()
+            .Add( _titleWrapper )
+            .ToString();
+    }
+
+    public static string GetTitleStyles( LumexAccordionItem accordionItem )
+    {
+        return ElementClass.Empty()
+            .Add( _title )
+            .ToString();
+    }
+
+    public static string GetSubtitleStyles( LumexAccordionItem accordionItem )
+    {
+        return ElementClass.Empty()
+            .Add( _subtitle )
+            .ToString();
+    }
+}
