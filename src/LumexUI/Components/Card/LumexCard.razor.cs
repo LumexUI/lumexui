@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-public partial class LumexCard : LumexComponentBase
+public partial class LumexCard : LumexComponentBase, ISlotComponent<CardSlots>
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the card.

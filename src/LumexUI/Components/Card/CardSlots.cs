@@ -1,6 +1,8 @@
-﻿namespace LumexUI;
+﻿using LumexUI.Common;
 
-public class CardSlots
+namespace LumexUI;
+
+public class CardSlots : ISlot
 {
     public string? Root { get; set; }
     public string? Header { get; set; }
