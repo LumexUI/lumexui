@@ -29,7 +29,7 @@ public abstract class LumexComponentBase : ComponentBase
 	/// Gets or sets a collection of additional attributes that will be applied to the component.
 	/// </summary>
 	[Parameter( CaptureUnmatchedValues = true )]
-	public IReadOnlyDictionary<string, object?>? AdditionalAttributes { get; set; }
+	public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
 	[Inject] protected TwMerge TwMerge { get; set; } = default!;
 

@@ -19,7 +19,7 @@ public partial class LumexLink : LumexComponentBase
     /// <summary>
     /// Gets or sets a value representing the URL route to be navigated to.
     /// </summary>
-    [Parameter] public string? Href { get; set; }
+    [Parameter] public string Href { get; set; } = "#";
 
     /// <summary>
     /// Gets or sets a color of the link.
@@ -53,11 +53,11 @@ public partial class LumexLink : LumexComponentBase
     private protected override string? RootClass =>
         TwMerge.Merge( Link.GetStyles( this ) );
 
-    private IReadOnlyDictionary<string, object?> Attributes
+    private IReadOnlyDictionary<string, object> Attributes
     {
         get
         {
-            var attributes = new Dictionary<string, object?>( AdditionalAttributes ?? new Dictionary<string, object?>() )
+            var attributes = new Dictionary<string, object>( AdditionalAttributes ?? new Dictionary<string, object>() )
             {
                 { "href", Href }
             };
