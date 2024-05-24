@@ -1,0 +1,11 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<CascadingValue TValue="AccordionContext" Value="@_context" IsFixed="@true">
+    <LumexComponent Class="@RootClass"
+                    Style="@RootStyle"
+                    @attributes="@AdditionalAttributes"
+                    data-slot="root">
+        @ChildContent
+    </LumexComponent>
+</CascadingValue>
