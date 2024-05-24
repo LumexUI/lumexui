@@ -62,7 +62,7 @@ public partial class LumexThemeProvider : ComponentBase
         sb.AppendLine( $"--{Prefix}-font-size-small: {theme.Layout.FontSize.Sm};" );
         sb.AppendLine( $"--{Prefix}-font-size-medium: {theme.Layout.FontSize.Md};" );
         sb.AppendLine( $"--{Prefix}-font-size-large: {theme.Layout.FontSize.Lg};" );
-        sb.AppendLine( $"--{Prefix}-line-height-xs: {theme.Layout.LineHeight.Xs};" );
+        sb.AppendLine( $"--{Prefix}-line-height-tiny: {theme.Layout.LineHeight.Xs};" );
         sb.AppendLine( $"--{Prefix}-line-height-small: {theme.Layout.LineHeight.Sm};" );
         sb.AppendLine( $"--{Prefix}-line-height-medium: {theme.Layout.LineHeight.Md};" );
         sb.AppendLine( $"--{Prefix}-line-height-large: {theme.Layout.LineHeight.Lg};" );
