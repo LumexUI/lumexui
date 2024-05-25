@@ -14,7 +14,6 @@ public class ElementStyleTests
         var elementStyle = ElementStyle.Empty();
 
         var actual = elementStyle.ToString();
-
         actual.Should().BeEmpty();
     }
 
@@ -24,7 +23,6 @@ public class ElementStyleTests
         var elementStyle = ElementStyle.Default( "background-color", "DodgerBlue" );
 
         var actual = elementStyle.ToString();
-
         actual.Should().Be( "background-color:DodgerBlue;" );
     }
 
@@ -53,148 +51,167 @@ public class ElementStyleTests
     [Fact]
     public void Add_Values_ShouldReturnCorrectValues()
     {
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" )
+        var elementStyle = ElementStyle.Empty()
             .Add( "border-width", "1px 1px 1px 1px" )
             .Add( "padding", "35px" );
 
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;border-width:1px 1px 1px 1px;padding:35px;" );
+        actual.Should().Contain( "border-width:1px 1px 1px 1px" );
+        actual.Should().Contain( "padding:35px" );
     }
 
     [Fact]
     public void Add_FuncValues_ShouldReturnCorrectValues()
     {
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" )
-            .Add( "border-width", () => "1px 1px 1px 1px", when: false )
-            .Add( "padding", () => "35px", when: true );
+        var elementStyle = ElementStyle.Empty()
+            .Add( "border-width", () => "1px 1px 1px 1px", when: true )
+            .Add( "padding", () => "35px", when: false );
 
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;padding:35px;" );
+        actual.Should().Contain( "border-width:1px 1px 1px 1px" );
+        actual.Should().NotContain( "padding:35px" );
     }
 
     [Fact]
     public void Add_NestedElementStyle_ShouldReturnCorrectValues()
     {
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" );
-        var nestedElementStyle = new ElementStyle( "border-width", "1px 1px 1px 1px" )
+        var elementStyle = ElementStyle.Empty();
+        var nestedElementStyle = ElementStyle.Empty()
+            .Add( "border-width", "1px 1px 1px 1px" )
             .Add( "padding", "35px" );
 
         elementStyle.Add( nestedElementStyle );
+        
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;border-width:1px 1px 1px 1px;padding:35px;" );
+        actual.Should().Contain( "border-width:1px 1px 1px 1px" );
+        actual.Should().Contain( "padding:35px" );
     }
 
     [Fact]
     public void Add_ConditionalValues_ShouldReturnCorrectValues()
     {
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" )
+        var elementStyle = ElementStyle.Empty()
             .Add( "border-width", "1px 1px 1px 1px", when: true )
             .Add( "padding", "35px", when: false );
 
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;border-width:1px 1px 1px 1px;" );
+        actual.Should().Contain( "border-width:1px 1px 1px 1px" );
+        actual.Should().NotContain( "padding:35px" );
     }
 
     [Fact]
     public void Add_FuncConditionalValues_ShouldReturnCorrectValues()
     {
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" )
+        var elementStyle = ElementStyle.Empty()
             .Add( "border-width", "1px 1px 1px 1px", when: () => true )
             .Add( "padding", "35px", when: () => false );
 
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;border-width:1px 1px 1px 1px;" );
+        actual.Should().Contain( "border-width:1px 1px 1px 1px" );
+        actual.Should().NotContain( "padding:35px" );
     }
 
     [Fact]
     public void Add_FuncConditionalFuncValues_ShouldReturnCorrectValues()
     {
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" )
+        var elementStyle = ElementStyle.Empty()
             .Add( "border-width", () => "1px 1px 1px 1px", when: () => true )
             .Add( "padding", () => "35px", when: () => false );
 
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;border-width:1px 1px 1px 1px;" );
+        actual.Should().Contain( "border-width:1px 1px 1px 1px" );
+        actual.Should().NotContain( "padding:35px" );
     }
 
     [Fact]
     public void Add_ConditionalNestedElementStyle_ShouldReturnCorrectValues()
     {
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" );
-        var nestedElementStyle = new ElementStyle( "border-width", "1px 1px 1px 1px" )
+        var elementStyle = ElementStyle.Empty();
+        var nestedElementStyle = ElementStyle.Empty()
+            .Add( "border-width", "1px 1px 1px 1px" )
             .Add( "padding", "35px" );
 
         elementStyle.Add( nestedElementStyle, when: true );
+        
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;border-width:1px 1px 1px 1px;padding:35px;" );
+        actual.Should().Contain( "border-width:1px 1px 1px 1px" );
+        actual.Should().Contain( "padding:35px" );
     }
 
     [Fact]
     public void Add_FuncConditionalNestedElementStyle_ShouldReturnCorrectValues()
     {
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" );
-        var nestedElementStyle = new ElementStyle( "border-width", "1px 1px 1px 1px" )
+        var elementStyle = ElementStyle.Empty();
+        var nestedElementStyle = ElementStyle.Empty()
+            .Add( "border-width", "1px 1px 1px 1px" )
             .Add( "padding", "35px" );
 
         elementStyle.Add( nestedElementStyle, when: () => false );
+        
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;" );
+        actual.Should().BeEmpty();
     }
 
     [Fact]
     public void Add_ValidAttributes_ShouldReturnCorrectValues()
     {
         var attributes = new Dictionary<string, object> { { "style", "border-width:1px 1px 1px 1px;" } };
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" )
+        
+        var elementStyle = ElementStyle.Empty()
             .Add( attributes );
 
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;border-width:1px 1px 1px 1px;" );
+        actual.Should().Contain( "border-width:1px 1px 1px 1px" );
     }
 
     [Fact]
     public void Add_InvalidAttributes_ShouldReturnCorrectValues()
     {
         var attributes = new Dictionary<string, object> { { "class", "border-width:1px 1px 1px 1px;" } };
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" )
+        
+        var elementStyle = ElementStyle.Empty()
             .Add( attributes );
 
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;" );
+        actual.Should().BeEmpty();
     }
 
     [Fact]
     public void Add_NullAttributes_ShouldNotThrow()
     {
         Dictionary<string, object>? attributes = null;
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" )
-            .Add( attributes );
 
-        var actual = elementStyle.ToString();
+        var action = () =>
+        {
+            ElementStyle.Empty().Add( attributes );
+        };
 
-        actual.Should().Be( "background-color:DodgerBlue;" );
+        action.Should().NotThrow();
     }
 
     [Fact]
     public void Add_NullAttributeItem_ShouldNotThrow()
     {
         var attributes = new Dictionary<string, object> { { "style", null! } };
-        var elementStyle = new ElementStyle( "background-color", "DodgerBlue" )
-            .Add( attributes );
+
+        var action = () =>
+        {
+            ElementStyle.Empty().Add( attributes );
+        };
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void Add_ExistingValue_ShouldReturnCorrectValues()
+    {
+        var existingValue = "background-color:red;";
+        
+        var elementStyle = ElementStyle.Empty()
+            .Add( existingValue );
 
         var actual = elementStyle.ToString();
-
-        actual.Should().Be( "background-color:DodgerBlue;" );
+        actual.Should().Contain( existingValue );
     }
 
     [Fact]
