@@ -398,6 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Automatically generated assets
-/src/LumexUI/wwwroot/*
 /docs/LumexUI.Docs/wwwroot/css/*
 /docs/LumexUI.Docs/*.exe
