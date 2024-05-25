@@ -33,23 +33,28 @@ public partial class LumexAccordionItem : LumexComponentBase
 
     [CascadingParameter] internal AccordionContext Context { get; set; } = default!;
 
-    private protected override string? RootClass
-        => TwMerge.Merge( AccordionItem.GetStyles( this ) );
+    private protected override string? RootClass =>
+        TwMerge.Merge( AccordionItem.GetStyles( this ) );
 
-    private string HeadingClass
-        => TwMerge.Merge( AccordionItem.GetHeadingStyles( this ) );
+    private string HeadingClass =>
+        TwMerge.Merge( AccordionItem.GetHeadingStyles( this ) );
 
-    private string TriggerClass
-        => TwMerge.Merge( AccordionItem.GetTriggerStyles( this ) );
+    private string TriggerClass =>
+        TwMerge.Merge( AccordionItem.GetTriggerStyles( this ) );
 
-    private string TitleWrapperClass 
-        => TwMerge.Merge( AccordionItem.GetTitleWrapperStyles( this ) );
+    private string TitleWrapperClass =>
+        TwMerge.Merge( AccordionItem.GetTitleWrapperStyles( this ) );
 
-    private string TitleClass
-        => TwMerge.Merge( AccordionItem.GetTitleStyles( this ) );
+    private string TitleClass =>
+        TwMerge.Merge( AccordionItem.GetTitleStyles( this ) );
 
-    private string SubtitleClass
-        => TwMerge.Merge( AccordionItem.GetSubtitleStyles( this ) );
+    private string SubtitleClass =>
+        TwMerge.Merge( AccordionItem.GetSubtitleStyles( this ) );
+
+    private string ContentClass =>
+        TwMerge.Merge( AccordionItem.GetSubtitleStyles( this ) );
+
+    private bool _expanded;
 
     protected override void OnInitialized()
     {
@@ -58,7 +63,13 @@ public partial class LumexAccordionItem : LumexComponentBase
 
     private Task OnClickAsync( MouseEventArgs args )
     {
-        // TODO: Implement toggling
-        return Context.Owner.Disabled ? Task.CompletedTask : OnClick.InvokeAsync( args );
+        if( Context.Owner.Disabled )
+        {
+            return Task.CompletedTask;
+        }
+
+        _expanded = !_expanded;
+
+        return OnClick.InvokeAsync( args );
     }
 }

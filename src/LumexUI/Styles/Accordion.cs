@@ -53,6 +53,10 @@ internal readonly record struct AccordionItem
         .Add( "text-small" )
         .ToString();
 
+    private readonly static string _content = ElementClass.Empty()
+        .Add( "pb-3" )
+        .ToString();
+
     public static string GetStyles( LumexAccordionItem accordionItem )
     {
         return ElementClass.Empty()
@@ -91,6 +95,13 @@ internal readonly record struct AccordionItem
     {
         return ElementClass.Empty()
             .Add( _subtitle )
+            .ToString();
+    }
+
+    public static string GetContentStyles( LumexAccordionItem accordionItem )
+    {
+        return ElementClass.Empty()
+            .Add( _content )
             .ToString();
     }
 }

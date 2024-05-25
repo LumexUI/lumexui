@@ -20,6 +20,9 @@
             </div>
         </button>
     </h2>
-    @* TODO: Collapse *@
-    @ChildContent
+    <LumexCollapse As="section" Expanded="@_expanded">
+        <div class="@ContentClass" data-slot="content">
+            @ChildContent
+        </div>
+    </LumexCollapse>
 </LumexComponent>
