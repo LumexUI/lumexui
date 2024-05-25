@@ -22,4 +22,5 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="LumexUI.Tests" />
 	</ItemGroup>
+	
 </Project>

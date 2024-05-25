@@ -2,8 +2,6 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace LumexUI.Utilities;
 
 /// <summary>
@@ -48,23 +46,30 @@ public record struct ElementStyle
 	/// </exception>
 	public static ElementStyle Default( string property, string? value ) => new( property, value );
 
-	/// <summary>
-	/// Adds a style to the current <see cref="ElementStyle"/> instance.
-	/// </summary>
-	/// <param name="property">The CSS property name.</param>
-	/// <param name="value">The value of the CSS property.</param>
-	/// <returns>An <see cref="ElementStyle"/> instance.</returns>
-	/// <exception cref="ArgumentNullException">
-	/// Thrown if <paramref name="property"/> is null, empty, or consists exclusively of white-space characters.
-	/// </exception>
-	public ElementStyle Add( string property, string? value ) 
+    /// <summary>
+    /// Adds a style to the current <see cref="ElementStyle"/> instance if the value is not null or whitespace.
+    /// </summary>
+    /// <param name="value">The value of the CSS property.</param>
+    /// <returns>An <see cref="ElementStyle"/> instance.</returns>
+    public ElementStyle Add( string? value ) => !string.IsNullOrWhiteSpace( value ) ? AddRaw( $"{value};" ) : this;
+
+    /// <summary>
+    /// Adds a style to the current <see cref="ElementStyle"/> instance.
+    /// </summary>
+    /// <param name="property">The CSS property name.</param>
+    /// <param name="value">The value of the CSS property.</param>
+    /// <returns>An <see cref="ElementStyle"/> instance.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="property"/> is null, empty, or consists exclusively of white-space characters.
+    /// </exception>
+    public ElementStyle Add( string property, string? value ) 
 	{
 		if( string.IsNullOrWhiteSpace( property ) )
 		{
 			throw new ArgumentNullException( property, "CSS property value cannot be null, empty or consist exlusively of white-space characters." );
 		}
 
-		return Add( $"{property}:{value};" );
+		return AddRaw( $"{property}:{value};" );
 	}
 
 	/// <summary>
@@ -120,7 +125,7 @@ public record struct ElementStyle
 	/// </summary>
 	/// <param name="elementStyle">The <see cref="ElementStyle"/> instance whose styles will be added.</param>
 	/// <returns>An <see cref="ElementStyle"/> instance.</returns>
-	public ElementStyle Add( ElementStyle elementStyle ) => Add( elementStyle.ToString() );
+	public ElementStyle Add( ElementStyle elementStyle ) => AddRaw( elementStyle.ToString() );
 
 	/// <summary>
 	/// Conditionally adds the styles from another <see cref="ElementStyle"/> instance to the current instance.
@@ -128,7 +133,7 @@ public record struct ElementStyle
 	/// <param name="elementStyle">The <see cref="ElementStyle"/> instance whose styles will be added.</param>
 	/// <param name="when">A boolean value that determines whether the styles should be added.</param>
 	/// <returns>An <see cref="ElementStyle"/> instance.</returns>
-	public ElementStyle Add( ElementStyle elementStyle, bool when ) => when ? Add( elementStyle.ToString() ) : this;
+	public ElementStyle Add( ElementStyle elementStyle, bool when ) => when ? AddRaw( elementStyle.ToString() ) : this;
 
 	/// <summary>
 	/// Conditionally adds the styles from another <see cref="ElementStyle"/> instance to the current instance.
@@ -154,7 +159,7 @@ public record struct ElementStyle
         {
             if( value is not null )
             {
-                return Add( value.ToString() );
+                return AddRaw( value.ToString() );
             }
         }
 
@@ -168,7 +173,7 @@ public record struct ElementStyle
 	public readonly override string ToString()
 		=> !string.IsNullOrEmpty( _stringBuffer ) ? _stringBuffer.Trim() : string.Empty;
 
-	private ElementStyle Add( string? value )
+	private ElementStyle AddRaw( string? value )
 	{
 		_stringBuffer += value;
 		return this;
