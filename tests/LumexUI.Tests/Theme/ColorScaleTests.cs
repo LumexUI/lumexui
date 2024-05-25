@@ -6,7 +6,7 @@ using LumexUI.Theme;
 
 namespace LumexUI.Tests.Components;
 
-public class ColorScaleTests : TestContext
+public class ColorScaleTests
 {
     [Fact]
     public void Constructor_DefaultColor_ShouldSetDefaultKey()

@@ -7,7 +7,7 @@ using LumexUI.Theme;
 
 namespace LumexUI.Tests.Components;
 
-public class ThemeTests : TestContext
+public class ThemeTests
 {
     [Fact]
     public void Constructor_Default_ShouldInitializeBaseColorsCorrectly()
