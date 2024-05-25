@@ -35,7 +35,7 @@ public class LumexCollapse : LumexComponentBase
         TwMerge.Merge( Collapse.GetStyles( this ) );
 
     private protected override string RootStyle =>
-        new ElementStyle()
+        ElementStyle.Empty()
             .Add( "height", $"{_height}px", when: State is CollapseState.Collapsing or CollapseState.Expanding )
             .Add( base.RootStyle )
             .ToString();
@@ -93,6 +93,7 @@ public class LumexCollapse : LumexComponentBase
         {
             _isRendered = true;
             await UpdateHeightAsync();
+            return;
         }
 
         if( State is CollapseState.Expanding or CollapseState.Collapsing )
