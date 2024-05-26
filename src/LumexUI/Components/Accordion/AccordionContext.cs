@@ -1,6 +1,9 @@
+﻿using LumexUI.Common;
 ﻿namespace LumexUI;
 
-internal class AccordionContext( LumexAccordion owner )
+namespace LumexUI;
+
+internal sealed class AccordionContext( LumexAccordion owner ) : IComponentContext<LumexAccordion>
 {
     public LumexAccordion Owner { get; } = owner;
 
