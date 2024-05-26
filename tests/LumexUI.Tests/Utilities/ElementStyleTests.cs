@@ -34,7 +34,7 @@ public class ElementStyleTests
     {
         var action = () => ElementStyle.Default( property!, "DodgerBlue" );
 
-        action.Should().Throw<ArgumentNullException>();
+        action.Should().Throw<ArgumentException>();
     }
 
     [Theory]
@@ -45,7 +45,7 @@ public class ElementStyleTests
     {
         var action = () => new ElementStyle().Add( property!, "DodgerBlue" );
 
-        action.Should().Throw<ArgumentNullException>();
+        action.Should().Throw<ArgumentException>();
     }
 
     [Fact]
