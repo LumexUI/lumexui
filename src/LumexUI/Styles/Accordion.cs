@@ -57,9 +57,17 @@ internal readonly record struct AccordionItem
         .Add( "pb-3" )
         .ToString();
 
+    private readonly static string _disabled = ElementClass.Empty()
+        .Add( "opacity-disabled" )
+        .Add( "pointer-events-none" )
+        .ToString();
+
     public static string GetStyles( LumexAccordionItem accordionItem )
     {
+        var accordion = accordionItem.Context.Owner;
+
         return ElementClass.Empty()
+            .Add( _disabled, when: accordionItem.Disabled || accordion.Disabled )
             .Add( accordionItem.Class )
             .ToString();
     }

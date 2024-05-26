@@ -6,7 +6,11 @@
                 @attributes="@AdditionalAttributes"
                 data-slot="item">
     <h2 class="@HeadingClass" data-slot="heading">
-        <button class="@TriggerClass" type="button" data-slot="trigger" @onclick="@OnClickAsync">
+        <button class="@TriggerClass"
+                type="button"
+                disabled="@_disabled"
+                data-slot="trigger"
+                @onclick="@ToggleExpansionAsync">
             <div class="@TitleWrapperClass">
                 @if( !string.IsNullOrEmpty( Title ) )
                 {
@@ -20,6 +24,7 @@
             </div>
         </button>
     </h2>
+
     <LumexCollapse As="section" Expanded="@_expanded">
         <div class="@ContentClass" data-slot="content">
             @ChildContent

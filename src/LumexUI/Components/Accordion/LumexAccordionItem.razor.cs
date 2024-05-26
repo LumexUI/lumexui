@@ -5,11 +5,10 @@
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace LumexUI;
 
-public partial class LumexAccordionItem : LumexComponentBase
+public partial class LumexAccordionItem : LumexComponentBase, IDisposable
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the accordion item.
@@ -27,9 +26,19 @@ public partial class LumexAccordionItem : LumexComponentBase
     [Parameter] public string? Subtitle { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that is fired whenever the accordion item is clicked.
+    /// Gets or sets a value indicating whether the accordion item is expanded.
     /// </summary>
-    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+    [Parameter] public bool Expanded { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the expanded state of the accordion item changes.
+    /// </summary>
+    [Parameter] public EventCallback<bool> ExpandedChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the accordion item is disabled.
+    /// </summary>
+    [Parameter] public bool Disabled { get; set; }
 
     [CascadingParameter] internal AccordionContext Context { get; set; } = default!;
 
@@ -54,22 +63,70 @@ public partial class LumexAccordionItem : LumexComponentBase
     private string ContentClass =>
         TwMerge.Merge( AccordionItem.GetSubtitleStyles( this ) );
 
+    private bool _disposed;
+    private bool _disabled;
     private bool _expanded;
+
+    public Task ExpandAsync()
+    {
+        return SetExpandedStateTo( true );
+    }
+
+    public Task CollapseAsync()
+    {
+        return SetExpandedStateTo( false );
+    }
 
     protected override void OnInitialized()
     {
         AccordionContext.ThrowMissingParentComponentException( Context, nameof( LumexAccordionItem ) );
+
+        Context.Register( this );
     }
 
-    private Task OnClickAsync( MouseEventArgs args )
+    protected override void OnParametersSet()
     {
-        if( Context.Owner.Disabled )
+        _disabled = Disabled || Context.Owner.Disabled;
+        _expanded = Expanded;
+    }
+
+    private async Task ToggleExpansionAsync()
+    {
+        if( _disabled )
         {
-            return Task.CompletedTask;
+            return;
         }
 
         _expanded = !_expanded;
 
-        return OnClick.InvokeAsync( args );
+        await Context.ToggleExpansionAsync( this );
+        await ExpandedChanged.InvokeAsync( _expanded );
+    }
+
+    private Task SetExpandedStateTo( bool expanded )
+    {
+        _expanded = expanded;
+        StateHasChanged();
+
+        return ExpandedChanged.InvokeAsync( _expanded );
+    }
+
+    public void Dispose()
+    {
+        Dispose( disposing: true );
+        GC.SuppressFinalize( this );
+    }
+
+    protected virtual void Dispose( bool disposing )
+    {
+        if( !_disposed )
+        {
+            if( disposing )
+            {
+                Context.Unregister( this );
+            }
+
+            _disposed = true;
+        }
     }
 }

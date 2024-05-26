@@ -17,6 +17,15 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the selection mode for the accordion, 
+    /// determining how items can be selected.
+    /// </summary>
+    /// <remarks>
+    /// The default is <see cref="SelectionMode.Single"/>.
+    /// </remarks>
+    [Parameter] public SelectionMode SelectionMode { get; set; } = SelectionMode.Single;
+
+    /// <summary>
     /// Gets or sets a value indicating whether the accordion is full-width.
     /// </summary>
     /// <remarks>
