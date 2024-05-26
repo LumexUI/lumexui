@@ -39,6 +39,14 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
     [Parameter] public bool Disabled { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether to display a divider under each accordion item.
+    /// </summary>
+    /// <remarks>
+    /// The default is <see langword="true"/>.
+    /// </remarks>
+    [Parameter] public bool ShowDivider { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the set of item identifiers that are expanded by default in the accordion.
     /// </summary>
     [Parameter] public string[] DefaultExpandedItems { get; set; } = [];

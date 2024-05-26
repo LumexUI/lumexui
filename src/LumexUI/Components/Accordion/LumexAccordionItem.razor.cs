@@ -66,7 +66,7 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
         TwMerge.Merge( AccordionItem.GetSubtitleStyles( this ) );
 
     private string ContentClass =>
-        TwMerge.Merge( AccordionItem.GetSubtitleStyles( this ) );
+        TwMerge.Merge( AccordionItem.GetContentStyles( this ) );
 
     private bool _disposed;
     private bool _disabled;

@@ -54,7 +54,7 @@ internal readonly record struct AccordionItem
         .ToString();
 
     private readonly static string _content = ElementClass.Empty()
-        .Add( "pb-3" )
+        .Add( "pb-2" )
         .ToString();
 
     private readonly static string _disabled = ElementClass.Empty()
