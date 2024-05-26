@@ -16,6 +16,11 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the unique identifier for the accordion item.
+    /// </summary>
+    [Parameter, EditorRequired] public string? Id { get; set; }
+
+    /// <summary>
     /// Gets or sets the title of the accordion item.
     /// </summary>
     [Parameter] public string? Title { get; set; }
@@ -86,8 +91,14 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
 
     protected override void OnParametersSet()
     {
+        if( string.IsNullOrWhiteSpace( Id ) )
+        {
+            throw new InvalidOperationException(
+                $"{GetType()} requires a non-null, non-empty, non-whitespace value for parameter '{nameof( Id )}'." );
+        }
+
         _disabled = Disabled || Context.Owner.Disabled;
-        _expanded = Expanded;
+        _expanded = Expanded || Context.Owner.DefaultExpandedItems.Contains( Id );
     }
 
     private async Task ToggleExpansionAsync()

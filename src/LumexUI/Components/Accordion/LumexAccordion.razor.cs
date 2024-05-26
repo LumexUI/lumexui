@@ -39,17 +39,32 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
     [Parameter] public bool Disabled { get; set; }
 
     /// <summary>
+    /// Gets or sets the set of item identifiers that are expanded by default in the accordion.
+    /// </summary>
+    [Parameter] public string[] DefaultExpandedItems { get; set; } = [];
+
+    /// <summary>
     /// Gets or sets the CSS class names for the card slots.
     /// </summary>
     [Parameter] public AccordionSlots? Classes { get; set; }
 
-    private protected override string? RootClass
-        => TwMerge.Merge( Accordion.GetStyles( this ) );
+    private protected override string? RootClass =>
+        TwMerge.Merge( Accordion.GetStyles( this ) );
 
     private readonly AccordionContext _context;
 
     public LumexAccordion()
     {
         _context = new AccordionContext( this );
+    }
+
+    protected override void OnParametersSet()
+    {
+        if( SelectionMode is SelectionMode.Multiple && DefaultExpandedItems.Length > 0 )
+        {
+            throw new InvalidOperationException(
+                $"{GetType()} requires '{nameof( SelectionMode )}' parameter to be " +
+                $"'{nameof( SelectionMode.Single )}' if used with '{nameof( DefaultExpandedItems )}'." );
+        }
     }
 }
