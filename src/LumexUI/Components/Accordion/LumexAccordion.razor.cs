@@ -17,6 +17,14 @@ public partial class LumexAccordion : LumexComponentBase
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets an appearance style of the accordion.
+    /// </summary>
+    /// <remarks>
+    /// The default is <see cref="Variant.Light"/>
+    /// </remarks>
+    [Parameter] public AccordionVariant Variant { get; set; }
+
+    /// <summary>
     /// Gets or sets the selection mode for the accordion, 
     /// determining how items can be selected.
     /// </summary>

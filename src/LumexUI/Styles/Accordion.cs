@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+using LumexUI.Common;
 using LumexUI.Utilities;
 
 namespace LumexUI.Styles;
@@ -15,10 +16,20 @@ internal readonly record struct Accordion
         .Add( "w-full" )
         .ToString();
 
+    private static ElementClass GetVariantStyles( AccordionVariant variant )
+    {
+        return ElementClass.Empty()
+            .Add( "", when: variant is AccordionVariant.Light )
+            .Add( "px-4 shadow-medium rounded-medium bg-default-50", when: variant is AccordionVariant.Shadow )
+            .Add( "px-4 border border-divider rounded-medium", when: variant is AccordionVariant.Bordered )
+            .Add( "group is-splitted flex flex-col gap-2", when: variant is AccordionVariant.Splitted );
+    }
+
     public static string GetStyles( LumexAccordion accordion )
     {
         return ElementClass.Empty()
             .Add( _fullWidth, when: accordion.FullWidth )
+            .Add( GetVariantStyles( accordion.Variant ) )
             .Add( accordion.Class )
             .ToString();
     }
@@ -27,6 +38,13 @@ internal readonly record struct Accordion
 [ExcludeFromCodeCoverage]
 internal readonly record struct AccordionItem
 {
+    private readonly static string _base = ElementClass.Empty()
+        .Add( "group-[.is-splitted]:px-4" )
+        .Add( "group-[.is-splitted]:bg-default-50" )
+        .Add( "group-[.is-splitted]:shadow-medium" )
+        .Add( "group-[.is-splitted]:rounded-medium" )
+        .ToString();
+
     private readonly static string _trigger = ElementClass.Empty()
         .Add( "flex" )
         .Add( "py-4" )
@@ -77,6 +95,7 @@ internal readonly record struct AccordionItem
         var accordion = accordionItem.Context.Owner;
 
         return ElementClass.Empty()
+            .Add( _base )
             .Add( _disabled, when: accordionItem.GetDisabledState() )
             .Add( accordion.ItemClasses?.Root )
             .Add( accordionItem.Classes?.Root )
