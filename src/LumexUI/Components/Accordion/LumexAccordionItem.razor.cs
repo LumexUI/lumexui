@@ -16,6 +16,11 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets content to be rendered as the title of the accordion item.
+    /// </summary>
+    [Parameter] public RenderFragment? TitleContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the unique identifier for the accordion item.
     /// </summary>
     [Parameter, EditorRequired] public string? Id { get; set; }
@@ -79,9 +84,16 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     private string ContentClass =>
         TwMerge.Merge( AccordionItem.GetContentStyles( this ) );
 
+    private readonly RenderFragment _renderTitle;
+
     private bool _disposed;
     private bool _disabled;
     private bool _expanded;
+
+    public LumexAccordionItem()
+    {
+        _renderTitle = RenderTitle;
+    }
 
     public Task ExpandAsync()
     {
@@ -112,6 +124,13 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
         {
             throw new InvalidOperationException(
                 $"{GetType()} requires a non-null, non-empty, non-whitespace value for parameter '{nameof( Id )}'." );
+        }
+
+        if( !string.IsNullOrWhiteSpace( Title ) && TitleContent is not null )
+        {
+            throw new InvalidOperationException(
+                $"{GetType()} can only accept one title content source from its parameters. " +
+                $"Do not supply both '{nameof( Title )}' and '{nameof( TitleContent )}'." );
         }
 
         _disabled = GetDisabledState();

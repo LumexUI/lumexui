@@ -12,10 +12,7 @@
                 data-slot="trigger"
                 @onclick="@ToggleExpansionAsync">
             <div class="@TitleWrapperClass">
-                @if( !string.IsNullOrEmpty( Title ) )
-                {
-                    <span class="@TitleClass" data-slot="title">@Title</span>
-                }
+                @_renderTitle
 
                 @if( !string.IsNullOrEmpty( Subtitle ) )
                 {
@@ -41,4 +38,23 @@
 @if( Context.Owner.ShowDivider )
 {
     <LumexDivider />
+}
+
+@code {
+    private void RenderTitle( RenderTreeBuilder __builder )
+    {
+        if( !string.IsNullOrEmpty( Title ) || TitleContent is not null )
+        {
+            <span class="@TitleClass" data-slot="title">
+                @if( !string.IsNullOrEmpty( Title ) )
+                {
+                    @Title
+                }
+                else if( TitleContent is not null )
+                {
+                    @TitleContent
+                }
+            </span>
+        }
+    }
 }
