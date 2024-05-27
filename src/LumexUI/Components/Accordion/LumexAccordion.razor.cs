@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-public partial class LumexAccordion : LumexComponentBase, ISlotComponent<AccordionSlots>
+public partial class LumexAccordion : LumexComponentBase
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the accordion.
@@ -65,9 +65,9 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
     [Parameter] public string[] DisabledItems { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets the CSS class names for the card slots.
+    /// Gets or sets the CSS class names for the accordion items slots.
     /// </summary>
-    [Parameter] public AccordionSlots? Classes { get; set; }
+    [Parameter] public AccordionItemSlots? ItemClasses { get; set; }
 
     private protected override string? RootClass =>
         TwMerge.Merge( Accordion.GetStyles( this ) );

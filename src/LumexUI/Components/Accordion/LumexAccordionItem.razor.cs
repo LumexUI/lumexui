@@ -2,13 +2,14 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Common;
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-public partial class LumexAccordionItem : LumexComponentBase, IDisposable
+public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<AccordionItemSlots>, IDisposable
 {
     /// <summary>
     /// Gets or sets the unique identifier for the accordion item.
@@ -67,6 +68,11 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     /// Gets or sets the callback that is invoked when the expanded state of the accordion item changes.
     /// </summary>
     [Parameter] public EventCallback<bool> ExpandedChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class names for the accordion item slots.
+    /// </summary>
+    [Parameter] public AccordionItemSlots? Classes { get; set; }
 
     [CascadingParameter] internal AccordionContext Context { get; set; } = default!;
 

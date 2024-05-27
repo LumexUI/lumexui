@@ -19,7 +19,6 @@ internal readonly record struct Accordion
     {
         return ElementClass.Empty()
             .Add( _fullWidth, when: accordion.FullWidth )
-            .Add( accordion.Classes?.Root )
             .Add( accordion.Class )
             .ToString();
     }
@@ -65,7 +64,7 @@ internal readonly record struct AccordionItem
         .ToString();
 
     private readonly static string _content = ElementClass.Empty()
-        .Add( "pb-2" )
+        .Add( "py-2" )
         .ToString();
 
     private readonly static string _disabled = ElementClass.Empty()
@@ -79,62 +78,96 @@ internal readonly record struct AccordionItem
 
         return ElementClass.Empty()
             .Add( _disabled, when: accordionItem.GetDisabledState() )
+            .Add( accordion.ItemClasses?.Root )
+            .Add( accordionItem.Classes?.Root )
             .Add( accordionItem.Class )
             .ToString();
     }
 
     public static string GetHeadingStyles( LumexAccordionItem accordionItem )
     {
+        var accordion = accordionItem.Context.Owner;
+
         return ElementClass.Empty()
+            .Add( accordion.ItemClasses?.Heading )
+            .Add( accordionItem.Classes?.Heading )
             .ToString();
     }
 
     public static string GetTriggerStyles( LumexAccordionItem accordionItem )
     {
+        var accordion = accordionItem.Context.Owner;
+
         return ElementClass.Empty()
             .Add( _trigger )
+            .Add( accordion.ItemClasses?.Trigger )
+            .Add( accordionItem.Classes?.Trigger )
             .ToString();
     }
 
     public static string GetStartContentStyles( LumexAccordionItem accordionItem )
     {
+        var accordion = accordionItem.Context.Owner;
+
         return ElementClass.Empty()
             .Add( _startContent )
+            .Add( accordion.ItemClasses?.StartContent )
+            .Add( accordionItem.Classes?.StartContent )
             .ToString();
     }
 
     public static string GetTitleWrapperStyles( LumexAccordionItem accordionItem )
     {
+        var accordion = accordionItem.Context.Owner;
+
         return ElementClass.Empty()
             .Add( _titleWrapper )
+            .Add( accordion.ItemClasses?.TitleWrapper )
+            .Add( accordionItem.Classes?.TitleWrapper )
             .ToString();
     }
 
     public static string GetTitleStyles( LumexAccordionItem accordionItem )
     {
+        var accordion = accordionItem.Context.Owner;
+
         return ElementClass.Empty()
             .Add( _title )
+            .Add( accordion.ItemClasses?.Title )
+            .Add( accordionItem.Classes?.Title )
             .ToString();
     }
 
     public static string GetSubtitleStyles( LumexAccordionItem accordionItem )
     {
+        var accordion = accordionItem.Context.Owner;
+
         return ElementClass.Empty()
             .Add( _subtitle )
+            .Add( accordion.ItemClasses?.Subtitle )
+            .Add( accordionItem.Classes?.Subtitle )
             .ToString();
     }
 
     public static string GetIndicatorStyles( LumexAccordionItem accordionItem )
     {
+        var accordion = accordionItem.Context.Owner;
+
         return ElementClass.Empty()
             .Add( _indicator )
+            .Add( accordion.ItemClasses?.Indicator )
+            .Add( accordionItem.Classes?.Indicator )
             .ToString();
     }
 
     public static string GetContentStyles( LumexAccordionItem accordionItem )
     {
+        var accordion = accordionItem.Context.Owner;
+
         return ElementClass.Empty()
             .Add( _content )
+            .Add( accordion.ItemClasses?.Content )
+            .Add( accordionItem.Classes?.Content )
             .ToString();
     }
 }
