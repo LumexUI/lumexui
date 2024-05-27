@@ -31,6 +31,19 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     [Parameter] public string? Subtitle { get; set; }
 
     /// <summary>
+    /// Gets or sets the icon used as an indicator in the accordion item.
+    /// </summary>
+    /// <remarks>
+    /// The default is <see cref="Icons.Rounded.ChevronLeft"/>.
+    /// </remarks>
+    [Parameter] public string IndicatorIcon { get; set; } = Icons.Rounded.ChevronLeft;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the accordion item is disabled.
+    /// </summary>
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the accordion item is expanded.
     /// </summary>
     [Parameter] public bool Expanded { get; set; }
@@ -39,11 +52,6 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     /// Gets or sets the callback that is invoked when the expanded state of the accordion item changes.
     /// </summary>
     [Parameter] public EventCallback<bool> ExpandedChanged { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the accordion item is disabled.
-    /// </summary>
-    [Parameter] public bool Disabled { get; set; }
 
     [CascadingParameter] internal AccordionContext Context { get; set; } = default!;
 
@@ -55,6 +63,9 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
 
     private string TriggerClass =>
         TwMerge.Merge( AccordionItem.GetTriggerStyles( this ) );
+
+    private string IndicatorClass =>
+        TwMerge.Merge( AccordionItem.GetIndicatorStyles( this ) );
 
     private string TitleWrapperClass =>
         TwMerge.Merge( AccordionItem.GetTitleWrapperStyles( this ) );

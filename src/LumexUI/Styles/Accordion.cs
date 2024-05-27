@@ -36,6 +36,13 @@ internal readonly record struct AccordionItem
         .Add( "outline-none" )
         .ToString();
 
+    private readonly static string _indicator = ElementClass.Empty()
+        .Add( "text-default-400" )
+        .Add( "rotate-0" )
+        .Add( "data-[open]:-rotate-90" )
+        .Add( "transition-transform" )
+        .ToString();
+
     private readonly static string _titleWrapper = ElementClass.Empty()
         .Add( "flex" )
         .Add( "flex-1" )
@@ -82,6 +89,13 @@ internal readonly record struct AccordionItem
     {
         return ElementClass.Empty()
             .Add( _trigger )
+            .ToString();
+    }
+
+    public static string GetIndicatorStyles( LumexAccordionItem accordionItem )
+    {
+        return ElementClass.Empty()
+            .Add( _indicator )
             .ToString();
     }
 
