@@ -21,6 +21,11 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets content to be rendered at the start of the accordion item.
+    /// </summary>
+    [Parameter] public RenderFragment? StartContent { get; set; }
+
+    /// <summary>
     /// Gets or sets content to be rendered as the title of the accordion item.
     /// </summary>
     [Parameter] public RenderFragment? TitleContent { get; set; }
@@ -74,8 +79,8 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     private string TriggerClass =>
         TwMerge.Merge( AccordionItem.GetTriggerStyles( this ) );
 
-    private string IndicatorClass =>
-        TwMerge.Merge( AccordionItem.GetIndicatorStyles( this ) );
+    private string StartContentClass =>
+        TwMerge.Merge( AccordionItem.GetStartContentStyles( this ) );
 
     private string TitleWrapperClass =>
         TwMerge.Merge( AccordionItem.GetTitleWrapperStyles( this ) );
@@ -86,21 +91,15 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     private string SubtitleClass =>
         TwMerge.Merge( AccordionItem.GetSubtitleStyles( this ) );
 
+    private string IndicatorClass =>
+        TwMerge.Merge( AccordionItem.GetIndicatorStyles( this ) );
+
     private string ContentClass =>
         TwMerge.Merge( AccordionItem.GetContentStyles( this ) );
-
-    private readonly RenderFragment _renderTitle;
-    private readonly RenderFragment _renderSubtitle;
 
     private bool _disposed;
     private bool _disabled;
     private bool _expanded;
-
-    public LumexAccordionItem()
-    {
-        _renderTitle = RenderTitle;
-        _renderSubtitle = RenderSubtitle;
-    }
 
     public Task ExpandAsync()
     {
@@ -116,7 +115,7 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
         Disabled || Context.Owner.DisabledItems.Contains( Id ) || Context.Owner.Disabled;
 
     internal bool GetExpandedState() =>
-        Expanded || Context.Owner.DefaultExpandedItems.Contains( Id );
+        Expanded || Context.Owner.ExpandedItems.Contains( Id );
 
     protected override void OnInitialized()
     {

@@ -57,7 +57,7 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
     /// <summary>
     /// Gets or sets the set of accordion item identifiers that are expanded by default in the accordion.
     /// </summary>
-    [Parameter] public string[] DefaultExpandedItems { get; set; } = [];
+    [Parameter] public string[] ExpandedItems { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the set of accordion item identifiers that are disabled in the accordion.
@@ -81,11 +81,11 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
 
     protected override void OnParametersSet()
     {
-        if( SelectionMode is SelectionMode.Multiple && DefaultExpandedItems.Length > 0 )
+        if( SelectionMode is SelectionMode.Multiple && ExpandedItems.Length > 0 )
         {
             throw new InvalidOperationException(
                 $"{GetType()} requires '{nameof( SelectionMode )}' parameter to be " +
-                $"'{nameof( SelectionMode.Single )}' if used with '{nameof( DefaultExpandedItems )}'." );
+                $"'{nameof( SelectionMode.Single )}' if used with '{nameof( ExpandedItems )}'." );
         }
     }
 }

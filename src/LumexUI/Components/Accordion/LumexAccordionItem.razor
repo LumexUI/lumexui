@@ -4,16 +4,46 @@
 <LumexComponent Class="@RootClass"
                 Style="@RootStyle"
                 @attributes="@AdditionalAttributes"
-                data-slot="item">
+                data-slot="root">
     <h2 class="@HeadingClass" data-slot="heading">
         <button class="@TriggerClass"
                 type="button"
                 disabled="@_disabled"
                 data-slot="trigger"
                 @onclick="@ToggleExpansionAsync">
-            <div class="@TitleWrapperClass">
-                @_renderTitle
-                @_renderSubtitle
+            <div class="@TitleWrapperClass" data-slot="title-wrapper">
+                @if( StartContent is not null )
+                {
+                    <div class="@StartContentClass" data-slot="start-content">
+                        @StartContent
+                    </div>
+                }
+                @if( !string.IsNullOrEmpty( Title ) || TitleContent is not null )
+                {
+                    <span class="@TitleClass" data-slot="title">
+                        @if( !string.IsNullOrEmpty( Title ) )
+                        {
+                            @Title
+                        }
+                        else if( TitleContent is not null )
+                        {
+                            @TitleContent
+                        }
+                    </span>
+                }
+                @if( !string.IsNullOrEmpty( Subtitle ) || SubtitleContent is not null )
+                {
+                    <span class="@SubtitleClass" data-slot="subtitle">
+                        @if( !string.IsNullOrEmpty( Subtitle ) )
+                        {
+                            @Subtitle
+                        }
+                        else if( SubtitleContent is not null )
+                        {
+                            @SubtitleContent
+                        }
+                    </span>
+                }
             </div>
             @if( Context.Owner.ShowIndicators )
             {
@@ -37,40 +67,4 @@
 @if( Context.Owner.ShowDivider )
 {
     <LumexDivider />
-}
-
-@code {
-    private void RenderTitle( RenderTreeBuilder __builder )
-    {
-        if( !string.IsNullOrEmpty( Title ) || TitleContent is not null )
-        {
-            <span class="@TitleClass" data-slot="title">
-                @if( !string.IsNullOrEmpty( Title ) )
-                {
-                    @Title
-                }
-                else if( TitleContent is not null )
-                {
-                    @TitleContent
-                }
-            </span>
-        }
-    }
-
-    private void RenderSubtitle( RenderTreeBuilder __builder )
-    {
-        if( !string.IsNullOrEmpty( Subtitle ) || SubtitleContent is not null )
-        {
-            <span class="@SubtitleClass" data-slot="subtitle">
-                @if( !string.IsNullOrEmpty( Subtitle ) )
-                {
-                    @Subtitle
-                }
-                else if( SubtitleContent is not null )
-                {
-                    @SubtitleContent
-                }
-            </span>
-        }
-    }
 }
