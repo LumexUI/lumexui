@@ -93,6 +93,12 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
         return SetExpandedStateTo( false );
     }
 
+    internal bool GetDisabledState() =>
+        Disabled || Context.Owner.DisabledItems.Contains( Id ) || Context.Owner.Disabled;
+
+    internal bool GetExpandedState() =>
+        Expanded || Context.Owner.DefaultExpandedItems.Contains( Id );
+
     protected override void OnInitialized()
     {
         AccordionContext.ThrowMissingParentComponentException( Context, nameof( LumexAccordionItem ) );
@@ -108,8 +114,8 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
                 $"{GetType()} requires a non-null, non-empty, non-whitespace value for parameter '{nameof( Id )}'." );
         }
 
-        _disabled = Disabled || Context.Owner.Disabled;
-        _expanded = Expanded || Context.Owner.DefaultExpandedItems.Contains( Id );
+        _disabled = GetDisabledState();
+        _expanded = GetExpandedState();
     }
 
     private async Task ToggleExpansionAsync()

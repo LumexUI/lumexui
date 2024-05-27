@@ -47,9 +47,14 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
     [Parameter] public bool ShowDivider { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the set of item identifiers that are expanded by default in the accordion.
+    /// Gets or sets the set of accordion item identifiers that are expanded by default in the accordion.
     /// </summary>
     [Parameter] public string[] DefaultExpandedItems { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the set of accordion item identifiers that are disabled in the accordion.
+    /// </summary>
+    [Parameter] public string[] DisabledItems { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the CSS class names for the card slots.

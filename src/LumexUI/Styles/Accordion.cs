@@ -74,7 +74,7 @@ internal readonly record struct AccordionItem
         var accordion = accordionItem.Context.Owner;
 
         return ElementClass.Empty()
-            .Add( _disabled, when: accordionItem.Disabled || accordion.Disabled )
+            .Add( _disabled, when: accordionItem.GetDisabledState() )
             .Add( accordionItem.Class )
             .ToString();
     }
