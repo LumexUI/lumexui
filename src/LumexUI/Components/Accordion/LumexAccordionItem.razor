@@ -64,7 +64,7 @@
     </LumexCollapse>
 </LumexComponent>
 
-@if( Context.Owner.ShowDivider )
+@if( Context.Owner.ShowDivider && !Context.IsLastItem( this ) )
 {
     <LumexDivider />
 }

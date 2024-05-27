@@ -4,7 +4,7 @@ namespace LumexUI;
 
 internal sealed class AccordionContext( LumexAccordion owner ) : IComponentContext<LumexAccordion>
 {
-    public readonly ICollection<LumexAccordionItem> _items = [];
+    public readonly List<LumexAccordionItem> _items = [];
 
     public LumexAccordion Owner { get; } = owner;
 
@@ -27,9 +27,14 @@ internal sealed class AccordionContext( LumexAccordion owner ) : IComponentConte
         _items.Remove( item );
     }
 
+    public bool IsLastItem( LumexAccordionItem item )
+    {
+        return item == _items[^1];
+    }
+
     public ValueTask ToggleExpansionAsync( LumexAccordionItem item )
     {
-        if( Owner.SelectionMode is SelectionMode.None || 
+        if( Owner.SelectionMode is SelectionMode.None ||
             Owner.SelectionMode is SelectionMode.Multiple )
         {
             return ValueTask.CompletedTask;
