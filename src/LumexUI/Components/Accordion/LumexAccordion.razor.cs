@@ -21,7 +21,7 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
     /// determining how items can be selected.
     /// </summary>
     /// <remarks>
-    /// The default is <see cref="SelectionMode.Single"/>.
+    /// The default is <see cref="SelectionMode.Single"/>
     /// </remarks>
     [Parameter] public SelectionMode SelectionMode { get; set; } = SelectionMode.Single;
 
@@ -29,7 +29,7 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
     /// Gets or sets a value indicating whether the accordion is full-width.
     /// </summary>
     /// <remarks>
-    /// The default is <see langword="true"/>.
+    /// The default is <see langword="true"/>
     /// </remarks>
     [Parameter] public bool FullWidth { get; set; } = true;
 
@@ -42,7 +42,7 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
     /// Gets or sets a value indicating whether to display a divider under each accordion item.
     /// </summary>
     /// <remarks>
-    /// The default is <see langword="true"/>.
+    /// The default is <see langword="true"/>
     /// </remarks>
     [Parameter] public bool ShowDivider { get; set; } = true;
 
@@ -50,7 +50,7 @@ public partial class LumexAccordion : LumexComponentBase, ISlotComponent<Accordi
     /// Gets or sets a value indicating whether to display an indicator in each accordion item.
     /// </summary>
     /// <remarks>
-    /// The default is <see langword="true"/>.
+    /// The default is <see langword="true"/>
     /// </remarks>
     [Parameter] public bool ShowIndicators { get; set; } = true;
 

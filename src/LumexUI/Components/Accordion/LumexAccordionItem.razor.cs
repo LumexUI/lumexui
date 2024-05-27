@@ -44,7 +44,7 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     /// Gets or sets the icon used as an indicator in the accordion item.
     /// </summary>
     /// <remarks>
-    /// The default is <see cref="Icons.Rounded.ChevronLeft"/>.
+    /// The default is <see cref="Icons.Rounded.ChevronLeft"/>
     /// </remarks>
     [Parameter] public string IndicatorIcon { get; set; } = Icons.Rounded.ChevronLeft;
 
