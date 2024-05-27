@@ -11,6 +11,11 @@ namespace LumexUI;
 public partial class LumexAccordionItem : LumexComponentBase, IDisposable
 {
     /// <summary>
+    /// Gets or sets the unique identifier for the accordion item.
+    /// </summary>
+    [Parameter, EditorRequired] public string? Id { get; set; }
+
+    /// <summary>
     /// Gets or sets content to be rendered inside the accordion item.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -21,9 +26,9 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     [Parameter] public RenderFragment? TitleContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the unique identifier for the accordion item.
+    /// Gets or sets content to be rendered as the subtitle of the accordion item.
     /// </summary>
-    [Parameter, EditorRequired] public string? Id { get; set; }
+    [Parameter] public RenderFragment? SubtitleContent { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the accordion item.
@@ -85,6 +90,7 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
         TwMerge.Merge( AccordionItem.GetContentStyles( this ) );
 
     private readonly RenderFragment _renderTitle;
+    private readonly RenderFragment _renderSubtitle;
 
     private bool _disposed;
     private bool _disabled;
@@ -93,6 +99,7 @@ public partial class LumexAccordionItem : LumexComponentBase, IDisposable
     public LumexAccordionItem()
     {
         _renderTitle = RenderTitle;
+        _renderSubtitle = RenderSubtitle;
     }
 
     public Task ExpandAsync()

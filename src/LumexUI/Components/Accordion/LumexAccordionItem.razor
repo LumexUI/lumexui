@@ -13,11 +13,7 @@
                 @onclick="@ToggleExpansionAsync">
             <div class="@TitleWrapperClass">
                 @_renderTitle
-
-                @if( !string.IsNullOrEmpty( Subtitle ) )
-                {
-                    <span class="@SubtitleClass" data-slot="subtitle">@Subtitle</span>
-                }
+                @_renderSubtitle
             </div>
             <span class="@IndicatorClass" data-open="@_expanded">
                 @* TODO: Icon component *@
@@ -53,6 +49,23 @@
                 else if( TitleContent is not null )
                 {
                     @TitleContent
+                }
+            </span>
+        }
+    }
+
+    private void RenderSubtitle( RenderTreeBuilder __builder )
+    {
+        if( !string.IsNullOrEmpty( Subtitle ) || SubtitleContent is not null )
+        {
+            <span class="@SubtitleClass" data-slot="subtitle">
+                @if( !string.IsNullOrEmpty( Subtitle ) )
+                {
+                    @Subtitle
+                }
+                else if( SubtitleContent is not null )
+                {
+                    @SubtitleContent
                 }
             </span>
         }
