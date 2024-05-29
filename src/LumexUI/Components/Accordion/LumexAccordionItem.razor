@@ -4,7 +4,8 @@
 <LumexComponent Class="@RootClass"
                 Style="@RootStyle"
                 @attributes="@AdditionalAttributes"
-                data-slot="root">
+                data-slot="root"
+                data-opened="@_expanded">
     <h2 class="@HeadingClass" data-slot="heading">
         <button class="@TriggerClass"
                 type="button"
@@ -65,8 +66,8 @@
 </LumexComponent>
 
 @if( Context.Owner.ShowDivider &&
-   !Context.IsLastItem( this ) &&
-   Context.Owner.Variant is not AccordionVariant.Splitted )
+  !Context.IsLastItem( this ) &&
+  Context.Owner.Variant is not AccordionVariant.Splitted )
 {
     <LumexDivider />
 }
