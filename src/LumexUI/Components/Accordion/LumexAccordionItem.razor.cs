@@ -117,11 +117,9 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
         return SetExpandedStateTo( false );
     }
 
-    internal bool GetDisabledState() =>
-        Disabled || Context.Owner.DisabledItems.Contains( Id ) || Context.Owner.Disabled;
+    internal bool GetExpandedState() => _expanded;
 
-    internal bool GetExpandedState() =>
-        Expanded || Context.Owner.ExpandedItems.Contains( Id );
+    internal bool GetDisabledState() => _disabled;
 
     protected override void OnInitialized()
     {
@@ -145,8 +143,15 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
                 $"Do not supply both '{nameof( Title )}' and '{nameof( TitleContent )}'." );
         }
 
-        _disabled = GetDisabledState();
-        _expanded = GetExpandedState();
+        if( !string.IsNullOrWhiteSpace( Subtitle ) && SubtitleContent is not null )
+        {
+            throw new InvalidOperationException(
+                $"{GetType()} can only accept one subtitle content source from its parameters. " +
+                $"Do not supply both '{nameof( Subtitle )}' and '{nameof( SubtitleContent )}'." );
+        }
+
+        _expanded = Expanded || Context.Owner.ExpandedItems.Contains( Id );
+        _disabled = Disabled || Context.Owner.DisabledItems.Contains( Id ) || Context.Owner.Disabled;
     }
 
     private async Task ToggleExpansionAsync()
