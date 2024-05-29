@@ -151,7 +151,7 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
 
     private async Task ToggleExpansionAsync()
     {
-        if( _disabled )
+        if( _disabled || Context.Owner.SelectionMode is SelectionMode.None )
         {
             return;
         }

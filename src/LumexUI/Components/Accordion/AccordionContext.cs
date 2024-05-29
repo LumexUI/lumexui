@@ -34,8 +34,7 @@ internal sealed class AccordionContext( LumexAccordion owner ) : IComponentConte
 
     public ValueTask ToggleExpansionAsync( LumexAccordionItem item )
     {
-        if( Owner.SelectionMode is SelectionMode.None ||
-            Owner.SelectionMode is SelectionMode.Multiple )
+        if( Owner.SelectionMode is SelectionMode.Multiple )
         {
             return ValueTask.CompletedTask;
         }
