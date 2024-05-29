@@ -90,11 +90,11 @@ public partial class LumexAccordion : LumexComponentBase
 
     protected override void OnParametersSet()
     {
-        if( SelectionMode is SelectionMode.Multiple && ExpandedItems.Length > 0 )
+        if( SelectionMode is SelectionMode.Single && ExpandedItems.Length > 0 )
         {
             throw new InvalidOperationException(
                 $"{GetType()} requires '{nameof( SelectionMode )}' parameter to be " +
-                $"'{nameof( SelectionMode.Single )}' if used with '{nameof( ExpandedItems )}'." );
+                $"'{nameof( SelectionMode.Multiple )}' if used with '{nameof( ExpandedItems )}'." );
         }
     }
 }
