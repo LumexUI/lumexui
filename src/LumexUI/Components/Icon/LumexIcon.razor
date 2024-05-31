@@ -1,0 +1,21 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@if( IsSvgIcon )
+{
+    <svg class="@RootClass"
+         style="@RootStyle"
+         width="@Size.W"
+         height="@Size.H"
+         viewBox="@ViewBox"
+         focusable="false"
+         @attributes="@AdditionalAttributes">
+        @((MarkupString)Icon)
+    </svg>
+}
+else
+{
+    <span class="@($"{RootClass} {Icon}")" style="@FontIconStyle" @attributes="@AdditionalAttributes">
+        @ChildContent
+    </span>
+}
