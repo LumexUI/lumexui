@@ -2,12 +2,40 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Styles;
+
 using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
 public partial class LumexCheckbox : LumexInputBase<bool>
 {
+    /// <summary>
+    /// Gets or sets content to be rendered inside the checkbox.
+    /// </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private protected override string? RootClass =>
+        TwMerge.Merge( Checkbox.GetStyles( this ) );
+
+    private string WrapperClass =>
+        TwMerge.Merge( Checkbox.GetWrapperStyles( this ) );
+
+    private string IconClass =>
+        TwMerge.Merge( Checkbox.GetIconStyles( this ) );
+
+    private string LabelClass =>
+        TwMerge.Merge( Checkbox.GetLabelStyles( this ) );
+
+    private readonly RenderFragment _renderCheckIcon;
+
+    private bool Checked => CurrentValue;
+
+    public LumexCheckbox()
+    {
+        _renderCheckIcon = RenderCheckIcon;
+    }
+
     /// <inheritdoc />
     protected override bool TryParseValueFromString( string? value, out bool result )
     {
