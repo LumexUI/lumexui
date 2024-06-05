@@ -17,7 +17,14 @@
     </span>
 
     <span class="@WrapperClass">
-        @_renderCheckIcon
+        @if( !string.IsNullOrEmpty( CheckIcon ) )
+        {
+            <LumexIcon Icon="@CheckIcon" Class="@IconClass" />
+        }
+        else
+        {
+            @_renderCheckIcon
+        }
     </span>
 
     @if( ChildContent is not null )

@@ -15,6 +15,11 @@ public partial class LumexCheckbox : LumexInputBase<bool>
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the icon to be used for indicating a checked state of the checkbox.
+    /// </summary>
+    [Parameter] public string? CheckIcon { get; set; }
+
     private protected override string? RootClass =>
         TwMerge.Merge( Checkbox.GetStyles( this ) );
 
