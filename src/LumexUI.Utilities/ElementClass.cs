@@ -5,7 +5,7 @@
 namespace LumexUI.Utilities;
 
 /// <summary>
-/// Represents a CSS class for a rendered element.
+/// Represents a CSS class for the rendered element.
 /// </summary>
 public record struct ElementClass
 {

@@ -81,7 +81,7 @@ internal readonly record struct Button
 
     public static string GetStyles( LumexButton button )
     {
-        var styles = new ElementClass()
+        return ElementClass.Empty()
             .Add( _base )
             .Add( _disabled, when: button.Disabled )
             .Add( _fullWidth, when: button.FullWidth )
@@ -90,7 +90,5 @@ internal readonly record struct Button
             .Add( GetHoverStyles( button.Variant, button.Color ) )
             .Add( button.Class )
             .ToString();
-
-        return styles;
     }
 }

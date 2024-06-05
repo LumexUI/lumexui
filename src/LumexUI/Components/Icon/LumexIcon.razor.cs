@@ -32,8 +32,7 @@ public partial class LumexIcon : LumexComponentBase
     [Parameter] public Dimensions Size { get; set; } = new( "24" );
 
     /// <summary>
-    /// Gets or sets the <seealso href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox">viewBox</seealso> 
-    /// attribute of the SVG element representing the icon.
+    /// Gets or sets the viewBox attribute of the SVG element representing the icon.
     /// </summary>
     /// <remarks>
     /// The default value is "0 -960 960 960" (<seealso href="https://fonts.google.com/icons">Material Symbols</seealso>)

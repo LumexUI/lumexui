@@ -5,7 +5,7 @@
 namespace LumexUI.Utilities;
 
 /// <summary>
-/// Represents an in-line style for a rendered element.
+/// Represents an in-line style for the rendered element.
 /// </summary>
 public record struct ElementStyle
 {
