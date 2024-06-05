@@ -142,6 +142,7 @@ internal readonly record struct Checkbox
         return ElementClass.Empty()
             .Add( _base )
             .Add( _disabled, when: checkbox.Disabled )
+            .Add( checkbox.Classes?.Root )
             .Add( checkbox.Class )
             .ToString();
     }
@@ -153,6 +154,7 @@ internal readonly record struct Checkbox
             .Add( GetColorStyles( checkbox.Color ) )
             .Add( GetRadiusStyles( checkbox.Radius ) )
             .Add( GetSizeStyles( checkbox.Size, part: "wrapper" ) )
+            .Add( checkbox.Classes?.Wrapper )
             .ToString();
     }
 
@@ -161,6 +163,7 @@ internal readonly record struct Checkbox
         return ElementClass.Empty()
             .Add( _icon )
             .Add( GetSizeStyles( checkbox.Size, part: "icon" ) )
+            .Add( checkbox.Classes?.Icon )
             .ToString();
     }
 
@@ -169,6 +172,7 @@ internal readonly record struct Checkbox
         return ElementClass.Empty()
             .Add( _label )
             .Add( GetSizeStyles( checkbox.Size, part: "label" ) )
+            .Add( checkbox.Classes?.Label )
             .ToString();
     }
 }

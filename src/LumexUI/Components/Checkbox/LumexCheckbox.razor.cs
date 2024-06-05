@@ -2,13 +2,14 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Common;
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-public partial class LumexCheckbox : LumexInputBase<bool>
+public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<CheckboxSlots>
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the checkbox.
@@ -19,6 +20,11 @@ public partial class LumexCheckbox : LumexInputBase<bool>
     /// Gets or sets the icon to be used for indicating a checked state of the checkbox.
     /// </summary>
     [Parameter] public string? CheckIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class names for the checkbox slots.
+    /// </summary>
+    [Parameter] public CheckboxSlots? Classes { get; set; }
 
     private protected override string? RootClass =>
         TwMerge.Merge( Checkbox.GetStyles( this ) );
