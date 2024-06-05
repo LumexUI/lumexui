@@ -8,6 +8,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
+using LumexUI.Common;
+
 using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
@@ -18,6 +20,30 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// Gets or sets a value indicating whether the input is disabled.
     /// </summary>
     [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets a color of the input.
+    /// </summary>
+    /// <remarks>
+    /// The default is <see cref="ThemeColor.Default"/>
+    /// </remarks>
+    [Parameter] public ThemeColor Color { get; set; }
+
+    /// <summary>
+    /// Gets or sets the border radius of the input.
+    /// </summary>
+    /// <remarks>
+    /// The default is <see cref="Radius.Medium"/>
+    /// </remarks>
+    [Parameter] public Radius Radius { get; set; } = Radius.Medium;
+
+    /// <summary>
+    /// Gets or sets the size of the input.
+    /// </summary>
+    /// <remarks>
+    /// Default value is <see cref="Size.Medium"/>
+    /// </remarks>
+    [Parameter] public Size Size { get; set; } = Size.Medium;
 
     /// <summary>
     /// Gets or sets the value of the input. This should be used with two-way binding.
