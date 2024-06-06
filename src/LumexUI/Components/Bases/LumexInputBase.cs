@@ -129,7 +129,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// Sets the current value of the input.
     /// </summary>
     /// <param name="value">The value to set.</param>
-    protected async Task SetCurrentValueAsync( TValue? value )
+    protected internal async Task SetCurrentValueAsync( TValue? value )
     {
         var hasChanged = !EqualityComparer<TValue>.Default.Equals( value, Value );
         if( hasChanged )
@@ -145,7 +145,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// Sets the current value of the input, represented as a string.
     /// </summary>
     /// <param name="value">The value to set.</param>
-    protected async Task SetCurrentValueAsStringAsync( string? value )
+    protected internal async Task SetCurrentValueAsStringAsync( string? value )
     {
         _incomingValueBeforeParsing = value;
 
@@ -167,6 +167,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
 
     /// <summary>
     /// Formats the input value as a string.
+    /// Derived classes can override this to determine the formatting used for <see cref="CurrentValueAsString"/>.
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the input value.</returns>
