@@ -57,7 +57,7 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
 
     private Task OnChangeAsync( ChangeEventArgs args )
     {
-        if( Disabled )
+        if( Disabled || ReadOnly )
         {
             return Task.CompletedTask;
         }

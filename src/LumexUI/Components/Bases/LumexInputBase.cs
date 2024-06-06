@@ -22,6 +22,11 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     [Parameter] public bool Disabled { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the input is read-only.
+    /// </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+
+    /// <summary>
     /// Gets or sets a color of the input.
     /// </summary>
     /// <remarks>
