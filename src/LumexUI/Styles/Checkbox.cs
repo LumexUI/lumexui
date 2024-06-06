@@ -19,6 +19,7 @@ internal readonly record struct Checkbox
         .Add( "inline-flex" )
         .Add( "items-center" )
         .Add( "justify-start" )
+        .Add( "outline-none" )
         .Add( "cursor-pointer" )
         .ToString();
 
@@ -50,6 +51,8 @@ internal readonly record struct Checkbox
         .Add( "after:!duration-200" )
         .Add( "group-data-[checked]:after:scale-100" )
         .Add( "group-data-[checked]:after:opacity-100" )
+        // focus ring
+        .Add( Utils.GroupFocusVisible )
         .ToString();
 
     private readonly static string _icon = ElementClass.Empty()

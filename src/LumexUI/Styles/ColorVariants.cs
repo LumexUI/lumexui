@@ -2,7 +2,7 @@
 
 namespace LumexUI.Styles;
 
-internal record ColorVariants
+internal class ColorVariants
 {
     public readonly static Dictionary<ThemeColor, string> Solid = new()
     {
