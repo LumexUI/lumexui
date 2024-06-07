@@ -14,8 +14,8 @@ internal readonly record struct Checkbox
 {
     private readonly static string _base = ElementClass.Empty()
         .Add( "p-2" )
+        .Add( "-m-2" )
         .Add( "group" )
-        .Add( "relative" )
         .Add( "inline-flex" )
         .Add( "items-center" )
         .Add( "justify-start" )
@@ -51,6 +51,8 @@ internal readonly record struct Checkbox
         .Add( "after:!duration-200" )
         .Add( "group-data-[checked]:after:scale-100" )
         .Add( "group-data-[checked]:after:opacity-100" )
+        // hover
+        .Add( "group-hover:before:bg-default-100" )
         // focus ring
         .Add( Utils.GroupFocusVisible )
         .ToString();
@@ -64,7 +66,6 @@ internal readonly record struct Checkbox
         .ToString();
 
     private readonly static string _label = ElementClass.Empty()
-        .Add( "relative" )
         .Add( "text-foreground" )
         .Add( "select-none" )
         .Add( "transition-colors-opacity" )
@@ -142,9 +143,12 @@ internal readonly record struct Checkbox
 
     public static string GetStyles( LumexCheckbox checkbox )
     {
+        var checkboxGroup = checkbox.Context?.Owner;
+
         return ElementClass.Empty()
             .Add( _base )
             .Add( _disabled, when: checkbox.Disabled )
+            .Add( checkboxGroup?.CheckboxClasses?.Root )
             .Add( checkbox.Classes?.Root )
             .Add( checkbox.Class )
             .ToString();
@@ -152,29 +156,38 @@ internal readonly record struct Checkbox
 
     public static string GetWrapperStyles( LumexCheckbox checkbox )
     {
+        var checkboxGroup = checkbox.Context?.Owner;
+
         return ElementClass.Empty()
             .Add( _wrapper )
             .Add( GetColorStyles( checkbox.Color ) )
             .Add( GetRadiusStyles( checkbox.Radius ) )
             .Add( GetSizeStyles( checkbox.Size, slot: "wrapper" ) )
+            .Add( checkboxGroup?.CheckboxClasses?.Wrapper )
             .Add( checkbox.Classes?.Wrapper )
             .ToString();
     }
 
     public static string GetIconStyles( LumexCheckbox checkbox )
     {
+        var checkboxGroup = checkbox.Context?.Owner;
+
         return ElementClass.Empty()
             .Add( _icon )
             .Add( GetSizeStyles( checkbox.Size, slot: "icon" ) )
+            .Add( checkboxGroup?.CheckboxClasses?.Icon )
             .Add( checkbox.Classes?.Icon )
             .ToString();
     }
 
     public static string GetLabelStyles( LumexCheckbox checkbox )
     {
+        var checkboxGroup = checkbox.Context?.Owner;
+
         return ElementClass.Empty()
             .Add( _label )
             .Add( GetSizeStyles( checkbox.Size, slot: "label" ) )
+            .Add( checkboxGroup?.CheckboxClasses?.Label )
             .Add( checkbox.Classes?.Label )
             .ToString();
     }

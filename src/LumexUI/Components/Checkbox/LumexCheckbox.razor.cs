@@ -26,6 +26,8 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
     /// </summary>
     [Parameter] public CheckboxSlots? Classes { get; set; }
 
+    [CascadingParameter] internal CheckboxGroupContext? Context { get; set; }
+
     private protected override string? RootClass =>
         TwMerge.Merge( Checkbox.GetStyles( this ) );
 
@@ -40,11 +42,18 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
 
     private readonly RenderFragment _renderCheckIcon;
 
-    private bool Checked => CurrentValue;
+    private bool _checked;
+    private bool _disabled;
 
     public LumexCheckbox()
     {
         _renderCheckIcon = RenderCheckIcon;
+    }
+
+    protected override void OnParametersSet()
+    {
+        _checked = CurrentValue;
+        _disabled = Disabled || ( Context?.Owner.Disabled ?? false );
     }
 
     /// <inheritdoc />
@@ -57,7 +66,7 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
 
     private Task OnChangeAsync( ChangeEventArgs args )
     {
-        if( Disabled || ReadOnly )
+        if( _disabled || ReadOnly )
         {
             return Task.CompletedTask;
         }

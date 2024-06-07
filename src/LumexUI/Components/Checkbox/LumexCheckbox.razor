@@ -4,14 +4,14 @@
 <LumexComponent As="label"
                 Class="@RootClass"
                 Style="@RootStyle"
-                data-checked="@Checked"
+                data-checked="@_checked"
                 tabindex="1"
                 @attributes="@AdditionalAttributes">
     <span class="sr-only">
         <input type="checkbox"
                value="@true"
-               checked="@Checked"
-               disabled="@Disabled"
+               checked="@_checked"
+               disabled="@_disabled"
                @ref="@Element"
                @attributes="@AdditionalAttributes"
                @onchange="@OnChangeAsync" />
@@ -40,7 +40,7 @@
     private void RenderCheckIcon( RenderTreeBuilder __builder )
     {
         var style = ElementStyle.Empty()
-            .Add( "transition", "stroke-dashoffset 0.15s linear 0.15s", when: Checked )
+            .Add( "transition", "stroke-dashoffset 0.15s linear 0.15s", when: _checked )
             .ToString();
 
         <svg class="@IconClass" viewBox="0 0 17 18">
@@ -48,7 +48,7 @@
                       points="1 9 7 14 15 4"
                       stroke="currentColor"
                       stroke-dasharray="22"
-                      stroke-dashoffset="@(Checked ? 44 : 66)"
+                      stroke-dashoffset="@(_checked ? 44 : 66)"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
