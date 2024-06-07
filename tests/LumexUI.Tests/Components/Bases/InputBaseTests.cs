@@ -2,10 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
 
 using TailwindMerge;
