@@ -44,6 +44,7 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
 
     private bool _checked;
     private bool _disabled;
+    private bool _readonly;
 
     public LumexCheckbox()
     {
@@ -54,6 +55,7 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
     {
         _checked = CurrentValue;
         _disabled = Disabled || ( Context?.Owner.Disabled ?? false );
+        _readonly = ReadOnly || ( Context?.Owner.ReadOnly ?? false );
     }
 
     /// <inheritdoc />
@@ -66,7 +68,7 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
 
     private Task OnChangeAsync( ChangeEventArgs args )
     {
-        if( _disabled || ReadOnly )
+        if( _disabled || _readonly )
         {
             return Task.CompletedTask;
         }

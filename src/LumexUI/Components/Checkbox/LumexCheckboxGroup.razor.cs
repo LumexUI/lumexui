@@ -32,6 +32,11 @@ public partial class LumexCheckboxGroup : LumexComponentBase, ISlotComponent<Che
     [Parameter] public bool Disabled { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the checkbox group is read-only.
+    /// </summary>
+    [Parameter] public bool ReadOnly { get; set; }
+
+    /// <summary>
     /// Gets or sets the CSS class names for the checkbox group slots.
     /// </summary>
     [Parameter] public CheckboxGroupSlots? Classes { get; set; }
