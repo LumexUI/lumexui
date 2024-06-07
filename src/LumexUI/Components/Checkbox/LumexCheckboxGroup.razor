@@ -1,0 +1,20 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<CascadingValue TValue="CheckboxGroupContext" Value="@_context" IsFixed="@true">
+    <div class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
+        @if( !string.IsNullOrEmpty( Label ) )
+        {
+            <span class="@LabelClass">@Label</span>
+        }
+
+        <div class="@WrapperClass">
+            @ChildContent
+        </div>
+
+        @if( !string.IsNullOrEmpty( Description ) )
+        {
+            <div class="@DescriptionClass">@Description</div>
+        }
+    </div>
+</CascadingValue>

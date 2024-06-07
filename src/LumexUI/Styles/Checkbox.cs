@@ -179,3 +179,63 @@ internal readonly record struct Checkbox
             .ToString();
     }
 }
+
+[ExcludeFromCodeCoverage]
+internal readonly record struct CheckboxGroup
+{
+    private readonly static string _base = ElementClass.Empty()
+        .Add( "flex" )
+        .Add( "flex-col" )
+        .Add( "gap-2" )
+        .ToString();
+
+    private readonly static string _label = ElementClass.Empty()
+        .Add( "text-medium" )
+        .Add( "text-foreground-500" )
+        .ToString();
+
+    private readonly static string _wrapper = ElementClass.Empty()
+        .Add( "flex" )
+        .Add( "flex-col" )
+        .Add( "flex-wrap" )
+        .Add( "gap-2" )
+        .ToString();
+
+    private readonly static string _description = ElementClass.Empty()
+        .Add( "text-small" )
+        .Add( "text-foreground-400" )
+        .ToString();
+
+    public static string GetStyles( LumexCheckboxGroup checkboxGroup )
+    {
+        return ElementClass.Empty()
+            .Add( _base )
+            .Add( checkboxGroup.Classes?.Root )
+            .Add( checkboxGroup.Class )
+            .ToString();
+    }
+
+    public static string GetLabelStyles( LumexCheckboxGroup checkboxGroup )
+    {
+        return ElementClass.Empty()
+            .Add( _label )
+            .Add( checkboxGroup.Classes?.Label )
+            .ToString();
+    }
+
+    public static string GetWrapperStyles( LumexCheckboxGroup checkboxGroup )
+    {
+        return ElementClass.Empty()
+            .Add( _wrapper )
+            .Add( checkboxGroup.Classes?.Wrapper )
+            .ToString();
+    }
+
+    public static string GetDescriptionStyles( LumexCheckboxGroup checkboxGroup )
+    {
+        return ElementClass.Empty()
+            .Add( _description )
+            .Add( checkboxGroup.Classes?.Description )
+            .ToString();
+    }
+}
