@@ -93,6 +93,8 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
             $"Bind to the '{nameof( CurrentValue )}' property, not '{nameof( CurrentValueAsString )}'." );
     }
 
+    internal bool GetDisabledState() => _disabled;
+
     private Task OnChangeAsync( ChangeEventArgs args )
     {
         if( _disabled || _readonly )
