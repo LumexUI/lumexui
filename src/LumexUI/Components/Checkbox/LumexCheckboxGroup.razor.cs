@@ -37,6 +37,30 @@ public partial class LumexCheckboxGroup : LumexComponentBase, ISlotComponent<Che
     [Parameter] public bool ReadOnly { get; set; }
 
     /// <summary>
+    /// Gets or sets a color of the checkbox group.
+    /// </summary>
+    /// <remarks>
+    /// The default is <see cref="ThemeColor.Primary"/>
+    /// </remarks>
+    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Primary;
+
+    /// <summary>
+    /// Gets or sets the border radius of the checkbox group.
+    /// </summary>
+    /// <remarks>
+    /// The default is <see cref="Radius.Medium"/>
+    /// </remarks>
+    [Parameter] public Radius Radius { get; set; } = Radius.Medium;
+
+    /// <summary>
+    /// Gets or sets the size of the checkbox group.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="Size.Medium"/>
+    /// </remarks>
+    [Parameter] public Size Size { get; set; } = Size.Medium;
+
+    /// <summary>
     /// Gets or sets the CSS class names for the checkbox group slots.
     /// </summary>
     [Parameter] public CheckboxGroupSlots? Classes { get; set; }

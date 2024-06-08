@@ -46,7 +46,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// Gets or sets the size of the input.
     /// </summary>
     /// <remarks>
-    /// Default value is <see cref="Size.Medium"/>
+    /// The default value is <see cref="Size.Medium"/>
     /// </remarks>
     [Parameter] public Size Size { get; set; } = Size.Medium;
 

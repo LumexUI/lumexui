@@ -46,11 +46,38 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
     private bool _disabled;
     private bool _readonly;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LumexCheckbox"/>.
+    /// </summary>
     public LumexCheckbox()
     {
         _renderCheckIcon = RenderCheckIcon;
     }
 
+    /// <inheritdoc />
+    public override async Task SetParametersAsync( ParameterView parameters )
+    {
+        await base.SetParametersAsync( parameters );
+
+        Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color ) 
+            ? color
+            : Context?.Owner.Color ?? ThemeColor.Primary;
+
+        Size = parameters.TryGetValue<Size>( nameof( Size ), out var size )
+            ? size
+            : Context?.Owner.Size ?? Size.Medium;
+
+        if( parameters.TryGetValue<Radius>( nameof( Radius ), out var radius ) )
+        {
+            Radius = radius;
+        }
+        else if( Context is not null )
+        {
+            Radius = Context.Owner.Radius;
+        }
+    }
+
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         _checked = CurrentValue;
