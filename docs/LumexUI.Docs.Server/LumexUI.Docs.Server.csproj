@@ -14,7 +14,7 @@
     reload, you can set the EnableWebAssemblyHosting flag to 'false' above.
 	-->
 	<ItemGroup Condition="'$(EnableWebAssemblyHosting)' == 'true'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.6" />
 	</ItemGroup>
 
 	<PropertyGroup Condition="'$(EnableWebAssemblyHosting)' == 'true'">
