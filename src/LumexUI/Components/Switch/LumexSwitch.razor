@@ -20,19 +20,19 @@
     <span class="@WrapperClass">
         @if( !string.IsNullOrEmpty( StartIcon ) )
         {
-            <LumexIcon Icon="@StartIcon" Class="@StartIconClass" />
+            <LumexIcon Icon="@StartIcon" Size="@(new("1em"))" Class="@StartIconClass" />
         }
 
         <span class="@ThumbClass">
             @if( !string.IsNullOrEmpty( ThumbIcon ) )
             {
-                <LumexIcon Icon="@ThumbIcon" Class="@ThumbIconClass" />
+                <LumexIcon Icon="@ThumbIcon" Size="@(new("1em"))" Class="@ThumbIconClass" />
             }
         </span>
 
         @if( !string.IsNullOrEmpty( EndIcon ) )
         {
-            <LumexIcon Icon="@EndIcon" Class="@EndIconClass" />
+            <LumexIcon Icon="@EndIcon" Size="@(new("1em"))" Class="@EndIconClass" />
         }
     </span>
 
