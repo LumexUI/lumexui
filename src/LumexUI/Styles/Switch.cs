@@ -24,7 +24,7 @@ internal readonly record struct Switch
         .ToString();
 
     private readonly static string _wrapper = ElementClass.Empty()
-        .Add( "px-1.5" )
+        .Add( "px-1" )
         .Add( "mr-2" )
         .Add( "relative" )
         .Add( "inline-flex" )
@@ -65,7 +65,7 @@ internal readonly record struct Switch
         // transition
         .Add( "opacity-0" )
         .Add( "scale-50" )
-        .Add( "transition-[transform, opacity]" )
+        .Add( "transition-[transform,opacity]" )
         .Add( "group-data-[checked]:scale-100" )
         .Add( "group-data-[checked]:opacity-100" )
         .ToString();
@@ -77,7 +77,7 @@ internal readonly record struct Switch
         .Add( "text-default-600" )
         // transition
         .Add( "opacity-100" )
-        .Add( "transition-[transform, opacity]" )
+        .Add( "transition-[transform,opacity]" )
         .Add( "group-data-[checked]:translate-x-3" )
         .Add( "group-data-[checked]:opacity-0" )
         .ToString();
@@ -110,16 +110,16 @@ internal readonly record struct Switch
         if( slot is "wrapper" )
         {
             return ElementClass.Empty()
-                .Add( "w-10 h-5", when: size is Size.Small )
-                .Add( "w-12 h-6", when: size is Size.Medium )
-                .Add( "w-14 h-7", when: size is Size.Large );
+                .Add( "w-10 h-6", when: size is Size.Small )
+                .Add( "w-12 h-7", when: size is Size.Medium )
+                .Add( "w-14 h-8", when: size is Size.Large );
         }
         else if( slot is "thumb" )
         {
             return ElementClass.Empty()
-                .Add( "w-3 h-3 text-tiny group-data-[checked]:ml-4 group-active:w-4 group-data-[checked]:group-active:ml-3", when: size is Size.Small )
-                .Add( "w-4 h-4 text-small group-data-[checked]:ml-5 group-active:w-5 group-data-[checked]:group-active:ml-4", when: size is Size.Medium )
-                .Add( "w-5 h-5 text-medium group-data-[checked]:ml-6 group-active:w-6 group-data-[checked]:group-active:ml-5", when: size is Size.Large );
+                .Add( "w-4 h-4 text-tiny group-data-[checked]:ml-4 group-active:w-5 group-data-[checked]:group-active:ml-3", when: size is Size.Small )
+                .Add( "w-5 h-5 text-small group-data-[checked]:ml-5 group-active:w-6 group-data-[checked]:group-active:ml-4", when: size is Size.Medium )
+                .Add( "w-6 h-6 text-medium group-data-[checked]:ml-6 group-active:w-7 group-data-[checked]:group-active:ml-5", when: size is Size.Large );
         }
         else if( slot is "startIcon" or "endIcon" )
         {
