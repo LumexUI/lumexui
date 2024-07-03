@@ -1,0 +1,45 @@
+﻿@namespace LumexUI
+@inherits LumexInputBase<bool>
+
+<LumexComponent As="label"
+                Class="@RootClass"
+                Style="@RootStyle"
+                data-checked="@CurrentValue"
+                tabindex="1"
+                @attributes="@AdditionalAttributes">
+    <span class="@Utils.VisuallyHidden">
+        <input type="checkbox"
+               value="@true"
+               checked="@CurrentValue"
+               disabled="@Disabled"
+               @ref="@Element"
+               @attributes="@AdditionalAttributes"
+               @onchange="@OnChangeAsync" />
+    </span>
+
+    <span class="@WrapperClass">
+        @if( !string.IsNullOrEmpty( StartIcon ) )
+        {
+            <LumexIcon Icon="@StartIcon" Class="@StartIconClass" />
+        }
+
+        <span class="@ThumbClass">
+            @if( !string.IsNullOrEmpty( ThumbIcon ) )
+            {
+                <LumexIcon Icon="@ThumbIcon" Class="@ThumbIconClass" />
+            }
+        </span>
+
+        @if( !string.IsNullOrEmpty( EndIcon ) )
+        {
+            <LumexIcon Icon="@EndIcon" Class="@EndIconClass" />
+        }
+    </span>
+
+    @if( ChildContent is not null )
+    {
+        <span class="@LabelClass">
+            @ChildContent
+        </span>
+    }
+</LumexComponent>
