@@ -9,12 +9,15 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<CheckboxSlots>
+public partial class LumexCheckbox : LumexBooleanInputBase, ISlotComponent<CheckboxSlots>
 {
     /// <summary>
-    /// Gets or sets content to be rendered inside the checkbox.
+    /// Gets or sets the border radius of the checkbox.
     /// </summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <remarks>
+    /// The default is <see cref="Radius.Medium"/>
+    /// </remarks>
+    [Parameter] public Radius Radius { get; set; } = Radius.Medium;
 
     /// <summary>
     /// Gets or sets the icon to be used for indicating a checked state of the checkbox.
@@ -42,10 +45,6 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
 
     private readonly RenderFragment _renderCheckIcon;
 
-    private bool _checked;
-    private bool _disabled;
-    private bool _readonly;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexCheckbox"/>.
     /// </summary>
@@ -59,7 +58,7 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
     {
         await base.SetParametersAsync( parameters );
 
-        Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color ) 
+        Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
             ? color
             : Context?.Owner.Color ?? ThemeColor.Primary;
 
@@ -78,30 +77,10 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
     }
 
     /// <inheritdoc />
-    protected override void OnParametersSet()
-    {
-        _checked = CurrentValue;
-        _disabled = Disabled || ( Context?.Owner.Disabled ?? false );
-        _readonly = ReadOnly || ( Context?.Owner.ReadOnly ?? false );
-    }
+    protected internal override bool GetDisabledState() => 
+        Disabled || ( Context?.Owner.Disabled ?? false );
 
     /// <inheritdoc />
-    protected override bool TryParseValueFromString( string? value, out bool result )
-    {
-        throw new NotSupportedException(
-            $"This component does not parse string inputs. " +
-            $"Bind to the '{nameof( CurrentValue )}' property, not '{nameof( CurrentValueAsString )}'." );
-    }
-
-    internal bool GetDisabledState() => _disabled;
-
-    private Task OnChangeAsync( ChangeEventArgs args )
-    {
-        if( _disabled || _readonly )
-        {
-            return Task.CompletedTask;
-        }
-
-        return SetCurrentValueAsync( (bool)args.Value! );
-    }
+    protected internal override bool GetReadOnlyState() =>
+        ReadOnly || ( Context?.Owner.ReadOnly ?? false );
 }

@@ -1,17 +1,19 @@
 ﻿@namespace LumexUI
-@inherits LumexInputBase<bool>
+@inherits LumexBooleanInputBase
 
 <LumexComponent As="label"
                 Class="@RootClass"
                 Style="@RootStyle"
-                data-checked="@_checked"
-                tabindex="1"
+                data-checked="@CurrentValue"
+                data-disabled="@GetDisabledState()"
+                data-readonly="@GetReadOnlyState()"
+                tabindex="0"
                 @attributes="@AdditionalAttributes">
     <span class="@Utils.VisuallyHidden">
         <input type="checkbox"
                value="@true"
-               checked="@_checked"
-               disabled="@_disabled"
+               checked="@CurrentValue"
+               disabled="@GetDisabledState()"
                @ref="@Element"
                @attributes="@AdditionalAttributes"
                @onchange="@OnChangeAsync" />
@@ -40,7 +42,7 @@
     private void RenderCheckIcon( RenderTreeBuilder __builder )
     {
         var style = ElementStyle.Empty()
-            .Add( "transition", "stroke-dashoffset 0.15s linear 0.15s", when: _checked )
+            .Add( "transition", "stroke-dashoffset 0.15s linear 0.15s", when: CurrentValue )
             .ToString();
 
         <svg class="@IconClass" viewBox="0 0 17 18">
@@ -48,7 +50,7 @@
                       points="1 9 7 14 15 4"
                       stroke="currentColor"
                       stroke-dasharray="22"
-                      stroke-dashoffset="@(_checked ? 44 : 66)"
+                      stroke-dashoffset="@(CurrentValue ? 44 : 66)"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"

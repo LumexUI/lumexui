@@ -35,14 +35,6 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     [Parameter] public ThemeColor Color { get; set; }
 
     /// <summary>
-    /// Gets or sets the border radius of the input.
-    /// </summary>
-    /// <remarks>
-    /// The default is <see cref="Radius.Medium"/>
-    /// </remarks>
-    [Parameter] public Radius Radius { get; set; } = Radius.Medium;
-
-    /// <summary>
     /// Gets or sets the size of the input.
     /// </summary>
     /// <remarks>
