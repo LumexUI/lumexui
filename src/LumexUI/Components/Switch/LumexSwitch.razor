@@ -1,10 +1,12 @@
 ﻿@namespace LumexUI
-@inherits LumexInputBase<bool>
+@inherits LumexBooleanInputBase
 
 <LumexComponent As="label"
                 Class="@RootClass"
                 Style="@RootStyle"
                 data-checked="@CurrentValue"
+                data-disabled="@Disabled"
+                data-readonly="@ReadOnly"
                 tabindex="0"
                 @attributes="@AdditionalAttributes">
     <span class="@Utils.VisuallyHidden">
@@ -12,6 +14,7 @@
                value="@true"
                checked="@CurrentValue"
                disabled="@Disabled"
+               readonly="@ReadOnly"
                @ref="@Element"
                @attributes="@AdditionalAttributes"
                @onchange="@OnChangeAsync" />

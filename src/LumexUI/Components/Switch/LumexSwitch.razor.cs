@@ -9,13 +9,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-public partial class LumexSwitch : LumexInputBase<bool>, ISlotComponent<SwitchSlots>
+public partial class LumexSwitch : LumexBooleanInputBase, ISlotComponent<SwitchSlots>
 {
-    /// <summary>
-    /// Gets or sets content to be rendered inside the switch.
-    /// </summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
     /// <summary>
     /// Gets or sets the icon to be used for indicating a checked state of the switch.
     /// </summary>
@@ -60,23 +55,5 @@ public partial class LumexSwitch : LumexInputBase<bool>, ISlotComponent<SwitchSl
     public LumexSwitch()
     {
         Color = ThemeColor.Primary;
-    }
-
-    /// <inheritdoc />
-    protected override bool TryParseValueFromString( string? value, out bool result )
-    {
-        throw new NotSupportedException(
-            $"This component does not parse string inputs. " +
-            $"Bind to the '{nameof( CurrentValue )}' property, not '{nameof( CurrentValueAsString )}'." );
-    }
-
-    private Task OnChangeAsync( ChangeEventArgs args )
-    {
-        if( Disabled || ReadOnly )
-        {
-            return Task.CompletedTask;
-        }
-
-        return SetCurrentValueAsync( (bool)args.Value! );
     }
 }
