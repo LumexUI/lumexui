@@ -5,7 +5,7 @@
                 Class="@RootClass"
                 Style="@RootStyle"
                 data-checked="@CurrentValue"
-                tabindex="1"
+                tabindex="0"
                 @attributes="@AdditionalAttributes">
     <span class="@Utils.VisuallyHidden">
         <input type="checkbox"
@@ -20,19 +20,19 @@
     <span class="@WrapperClass">
         @if( !string.IsNullOrEmpty( StartIcon ) )
         {
-            <LumexIcon Icon="@StartIcon" Size="@(new("1em"))" Class="@StartIconClass" />
+            <LumexIcon Icon="@StartIcon" Size="@(new("100%"))" Class="@StartIconClass" />
         }
 
         <span class="@ThumbClass">
             @if( !string.IsNullOrEmpty( ThumbIcon ) )
             {
-                <LumexIcon Icon="@ThumbIcon" Size="@(new("1em"))" Class="@ThumbIconClass" />
+                <LumexIcon Icon="@ThumbIcon" Size="@(new("100%"))" Class="@ThumbIconClass" />
             }
         </span>
 
         @if( !string.IsNullOrEmpty( EndIcon ) )
         {
-            <LumexIcon Icon="@EndIcon" Size="@(new("1em"))" Class="@EndIconClass" />
+            <LumexIcon Icon="@EndIcon" Size="@(new("100%"))" Class="@EndIconClass" />
         }
     </span>
 
