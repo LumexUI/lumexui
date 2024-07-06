@@ -1,11 +1,14 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-<NavLink class="@RootClass"
-         style="@RootStyle"
-         href="@Href"
-         @attributes="@AdditionalAttributes"
-         Match="@Match"
-         ActiveClass="@ActiveClass">
-    @ChildContent
-</NavLink>
+<LumexComponent As="@As"
+                Class="@RootClass"
+                Style="@RootStyle"
+                data-disabled="@Disabled"
+                @attributes="@AdditionalAttributes">
+    <NavLink Match="@Match"
+             ActiveClass="@ActiveClass"
+             href="@Href">
+        @ChildContent
+    </NavLink>
+</LumexComponent>
