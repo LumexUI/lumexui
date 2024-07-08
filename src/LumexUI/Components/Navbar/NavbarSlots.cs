@@ -12,4 +12,5 @@ namespace LumexUI;
 public class NavbarSlots : ISlot
 {
 	public string? Root { get; set; }
+	public string? Wrapper { get; set; }
 }

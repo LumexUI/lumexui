@@ -4,6 +4,7 @@
 
 using LumexUI.Common;
 using LumexUI.Styles;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -17,12 +18,28 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the height of the navbar.
+    /// </summary>
+    /// <remarks>
+    /// The default value is `4rem (64px)`
+    /// </remarks>
+    [Parameter] public string Height { get; set; } = "4rem";
+
+    /// <summary>
     /// Gets or sets the CSS class names for the navbar slots.
     /// </summary>
     [Parameter] public NavbarSlots? Classes { get; set; }
 
     private protected override string? RootClass =>
         TwMerge.Merge( Navbar.GetStyles( this ) );
+
+    private string? WrapperClass =>
+        TwMerge.Merge( Navbar.GetWrapperStyles( this ) );
+
+    private protected override string RootStyle =>
+        new ElementStyle()
+            .Add( "--navbar-height", $"{Height}", when: !string.IsNullOrEmpty( Height ) )
+            .ToString();
 
     private readonly NavbarContext _context;
 
