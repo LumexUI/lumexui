@@ -3,6 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
 
@@ -19,6 +20,9 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     /// Gets or sets the CSS class names for the navbar slots.
     /// </summary>
     [Parameter] public NavbarSlots? Classes { get; set; }
+
+    private protected override string? RootClass =>
+        TwMerge.Merge( Navbar.GetStyles( this ) );
 
     private readonly NavbarContext _context;
 
