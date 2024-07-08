@@ -29,10 +29,17 @@ internal readonly record struct Navbar
         .Add( "h-[var(--navbar-height)]" )
         .ToString();
 
+    private readonly static string _sticky = ElementClass.Empty()
+        .Add( "sticky" )
+        .Add( "top-0" )
+        .Add( "inset-x-0" )
+        .ToString();
+
     public static string GetStyles( LumexNavbar navbar )
     {
         return ElementClass.Empty()
             .Add( _base )
+            .Add( _sticky, when: navbar.Sticky )
             .Add( navbar.Classes?.Root )
             .Add( navbar.Class )
             .ToString();

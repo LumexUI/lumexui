@@ -26,6 +26,14 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     [Parameter] public string Height { get; set; } = "4rem";
 
     /// <summary>
+    /// Gets or sets a value indicating whether the navbar is sticky.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see langword="false"/>
+    /// </remarks>
+    [Parameter] public bool Sticky { get; set; }
+
+    /// <summary>
     /// Gets or sets the CSS class names for the navbar slots.
     /// </summary>
     [Parameter] public NavbarSlots? Classes { get; set; }
