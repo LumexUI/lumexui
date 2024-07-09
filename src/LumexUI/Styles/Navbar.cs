@@ -35,11 +35,17 @@ internal readonly record struct Navbar
         .Add( "inset-x-0" )
         .ToString();
 
+    private readonly static string _bordered = ElementClass.Empty()
+        .Add( "border-b" )
+        .Add( "border-divider" )
+        .ToString();
+
     public static string GetStyles( LumexNavbar navbar )
     {
         return ElementClass.Empty()
             .Add( _base )
             .Add( _sticky, when: navbar.Sticky )
+            .Add( _bordered, when: navbar.Bordered )
             .Add( navbar.Classes?.Root )
             .Add( navbar.Class )
             .ToString();
