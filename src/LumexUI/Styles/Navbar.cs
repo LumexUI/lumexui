@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+using LumexUI.Common;
 using LumexUI.Utilities;
 
 namespace LumexUI.Styles;
@@ -40,6 +41,16 @@ internal readonly record struct Navbar
         .Add( "border-divider" )
         .ToString();
 
+    private static ElementClass GetMaxWidthStyles( MaxWidth maxWidth )
+    {
+        return ElementClass.Empty()
+            .Add( "max-w-screen-sm", when: maxWidth is MaxWidth.Small )
+            .Add( "max-w-screen-md", when: maxWidth is MaxWidth.Medium )
+            .Add( "max-w-screen-lg", when: maxWidth is MaxWidth.Large )
+            .Add( "max-w-screen-xl", when: maxWidth is MaxWidth.XLarge )
+            .Add( "max-w-screen-2xl", when: maxWidth is MaxWidth.XXLarge );
+    }
+
     public static string GetStyles( LumexNavbar navbar )
     {
         return ElementClass.Empty()
@@ -55,6 +66,7 @@ internal readonly record struct Navbar
     {
         return ElementClass.Empty()
             .Add( _wrapper )
+            .Add( GetMaxWidthStyles( navbar.MaxWidth ) )
             .Add( navbar.Classes?.Wrapper )
             .ToString();
     }

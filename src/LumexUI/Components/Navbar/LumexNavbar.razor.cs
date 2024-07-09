@@ -18,6 +18,14 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the maximum width of the navbar wrapper.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="MaxWidth.XLarge"/>
+    /// </remarks>
+    [Parameter] public MaxWidth MaxWidth { get; set; } = MaxWidth.XLarge;
+
+    /// <summary>
     /// Gets or sets the height of the navbar.
     /// </summary>
     /// <remarks>
