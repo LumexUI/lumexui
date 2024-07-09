@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
+/// <summary>
+/// A component representing a navigation bar.
+/// </summary>
 public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlots>
 {
     /// <summary>
@@ -67,6 +70,9 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
 
     private readonly NavbarContext _context;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LumexNavbar"/>.
+    /// </summary>
     public LumexNavbar()
     {
         _context = new( this );
