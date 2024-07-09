@@ -30,6 +30,13 @@ internal readonly record struct Navbar
         .Add( "h-[var(--navbar-height)]" )
         .ToString();
 
+    private readonly static string _brand = ElementClass.Empty()
+        .Add( "flex" )
+        .Add( "items-center" )
+        .Add( "justify-start" )
+        .Add( "text-medium" )
+        .ToString();
+
     private readonly static string _sticky = ElementClass.Empty()
         .Add( "sticky" )
         .Add( "top-0" )
@@ -68,6 +75,17 @@ internal readonly record struct Navbar
             .Add( _wrapper )
             .Add( GetMaxWidthStyles( navbar.MaxWidth ) )
             .Add( navbar.Classes?.Wrapper )
+            .ToString();
+    }
+
+    public static string GetBrandStyles( LumexNavbarBrand navbarBrand )
+    {
+        var navbar = navbarBrand.Context.Owner;
+
+        return ElementClass.Empty()
+            .Add( _brand )
+            .Add( navbar.Classes?.Brand )
+            .Add( navbarBrand.Class )
             .ToString();
     }
 }
