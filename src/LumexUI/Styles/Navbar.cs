@@ -23,7 +23,7 @@ internal readonly record struct Navbar
         .Add( "z-40" )
         .Add( "flex" )
         .Add( "px-6" )
-        .Add( "gap-6" )
+        .Add( "gap-4" )
         .Add( "w-full" )
         .Add( "items-center" )
         .Add( "justify-between" )
@@ -35,6 +35,13 @@ internal readonly record struct Navbar
         .Add( "items-center" )
         .Add( "justify-start" )
         .Add( "text-medium" )
+        .ToString();
+
+    private readonly static string _content = ElementClass.Empty()
+        .Add( "flex" )
+        .Add( "gap-6" )
+        .Add( "flex-nowrap" )
+        .Add( "items-center" )
         .ToString();
 
     private readonly static string _sticky = ElementClass.Empty()
@@ -56,6 +63,14 @@ internal readonly record struct Navbar
             .Add( "max-w-screen-lg", when: maxWidth is MaxWidth.Large )
             .Add( "max-w-screen-xl", when: maxWidth is MaxWidth.XLarge )
             .Add( "max-w-screen-2xl", when: maxWidth is MaxWidth.XXLarge );
+    }
+
+    private static ElementClass GetJustifyStyles( Justify? justify )
+    {
+        return ElementClass.Empty()
+            .Add( "justify-start flex-1", when: justify is Justify.Start )
+            .Add( "justify-center", when: justify is Justify.Center )
+            .Add( "justify-end flex-1", when: justify is Justify.End );
     }
 
     public static string GetStyles( LumexNavbar navbar )
@@ -86,6 +101,18 @@ internal readonly record struct Navbar
             .Add( _brand )
             .Add( navbar.Classes?.Brand )
             .Add( navbarBrand.Class )
+            .ToString();
+    }
+
+    public static string GetContentStyles( LumexNavbarContent navbarContent )
+    {
+        var navbar = navbarContent.Context.Owner;
+
+        return ElementClass.Empty()
+            .Add( _content )
+            .Add( GetJustifyStyles( navbarContent.Justify ) )
+            .Add( navbar.Classes?.Content )
+            .Add( navbarContent.Class )
             .ToString();
     }
 }
