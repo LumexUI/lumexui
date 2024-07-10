@@ -14,4 +14,5 @@ public class NavbarSlots : ISlot
 	public string? Root { get; set; }
 	public string? Wrapper { get; set; }
 	public string? Brand { get; set; }
+	public string? Content { get; set; }
 }
