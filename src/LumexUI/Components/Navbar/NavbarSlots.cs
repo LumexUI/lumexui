@@ -15,4 +15,5 @@ public class NavbarSlots : ISlot
 	public string? Wrapper { get; set; }
 	public string? Brand { get; set; }
 	public string? Content { get; set; }
+	public string? Item { get; set; }
 }

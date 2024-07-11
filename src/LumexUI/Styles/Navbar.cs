@@ -43,6 +43,13 @@ internal readonly record struct Navbar
         .Add( "items-center" )
         .ToString();
 
+    private readonly static string _item = ElementClass.Empty()
+        .Add( "leading-6" )
+        .Add( "text-small" )
+        .Add( "font-semibold" )
+        .Add( "list-none" )
+        .ToString();
+
     private readonly static string _sticky = ElementClass.Empty()
         .Add( "sticky" )
         .Add( "top-0" )
@@ -111,6 +118,17 @@ internal readonly record struct Navbar
             .Add( GetAlignStyles( navbarContent.Align ) )
             .Add( navbar.Classes?.Content )
             .Add( navbarContent.Class )
+            .ToString();
+    }
+
+    public static string GetItemStyles( LumexNavbarItem navbarItem )
+    {
+        var navbar = navbarItem.Context.Owner;
+
+        return ElementClass.Empty()
+            .Add( _item )
+            .Add( navbar.Classes?.Item )
+            .Add( navbarItem.Class )
             .ToString();
     }
 }
