@@ -17,6 +17,7 @@ internal readonly record struct Navbar
         .Add( "flex" )
         .Add( "items-center" )
         .Add( "justify-center" )
+        .Add( "bg-background" )
         .ToString();
 
     private readonly static string _wrapper = ElementClass.Empty()
@@ -61,6 +62,12 @@ internal readonly record struct Navbar
         .Add( "border-divider" )
         .ToString();
 
+    private readonly static string _blurred = ElementClass.Empty()
+        .Add( "backdrop-blur-lg" )
+        .Add( "backdrop-saturate-150" )
+        .Add( "bg-background/70" )
+        .ToString();
+
     private static ElementClass GetMaxWidthStyles( MaxWidth maxWidth )
     {
         return ElementClass.Empty()
@@ -84,6 +91,7 @@ internal readonly record struct Navbar
             .Add( _base )
             .Add( _sticky, when: navbar.Sticky )
             .Add( _bordered, when: navbar.Bordered )
+            .Add( _blurred, when: navbar.Blurred )
             .Add( navbar.Classes?.Root )
             .Add( navbar.Class )
             .ToString();

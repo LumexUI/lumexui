@@ -53,6 +53,14 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     [Parameter] public bool Bordered { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the navbar background is blurred.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see langword="true"/>
+    /// </remarks>
+    [Parameter] public bool Blurred { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the CSS class names for the navbar slots.
     /// </summary>
     [Parameter] public NavbarSlots? Classes { get; set; }
