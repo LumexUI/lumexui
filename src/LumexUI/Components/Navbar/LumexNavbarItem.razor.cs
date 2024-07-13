@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Components;
 namespace LumexUI;
 
 /// <summary>
-/// A component representing the item of the <see cref="LumexNavbar"/>.
+/// A component representing a navigation item within the <see cref="LumexNavbarContent"/>.
 /// </summary>
 public partial class LumexNavbarItem : LumexComponentBase
 {

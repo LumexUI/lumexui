@@ -30,6 +30,7 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
 
     /// <summary>
     /// Gets or sets the height of the navbar.
+    /// The value should be a valid CSS unit (e.g., 'px', 'rem', '%').
     /// </summary>
     /// <remarks>
     /// The default value is `4rem (64px)`
@@ -71,7 +72,7 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     private string? WrapperClass =>
         TwMerge.Merge( Navbar.GetWrapperStyles( this ) );
 
-    private protected override string RootStyle =>
+    private protected override string? RootStyle =>
         new ElementStyle()
             .Add( "--navbar-height", $"{Height}", when: !string.IsNullOrEmpty( Height ) )
             .ToString();
