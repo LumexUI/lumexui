@@ -30,6 +30,49 @@ internal readonly record struct Navbar
         .Add( "h-[var(--navbar-height)]" )
         .ToString();
 
+    private readonly static string _toggle = ElementClass.Empty()
+        .Add( "group" )
+        .Add( "w-6" )
+        .Add( "h-full" )
+        .Add( "outline-none" )
+        .Add( "rounded-small" )
+        // focus
+        .Add( Utils.FocusVisible )
+        .ToString();
+
+    private readonly static string _toggleIcon = ElementClass.Empty()
+        .Add( "w-full" )
+        .Add( "h-full" )
+        .Add( "pointer-events-none" )
+        .Add( "flex" )
+        .Add( "flex-col" )
+        .Add( "items-center" )
+        .Add( "justify-center" )
+        .Add( "text-inherit" )
+        .Add( "group-active:opacity-focus" )
+        .Add( "transition-opacity" )
+        // before - first line
+        .Add( "before:h-px" )
+        .Add( "before:w-6" )
+        .Add( "before:bg-current" )
+        .Add( "before:transition-transform" )
+        .Add( "before:duration-150" )
+        .Add( "before:-translate-y-1" )
+        .Add( "before:rotate-0" )
+        .Add( "group-data-[expanded]:before:translate-y-px" )
+        .Add( "group-data-[expanded]:before:rotate-45" )
+        // after - second line
+        .Add( "after:h-px" )
+        .Add( "after:w-6" )
+        .Add( "after:bg-current" )
+        .Add( "after:transition-transform" )
+        .Add( "after:duration-150" )
+        .Add( "after:translate-y-1" )
+        .Add( "after:rotate-0" )
+        .Add( "group-data-[expanded]:after:translate-y-0" )
+        .Add( "group-data-[expanded]:after:-rotate-45" )
+        .ToString();
+
     private readonly static string _brand = ElementClass.Empty()
         .Add( "flex" )
         .Add( "items-center" )
@@ -40,6 +83,7 @@ internal readonly record struct Navbar
     private readonly static string _content = ElementClass.Empty()
         .Add( "flex" )
         .Add( "gap-6" )
+        .Add( "h-full" )
         .Add( "flex-nowrap" )
         .Add( "items-center" )
         .ToString();
@@ -49,6 +93,25 @@ internal readonly record struct Navbar
         .Add( "text-small" )
         .Add( "font-semibold" )
         .Add( "list-none" )
+        .ToString();
+
+    private readonly static string _menu = ElementClass.Empty()
+        .Add( "z-30" )
+        .Add( "px-6" )
+        .Add( "pt-2" )
+        .Add( "flex" )
+        .Add( "flex-col" )
+        .Add( "gap-2" )
+        .Add( "fixed" )
+        .Add( "top-[var(--navbar-height)]" )
+        .Add( "bottom-0" )
+        .Add( "inset-x-0" )
+        .Add( "overflow-y-auto" )
+        .Add( "bg-background" )
+        .ToString();
+
+    private readonly static string _menuItem = ElementClass.Empty()
+        .Add( "text-large" )
         .ToString();
 
     private readonly static string _sticky = ElementClass.Empty()
@@ -137,6 +200,50 @@ internal readonly record struct Navbar
             .Add( _item )
             .Add( navbar.Classes?.Item )
             .Add( navbarItem.Class )
+            .ToString();
+    }
+
+    public static string GetMenuStyles( LumexNavbarMenu navbarMenu )
+    {
+        var navbar = navbarMenu.Context.Owner;
+
+        return ElementClass.Empty()
+            .Add( _menu )
+            .Add( _blurred, when: navbar.Blurred )
+            .Add( navbar.Classes?.Menu )
+            .Add( navbarMenu.Class )
+            .ToString();
+    }
+
+    public static string GetMenuItemStyles( LumexNavbarMenuItem navbarMenuItem )
+    {
+        var navbar = navbarMenuItem.Context.Owner;
+
+        return ElementClass.Empty()
+            .Add( _menuItem )
+            .Add( navbar.Classes?.MenuItem )
+            .Add( navbarMenuItem.Class )
+            .ToString();
+    }
+
+    public static string GetToggleStyles( LumexNavbarToggle navbarToggle )
+    {
+        var navbar = navbarToggle.Context.Owner;
+
+        return ElementClass.Empty()
+            .Add( _toggle )
+            .Add( navbar.Classes?.Toggle )
+            .Add( navbarToggle.Class )
+            .ToString();
+    }
+
+    public static string GetToggleIconStyles( LumexNavbarToggle navbarToggle )
+    {
+        var navbar = navbarToggle.Context.Owner;
+
+        return ElementClass.Empty()
+            .Add( _toggleIcon )
+            .Add( navbar.Classes?.ToggleIcon )
             .ToString();
     }
 }

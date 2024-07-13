@@ -1,0 +1,12 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexComponent As="@As"
+                Class="@RootClass"
+                Style="@RootStyle"
+                type="button"
+                data-expanded="@Context.IsMenuExpanded"
+                @attributes="@AdditionalAttributes"
+                @onclick="@Context.ToggleMenu">
+    <span class="@ToggleIconClass" />
+</LumexComponent>

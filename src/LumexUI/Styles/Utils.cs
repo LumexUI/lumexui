@@ -8,6 +8,14 @@ internal class Utils
         .Add( "sr-only" )
         .ToString();
 
+    public readonly static string FocusVisible = ElementClass.Empty()
+        .Add( "outline-none" )
+        .Add( "focus-visible:z-10" )
+        .Add( "focus-visible:outline-2" )
+        .Add( "focus-visible:outline-focus" )
+        .Add( "focus-visible:outline-offset-2" )
+        .ToString();
+
     public readonly static string GroupFocusVisible = ElementClass.Empty()
         .Add( "outline-none" )
         .Add( "group-focus-visible:z-10" )
