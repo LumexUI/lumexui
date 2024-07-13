@@ -9,12 +9,12 @@ namespace LumexUI.Tests.Utilities;
 public class ElementStyleTests
 {
     [Fact]
-    public void Empty_ShouldReturnEmptyValue()
+    public void Empty_ShouldReturnNull()
     {
         var elementStyle = ElementStyle.Empty();
 
         var actual = elementStyle.ToString();
-        actual.Should().BeEmpty();
+        actual.Should().BeNull();
     }
 
     [Fact]
@@ -149,13 +149,16 @@ public class ElementStyleTests
         elementStyle.Add( nestedElementStyle, when: () => false );
         
         var actual = elementStyle.ToString();
-        actual.Should().BeEmpty();
+        actual.Should().BeNull();
     }
 
     [Fact]
     public void Add_ValidAttributes_ShouldReturnCorrectValues()
     {
-        var attributes = new Dictionary<string, object> { { "style", "border-width:1px 1px 1px 1px;" } };
+        var attributes = new Dictionary<string, object> 
+        { 
+            { "style", "border-width:1px 1px 1px 1px;" } 
+        };
         
         var elementStyle = ElementStyle.Empty()
             .Add( attributes );
@@ -167,13 +170,16 @@ public class ElementStyleTests
     [Fact]
     public void Add_InvalidAttributes_ShouldReturnCorrectValues()
     {
-        var attributes = new Dictionary<string, object> { { "class", "border-width:1px 1px 1px 1px;" } };
+        var attributes = new Dictionary<string, object> 
+        { 
+            { "class", "border-width:1px 1px 1px 1px;" }
+        };
         
         var elementStyle = ElementStyle.Empty()
             .Add( attributes );
 
         var actual = elementStyle.ToString();
-        actual.Should().BeEmpty();
+        actual.Should().BeNull();
     }
 
     [Fact]
@@ -215,13 +221,13 @@ public class ElementStyleTests
     }
 
     [Fact]
-    public void ToString_EmptyBuffer_ShouldReturnEmptyValue()
+    public void ToString_EmptyBuffer_ShouldReturnNull()
     {
         var elementStyle = new ElementStyle()
             .Add( "background-color", "DodgerBlue", when: false );
 
         var actual = elementStyle.ToString();
 
-        actual.Should().BeEmpty();
+        actual.Should().BeNull();
     }
 }
