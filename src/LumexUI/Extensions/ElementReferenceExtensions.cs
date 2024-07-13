@@ -30,7 +30,7 @@ public static class ElementReferenceExtensions
     public static ValueTask MoveToAsync( this ElementReference? elementReference, string destinationId )
     {
         var jsRuntime = elementReference.GetJSRuntime();
-        return jsRuntime.InvokeVoidAsync( "Lumex.elementReference.moveToContainer", elementReference, destinationId );
+        return jsRuntime.InvokeVoidAsync( "Lumex.elementReference.moveElementTo", elementReference, destinationId );
     }
 
     private static IJSRuntime GetJSRuntime( this ElementReference? elementReference )
