@@ -9,12 +9,12 @@
                 data-readonly="@GetReadOnlyState()"
                 tabindex="0"
                 @attributes="@AdditionalAttributes">
-    <span class="@Utils.VisuallyHidden">
+    <span class="@StyleUtils.VisuallyHidden">
         <input type="checkbox"
                value="@true"
                checked="@CurrentValue"
                disabled="@GetDisabledState()"
-               @ref="@Element"
+               @ref="@ElementReference"
                @attributes="@AdditionalAttributes"
                @onchange="@OnChangeAsync" />
     </span>

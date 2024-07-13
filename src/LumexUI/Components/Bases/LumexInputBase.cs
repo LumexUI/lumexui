@@ -58,11 +58,6 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
 
     /// <summary>
-    /// Gets or sets the associated <see cref="ElementReference"/>.
-    /// </summary>
-    public ElementReference Element { get; protected set; }
-
-    /// <summary>
     /// Gets or sets the current value of the input.
     /// </summary>
     protected TValue? CurrentValue
