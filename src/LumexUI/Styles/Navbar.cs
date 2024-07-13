@@ -226,20 +226,20 @@ internal readonly record struct Navbar
             .ToString();
     }
 
-    public static string GetToggleStyles( LumexNavbarToggle navbarToggle )
+    public static string GetToggleStyles( LumexNavbarMenuToggle navbarMenuToggle )
     {
-        var navbar = navbarToggle.Context.Owner;
+        var navbar = navbarMenuToggle.Context.Owner;
 
         return ElementClass.Empty()
             .Add( _toggle )
             .Add( navbar.Classes?.Toggle )
-            .Add( navbarToggle.Class )
+            .Add( navbarMenuToggle.Class )
             .ToString();
     }
 
-    public static string GetToggleIconStyles( LumexNavbarToggle navbarToggle )
+    public static string GetToggleIconStyles( LumexNavbarMenuToggle navbarMenuToggle )
     {
-        var navbar = navbarToggle.Context.Owner;
+        var navbar = navbarMenuToggle.Context.Owner;
 
         return ElementClass.Empty()
             .Add( _toggleIcon )

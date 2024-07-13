@@ -12,7 +12,7 @@ namespace LumexUI;
 /// <summary>
 /// A component representing a button that toggles the <see cref="LumexNavbarMenu"/>.
 /// </summary>
-public partial class LumexNavbarToggle : LumexComponentBase
+public partial class LumexNavbarMenuToggle : LumexComponentBase
 {
     [CascadingParameter] internal NavbarContext Context { get; set; } = default!;
 
@@ -23,9 +23,9 @@ public partial class LumexNavbarToggle : LumexComponentBase
         TwMerge.Merge( Navbar.GetToggleIconStyles( this ) );
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LumexNavbarToggle"/>.
+    /// Initializes a new instance of the <see cref="LumexNavbarMenuToggle"/>.
     /// </summary>
-    public LumexNavbarToggle()
+    public LumexNavbarMenuToggle()
     {
         As = "button";
     }
@@ -33,6 +33,6 @@ public partial class LumexNavbarToggle : LumexComponentBase
     /// <inheritdoc />
     protected override void OnInitialized()
     {
-        ContextNullException.ThrowIfNull( Context, nameof( LumexNavbarToggle ) );
+        ContextNullException.ThrowIfNull( Context, nameof( LumexNavbarMenuToggle ) );
     }
 }
