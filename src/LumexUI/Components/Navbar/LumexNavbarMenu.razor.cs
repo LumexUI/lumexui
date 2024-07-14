@@ -51,7 +51,7 @@ public partial class LumexNavbarMenu : LumexComponentBase
         ContextNullException.ThrowIfNull( Context, nameof( LumexNavbarMenu ) );
 
         Context.Register( this );
-        Context.OnToggle += StateHasChanged;
+        Context.OnMenuToggle += StateHasChanged;
     }
 
     protected override async Task OnAfterRenderAsync( bool firstRender )
