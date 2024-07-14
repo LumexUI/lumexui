@@ -4,21 +4,17 @@
 
 namespace LumexUI.Common;
 
-public enum ThemeColor
+public enum MaxWidth
 {
-    None,
+	Small,
 
-    Default,
+	Medium,
 
-	Primary,
+	Large,
 
-	Secondary,
+    XLarge,
 
-	Success,
+    XXLarge,
 
-	Warning,
-
-	Danger,
-
-	Info
+    Full
 }

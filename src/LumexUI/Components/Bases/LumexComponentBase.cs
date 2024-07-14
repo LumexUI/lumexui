@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.AspNetCore.Components;
 
 using TailwindMerge;
@@ -32,6 +34,14 @@ public abstract class LumexComponentBase : ComponentBase
 	public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
 	[Inject] protected TwMerge TwMerge { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets the associated <see cref="ElementReference"/>.
+    /// <para>
+    /// May be <see langword="null"/> if accessed before the component is rendered.
+    /// </para>
+    /// </summary>
+    [DisallowNull] public ElementReference? ElementReference { get; protected set; }
 
 	private protected virtual string? RootClass => Class;
 	private protected virtual string? RootStyle => Style;

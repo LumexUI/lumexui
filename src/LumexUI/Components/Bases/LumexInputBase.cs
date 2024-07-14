@@ -32,7 +32,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// <remarks>
     /// The default is <see cref="ThemeColor.Default"/>
     /// </remarks>
-    [Parameter] public ThemeColor Color { get; set; }
+    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
     /// <summary>
     /// Gets or sets the size of the input.
@@ -56,11 +56,6 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// Gets or sets an expression that identifies the bound value.
     /// </summary>
     [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
-
-    /// <summary>
-    /// Gets or sets the associated <see cref="ElementReference"/>.
-    /// </summary>
-    public ElementReference Element { get; protected set; }
 
     /// <summary>
     /// Gets or sets the current value of the input.

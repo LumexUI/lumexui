@@ -4,12 +4,26 @@
 
 function getScrollHeight(element) {
     if (!element) {
-        throw "No element found!";
+        throw "No element was found!";
     }
 
     return element.scrollHeight;
 }
 
+function moveElementTo(element, destinationId) {
+    if (!element) {
+        throw "No element was found!";
+    }
+
+    let destination = document.getElementById(destinationId);
+    if (!destination) {
+        throw `No portal container with the given ID '${destinationId}' was found!`;
+    }
+
+    destination.appendChild(element);
+}
+
 export const elementReference = {
-    getScrollHeight
+    getScrollHeight,
+    moveElementTo
 }

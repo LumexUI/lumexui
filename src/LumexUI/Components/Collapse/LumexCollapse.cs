@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
+using Utils = LumexUI.Utilities.Utils;
+
 namespace LumexUI;
 
 public class LumexCollapse : LumexComponentBase
@@ -34,7 +36,7 @@ public class LumexCollapse : LumexComponentBase
     private protected override string? RootClass =>
         TwMerge.Merge( Collapse.GetStyles( this ) );
 
-    private protected override string RootStyle =>
+    private protected override string? RootStyle =>
         ElementStyle.Empty()
             .Add( "height", $"{_height}px", when: State is CollapseState.Collapsing or CollapseState.Expanding )
             .Add( base.RootStyle )
@@ -44,7 +46,6 @@ public class LumexCollapse : LumexComponentBase
     private bool _expanded;
     private bool _isRendered;
     private bool _heightUpdated;
-    private ElementReference _collapse;
 
     /// <inheritdoc />
     protected override void BuildRenderTree( RenderTreeBuilder builder )
@@ -52,10 +53,11 @@ public class LumexCollapse : LumexComponentBase
         builder.OpenElement( 0, As );
         builder.AddAttribute( 1, "class", RootClass );
         builder.AddAttribute( 2, "style", RootStyle );
-        builder.AddAttribute( 3, "ontransitionend", EventCallback.Factory.Create( this, OnTransitionEndAsync ) );
-        builder.AddMultipleAttributes( 4, AdditionalAttributes );
-        builder.AddElementReferenceCapture( 5, elementReference => _collapse = elementReference );
-        builder.AddContent( 6, ChildContent );
+        builder.AddAttribute( 3, "data-state", Utils.GetDataAttributeValue( State ) );
+        builder.AddAttribute( 4, "ontransitionend", EventCallback.Factory.Create( this, OnTransitionEndAsync ) );
+        builder.AddMultipleAttributes( 5, AdditionalAttributes );
+        builder.AddElementReferenceCapture( 6, elementReference => ElementReference = elementReference );
+        builder.AddContent( 7, ChildContent );
         builder.CloseElement();
     }
 
@@ -107,7 +109,7 @@ public class LumexCollapse : LumexComponentBase
     {
         try
         {
-            _height = await _collapse.GetScrollHeightAsync();
+            _height = await ElementReference.GetScrollHeightAsync();
 
             if( State is CollapseState.Collapsing )
             {

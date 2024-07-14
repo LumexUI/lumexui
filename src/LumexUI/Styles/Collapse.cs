@@ -15,11 +15,10 @@ internal readonly record struct Collapse
 {
     private static ElementClass GetStateStyles( CollapseState state )
     {
-        var transitioning = state is CollapseState.Expanding or CollapseState.Collapsing;
-
         return ElementClass.Empty()
-            .Add( "hidden", when: state is CollapseState.Collapsed )
-            .Add( "h-0 overflow-hidden transition-[height]", when: transitioning );
+            .Add( "data-[state=collapsed]:hidden", when: state is CollapseState.Collapsed )
+            .Add( "data-[state=collapsing]:h-0 overflow-hidden transition-[height]", when: state is CollapseState.Collapsing )
+            .Add( "data-[state=expanding]:h-0 overflow-hidden transition-[height]", when: state is CollapseState.Expanding );
     }
 
     public static string GetStyles( LumexCollapse collapse )

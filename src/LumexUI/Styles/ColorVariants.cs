@@ -6,6 +6,7 @@ internal class ColorVariants
 {
     public readonly static Dictionary<ThemeColor, string> Solid = new()
     {
+        [ThemeColor.None] = "",
         [ThemeColor.Default] = "bg-default text-default-foreground",
         [ThemeColor.Primary] = "bg-primary text-primary-foreground",
         [ThemeColor.Secondary] = "bg-secondary text-secondary-foreground",
@@ -17,6 +18,7 @@ internal class ColorVariants
 
     public readonly static Dictionary<ThemeColor, string> Outlined = new()
     {
+        [ThemeColor.None] = "",
         [ThemeColor.Default] = "border-default text-foreground",
         [ThemeColor.Primary] = "border-primary text-primary",
         [ThemeColor.Secondary] = "border-secondary text-secondary",
@@ -28,6 +30,7 @@ internal class ColorVariants
 
     public readonly static Dictionary<ThemeColor, string> Flat = new()
     {
+        [ThemeColor.None] = "",
         [ThemeColor.Default] = "bg-default-100 text-default-foreground",
         [ThemeColor.Primary] = "bg-primary-50 text-primary",
         [ThemeColor.Secondary] = "bg-secondary-50 text-secondary",
@@ -39,6 +42,7 @@ internal class ColorVariants
 
     public readonly static Dictionary<ThemeColor, string> Shadow = new()
     {
+        [ThemeColor.None] = "",
         [ThemeColor.Default] = "shadow-lg shadow-default/40 bg-default text-default-foreground",
         [ThemeColor.Primary] = "shadow-lg shadow-primary/40 bg-primary text-primary-foreground",
         [ThemeColor.Secondary] = "shadow-lg shadow-secondary/40 bg-secondary text-secondary-foreground",
@@ -50,6 +54,7 @@ internal class ColorVariants
 
     public readonly static Dictionary<ThemeColor, string> Ghost = new()
     {
+        [ThemeColor.None] = "",
         [ThemeColor.Default] = "borde-default text-default-foreground hover:bg-default",
         [ThemeColor.Primary] = "border-primary text-primary hover:text-primary-foreground hover:bg-primary",
         [ThemeColor.Secondary] = "border-secondary text-secondary hover:text-secondary-foreground hover:bg-secondary",
@@ -61,6 +66,7 @@ internal class ColorVariants
 
     public readonly static Dictionary<ThemeColor, string> Light = new()
     {
+        [ThemeColor.None] = "",
         [ThemeColor.Default] = "text-default-foreground",
         [ThemeColor.Primary] = "text-primary",
         [ThemeColor.Secondary] = "text-secondary",

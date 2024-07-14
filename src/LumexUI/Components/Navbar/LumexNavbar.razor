@@ -1,0 +1,13 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<CascadingValue TValue="NavbarContext" Value="@_context" IsFixed="@true">
+    <LumexComponent As="@As"
+                    Class="@RootClass"
+                    Style="@RootStyle"
+                    @attributes="@AdditionalAttributes">
+        <nav class="@WrapperClass">
+            @ChildContent
+        </nav>
+    </LumexComponent>
+</CascadingValue>

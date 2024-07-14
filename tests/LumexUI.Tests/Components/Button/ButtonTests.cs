@@ -83,24 +83,20 @@ public class ButtonTests : TestContext
     [Fact]
     public void Button_StartIcon_ShouldRenderWithStartIcon()
     {
-        var icon = "start-icon";
-
         var cut = RenderComponent<LumexButton>( p => p
-            .Add( p => p.StartIcon, icon )
+            .Add( p => p.StartIcon, Icons.Rounded.Person )
         );
 
-        cut.Markup.Should().Contain( icon );
+        cut.FindComponent<LumexIcon>();
     }
 
     [Fact]
     public void Button_EndIcon_ShouldRenderWithEndIcon()
     {
-        var icon = "end-icon";
-
         var cut = RenderComponent<LumexButton>( p => p
-            .Add( p => p.EndIcon, icon )
+            .Add( p => p.EndIcon, Icons.Rounded.Person )
         );
 
-        cut.Markup.Should().Contain( icon );
+        cut.FindComponent<LumexIcon>();
     }
 }

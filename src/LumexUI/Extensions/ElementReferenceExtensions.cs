@@ -16,15 +16,26 @@ public static class ElementReferenceExtensions
     [UnsafeAccessor( UnsafeAccessorKind.Field, Name = "<JSRuntime>k__BackingField" )]
     private static extern ref IJSRuntime GetJSRuntime( WebElementReferenceContext context );
 
-    public static ValueTask<int> GetScrollHeightAsync( this ElementReference elementReference )
+    public static ValueTask<int> GetScrollHeightAsync( this ElementReference? elementReference )
     {
         var jsRuntime = elementReference.GetJSRuntime();
         return jsRuntime.InvokeAsync<int>( "Lumex.elementReference.getScrollHeight", elementReference );
     }
 
-    private static IJSRuntime GetJSRuntime( this ElementReference elementReference )
+    public static ValueTask MoveToAsync( this ElementReference? elementReference )
     {
-        if( elementReference.Context is not WebElementReferenceContext context )
+        return MoveToAsync( elementReference, "app" );
+    }
+
+    public static ValueTask MoveToAsync( this ElementReference? elementReference, string destinationId )
+    {
+        var jsRuntime = elementReference.GetJSRuntime();
+        return jsRuntime.InvokeVoidAsync( "Lumex.elementReference.moveElementTo", elementReference, destinationId );
+    }
+
+    private static IJSRuntime GetJSRuntime( this ElementReference? elementReference )
+    {
+        if( elementReference is not { Context : WebElementReferenceContext context } )
         {
             throw new InvalidOperationException( "ElementReference has not been configured correctly." );
         }

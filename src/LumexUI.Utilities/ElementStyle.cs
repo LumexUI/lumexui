@@ -169,9 +169,9 @@ public record struct ElementStyle
     /// <summary>
     /// Returns a string representation of the current <see cref="ElementStyle"/> instance.
     /// </summary>
-    /// <returns>A trimmed <see cref="string" /> representation of the styles if the internal buffer is not empty; otherwise, an empty string.</returns>
-    public readonly override string ToString()
-        => !string.IsNullOrEmpty( _stringBuffer ) ? _stringBuffer.Trim() : string.Empty;
+    /// <returns>A trimmed <see cref="string" /> representation of the styles if the internal buffer is not empty; otherwise, a <see langword="null" />.</returns>
+    public readonly override string? ToString()
+        => !string.IsNullOrEmpty( _stringBuffer ) ? _stringBuffer.Trim() : null;
 
     private ElementStyle AddRaw( string? value )
     {

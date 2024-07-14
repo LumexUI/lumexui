@@ -1,0 +1,11 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexCollapse As="@As"
+               Class="@RootClass"
+               Style="@RootStyle"
+               Expanded="@Context.IsMenuExpanded"
+               @attributes="@AdditionalAttributes"
+               @ref="@_collapse">
+    @ChildContent
+</LumexCollapse>
