@@ -54,6 +54,7 @@ public partial class LumexNavbarMenu : LumexComponentBase
         Context.OnMenuToggle += StateHasChanged;
     }
 
+    /// <inheritdoc />
     protected override async Task OnAfterRenderAsync( bool firstRender )
     {
         if( firstRender )
