@@ -1,0 +1,103 @@
+@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@using TailwindMerge
+@using LumexUI.Common
+@using Microsoft.Extensions.DependencyInjection
+
+@code {
+    public NavbarTests()
+    {
+        Services.AddSingleton<TwMerge>();
+        JSInterop.Setup<int>( "Lumex.elementReference.getScrollHeight", _ => true );
+        JSInterop.SetupVoid( "Lumex.elementReference.moveElementTo", _ => true );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(@<LumexNavbar />);
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectlyWithBrand()
+    {
+        var cut = Render(
+            @<LumexNavbar>
+                <LumexNavbarBrand>LumexUI</LumexNavbarBrand>
+            </LumexNavbar>
+        );
+
+        cut.FindComponent<LumexNavbarBrand>().Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectlyWithContentChildren()
+    {
+        var cut = Render(
+            @<LumexNavbar>
+                <LumexNavbarContent>
+                    <LumexNavbarItem>Dashboard</LumexNavbarItem>
+                    <LumexNavbarItem>Team</LumexNavbarItem>
+                    <LumexNavbarItem>Deployments</LumexNavbarItem>
+                    <LumexNavbarItem>Activity</LumexNavbarItem>
+                    <LumexNavbarItem>Settings</LumexNavbarItem>
+                </LumexNavbarContent>
+            </LumexNavbar>
+        );
+
+        var content = cut.FindComponent<LumexNavbarContent>();
+
+        content.FindComponents<LumexNavbarItem>().Should().HaveCount( 5 );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectlyWithMenu()
+    {
+        string[] menuItems = ["item1", "item2", "item3", "item4", "item5"];
+
+        var cut = Render(
+            @<LumexNavbar>
+                <LumexNavbarMenuToggle />
+                <LumexNavbarContent>
+                    <LumexNavbarItem>Dashboard</LumexNavbarItem>
+                    <LumexNavbarItem>Team</LumexNavbarItem>
+                    <LumexNavbarItem>Deployments</LumexNavbarItem>
+                    <LumexNavbarItem>Activity</LumexNavbarItem>
+                    <LumexNavbarItem>Settings</LumexNavbarItem>
+                </LumexNavbarContent>
+                <LumexNavbarMenu>
+                    @foreach( var item in menuItems )
+                    {
+                        <LumexNavbarMenuItem>@item</LumexNavbarMenuItem>
+                    }
+                </LumexNavbarMenu>
+            </LumexNavbar>
+        );
+
+        cut.FindComponent<LumexNavbarMenuToggle>().Find( "button" ).Click();
+
+        var menu = cut.FindComponent<LumexNavbarMenu>();
+        menu.FindAll( "li" ).Should().HaveCount( menuItems.Length );
+    }
+
+    [Fact]
+    public void ShouldNotRenderContextualComponentsAlone()
+    {
+        var action1 = () => Render(@<LumexNavbarBrand />);
+        var action2 = () => Render(@<LumexNavbarContent />);
+        var action3 = () => Render(@<LumexNavbarItem />);
+        var action4 = () => Render(@<LumexNavbarMenu />);
+        var action5 = () => Render(@<LumexNavbarMenuItem />);
+        var action6 = () => Render(@<LumexNavbarMenuToggle />);
+
+        action1.Should().Throw<ContextNullException>();
+        action2.Should().Throw<ContextNullException>();
+        action3.Should().Throw<ContextNullException>();
+        action4.Should().Throw<ContextNullException>();
+        action5.Should().Throw<ContextNullException>();
+        action6.Should().Throw<ContextNullException>();
+    }
+}
