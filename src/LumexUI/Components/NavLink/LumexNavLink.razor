@@ -4,7 +4,7 @@
 <LumexComponent As="@As"
                 Class="@RootClass"
                 Style="@RootStyle"
-                data-disabled="@Disabled"
+                data-disabled="@Utils.GetDataAttributeValue( Disabled )"
                 @attributes="@AdditionalAttributes">
     <NavLink Match="@Match"
              ActiveClass="@ActiveClass"
