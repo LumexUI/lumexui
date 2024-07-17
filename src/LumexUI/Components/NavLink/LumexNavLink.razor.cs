@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace LumexUI;
 
+/// <summary>
+/// A component representing a navigation link within the application.
+/// </summary>
 public partial class LumexNavLink : LumexComponentBase
 {
     /// <summary>
@@ -25,7 +28,7 @@ public partial class LumexNavLink : LumexComponentBase
     /// Gets or sets a value representing the URL matching behavior.
     /// </summary>
     /// <remarks>
-    /// Default is <see cref="NavLinkMatch.All"/>
+    /// The default value is <see cref="NavLinkMatch.All"/>
     /// </remarks>
     [Parameter] public NavLinkMatch Match { get; set; } = NavLinkMatch.All;
 
@@ -33,7 +36,7 @@ public partial class LumexNavLink : LumexComponentBase
     /// Gets or sets a color of the navigation link.
     /// </summary>
     /// <remarks>
-    /// Default is <see cref="ThemeColor.Primary"/>
+    /// The default value is <see cref="ThemeColor.Primary"/>
     /// </remarks>
     [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Primary;
 
@@ -48,6 +51,9 @@ public partial class LumexNavLink : LumexComponentBase
     /// </summary>
     [Parameter] public bool Disabled { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LumexNavLink"/>.
+    /// </summary>
     public LumexNavLink()
     {
         As = "li";
