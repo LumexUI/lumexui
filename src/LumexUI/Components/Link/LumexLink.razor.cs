@@ -9,26 +9,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-public partial class LumexLink : LumexComponentBase
+public partial class LumexLink : LumexLinkBase
 {
-    /// <summary>
-    /// Gets or sets content to be rendered inside the link.
-    /// </summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value representing the URL route to be navigated to.
-    /// </summary>
-    [Parameter] public string Href { get; set; } = "#";
-
-    /// <summary>
-    /// Gets or sets a color of the link.
-    /// </summary>
-    /// <remarks>
-    /// Default value is <see cref="ThemeColor.Primary"/>
-    /// </remarks>
-    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Primary;
-
     /// <summary>
     /// Gets or sets the underline style for the link.
     /// </summary>
@@ -36,11 +18,6 @@ public partial class LumexLink : LumexComponentBase
     /// Default value is <see cref="Underline.None"/>
     /// </remarks>
     [Parameter] public Underline Underline { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the link is disabled.
-    /// </summary>
-    [Parameter] public bool Disabled { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the link should open in the new tab.
@@ -57,9 +34,9 @@ public partial class LumexLink : LumexComponentBase
     {
         get
         {
-            var attributes = new Dictionary<string, object>( AdditionalAttributes ?? new Dictionary<string, object>() )
+            var attributes = new Dictionary<string, object>()
             {
-                { "href", Href }
+                ["href"] = Href
             };
 
             if( External )
@@ -68,7 +45,23 @@ public partial class LumexLink : LumexComponentBase
                 attributes["rel"] = "noopener noreferrer";
             }
 
+            if( AdditionalAttributes is not null )
+            {
+                foreach( var attribute in AdditionalAttributes )
+                {
+                    attributes[attribute.Key] = attribute.Value;
+                }
+            }
+
             return attributes;
         }
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LumexLink"/>.
+    /// </summary>
+    public LumexLink()
+    {
+        As = "a";
     }
 }
