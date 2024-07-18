@@ -1,14 +1,14 @@
 ﻿@namespace LumexUI
 @inherits LumexLinkBase
 
-<LumexComponent As="@As"
-                Class="@RootClass"
-                Style="@RootStyle"
-                data-disabled="@Utils.GetDataAttributeValue( Disabled )"
-                @attributes="@AdditionalAttributes">
-    <NavLink Match="@Match"
-             ActiveClass="@ActiveClass"
-             href="@Href">
-        @ChildContent
-    </NavLink>
-</LumexComponent>
+<NavLink Match="@Match"
+         ActiveClass="@string.Empty"
+         href="@Href"
+         class="@RootClass"
+         style="@RootStyle"
+         data-disabled="@Utils.GetDataAttributeValue( Disabled )"
+         data-active="@Utils.GetDataAttributeValue( _isActive )"
+         @attributes="@AdditionalAttributes"
+         @ref="@_navLink">
+    @ChildContent
+</NavLink>

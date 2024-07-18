@@ -10,7 +10,7 @@ using LumexUI.Utilities;
 namespace LumexUI.Styles;
 
 [ExcludeFromCodeCoverage]
-internal readonly record struct Link
+internal readonly record struct LinkBase
 {
     private readonly static string _base = ElementClass.Empty()
         .Add( "relative" )
@@ -38,6 +38,20 @@ internal readonly record struct Link
             .Add( "text-info", when: color is ThemeColor.Info );
     }
 
+    public static string GetStyles( LumexLinkBase link )
+    {
+        return ElementClass.Empty()
+            .Add( _base )
+            .Add( _disabled, when: link.Disabled )
+            .Add( GetColorStyles( link.Color ) )
+            .Add( link.Class )
+            .ToString();
+    }
+}
+
+[ExcludeFromCodeCoverage]
+internal readonly record struct Link
+{
     private static ElementClass GetUnderlineStyles( Underline underline )
     {
         return ElementClass.Empty()
@@ -50,9 +64,7 @@ internal readonly record struct Link
     public static string GetStyles( LumexLink link )
     {
         return ElementClass.Empty()
-            .Add( _base )
-            .Add( _disabled, when: link.Disabled )
-            .Add( GetColorStyles( link.Color ) )
+            .Add( LinkBase.GetStyles( link ) )
             .Add( GetUnderlineStyles( link.Underline ) )
             .Add( link.Class )
             .ToString();
@@ -62,42 +74,15 @@ internal readonly record struct Link
 [ExcludeFromCodeCoverage]
 internal readonly record struct NavLink
 {
-    private readonly static string _base = ElementClass.Empty()
-        .Add( "text-medium" )
-        .Add( "list-none" )
+    private readonly static string _active = ElementClass.Empty()
+        .Add( "data-[active=true]:font-semibold" )
         .ToString();
-
-    private readonly static string _disabled = ElementClass.Empty()
-        .Add( "opacity-disabled" )
-        .Add( "pointer-events-none" )
-        .ToString();
-
-    private static ElementClass GetColorStyles( ThemeColor color )
-    {
-        return ElementClass.Empty()
-            .Add( "text-default", when: color is ThemeColor.Default )
-            .Add( "text-primary", when: color is ThemeColor.Primary )
-            .Add( "text-secondary", when: color is ThemeColor.Secondary )
-            .Add( "text-success", when: color is ThemeColor.Success )
-            .Add( "text-warning", when: color is ThemeColor.Warning )
-            .Add( "text-danger", when: color is ThemeColor.Danger )
-            .Add( "text-info", when: color is ThemeColor.Info );
-    }
-
-    private static ElementClass GetActiveStyles( string? activeClass )
-    {
-        return ElementClass.Empty()
-            .Add( "font-semibold", when: string.IsNullOrEmpty( activeClass ) )
-            .Add( activeClass );
-    }
 
     public static string GetStyles( LumexNavLink navLink )
     {
         return ElementClass.Empty()
-            .Add( _base )
-            .Add( _disabled, when: navLink.Disabled )
-            .Add( GetColorStyles( navLink.Color ) )
-            .Add( GetActiveStyles( navLink.ActiveClass ) )
+            .Add( LinkBase.GetStyles( navLink ) )
+            .Add( _active )
             .Add( navLink.Class )
             .ToString();
     }
