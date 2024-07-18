@@ -58,3 +58,47 @@ internal readonly record struct Link
             .ToString();
     }
 }
+
+[ExcludeFromCodeCoverage]
+internal readonly record struct NavLink
+{
+    private readonly static string _base = ElementClass.Empty()
+        .Add( "text-medium" )
+        .Add( "list-none" )
+        .ToString();
+
+    private readonly static string _disabled = ElementClass.Empty()
+        .Add( "opacity-disabled" )
+        .Add( "pointer-events-none" )
+        .ToString();
+
+    private static ElementClass GetColorStyles( ThemeColor color )
+    {
+        return ElementClass.Empty()
+            .Add( "text-default", when: color is ThemeColor.Default )
+            .Add( "text-primary", when: color is ThemeColor.Primary )
+            .Add( "text-secondary", when: color is ThemeColor.Secondary )
+            .Add( "text-success", when: color is ThemeColor.Success )
+            .Add( "text-warning", when: color is ThemeColor.Warning )
+            .Add( "text-danger", when: color is ThemeColor.Danger )
+            .Add( "text-info", when: color is ThemeColor.Info );
+    }
+
+    private static ElementClass GetActiveStyles( string? activeClass )
+    {
+        return ElementClass.Empty()
+            .Add( "font-semibold", when: string.IsNullOrEmpty( activeClass ) )
+            .Add( activeClass );
+    }
+
+    public static string GetStyles( LumexNavLink navLink )
+    {
+        return ElementClass.Empty()
+            .Add( _base )
+            .Add( _disabled, when: navLink.Disabled )
+            .Add( GetColorStyles( navLink.Color ) )
+            .Add( GetActiveStyles( navLink.ActiveClass ) )
+            .Add( navLink.Class )
+            .ToString();
+    }
+}

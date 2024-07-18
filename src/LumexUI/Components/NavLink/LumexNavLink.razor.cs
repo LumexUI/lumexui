@@ -5,6 +5,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
+using NavLink = LumexUI.Styles.NavLink;
+
 namespace LumexUI;
 
 /// <summary>
@@ -25,6 +27,9 @@ public partial class LumexNavLink : LumexLinkBase
     /// when the current route matches the <see cref="LumexLinkBase.Href"/>.
     /// </summary>
     [Parameter] public string? ActiveClass { get; set; }
+
+    private protected override string? RootClass =>
+        TwMerge.Merge( NavLink.GetStyles( this ) );
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexNavLink"/>.
