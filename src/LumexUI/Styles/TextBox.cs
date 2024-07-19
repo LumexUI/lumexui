@@ -30,12 +30,19 @@ internal readonly record struct TextBox
 
     private readonly static string _inputWrapper = ElementClass.Empty()
         .Add( "relative" )
-        .Add( "px-3" )
         .Add( "inline-flex" )
         .Add( "items-center" )
+        .Add( "px-3" )
         .Add( "gap-3" )
         .Add( "w-full" )
         .Add( "shadow-sm" )
+        .ToString();
+
+    private readonly static string _innerWrapper = ElementClass.Empty()
+        .Add( "inline-flex" )
+        .Add( "items-center" )
+        .Add( "w-full" )
+        .Add( "h-full" )
         .ToString();
 
     public static string GetStyles( LumexTextBox textBox )
@@ -57,6 +64,13 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _inputWrapper )
+            .ToString();
+    }
+
+    public static string GetInnerWrapperStyles()
+    {
+        return ElementClass.Empty()
+            .Add( _innerWrapper )
             .ToString();
     }
 }
