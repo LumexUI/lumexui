@@ -24,6 +24,14 @@ public partial class LumexTextBox : LumexInputBase<string?>
     /// </summary>
     [Parameter] public Radius? Radius { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the textbox is full-width.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see langword="true"/>
+    /// </remarks>
+    [Parameter] public bool FullWidth { get; set; } = true;
+
     private protected override string? RootClass =>
         TwMerge.Merge( TextBox.GetStyles( this ) );
 

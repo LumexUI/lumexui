@@ -61,6 +61,10 @@ internal readonly record struct TextBox
         .Add( "pointer-events-none" )
         .ToString();
 
+    private readonly static string _fullWidth = ElementClass.Empty()
+        .Add( "w-full" )
+        .ToString();
+
     private static ElementClass GetSizeStyles( Size size, string slot )
     {
         if( slot is "inputWrapper" )
@@ -105,6 +109,7 @@ internal readonly record struct TextBox
         return ElementClass.Empty()
             .Add( _base )
             .Add( _disabled, when: textBox.Disabled )
+            .Add( _fullWidth, when: textBox.FullWidth )
             .Add( textBox.Class )
             .ToString();
     }
