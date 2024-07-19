@@ -40,4 +40,11 @@ public partial class LumexTextBox : LumexInputBase<string?>
     {
         As = "div";
     }
+
+    /// <inheritdoc />
+    protected override bool TryParseValueFromString( string? value, out string? result )
+    {
+        result = value;
+        return true;
+    }
 }
