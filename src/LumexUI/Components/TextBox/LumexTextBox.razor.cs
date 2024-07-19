@@ -4,6 +4,8 @@
 
 using LumexUI.Styles;
 
+using Microsoft.AspNetCore.Components;
+
 namespace LumexUI;
 
 /// <summary>
@@ -11,8 +13,16 @@ namespace LumexUI;
 /// </summary>
 public partial class LumexTextBox : LumexInputBase<string?>
 {
+    /// <summary>
+    /// Gets or sets the label for the textbox.
+    /// </summary>
+    [Parameter] public string? Label { get; set; }
+
     private protected override string? RootClass =>
         TwMerge.Merge( TextBox.GetStyles( this ) );
+
+    private string? LabelClass =>
+        TwMerge.Merge( TextBox.GetLabelStyles() );
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexTextBox"/>.
