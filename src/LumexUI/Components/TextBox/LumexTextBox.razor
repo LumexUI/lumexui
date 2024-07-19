@@ -1,0 +1,16 @@
+﻿@namespace LumexUI
+@inherits LumexInputBase<string?>
+
+<LumexComponent As="@As"
+                Class="@RootClass"
+                Style="@RootStyle"
+                data-slot="root"
+                @attributes="@AdditionalAttributes">
+    <div data-slot="wrapper">
+        <label data-slot="label"></label>
+
+        <div data-slot="inner-wrapper">
+            <input data-slot="input" />
+        </div>
+    </div>
+</LumexComponent>
