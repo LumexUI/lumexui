@@ -24,7 +24,7 @@ public class LinkTests : TestContext
     }
 
     [Fact]
-    public void Link_External_ShouldHaveCorrectAttributes()
+    public void Link_External_ShouldSetCorrectAttributes()
     {
         var cut = RenderComponent<LumexLink>( p => p
             .Add( p => p.External, true )
@@ -34,5 +34,20 @@ public class LinkTests : TestContext
 
         link.GetAttribute( "target" ).Should().Be( "_blank" );
         link.GetAttribute( "rel" ).Should().Be( "noopener noreferrer" );
+    }
+
+    [Fact]
+    public void Link_AdditionalAttributes_ShouldSetAttributes()
+    {
+        var attributes = new Dictionary<string, object>
+        {
+            ["data-custom"] = "custom-attribute-value"
+        };
+
+        var cut = RenderComponent<LumexLink>( p => p
+            .Add( p => p.AdditionalAttributes, attributes )
+        );
+
+        cut.Find( "a" ).GetAttribute( "data-custom" ).Should().NotBeNull();
     }
 }
