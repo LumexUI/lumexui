@@ -22,16 +22,16 @@ public partial class LumexTextBox : LumexInputBase<string?>
         TwMerge.Merge( TextBox.GetStyles( this ) );
 
     private string? LabelClass =>
-        TwMerge.Merge( TextBox.GetLabelStyles() );
+        TwMerge.Merge( TextBox.GetLabelStyles( this ) );
 
     private string? InputWrapperClass =>
-        TwMerge.Merge( TextBox.GetInputWrapperStyles() );
+        TwMerge.Merge( TextBox.GetInputWrapperStyles( this ) );
 
     private string? InnerWrapperClass =>
         TwMerge.Merge( TextBox.GetInnerWrapperStyles() );
 
     private string? InputClass =>
-        TwMerge.Merge( TextBox.GetInputStyles() );
+        TwMerge.Merge( TextBox.GetInputStyles( this ) );
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexTextBox"/>.

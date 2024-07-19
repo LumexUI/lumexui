@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+using LumexUI.Common;
 using LumexUI.Utilities;
 
 namespace LumexUI.Styles;
@@ -21,7 +22,6 @@ internal readonly record struct TextBox
         .Add( "absolute" )
         .Add( "z-10" )
         .Add( "block" )
-        .Add( "text-small" )
         .Add( "text-foreground-500" )
         .Add( "origin-top-left" )
         .Add( "pointer-events-none" )
@@ -56,6 +56,31 @@ internal readonly record struct TextBox
         .Add( "autofill:bg-transparent" )
         .ToString();
 
+    private static ElementClass GetSizeStyles( Size size, string slot )
+    {
+        if( slot is "inputWrapper" )
+        {
+            return ElementClass.Empty()
+                .Add( "h-8 min-h-8 rounded-small", when: size is Size.Small )
+                .Add( "h-10 min-h-10 rounded-medium", when: size is Size.Medium )
+                .Add( "h-12 min-h-12 rounded-large", when: size is Size.Large );
+        }
+        else if( slot is "input" )
+        {
+            return ElementClass.Empty()
+                .Add( "text-small", when: size is Size.Small or Size.Medium )
+                .Add( "text-medium", when: size is Size.Large );
+        }
+        else if( slot is "label" )
+        {
+            return ElementClass.Empty()
+                .Add( "text-tiny", when: size is Size.Small )
+                .Add( "text-small", when: size is Size.Medium or Size.Large );
+        }
+
+        return ElementClass.Empty();
+    }
+
     public static string GetStyles( LumexTextBox textBox )
     {
         return ElementClass.Empty()
@@ -64,17 +89,19 @@ internal readonly record struct TextBox
             .ToString();
     }
 
-    public static string GetLabelStyles()
+    public static string GetLabelStyles( LumexTextBox textBox )
     {
         return ElementClass.Empty()
             .Add( _label )
+            .Add( GetSizeStyles( textBox.Size, slot: "label" ) )
             .ToString();
     }
 
-    public static string GetInputWrapperStyles()
+    public static string GetInputWrapperStyles( LumexTextBox textBox )
     {
         return ElementClass.Empty()
             .Add( _inputWrapper )
+            .Add( GetSizeStyles( textBox.Size, slot: "inputWrapper" ) )
             .ToString();
     }
 
@@ -85,10 +112,11 @@ internal readonly record struct TextBox
             .ToString();
     }
 
-    public static string GetInputStyles()
+    public static string GetInputStyles( LumexTextBox textBox )
     {
         return ElementClass.Empty()
             .Add( _input )
+            .Add( GetSizeStyles( textBox.Size, slot: "input" ) )
             .ToString();
     }
 }
