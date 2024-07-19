@@ -81,6 +81,20 @@ internal readonly record struct TextBox
         return ElementClass.Empty();
     }
 
+    private static ElementClass GetRadiusStyles( Radius? radius )
+    {
+        if( radius is null )
+        {
+            return ElementClass.Empty();
+        }
+
+        return ElementClass.Empty()
+            .Add( "rounded-none", when: radius is Radius.None )
+            .Add( "rounded-small", when: radius is Radius.Small )
+            .Add( "rounded-medium", when: radius is Radius.Medium )
+            .Add( "rounded-large", when: radius is Radius.Large );
+    }
+
     public static string GetStyles( LumexTextBox textBox )
     {
         return ElementClass.Empty()
@@ -101,6 +115,7 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _inputWrapper )
+            .Add( GetRadiusStyles( textBox.Radius ) )
             .Add( GetSizeStyles( textBox.Size, slot: "inputWrapper" ) )
             .ToString();
     }
