@@ -56,6 +56,11 @@ internal readonly record struct TextBox
         .Add( "autofill:bg-transparent" )
         .ToString();
 
+    private readonly static string _disabled = ElementClass.Empty()
+        .Add( "opacity-disabled" )
+        .Add( "pointer-events-none" )
+        .ToString();
+
     private static ElementClass GetSizeStyles( Size size, string slot )
     {
         if( slot is "inputWrapper" )
@@ -99,6 +104,7 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _base )
+            .Add( _disabled, when: textBox.Disabled )
             .Add( textBox.Class )
             .ToString();
     }
