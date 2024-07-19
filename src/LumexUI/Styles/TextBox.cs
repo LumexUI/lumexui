@@ -12,6 +12,9 @@ namespace LumexUI.Styles;
 internal readonly record struct TextBox
 {
     private readonly static string _base = ElementClass.Empty()
+        .Add( "group" )
+        .Add( "flex" )
+        .Add( "flex-col" )
         .ToString();
 
     public static string GetStyles( LumexTextBox textBox )
