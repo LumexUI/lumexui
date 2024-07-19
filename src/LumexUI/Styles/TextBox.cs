@@ -28,6 +28,16 @@ internal readonly record struct TextBox
         .Add( "subpixel-antialiased" )
         .ToString();
 
+    private readonly static string _inputWrapper = ElementClass.Empty()
+        .Add( "relative" )
+        .Add( "px-3" )
+        .Add( "inline-flex" )
+        .Add( "items-center" )
+        .Add( "gap-3" )
+        .Add( "w-full" )
+        .Add( "shadow-sm" )
+        .ToString();
+
     public static string GetStyles( LumexTextBox textBox )
     {
         return ElementClass.Empty()
@@ -40,6 +50,13 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _label )
+            .ToString();
+    }
+
+    public static string GetInputWrapperStyles()
+    {
+        return ElementClass.Empty()
+            .Add( _inputWrapper )
             .ToString();
     }
 }

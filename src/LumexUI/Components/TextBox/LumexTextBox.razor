@@ -6,7 +6,7 @@
                 Style="@RootStyle"
                 data-slot="root"
                 @attributes="@AdditionalAttributes">
-    <div data-slot="wrapper">
+    <div class="@InputWrapperClass" data-slot="input-wrapper">
         @if( !string.IsNullOrEmpty( Label ) )
         {
             <label class="@LabelClass" data-slot="label">@Label</label>

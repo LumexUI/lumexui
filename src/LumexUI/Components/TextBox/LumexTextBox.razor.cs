@@ -24,6 +24,9 @@ public partial class LumexTextBox : LumexInputBase<string?>
     private string? LabelClass =>
         TwMerge.Merge( TextBox.GetLabelStyles() );
 
+    private string? InputWrapperClass =>
+        TwMerge.Merge( TextBox.GetInputWrapperStyles() );
+
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexTextBox"/>.
     /// </summary>
