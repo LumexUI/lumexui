@@ -45,6 +45,17 @@ internal readonly record struct TextBox
         .Add( "h-full" )
         .ToString();
 
+    private readonly static string _input = ElementClass.Empty()
+        .Add( "w-full" )
+        .Add( "font-normal" )
+        .Add( "bg-transparent" )
+        .Add( "outline-none" )
+        // placeholder
+        .Add( "placeholder:text-foreground-500" )
+        // autofill
+        .Add( "autofill:bg-transparent" )
+        .ToString();
+
     public static string GetStyles( LumexTextBox textBox )
     {
         return ElementClass.Empty()
@@ -71,6 +82,13 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _innerWrapper )
+            .ToString();
+    }
+
+    public static string GetInputStyles()
+    {
+        return ElementClass.Empty()
+            .Add( _input )
             .ToString();
     }
 }

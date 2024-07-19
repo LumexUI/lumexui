@@ -30,6 +30,9 @@ public partial class LumexTextBox : LumexInputBase<string?>
     private string? InnerWrapperClass =>
         TwMerge.Merge( TextBox.GetInnerWrapperStyles() );
 
+    private string? InputClass =>
+        TwMerge.Merge( TextBox.GetInputStyles() );
+
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexTextBox"/>.
     /// </summary>
