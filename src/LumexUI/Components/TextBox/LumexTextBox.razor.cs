@@ -29,6 +29,14 @@ public partial class LumexTextBox : LumexInputBase<string?>
     [Parameter] public Radius? Radius { get; set; }
 
     /// <summary>
+    /// Gets or sets the placement of the label for the textbox.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="LabelPlacement.Inside"/>
+    /// </remarks>
+    [Parameter] public LabelPlacement LabelPlacement { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the textbox is full-width.
     /// </summary>
     /// <remarks>
