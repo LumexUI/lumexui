@@ -59,6 +59,16 @@ public partial class LumexTextBox : LumexInputBase<string?>
         As = "div";
     }
 
+    protected virtual Task OnChangeAsync( ChangeEventArgs args )
+    {
+        if( Disabled || ReadOnly )
+        {
+            return Task.CompletedTask;
+        }
+
+        return SetCurrentValueAsync( (string?)args.Value );
+    }
+
     /// <inheritdoc />
     protected override bool TryParseValueFromString( string? value, out string? result )
     {
