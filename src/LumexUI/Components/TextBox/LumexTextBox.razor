@@ -13,7 +13,12 @@
         }
 
         <div class="@InnerWrapperClass" data-slot="inner-wrapper">
-            <input class="@InputClass" data-slot="input" />
+            <input class="@InputClass"
+                   value="@CurrentValueAsString"
+                   placeholder="@Placeholder"
+                   data-slot="input"
+                   @ref="@ElementReference"
+                   @onchange="@OnChangeAsync" />
         </div>
     </div>
 </LumexComponent>

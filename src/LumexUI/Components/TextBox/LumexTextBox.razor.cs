@@ -20,6 +20,10 @@ public partial class LumexTextBox : LumexInputBase<string?>
     [Parameter] public string? Label { get; set; }
 
     /// <summary>
+    /// Gets or sets the placeholder for the textbox.
+    /// </summary>
+    [Parameter] public string? Placeholder { get; set; }
+
     /// Gets or sets the border radius of the textbox.
     /// </summary>
     [Parameter] public Radius? Radius { get; set; }
