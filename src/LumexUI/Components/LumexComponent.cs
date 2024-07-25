@@ -20,7 +20,8 @@ public class LumexComponent : LumexComponentBase
 		builder.AddAttribute( 1, "class", Class );
 		builder.AddAttribute( 2, "style", Style );
 		builder.AddMultipleAttributes( 3, AdditionalAttributes );
-		builder.AddContent( 4, ChildContent );
-		builder.CloseElement();
+        builder.AddElementReferenceCapture( 4, elementReference => ElementReference = elementReference );
+		builder.AddContent( 5, ChildContent );
+        builder.CloseElement();
 	}
 }
