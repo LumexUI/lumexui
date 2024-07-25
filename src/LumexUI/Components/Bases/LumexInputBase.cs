@@ -75,10 +75,27 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
         set => _ = SetCurrentValueAsStringAsync( value );
     }
 
+    protected bool IsFocused { get; set; }
+
     private bool _parsingFailed;
     private bool _hasInitializedParameters;
     private string? _incomingValueBeforeParsing;
     private Type? _nullableUnderlyingType;
+
+    /// <summary>
+    /// Gives focus to an input component given its <see cref="ElementReference"/>
+    /// </summary>
+    /// <returns>The <see cref="ValueTask"/> representing the asynchronous focus operation.</returns>
+    public ValueTask FocusAsync()
+    {
+        if( !ElementReference.HasValue )
+        {
+            return ValueTask.CompletedTask;
+        }
+
+        IsFocused = true;
+        return ElementReference.Value.FocusAsync();
+    }
 
     /// <inheritdoc />
     public override Task SetParametersAsync( ParameterView parameters )
