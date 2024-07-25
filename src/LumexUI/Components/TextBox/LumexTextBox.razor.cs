@@ -55,6 +55,9 @@ public partial class LumexTextBox : LumexInputBase<string?>
     private string? LabelClass =>
         TwMerge.Merge( TextBox.GetLabelStyles( this ) );
 
+    private string? MainWrapperClass =>
+        TwMerge.Merge( TextBox.GetMainWrapperStyles( this ) );
+
     private string? InputWrapperClass =>
         TwMerge.Merge( TextBox.GetInputWrapperStyles( this ) );
 
@@ -64,11 +67,17 @@ public partial class LumexTextBox : LumexInputBase<string?>
     private string? InputClass =>
         TwMerge.Merge( TextBox.GetInputStyles( this ) );
 
+    private readonly RenderFragment _renderMainWrapper;
+    private readonly RenderFragment _renderInputWrapper;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexTextBox"/>.
     /// </summary>
     public LumexTextBox()
     {
+        _renderMainWrapper = RenderMainWrapper;
+        _renderInputWrapper = RenderInputWrapper;
+
         As = "div";
     }
 

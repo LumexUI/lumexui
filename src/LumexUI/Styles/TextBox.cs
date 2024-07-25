@@ -33,6 +33,10 @@ internal readonly record struct TextBox
         .Add( "motion-reduce:transition-none" )
         .ToString();
 
+    private readonly static string _mainWrapper = ElementClass.Empty()
+        .Add( "h-full" )
+        .ToString();
+
     private readonly static string _inputWrapper = ElementClass.Empty()
         .Add( "relative" )
         .Add( "inline-flex" )
@@ -108,7 +112,12 @@ internal readonly record struct TextBox
 
     private static ElementClass GetLabelPlacementStyles( LabelPlacement labelPlacement, string slot )
     {
-        if( slot is "inputWrapper" )
+        if( slot is "mainWrapper" )
+        {
+            return ElementClass.Empty()
+                .Add( "flex flex-col", when: labelPlacement is LabelPlacement.Outside );
+        }
+        else if( slot is "inputWrapper" )
         {
             return ElementClass.Empty()
                 .Add( "flex-col items-start justify-center", when: labelPlacement is LabelPlacement.Inside );
@@ -169,6 +178,14 @@ internal readonly record struct TextBox
             .Add( ElementClass.Empty()
                 .Add( "group-data-[filled-focused=true]:text-default-600", when: textBox.LabelPlacement is LabelPlacement.Inside && textBox.Color is ThemeColor.Default )
                 .Add( "group-data-[filled-focused=true]:text-foreground", when: textBox.LabelPlacement is LabelPlacement.Outside && textBox.Color is ThemeColor.Default ) )
+            .ToString();
+    }
+
+    public static string GetMainWrapperStyles( LumexTextBox textBox )
+    {
+        return ElementClass.Empty()
+            .Add( _mainWrapper )
+            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: "mainWrapper" ) )
             .ToString();
     }
 

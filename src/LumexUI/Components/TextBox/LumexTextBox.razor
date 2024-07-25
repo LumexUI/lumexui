@@ -7,24 +7,44 @@
                 data-slot="root"
                 data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )"
                 @attributes="@AdditionalAttributes">
-
-    <div class="@InputWrapperClass"
-         data-slot="input-wrapper"
-         @onclick="@OnInputWrapperClickAsync">
-
-        @if( !string.IsNullOrEmpty( Label ) )
-        {
-            <label class="@LabelClass" data-slot="label">@Label</label>
-        }
-
-        <div class="@InnerWrapperClass" data-slot="inner-wrapper">
-            <input class="@InputClass"
-                   value="@CurrentValueAsString"
-                   placeholder="@Placeholder"
-                   data-slot="input"
-                   @ref="@ElementReference"
-                   @onchange="@OnChangeAsync"
-                   @onblur="@OnBlurAsync" />
-        </div>
-    </div>
+    @_renderMainWrapper
 </LumexComponent>
+
+@code {
+    private void RenderMainWrapper( RenderTreeBuilder __builder )
+    {
+        if( LabelPlacement is LabelPlacement.Outside )
+        {
+            <div class="@MainWrapperClass" data-slot="main-wrapper">
+                @_renderInputWrapper
+            </div>
+        }
+        else
+        {
+            @_renderInputWrapper
+        }
+    }
+
+    private void RenderInputWrapper( RenderTreeBuilder __builder )
+    {
+        <div class="@InputWrapperClass"
+             data-slot="input-wrapper"
+             @onclick="@OnInputWrapperClickAsync">
+
+            @if( !string.IsNullOrEmpty( Label ) )
+            {
+                <label class="@LabelClass" data-slot="label">@Label</label>
+            }
+
+            <div class="@InnerWrapperClass" data-slot="inner-wrapper">
+                <input class="@InputClass"
+                       value="@CurrentValueAsString"
+                       placeholder="@Placeholder"
+                       data-slot="input"
+                       @ref="@ElementReference"
+                       @onchange="@OnChangeAsync"
+                       @onblur="@OnBlurAsync" />
+            </div>
+        </div>
+    }
+}
