@@ -5,8 +5,13 @@
                 Class="@RootClass"
                 Style="@RootStyle"
                 data-slot="root"
+                data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )"
                 @attributes="@AdditionalAttributes">
-    <div class="@InputWrapperClass" data-slot="input-wrapper">
+
+    <div class="@InputWrapperClass"
+         data-slot="input-wrapper"
+         @onclick="@OnInputWrapperClickAsync">
+
         @if( !string.IsNullOrEmpty( Label ) )
         {
             <label class="@LabelClass" data-slot="label">@Label</label>

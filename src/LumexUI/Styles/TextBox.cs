@@ -26,6 +26,10 @@ internal readonly record struct TextBox
         .Add( "origin-top-left" )
         .Add( "pointer-events-none" )
         .Add( "subpixel-antialiased" )
+        // transition
+        .Add( "will-change-auto" )
+        .Add( "transition-[transform,color,left,opacity]" )
+        .Add( "motion-reduce:transition-none" )
         .ToString();
 
     private readonly static string _inputWrapper = ElementClass.Empty()
@@ -36,6 +40,10 @@ internal readonly record struct TextBox
         .Add( "gap-3" )
         .Add( "w-full" )
         .Add( "shadow-sm" )
+        .Add( "cursor-text" )
+        // transition
+        .Add( "transition-[background]" )
+        .Add( "motion-reduce:transition-none" )
         .ToString();
 
     private readonly static string _innerWrapper = ElementClass.Empty()
@@ -49,10 +57,8 @@ internal readonly record struct TextBox
         .Add( "w-full" )
         .Add( "font-normal" )
         .Add( "bg-transparent" )
-        .Add( "outline-none" )
-        // placeholder
+        .Add( "focus-visible:outline-none" )
         .Add( "placeholder:text-foreground-500" )
-        // autofill
         .Add( "autofill:bg-transparent" )
         .ToString();
 
@@ -104,6 +110,29 @@ internal readonly record struct TextBox
             .Add( "rounded-large", when: radius is Radius.Large );
     }
 
+
+    private static ElementClass GetLabelPlacementStyles( LabelPlacement labelPlacement, string slot )
+    {
+        if( slot is "inputWrapper" )
+        {
+            return ElementClass.Empty()
+                .Add( "flex-col items-start justify-center", when: labelPlacement is LabelPlacement.Inside );
+        }
+        else if( slot is "innerWrapper" )
+        {
+            return ElementClass.Empty()
+                .Add( "group-has-[label]:items-end", when: labelPlacement is LabelPlacement.Inside );
+        }
+        else if( slot is "label" )
+        {
+            return ElementClass.Empty()
+                .Add( "group-data-[filled-focused=true]:pointer-events-auto" )
+                .Add( "group-data-[filled-focused=true]:scale-90 cursor-text", when: labelPlacement is LabelPlacement.Inside );
+        }
+
+        return ElementClass.Empty();
+    }
+
     public static string GetStyles( LumexTextBox textBox )
     {
         return ElementClass.Empty()
@@ -119,6 +148,7 @@ internal readonly record struct TextBox
         return ElementClass.Empty()
             .Add( _label )
             .Add( GetSizeStyles( textBox.Size, slot: "label" ) )
+            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: "label" ) )
             .ToString();
     }
 
@@ -126,15 +156,17 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _inputWrapper )
-            .Add( GetRadiusStyles( textBox.Radius ) )
             .Add( GetSizeStyles( textBox.Size, slot: "inputWrapper" ) )
+            .Add( GetRadiusStyles( textBox.Radius ) )
+            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: "inputWrapper" ) )
             .ToString();
     }
 
-    public static string GetInnerWrapperStyles()
+    public static string GetInnerWrapperStyles( LumexTextBox textBox )
     {
         return ElementClass.Empty()
             .Add( _innerWrapper )
+            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: "innerWrapper" ) )
             .ToString();
     }
 
