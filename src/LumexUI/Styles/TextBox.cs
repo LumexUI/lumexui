@@ -22,6 +22,7 @@ internal readonly record struct TextBox
         .Add( "absolute" )
         .Add( "z-10" )
         .Add( "block" )
+        .Add( "text-small" )
         .Add( "text-foreground-500" )
         .Add( "origin-top-left" )
         .Add( "pointer-events-none" )
@@ -86,12 +87,6 @@ internal readonly record struct TextBox
                 .Add( "text-small", when: size is Size.Small or Size.Medium )
                 .Add( "text-medium", when: size is Size.Large );
         }
-        else if( slot is "label" )
-        {
-            return ElementClass.Empty()
-                .Add( "text-tiny", when: size is Size.Small )
-                .Add( "text-small", when: size is Size.Medium or Size.Large );
-        }
 
         return ElementClass.Empty();
     }
@@ -133,6 +128,26 @@ internal readonly record struct TextBox
         return ElementClass.Empty();
     }
 
+    private static ElementClass GetLabelPlacementInsideBySizeStyles( Size size, string slot )
+    {
+        if( slot is "inputWrapper" )
+        {
+            return ElementClass.Empty()
+                .Add( "h-12 py-1.5", when: size is Size.Small )
+                .Add( "h-14 py-2", when: size is Size.Medium )
+                .Add( "h-16 py-2.5", when: size is Size.Large );
+        }
+        else if( slot is "label" )
+        {
+            return ElementClass.Empty()
+                .Add( "text-small roup-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.tiny)/2_-_8px)]", when: size is Size.Small )
+                .Add( "text-small group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_6px)]", when: size is Size.Medium )
+                .Add( "text-medium group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_8px)]", when: size is Size.Large );
+        }
+
+        return ElementClass.Empty();
+    }
+
     public static string GetStyles( LumexTextBox textBox )
     {
         return ElementClass.Empty()
@@ -149,6 +164,11 @@ internal readonly record struct TextBox
             .Add( _label )
             .Add( GetSizeStyles( textBox.Size, slot: "label" ) )
             .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: "label" ) )
+            .Add( GetLabelPlacementInsideBySizeStyles( textBox.Size, slot: "label" ), when: textBox.LabelPlacement is LabelPlacement.Inside )
+            // LabelPlacement & ThemeColor.Default
+            .Add( ElementClass.Empty()
+                .Add( "group-data-[filled-focused=true]:text-default-600", when: textBox.LabelPlacement is LabelPlacement.Inside && textBox.Color is ThemeColor.Default )
+                .Add( "group-data-[filled-focused=true]:text-foreground", when: textBox.LabelPlacement is LabelPlacement.Outside && textBox.Color is ThemeColor.Default ) )
             .ToString();
     }
 
@@ -159,6 +179,7 @@ internal readonly record struct TextBox
             .Add( GetSizeStyles( textBox.Size, slot: "inputWrapper" ) )
             .Add( GetRadiusStyles( textBox.Radius ) )
             .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: "inputWrapper" ) )
+            .Add( GetLabelPlacementInsideBySizeStyles( textBox.Size, slot: "inputWrapper" ), when: textBox.LabelPlacement is LabelPlacement.Inside )
             .ToString();
     }
 
