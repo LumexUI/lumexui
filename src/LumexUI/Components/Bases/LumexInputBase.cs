@@ -54,6 +54,11 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets a callback that is fired when the input receives focus.
+    /// </summary>
+    [Parameter] public EventCallback<FocusEventArgs> OnFocus { get; set; }
+
+    /// <summary>
     /// Gets or sets a callback that is fired when the input loses focus.
     /// </summary>
     [Parameter] public EventCallback<FocusEventArgs> OnBlur { get; set; }
@@ -166,6 +171,24 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
         }
     }
 
+    /// <summary>
+    /// Handles the focus event asynchronously.
+    /// Derived classes can override this to specify custom behavior when the component receives focus.
+    /// </summary>
+    /// <param name="args">The focus event arguments.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous focus operation.</returns>
+    protected virtual async Task OnFocusAsync( FocusEventArgs args )
+    {
+        await FocusAsync();
+        await OnFocus.InvokeAsync( args );
+    }
+
+    /// <summary>
+    /// Handles the blur event asynchronously.
+    /// Derived classes can override this to specify custom behavior when the component loses focus.
+    /// </summary>
+    /// <param name="args">The blur event arguments.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous blur operation.</returns>
     protected virtual Task OnBlurAsync( FocusEventArgs args )
     {
         IsFocused = false;

@@ -53,11 +53,6 @@ public partial class LumexTextBox : LumexInputBase<string?>
     /// </remarks>
     [Parameter] public bool FullWidth { get; set; } = true;
 
-    internal bool FilledOrFocused =>
-        !string.IsNullOrEmpty( Placeholder ) ||
-        !string.IsNullOrEmpty( CurrentValueAsString ) ||
-        IsFocused;
-
     private protected override string? RootClass =>
         TwMerge.Merge( TextBox.GetStyles( this ) );
 
@@ -75,6 +70,11 @@ public partial class LumexTextBox : LumexInputBase<string?>
 
     private string? InputClass =>
         TwMerge.Merge( TextBox.GetInputStyles( this ) );
+
+    private bool FilledOrFocused =>
+        !string.IsNullOrEmpty( Placeholder ) ||
+        !string.IsNullOrEmpty( CurrentValueAsString ) ||
+        IsFocused;
 
     private readonly RenderFragment _renderMainWrapper;
     private readonly RenderFragment _renderInputWrapper;
@@ -107,7 +107,7 @@ public partial class LumexTextBox : LumexInputBase<string?>
         return true;
     }
 
-    private async Task OnInputWrapperMouseDownAsync()
+    private async Task OnInputWrapperClickAsync()
     {
         if( !Disabled && !ReadOnly )
         {

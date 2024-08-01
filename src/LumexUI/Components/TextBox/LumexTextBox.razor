@@ -29,7 +29,7 @@
     {
         <div class="@InputWrapperClass"
              data-slot="input-wrapper"
-             @onmousedown="@OnInputWrapperMouseDownAsync">
+             @onclick="@OnInputWrapperClickAsync">
 
             @if( !string.IsNullOrEmpty( Label ) )
             {
@@ -43,6 +43,7 @@
                        data-slot="input"
                        @ref="@ElementReference"
                        @onchange="@OnChangeAsync"
+                       @onfocus="@OnFocusAsync"
                        @onblur="@OnBlurAsync" />
             </div>
         </div>
