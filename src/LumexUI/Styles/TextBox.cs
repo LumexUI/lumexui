@@ -28,6 +28,11 @@ internal readonly record struct TextBox
         .Add( "origin-top-left" )
         .Add( "pointer-events-none" )
         .Add( "subpixel-antialiased" )
+        .Add( "pe-2" )
+        .Add( "max-w-full" )
+        .Add( "text-ellipsis" )
+        .Add( "overflow-hidden" )
+        .Add( "group-data-[filled-focused=true]:pointer-events-auto" )
         // transition
         .Add( "will-change-auto" )
         .Add( "transition-[transform,color,left,opacity]" )
@@ -77,116 +82,166 @@ internal readonly record struct TextBox
         .Add( "w-full" )
         .ToString();
 
-    private static ElementClass GetSizeStyles( Size size, string slot )
+    private static ElementClass GetSize( Size size, string slot )
     {
-        if( slot is "inputWrapper" )
+        return size switch
         {
-            return ElementClass.Empty()
-                .Add( "h-8 min-h-8 rounded-small", when: size is Size.Small )
-                .Add( "h-10 min-h-10 rounded-medium", when: size is Size.Medium )
-                .Add( "h-12 min-h-12 rounded-large", when: size is Size.Large );
-        }
-        else if( slot is "input" )
-        {
-            return ElementClass.Empty()
-                .Add( "text-small", when: size is Size.Small or Size.Medium )
-                .Add( "text-medium", when: size is Size.Large );
-        }
+            Size.Small => ElementClass.Empty()
+                .Add( "h-8 min-h-8 px-2 rounded-small", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-small", when: slot is "input" ),
 
-        return ElementClass.Empty();
+            Size.Medium => ElementClass.Empty()
+                .Add( "h-10 min-h-10 rounded-medium", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-small", when: slot is "input" ),
+
+            Size.Large => ElementClass.Empty()
+                .Add( "h-12 min-h-12 rounded-large", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-medium", when: slot is "input" ),
+
+            _ => ElementClass.Empty()
+        };
     }
 
-    private static ElementClass GetRadiusStyles( Radius? radius )
+    private static ElementClass GetRadius( Radius? radius, string slot )
     {
-        if( radius is null )
+        return radius switch
         {
-            return ElementClass.Empty();
-        }
+            Radius.None => ElementClass.Empty()
+                .Add( "rounded-none", when: slot is nameof( _inputWrapper ) ),
 
-        return ElementClass.Empty()
-            .Add( "rounded-none", when: radius is Radius.None )
-            .Add( "rounded-small", when: radius is Radius.Small )
-            .Add( "rounded-medium", when: radius is Radius.Medium )
-            .Add( "rounded-large", when: radius is Radius.Large );
+            Radius.Small => ElementClass.Empty()
+                .Add( "rounded-small", when: slot is nameof( _inputWrapper ) ),
+
+            Radius.Medium => ElementClass.Empty()
+                .Add( "rounded-medium", when: slot is nameof( _inputWrapper ) ),
+
+            Radius.Large => ElementClass.Empty()
+                .Add( "rounded-large", when: slot is nameof( _inputWrapper ) ),
+
+            _ => ElementClass.Empty()
+        };
     }
 
-    private static ElementClass GetVariantStyles( InputVariant variant )
+    private static ElementClass GetVariant( InputVariant variant, string slot )
     {
-        return ElementClass.Empty()
-            .Add( "bg-default-100 hover:bg-default-200 group-focus-within:bg-default-100", when: variant is InputVariant.Flat );
+        return variant switch
+        {
+            InputVariant.Flat => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "bg-default-100" )
+                    .Add( "hover:bg-default-200" )
+                    .Add( "group-data-[filled-focused=true]:bg-default-100" ), when: slot is nameof( _inputWrapper ) ),
+
+            InputVariant.Outlined => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "border-2" )
+                    .Add( "border-default-200" )
+                    .Add( "hover:border-default-300" )
+                    .Add( "transition-colors" )
+                    .Add( "group-data-[filled-focused=true]:border-default-foreground" ), when: slot is nameof( _inputWrapper ) ),
+
+            InputVariant.Underlined => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "!px-1" )
+                    .Add( "!pb-1" )
+                    .Add( "!rounded-none" )
+                    .Add( "relative" )
+                    .Add( "border-b-2" )
+                    .Add( "shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]" )
+                    .Add( "border-default-200" )
+                    .Add( "hover:border-default-300" )
+                    .Add( "after:w-0" )
+                    .Add( "after:origin-center" )
+                    .Add( "after:bg-default-foreground" )
+                    .Add( "after:absolute" )
+                    .Add( "after:left-1/2" )
+                    .Add( "after:-translate-x-1/2" )
+                    .Add( "after:-bottom-[2px]" )
+                    .Add( "after:h-[2px]" )
+                    .Add( "after:transition-[width]" )
+                    .Add( "group-data-[filled-focused=true]:after:w-full" ), when: slot is nameof( _inputWrapper ) )
+                .Add( "pb-1", when: slot is nameof( _innerWrapper ) )
+                .Add( "group-data-[filled-focused=true]:text-foreground", when: slot is nameof( _label ) ),
+
+            _ => ElementClass.Empty()
+        };
     }
 
-    private static ElementClass GetLabelPlacementStyles( LabelPlacement labelPlacement, string slot )
+    private static ElementClass GetLabelPlacement( LabelPlacement labelPlacement, string slot )
     {
-        if( slot is "base" )
+        return labelPlacement switch
         {
-            return ElementClass.Empty()
-                .Add( "justify-end", when: labelPlacement is LabelPlacement.Outside );
-        }
-        else if( slot is "mainWrapper" )
-        {
-            return ElementClass.Empty()
-                .Add( "flex flex-col", when: labelPlacement is LabelPlacement.Outside );
-        }
-        else if( slot is "inputWrapper" )
-        {
-            return ElementClass.Empty()
-                .Add( "flex-col items-start justify-center", when: labelPlacement is LabelPlacement.Inside );
-        }
-        else if( slot is "innerWrapper" )
-        {
-            return ElementClass.Empty()
-                .Add( "group-has-[label]:items-end", when: labelPlacement is LabelPlacement.Inside );
-        }
-        else if( slot is "label" )
-        {
-            return ElementClass.Empty()
-                .Add( "group-data-[filled-focused=true]:pointer-events-auto pe-2 max-w-full text-ellipsis overflow-hidden" )
-                .Add( "group-data-[filled-focused=true]:scale-90 cursor-text", when: labelPlacement is LabelPlacement.Inside )
-                .Add( "group-data-[filled-focused=true]:left-0 z-20 top-1/2 -translate-y-1/2", when: labelPlacement is LabelPlacement.Outside );
-        }
+            LabelPlacement.Inside => ElementClass.Empty()
+                .Add( "flex-col items-start justify-center", when: slot is nameof( _inputWrapper ) )
+                .Add( "group-has-[label]:items-end", when: slot is nameof( _innerWrapper ) )
+                .Add( "cursor-text group-data-[filled-focused=true]:scale-90", when: slot is nameof( _label ) ),
 
-        return ElementClass.Empty();
+            LabelPlacement.Outside => ElementClass.Empty()
+                .Add( "justify-end", when: slot is nameof( _base ) )
+                .Add( "flex flex-col", when: slot is nameof( _mainWrapper ) )
+                .Add( ElementClass.Empty()
+                    .Add( "z-20" )
+                    .Add( "top-1/2" )
+                    .Add( "-translate-y-1/2" )
+                    .Add( "group-data-[filled-focused=true]:left-0" ), when: slot is nameof( _label ) ),
+
+            _ => ElementClass.Empty()
+        };
     }
 
-    private static ElementClass GetLabelInsideBySizeStyles( Size size, string slot )
+    private static ElementClass GetLabelPlacementInsideBySize( Size size, string slot )
     {
-        if( slot is "inputWrapper" )
+        return size switch
         {
-            return ElementClass.Empty()
-                .Add( "h-12 py-1.5", when: size is Size.Small )
-                .Add( "h-14 py-2", when: size is Size.Medium )
-                .Add( "h-16 py-2.5", when: size is Size.Large );
-        }
-        else if( slot is "label" )
-        {
-            return ElementClass.Empty()
-                .Add( "text-small roup-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.tiny)/2_-_8px)]", when: size is Size.Small )
-                .Add( "text-small group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_6px)]", when: size is Size.Medium )
-                .Add( "text-medium group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_8px)]", when: size is Size.Large );
-        }
+            Size.Small => ElementClass.Empty()
+                .Add( "h-12 py-1.5", when: slot is nameof( _inputWrapper ) )
+                .Add( ElementClass.Empty()
+                    .Add( "text-small" )
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.tiny)/2_-_8px)]" ), when: slot is nameof( _label ) ),
 
-        return ElementClass.Empty();
+            Size.Medium => ElementClass.Empty()
+                .Add( "h-14 py-2", when: slot is nameof( _inputWrapper ) )
+                .Add( ElementClass.Empty()
+                    .Add( "text-small" )
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_6px)]" ), when: slot is nameof( _label ) ),
+
+            Size.Large => ElementClass.Empty()
+                .Add( "h-16 py-2.5", when: slot is nameof( _inputWrapper ) )
+                .Add( ElementClass.Empty()
+                    .Add( "text-medium" )
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_8px)]" ), when: slot is nameof( _label ) ),
+
+            _ => ElementClass.Empty()
+        };
     }
 
-    private static ElementClass GetLabelOutsideBySizeStyles( Size size, string slot )
+    private static ElementClass GetLabelPlacementOutsideBySize( Size size, string slot )
     {
-        if( slot is "base" )
+        return size switch
         {
-            return ElementClass.Empty()
-                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_8px)]", when: size is Size.Small )
-                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_10px)]", when: size is Size.Medium )
-                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_12px)]", when: size is Size.Large );
-        }
-        else if( slot is "label" )
-        {
-            return ElementClass.Empty()
-                .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.tiny)/2_+_16px)] left-2 text-tiny", when: size is Size.Small )
-                .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.small)/2_+_20px)] left-3 text-small", when: size is Size.Medium )
-                .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.small)/2_+_24px)] left-3 text-medium", when: size is Size.Large );
-        }
+            Size.Small => ElementClass.Empty()
+                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_8px)]", when: slot is nameof( _base ) )
+                .Add( ElementClass.Empty()
+                    .Add( "text-tiny" )
+                    .Add( "left-2" )
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.tiny)/2_+_16px)]" ), when: slot is nameof( _label ) ),
 
-        return ElementClass.Empty();
+            Size.Medium => ElementClass.Empty()
+                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_10px)]", when: slot is nameof( _base ) )
+                .Add( ElementClass.Empty()
+                    .Add( "text-small" )
+                    .Add( "left-3" )
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.small)/2_+_20px)]" ), when: slot is nameof( _label ) ),
+
+            Size.Large => ElementClass.Empty()
+                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_12px)]", when: slot is nameof( _base ) )
+                .Add( ElementClass.Empty()
+                    .Add( "text-medium" )
+                    .Add( "left-3" )
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.small)/2_+_24px)]" ), when: slot is nameof( _label ) ),
+
+            _ => ElementClass.Empty()
+        };
     }
 
     public static string GetStyles( LumexTextBox textBox )
@@ -195,7 +250,8 @@ internal readonly record struct TextBox
             .Add( _base )
             .Add( _disabled, when: textBox.Disabled )
             .Add( _fullWidth, when: textBox.FullWidth )
-            .Add( GetLabelOutsideBySizeStyles( textBox.Size, slot: "base" ), when: textBox.LabelPlacement is LabelPlacement.Outside )
+            .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _base ) ) )
+            .Add( GetLabelPlacementOutsideBySize( textBox.Size, slot: nameof( _base ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
             .Add( textBox.Class )
             .ToString();
     }
@@ -204,9 +260,10 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _label )
-            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: "label" ) )
-            .Add( GetLabelInsideBySizeStyles( textBox.Size, slot: "label" ), when: textBox.LabelPlacement is LabelPlacement.Inside )
-            .Add( GetLabelOutsideBySizeStyles( textBox.Size, slot: "label" ), when: textBox.LabelPlacement is LabelPlacement.Outside )
+            .Add( GetVariant( textBox.Variant, slot: nameof( _label ) ) )
+            .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _label ) ) )
+            .Add( GetLabelPlacementInsideBySize( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
+            .Add( GetLabelPlacementOutsideBySize( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
             // LabelPlacement & ThemeColor.Default
             .Add( ElementClass.Empty()
                 .Add( "group-data-[filled-focused=true]:text-default-600", when: textBox.LabelPlacement is LabelPlacement.Inside && textBox.Color is ThemeColor.Default )
@@ -218,7 +275,7 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _mainWrapper )
-            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: "mainWrapper" ) )
+            .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _mainWrapper ) ) )
             .ToString();
     }
 
@@ -226,11 +283,11 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _inputWrapper )
-            .Add( GetRadiusStyles( textBox.Radius ) )
-            .Add( GetVariantStyles( textBox.Variant ) )
-            .Add( GetSizeStyles( textBox.Size, slot: "inputWrapper" ) )
-            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: "inputWrapper" ) )
-            .Add( GetLabelInsideBySizeStyles( textBox.Size, slot: "inputWrapper" ), when: textBox.LabelPlacement is LabelPlacement.Inside )
+            .Add( GetSize( textBox.Size, slot: nameof( _inputWrapper ) ) )
+            .Add( GetRadius( textBox.Radius, slot: nameof( _inputWrapper ) ) )
+            .Add( GetVariant( textBox.Variant, slot: nameof( _inputWrapper ) ) )
+            .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _inputWrapper ) ) )
+            .Add( GetLabelPlacementInsideBySize( textBox.Size, slot: nameof( _inputWrapper ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
             .ToString();
     }
 
@@ -238,7 +295,8 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _innerWrapper )
-            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: "innerWrapper" ) )
+            .Add( GetVariant( textBox.Variant, slot: nameof( _innerWrapper ) ) )
+            .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _innerWrapper ) ) )
             .ToString();
     }
 
@@ -246,7 +304,7 @@ internal readonly record struct TextBox
     {
         return ElementClass.Empty()
             .Add( _input )
-            .Add( GetSizeStyles( textBox.Size, slot: "input" ) )
+            .Add( GetSize( textBox.Size, slot: nameof( _input ) ) )
             .ToString();
     }
 }

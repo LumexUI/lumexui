@@ -24,6 +24,15 @@ public partial class LumexTextBox : LumexInputBase<string?>
     /// </summary>
     [Parameter] public string? Placeholder { get; set; }
 
+    /// <summary>
+    /// Gets or sets the variant for the textbox.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="InputVariant.Flat"/>
+    /// </remarks>
+    [Parameter] public InputVariant Variant { get; set; }
+
+    /// <summary>
     /// Gets or sets the border radius of the textbox.
     /// </summary>
     [Parameter] public Radius? Radius { get; set; }
@@ -98,7 +107,7 @@ public partial class LumexTextBox : LumexInputBase<string?>
         return true;
     }
 
-    private async Task OnInputWrapperClickAsync()
+    private async Task OnInputWrapperMouseDownAsync()
     {
         if( !Disabled && !ReadOnly )
         {
