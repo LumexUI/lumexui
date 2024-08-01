@@ -88,15 +88,15 @@ internal readonly record struct TextBox
         {
             Size.Small => ElementClass.Empty()
                 .Add( "h-8 min-h-8 px-2 rounded-small", when: slot is nameof( _inputWrapper ) )
-                .Add( "text-small", when: slot is "input" ),
+                .Add( "text-small", when: slot is nameof( _input ) ),
 
             Size.Medium => ElementClass.Empty()
                 .Add( "h-10 min-h-10 rounded-medium", when: slot is nameof( _inputWrapper ) )
-                .Add( "text-small", when: slot is "input" ),
+                .Add( "text-small", when: slot is nameof( _input ) ),
 
             Size.Large => ElementClass.Empty()
                 .Add( "h-12 min-h-12 rounded-large", when: slot is nameof( _inputWrapper ) )
-                .Add( "text-medium", when: slot is "input" ),
+                .Add( "text-medium", when: slot is nameof( _input ) ),
 
             _ => ElementClass.Empty()
         };
@@ -130,7 +130,7 @@ internal readonly record struct TextBox
                 .Add( ElementClass.Empty()
                     .Add( "bg-default-100" )
                     .Add( "hover:bg-default-200" )
-                    .Add( "group-data-[filled-focused=true]:bg-default-100" ), when: slot is nameof( _inputWrapper ) ),
+                    .Add( "group-data-[focus=true]:bg-default-100" ), when: slot is nameof( _inputWrapper ) ),
 
             InputVariant.Outlined => ElementClass.Empty()
                 .Add( ElementClass.Empty()
@@ -138,7 +138,7 @@ internal readonly record struct TextBox
                     .Add( "border-default-200" )
                     .Add( "hover:border-default-300" )
                     .Add( "transition-colors" )
-                    .Add( "group-data-[filled-focused=true]:border-default-foreground" ), when: slot is nameof( _inputWrapper ) ),
+                    .Add( "group-data-[focus=true]:border-default-foreground" ), when: slot is nameof( _inputWrapper ) ),
 
             InputVariant.Underlined => ElementClass.Empty()
                 .Add( ElementClass.Empty()
@@ -159,9 +159,149 @@ internal readonly record struct TextBox
                     .Add( "after:-bottom-[2px]" )
                     .Add( "after:h-[2px]" )
                     .Add( "after:transition-[width]" )
-                    .Add( "group-data-[filled-focused=true]:after:w-full" ), when: slot is nameof( _inputWrapper ) )
-                .Add( "pb-1", when: slot is nameof( _innerWrapper ) )
-                .Add( "group-data-[filled-focused=true]:text-foreground", when: slot is nameof( _label ) ),
+                    .Add( "group-data-[focus=true]:after:w-full" ), when: slot is nameof( _inputWrapper ) )
+                .Add( "pb-1", when: slot is nameof( _innerWrapper ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetVariantFlatByColor( ThemeColor color, string slot )
+    {
+        return color switch
+        {
+            ThemeColor.Default => ElementClass.Empty()
+                .Add( "[&:not(placeholder-shown)]:text-default-foreground", when: slot is nameof( _input ) ),
+
+            ThemeColor.Primary => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "text-primary" )
+                    .Add( "bg-primary-50" )
+                    .Add( "hover:bg-primary-100" )
+                    .Add( "placeholder:text-primary" )
+                    .Add( "group-data-[focus=true]:bg-primary-50" ), when: slot is nameof( _inputWrapper ) )
+                .Add( "placeholder:text-primary", when: slot is nameof( _input ) )
+                .Add( "text-primary", when: slot is nameof( _label ) ),
+
+            ThemeColor.Secondary => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "text-secondary" )
+                    .Add( "bg-secondary-50" )
+                    .Add( "hover:bg-secondary-100" )
+                    .Add( "placeholder:text-secondary" )
+                    .Add( "group-data-[focus=true]:bg-secondary-50" ), when: slot is nameof( _inputWrapper ) )
+                .Add( "placeholder:text-secondary", when: slot is nameof( _input ) )
+                .Add( "text-secondary", when: slot is nameof( _label ) ),
+
+            ThemeColor.Success => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "text-success-600" )
+                    .Add( "dark:text-success" )
+                    .Add( "bg-success-50" )
+                    .Add( "hover:bg-success-100" )
+                    .Add( "placeholder:text-success-600" )
+                    .Add( "group-data-[focus=true]:bg-success-50" ), when: slot is nameof( _inputWrapper ) )
+                .Add( "placeholder:text-success-600 dark:placeholder:text-success", when: slot is nameof( _input ) )
+                .Add( "text-success-600 dark:text-success", when: slot is nameof( _label ) ),
+
+            ThemeColor.Warning => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "text-warning-600" )
+                    .Add( "dark:text-warning" )
+                    .Add( "bg-warning-50" )
+                    .Add( "hover:bg-warning-100" )
+                    .Add( "placeholder:text-warning-600" )
+                    .Add( "group-data-[focus=true]:bg-warning-50" ), when: slot is nameof( _inputWrapper ) )
+                .Add( "placeholder:text-warning-600 dark:placeholder:text-warning", when: slot is nameof( _input ) )
+                .Add( "text-warning-600 dark:text-warning", when: slot is nameof( _label ) ),
+
+            ThemeColor.Danger => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "text-danger-600" )
+                    .Add( "dark:text-danger" )
+                    .Add( "bg-danger-50" )
+                    .Add( "hover:bg-danger-100" )
+                    .Add( "placeholder:text-danger-600" )
+                    .Add( "group-data-[focus=true]:bg-danger-50" ), when: slot is nameof( _inputWrapper ) )
+                .Add( "placeholder:text-danger-600 dark:placeholder:text-danger", when: slot is nameof( _input ) )
+                .Add( "text-danger-600 dark:text-danger", when: slot is nameof( _label ) ),
+
+            ThemeColor.Info => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "text-info" )
+                    .Add( "bg-info-50" )
+                    .Add( "hover:bg-info-100" )
+                    .Add( "placeholder:text-info" )
+                    .Add( "group-data-[focus=true]:bg-info-50" ), when: slot is nameof( _inputWrapper ) )
+                .Add( "placeholder:text-info", when: slot is nameof( _input ) )
+                .Add( "text-info", when: slot is nameof( _label ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetVariantOutlinedByColor( ThemeColor color, string slot )
+    {
+        return color switch
+        {
+            ThemeColor.Primary => ElementClass.Empty()
+                .Add( "group-data-[focus=true]:border-primary", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-primary", when: slot is nameof( _label ) ),
+
+            ThemeColor.Secondary => ElementClass.Empty()
+                .Add( "group-data-[focus=true]:border-secondary", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-secondary", when: slot is nameof( _label ) ),
+
+            ThemeColor.Success => ElementClass.Empty()
+                .Add( "group-data-[focus=true]:border-success", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-success", when: slot is nameof( _label ) ),
+
+            ThemeColor.Warning => ElementClass.Empty()
+                .Add( "group-data-[focus=true]:border-warning", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-warning", when: slot is nameof( _label ) ),
+
+            ThemeColor.Danger => ElementClass.Empty()
+                .Add( "group-data-[focus=true]:border-danger", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-danger", when: slot is nameof( _label ) ),
+
+            ThemeColor.Info => ElementClass.Empty()
+                .Add( "group-data-[focus=true]:border-info", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-info", when: slot is nameof( _label ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetVariantUnderlinedByColor( ThemeColor color, string slot )
+    {
+        return color switch
+        {
+            ThemeColor.Default => ElementClass.Empty()
+                .Add( "[&:not(placeholder-shown)]:text-foreground", when: slot is nameof( _input ) ),
+
+            ThemeColor.Primary => ElementClass.Empty()
+                .Add( "after:bg-primary", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-primary", when: slot is nameof( _label ) ),
+
+            ThemeColor.Secondary => ElementClass.Empty()
+                .Add( "after:bg-secondary", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-secondary", when: slot is nameof( _label ) ),
+
+            ThemeColor.Success => ElementClass.Empty()
+                .Add( "after:bg-success", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-success", when: slot is nameof( _label ) ),
+
+            ThemeColor.Warning => ElementClass.Empty()
+                .Add( "after:bg-warning", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-warning", when: slot is nameof( _label ) ),
+
+            ThemeColor.Danger => ElementClass.Empty()
+                .Add( "after:bg-danger", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-danger", when: slot is nameof( _label ) ),
+
+            ThemeColor.Info => ElementClass.Empty()
+                .Add( "after:bg-info", when: slot is nameof( _inputWrapper ) )
+                .Add( "text-info", when: slot is nameof( _label ) ),
 
             _ => ElementClass.Empty()
         };
@@ -261,6 +401,9 @@ internal readonly record struct TextBox
         return ElementClass.Empty()
             .Add( _label )
             .Add( GetVariant( textBox.Variant, slot: nameof( _label ) ) )
+            .Add( GetVariantFlatByColor( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Flat )
+            .Add( GetVariantOutlinedByColor( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Outlined )
+            .Add( GetVariantUnderlinedByColor( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Underlined )
             .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _label ) ) )
             .Add( GetLabelPlacementInsideBySize( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
             .Add( GetLabelPlacementOutsideBySize( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
@@ -286,6 +429,9 @@ internal readonly record struct TextBox
             .Add( GetSize( textBox.Size, slot: nameof( _inputWrapper ) ) )
             .Add( GetRadius( textBox.Radius, slot: nameof( _inputWrapper ) ) )
             .Add( GetVariant( textBox.Variant, slot: nameof( _inputWrapper ) ) )
+            .Add( GetVariantFlatByColor( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Flat )
+            .Add( GetVariantOutlinedByColor( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Outlined )
+            .Add( GetVariantUnderlinedByColor( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Underlined )
             .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _inputWrapper ) ) )
             .Add( GetLabelPlacementInsideBySize( textBox.Size, slot: nameof( _inputWrapper ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
             .ToString();
@@ -305,6 +451,8 @@ internal readonly record struct TextBox
         return ElementClass.Empty()
             .Add( _input )
             .Add( GetSize( textBox.Size, slot: nameof( _input ) ) )
+            .Add( GetVariantFlatByColor( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Flat )
+            .Add( GetVariantUnderlinedByColor( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Underlined )
             .ToString();
     }
 }

@@ -5,6 +5,7 @@
                 Class="@RootClass"
                 Style="@RootStyle"
                 data-slot="root"
+                data-focus="@Utils.GetDataAttributeValue( IsFocused )"
                 data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )"
                 @attributes="@AdditionalAttributes">
     @_renderMainWrapper
