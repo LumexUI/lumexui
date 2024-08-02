@@ -36,6 +36,14 @@ public partial class LumexTextBox : LumexInputBase<string?>
     [Parameter] public string? Placeholder { get; set; }
 
     /// <summary>
+    /// Gets or sets the input type of the textbox.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="InputType.Text"/>
+    /// </remarks>
+    [Parameter] public InputType Type { get; set; } = InputType.Text;
+
+    /// <summary>
     /// Gets or sets the variant for the textbox.
     /// </summary>
     /// <remarks>

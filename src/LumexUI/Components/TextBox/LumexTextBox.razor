@@ -44,7 +44,8 @@
                  data-has-clear-button="@Utils.GetDataAttributeValue( ClearButtonVisible )">
                 @StartContent
 
-                <input class="@InputClass"
+                <input type="@Type.ToDescription()"
+                       class="@InputClass"
                        value="@CurrentValueAsString"
                        placeholder="@Placeholder"
                        disabled="@Disabled"
