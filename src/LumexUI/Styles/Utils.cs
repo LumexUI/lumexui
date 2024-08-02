@@ -24,4 +24,13 @@ internal class Utils
         .Add( "group-focus-visible:ring-offset-2" )
         .Add( "group-focus-visible:ring-offset-background" )
         .ToString();
+
+    //public readonly static string GroupDataFocusVisible = ElementClass.Empty()
+    //    .Add( "outline-none" )
+    //    .Add( "group-data-[focus-visible=true]:z-10" )
+    //    .Add( "group-data-[focus-visible=true]:ring-2" )
+    //    .Add( "group-data-[focus-visible=true]:ring-focus" )
+    //    .Add( "group-data-[focus-visible=true]:ring-offset-2" )
+    //    .Add( "group-data-[focus-visible=true]:ring-offset-background" )
+    //    .ToString();
 }

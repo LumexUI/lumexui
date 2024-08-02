@@ -35,7 +35,7 @@ public static class ElementReferenceExtensions
 
     private static IJSRuntime GetJSRuntime( this ElementReference? elementReference )
     {
-        if( elementReference is not { Context : WebElementReferenceContext context } )
+        if( elementReference is not { Context: WebElementReferenceContext context } )
         {
             throw new InvalidOperationException( "ElementReference has not been configured correctly." );
         }

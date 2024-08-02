@@ -86,7 +86,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
         set => _ = SetCurrentValueAsStringAsync( value );
     }
 
-    protected bool IsFocused { get; set; }
+    protected bool _focused;
 
     private bool _parsingFailed;
     private bool _hasInitializedParameters;
@@ -104,7 +104,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
             return ValueTask.CompletedTask;
         }
 
-        IsFocused = true;
+        _focused = true;
         return ElementReference.Value.FocusAsync();
     }
 
@@ -191,7 +191,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// <returns>A <see cref="Task"/> representing the asynchronous blur operation.</returns>
     protected virtual Task OnBlurAsync( FocusEventArgs args )
     {
-        IsFocused = false;
+        _focused = false;
         return OnBlur.InvokeAsync( args );
     }
 

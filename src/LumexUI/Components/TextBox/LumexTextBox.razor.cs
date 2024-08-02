@@ -74,7 +74,7 @@ public partial class LumexTextBox : LumexInputBase<string?>
     private bool FilledOrFocused =>
         !string.IsNullOrEmpty( Placeholder ) ||
         !string.IsNullOrEmpty( CurrentValueAsString ) ||
-        IsFocused;
+        _focused;
 
     private readonly RenderFragment _renderMainWrapper;
     private readonly RenderFragment _renderInputWrapper;

@@ -10,7 +10,7 @@ using LumexUI.Utilities;
 namespace LumexUI.Styles;
 
 [ExcludeFromCodeCoverage]
-internal readonly record struct TextBox
+internal static class TextBox
 {
     private readonly static string _base = ElementClass.Empty()
         .Add( "group" )
@@ -131,6 +131,9 @@ internal readonly record struct TextBox
                     .Add( "bg-default-100" )
                     .Add( "hover:bg-default-200" )
                     .Add( "group-data-[focus=true]:bg-default-100" ), when: slot is nameof( _inputWrapper ) ),
+                    // focus ring
+                    // TODO: Seems like we need a JavaScript call similar to React Aria `useFocusVisible` hook
+                    //.Add( Utils.GroupDataFocusVisible ) )
 
             InputVariant.Outlined => ElementClass.Empty()
                 .Add( ElementClass.Empty()
