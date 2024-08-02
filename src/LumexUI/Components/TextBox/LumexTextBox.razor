@@ -5,6 +5,8 @@
                 Class="@RootClass"
                 Style="@RootStyle"
                 data-slot="root"
+                data-disabled="@Utils.GetDataAttributeValue( Disabled )"
+                data-readonly="@Utils.GetDataAttributeValue( ReadOnly )"
                 data-focus="@Utils.GetDataAttributeValue( _focused )"
                 data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )"
                 @attributes="@AdditionalAttributes">
@@ -45,6 +47,8 @@
                 <input class="@InputClass"
                        value="@CurrentValueAsString"
                        placeholder="@Placeholder"
+                       disabled="@Disabled"
+                       readonly="@ReadOnly"
                        data-slot="input"
                        data-filled="@Utils.GetDataAttributeValue( HasValue )"
                        data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"
