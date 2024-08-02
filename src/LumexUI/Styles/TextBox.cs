@@ -62,6 +62,7 @@ internal static class TextBox
         .Add( "items-center" )
         .Add( "w-full" )
         .Add( "h-full" )
+        .Add( "data-[has-clear-button=true]:pe-7" )
         .ToString();
 
     private readonly static string _input = ElementClass.Empty()
@@ -75,6 +76,23 @@ internal static class TextBox
         .Add( "data-[has-end-content=true]:pe-1.5" )
         .ToString();
 
+    private readonly static string _clearButton = ElementClass.Empty()
+        .Add( "p-0.5" )
+        //.Add( "-m-2" )
+        .Add( "z-10" )
+        .Add( "absolute" )
+        .Add( "end-1.5" )
+        .Add( "select-none" )
+        .Add( "hover:!opacity-100" )
+        .Add( "active:!opacity-focus" )
+        .Add( "rounded-full" )
+        // transition
+        .Add( "transition-opacity" )
+        .Add( "motion-reduce:transition-none" )
+        // focus ring
+        .Add( Utils.FocusVisible )
+        .ToString();
+
     private readonly static string _disabled = ElementClass.Empty()
         .Add( "opacity-disabled" )
         .Add( "pointer-events-none" )
@@ -84,27 +102,30 @@ internal static class TextBox
         .Add( "w-full" )
         .ToString();
 
-    private static ElementClass GetSize( Size size, string slot )
+    private static ElementClass GetSizeStyles( Size size, string slot )
     {
         return size switch
         {
             Size.Small => ElementClass.Empty()
                 .Add( "h-8 min-h-8 rounded-small", when: slot is nameof( _inputWrapper ) )
-                .Add( "text-small", when: slot is nameof( _input ) ),
+                .Add( "text-small", when: slot is nameof( _input ) )
+                .Add( "text-medium", when: slot is nameof( _clearButton ) ),
 
             Size.Medium => ElementClass.Empty()
                 .Add( "h-10 min-h-10 rounded-medium", when: slot is nameof( _inputWrapper ) )
-                .Add( "text-small", when: slot is nameof( _input ) ),
+                .Add( "text-small", when: slot is nameof( _input ) )
+                .Add( "text-large", when: slot is nameof( _clearButton ) ),
 
             Size.Large => ElementClass.Empty()
                 .Add( "h-12 min-h-12 rounded-large", when: slot is nameof( _inputWrapper ) )
-                .Add( "text-medium", when: slot is nameof( _input ) ),
+                .Add( "text-medium", when: slot is nameof( _input ) )
+                .Add( "text-large", when: slot is nameof( _clearButton ) ),
 
             _ => ElementClass.Empty()
         };
     }
 
-    private static ElementClass GetRadius( Radius? radius, string slot )
+    private static ElementClass GetRadiusStyles( Radius? radius, string slot )
     {
         return radius switch
         {
@@ -124,7 +145,14 @@ internal static class TextBox
         };
     }
 
-    private static ElementClass GetVariant( InputVariant variant, string slot )
+    private static ElementClass GetClearableStateStyles( string slot )
+    {
+        return ElementClass.Empty()
+            .Add( "peer", when: slot is nameof( _input ) )
+            .Add( "peer-data-[filled=true]:opacity-focus", when: slot is nameof( _clearButton ) );
+    }
+
+    private static ElementClass GetVariantStyles( InputVariant variant, string slot )
     {
         return variant switch
         {
@@ -169,7 +197,7 @@ internal static class TextBox
         };
     }
 
-    private static ElementClass GetVariantFlatByColor( ThemeColor color, string slot )
+    private static ElementClass GetVariantFlatByColorStyles( ThemeColor color, string slot )
     {
         return color switch
         {
@@ -243,7 +271,7 @@ internal static class TextBox
         };
     }
 
-    private static ElementClass GetVariantOutlinedByColor( ThemeColor color, string slot )
+    private static ElementClass GetVariantOutlinedByColorStyles( ThemeColor color, string slot )
     {
         return color switch
         {
@@ -275,7 +303,7 @@ internal static class TextBox
         };
     }
 
-    private static ElementClass GetVariantUnderlinedByColor( ThemeColor color, string slot )
+    private static ElementClass GetVariantUnderlinedByColorStyles( ThemeColor color, string slot )
     {
         return color switch
         {
@@ -310,7 +338,7 @@ internal static class TextBox
         };
     }
 
-    private static ElementClass GetLabelPlacement( LabelPlacement labelPlacement, string slot )
+    private static ElementClass GetLabelPlacementStyles( LabelPlacement labelPlacement, string slot )
     {
         return labelPlacement switch
         {
@@ -332,7 +360,7 @@ internal static class TextBox
         };
     }
 
-    private static ElementClass GetLabelPlacementInsideBySize( Size size, string slot )
+    private static ElementClass GetLabelPlacementInsideBySizeStyles( Size size, string slot )
     {
         return size switch
         {
@@ -358,7 +386,7 @@ internal static class TextBox
         };
     }
 
-    private static ElementClass GetLabelPlacementOutsideBySize( Size size, string slot )
+    private static ElementClass GetLabelPlacementOutsideBySizeStyles( Size size, string slot )
     {
         return size switch
         {
@@ -393,8 +421,8 @@ internal static class TextBox
             .Add( _base )
             .Add( _disabled, when: textBox.Disabled )
             .Add( _fullWidth, when: textBox.FullWidth )
-            .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _base ) ) )
-            .Add( GetLabelPlacementOutsideBySize( textBox.Size, slot: nameof( _base ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
+            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _base ) ) )
+            .Add( GetLabelPlacementOutsideBySizeStyles( textBox.Size, slot: nameof( _base ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
             .Add( textBox.Class )
             .ToString();
     }
@@ -403,13 +431,13 @@ internal static class TextBox
     {
         return ElementClass.Empty()
             .Add( _label )
-            .Add( GetVariant( textBox.Variant, slot: nameof( _label ) ) )
-            .Add( GetVariantFlatByColor( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Flat )
-            .Add( GetVariantOutlinedByColor( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Outlined )
-            .Add( GetVariantUnderlinedByColor( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Underlined )
-            .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _label ) ) )
-            .Add( GetLabelPlacementInsideBySize( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
-            .Add( GetLabelPlacementOutsideBySize( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
+            .Add( GetVariantStyles( textBox.Variant, slot: nameof( _label ) ) )
+            .Add( GetVariantFlatByColorStyles( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Flat )
+            .Add( GetVariantOutlinedByColorStyles( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Outlined )
+            .Add( GetVariantUnderlinedByColorStyles( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Underlined )
+            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _label ) ) )
+            .Add( GetLabelPlacementInsideBySizeStyles( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
+            .Add( GetLabelPlacementOutsideBySizeStyles( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
             // LabelPlacement & ThemeColor.Default
             .Add( ElementClass.Empty()
                 .Add( "group-data-[filled-focused=true]:text-default-600", when: textBox.LabelPlacement is LabelPlacement.Inside && textBox.Color is ThemeColor.Default )
@@ -421,7 +449,7 @@ internal static class TextBox
     {
         return ElementClass.Empty()
             .Add( _mainWrapper )
-            .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _mainWrapper ) ) )
+            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _mainWrapper ) ) )
             .ToString();
     }
 
@@ -429,14 +457,14 @@ internal static class TextBox
     {
         return ElementClass.Empty()
             .Add( _inputWrapper )
-            .Add( GetSize( textBox.Size, slot: nameof( _inputWrapper ) ) )
-            .Add( GetRadius( textBox.Radius, slot: nameof( _inputWrapper ) ) )
-            .Add( GetVariant( textBox.Variant, slot: nameof( _inputWrapper ) ) )
-            .Add( GetVariantFlatByColor( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Flat )
-            .Add( GetVariantOutlinedByColor( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Outlined )
-            .Add( GetVariantUnderlinedByColor( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Underlined )
-            .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _inputWrapper ) ) )
-            .Add( GetLabelPlacementInsideBySize( textBox.Size, slot: nameof( _inputWrapper ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
+            .Add( GetSizeStyles( textBox.Size, slot: nameof( _inputWrapper ) ) )
+            .Add( GetRadiusStyles( textBox.Radius, slot: nameof( _inputWrapper ) ) )
+            .Add( GetVariantStyles( textBox.Variant, slot: nameof( _inputWrapper ) ) )
+            .Add( GetVariantFlatByColorStyles( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Flat )
+            .Add( GetVariantOutlinedByColorStyles( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Outlined )
+            .Add( GetVariantUnderlinedByColorStyles( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Underlined )
+            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _inputWrapper ) ) )
+            .Add( GetLabelPlacementInsideBySizeStyles( textBox.Size, slot: nameof( _inputWrapper ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
             // Outlined & Size.Small
             .Add( "py-1", when: textBox.Variant is InputVariant.Outlined && textBox.Size is Size.Small )
             .ToString();
@@ -446,8 +474,8 @@ internal static class TextBox
     {
         return ElementClass.Empty()
             .Add( _innerWrapper )
-            .Add( GetVariant( textBox.Variant, slot: nameof( _innerWrapper ) ) )
-            .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _innerWrapper ) ) )
+            .Add( GetVariantStyles( textBox.Variant, slot: nameof( _innerWrapper ) ) )
+            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _innerWrapper ) ) )
             // Underlined & Size
             .Add( ElementClass.Empty()
                 .Add( "pb-0.5", when: textBox.Variant is InputVariant.Underlined && textBox.Size is Size.Small )
@@ -459,9 +487,19 @@ internal static class TextBox
     {
         return ElementClass.Empty()
             .Add( _input )
-            .Add( GetSize( textBox.Size, slot: nameof( _input ) ) )
-            .Add( GetVariantFlatByColor( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Flat )
-            .Add( GetVariantUnderlinedByColor( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Underlined )
+            .Add( GetSizeStyles( textBox.Size, slot: nameof( _input ) ) )
+            .Add( GetVariantFlatByColorStyles( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Flat )
+            .Add( GetVariantUnderlinedByColorStyles( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Underlined )
+            .Add( GetClearableStateStyles( slot: nameof( _input ) ) )
+            .ToString();
+    }
+
+    public static string GetClearButtonStyles( LumexTextBox textBox )
+    {
+        return ElementClass.Empty()
+            .Add( _clearButton )
+            .Add( GetSizeStyles( textBox.Size, slot: nameof( _clearButton ) ) )
+            .Add( GetClearableStateStyles( slot: nameof( _clearButton ) ) )
             .ToString();
     }
 }

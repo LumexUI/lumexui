@@ -37,13 +37,16 @@
                 <label class="@LabelClass" data-slot="label">@Label</label>
             }
 
-            <div class="@InnerWrapperClass" data-slot="inner-wrapper">
+            <div class="@InnerWrapperClass"
+                 data-slot="inner-wrapper"
+                 data-has-clear-button="@Utils.GetDataAttributeValue( ClearButtonVisible )">
                 @StartContent
 
                 <input class="@InputClass"
                        value="@CurrentValueAsString"
                        placeholder="@Placeholder"
                        data-slot="input"
+                       data-filled="@Utils.GetDataAttributeValue( HasValue )"
                        data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"
                        data-has-end-content="@Utils.GetDataAttributeValue( EndContent is not null )"
                        @ref="@ElementReference"
@@ -52,6 +55,20 @@
                        @onblur="@OnBlurAsync" />
 
                 @EndContent
+
+                @if( ClearButtonVisible )
+                {
+                    <span role="button"
+                          class="@ClearButtonClass"
+                          tabindex="0"
+                          data-slot="clear-button"
+                          @onclick="@ClearAsync"
+                          @onkeyup="@ClearAsync">
+                        <LumexIcon Icon="@Icons.Rounded.Cancel"
+                                   Size="@new("1em")"
+                                   Color="@ThemeColor.None" />
+                    </span>
+                }
             </div>
         </div>
     }

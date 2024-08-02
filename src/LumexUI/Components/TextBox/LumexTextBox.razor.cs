@@ -6,6 +6,7 @@ using LumexUI.Common;
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace LumexUI;
 
@@ -63,6 +64,16 @@ public partial class LumexTextBox : LumexInputBase<string?>
     /// </remarks>
     [Parameter] public bool FullWidth { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the textbox should have a clear button.
+    /// </summary>
+    [Parameter] public bool Clearable { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that is fired when the value in the textbox is cleared.
+    /// </summary>
+    [Parameter] public EventCallback OnCleared { get; set; }
+
     private protected override string? RootClass =>
         TwMerge.Merge( TextBox.GetStyles( this ) );
 
@@ -81,7 +92,11 @@ public partial class LumexTextBox : LumexInputBase<string?>
     private string? InputClass =>
         TwMerge.Merge( TextBox.GetInputStyles( this ) );
 
+    private string? ClearButtonClass =>
+        TwMerge.Merge( TextBox.GetClearButtonStyles( this ) );
+
     private bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
+    private bool ClearButtonVisible => Clearable && HasValue;
     private bool FilledOrFocused =>
         _focused ||
         HasValue ||
@@ -125,5 +140,25 @@ public partial class LumexTextBox : LumexInputBase<string?>
         {
             await FocusAsync();
         }
+    }
+
+    private async Task ClearAsync( MouseEventArgs args )
+    {
+        await ClearAsyncCore();
+    }
+
+    private async Task ClearAsync( KeyboardEventArgs args )
+    {
+        if( args.Code is "Enter" or "Space" )
+        {
+            await ClearAsyncCore();
+        }
+    }
+
+    private async Task ClearAsyncCore()
+    {
+        await SetCurrentValueAsync( string.Empty );
+        await OnCleared.InvokeAsync();
+        await FocusAsync();
     }
 }
