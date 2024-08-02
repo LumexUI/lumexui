@@ -316,7 +316,7 @@ internal static class TextBox
             LabelPlacement.Inside => ElementClass.Empty()
                 .Add( "flex-col items-start justify-center", when: slot is nameof( _inputWrapper ) )
                 .Add( "group-has-[label]:items-end", when: slot is nameof( _innerWrapper ) )
-                .Add( "cursor-text group-data-[filled-focused=true]:scale-90", when: slot is nameof( _label ) ),
+                .Add( "cursor-text group-data-[filled-focused=true]:scale-[0.85]", when: slot is nameof( _label ) ),
 
             LabelPlacement.Outside => ElementClass.Empty()
                 .Add( "justify-end", when: slot is nameof( _base ) )
