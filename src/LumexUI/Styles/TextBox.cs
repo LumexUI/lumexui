@@ -71,6 +71,8 @@ internal static class TextBox
         .Add( "focus-visible:outline-none" )
         .Add( "placeholder:text-foreground-500" )
         .Add( "autofill:bg-transparent" )
+        .Add( "data-[has-start-content=true]:ps-1.5" )
+        .Add( "data-[has-end-content=true]:pe-1.5" )
         .ToString();
 
     private readonly static string _disabled = ElementClass.Empty()

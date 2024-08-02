@@ -15,6 +15,16 @@ namespace LumexUI;
 public partial class LumexTextBox : LumexInputBase<string?>
 {
     /// <summary>
+    /// Gets or sets content to be rendered at the start of the textbox.
+    /// </summary>
+    [Parameter] public RenderFragment? StartContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets content to be rendered at the end of the textbox.
+    /// </summary>
+    [Parameter] public RenderFragment? EndContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the label for the textbox.
     /// </summary>
     [Parameter] public string? Label { get; set; }
@@ -71,10 +81,12 @@ public partial class LumexTextBox : LumexInputBase<string?>
     private string? InputClass =>
         TwMerge.Merge( TextBox.GetInputStyles( this ) );
 
+    private bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
     private bool FilledOrFocused =>
-        !string.IsNullOrEmpty( Placeholder ) ||
-        !string.IsNullOrEmpty( CurrentValueAsString ) ||
-        _focused;
+        _focused ||
+        HasValue ||
+        StartContent is not null ||
+        !string.IsNullOrEmpty( Placeholder );
 
     private readonly RenderFragment _renderMainWrapper;
     private readonly RenderFragment _renderInputWrapper;
@@ -107,7 +119,7 @@ public partial class LumexTextBox : LumexInputBase<string?>
         return true;
     }
 
-    private async Task OnInputWrapperClickAsync()
+    private async Task FocusInputAsync()
     {
         if( !Disabled && !ReadOnly )
         {

@@ -30,7 +30,7 @@
     {
         <div class="@InputWrapperClass"
              data-slot="input-wrapper"
-             @onclick="@OnInputWrapperClickAsync">
+             @onclick="@FocusInputAsync">
 
             @if( !string.IsNullOrEmpty( Label ) )
             {
@@ -38,14 +38,20 @@
             }
 
             <div class="@InnerWrapperClass" data-slot="inner-wrapper">
+                @StartContent
+
                 <input class="@InputClass"
                        value="@CurrentValueAsString"
                        placeholder="@Placeholder"
                        data-slot="input"
+                       data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"
+                       data-has-end-content="@Utils.GetDataAttributeValue( EndContent is not null )"
                        @ref="@ElementReference"
                        @onchange="@OnChangeAsync"
                        @onfocus="@OnFocusAsync"
                        @onblur="@OnBlurAsync" />
+
+                @EndContent
             </div>
         </div>
     }
