@@ -150,7 +150,6 @@ internal static class TextBox
                     .Add( "!rounded-none" )
                     .Add( "relative" )
                     .Add( "border-b-2" )
-                    .Add( "shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]" )
                     .Add( "border-default-200" )
                     .Add( "hover:border-default-300" )
                     .Add( "after:w-0" )
@@ -436,6 +435,8 @@ internal static class TextBox
             .Add( GetVariantUnderlinedByColor( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Underlined )
             .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _inputWrapper ) ) )
             .Add( GetLabelPlacementInsideBySize( textBox.Size, slot: nameof( _inputWrapper ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
+            // Outlined & Size.Small
+            .Add( "py-1", when: textBox.Variant is InputVariant.Outlined && textBox.Size is Size.Small )
             .ToString();
     }
 
