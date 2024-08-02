@@ -87,7 +87,7 @@ internal static class TextBox
         return size switch
         {
             Size.Small => ElementClass.Empty()
-                .Add( "h-8 min-h-8 px-2 rounded-small", when: slot is nameof( _inputWrapper ) )
+                .Add( "h-8 min-h-8 rounded-small", when: slot is nameof( _inputWrapper ) )
                 .Add( "text-small", when: slot is nameof( _input ) ),
 
             Size.Medium => ElementClass.Empty()
@@ -131,9 +131,9 @@ internal static class TextBox
                     .Add( "bg-default-100" )
                     .Add( "hover:bg-default-200" )
                     .Add( "group-data-[focus=true]:bg-default-100" ), when: slot is nameof( _inputWrapper ) ),
-                    // focus ring
-                    // TODO: Seems like we need a JavaScript call similar to React Aria `useFocusVisible` hook
-                    //.Add( Utils.GroupDataFocusVisible ) )
+            // focus ring
+            // TODO: Seems like we need a JavaScript call similar to React Aria `useFocusVisible` hook
+            //.Add( Utils.GroupDataFocusVisible ) )
 
             InputVariant.Outlined => ElementClass.Empty()
                 .Add( ElementClass.Empty()
@@ -146,7 +146,7 @@ internal static class TextBox
             InputVariant.Underlined => ElementClass.Empty()
                 .Add( ElementClass.Empty()
                     .Add( "!px-1" )
-                    .Add( "!pb-1" )
+                    .Add( "!pb-0" )
                     .Add( "!rounded-none" )
                     .Add( "relative" )
                     .Add( "border-b-2" )
@@ -162,8 +162,7 @@ internal static class TextBox
                     .Add( "after:-bottom-[2px]" )
                     .Add( "after:h-[2px]" )
                     .Add( "after:transition-[width]" )
-                    .Add( "group-data-[focus=true]:after:w-full" ), when: slot is nameof( _inputWrapper ) )
-                .Add( "pb-1", when: slot is nameof( _innerWrapper ) ),
+                    .Add( "group-data-[focus=true]:after:w-full" ), when: slot is nameof( _inputWrapper ) ),
 
             _ => ElementClass.Empty()
         };
@@ -446,6 +445,10 @@ internal static class TextBox
             .Add( _innerWrapper )
             .Add( GetVariant( textBox.Variant, slot: nameof( _innerWrapper ) ) )
             .Add( GetLabelPlacement( textBox.LabelPlacement, slot: nameof( _innerWrapper ) ) )
+            // Underlined & Size
+            .Add( ElementClass.Empty()
+                .Add( "pb-0.5", when: textBox.Variant is InputVariant.Underlined && textBox.Size is Size.Small )
+                .Add( "pb-1.5", when: textBox.Variant is InputVariant.Underlined && ( textBox.Size is Size.Medium or Size.Large ) ) )
             .ToString();
     }
 
