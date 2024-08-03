@@ -84,6 +84,15 @@ public partial class LumexTextBox : LumexInputBase<string?>, ISlotComponent<Text
     [Parameter] public bool FullWidth { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets the input behavior, specifying when the textbox
+    /// updates its value and triggers validation.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="InputBehavior.OnChange"/>
+    /// </remarks>
+    [Parameter] public InputBehavior Behavior { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the textbox should have a clear button.
     /// </summary>
     [Parameter] public bool Clearable { get; set; }
@@ -153,9 +162,19 @@ public partial class LumexTextBox : LumexInputBase<string?>, ISlotComponent<Text
         As = "div";
     }
 
+    protected virtual Task OnInputAsync( ChangeEventArgs args )
+    {
+        if( Behavior is not InputBehavior.OnInput )
+        {
+            return Task.CompletedTask;
+        }
+
+        return SetCurrentValueAsync( (string?)args.Value );
+    }
+
     protected virtual Task OnChangeAsync( ChangeEventArgs args )
     {
-        if( Disabled || ReadOnly )
+        if( Behavior is not InputBehavior.OnChange )
         {
             return Task.CompletedTask;
         }
