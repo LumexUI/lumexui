@@ -163,18 +163,24 @@ internal static class TextBox
         };
     }
 
-    private static ElementClass GetClearableStateStyles( string slot )
+    private static ElementClass GetClearableStyles( string slot )
     {
         return ElementClass.Empty()
             .Add( "peer", when: slot is nameof( _input ) )
             .Add( "peer-data-[filled=true]:opacity-focus", when: slot is nameof( _clearButton ) );
     }
 
-    private static ElementClass GetInvalidStateStyles( string slot )
+    private static ElementClass GetInvalidStyles( string slot )
     {
         return ElementClass.Empty()
             .Add( "!placeholder:text-danger !text-danger", when: slot is nameof( _input ) )
             .Add( "!text-danger", when: slot is nameof( _label ) );
+    }
+
+    private static ElementClass GetRequiredStyles( string slot )
+    {
+        return ElementClass.Empty()
+            .Add( "after:content-['*'] after:text-danger after:ms-0.5", when: slot is nameof( _label ) );
     }
 
     private static ElementClass GetVariantStyles( InputVariant variant, string slot )
@@ -485,7 +491,8 @@ internal static class TextBox
             .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _label ) ) )
             .Add( GetLabelPlacementInsideBySizeStyles( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
             .Add( GetLabelPlacementOutsideBySizeStyles( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
-            .Add( GetInvalidStateStyles( slot: nameof( _label ) ), when: textBox.Invalid )
+            .Add( GetInvalidStyles( slot: nameof( _label ) ), when: textBox.Invalid )
+            .Add( GetRequiredStyles( slot: nameof( _label ) ), when: textBox.Required )
             // LabelPlacement & ThemeColor.Default
             .Add( ElementClass.Empty()
                 .Add( "group-data-[filled-focused=true]:text-default-600", when: textBox.LabelPlacement is LabelPlacement.Inside && textBox.Color is ThemeColor.Default )
@@ -539,8 +546,8 @@ internal static class TextBox
             .Add( GetSizeStyles( textBox.Size, slot: nameof( _input ) ) )
             .Add( GetVariantFlatByColorStyles( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Flat )
             .Add( GetVariantUnderlinedByColorStyles( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Underlined )
-            .Add( GetClearableStateStyles( slot: nameof( _input ) ) )
-            .Add( GetInvalidStateStyles( slot: nameof( _input ) ), when: textBox.Invalid )
+            .Add( GetClearableStyles( slot: nameof( _input ) ) )
+            .Add( GetInvalidStyles( slot: nameof( _input ) ), when: textBox.Invalid )
             .ToString();
     }
 
@@ -549,7 +556,7 @@ internal static class TextBox
         return ElementClass.Empty()
             .Add( _clearButton )
             .Add( GetSizeStyles( textBox.Size, slot: nameof( _clearButton ) ) )
-            .Add( GetClearableStateStyles( slot: nameof( _clearButton ) ) )
+            .Add( GetClearableStyles( slot: nameof( _clearButton ) ) )
             .ToString();
     }
 
