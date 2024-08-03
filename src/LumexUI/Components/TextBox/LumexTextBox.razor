@@ -8,8 +8,7 @@
                 data-disabled="@Utils.GetDataAttributeValue( Disabled )"
                 data-readonly="@Utils.GetDataAttributeValue( ReadOnly )"
                 data-focus="@Utils.GetDataAttributeValue( _focused )"
-                data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )"
-                @attributes="@AdditionalAttributes">
+                data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )">
     @_renderMainWrapper
 </LumexComponent>
 
@@ -20,11 +19,13 @@
         {
             <div class="@MainWrapperClass" data-slot="main-wrapper">
                 @_renderInputWrapper
+                @_renderHelperWrapper
             </div>
         }
         else
         {
             @_renderInputWrapper
+            @_renderHelperWrapper
         }
     }
 
@@ -55,6 +56,7 @@
                        data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"
                        data-has-end-content="@Utils.GetDataAttributeValue( EndContent is not null )"
                        @ref="@ElementReference"
+                       @attributes="@AdditionalAttributes"
                        @onchange="@OnChangeAsync"
                        @onfocus="@OnFocusAsync"
                        @onblur="@OnBlurAsync" />
@@ -75,6 +77,23 @@
                     </span>
                 }
             </div>
+        </div>
+    }
+
+    private void RenderHelperWrapper( RenderTreeBuilder __builder )
+    {
+        if( !HasHelper )
+        {
+            return;
+        }
+
+        <div class="@HelperWrapperClass" data-slot="helper-wrapper">
+            @if( !string.IsNullOrEmpty( Description ) )
+            {
+                <div class="@DescriptionClass" data-slot="description">
+                    @Description
+                </div>
+            }
         </div>
     }
 }

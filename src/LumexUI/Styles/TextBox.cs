@@ -93,6 +93,19 @@ internal static class TextBox
         .Add( Utils.FocusVisible )
         .ToString();
 
+    private readonly static string _helperWrapper = ElementClass.Empty()
+        .Add( "relative" )
+        .Add( "flex" )
+        .Add( "flex-col" )
+        .Add( "gap-1.5" )
+        .Add( "p-1" )
+        .ToString();
+
+    private readonly static string _description = ElementClass.Empty()
+        .Add( "text-tiny" )
+        .Add( "text-foreground-400" )
+        .ToString();
+
     private readonly static string _disabled = ElementClass.Empty()
         .Add( "opacity-disabled" )
         .Add( "pointer-events-none" )
@@ -500,6 +513,20 @@ internal static class TextBox
             .Add( _clearButton )
             .Add( GetSizeStyles( textBox.Size, slot: nameof( _clearButton ) ) )
             .Add( GetClearableStateStyles( slot: nameof( _clearButton ) ) )
+            .ToString();
+    }
+
+    public static string GetHelperWrapperStyles( LumexTextBox textBox )
+    {
+        return ElementClass.Empty()
+            .Add( _helperWrapper )
+            .ToString();
+    }
+
+    public static string GetDescriptionStyles( LumexTextBox textBox )
+    {
+        return ElementClass.Empty()
+            .Add( _description )
             .ToString();
     }
 }

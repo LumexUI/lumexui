@@ -36,6 +36,11 @@ public partial class LumexTextBox : LumexInputBase<string?>
     [Parameter] public string? Placeholder { get; set; }
 
     /// <summary>
+    /// Gets or sets the description for the textbox.
+    /// </summary>
+    [Parameter] public string? Description { get; set; }
+
+    /// <summary>
     /// Gets or sets the input type of the textbox.
     /// </summary>
     /// <remarks>
@@ -103,6 +108,13 @@ public partial class LumexTextBox : LumexInputBase<string?>
     private string? ClearButtonClass =>
         TwMerge.Merge( TextBox.GetClearButtonStyles( this ) );
 
+    private string? HelperWrapperClass =>
+        TwMerge.Merge( TextBox.GetHelperWrapperStyles( this ) );
+
+    private string? DescriptionClass =>
+        TwMerge.Merge( TextBox.GetDescriptionStyles( this ) );
+
+    private bool HasHelper => !string.IsNullOrEmpty( Description );
     private bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
     private bool ClearButtonVisible => Clearable && HasValue;
     private bool FilledOrFocused =>
@@ -113,6 +125,7 @@ public partial class LumexTextBox : LumexInputBase<string?>
 
     private readonly RenderFragment _renderMainWrapper;
     private readonly RenderFragment _renderInputWrapper;
+    private readonly RenderFragment _renderHelperWrapper;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexTextBox"/>.
@@ -121,6 +134,7 @@ public partial class LumexTextBox : LumexInputBase<string?>
     {
         _renderMainWrapper = RenderMainWrapper;
         _renderInputWrapper = RenderInputWrapper;
+        _renderHelperWrapper = RenderHelperWrapper;
 
         As = "div";
     }
