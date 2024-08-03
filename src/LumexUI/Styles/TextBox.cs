@@ -106,6 +106,11 @@ internal static class TextBox
         .Add( "text-foreground-400" )
         .ToString();
 
+    private readonly static string _errorMessage = ElementClass.Empty()
+        .Add( "text-tiny" )
+        .Add( "text-danger" )
+        .ToString();
+
     private readonly static string _disabled = ElementClass.Empty()
         .Add( "opacity-disabled" )
         .Add( "pointer-events-none" )
@@ -165,6 +170,13 @@ internal static class TextBox
             .Add( "peer-data-[filled=true]:opacity-focus", when: slot is nameof( _clearButton ) );
     }
 
+    private static ElementClass GetInvalidStateStyles( string slot )
+    {
+        return ElementClass.Empty()
+            .Add( "!placeholder:text-danger !text-danger", when: slot is nameof( _input ) )
+            .Add( "!text-danger", when: slot is nameof( _label ) );
+    }
+
     private static ElementClass GetVariantStyles( InputVariant variant, string slot )
     {
         return variant switch
@@ -205,6 +217,28 @@ internal static class TextBox
                     .Add( "after:h-[2px]" )
                     .Add( "after:transition-[width]" )
                     .Add( "group-data-[focus=true]:after:w-full" ), when: slot is nameof( _inputWrapper ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetVariantInvalidStyles( InputVariant variant, string slot )
+    {
+        return variant switch
+        {
+            InputVariant.Flat => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "!bg-danger-50" )
+                    .Add( "hover:!bg-danger-100" )
+                    .Add( "group-data-[focus=true]:!bg-danger-50" ), when: slot is nameof( _inputWrapper ) ),
+
+            InputVariant.Outlined => ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "!border-danger" )
+                    .Add( "group-data-[focus=true]:!border-danger" ), when: slot is nameof( _inputWrapper ) ),
+
+            InputVariant.Underlined => ElementClass.Empty()
+                .Add( "after:!bg-danger", when: slot is nameof( _inputWrapper ) ),
 
             _ => ElementClass.Empty()
         };
@@ -451,6 +485,7 @@ internal static class TextBox
             .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _label ) ) )
             .Add( GetLabelPlacementInsideBySizeStyles( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
             .Add( GetLabelPlacementOutsideBySizeStyles( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
+            .Add( GetInvalidStateStyles( slot: nameof( _label ) ), when: textBox.Invalid )
             // LabelPlacement & ThemeColor.Default
             .Add( ElementClass.Empty()
                 .Add( "group-data-[filled-focused=true]:text-default-600", when: textBox.LabelPlacement is LabelPlacement.Inside && textBox.Color is ThemeColor.Default )
@@ -473,6 +508,7 @@ internal static class TextBox
             .Add( GetSizeStyles( textBox.Size, slot: nameof( _inputWrapper ) ) )
             .Add( GetRadiusStyles( textBox.Radius, slot: nameof( _inputWrapper ) ) )
             .Add( GetVariantStyles( textBox.Variant, slot: nameof( _inputWrapper ) ) )
+            .Add( GetVariantInvalidStyles( textBox.Variant, slot: nameof( _inputWrapper ) ), when: textBox.Invalid )
             .Add( GetVariantFlatByColorStyles( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Flat )
             .Add( GetVariantOutlinedByColorStyles( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Outlined )
             .Add( GetVariantUnderlinedByColorStyles( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Underlined )
@@ -504,6 +540,7 @@ internal static class TextBox
             .Add( GetVariantFlatByColorStyles( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Flat )
             .Add( GetVariantUnderlinedByColorStyles( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Underlined )
             .Add( GetClearableStateStyles( slot: nameof( _input ) ) )
+            .Add( GetInvalidStateStyles( slot: nameof( _input ) ), when: textBox.Invalid )
             .ToString();
     }
 
@@ -527,6 +564,13 @@ internal static class TextBox
     {
         return ElementClass.Empty()
             .Add( _description )
+            .ToString();
+    }
+
+    public static string GetErrorMessageStyles( LumexTextBox textBox )
+    {
+        return ElementClass.Empty()
+            .Add( _errorMessage )
             .ToString();
     }
 }

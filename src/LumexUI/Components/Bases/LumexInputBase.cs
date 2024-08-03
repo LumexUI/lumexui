@@ -28,6 +28,11 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     [Parameter] public bool ReadOnly { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the input is invalid.
+    /// </summary>
+    [Parameter] public bool Invalid { get; set; }
+
+    /// <summary>
     /// Gets or sets a color of the input.
     /// </summary>
     /// <remarks>

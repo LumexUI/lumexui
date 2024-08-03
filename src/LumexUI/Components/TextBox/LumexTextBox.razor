@@ -88,7 +88,13 @@
         }
 
         <div class="@HelperWrapperClass" data-slot="helper-wrapper">
-            @if( !string.IsNullOrEmpty( Description ) )
+            @if( Invalid && !string.IsNullOrEmpty( ErrorMessage ) )
+            {
+                <div class="@ErrorMessageClass" data-slot="error-message">
+                    @ErrorMessage
+                </div>
+            }
+            else if( !string.IsNullOrEmpty( Description ) )
             {
                 <div class="@DescriptionClass" data-slot="description">
                     @Description

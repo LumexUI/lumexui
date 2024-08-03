@@ -41,6 +41,12 @@ public partial class LumexTextBox : LumexInputBase<string?>
     [Parameter] public string? Description { get; set; }
 
     /// <summary>
+    /// Gets or sets the error message for the textbox.
+    /// This message is displayed only when the textbox is invalid.
+    /// </summary>
+    [Parameter] public string? ErrorMessage { get; set; }
+
+    /// <summary>
     /// Gets or sets the input type of the textbox.
     /// </summary>
     /// <remarks>
@@ -114,7 +120,10 @@ public partial class LumexTextBox : LumexInputBase<string?>
     private string? DescriptionClass =>
         TwMerge.Merge( TextBox.GetDescriptionStyles( this ) );
 
-    private bool HasHelper => !string.IsNullOrEmpty( Description );
+    private string? ErrorMessageClass =>
+        TwMerge.Merge( TextBox.GetErrorMessageStyles( this ) );
+
+    private bool HasHelper => !string.IsNullOrEmpty( Description ) || !string.IsNullOrEmpty( ErrorMessage );
     private bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
     private bool ClearButtonVisible => Clearable && HasValue;
     private bool FilledOrFocused =>
