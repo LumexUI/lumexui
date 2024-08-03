@@ -120,14 +120,16 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
 
         if( !_hasInitializedParameters )
         {
+            // TODO: Get back to it later; not sure if it's needed to be checked at all.
+
             // This is the first run
             // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
-            if( ValueExpression is null )
-            {
-                throw new InvalidOperationException(
-                    $"{GetType()} requires a value for the '{nameof( ValueExpression )}' parameter. " +
-                    $"Normally this is provided automatically when using '@bind-Value'." );
-            }
+            //if( ValueExpression is null )
+            //{
+            //    throw new InvalidOperationException(
+            //        $"{GetType()} requires a value for the '{nameof( ValueExpression )}' parameter. " +
+            //        $"Normally this is provided automatically when using '@bind-Value'." );
+            //}
 
             _nullableUnderlyingType = Nullable.GetUnderlyingType( typeof( TValue ) );
             _hasInitializedParameters = true;
