@@ -13,7 +13,7 @@ namespace LumexUI;
 /// <summary>
 /// A component representing an input field for entering/editing <see cref="string"/> values.
 /// </summary>
-public partial class LumexTextBox : LumexInputBase<string?>
+public partial class LumexTextBox : LumexInputBase<string?>, ISlotComponent<TextBoxSlots>
 {
     /// <summary>
     /// Gets or sets content to be rendered at the start of the textbox.
@@ -92,6 +92,11 @@ public partial class LumexTextBox : LumexInputBase<string?>
     /// Gets or sets a callback that is fired when the value in the textbox is cleared.
     /// </summary>
     [Parameter] public EventCallback OnCleared { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class names for the textbox slots.
+    /// </summary>
+    [Parameter] public TextBoxSlots? Classes { get; set; }
 
     private protected override string? RootClass =>
         TwMerge.Merge( TextBox.GetStyles( this ) );

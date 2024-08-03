@@ -477,6 +477,7 @@ internal static class TextBox
             .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _base ) ) )
             .Add( GetLabelPlacementOutsideBySizeStyles( textBox.Size, slot: nameof( _base ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
             .Add( textBox.Class )
+            .Add( textBox.Classes?.Root )
             .ToString();
     }
 
@@ -497,6 +498,7 @@ internal static class TextBox
             .Add( ElementClass.Empty()
                 .Add( "group-data-[filled-focused=true]:text-default-600", when: textBox.LabelPlacement is LabelPlacement.Inside && textBox.Color is ThemeColor.Default )
                 .Add( "group-data-[filled-focused=true]:text-foreground", when: textBox.LabelPlacement is LabelPlacement.Outside && textBox.Color is ThemeColor.Default ) )
+            .Add( textBox.Classes?.Label )
             .ToString();
     }
 
@@ -505,6 +507,7 @@ internal static class TextBox
         return ElementClass.Empty()
             .Add( _mainWrapper )
             .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _mainWrapper ) ) )
+            .Add( textBox.Classes?.MainWrapper )
             .ToString();
     }
 
@@ -523,6 +526,7 @@ internal static class TextBox
             .Add( GetLabelPlacementInsideBySizeStyles( textBox.Size, slot: nameof( _inputWrapper ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
             // Outlined & Size.Small
             .Add( "py-1", when: textBox.Variant is InputVariant.Outlined && textBox.Size is Size.Small )
+            .Add( textBox.Classes?.InputWrapper )
             .ToString();
     }
 
@@ -536,6 +540,7 @@ internal static class TextBox
             .Add( ElementClass.Empty()
                 .Add( "pb-0.5", when: textBox.Variant is InputVariant.Underlined && textBox.Size is Size.Small )
                 .Add( "pb-1.5", when: textBox.Variant is InputVariant.Underlined && ( textBox.Size is Size.Medium or Size.Large ) ) )
+            .Add( textBox.Classes?.InnerWrapper )
             .ToString();
     }
 
@@ -548,6 +553,7 @@ internal static class TextBox
             .Add( GetVariantUnderlinedByColorStyles( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Underlined )
             .Add( GetClearableStyles( slot: nameof( _input ) ) )
             .Add( GetInvalidStyles( slot: nameof( _input ) ), when: textBox.Invalid )
+            .Add( textBox.Classes?.Input )
             .ToString();
     }
 
@@ -557,6 +563,7 @@ internal static class TextBox
             .Add( _clearButton )
             .Add( GetSizeStyles( textBox.Size, slot: nameof( _clearButton ) ) )
             .Add( GetClearableStyles( slot: nameof( _clearButton ) ) )
+            .Add( textBox.Classes?.ClearButton )
             .ToString();
     }
 
@@ -564,6 +571,7 @@ internal static class TextBox
     {
         return ElementClass.Empty()
             .Add( _helperWrapper )
+            .Add( textBox.Classes?.HelperWrapper )
             .ToString();
     }
 
@@ -571,6 +579,7 @@ internal static class TextBox
     {
         return ElementClass.Empty()
             .Add( _description )
+            .Add( textBox.Classes?.Description )
             .ToString();
     }
 
@@ -578,6 +587,7 @@ internal static class TextBox
     {
         return ElementClass.Empty()
             .Add( _errorMessage )
+            .Add( textBox.Classes?.ErrorMessage )
             .ToString();
     }
 }
