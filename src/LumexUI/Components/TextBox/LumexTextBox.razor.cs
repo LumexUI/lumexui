@@ -13,7 +13,7 @@ namespace LumexUI;
 /// <summary>
 /// A component representing an input field for entering/editing <see cref="string"/> values.
 /// </summary>
-public partial class LumexTextBox : LumexInputBase<string?>, ISlotComponent<TextBoxSlots>
+public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotComponent<TextBoxSlots>
 {
     /// <summary>
     /// Gets or sets content to be rendered at the start of the textbox.
@@ -141,7 +141,7 @@ public partial class LumexTextBox : LumexInputBase<string?>, ISlotComponent<Text
     private bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
     private bool ClearButtonVisible => Clearable && HasValue;
     private bool FilledOrFocused =>
-        _focused ||
+        Focused ||
         HasValue ||
         StartContent is not null ||
         !string.IsNullOrEmpty( Placeholder );
@@ -162,24 +162,37 @@ public partial class LumexTextBox : LumexInputBase<string?>, ISlotComponent<Text
         As = "div";
     }
 
-    protected virtual Task OnInputAsync( ChangeEventArgs args )
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        if( DebounceDelay != 0 && Behavior is not InputBehavior.OnInput )
+        {
+            throw new InvalidOperationException( 
+                $"{GetType()} requires '{nameof( InputBehavior.OnInput )}' behavior" +
+                $" to be used when '{nameof( DebounceDelay )}' is not zero." );
+        }
+    }
+
+    /// <inheritdoc />
+    protected override Task OnInputAsync( ChangeEventArgs args )
     {
         if( Behavior is not InputBehavior.OnInput )
         {
             return Task.CompletedTask;
         }
 
-        return SetCurrentValueAsync( (string?)args.Value );
+        return base.OnInputAsync( args );
     }
 
-    protected virtual Task OnChangeAsync( ChangeEventArgs args )
+    /// <inheritdoc />
+    protected override Task OnChangeAsync( ChangeEventArgs args )
     {
         if( Behavior is not InputBehavior.OnChange )
         {
             return Task.CompletedTask;
         }
 
-        return SetCurrentValueAsync( (string?)args.Value );
+        return base.OnChangeAsync( args );
     }
 
     /// <inheritdoc />

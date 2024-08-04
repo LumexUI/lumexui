@@ -1,5 +1,5 @@
 ﻿@namespace LumexUI
-@inherits LumexInputBase<string?>
+@inherits LumexDebouncedInputBase<string?>
 
 <LumexComponent As="@As"
                 Class="@RootClass"
@@ -7,7 +7,7 @@
                 data-slot="base"
                 data-disabled="@Utils.GetDataAttributeValue( Disabled )"
                 data-readonly="@Utils.GetDataAttributeValue( ReadOnly )"
-                data-focus="@Utils.GetDataAttributeValue( _focused )"
+                data-focus="@Utils.GetDataAttributeValue( Focused )"
                 data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )">
     @_renderMainWrapper
 </LumexComponent>

@@ -15,6 +15,10 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace LumexUI;
 
+/// <summary>
+/// Represents a base class for input components.
+/// </summary>
+/// <typeparam name="TValue">The type of the input value.</typeparam>
 public abstract class LumexInputBase<TValue> : LumexComponentBase
 {
     /// <summary>
@@ -96,7 +100,10 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
         set => _ = SetCurrentValueAsStringAsync( value );
     }
 
-    protected bool _focused;
+    /// <summary>
+    /// Gets or sets a value indicating whether the input is focused.
+    /// </summary>
+    protected bool Focused { get; set; }
 
     private bool _parsingFailed;
     private bool _hasInitializedParameters;
@@ -114,7 +121,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
             return ValueTask.CompletedTask;
         }
 
-        _focused = true;
+        Focused = true;
         return ElementReference.Value.FocusAsync();
     }
 
@@ -125,17 +132,6 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
 
         if( !_hasInitializedParameters )
         {
-            // TODO: Get back to it later; not sure if it's needed to be checked at all.
-
-            // This is the first run
-            // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
-            //if( ValueExpression is null )
-            //{
-            //    throw new InvalidOperationException(
-            //        $"{GetType()} requires a value for the '{nameof( ValueExpression )}' parameter. " +
-            //        $"Normally this is provided automatically when using '@bind-Value'." );
-            //}
-
             _nullableUnderlyingType = Nullable.GetUnderlyingType( typeof( TValue ) );
             _hasInitializedParameters = true;
         }
@@ -169,6 +165,9 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
 
         if( _nullableUnderlyingType is not null && string.IsNullOrEmpty( value ) )
         {
+            // Assume if it's a nullable type, null/empty inputs should correspond to default(T)
+            // Then all subclasses get nullable support almost automatically (they just have to
+            // not reject Nullable<T> based on the type itself).
             _parsingFailed = false;
             CurrentValue = default!;
         }
@@ -203,7 +202,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// <returns>A <see cref="Task"/> representing the asynchronous blur operation.</returns>
     protected virtual Task OnBlurAsync( FocusEventArgs args )
     {
-        _focused = false;
+        Focused = false;
         return OnBlur.InvokeAsync( args );
     }
 
