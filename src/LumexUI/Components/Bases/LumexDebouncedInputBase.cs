@@ -22,7 +22,7 @@ public abstract class LumexDebouncedInputBase<TValue> : LumexInputBase<TValue>, 
     private bool _disposed;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LumexDebouncedInputBase"/>.
+    /// Initializes a new instance of the <see cref="LumexDebouncedInputBase{TValue}"/>.
     /// </summary>
     public LumexDebouncedInputBase()
     {
