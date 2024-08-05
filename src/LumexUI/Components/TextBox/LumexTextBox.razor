@@ -10,7 +10,8 @@
                 data-readonly="@Utils.GetDataAttributeValue( ReadOnly )"
                 data-required="@Utils.GetDataAttributeValue( Required )"
                 data-focus="@Utils.GetDataAttributeValue( Focused )"
-                data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )">
+                data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )"
+                data-hidden="@Utils.GetDataAttributeValue( Type is InputType.Hidden )">
     @_renderMainWrapper
 </LumexComponent>
 
@@ -53,6 +54,7 @@
                        placeholder="@Placeholder"
                        disabled="@Disabled"
                        readonly="@ReadOnly"
+                       required="@Required"
                        data-slot="input"
                        data-filled="@Utils.GetDataAttributeValue( HasValue )"
                        data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"

@@ -17,6 +17,7 @@ internal static class TextBox
         .Add( "relative" )
         .Add( "flex" )
         .Add( "flex-col" )
+        .Add( "data-[hidden=true]:hidden" )
         .ToString();
 
     private readonly static string _label = ElementClass.Empty()
