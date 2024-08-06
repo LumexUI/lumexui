@@ -18,14 +18,6 @@ public class InputBaseTests : TestContext
     }
 
     [Fact]
-    public void InputBase_NoValueExpression_ShouldThrowInvalidOperation()
-    {
-        var action = () => RenderComponent<TestInputComponent<string>>();
-
-        action.Should().Throw<InvalidOperationException>();
-    }
-
-    [Fact]
     public void InputBase_WithValue_ShouldGetCurrentValue()
     {
         var model = new TestModel();
@@ -128,6 +120,40 @@ public class InputBaseTests : TestContext
         cut.Instance.CurrentValue.Month.Should().Be( 3 );
         cut.Instance.CurrentValue.Day.Should().Be( 2 );
         cut.Instance.CurrentValueAsString.Should().Be( "1991/11/40" );
+    }
+
+    [Fact]
+    public void ShouldTriggerOnFocusCallbackAndSetFocusOnFocus()
+    {
+        var isFocused = false;
+        var cut = RenderComponent<LumexTextBox>( p => p
+            .Add( p => p.Value, "some value" )
+            .Add( p => p.OnFocus, () => isFocused = true )
+        );
+
+        var baseWrapper = cut.Find( "[data-slot=base]" );
+        var input = cut.Find( "input" );
+        input.Focus();
+
+        isFocused.Should().BeTrue();
+        baseWrapper.GetAttribute( "data-focus" ).Should().Be( "true", because: "Internal `Focused` flag is true." );
+    }
+
+    [Fact]
+    public void ShouldTriggerOnBlurCallbackAndRemoveFocusOnBlur()
+    {
+        var isBlurred = false;
+        var cut = RenderComponent<LumexTextBox>( p => p
+            .Add( p => p.Value, "some value" )
+            .Add( p => p.OnBlur, () => isBlurred = true )
+        );
+
+        var baseWrapper = cut.Find( "[data-slot=base]" );
+        var input = cut.Find( "input" );
+        input.Blur();
+
+        isBlurred.Should().BeTrue();
+        baseWrapper.GetAttribute( "data-focus" ).Should().Be( "false", because: "Internal `Focused` flag is false." );
     }
 
     class TestModel

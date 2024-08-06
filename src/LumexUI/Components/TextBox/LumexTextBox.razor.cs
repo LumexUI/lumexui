@@ -165,7 +165,7 @@ public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotCompo
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        if( DebounceDelay != 0 && Behavior is not InputBehavior.OnInput )
+        if( DebounceDelay > 0 && Behavior is not InputBehavior.OnInput )
         {
             throw new InvalidOperationException( 
                 $"{GetType()} requires '{nameof( InputBehavior.OnInput )}' behavior" +
