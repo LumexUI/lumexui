@@ -25,5 +25,7 @@ public partial class LumexTextbox : LumexInputFieldBase<string?>
     protected override void OnParametersSet()
     {
         SetInputType( Type.ToDescription() );
+
+        base.OnParametersSet();
     }
 }

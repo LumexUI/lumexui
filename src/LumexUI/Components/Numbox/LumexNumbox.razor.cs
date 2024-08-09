@@ -29,6 +29,8 @@ public partial class LumexNumbox<TValue> : LumexInputFieldBase<TValue>
     protected override void OnParametersSet()
     {
         SetInputType( "number" );
+
+        base.OnParametersSet();
     }
 
     /// <inheritdoc />
