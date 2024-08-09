@@ -10,12 +10,13 @@
     public TextBoxTests()
     {
         Services.AddSingleton<TwMerge>();
+        JSInterop.SetupModule( "./_content/LumexUI/js/input.js" );
     }
 
     [Fact]
     public void ShouldRenderCorrectly()
     {
-        var action = () => Render(@<LumexTextBox Label="Test" />);
+        var action = () => Render(@<LumexTextbox Label="Test" />);
 
         action.Should().NotThrow();
     }
@@ -23,7 +24,7 @@
     [Fact]
     public void ShouldRenderMainWrapperWhenLabelOutside()
     {
-        var cut = Render(@<LumexTextBox Label="Test" LabelPlacement="@LabelPlacement.Outside" />);
+        var cut = Render(@<LumexTextbox Label="Test" LabelPlacement="@LabelPlacement.Outside" />);
 
         cut.Find( "[data-slot=main-wrapper]" ).Should().NotBeNull();
     }
@@ -31,7 +32,7 @@
     [Fact]
     public void ShouldRenderHelperWrapperWhenDescriptionProvided()
     {
-        var cut = Render(@<LumexTextBox Label="Test" Description="Test description" />);
+        var cut = Render(@<LumexTextbox Label="Test" Description="Test description" />);
 
         cut.Find( "[data-slot=helper-wrapper]" ).Should().NotBeNull();
         cut.Find( "[data-slot=description]" ).Should().NotBeNull();
@@ -40,7 +41,7 @@
     [Fact]
     public void ShouldRenderHelperWrapperWhenErrorMessageProvided()
     {
-        var cut = Render(@<LumexTextBox Label="Test" ErrorMessage="Test error message" />);
+        var cut = Render(@<LumexTextbox Label="Test" ErrorMessage="Test error message" />);
         var action = () => cut.Find( "[data-slot=error-message]" );
 
         cut.Find( "[data-slot=helper-wrapper]" ).Should().NotBeNull();
@@ -50,7 +51,7 @@
     [Fact]
     public void ShouldRenderErrorMessageWhenInvalid()
     {
-        var cut = Render(@<LumexTextBox Label="Test" ErrorMessage="Test error message" Invalid="@true" />);
+        var cut = Render(@<LumexTextbox Label="Test" ErrorMessage="Test error message" Invalid="@true" />);
 
         cut.Find( "[data-slot=error-message]" ).Should().NotBeNull();
     }
@@ -58,7 +59,7 @@
     [Fact]
     public void ShouldHaveDisabledAttributeWhenDisabled()
     {
-        var cut = Render(@<LumexTextBox Label="Test" Disabled="@true" />);
+        var cut = Render(@<LumexTextbox Label="Test" Disabled="@true" />);
 
         var input = cut.Find( "input" );
 
@@ -68,38 +69,38 @@
     [Fact]
     public void ShouldHaveCorrectTypeAttribute()
     {
-        var cut = Render(@<LumexTextBox Label="Test" Type="@InputType.Text" />);
+        var cut = Render(@<LumexTextbox Label="Test" Type="@InputType.Text" />);
 
         var input = cut.Find( "input" );
 
         input.HasAttribute( "type" ).Should().BeTrue();
         input.GetAttribute( "type" ).Should().Be( "text" );
 
-        var cut2 = Render(@<LumexTextBox Label="Test" Type="@InputType.Number" />);
+        var cut2 = Render(@<LumexTextbox Label="Test" Type="@InputType.Url" />);
 
         var input2 = cut2.Find( "input" );
 
-        input2.GetAttribute( "type" ).Should().Be( "number" );
+        input2.GetAttribute( "type" ).Should().Be( "url" );
 
-        var cut3 = Render(@<LumexTextBox Label="Test" Type="@InputType.Telephone" />);
+        var cut3 = Render(@<LumexTextbox Label="Test" Type="@InputType.Telephone" />);
 
         var input3 = cut3.Find( "input" );
 
         input3.GetAttribute( "type" ).Should().Be( "tel" );
 
-        var cut4 = Render(@<LumexTextBox Label="Test" Type="@InputType.Email" />);
+        var cut4 = Render(@<LumexTextbox Label="Test" Type="@InputType.Email" />);
 
         var input4 = cut4.Find( "input" );
 
         input4.GetAttribute( "type" ).Should().Be( "email" );
 
-        var cut5 = Render(@<LumexTextBox Label="Test" Type="@InputType.Password" />);
+        var cut5 = Render(@<LumexTextbox Label="Test" Type="@InputType.Password" />);
 
         var input5 = cut5.Find( "input" );
 
         input5.GetAttribute( "type" ).Should().Be( "password" );
 
-        var cut6 = Render(@<LumexTextBox Label="Test" Type="@InputType.Search" />);
+        var cut6 = Render(@<LumexTextbox Label="Test" Type="@InputType.Search" />);
 
         var input6 = cut6.Find( "input" );
 
@@ -110,7 +111,7 @@
     public void ShouldRenderClearButtonWhenClearableAndHasValue()
     {
         var cut = Render(
-            @<LumexTextBox Label="Test" Clearable="@true" Value="test" />);
+            @<LumexTextbox Label="Test" Clearable="@true" Value="test" />);
 
         var clearButton = cut.Find( "[role=button]" );
 
@@ -120,8 +121,8 @@
     [Fact]
     public void ShouldClearValueOnClickWhenClearable()
     {
-        var cut = Render<LumexTextBox>(
-            @<LumexTextBox Label="Test" Clearable="@true" Value="test" />);
+        var cut = Render<LumexTextbox>(
+            @<LumexTextbox Label="Test" Clearable="@true" Value="test" />);
 
         var clearButton = cut.Find( "[role=button]" );
         clearButton.Click();
@@ -134,8 +135,8 @@
     [InlineData( "Space" )]
     public void ShouldClearValueOnlyWithEnterOrSpaceWhenClearable( string code )
     {
-        var cut = Render<LumexTextBox>(
-            @<LumexTextBox Label="Test" Clearable="@true" Value="test" />);
+        var cut = Render<LumexTextbox>(
+            @<LumexTextbox Label="Test" Clearable="@true" Value="test" />);
 
         var clearButton = cut.Find( "[role=button]" );
 
@@ -150,8 +151,8 @@
     public void ShouldTriggerOnClearedCallbackOnClear()
     {
         var isCleared = false;
-        var cut = Render<LumexTextBox>(
-            @<LumexTextBox Label="Test" Clearable="@true" OnCleared="@(() => isCleared = true)" Value="test" />);
+        var cut = Render<LumexTextbox>(
+            @<LumexTextbox Label="Test" Clearable="@true" OnCleared="@(() => isCleared = true)" Value="test" />);
 
         var clearButton = cut.Find( "[role=button]" );
         clearButton.Click();
@@ -163,7 +164,7 @@
     [Fact]
     public void ShouldFocusInputOnInputWrapperClick()
     {
-        var cut = Render(@<LumexTextBox Label="Test" />);
+        var cut = Render(@<LumexTextbox Label="Test" />);
 
         var baseWrapper = cut.Find( "[data-slot=base]" );
         var inputWrapper = cut.Find( "[data-slot=input-wrapper]" );
@@ -178,7 +179,7 @@
     public void ShouldNotFocusInputWhenDisabledOrReadonly( bool disabled, bool @readonly )
     {
         var cut = Render(
-            @<LumexTextBox Label="Test" Disabled="@disabled" ReadOnly="@(@readonly)" />);
+            @<LumexTextbox Label="Test" Disabled="@disabled" ReadOnly="@(@readonly)" />);
 
         var baseWrapper = cut.Find( "[data-slot=base]" );
         var inputWrapper = cut.Find( "[data-slot=input-wrapper]" );
@@ -190,8 +191,8 @@
     [Fact]
     public void ShouldChangeValueUsingInputEventWhenBehaviorOnInput()
     {
-        var cut = Render<LumexTextBox>(
-            @<LumexTextBox Label="Test" Behavior="@InputBehavior.OnInput" />);
+        var cut = Render<LumexTextbox>(
+            @<LumexTextbox Label="Test" Behavior="@InputBehavior.OnInput" />);
 
         var input = cut.Find( "input" );
 
@@ -205,8 +206,8 @@
     [Fact]
     public void ShouldChangeValueUsingChangeEventWhenBehaviorOnChange()
     {
-        var cut = Render<LumexTextBox>(
-            @<LumexTextBox Label="Test" Behavior="@InputBehavior.OnChange" />);
+        var cut = Render<LumexTextbox>(
+            @<LumexTextbox Label="Test" Behavior="@InputBehavior.OnChange" />);
 
         var input = cut.Find( "input" );
 
@@ -220,8 +221,8 @@
     [Fact]
     public void ShouldChangeValueImmediatelyWhenBehaviorOnInput()
     {
-        var cut = Render<LumexTextBox>(
-            @<LumexTextBox Label="Test" Behavior="@InputBehavior.OnInput" />);
+        var cut = Render<LumexTextbox>(
+            @<LumexTextbox Label="Test" Behavior="@InputBehavior.OnInput" />);
 
         var input = cut.Find( "input" );
         input.Input( "test" );
@@ -232,8 +233,8 @@
     [Fact]
     public async Task ShouldChangeValueAfterDebounceDelayWhenBehaviorOnInput()
     {
-        var cut = Render<LumexTextBox>(
-            @<LumexTextBox Label="Test" Behavior="@InputBehavior.OnInput" DebounceDelay="200" />);
+        var cut = Render<LumexTextbox>(
+            @<LumexTextbox Label="Test" Behavior="@InputBehavior.OnInput" DebounceDelay="200" />);
 
         var input = cut.Find( "input" );
         input.Input( "test" );
@@ -251,7 +252,7 @@
     public void ShouldThrowWithDebounceDelayAndOnChangeBehavior()
     {
         var action = () => Render(
-            @<LumexTextBox Label="Test" Behavior="@InputBehavior.OnChange" DebounceDelay="200" />);
+            @<LumexTextbox Label="Test" Behavior="@InputBehavior.OnChange" DebounceDelay="200" />);
 
         action.Should().Throw<InvalidOperationException>();
     }

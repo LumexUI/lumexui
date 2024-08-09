@@ -161,7 +161,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
     private readonly RenderFragment _renderInputWrapper;
     private readonly RenderFragment _renderHelperWrapper;
 
-    private string? _inputType;
+    private string _inputType = default!;
     private IJSObjectReference _jsModule = default!;
 
     /// <summary>

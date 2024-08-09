@@ -15,14 +15,6 @@ public partial class LumexNumbox<TValue> : LumexInputFieldBase<TValue>
 {
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="LumexNumbox{TValue}"/>.
-    /// </summary>
-    public LumexNumbox()
-    {
-        SetInputType( "number" );
-    }
-
     /// <inheritdoc />
     public override Task SetParametersAsync( ParameterView parameters )
     {
@@ -31,6 +23,12 @@ public partial class LumexNumbox<TValue> : LumexInputFieldBase<TValue>
         UpdateAdditionalAttributes();
 
         return base.SetParametersAsync( parameters );
+    }
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        SetInputType( "number" );
     }
 
     /// <inheritdoc />

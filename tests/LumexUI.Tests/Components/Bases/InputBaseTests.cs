@@ -15,6 +15,7 @@ public class InputBaseTests : TestContext
     public InputBaseTests()
     {
         Services.AddSingleton<TwMerge>();
+        JSInterop.SetupModule( "./_content/LumexUI/js/input.js" );
     }
 
     [Fact]
@@ -126,7 +127,7 @@ public class InputBaseTests : TestContext
     public void ShouldTriggerOnFocusCallbackAndSetFocusOnFocus()
     {
         var isFocused = false;
-        var cut = RenderComponent<LumexTextBox>( p => p
+        var cut = RenderComponent<LumexTextbox>( p => p
             .Add( p => p.Value, "some value" )
             .Add( p => p.OnFocus, () => isFocused = true )
         );
@@ -143,7 +144,7 @@ public class InputBaseTests : TestContext
     public void ShouldTriggerOnBlurCallbackAndRemoveFocusOnBlur()
     {
         var isBlurred = false;
-        var cut = RenderComponent<LumexTextBox>( p => p
+        var cut = RenderComponent<LumexTextbox>( p => p
             .Add( p => p.Value, "some value" )
             .Add( p => p.OnBlur, () => isBlurred = true )
         );
@@ -185,7 +186,12 @@ public class InputBaseTests : TestContext
             await InvokeAsync( () => { base.CurrentValueAsString = value; } );
         }
 
-        protected override bool TryParseValueFromString( string? value, out T? result )
+        protected override ValueTask SetValidationMessageAsync( bool parsingFailed )
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override bool TryParseValueFromString( string? value, out T result )
         {
             throw new NotImplementedException();
         }

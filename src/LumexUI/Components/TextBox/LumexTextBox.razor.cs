@@ -22,10 +22,7 @@ public partial class LumexTextbox : LumexInputFieldBase<string?>
     /// </remarks>
     [Parameter] public InputType Type { get; set; } = InputType.Text;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="LumexTextbox"/>.
-    /// </summary>
-    public LumexTextbox()
+    protected override void OnParametersSet()
     {
         SetInputType( Type.ToDescription() );
     }
