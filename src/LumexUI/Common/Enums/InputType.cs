@@ -36,12 +36,6 @@ public enum InputType
     Hidden,
 
     /// <summary>
-    /// A number input field.
-    /// </summary>
-    [Description( "number" )]
-    Number,
-
-    /// <summary>
     /// A search input field.
     /// </summary>
     [Description( "search" )]
@@ -63,35 +57,5 @@ public enum InputType
     /// A color input field.
     /// </summary>
     [Description( "color" )]
-    Color,
-
-    /// <summary>
-    /// A date input field.
-    /// </summary>
-    [Description( "date" )]
-    Date,
-
-    /// <summary>
-    /// A date-time input field (local time).
-    /// </summary>
-    [Description( "datetime-local" )]
-    DateTimeLocal,
-
-    /// <summary>
-    /// A month input field.
-    /// </summary>
-    [Description( "month" )]
-    Month,
-
-    /// <summary>
-    /// A time input field.
-    /// </summary>
-    [Description( "time" )]
-    Time,
-
-    /// <summary>
-    /// A week input field.
-    /// </summary>
-    [Description( "week" )]
-    Week
+    Color
 }
