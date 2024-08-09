@@ -2,8 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-// Some of the code was taken from
-// https://github.com/dotnet/aspnetcore/blob/main/src/Components/Web/src/Forms/InputBase.cs
+// Portions of the code in this file are based on code from Blazor.
+// See https://github.com/dotnet/aspnetcore/blob/main/src/Components/Web/src/Forms/InputBase.cs
 
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Components.Web;
 namespace LumexUI;
 
 /// <summary>
-/// Represents a base class for input components.
+/// Represents a base class for form input components.
 /// </summary>
 /// <typeparam name="TValue">The type of the input value.</typeparam>
 public abstract class LumexInputBase<TValue> : LumexComponentBase
@@ -96,6 +96,9 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// </summary>
     protected string? CurrentValueAsString
     {
+        // InputBase-derived components can hold invalid states (e.g., an InputNumber being blank even when bound
+        // to an int value). So, if parsing fails, we keep the rejected string in the UI even though it doesn't
+        // match what's on the .NET model. This avoids interfering with typing.
         get => _parsingFailed ? _incomingValueBeforeParsing : FormatValueAsString( CurrentValue );
         set => _ = SetCurrentValueAsStringAsync( value );
     }
@@ -169,7 +172,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
             // Then all subclasses get nullable support almost automatically (they just have to
             // not reject Nullable<T> based on the type itself).
             _parsingFailed = false;
-            CurrentValue = default!;
+            CurrentValue = default;
         }
         else if( TryParseValueFromString( value, out var parsedValue ) )
         {
@@ -200,10 +203,12 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// </summary>
     /// <param name="args">The blur event arguments.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous blur operation.</returns>
-    protected virtual Task OnBlurAsync( FocusEventArgs args )
+    protected virtual async Task OnBlurAsync( FocusEventArgs args )
     {
         Focused = false;
-        return OnBlur.InvokeAsync( args );
+
+        await SetValidationMessageAsync( _parsingFailed );
+        await OnBlur.InvokeAsync( args );
     }
 
     /// <summary>
@@ -221,5 +226,12 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// <param name="value">The string value to be parsed.</param>
     /// <param name="result">An instance of <typeparamref name="TValue"/>.</param>
     /// <returns><see langword="true"/> if the value could be parsed; otherwise <see langword="false"/>.</returns>
-    protected abstract bool TryParseValueFromString( string? value, [MaybeNullWhen( false )] out TValue? result );
+    protected abstract bool TryParseValueFromString( string? value, [MaybeNullWhen( false )] out TValue result );
+
+    /// <summary>
+    /// Sets the validation message asynchronously based on the parsing result.
+    /// </summary>
+    /// <param name="parsingFailed">A boolean value indicating whether the parsing has failed.</param>
+    /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
+    protected abstract ValueTask SetValidationMessageAsync( bool parsingFailed );
 }

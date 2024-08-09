@@ -33,6 +33,13 @@ public abstract class LumexBooleanInputBase : LumexInputBase<bool>
             $"Bind to the '{nameof( CurrentValue )}' property, not '{nameof( CurrentValueAsString )}'." );
     }
 
+    /// <inheritdoc />
+    protected override ValueTask SetValidationMessageAsync( bool parsingFailed )
+    {
+        // This component doesn't have a validation message by default.
+        return ValueTask.CompletedTask;
+    }
+
     /// <summary>
     /// Handles the change event asynchronously.
     /// Derived classes can override this to specify custom behavior when the input's value changes.

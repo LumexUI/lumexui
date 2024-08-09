@@ -36,7 +36,7 @@ public abstract class LumexDebouncedInputBase<TValue> : LumexInputBase<TValue>, 
     /// <returns>A <see cref="Task"/> representing the asynchronous value input operation.</returns>
     protected virtual Task OnInputAsync( ChangeEventArgs args )
     {
-        if( DebounceDelay != 0 )
+        if( DebounceDelay > 0 )
         {
             return _debouncer.DebounceAsync( SetCurrentValueAsStringAsync, (string?)args.Value, DebounceDelay );
         }

@@ -10,7 +10,7 @@ using LumexUI.Utilities;
 namespace LumexUI.Styles;
 
 [ExcludeFromCodeCoverage]
-internal static class TextBox
+internal static class InputField
 {
     private readonly static string _base = ElementClass.Empty()
         .Add( "group" )
@@ -469,126 +469,126 @@ internal static class TextBox
         };
     }
 
-    public static string GetStyles( LumexTextBox textBox )
+    public static string GetStyles<TValue>( LumexInputFieldBase<TValue> input )
     {
         return ElementClass.Empty()
             .Add( _base )
-            .Add( _disabled, when: textBox.Disabled )
-            .Add( _fullWidth, when: textBox.FullWidth )
-            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _base ) ) )
-            .Add( GetLabelPlacementOutsideBySizeStyles( textBox.Size, slot: nameof( _base ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
-            .Add( textBox.Class )
-            .Add( textBox.Classes?.Root )
+            .Add( _disabled, when: input.Disabled )
+            .Add( _fullWidth, when: input.FullWidth )
+            .Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _base ) ) )
+            .Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _base ) ), when: input.LabelPlacement is LabelPlacement.Outside )
+            .Add( input.Class )
+            .Add( input.Classes?.Root )
             .ToString();
     }
 
-    public static string GetLabelStyles( LumexTextBox textBox )
+    public static string GetLabelStyles<TValue>( LumexInputFieldBase<TValue> input )
     {
         return ElementClass.Empty()
             .Add( _label )
-            .Add( GetVariantStyles( textBox.Variant, slot: nameof( _label ) ) )
-            .Add( GetVariantFlatByColorStyles( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Flat )
-            .Add( GetVariantOutlinedByColorStyles( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Outlined )
-            .Add( GetVariantUnderlinedByColorStyles( textBox.Color, slot: nameof( _label ) ), when: textBox.Variant is InputVariant.Underlined )
-            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _label ) ) )
-            .Add( GetLabelPlacementInsideBySizeStyles( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
-            .Add( GetLabelPlacementOutsideBySizeStyles( textBox.Size, slot: nameof( _label ) ), when: textBox.LabelPlacement is LabelPlacement.Outside )
-            .Add( GetInvalidStyles( slot: nameof( _label ) ), when: textBox.Invalid )
-            .Add( GetRequiredStyles( slot: nameof( _label ) ), when: textBox.Required )
+            .Add( GetVariantStyles( input.Variant, slot: nameof( _label ) ) )
+            .Add( GetVariantFlatByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Flat )
+            .Add( GetVariantOutlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Outlined )
+            .Add( GetVariantUnderlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Underlined )
+            .Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _label ) ) )
+            .Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Inside )
+            .Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Outside )
+            .Add( GetInvalidStyles( slot: nameof( _label ) ), when: input.Invalid )
+            .Add( GetRequiredStyles( slot: nameof( _label ) ), when: input.Required )
             // LabelPlacement & ThemeColor.Default
             .Add( ElementClass.Empty()
-                .Add( "group-data-[filled-focused=true]:text-default-600", when: textBox.LabelPlacement is LabelPlacement.Inside && textBox.Color is ThemeColor.Default )
-                .Add( "group-data-[filled-focused=true]:text-foreground", when: textBox.LabelPlacement is LabelPlacement.Outside && textBox.Color is ThemeColor.Default ) )
-            .Add( textBox.Classes?.Label )
+                .Add( "group-data-[filled-focused=true]:text-default-600", when: input.LabelPlacement is LabelPlacement.Inside && input.Color is ThemeColor.Default )
+                .Add( "group-data-[filled-focused=true]:text-foreground", when: input.LabelPlacement is LabelPlacement.Outside && input.Color is ThemeColor.Default ) )
+            .Add( input.Classes?.Label )
             .ToString();
     }
 
-    public static string GetMainWrapperStyles( LumexTextBox textBox )
+    public static string GetMainWrapperStyles<TValue>( LumexInputFieldBase<TValue> input )
     {
         return ElementClass.Empty()
             .Add( _mainWrapper )
-            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _mainWrapper ) ) )
-            .Add( textBox.Classes?.MainWrapper )
+            .Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _mainWrapper ) ) )
+            .Add( input.Classes?.MainWrapper )
             .ToString();
     }
 
-    public static string GetInputWrapperStyles( LumexTextBox textBox )
+    public static string GetInputWrapperStyles<TValue>( LumexInputFieldBase<TValue> input )
     {
         return ElementClass.Empty()
             .Add( _inputWrapper )
-            .Add( GetSizeStyles( textBox.Size, slot: nameof( _inputWrapper ) ) )
-            .Add( GetRadiusStyles( textBox.Radius, slot: nameof( _inputWrapper ) ) )
-            .Add( GetVariantStyles( textBox.Variant, slot: nameof( _inputWrapper ) ) )
-            .Add( GetVariantInvalidStyles( textBox.Variant, slot: nameof( _inputWrapper ) ), when: textBox.Invalid )
-            .Add( GetVariantFlatByColorStyles( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Flat )
-            .Add( GetVariantOutlinedByColorStyles( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Outlined )
-            .Add( GetVariantUnderlinedByColorStyles( textBox.Color, slot: nameof( _inputWrapper ) ), when: textBox.Variant is InputVariant.Underlined )
-            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _inputWrapper ) ) )
-            .Add( GetLabelPlacementInsideBySizeStyles( textBox.Size, slot: nameof( _inputWrapper ) ), when: textBox.LabelPlacement is LabelPlacement.Inside )
+            .Add( GetSizeStyles( input.Size, slot: nameof( _inputWrapper ) ) )
+            .Add( GetRadiusStyles( input.Radius, slot: nameof( _inputWrapper ) ) )
+            .Add( GetVariantStyles( input.Variant, slot: nameof( _inputWrapper ) ) )
+            .Add( GetVariantInvalidStyles( input.Variant, slot: nameof( _inputWrapper ) ), when: input.Invalid )
+            .Add( GetVariantFlatByColorStyles( input.Color, slot: nameof( _inputWrapper ) ), when: input.Variant is InputVariant.Flat )
+            .Add( GetVariantOutlinedByColorStyles( input.Color, slot: nameof( _inputWrapper ) ), when: input.Variant is InputVariant.Outlined )
+            .Add( GetVariantUnderlinedByColorStyles( input.Color, slot: nameof( _inputWrapper ) ), when: input.Variant is InputVariant.Underlined )
+            .Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _inputWrapper ) ) )
+            .Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _inputWrapper ) ), when: input.LabelPlacement is LabelPlacement.Inside )
             // Outlined & Size.Small
-            .Add( "py-1", when: textBox.Variant is InputVariant.Outlined && textBox.Size is Size.Small )
-            .Add( textBox.Classes?.InputWrapper )
+            .Add( "py-1", when: input.Variant is InputVariant.Outlined && input.Size is Size.Small )
+            .Add( input.Classes?.InputWrapper )
             .ToString();
     }
 
-    public static string GetInnerWrapperStyles( LumexTextBox textBox )
+    public static string GetInnerWrapperStyles<TValue>( LumexInputFieldBase<TValue> input )
     {
         return ElementClass.Empty()
             .Add( _innerWrapper )
-            .Add( GetVariantStyles( textBox.Variant, slot: nameof( _innerWrapper ) ) )
-            .Add( GetLabelPlacementStyles( textBox.LabelPlacement, slot: nameof( _innerWrapper ) ) )
+            .Add( GetVariantStyles( input.Variant, slot: nameof( _innerWrapper ) ) )
+            .Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _innerWrapper ) ) )
             // Underlined & Size
             .Add( ElementClass.Empty()
-                .Add( "pb-0.5", when: textBox.Variant is InputVariant.Underlined && textBox.Size is Size.Small )
-                .Add( "pb-1.5", when: textBox.Variant is InputVariant.Underlined && ( textBox.Size is Size.Medium or Size.Large ) ) )
-            .Add( textBox.Classes?.InnerWrapper )
+                .Add( "pb-0.5", when: input.Variant is InputVariant.Underlined && input.Size is Size.Small )
+                .Add( "pb-1.5", when: input.Variant is InputVariant.Underlined && ( input.Size is Size.Medium or Size.Large ) ) )
+            .Add( input.Classes?.InnerWrapper )
             .ToString();
     }
 
-    public static string GetInputStyles( LumexTextBox textBox )
+    public static string GetInputStyles<TValue>( LumexInputFieldBase<TValue> input )
     {
         return ElementClass.Empty()
             .Add( _input )
-            .Add( GetSizeStyles( textBox.Size, slot: nameof( _input ) ) )
-            .Add( GetVariantFlatByColorStyles( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Flat )
-            .Add( GetVariantUnderlinedByColorStyles( textBox.Color, slot: nameof( _input ) ), when: textBox.Variant is InputVariant.Underlined )
+            .Add( GetSizeStyles( input.Size, slot: nameof( _input ) ) )
+            .Add( GetVariantFlatByColorStyles( input.Color, slot: nameof( _input ) ), when: input.Variant is InputVariant.Flat )
+            .Add( GetVariantUnderlinedByColorStyles( input.Color, slot: nameof( _input ) ), when: input.Variant is InputVariant.Underlined )
             .Add( GetClearableStyles( slot: nameof( _input ) ) )
-            .Add( GetInvalidStyles( slot: nameof( _input ) ), when: textBox.Invalid )
-            .Add( textBox.Classes?.Input )
+            .Add( GetInvalidStyles( slot: nameof( _input ) ), when: input.Invalid )
+            .Add( input.Classes?.Input )
             .ToString();
     }
 
-    public static string GetClearButtonStyles( LumexTextBox textBox )
+    public static string GetClearButtonStyles<TValue>( LumexInputFieldBase<TValue> input )
     {
         return ElementClass.Empty()
             .Add( _clearButton )
-            .Add( GetSizeStyles( textBox.Size, slot: nameof( _clearButton ) ) )
+            .Add( GetSizeStyles( input.Size, slot: nameof( _clearButton ) ) )
             .Add( GetClearableStyles( slot: nameof( _clearButton ) ) )
-            .Add( textBox.Classes?.ClearButton )
+            .Add( input.Classes?.ClearButton )
             .ToString();
     }
 
-    public static string GetHelperWrapperStyles( LumexTextBox textBox )
+    public static string GetHelperWrapperStyles<TValue>( LumexInputFieldBase<TValue> input )
     {
         return ElementClass.Empty()
             .Add( _helperWrapper )
-            .Add( textBox.Classes?.HelperWrapper )
+            .Add( input.Classes?.HelperWrapper )
             .ToString();
     }
 
-    public static string GetDescriptionStyles( LumexTextBox textBox )
+    public static string GetDescriptionStyles<TValue>( LumexInputFieldBase<TValue> input )
     {
         return ElementClass.Empty()
             .Add( _description )
-            .Add( textBox.Classes?.Description )
+            .Add( input.Classes?.Description )
             .ToString();
     }
 
-    public static string GetErrorMessageStyles( LumexTextBox textBox )
+    public static string GetErrorMessageStyles<TValue>( LumexInputFieldBase<TValue> input )
     {
         return ElementClass.Empty()
             .Add( _errorMessage )
-            .Add( textBox.Classes?.ErrorMessage )
+            .Add( input.Classes?.ErrorMessage )
             .ToString();
     }
 }

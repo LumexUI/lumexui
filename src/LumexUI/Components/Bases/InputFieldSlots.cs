@@ -9,7 +9,7 @@ using LumexUI.Common;
 namespace LumexUI;
 
 [ExcludeFromCodeCoverage]
-public class TextBoxSlots : ISlot
+public class InputFieldSlots : ISlot
 {
 	public string? Root { get; set; }
 	public string? Label { get; set; }
