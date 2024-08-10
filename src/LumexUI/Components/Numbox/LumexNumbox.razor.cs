@@ -2,6 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 using Microsoft.AspNetCore.Components;
@@ -34,6 +35,7 @@ public partial class LumexNumbox<TValue> : LumexInputFieldBase<TValue>
     }
 
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
     protected override string? FormatValueAsString( TValue? value )
     {
         // Avoiding a cast to IFormattable to avoid boxing.
@@ -84,6 +86,7 @@ public partial class LumexNumbox<TValue> : LumexInputFieldBase<TValue>
         }
     }
 
+    [ExcludeFromCodeCoverage]
     private static bool ConvertToDictionary( IReadOnlyDictionary<string, object>? source, out Dictionary<string, object> result )
     {
         var newDictionaryCreated = true;

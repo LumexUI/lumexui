@@ -287,6 +287,8 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
             {
                 await _jsModule.DisposeAsync();
             }
+
+            Dispose();
         }
         catch( Exception ex ) when( ex is JSDisconnectedException or OperationCanceledException )
         {

@@ -1,0 +1,45 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@using Microsoft.AspNetCore.Components.Web
+@using TailwindMerge
+@using LumexUI.Common
+@using Microsoft.Extensions.DependencyInjection
+
+@code {
+    public NumboxTests()
+    {
+        Services.AddSingleton<TwMerge>();
+        JSInterop.SetupModule( "./_content/LumexUI/js/input.js" );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var value = 0;
+        var action = () => Render(@<LumexNumbox Label="Test" @bind-Value="@value" />);
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldHaveCorrectTypeAttribute()
+    {
+        var value = 0;
+        var cut = Render(@<LumexNumbox Label="Test" @bind-Value="@value" />);
+
+        var input = cut.Find( "input" );
+
+        input.HasAttribute( "type" ).Should().BeTrue();
+        input.GetAttribute( "type" ).Should().Be( "number" );
+    }
+
+    [Fact]
+    public void ShouldThrowWhenTypeIsUnsupported()
+    {
+        var value = string.Empty;
+        var action = () => Render(@<LumexNumbox Label="Test" @bind-Value="@value" />);
+
+        action.Should().Throw<TypeInitializationException>();
+    }
+}
