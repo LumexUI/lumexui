@@ -2,6 +2,9 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+// Portions of the code in this file are based on code from Blazor.
+// See https://github.com/dotnet/aspnetcore/blob/main/src/Components/Web/src/Forms/InputNumber.cs
+
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
