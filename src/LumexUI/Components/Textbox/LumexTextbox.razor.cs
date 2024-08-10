@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+
 using LumexUI.Common;
 using LumexUI.Utilities;
 
@@ -27,5 +29,12 @@ public partial class LumexTextbox : LumexInputFieldBase<string?>
         SetInputType( Type.ToDescription() );
 
         base.OnParametersSet();
+    }
+
+    /// <inheritdoc />
+    protected override bool TryParseValueFromString( string? value, out string? result )
+    {
+        result = value;
+        return true;
     }
 }
