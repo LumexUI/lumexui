@@ -24,7 +24,7 @@ public static class ElementReferenceExtensions
 
     public static ValueTask MoveToAsync( this ElementReference? elementReference )
     {
-        return MoveToAsync( elementReference, "app" );
+        return MoveToAsync( elementReference, "body" );
     }
 
     public static ValueTask MoveToAsync( this ElementReference? elementReference, string destinationId )

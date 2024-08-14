@@ -23,6 +23,11 @@ public static class ServiceCollectionExtensions
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
     public static void AddLumexServices( this IServiceCollection services )
     {
+        services.AddTailwindMerge();
+    }
+
+    private static void AddTailwindMerge( this IServiceCollection services )
+    {
         services.AddTailwindMerge( options =>
         {
             options.Extend( new ExtendedConfig()
