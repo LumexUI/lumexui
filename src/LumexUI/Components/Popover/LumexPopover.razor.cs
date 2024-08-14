@@ -2,30 +2,27 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Services;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace LumexUI;
 
-public partial class LumexPopover : LumexComponentBase, IAsyncDisposable
+public partial class LumexPopover : LumexComponentBase, IDisposable
 {
-    private const string JavaScriptFile = "./_content/LumexUI/js/dist/popover.js";
-
     /// <summary>
     /// Gets or sets content to be rendered inside the popover.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+    [Inject] private IPopoverService PopoverService { get; set; } = default!;
 
-    internal bool Show { get; set; }
+    internal bool IsShown { get; set; }
     internal string Id { get; private set; } = Identifier.New();
 
     private readonly PopoverContext _context;
-
-    private IJSObjectReference _jsModule = default!;
+    private bool _disposed;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexPopover"/>.
@@ -35,38 +32,42 @@ public partial class LumexPopover : LumexComponentBase, IAsyncDisposable
         _context = new( this );
     }
 
+    public void Show()
+    {
+        PopoverService.NotifyOpened( this );
+        IsShown = true;
+    }
+
+    public void Hide()
+    {
+        IsShown = false;
+        StateHasChanged();
+    }
+
     /// <inheritdoc />
-    protected override async Task OnAfterRenderAsync( bool firstRender )
+    protected override void OnInitialized()
     {
-        if( firstRender )
-        {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
-        }
+        PopoverService.Register( this );
     }
 
-    internal ValueTask ToggleAsync()
+    /// <inheritdoc />
+    public void Dispose()
     {
-        if( !Show )
-        {
-            return ValueTask.CompletedTask;
-        }
-
-        return _jsModule.InvokeVoidAsync( "popover.show", Id );
+        Dispose( disposing: true );
+        GC.SuppressFinalize( this );
     }
 
-    public async ValueTask DisposeAsync()
+    /// <inheritdoc cref="IDisposable.Dispose" />
+    protected virtual void Dispose( bool disposing )
     {
-        try
+        if( !_disposed )
         {
-            if( _jsModule is not null )
+            if( disposing )
             {
-                await _jsModule.DisposeAsync();
+                PopoverService.Unregister( this );
             }
-        }
-        catch( Exception ex ) when( ex is JSDisconnectedException or OperationCanceledException )
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
+
+            _disposed = true;
         }
     }
 }

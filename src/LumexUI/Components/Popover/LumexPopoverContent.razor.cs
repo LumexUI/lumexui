@@ -6,11 +6,14 @@ using LumexUI.Common;
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace LumexUI;
 
-public partial class LumexPopoverContent : LumexComponentBase, IDisposable
+public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
 {
+    private const string JavaScriptFile = "./_content/LumexUI/js/dist/popover.js";
+
     /// <summary>
     /// Gets or sets content to be rendered as the popover content.
     /// </summary>
@@ -18,18 +21,29 @@ public partial class LumexPopoverContent : LumexComponentBase, IDisposable
 
     [CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+
     private protected override string? RootClass =>
         TwMerge.Merge( Popover.GetContentStyles( this ) );
 
-    private bool _disposed;
     private string _popoverId = default!;
+    private IJSObjectReference _jsModule = default!;
 
     /// <inheritdoc />
     protected override void OnInitialized()
     {
         ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverContent ) );
 
-        Context.OnToggle += ComputePositionAsync;
+        Context.OnShow += ShowAsync;
+    }
+
+    /// <inheritdoc />
+    protected override async Task OnAfterRenderAsync( bool firstRender )
+    {
+        if( firstRender )
+        {
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
+        }
     }
 
     /// <inheritdoc />
@@ -38,28 +52,29 @@ public partial class LumexPopoverContent : LumexComponentBase, IDisposable
         _popoverId = $"popover-{Context.Owner.Id}";
     }
 
-    private async Task ComputePositionAsync()
+    private ValueTask ShowAsync()
     {
+        // Before applying a new position for a popover, we need to render it first.
         StateHasChanged();
-        await Context.Owner.ToggleAsync();
+        return _jsModule.InvokeVoidAsync( "popover.show", Context.Owner.Id );
     }
 
-    public void Dispose()
+    /// <inheritdoc />
+    public async ValueTask DisposeAsync()
     {
-        Dispose( disposing: true );
-        GC.SuppressFinalize( this );
-    }
-
-    protected virtual void Dispose( bool disposing )
-    {
-        if( !_disposed )
+        try
         {
-            if( disposing )
+            if( _jsModule is not null )
             {
-                Context.OnToggle -= ComputePositionAsync;
+                await _jsModule.DisposeAsync();
             }
 
-            _disposed = true;
+            Context.OnShow -= ShowAsync;
+        }
+        catch( Exception ex ) when( ex is JSDisconnectedException or OperationCanceledException )
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
         }
     }
 }
