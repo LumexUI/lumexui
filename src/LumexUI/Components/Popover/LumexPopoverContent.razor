@@ -1,0 +1,17 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@if( Context.Owner.Show )
+{
+    <div id="@_popoverId" style="position: absolute; z-index: 10000;">
+        <div data-slot="base">
+            <LumexComponent As="@As"
+                            Class="@RootClass"
+                            Style="@RootStyle"
+                            data-slot="content"
+                            @attributes="@AdditionalAttributes">
+                @ChildContent
+            </LumexComponent>
+        </div>
+    </div>
+}

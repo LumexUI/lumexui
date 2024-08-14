@@ -1,0 +1,12 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexButton As="@As"
+             Class="@RootClass"
+             Style="@RootStyle"
+             OnClick="@Context.Toggle"
+             id="@_id"
+             data-slot="trigger"
+             @attributes="@AdditionalAttributes">
+    @ChildContent
+</LumexButton>
