@@ -1352,55 +1352,71 @@ const computePosition = (reference, floating, options) => {
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-function waitForElement(selector, timeout = 1000) {
-    return new Promise((resolve, reject) => {
-        const startTime = Date.now();
+/**
+ * 
+ * @param {any} selector
+ * @returns
+ */
+function waitForElement(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
 
-        const checkExistence = () => {
-            const element = document.querySelector(selector);
-            if (element) {
-                resolve(element);
-            } else if (Date.now() - startTime >= timeout) {
-                reject(new Error(`Element with selector '${selector}' not found within ${timeout}ms`));
-            } else {
-                requestAnimationFrame(checkExistence);
+        const observer = new MutationObserver(() => {
+            if (document.querySelector(selector)) {
+                observer.disconnect();
+                resolve(document.querySelector(selector));
             }
-        };
+        });
 
-        checkExistence();
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
     });
 }
 
-function createOutsideClickHandler(element, options) {
+/**
+ * 
+ * @param {any} element
+ * @param {any} selector
+ */
+function portalTo(element, selector = undefined) {
+    if (!(element instanceof HTMLElement)) {
+        throw new Error('The provided element is not a valid HTMLElement.');
+    }
+
+    let destination = selector
+        ? document.querySelector(selector)
+        : document.body;
+
+    if (!destination) {
+        throw new Error(`No portal container with the given selector '${selector}' was found!`);
+    }
+
+    if (element.parentElement !== destination) {
+        destination.appendChild(element);
+    }
+}
+
+/**
+ * 
+ * @param {any} element
+ * @returns
+ */
+function createOutsideClickHandler(element) {
     const clickHandler = event => {
         if (element && !element.contains(event.target)) {
             element.dispatchEvent(new CustomEvent('clickoutside', { bubbles: true }));
         }
     };
 
-    document.body.addEventListener('click', clickHandler, options);
+    document.body.addEventListener('click', clickHandler);
 
     return () => {
-        document.body.removeEventListener('click', clickHandler, options);
+        document.body.removeEventListener('click', clickHandler);
     };
-}
-
-// Copyright (c) LumexUI 2024
-// LumexUI licenses this file to you under the MIT license
-// See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
-
-// TODO: improve
-function moveElementTo(element, selector) {
-    if (!element) {
-        throw new Error('No element was found!');
-    }
-
-    let destination = document.querySelector(selector);
-    if (!destination) {
-        throw new Error(`No portal container with the given selector '${selector}' was found!`);
-    }
-
-    destination.appendChild(element);
 }
 
 // Copyright (c) LumexUI 2024
@@ -1410,56 +1426,67 @@ function moveElementTo(element, selector) {
 
 let destroyOutsideClickHandler;
 
-function initialize(id, options) {
-    const {
-        placement,
-        showArrow,
-        offset: offsetVal
-    } = options;
+async function initialize(id, options) {
+    try {
+        const popover = await waitForElement(`[data-popover=${id}]`);
+        const ref = document.querySelector(`[data-popoverref=${id}]`);
+        const arrowElement = popover.querySelector('[data-slot=arrow]');
 
-    waitForElement(`[data-popover=${id}]`)
-        .then(popover => {
-            destroyOutsideClickHandler = createOutsideClickHandler(popover);
+        portalTo(popover);
+        destroyOutsideClickHandler = createOutsideClickHandler(popover);
 
-            const ref = document.querySelector(`[data-popoverref=${id}]`);
-            const arrowElement = popover.querySelector('[data-slot=arrow]');
+        const {
+            placement,
+            showArrow,
+            offset: offsetVal
+        } = options;
 
-            console.log(options);
+        const middlewares = [
+            flip(),
+            shift(),
+            offset(offsetVal),
+        ];
 
-            moveElementTo(popover, 'body');
+        if (showArrow) {
+            middlewares.push(arrow({ element: arrowElement }));
+        }
 
-            computePosition(ref, popover, {
-                placement: placement,
-                middleware: [
-                    flip(),
-                    shift(),
-                    offset(offsetVal),
-                    showArrow && arrow({ element: arrowElement })
-                ],
-            }).then(({ x, y, placement, middlewareData }) => {
-                Object.assign(popover.style, {
-                    left: `${x}px`,
-                    top: `${y}px`,
-                });
-
-                const { x: arrowX, y: arrowY } = middlewareData.arrow;
-                const staticSide = {
-                    top: 'bottom',
-                    right: 'left',
-                    bottom: 'top',
-                    left: 'right',
-                }[placement.split('-')[0]];
-
-                Object.assign(arrowElement.style, {
-                    left: arrowX != null ? `${arrowX}px` : '',
-                    top: arrowY != null ? `${arrowY}px` : '',
-                    [staticSide]: '-4px',
-                });
-            });
-        })
-        .catch(error => {
-            console.error('Error in popover.show:', error);
+        const data = await computePosition(ref, popover, {
+            placement: placement,
+            middleware: middlewares
         });
+
+        positionPopover(popover, data);
+
+        if (showArrow) {
+            positionArrow(arrowElement, placement, data);
+        }
+    } catch (error) {
+        console.error('Error in popover.show:', error);
+    }
+
+    function positionPopover(target, data) {
+        Object.assign(target.style, {
+            left: `${data.x}px`,
+            top: `${data.y}px`,
+        });
+    }
+
+    function positionArrow(target, placement, data) {
+        const { x: arrowX, y: arrowY } = data.middlewareData.arrow;
+        const staticSide = {
+            top: 'bottom',
+            right: 'left',
+            bottom: 'top',
+            left: 'right',
+        }[placement.split('-')[0]];
+
+        Object.assign(target.style, {
+            left: arrowX != null ? `${arrowX}px` : '',
+            top: arrowY != null ? `${arrowY}px` : '',
+            [staticSide]: '-4px',
+        });
+    }
 }
 
 function destroy() {

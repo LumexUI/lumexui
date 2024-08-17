@@ -3,9 +3,9 @@ import resolve from '@rollup/plugin-node-resolve';
 
 export default defineConfig([
     {
-        input: 'wwwroot/js/popover.js',
+        input: 'wwwroot/js/components/popover.js',
         output: {
-            file: 'wwwroot/js/dist/popover.js',
+            file: 'wwwroot/js/components/popover.bundle.js',
             format: 'esm',
         },
         plugins: [resolve()],

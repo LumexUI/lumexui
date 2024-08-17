@@ -3,8 +3,8 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 function getValidationMessage(element) {
-    if (!element) {
-        throw new Error('No element was found!');
+    if (!(element instanceof HTMLElement)) {
+        throw new Error('The provided element is not a valid HTMLElement.');
     }
 
     if (element instanceof HTMLInputElement ||

@@ -12,7 +12,7 @@ namespace LumexUI;
 
 public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
 {
-    private const string JavaScriptFile = "./_content/LumexUI/js/dist/popover.js";
+    private const string JavaScriptFile = "./_content/LumexUI/js/components/popover.bundle.js";
 
     /// <summary>
     /// Gets or sets content to be rendered as the popover content.

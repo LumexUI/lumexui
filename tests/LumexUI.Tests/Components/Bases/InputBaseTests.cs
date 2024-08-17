@@ -15,7 +15,7 @@ public class InputBaseTests : TestContext
     public InputBaseTests()
     {
         Services.AddSingleton<TwMerge>();
-        JSInterop.SetupModule( "./_content/LumexUI/js/input.js" );
+        JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
     }
 
     [Fact]
