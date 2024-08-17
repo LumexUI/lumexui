@@ -4,6 +4,13 @@ public class PopoverService : IPopoverService
 {
     private readonly HashSet<LumexPopover> _registeredPopovers = [];
 
+    public LumexPopover? LastShown { get; private set; }
+
+    public void SetLastShown( LumexPopover? popover )
+    {
+        LastShown = popover;
+    }
+
     public void Register( LumexPopover popover )
     {
         _registeredPopovers.Add( popover );
@@ -12,16 +19,5 @@ public class PopoverService : IPopoverService
     public void Unregister( LumexPopover popover )
     {
         _registeredPopovers.Remove( popover );
-    }
-
-    public void NotifyOpened( LumexPopover popover )
-    {
-        foreach( var regPopover in _registeredPopovers )
-        {
-            if( regPopover != popover )
-            {
-                regPopover.Hide();
-            }
-        }
     }
 }

@@ -3,15 +3,20 @@
 
 @if( Context.Owner.IsShown )
 {
-    <div id="@_popoverId" style="position: absolute; z-index: 10000;">
-        <div data-slot="base">
-            <LumexComponent As="@As"
-                            Class="@RootClass"
-                            Style="@RootStyle"
-                            data-slot="content"
-                            @attributes="@AdditionalAttributes">
-                @ChildContent
-            </LumexComponent>
+    <div id="@_popoverId"
+         style="position: absolute; z-index: 10000;"
+         @ref="@ElementReference"
+         @onclickoutside="@(() => ClickOutsideAsync())">
+        <div class="@InnerWrapperClass">
+            <div role="dialog" tabindex="-1" data-slot="base">
+                <LumexComponent As="@As"
+                                Class="@RootClass"
+                                Style="@RootStyle"
+                                data-slot="content"
+                                @attributes="@AdditionalAttributes">
+                    @ChildContent
+                </LumexComponent>
+            </div>
         </div>
     </div>
 }

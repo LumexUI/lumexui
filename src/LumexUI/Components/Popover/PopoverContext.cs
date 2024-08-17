@@ -16,8 +16,10 @@ internal class PopoverContext( LumexPopover owner ) : IComponentContext<LumexPop
         }
         else
         {
-            Owner.Show();
-            await NotifyStateChangedAsync();
+            if( Owner.Show() )
+            {
+                await NotifyStateChangedAsync();
+            }
         }
     }
 

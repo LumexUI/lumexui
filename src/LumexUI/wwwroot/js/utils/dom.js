@@ -11,7 +11,7 @@ export function waitForElement(selector, timeout = 1000) {
             if (element) {
                 resolve(element);
             } else if (Date.now() - startTime >= timeout) {
-                reject(new Error(`Element with selector "${selector}" not found within ${timeout}ms`));
+                reject(new Error(`Element with selector '${selector}' not found within ${timeout}ms`));
             } else {
                 requestAnimationFrame(checkExistence);
             }
@@ -19,4 +19,18 @@ export function waitForElement(selector, timeout = 1000) {
 
         checkExistence();
     });
+}
+
+export function createOutsideClickHandler(element, options) {
+    const clickHandler = event => {
+        if (element && !element.contains(event.target)) {
+            element.dispatchEvent(new CustomEvent('clickoutside', { bubbles: true }));
+        }
+    };
+
+    document.body.addEventListener('click', clickHandler, options);
+
+    return () => {
+        document.body.removeEventListener('click', clickHandler, options)
+    };
 }

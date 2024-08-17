@@ -8,12 +8,21 @@ import {
     shift,
     offset
 } from '@floating-ui/dom';
-import { waitForElement } from './utils/dom.js';
+
+import {
+    waitForElement,
+    createOutsideClickHandler
+} from './utils/dom.js';
+
 import { moveElementTo } from './elementReference.js';
 
-function show(id) {
+let destroyOutsideClickHandler;
+
+function initialize(id) {
     waitForElement(`#popover-${id}`)
         .then(floating => {
+            destroyOutsideClickHandler = createOutsideClickHandler(floating);
+
             const ref = document.getElementById(`popovertarget-${id}`);
 
             moveElementTo(floating, 'body');
@@ -27,10 +36,15 @@ function show(id) {
             });
         })
         .catch(error => {
-            console.error(error.message);
+            console.error('Error in popover.show:', error);
         });
 }
 
+function destroy() {
+    destroyOutsideClickHandler();
+}
+
 export const popover = {
-    show
+    initialize,
+    destroy
 }

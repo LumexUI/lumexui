@@ -14,6 +14,10 @@ internal static class Popover
     private readonly static string _base = ElementClass.Empty()
         .ToString();
 
+    private readonly static string _innerWrapper = ElementClass.Empty()
+        .Add( "animate-popover-bottom" )
+        .ToString();
+
     private readonly static string _content = ElementClass.Empty()
         .Add( "z-10" )
         .Add( "py-1" )
@@ -30,6 +34,13 @@ internal static class Popover
         return ElementClass.Empty()
             .Add( _base )
             .Add( popover.Class )
+            .ToString();
+    }
+
+    public static string GetInnerWrapperStyles()
+    {
+        return ElementClass.Empty()
+            .Add( _innerWrapper )
             .ToString();
     }
 

@@ -1272,7 +1272,7 @@ function waitForElement(selector, timeout = 1000) {
             if (element) {
                 resolve(element);
             } else if (Date.now() - startTime >= timeout) {
-                reject(new Error(`Element with selector "${selector}" not found within ${timeout}ms`));
+                reject(new Error(`Element with selector '${selector}' not found within ${timeout}ms`));
             } else {
                 requestAnimationFrame(checkExistence);
             }
@@ -1280,6 +1280,20 @@ function waitForElement(selector, timeout = 1000) {
 
         checkExistence();
     });
+}
+
+function createOutsideClickHandler(element, options) {
+    const clickHandler = event => {
+        if (element && !element.contains(event.target)) {
+            element.dispatchEvent(new CustomEvent('clickoutside', { bubbles: true }));
+        }
+    };
+
+    document.body.addEventListener('click', clickHandler, options);
+
+    return () => {
+        document.body.removeEventListener('click', clickHandler, options);
+    };
 }
 
 // Copyright (c) LumexUI 2024
@@ -1305,9 +1319,13 @@ function moveElementTo(element, selector) {
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 
-function show(id) {
+let destroyOutsideClickHandler;
+
+function initialize(id) {
     waitForElement(`#popover-${id}`)
         .then(floating => {
+            destroyOutsideClickHandler = createOutsideClickHandler(floating);
+
             const ref = document.getElementById(`popovertarget-${id}`);
 
             moveElementTo(floating, 'body');
@@ -1321,12 +1339,17 @@ function show(id) {
             });
         })
         .catch(error => {
-            console.error(error.message);
+            console.error('Error in popover.show:', error);
         });
 }
 
+function destroy() {
+    destroyOutsideClickHandler();
+}
+
 const popover = {
-    show
+    initialize,
+    destroy
 };
 
 export { popover };

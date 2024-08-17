@@ -2,7 +2,9 @@
 
 public interface IPopoverService
 {
+    LumexPopover? LastShown { get; }
+
     void Register( LumexPopover popover );
     void Unregister( LumexPopover popover );
-    void NotifyOpened( LumexPopover popover );
+    void SetLastShown( LumexPopover? popover );
 }

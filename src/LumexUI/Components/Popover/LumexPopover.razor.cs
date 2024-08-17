@@ -32,13 +32,20 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
         _context = new( this );
     }
 
-    public void Show()
+    internal bool Show()
     {
-        PopoverService.NotifyOpened( this );
+        if( PopoverService.LastShown == this )
+        {
+            PopoverService.SetLastShown( null );
+            return false;
+        }
+
         IsShown = true;
+        PopoverService.SetLastShown( this );
+        return true;
     }
 
-    public void Hide()
+    internal void Hide()
     {
         IsShown = false;
         StateHasChanged();

@@ -26,6 +26,9 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
     private protected override string? RootClass =>
         TwMerge.Merge( Popover.GetContentStyles( this ) );
 
+    private string? InnerWrapperClass =>
+        TwMerge.Merge( Popover.GetInnerWrapperStyles() );
+
     private string _popoverId = default!;
     private IJSObjectReference _jsModule = default!;
 
@@ -54,9 +57,20 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
 
     private ValueTask ShowAsync()
     {
-        // Before applying a new position for a popover, we need to render it first.
+        // We need to render a popover first.
         StateHasChanged();
-        return _jsModule.InvokeVoidAsync( "popover.show", Context.Owner.Id );
+
+        // Then we initialize the popover on the JS side by:
+        //  1. Adding a 'clickoutside' event handler
+        //  2. Applying a proper positioning
+        //  3. Applying transitions
+        return _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id );
+    }
+
+    private ValueTask ClickOutsideAsync()
+    {
+        Context.Owner.Hide();
+        return _jsModule.InvokeVoidAsync( "popover.destroy" );
     }
 
     /// <inheritdoc />
@@ -66,6 +80,7 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
         {
             if( _jsModule is not null )
             {
+                await _jsModule.InvokeVoidAsync( "popover.destroy" );
                 await _jsModule.DisposeAsync();
             }
 
