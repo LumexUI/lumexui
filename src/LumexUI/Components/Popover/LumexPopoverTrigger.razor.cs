@@ -36,6 +36,6 @@ public partial class LumexPopoverTrigger : LumexComponentBase
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        _id = $"popovertarget-{Context.Owner.Id}";
+        _id = $"popoverref-{Context.Owner.Id}";
     }
 }

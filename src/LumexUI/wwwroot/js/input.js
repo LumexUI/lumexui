@@ -4,7 +4,7 @@
 
 function getValidationMessage(element) {
     if (!element) {
-        throw new Error("No element was found!");
+        throw new Error('No element was found!');
     }
 
     if (element instanceof HTMLInputElement ||
@@ -12,7 +12,7 @@ function getValidationMessage(element) {
         element instanceof HTMLSelectElement) {
         return element.validationMessage;
     } else {
-        throw new Error("The provided element does not support validation.");
+        throw new Error('The provided element does not support validation.');
     }
 }
 

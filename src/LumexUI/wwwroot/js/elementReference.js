@@ -5,7 +5,7 @@
 // TODO: improve
 export function moveElementTo(element, selector) {
     if (!element) {
-        throw new Error("No element was found!");
+        throw new Error('No element was found!');
     }
 
     let destination = document.querySelector(selector);
@@ -18,7 +18,7 @@ export function moveElementTo(element, selector) {
 
 function getScrollHeight(element) {
     if (!element) {
-        throw new Error("No element was found!");
+        throw new Error('No element was found!');
     }
 
     return element.scrollHeight;

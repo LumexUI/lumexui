@@ -18,12 +18,20 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a placement of the popover relative to a trigger.
+    /// Gets or sets a placement of the popover relative to a reference.
     /// </summary>
     /// <remarks>
     /// The default value is <see cref="PopoverPlacement.Top"/>
     /// </remarks>
     [Parameter] public PopoverPlacement Placement { get; set; }
+
+    /// <summary>
+    /// Gets or sets the offset distance between the popover and the reference, in pixels.
+    /// </summary>
+    /// <remarks>
+    /// The default value is 8
+    /// </remarks>
+    [Parameter] public int Offset { get; set; } = 8;
 
     [Inject] private IPopoverService PopoverService { get; set; } = default!;
 
@@ -96,6 +104,7 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
 
     internal readonly struct PopoverOptions( LumexPopover popover )
     {
+        public int Offset { get; } = popover.Offset;
         public string Placement { get; } = popover.Placement.ToDescription();
     }
 }

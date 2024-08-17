@@ -19,16 +19,18 @@ import { moveElementTo } from './elementReference.js';
 let destroyOutsideClickHandler;
 
 function initialize(id, options) {
+    const { placement, offset: offsetVal } = options;
+
     waitForElement(`#popover-${id}`)
         .then(floating => {
             destroyOutsideClickHandler = createOutsideClickHandler(floating);
 
-            const ref = document.getElementById(`popovertarget-${id}`);
+            const ref = document.getElementById(`popoverref-${id}`);
             console.log(options);
             moveElementTo(floating, 'body');
             computePosition(ref, floating, {
-                placement: options.placement,
-                middleware: [flip(), shift(), offset(8)],
+                placement: placement,
+                middleware: [flip(), shift(), offset(offsetVal)],
             }).then(({ x, y }) => {
                 Object.assign(floating.style, {
                     left: `${x}px`,
