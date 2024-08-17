@@ -2,6 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Common;
 using LumexUI.Services;
 using LumexUI.Utilities;
 
@@ -16,10 +17,19 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets a placement of the popover relative to a trigger.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="PopoverPlacement.Top"/>
+    /// </remarks>
+    [Parameter] public PopoverPlacement Placement { get; set; }
+
     [Inject] private IPopoverService PopoverService { get; set; } = default!;
 
-    internal bool IsShown { get; set; }
     internal string Id { get; private set; } = Identifier.New();
+    internal bool IsShown { get; private set; }
+    internal PopoverOptions Options { get; private set; }
 
     private readonly PopoverContext _context;
     private bool _disposed;
@@ -29,7 +39,7 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
     /// </summary>
     public LumexPopover()
     {
-        _context = new( this );
+        _context = new PopoverContext( this );
     }
 
     internal bool Show()
@@ -58,6 +68,12 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
     }
 
     /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        Options = new PopoverOptions( this );
+    }
+
+    /// <inheritdoc />
     public void Dispose()
     {
         Dispose( disposing: true );
@@ -76,5 +92,10 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
 
             _disposed = true;
         }
+    }
+
+    internal readonly struct PopoverOptions( LumexPopover popover )
+    {
+        public string Placement { get; } = popover.Placement.ToDescription();
     }
 }

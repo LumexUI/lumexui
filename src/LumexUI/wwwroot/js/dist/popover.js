@@ -1321,15 +1321,16 @@ function moveElementTo(element, selector) {
 
 let destroyOutsideClickHandler;
 
-function initialize(id) {
+function initialize(id, options) {
     waitForElement(`#popover-${id}`)
         .then(floating => {
             destroyOutsideClickHandler = createOutsideClickHandler(floating);
 
             const ref = document.getElementById(`popovertarget-${id}`);
-
+            console.log(options);
             moveElementTo(floating, 'body');
             computePosition(ref, floating, {
+                placement: options.placement,
                 middleware: [flip(), shift(), offset(8)],
             }).then(({ x, y }) => {
                 Object.assign(floating.style, {

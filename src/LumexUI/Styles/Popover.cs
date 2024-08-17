@@ -15,7 +15,7 @@ internal static class Popover
         .ToString();
 
     private readonly static string _innerWrapper = ElementClass.Empty()
-        .Add( "animate-popover-bottom" )
+        .Add( "animate-appearance-in" )
         .ToString();
 
     private readonly static string _content = ElementClass.Empty()

@@ -64,7 +64,7 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
         //  1. Adding a 'clickoutside' event handler
         //  2. Applying a proper positioning
         //  3. Applying transitions
-        return _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id );
+        return _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id, Context.Owner.Options );
     }
 
     private ValueTask ClickOutsideAsync()
