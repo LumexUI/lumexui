@@ -29,6 +29,17 @@ internal static class Popover
         .Add( "justify-center" )
         .ToString();
 
+    private readonly static string _arrow = ElementClass.Empty()
+        .Add( "z-[-1]" )
+        .Add( "w-2.5" )
+        .Add( "h-2.5" )
+        .Add( "absolute" )
+        .Add( "rotate-45" )
+        .Add( "rounded-sm" )
+        .Add( "shadow-small" )
+        .Add( "bg-default-50" )
+        .ToString();
+
     public static string GetStyles( LumexPopover popover )
     {
         return ElementClass.Empty()
@@ -37,7 +48,7 @@ internal static class Popover
             .ToString();
     }
 
-    public static string GetInnerWrapperStyles()
+    public static string GetInnerWrapperStyles( LumexPopoverContent popoverContent )
     {
         return ElementClass.Empty()
             .Add( _innerWrapper )
@@ -53,6 +64,13 @@ internal static class Popover
             .Add( "bg-default-50" )
             .Add( "shadow-small" )
             .Add( popoverContent.Class )
+            .ToString();
+    }
+
+    public static string GetArrowStyles( LumexPopoverContent popoverContent )
+    {
+        return ElementClass.Empty()
+            .Add( _arrow )
             .ToString();
     }
 }

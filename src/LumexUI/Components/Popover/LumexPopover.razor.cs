@@ -33,6 +33,11 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
     /// </remarks>
     [Parameter] public int Offset { get; set; } = 8;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the popover should display an arrow pointing to the reference.
+    /// </summary>
+    [Parameter] public bool ShowArrow { get; set; }
+
     [Inject] private IPopoverService PopoverService { get; set; } = default!;
 
     internal string Id { get; private set; } = Identifier.New();
@@ -105,6 +110,7 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
     internal readonly struct PopoverOptions( LumexPopover popover )
     {
         public int Offset { get; } = popover.Offset;
+        public bool ShowArrow { get; } = popover.ShowArrow;
         public string Placement { get; } = popover.Placement.ToDescription();
     }
 }

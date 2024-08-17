@@ -27,9 +27,11 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
         TwMerge.Merge( Popover.GetContentStyles( this ) );
 
     private string? InnerWrapperClass =>
-        TwMerge.Merge( Popover.GetInnerWrapperStyles() );
+        TwMerge.Merge( Popover.GetInnerWrapperStyles( this ) );
 
-    private string _popoverId = default!;
+    private string? ArrowClass =>
+        TwMerge.Merge( Popover.GetArrowStyles( this ) );
+
     private IJSObjectReference _jsModule = default!;
 
     /// <inheritdoc />
@@ -47,12 +49,6 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
         }
-    }
-
-    /// <inheritdoc />
-    protected override void OnParametersSet()
-    {
-        _popoverId = $"popover-{Context.Owner.Id}";
     }
 
     private ValueTask ShowAsync()

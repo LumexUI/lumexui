@@ -6,7 +6,8 @@ import {
     computePosition,
     flip,
     shift,
-    offset
+    offset,
+    arrow
 } from '@floating-ui/dom';
 
 import {
@@ -19,22 +20,49 @@ import { moveElementTo } from './elementReference.js';
 let destroyOutsideClickHandler;
 
 function initialize(id, options) {
-    const { placement, offset: offsetVal } = options;
+    const {
+        placement,
+        showArrow,
+        offset: offsetVal
+    } = options;
 
-    waitForElement(`#popover-${id}`)
-        .then(floating => {
-            destroyOutsideClickHandler = createOutsideClickHandler(floating);
+    waitForElement(`[data-popover=${id}]`)
+        .then(popover => {
+            destroyOutsideClickHandler = createOutsideClickHandler(popover);
 
-            const ref = document.getElementById(`popoverref-${id}`);
+            const ref = document.querySelector(`[data-popoverref=${id}]`);
+            const arrowElement = popover.querySelector('[data-slot=arrow]');
+
             console.log(options);
-            moveElementTo(floating, 'body');
-            computePosition(ref, floating, {
+
+            moveElementTo(popover, 'body');
+
+            computePosition(ref, popover, {
                 placement: placement,
-                middleware: [flip(), shift(), offset(offsetVal)],
-            }).then(({ x, y }) => {
-                Object.assign(floating.style, {
+                middleware: [
+                    flip(),
+                    shift(),
+                    offset(offsetVal),
+                    showArrow && arrow({ element: arrowElement })
+                ],
+            }).then(({ x, y, placement, middlewareData }) => {
+                Object.assign(popover.style, {
                     left: `${x}px`,
                     top: `${y}px`,
+                });
+
+                const { x: arrowX, y: arrowY } = middlewareData.arrow;
+                const staticSide = {
+                    top: 'bottom',
+                    right: 'left',
+                    bottom: 'top',
+                    left: 'right',
+                }[placement.split('-')[0]];
+
+                Object.assign(arrowElement.style, {
+                    left: arrowX != null ? `${arrowX}px` : '',
+                    top: arrowY != null ? `${arrowY}px` : '',
+                    [staticSide]: '-4px',
                 });
             });
         })

@@ -5,8 +5,8 @@
              Class="@RootClass"
              Style="@RootStyle"
              OnClick="@Context.ToggleAsync"
-             id="@_id"
              data-slot="trigger"
+             data-popoverref="@Context.Owner.Id"
              @attributes="@AdditionalAttributes">
     @ChildContent
 </LumexButton>
