@@ -102,12 +102,21 @@ internal static class Popover
 
         return ElementClass.Empty()
             .Add( _content )
+            .Add( GetSizeStyles( popover.Size ) )
             .Add( GetColorStyles( popover.Color, slot: nameof( _content ) ) )
             .Add( "text-small" )
-            .Add( "rounded-large" )
+            .Add( GetTextSizeStyles( popover.Size ) )
             .Add( "shadow-small" )
             .Add( popoverContent.Class )
             .ToString();
+
+        static ElementClass GetSizeStyles( Size size )
+        {
+            return ElementClass.Empty()
+                .Add( "text-tiny", when: size is Size.Small )
+                .Add( "text-small", when: size is Size.Medium )
+                .Add( "text-medium", when: size is Size.Large );
+        }
     }
 
     public static string GetTriggerStyles( LumexPopoverContent popoverContent )

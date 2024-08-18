@@ -30,6 +30,14 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
     [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
     /// <summary>
+    /// Gets or sets a size of the popover content text.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="Size.Medium"/>
+    /// </remarks>
+    [Parameter] public Size Size { get; set; } = Size.Medium;
+
+    /// <summary>
     /// Gets or sets a placement of the popover relative to a reference.
     /// </summary>
     /// <remarks>
