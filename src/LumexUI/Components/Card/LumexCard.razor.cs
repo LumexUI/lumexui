@@ -28,7 +28,7 @@ public partial class LumexCard : LumexComponentBase, ISlotComponent<CardSlots>
     /// Gets or sets the shadow of the card.
     /// </summary>
     /// <remarks>
-    /// Default value is <see cref="Shadow.Medium"/>
+    /// Default value is <see cref="Shadow.Small"/>
     /// </remarks>
     [Parameter] public Shadow Shadow { get; set; } = Shadow.Small;
 

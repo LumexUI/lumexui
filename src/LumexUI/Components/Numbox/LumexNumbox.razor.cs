@@ -20,19 +20,10 @@ public partial class LumexNumbox<TValue> : LumexInputFieldBase<TValue>
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
 
     /// <inheritdoc />
-    public override Task SetParametersAsync( ParameterView parameters )
-    {
-        parameters.SetParameterProperties( this );
-
-        UpdateAdditionalAttributes();
-
-        return base.SetParametersAsync( parameters );
-    }
-
-    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         SetInputType( "number" );
+        UpdateAdditionalAttributes();
 
         base.OnParametersSet();
     }
