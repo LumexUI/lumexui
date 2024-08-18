@@ -33,4 +33,19 @@ public abstract record BaseColors
     /// Gets or sets the color scale for the focus state.
     /// </summary>
     public ColorScale Focus { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the color scale for components like card, accordion, popover and etc.
+    /// </summary>
+    public ColorScale Content1 { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the color scale for components like card, accordion, popover and etc.
+    /// </summary>
+    public ColorScale Content2 { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the color scale for components like card, accordion, popover and etc.
+    /// </summary>
+    public ColorScale Content3 { get; set; } = [];
 }

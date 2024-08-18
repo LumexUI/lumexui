@@ -8,12 +8,24 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
+/// <summary>
+/// A component representing the trigger element for a <see cref="LumexPopover"/> component, 
+/// which controls the display of the popover.
+/// </summary>
 public partial class LumexPopoverTrigger : LumexComponentBase
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the popover trigger.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets a color of the popover.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="ThemeColor.Default"/>
+    /// </remarks>
+    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
     [CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
@@ -25,6 +37,15 @@ public partial class LumexPopoverTrigger : LumexComponentBase
     public LumexPopoverTrigger()
     {
         As = "button";
+    }
+
+    public override async Task SetParametersAsync( ParameterView parameters )
+    {
+        await base.SetParametersAsync( parameters );
+
+        Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
+            ? color
+            : Context.Owner.Color;
     }
 
     /// <inheritdoc />

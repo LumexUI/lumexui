@@ -10,12 +10,24 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
+/// <summary>
+/// A component representing a popover, providing a floating container 
+/// that displays additional content or information.
+/// </summary>
 public partial class LumexPopover : LumexComponentBase, IDisposable
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the popover.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets a color of the popover.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="ThemeColor.Default"/>
+    /// </remarks>
+    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
     /// <summary>
     /// Gets or sets a placement of the popover relative to a reference.
@@ -107,6 +119,10 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
         }
     }
 
+    /// <summary>
+    /// Represents the configuration options for a <see cref="LumexPopover"/> component.
+    /// </summary>
+    /// <param name="popover">The <see cref="LumexPopover"/> instance associated with these options.</param>
     internal readonly struct PopoverOptions( LumexPopover popover )
     {
         public int Offset { get; } = popover.Offset;
