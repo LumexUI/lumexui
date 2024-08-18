@@ -3,6 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
 
@@ -29,15 +30,10 @@ public partial class LumexPopoverTrigger : LumexComponentBase
 
     [CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
-    private string _id = default!;
+    private protected override string? RootClass =>
+        TwMerge.Merge( Popover.GetTriggerStyles( this ) );
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="LumexPopoverTrigger"/>.
-    /// </summary>
-    public LumexPopoverTrigger()
-    {
-        As = "button";
-    }
+    private string _id = default!;
 
     public override async Task SetParametersAsync( ParameterView parameters )
     {

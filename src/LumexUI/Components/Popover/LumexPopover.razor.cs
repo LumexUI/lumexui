@@ -14,7 +14,7 @@ namespace LumexUI;
 /// A component representing a popover, providing a floating container 
 /// that displays additional content or information.
 /// </summary>
-public partial class LumexPopover : LumexComponentBase, IDisposable
+public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSlots>, IDisposable
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the popover.
@@ -73,6 +73,11 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
     /// Gets or sets a value indicating whether the popover should display an arrow pointing to the reference.
     /// </summary>
     [Parameter] public bool ShowArrow { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class names for the popover slots.
+    /// </summary>
+    [Parameter] public PopoverSlots? Classes { get; set; }
 
     [Inject] private IPopoverService PopoverService { get; set; } = default!;
 

@@ -42,7 +42,6 @@ internal static class Popover
         .Add( "rotate-45" )
         .Add( "rounded-sm" )
         .Add( "shadow-small" )
-        .Add( "bg-default-50" )
         .ToString();
 
     private static ElementClass GetColorStyles( ThemeColor color, string slot )
@@ -142,7 +141,19 @@ internal static class Popover
     {
         return ElementClass.Empty()
             .Add( _base )
+            .Add( popover.Classes?.Root )
             .Add( popover.Class )
+            .ToString();
+    }
+
+    public static string GetTriggerStyles( LumexPopoverTrigger popoverTrigger )
+    {
+        var popover = popoverTrigger.Context.Owner;
+
+        return ElementClass.Empty()
+            .Add( _trigger )
+            .Add( popover.Classes?.Trigger )
+            .Add( popoverTrigger.Class )
             .ToString();
     }
 
@@ -163,14 +174,8 @@ internal static class Popover
             .Add( GetColorStyles( popover.Color, slot: nameof( _content ) ) )
             .Add( GetRadiusStyles( popover.Radius, slot: nameof( _content ) ) )
             .Add( GetShadowStyles( popover.Shadow, slot: nameof( _content ) ) )
+            .Add( popover.Classes?.Content )
             .Add( popoverContent.Class )
-            .ToString();
-    }
-
-    public static string GetTriggerStyles( LumexPopoverContent popoverContent )
-    {
-        return ElementClass.Empty()
-            .Add( _arrow )
             .ToString();
     }
 
@@ -181,6 +186,7 @@ internal static class Popover
         return ElementClass.Empty()
             .Add( _arrow )
             .Add( GetColorStyles( popover.Color, slot: nameof( _arrow ) ) )
+            .Add( popover.Classes?.Arrow )
             .ToString();
     }
 }
