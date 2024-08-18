@@ -38,6 +38,14 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
     [Parameter] public Size Size { get; set; } = Size.Medium;
 
     /// <summary>
+    /// Gets or sets a border radius of the popover.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="Radius.Large"/>
+    /// </remarks>
+    [Parameter] public Radius Radius { get; set; } = Radius.Large;
+
+    /// <summary>
     /// Gets or sets a placement of the popover relative to a reference.
     /// </summary>
     /// <remarks>

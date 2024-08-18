@@ -103,9 +103,8 @@ internal static class Popover
         return ElementClass.Empty()
             .Add( _content )
             .Add( GetSizeStyles( popover.Size ) )
+            .Add( GetRadiusStyles( popover.Radius ) )
             .Add( GetColorStyles( popover.Color, slot: nameof( _content ) ) )
-            .Add( "text-small" )
-            .Add( GetTextSizeStyles( popover.Size ) )
             .Add( "shadow-small" )
             .Add( popoverContent.Class )
             .ToString();
@@ -116,6 +115,15 @@ internal static class Popover
                 .Add( "text-tiny", when: size is Size.Small )
                 .Add( "text-small", when: size is Size.Medium )
                 .Add( "text-medium", when: size is Size.Large );
+        }
+
+        static ElementClass GetRadiusStyles( Radius radius )
+        {
+            return ElementClass.Empty()
+                .Add( "rounded-none", when: radius is Radius.None )
+                .Add( "rounded-small", when: radius is Radius.Small )
+                .Add( "rounded-medium", when: radius is Radius.Medium )
+                .Add( "rounded-large", when: radius is Radius.Large );
         }
     }
 
