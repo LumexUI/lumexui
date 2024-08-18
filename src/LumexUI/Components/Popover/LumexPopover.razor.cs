@@ -46,6 +46,14 @@ public partial class LumexPopover : LumexComponentBase, IDisposable
     [Parameter] public Radius Radius { get; set; } = Radius.Large;
 
     /// <summary>
+    /// Gets or sets a shadow of the popover.
+    /// </summary>
+    /// <remarks>
+    /// Default value is <see cref="Shadow.Small"/>
+    /// </remarks>
+    [Parameter] public Shadow Shadow { get; set; } = Shadow.Small;
+
+    /// <summary>
     /// Gets or sets a placement of the popover relative to a reference.
     /// </summary>
     /// <remarks>

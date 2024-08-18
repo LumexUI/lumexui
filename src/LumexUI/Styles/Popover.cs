@@ -81,6 +81,63 @@ internal static class Popover
         };
     }
 
+    private static ElementClass GetSizeStyles( Size size, string slot )
+    {
+        return size switch
+        {
+            Size.Small => ElementClass.Empty()
+                .Add( "text-tiny", when: slot is nameof( _content ) ),
+
+            Size.Medium => ElementClass.Empty()
+                .Add( "text-small", when: slot is nameof( _content ) ),
+
+            Size.Large => ElementClass.Empty()
+                .Add( "text-medium", when: slot is nameof( _content ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetRadiusStyles( Radius radius, string slot )
+    {
+        return radius switch
+        {
+            Radius.None => ElementClass.Empty()
+                .Add( "rounded-none", when: slot is nameof( _content ) ),
+
+            Radius.Small => ElementClass.Empty()
+                .Add( "rounded-small", when: slot is nameof( _content ) ),
+
+            Radius.Medium => ElementClass.Empty()
+                .Add( "rounded-medium", when: slot is nameof( _content ) ),
+
+            Radius.Large => ElementClass.Empty()
+                .Add( "rounded-medium", when: slot is nameof( _content ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetShadowStyles( Shadow shadow, string slot )
+    {
+        return shadow switch
+        {
+            Shadow.None => ElementClass.Empty()
+                .Add( "shadow-none", when: slot is nameof( _content ) ),
+
+            Shadow.Small => ElementClass.Empty()
+                .Add( "shadow-small", when: slot is nameof( _content ) ),
+
+            Shadow.Medium => ElementClass.Empty()
+                .Add( "shadow-medium", when: slot is nameof( _content ) ),
+
+            Shadow.Large => ElementClass.Empty()
+                .Add( "shadow-medium", when: slot is nameof( _content ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
     public static string GetStyles( LumexPopover popover )
     {
         return ElementClass.Empty()
@@ -102,29 +159,12 @@ internal static class Popover
 
         return ElementClass.Empty()
             .Add( _content )
-            .Add( GetSizeStyles( popover.Size ) )
-            .Add( GetRadiusStyles( popover.Radius ) )
+            .Add( GetSizeStyles( popover.Size, slot: nameof( _content ) ) )
             .Add( GetColorStyles( popover.Color, slot: nameof( _content ) ) )
-            .Add( "shadow-small" )
+            .Add( GetRadiusStyles( popover.Radius, slot: nameof( _content ) ) )
+            .Add( GetShadowStyles( popover.Shadow, slot: nameof( _content ) ) )
             .Add( popoverContent.Class )
             .ToString();
-
-        static ElementClass GetSizeStyles( Size size )
-        {
-            return ElementClass.Empty()
-                .Add( "text-tiny", when: size is Size.Small )
-                .Add( "text-small", when: size is Size.Medium )
-                .Add( "text-medium", when: size is Size.Large );
-        }
-
-        static ElementClass GetRadiusStyles( Radius radius )
-        {
-            return ElementClass.Empty()
-                .Add( "rounded-none", when: radius is Radius.None )
-                .Add( "rounded-small", when: radius is Radius.Small )
-                .Add( "rounded-medium", when: radius is Radius.Medium )
-                .Add( "rounded-large", when: radius is Radius.Large );
-        }
     }
 
     public static string GetTriggerStyles( LumexPopoverContent popoverContent )
