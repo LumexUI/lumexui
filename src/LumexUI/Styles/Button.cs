@@ -25,9 +25,11 @@ internal readonly record struct Button
         .Add( "whitespace-nowrap" )
         .Add( "subpixel-antialiased" )
         .Add( "overflow-hidden" )
-        .Add( "active:scale-[0.98]" )
+        .Add( "active:scale-[0.97]" )
         .Add( "transition-[transform,colors,opacity]" )
         .Add( "motion-reduce:transition-none" )
+        // focus ring
+        .Add( Utils.FocusVisible )
         .ToString();
 
     private readonly static string _disabled = ElementClass.Empty()
