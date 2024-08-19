@@ -10,7 +10,7 @@
     {
         Services.AddSingleton<TwMerge>();
         JSInterop.Setup<int>( "Lumex.elementReference.getScrollHeight", _ => true );
-        JSInterop.SetupVoid( "Lumex.elementReference.moveElementTo", _ => true );
+        JSInterop.SetupVoid( "Lumex.elementReference.portalTo", _ => true );
     }
 
     [Fact]
