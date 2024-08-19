@@ -59,7 +59,7 @@ public partial class LumexNavbarMenu : LumexComponentBase
     {
         if( firstRender )
         {
-            await _collapse!.ElementReference.MoveToAsync();
+            await _collapse!.ElementReference.PortalToAsync();
         }
     }
 }

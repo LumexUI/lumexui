@@ -22,7 +22,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
     ISlotComponent<InputFieldSlots>, 
     IAsyncDisposable
 {
-    private const string JavaScriptFile = "./_content/LumexUI/js/input.js";
+    private const string JavaScriptFile = "./_content/LumexUI/js/components/input.js";
 
     /// <summary>
     /// Gets or sets content to be rendered at the start of the textbox.

@@ -4,6 +4,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+using LumexUI.Services;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using TailwindMerge.Extensions;
@@ -23,6 +25,12 @@ public static class ServiceCollectionExtensions
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
     public static void AddLumexServices( this IServiceCollection services )
     {
+        services.AddTailwindMerge();
+        services.AddPopoverService();
+    }
+
+    private static void AddTailwindMerge( this IServiceCollection services )
+    {
         services.AddTailwindMerge( options =>
         {
             options.Extend( new ExtendedConfig()
@@ -35,5 +43,10 @@ public static class ServiceCollectionExtensions
                 }
             } );
         } );
+    }
+
+    private static void AddPopoverService( this IServiceCollection services )
+    {
+        services.AddScoped<IPopoverService, PopoverService>();
     }
 }

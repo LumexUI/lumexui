@@ -22,15 +22,15 @@ public static class ElementReferenceExtensions
         return jsRuntime.InvokeAsync<int>( "Lumex.elementReference.getScrollHeight", elementReference );
     }
 
-    public static ValueTask MoveToAsync( this ElementReference? elementReference )
+    public static ValueTask PortalToAsync( this ElementReference? elementReference )
     {
-        return MoveToAsync( elementReference, "app" );
+        return PortalToAsync( elementReference, "body" );
     }
 
-    public static ValueTask MoveToAsync( this ElementReference? elementReference, string destinationId )
+    public static ValueTask PortalToAsync( this ElementReference? elementReference, string selector )
     {
         var jsRuntime = elementReference.GetJSRuntime();
-        return jsRuntime.InvokeVoidAsync( "Lumex.elementReference.moveElementTo", elementReference, destinationId );
+        return jsRuntime.InvokeVoidAsync( "Lumex.elementReference.portalTo", elementReference, selector );
     }
 
     private static IJSRuntime GetJSRuntime( this ElementReference? elementReference )

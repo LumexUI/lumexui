@@ -2,28 +2,17 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+import { portalTo } from './utils/dom.js';
+
 function getScrollHeight(element) {
-    if (!element) {
-        throw new Error("No element was found!");
+    if (!(element instanceof HTMLElement)) {
+        throw new Error('The provided element is not a valid HTMLElement.');
     }
 
     return element.scrollHeight;
 }
 
-function moveElementTo(element, destinationId) {
-    if (!element) {
-        throw new Error("No element was found!");
-    }
-
-    let destination = document.getElementById(destinationId);
-    if (!destination) {
-        throw new Error(`No portal container with the given ID '${destinationId}' was found!`);
-    }
-
-    destination.appendChild(element);
-}
-
 export const elementReference = {
     getScrollHeight,
-    moveElementTo
+    portalTo
 }

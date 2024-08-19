@@ -1,0 +1,26 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@if( Context.Owner.IsShown )
+{
+    <div style="position: absolute; z-index: 10000;"
+         data-popover="@Context.Owner.Id"
+         @onclickoutside="@(() => ClickOutsideAsync())">
+        <div class="@InnerWrapperClass">
+            <div role="dialog" tabindex="-1" data-slot="base">
+                <LumexComponent As="@As"
+                                Class="@RootClass"
+                                Style="@RootStyle"
+                                data-slot="content"
+                                @attributes="@AdditionalAttributes">
+                    @ChildContent
+                </LumexComponent>
+            </div>
+
+            @if( Context.Owner.ShowArrow )
+            {
+                <span class="@ArrowClass" data-slot="arrow" />
+            }
+        </div>
+    </div>
+}

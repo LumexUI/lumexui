@@ -29,6 +29,18 @@ internal static class SemanticColors
         Divider = [
             new( Default, Colors.Black )
         ],
+        Content1 = [
+            new( Default, Colors.White ),
+            new( Foreground, Colors.Gray["900"] )
+        ],
+        Content2 = [
+            new( Default, Colors.Gray["100"] ),
+            new( Foreground, Colors.Gray["800"] )
+        ],
+        Content3 = [
+            new( Default, Colors.Gray["200"] ),
+            new( Foreground, Colors.Gray["700"] )
+        ],
         Default = [
             .. Colors.Gray,
             new( Default, Colors.Gray["200"] ),
@@ -83,6 +95,18 @@ internal static class SemanticColors
         ],
         Divider = [
             new( Default, Colors.White )
+        ],
+        Content1 = [
+            new( Default, Colors.Gray["900"] ),
+            new( Foreground, Colors.Gray["50"] )
+        ],
+        Content2 = [
+            new( Default, Colors.Gray["800"] ),
+            new( Foreground, Colors.Gray["100"] )
+        ],
+        Content3 = [
+            new( Default, Colors.Gray["700"] ),
+            new( Foreground, Colors.Gray["200"] )
         ],
         Default = [
             .. Colors.ReverseColorValues( Colors.Gray ),
