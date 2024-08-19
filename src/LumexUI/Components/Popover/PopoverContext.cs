@@ -6,22 +6,15 @@ internal class PopoverContext( LumexPopover owner ) : IComponentContext<LumexPop
 {
     public LumexPopover Owner { get; } = owner;
 
-    public event Func<ValueTask> OnShow = default!;
+    public event Func<ValueTask> OnTrigger = default!;
 
-    public async Task ToggleAsync()
+    public async Task TriggerAsync()
     {
-        if( Owner.IsShown )
+        if( Owner.Show() )
         {
-            Owner.Hide();
-        }
-        else
-        {
-            if( Owner.Show() )
-            {
-                await NotifyStateChangedAsync();
-            }
+            await NotifyStateChangedAsync();
         }
     }
 
-    private ValueTask NotifyStateChangedAsync() => OnShow.Invoke();
+    private ValueTask NotifyStateChangedAsync() => OnTrigger.Invoke();
 }

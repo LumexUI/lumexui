@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+
 using LumexUI.Common;
 using LumexUI.Styles;
 
@@ -43,7 +45,7 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
     {
         ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverContent ) );
 
-        Context.OnShow += ShowAsync;
+        Context.OnTrigger += ShowAsync;
     }
 
     /// <inheritdoc />
@@ -63,7 +65,6 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
         // Then we initialize the popover on the JS side by:
         //  1. Adding a 'clickoutside' event handler
         //  2. Applying a proper positioning
-        //  3. Applying transitions
         return _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id, Context.Owner.Options );
     }
 
@@ -74,6 +75,7 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
     }
 
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
     public async ValueTask DisposeAsync()
     {
         try
@@ -84,7 +86,7 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
                 await _jsModule.DisposeAsync();
             }
 
-            Context.OnShow -= ShowAsync;
+            Context.OnTrigger -= ShowAsync;
         }
         catch( Exception ex ) when( ex is JSDisconnectedException or OperationCanceledException )
         {
