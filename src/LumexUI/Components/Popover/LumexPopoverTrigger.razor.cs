@@ -21,7 +21,7 @@ public partial class LumexPopoverTrigger : LumexComponentBase
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a color of the popover.
+    /// Gets or sets a color of the popover trigger.
     /// </summary>
     /// <remarks>
     /// The default value is <see cref="ThemeColor.Default"/>
