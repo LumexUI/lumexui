@@ -5,6 +5,7 @@
 {
     <div style="position: absolute; z-index: 10000;"
          data-popover="@Context.Owner.Id"
+         @attributes="@Context.Owner.AdditionalAttributes"
          @onclickoutside="@(() => ClickOutsideAsync())">
         <div class="@InnerWrapperClass">
             <div role="dialog" tabindex="-1" data-slot="base">
