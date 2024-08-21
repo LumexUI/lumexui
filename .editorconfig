@@ -82,14 +82,14 @@ csharp_style_var_for_built_in_types = true:warning
 csharp_style_var_when_type_is_apparent = true:warning
 
 # Expression-bodied members
-csharp_style_expression_bodied_accessors = false
+csharp_style_expression_bodied_accessors = false:silent
 csharp_style_expression_bodied_constructors = false:warning
-csharp_style_expression_bodied_indexers = false
-csharp_style_expression_bodied_lambdas = false
-csharp_style_expression_bodied_local_functions = false
-csharp_style_expression_bodied_methods = false
-csharp_style_expression_bodied_operators = false
-csharp_style_expression_bodied_properties = false
+csharp_style_expression_bodied_indexers = false:silent
+csharp_style_expression_bodied_lambdas = false:silent
+csharp_style_expression_bodied_local_functions = false:silent
+csharp_style_expression_bodied_methods = false:silent
+csharp_style_expression_bodied_operators = false:silent
+csharp_style_expression_bodied_properties = false:silent
 
 # Pattern matching preferences
 csharp_style_pattern_matching_over_as_with_null_check = true:warning
@@ -110,10 +110,10 @@ csharp_style_prefer_readonly_struct_member = true
 
 # Code-block preferences
 csharp_prefer_braces = true:suggestion
-csharp_prefer_simple_using_statement = true
+csharp_prefer_simple_using_statement = true:suggestion
 csharp_style_namespace_declarations = file_scoped:warning
 csharp_style_prefer_method_group_conversion = true:suggestion
-csharp_style_prefer_primary_constructors = true
+csharp_style_prefer_primary_constructors = true:suggestion
 csharp_style_prefer_top_level_statements = false:suggestion
 
 # Expression-level preferences
@@ -242,3 +242,16 @@ dotnet_naming_style.camel_case_prefixed_with__.required_prefix = _
 dotnet_naming_style.camel_case_prefixed_with__.required_suffix = 
 dotnet_naming_style.camel_case_prefixed_with__.word_separator = 
 dotnet_naming_style.camel_case_prefixed_with__.capitalization = camel_case
+
+[*.{cs,vb}]
+dotnet_style_operator_placement_when_wrapping = beginning_of_line
+tab_width = 4
+indent_size = 4
+end_of_line = crlf
+dotnet_style_coalesce_expression = true:suggestion
+dotnet_style_null_propagation = true:suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
+dotnet_style_prefer_auto_properties = true:warning
+dotnet_style_object_initializer = true:warning
+dotnet_style_collection_initializer = true:warning
+insert_final_newline = true
