@@ -96,6 +96,15 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
         _context = new PopoverContext( this );
     }
 
+    /// <summary>
+    /// Asynchronously triggers the popover.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous trigger operation.</returns>
+    public Task TriggerAsync()
+    {
+        return _context.TriggerAsync();
+    }
+
     internal bool Show()
     {
         if( PopoverService.LastShown == this )
