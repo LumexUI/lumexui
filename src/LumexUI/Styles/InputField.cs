@@ -27,6 +27,7 @@ internal static class InputField
         .Add( "text-small" )
         .Add( "text-foreground-500" )
         .Add( "origin-top-left" )
+        .Add( "rtl:origin-top-right" )
         .Add( "pointer-events-none" )
         .Add( "subpixel-antialiased" )
         .Add( "pe-2" )

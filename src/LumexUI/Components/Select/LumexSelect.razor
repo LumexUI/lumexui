@@ -1,0 +1,39 @@
+﻿@namespace LumexUI
+@inherits LumexInputFieldBase<TValue>
+@typeparam TValue
+
+<CascadingValue TValue="SelectContext<TValue>" Value="@_context" IsFixed="@true">
+    <div class="@RootClass" style="@RootStyle" data-slot="base">
+        <div class="@MainWrapperClass" data-slot="main-wrapper">
+            <LumexComponent As="@As"
+                            Class="@TriggerClass"
+                            data-slot="trigger"
+                            data-popoverref="@_popoverRef?.Id"
+                            @onclick="@TriggerPopoverAsync">
+                @if( !string.IsNullOrEmpty( Label ) )
+                {
+                    <label class="@LabelClass" data-slot="label">@Label</label>
+                }
+
+                <div data-slot="inner-wrapper">
+                    @StartContent
+
+                    <span data-slot="value">value</span>
+
+                    @EndContent
+                </div>
+            </LumexComponent>
+
+            @GetHelperWrapperRenderFragment()
+        </div>
+
+        <LumexPopover MatchRefWidth="@true"
+                      Placement="@PopoverPlacement.Bottom"
+                      data-slot="popover"
+                      @ref="@_popoverRef">
+            <LumexPopoverContent Class="@PopoverContentClass">
+                @ChildContent
+            </LumexPopoverContent>
+        </LumexPopover>
+    </div>
+</CascadingValue>

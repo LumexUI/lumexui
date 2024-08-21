@@ -123,40 +123,40 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
     private protected override string? RootClass =>
         TwMerge.Merge( InputField.GetStyles( this ) );
 
-    private string? LabelClass =>
+    private protected string? LabelClass =>
         TwMerge.Merge( InputField.GetLabelStyles( this ) );
 
-    private string? MainWrapperClass =>
+    private protected string? MainWrapperClass =>
         TwMerge.Merge( InputField.GetMainWrapperStyles( this ) );
 
-    private string? InputWrapperClass =>
+    private protected string? InputWrapperClass =>
         TwMerge.Merge( InputField.GetInputWrapperStyles( this ) );
 
-    private string? InnerWrapperClass =>
+    private protected string? InnerWrapperClass =>
         TwMerge.Merge( InputField.GetInnerWrapperStyles( this ) );
 
-    private string? InputClass =>
+    private protected string? InputClass =>
         TwMerge.Merge( InputField.GetInputStyles( this ) );
 
-    private string? ClearButtonClass =>
+    private protected string? ClearButtonClass =>
         TwMerge.Merge( InputField.GetClearButtonStyles( this ) );
 
-    private string? HelperWrapperClass =>
+    private protected string? HelperWrapperClass =>
         TwMerge.Merge( InputField.GetHelperWrapperStyles( this ) );
 
-    private string? DescriptionClass =>
+    private protected string? DescriptionClass =>
         TwMerge.Merge( InputField.GetDescriptionStyles( this ) );
 
-    private string? ErrorMessageClass =>
+    private protected string? ErrorMessageClass =>
         TwMerge.Merge( InputField.GetErrorMessageStyles( this ) );
 
-    private bool HasHelper =>
+    private protected bool HasHelper =>
         !string.IsNullOrEmpty( Description ) ||
         !string.IsNullOrEmpty( ErrorMessage ) ||
         !string.IsNullOrEmpty( ValidationMessage );
-    private bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
-    private bool ClearButtonVisible => Clearable && HasValue;
-    private bool FilledOrFocused =>
+    private protected bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
+    private protected bool ClearButtonVisible => Clearable && HasValue;
+    private protected bool FilledOrFocused =>
         Focused ||
         HasValue ||
         StartContent is not null ||
@@ -266,6 +266,8 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
     {
         _inputType = type;
     }
+
+    private protected RenderFragment GetHelperWrapperRenderFragment() => _renderHelperWrapper;
 
     private async Task FocusInputAsync()
     {
