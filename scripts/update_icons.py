@@ -144,7 +144,7 @@ def _create_csharp_file(family, consts):
     args = {
         "timestamp": (datetime.now()).strftime("%d/%m/%Y %H:%M:%S"),
         "family": family,
-        "icons": "\n".join(consts)
+        "icons": "\n\t\t".join(consts)
     }
 
     file_dest = (Path(__file__) / "../.." / _FILE_DEST.format(**args)).resolve()
