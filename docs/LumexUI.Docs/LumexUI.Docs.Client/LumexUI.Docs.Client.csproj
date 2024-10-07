@@ -13,13 +13,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="Pages/**/*.html" />
-		<EmbeddedResource Include="Samples/**/*.html" />
+	  <ProjectReference Include="..\..\..\src\LumexUI.Utilities\LumexUI.Utilities.csproj" />
+	  <ProjectReference Include="..\..\..\src\LumexUI\LumexUI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\src\LumexUI.Utilities\LumexUI.Utilities.csproj" />
-	  <ProjectReference Include="..\..\..\src\LumexUI\LumexUI.csproj" />
+		<EmbeddedResource Include="Pages/**/*.html" />
+		<EmbeddedResource Include="Samples/**/*.html" />
 	</ItemGroup>
 
 </Project>

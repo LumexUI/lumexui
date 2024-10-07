@@ -28,17 +28,8 @@
 	</ItemGroup>
 
 	<!-- Run the docs content generation command -->
-	<Target Name="DocsGenerator" BeforeTargets="Compile">
+	<Target Name="DocsGenerator" BeforeTargets="BeforeBuild">
 		<Exec Command="$(DocsGeneratorProject)" />
-	</Target>
-
-	<Target Name="VerifyGeneratedFiles" AfterTargets="DocsGenerator" BeforeTargets="Compile">
-		<ItemGroup>
-			<GeneratedFiles Include="$(SolutionDir)docs/LumexUI.Docs/LumexUI.Docs.Client/Pages/**/*.html" />
-		</ItemGroup>
-		<Message Text="Generated files are:" Condition=" @(GeneratedFiles->Count()) > 0 " Importance="high" />
-		<Message Text="%(GeneratedFiles.Identity)" Condition=" @(GeneratedFiles->Count()) != 0 " Importance="high" />
-		<Error Text="Generated files are missing." Condition=" @(GeneratedFiles->Count()) == 0 " />
 	</Target>
 	
 	<!-- Install npm dependencies if 'node_modules' is not present -->
