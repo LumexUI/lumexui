@@ -59,6 +59,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'lumexui'
-          slot-name: 'Staging'
+          slot-name: 'staging'
           package: .
           
