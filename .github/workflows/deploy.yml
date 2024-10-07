@@ -23,11 +23,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Build LumexUI
-        run: dotnet build ./src/LumexUI -c Release
+      - name: Build
+        run: dotnet build -c Release
 
       - name: Publish
-        run: dotnet publish ./docs/LumexUI.Docs/LumexUI.Docs -c Release -o lumexui
+        run: dotnet publish ./docs/LumexUI.Docs/LumexUI.Docs -c Release -o lumexui --no-build --no-restore
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
