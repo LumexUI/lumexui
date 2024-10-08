@@ -28,7 +28,7 @@ module.exports = {
                             'scroll-margin-top': 'var(--scroll-mt)',
                         },
                         a: {
-                            color: 'var(--tw-prose-links)',
+                            color: 'var(--tw-prose-links) !important',
                             lineHeight: theme('lineHeight.tight'),
                             fontWeight: theme('fontWeight.semibold'),
                             textDecoration: 'none',
@@ -40,6 +40,7 @@ module.exports = {
                         pre: {
                             color: theme('colors.zinc.100'),
                             padding: theme('padding.5'),
+                            display: 'flex'
                         },
                         'code[class]::before': {
                             content: '""'

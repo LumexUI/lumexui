@@ -17,3 +17,9 @@ html {
 body {
     min-height: 100%;
 }
+
+@layer utilities {
+    .bordered-link {
+        @apply font-semibold leading-tight text-current border-b border-current hover:border-b-2;
+    }
+}
