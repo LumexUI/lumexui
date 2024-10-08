@@ -1,9 +1,11 @@
-<pre><code class="language-js">const lumexui = require(&quot;../../../src/LumexUI/wwwroot/js/plugin/plugin.bundle.js&quot;);
+<pre data-line="1,7,13"><code class="language-js">const lumexui = require(&quot;{PATH_TO_NUGET}/theme/plugin&quot;);
 
 /** @type {import(&quot;tailwindcss&quot;).Config} */
 module.exports = {
-    content: [&quot;../../../src/LumexUI/Styles/*.cs&quot;],
-    darkMode: &quot;class&quot;,
+    content: [
+        // ...
+        &quot;{PATH_TO_NUGET}/theme/components/*.cs&quot;
+    ],
     theme: {
         extend: {},
     },

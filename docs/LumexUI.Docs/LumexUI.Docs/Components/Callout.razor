@@ -1,14 +1,14 @@
 ﻿@namespace LumexUI.Docs.Components
 
 <div class="@BaseClass">
-    <LumexIcon Icon="@_icon"
-               Class="mt-1.5 shrink-0" />
+    <LumexIcon Icon="@_icon" Class="@IconClass" />
     <p>@ChildContent</p>
 </div>
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public CalloutVariant Variant { get; set; }
+    [Parameter] public Slots? Classes { get; set; }
 
     private string BaseClass => ElementClass.Empty()
         .Add( "not-prose" )
@@ -18,11 +18,19 @@
         .Add( "gap-3" )
         .Add( "border" )
         .Add( "rounded-xl" )
-        .Add( "bg-info-50/70 border-info-200 text-info-800", when: Variant is CalloutVariant.Info )
-        .Add( "bg-danger-50/70 border-danger-200 text-danger-800", when: Variant is CalloutVariant.Danger )
-        .Add( "bg-warning-50/70 border-warning-200 text-warning-800", when: Variant is CalloutVariant.Warning )
-        .Add( "bg-success-50/70 border-success-200 text-success-800", when: Variant is CalloutVariant.Success )
-        .Add( "bg-secondary-50/70 border-secondary-200 text-secondary-800", when: Variant is CalloutVariant.Tip )
+        .Add( "items-center" )
+        .Add( "bg-info-50/70 border-info-200 text-info-900", when: Variant is CalloutVariant.Info )
+        .Add( "bg-danger-50/70 border-danger-200 text-danger-900", when: Variant is CalloutVariant.Danger )
+        .Add( "bg-warning-50/70 border-warning-200 text-warning-900", when: Variant is CalloutVariant.Warning )
+        .Add( "bg-success-50/70 border-success-200 text-success-900", when: Variant is CalloutVariant.Success )
+        .Add( "bg-secondary-50/70 border-secondary-200 text-secondary-900", when: Variant is CalloutVariant.Tip )
+        .Add( Classes?.Base )
+        .ToString();
+
+    private string IconClass => ElementClass.Empty()
+        .Add( "mt-1.5" )
+        .Add( "shrink-0" )
+        .Add( Classes?.Icon )
         .ToString();
 
     private string _icon = default!;
@@ -38,5 +46,11 @@
             CalloutVariant.Tip => Icons.Rounded.EmojiObjects,
             _ => throw new NotImplementedException()
         };
+    }
+
+    public class Slots
+    {
+        public string? Base { get; init; }
+        public string? Icon { get; init; }
     }
 }

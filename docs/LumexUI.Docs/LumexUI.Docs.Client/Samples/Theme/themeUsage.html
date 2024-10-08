@@ -1,0 +1,24 @@
+<pre><code class="language-razor">&lt;LumexThemeProvider /&gt;
+
+@*
+    Apply theme tokens on components using different parameters (e.g., `Color`, `Radius`, and etc).
+    ThemeColor.Primary =&gt; &quot;bg-primary text-primary-foreground&quot;
+*@
+&lt;LumexButton Color=&quot;@ThemeColor.Primary&quot;&gt;Button&lt;/LumexButton&gt;
+
+@* Apply theme tokens directly on a native HTML element *@
+&lt;button class=&quot;bg-primary text-primary-foreground&quot;&gt;Button&lt;/button&gt;
+
+@* 
+    Apply theme tokens directly on a LumexUI component.
+    ThemeColor.Primary will be effectively overridden by the `Class` parameter
+*@
+&lt;LumexButton Color=&quot;@ThemeColor.Primary&quot;
+             Class=&quot;bg-danger text-danger-foreground&quot;&gt;
+    Button
+&lt;/LumexButton&gt;
+
+@* Apply any Tailwind CSS tokens on both *@
+&lt;LumexButton Class=&quot;bg-indigo-600 text-zinc-50&quot;&gt;Button&lt;/LumexButton&gt;
+&lt;button class=&quot;bg-indigo-600 text-zinc-50&quot;&gt;Button&lt;/button&gt;
+</code></pre>
