@@ -4,7 +4,7 @@
 name: Deploy to Azure Web App
 
 on:
-  push:
+  pull_request:
     branches:
       - main
     paths:
@@ -23,7 +23,7 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Build LumexUI
+      - name: Build components
         run: dotnet build ./src/LumexUI -c Release
 
       - name: Publish
