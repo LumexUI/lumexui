@@ -9,37 +9,51 @@ namespace LumexUI.Theme;
 /// <summary>
 /// Represents the configuration settings for a theme.
 /// </summary>
-/// <param name="Colors">The colors associated with the theme.</param>
-/// <param name="Layout">The layout settings for the theme.</param>
-public abstract record ThemeConfig( ThemeColors Colors, LayoutConfig Layout )
+/// <typeparam name="TColors">The type of colors for the theme.</typeparam>
+public abstract record ThemeConfig<TColors> where TColors : ThemeColors, new()
 {
-    internal ThemeType Type { get; init; }
+    /// <summary>
+    /// Gets the colors for the theme.
+    /// </summary>
+    public TColors Colors { get; init; }
+
+    /// <summary>
+    /// Gets the layout configuration for the theme.
+    /// </summary>
+    public LayoutConfig Layout { get; init; }
+
+    internal ThemeType Type { get; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ThemeConfig{TColors}" />.
+    /// </summary>
+    /// <param name="type">The type of the theme (e.g., light or dark).</param>
+    internal ThemeConfig( ThemeType type ) : base()
+    {
+        Type = type;
+        Colors = new TColors();
+        Layout = new LayoutConfig();
+    }
 }
 
 /// <summary>
 /// Represents the configuration settings for a light theme.
 /// </summary>
-public record ThemeConfigLight : ThemeConfig
+public record ThemeConfigLight : ThemeConfig<ThemeColorsLight>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ThemeConfigLight" />.
     /// </summary>
-    public ThemeConfigLight() : base( new ThemeColorsLight(), new LayoutConfig() ) 
-    {
-        Type = ThemeType.Light;
-    }
+    public ThemeConfigLight() : base( ThemeType.Light ) { }
 }
 
 /// <summary>
 /// Represents the configuration settings for a dark theme.
 /// </summary>
-public record ThemeConfigDark : ThemeConfig
+public record ThemeConfigDark : ThemeConfig<ThemeColorsDark>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ThemeConfigDark" />.
     /// </summary>
-    public ThemeConfigDark() : base( new ThemeColorsDark(), new LayoutConfig() ) 
-    { 
-        Type = ThemeType.Dark;
-    }
+    public ThemeConfigDark() : base( ThemeType.Dark ) { }
 }

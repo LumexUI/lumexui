@@ -29,7 +29,7 @@ public partial class LumexThemeProvider : ComponentBase
         Theme = new();
     }
 
-    private string GenerateTheme( ThemeConfig theme )
+    private string GenerateTheme<TColors>( ThemeConfig<TColors> theme ) where TColors : ThemeColors, new()
     {
         var cssSelector = $"[data-theme={theme.Type.ToDescription()}]";
 
