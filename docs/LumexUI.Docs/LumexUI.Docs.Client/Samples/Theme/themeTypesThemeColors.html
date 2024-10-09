@@ -26,4 +26,14 @@ public record ThemeColors : BaseColors
     public ColorScale Danger { get; set; }
     public ColorScale Info { get; set; }
 }
+
+/// &lt;summary&gt;
+/// Represents a set of light theme default colors.
+/// &lt;/summary&gt;
+public record ThemeColorsLight : ThemeColors { /* ... */ }
+
+/// &lt;summary&gt;
+/// Represents a set of dark theme default colors.
+/// &lt;/summary&gt;
+public record ThemeColorsDark : ThemeColors { /* ... */ }
 </code></pre>

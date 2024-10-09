@@ -76,7 +76,6 @@
     <p>
         The first step to using LumexUI's theming capabilities is adding
         the <Code>@nameof( LumexThemeProvider )</Code> component to your <Code>MainLayout.razor</Code> file.
-        Below is an example of how to do this:
     </p>
     <CodeSnippet Code="@(new CodeBlock(name: "MainLayout.razor", snippet: "installationThemeProvider"))" />
 
@@ -96,32 +95,37 @@
 
     <p>
         The last step is adding the LumexUI plugin to your <Code>tailwind.config.js</Code> file.
-        Below is an example of how to do this:
     </p>
     <CodeSnippet Code="@(new CodeBlock(name: "tailwind.config.js", snippet: "installationConfig"))" />
 </DocsSection>
 
 <DocsSection Title="Usage">
     <p>
-        After setup, you can utilize the default theme.
-        Below is an example of how you can apply it in your project.
+        After setup, the default theme will be automatically utilized.
+        However, if you would like to customize it, you can either override the defaults or create a completely new one.
     </p>
-    <CodeSnippet Code="@(new CodeBlock(name: "MainLayout.razor", snippet: "themeUsage"))" />
-    <Callout Variant="@CalloutVariant.Tip" Classes="@(new() { Icon = "mt-0" })">
-        See the <LumexNavLink Href="/docs/customization/colors" Class="bordered-link">Colors</LumexNavLink>
-        section to learn more about the color classes.
-    </Callout>
+    <CodeSnippet Code="@(new CodeBlock(name: "MyTheme.cs", snippet: "themeUsageCreate"))" />
+
+    <p>Then, pass it as the <Code>Theme</Code> parameter into the <Code>LumexThemeProvider</Code>.</p>
+    <CodeSnippet Code="@(new CodeBlock(name: "MainLayout.razor", snippet: "themeUsageCustom"))" />
 </DocsSection>
 
 <DocsSection Title="Types">
-    <h4>LumexTheme</h4>
-    <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "themeTypesLumexTheme"))" />
+    <DocsSection Title="LumexTheme">
+        <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "themeTypesLumexTheme"))" />
+    </DocsSection>
 
-    <h4>LayoutConfig</h4>
-    <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "themeTypesLayoutConfig"))" />
+    <DocsSection Title="ThemeConfig">
+        <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "themeTypesThemeConfig"))" />
+    </DocsSection>
 
-    <h4>ThemeColors</h4>
-    <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "themeTypesThemeColors"))" />
+    <DocsSection Title="LayoutConfig">
+        <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "themeTypesLayoutConfig"))" />
+    </DocsSection>
+
+    <DocsSection Title="ThemeColors">
+        <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "themeTypesThemeColors"))" />
+    </DocsSection>
 </DocsSection>
 
 @code {
@@ -133,7 +137,12 @@
         new("Theming in LumexUI"),
         new("Setup"),
         new("Usage"),
-        new("Types")
+        new("Types", [
+            new("LumexTheme"),
+            new("ThemeConfig"),
+            new("LayoutConfig"),
+            new("ThemeColors")
+        ])
     };
 
     protected override void OnInitialized()
