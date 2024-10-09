@@ -4,7 +4,13 @@
 
 namespace LumexUI.Theme;
 
+/// <summary>
+/// Represents a font scale.
+/// </summary>
 public record FontScale : BaseScale
 {
+    /// <summary>
+    /// Gets or sets the extra small size value.
+    /// </summary>
     public string? Xs { get; set; }
 }

@@ -7,7 +7,7 @@ namespace LumexUI.Theme;
 /// <summary>
 /// Represents a set of base colors used in a theme.
 /// </summary>
-public abstract record BaseColors
+public record BaseColors
 {
     /// <summary>
     /// Gets or sets the color scale for the background.

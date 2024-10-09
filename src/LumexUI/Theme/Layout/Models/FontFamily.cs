@@ -6,9 +6,19 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace LumexUI.Theme;
 
+/// <summary>
+/// Represents the font family settings.
+/// </summary>
 [ExcludeFromCodeCoverage]
 public record FontFamily
 {
+    /// <summary>
+    /// Gets or sets the sans-serif font family.
+    /// </summary>
     public string? Sans { get; set; }
+
+    /// <summary>
+    /// Gets or sets the monospaced font family.
+    /// </summary>
     public string? Mono { get; set; }
 }

@@ -4,9 +4,23 @@
 
 namespace LumexUI.Theme;
 
+/// <summary>
+/// Represents a base class for defining size scale settings.
+/// </summary>
 public record BaseScale
 {
+    /// <summary>
+    /// Gets or sets the small size value.
+    /// </summary>
     public string? Sm { get; set; }
+
+    /// <summary>
+    /// Gets or sets the medium size value.
+    /// </summary>
     public string? Md { get; set; }
+
+    /// <summary>
+    /// Gets or sets the large size value.
+    /// </summary>
     public string? Lg { get; set; }
 }

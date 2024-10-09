@@ -46,7 +46,7 @@ public record ThemeColors : BaseColors
 }
 
 /// <summary>
-/// Represents a set of light theme colors.
+/// Represents a set of light theme default colors.
 /// </summary>
 public record ThemeColorsLight : ThemeColors
 {
@@ -74,7 +74,7 @@ public record ThemeColorsLight : ThemeColors
 }
 
 /// <summary>
-/// Represents a set of dark theme colors.
+/// Represents a set of dark theme default colors.
 /// </summary>
 public record ThemeColorsDark : ThemeColors
 {
