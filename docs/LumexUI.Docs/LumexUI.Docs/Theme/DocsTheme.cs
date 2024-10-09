@@ -16,11 +16,13 @@ internal record DocsTheme : LumexTheme
             Mono = "Fira Code var"
         };
 
-        // Dark theme
-        Dark.Layout.FontFamily = fontFamily;
-        Dark.Colors.Background = new ColorScale( Colors.Zinc["950"] );
-
         // Light theme
-        Light.Layout.FontFamily = fontFamily;
+        Light = new ThemeConfigLight()
+        {
+            Layout = new LayoutConfig()
+            {
+                FontFamily = fontFamily,
+            }
+        };
     }
 }
