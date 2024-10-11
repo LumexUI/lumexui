@@ -487,19 +487,12 @@ public static class Colors
     /// <summary>
     /// Reverses the order of color values in a given color scale.
     /// </summary>
-    /// <param name="colors">The color scale to reverse.</param>
-    /// <returns>A <see cref="Dictionary{TKey, TValue}"/> with the color values reversed.</returns>
-    internal static Dictionary<string, string> ReverseColorValues( Dictionary<string, string> colors )
-    {
-        var reversedColorValues = new Dictionary<string, string>();
-        var keys = colors.Keys.ToList();
-        var values = colors.Values.ToList();
-
-        for( var i = 0; i < values.Count; i++ )
+    /// <param name="colorScale">The color scale to reverse.</param>
+    /// <returns>A <see cref="Dictionary{TKey, TValue}"/> with the color scale reversed.</returns>
+    internal static Dictionary<string, string> ReverseColorValues( IReadOnlyDictionary<string, string> colorScale )
         {
-            reversedColorValues[keys[i]] = values[values.Count - 1 - i];
-        }
-
-        return reversedColorValues;
+        return colorScale.Keys
+            .Zip( colorScale.Values.Reverse(), ( key, reversedValue ) => new { Key = key, Value = reversedValue } )
+            .ToDictionary( x => x.Key, x => x.Value );
     }
 }
