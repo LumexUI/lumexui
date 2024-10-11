@@ -12,10 +12,6 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
-            colors: {
-                black: colors.black,
-                white: colors.white
-            },
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
                 mono: ['Fira Code var', ...defaultTheme.fontFamily.mono]
