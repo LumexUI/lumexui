@@ -28,7 +28,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Slate = new()
+    public readonly static IReadOnlyDictionary<string, string> Slate = new Dictionary<string, string>()
     {
         ["50"] = "#f8fafc",
         ["100"] = "#f1f5f9",
@@ -41,7 +41,7 @@ public static class Colors
         ["800"] = "#1e293b",
         ["900"] = "#0f172a",
         ["950"] = "#020617"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of gray colors.
@@ -49,7 +49,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Gray = new()
+    public readonly static IReadOnlyDictionary<string, string> Gray = new Dictionary<string, string>()
     {
         ["50"] = "#f9fafb",
         ["100"] = "#f3f4f6",
@@ -62,7 +62,7 @@ public static class Colors
         ["800"] = "#1f2937",
         ["900"] = "#111827",
         ["950"] = "#030712"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of zinc colors.
@@ -70,7 +70,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Zinc = new()
+    public readonly static IReadOnlyDictionary<string, string> Zinc = new Dictionary<string, string>()
     {
         ["50"] = "#fafafa",
         ["100"] = "#f4f4f5",
@@ -83,7 +83,7 @@ public static class Colors
         ["800"] = "#27272a",
         ["900"] = "#18181b",
         ["950"] = "#09090b"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of neutral colors.
@@ -91,7 +91,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Neutral = new()
+    public readonly static IReadOnlyDictionary<string, string> Neutral = new Dictionary<string, string>()
     {
         ["50"] = "#fafafa",
         ["100"] = "#f5f5f5",
@@ -104,7 +104,7 @@ public static class Colors
         ["800"] = "#262626",
         ["900"] = "#171717",
         ["950"] = "#0a0a0a"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of stone colors.
@@ -112,7 +112,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Stone = new()
+    public readonly static IReadOnlyDictionary<string, string> Stone = new Dictionary<string, string>()
     {
         ["50"] = "#fafaf9",
         ["100"] = "#f5f5f4",
@@ -125,7 +125,7 @@ public static class Colors
         ["800"] = "#292524",
         ["900"] = "#1c1917",
         ["950"] = "#0c0a09"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of red colors.
@@ -133,7 +133,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Red = new()
+    public readonly static IReadOnlyDictionary<string, string> Red = new Dictionary<string, string>()
     {
         ["50"] = "#fef2f2",
         ["100"] = "#fee2e2",
@@ -146,7 +146,7 @@ public static class Colors
         ["800"] = "#991b1b",
         ["900"] = "#7f1d1d",
         ["950"] = "#450a0a"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of orange colors.
@@ -154,7 +154,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Orange = new()
+    public readonly static IReadOnlyDictionary<string, string> Orange = new Dictionary<string, string>()
     {
         ["50"] = "#fff7ed",
         ["100"] = "#ffedd5",
@@ -167,7 +167,7 @@ public static class Colors
         ["800"] = "#9a3412",
         ["900"] = "#7c2d12",
         ["950"] = "#431407"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of amber colors.
@@ -175,7 +175,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Amber = new()
+    public readonly static IReadOnlyDictionary<string, string> Amber = new Dictionary<string, string>()
     {
         ["50"] = "#fffbeb",
         ["100"] = "#fef3c7",
@@ -188,7 +188,7 @@ public static class Colors
         ["800"] = "#92400e",
         ["900"] = "#78350f",
         ["950"] = "#451a03"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of yellow colors.
@@ -196,7 +196,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Yellow = new()
+    public readonly static IReadOnlyDictionary<string, string> Yellow = new Dictionary<string, string>()
     {
         ["50"] = "#fefce8",
         ["100"] = "#fef9c3",
@@ -209,7 +209,7 @@ public static class Colors
         ["800"] = "#854d0e",
         ["900"] = "#713f12",
         ["950"] = "#422006"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of lime colors.
@@ -217,7 +217,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Lime = new()
+    public readonly static IReadOnlyDictionary<string, string> Lime = new Dictionary<string, string>()
     {
         ["50"] = "#f7fee7",
         ["100"] = "#ecfccb",
@@ -230,7 +230,7 @@ public static class Colors
         ["800"] = "#3f6212",
         ["900"] = "#365314",
         ["950"] = "#1a2e05"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of green colors.
@@ -238,7 +238,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Green = new()
+    public readonly static IReadOnlyDictionary<string, string> Green = new Dictionary<string, string>()
     {
         ["50"] = "#f0fdf4",
         ["100"] = "#dcfce7",
@@ -251,7 +251,7 @@ public static class Colors
         ["800"] = "#166534",
         ["900"] = "#14532d",
         ["950"] = "#052e16"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of emerald colors.
@@ -259,7 +259,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Emerald = new()
+    public readonly static IReadOnlyDictionary<string, string> Emerald = new Dictionary<string, string>()
     {
         ["50"] = "#ecfdf5",
         ["100"] = "#d1fae5",
@@ -272,7 +272,7 @@ public static class Colors
         ["800"] = "#065f46",
         ["900"] = "#064e3b",
         ["950"] = "#022c22"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of teal colors.
@@ -280,7 +280,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Teal = new()
+    public readonly static IReadOnlyDictionary<string, string> Teal = new Dictionary<string, string>()
     {
         ["50"] = "#f0fdfa",
         ["100"] = "#ccfbf1",
@@ -293,7 +293,7 @@ public static class Colors
         ["800"] = "#115e59",
         ["900"] = "#134e4a",
         ["950"] = "#042f2e"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of cyan colors.
@@ -301,7 +301,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Cyan = new()
+    public readonly static IReadOnlyDictionary<string, string> Cyan = new Dictionary<string, string>()
     {
         ["50"] = "#ecfeff",
         ["100"] = "#cffafe",
@@ -314,7 +314,7 @@ public static class Colors
         ["800"] = "#155e75",
         ["900"] = "#164e63",
         ["950"] = "#083344"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of sky colors.
@@ -322,7 +322,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Sky = new()
+    public readonly static IReadOnlyDictionary<string, string> Sky = new Dictionary<string, string>()
     {
         ["50"] = "#f0f9ff",
         ["100"] = "#e0f2fe",
@@ -335,7 +335,7 @@ public static class Colors
         ["800"] = "#075985",
         ["900"] = "#0c4a6e",
         ["950"] = "#082f49"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of blue colors.
@@ -343,7 +343,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Blue = new()
+    public readonly static IReadOnlyDictionary<string, string> Blue = new Dictionary<string, string>()
     {
         ["50"] = "#eff6ff",
         ["100"] = "#dbeafe",
@@ -356,7 +356,7 @@ public static class Colors
         ["800"] = "#1e40af",
         ["900"] = "#1e3a8a",
         ["950"] = "#172554"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of indigo colors.
@@ -364,7 +364,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Indigo = new()
+    public readonly static IReadOnlyDictionary<string, string> Indigo = new Dictionary<string, string>()
     {
         ["50"] = "#eef2ff",
         ["100"] = "#e0e7ff",
@@ -377,7 +377,7 @@ public static class Colors
         ["800"] = "#3730a3",
         ["900"] = "#312e81",
         ["950"] = "#1e1b4b"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of violet colors.
@@ -385,7 +385,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Violet = new()
+    public readonly static IReadOnlyDictionary<string, string> Violet = new Dictionary<string, string>()
     {
         ["50"] = "#f5f3ff",
         ["100"] = "#ede9fe",
@@ -398,7 +398,7 @@ public static class Colors
         ["800"] = "#5b21b6",
         ["900"] = "#4c1d95",
         ["950"] = "#2e1065"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of purple colors.
@@ -406,7 +406,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Purple = new()
+    public readonly static IReadOnlyDictionary<string, string> Purple = new Dictionary<string, string>()
     {
         ["50"] = "#faf5ff",
         ["100"] = "#f3e8ff",
@@ -419,7 +419,7 @@ public static class Colors
         ["800"] = "#6b21a8",
         ["900"] = "#581c87",
         ["950"] = "#3b0764"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of fuchsia colors.
@@ -427,7 +427,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Fuchsia = new()
+    public readonly static IReadOnlyDictionary<string, string> Fuchsia = new Dictionary<string, string>()
     {
         ["50"] = "#fdf4ff",
         ["100"] = "#fae8ff",
@@ -440,7 +440,7 @@ public static class Colors
         ["800"] = "#86198f",
         ["900"] = "#701a75",
         ["950"] = "#4a044e"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of pink colors.
@@ -448,7 +448,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Pink = new()
+    public readonly static IReadOnlyDictionary<string, string> Pink = new Dictionary<string, string>()
     {
         ["50"] = "#fdf2f8",
         ["100"] = "#fce7f3",
@@ -461,7 +461,7 @@ public static class Colors
         ["800"] = "#9d174d",
         ["900"] = "#831843",
         ["950"] = "#500724"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// The scale of rose colors.
@@ -469,7 +469,7 @@ public static class Colors
     /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
     /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Rose = new()
+    public readonly static IReadOnlyDictionary<string, string> Rose = new Dictionary<string, string>()
     {
         ["50"] = "#fff1f2",
         ["100"] = "#ffe4e6",
@@ -482,7 +482,7 @@ public static class Colors
         ["800"] = "#9f1239",
         ["900"] = "#881337",
         ["950"] = "#4c0519"
-    };
+    }.AsReadOnly();
 
     /// <summary>
     /// Reverses the order of color values in a given color scale.
@@ -490,7 +490,7 @@ public static class Colors
     /// <param name="colorScale">The color scale to reverse.</param>
     /// <returns>A <see cref="Dictionary{TKey, TValue}"/> with the color scale reversed.</returns>
     internal static Dictionary<string, string> ReverseColorValues( IReadOnlyDictionary<string, string> colorScale )
-        {
+    {
         return colorScale.Keys
             .Zip( colorScale.Values.Reverse(), ( key, reversedValue ) => new { Key = key, Value = reversedValue } )
             .ToDictionary( x => x.Key, x => x.Value );
