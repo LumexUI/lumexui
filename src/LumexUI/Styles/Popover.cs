@@ -49,8 +49,8 @@ internal static class Popover
         return color switch
         {
             ThemeColor.Default => ElementClass.Empty()
-                .Add( "bg-content1 shadow-small", when: slot is nameof( _arrow ) )
-                .Add( "bg-content1", when: slot is nameof( _content ) ),
+                .Add( "bg-surface1 shadow-small", when: slot is nameof( _arrow ) )
+                .Add( "bg-surface1", when: slot is nameof( _content ) ),
 
             ThemeColor.Primary => ElementClass.Empty()
                 .Add( "bg-primary", when: slot is nameof( _arrow ) )

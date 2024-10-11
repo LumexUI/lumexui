@@ -20,7 +20,7 @@ internal readonly record struct Accordion
     {
         return ElementClass.Empty()
             .Add( "", when: variant is AccordionVariant.Light )
-            .Add( "px-4 shadow-small rounded-medium bg-content1", when: variant is AccordionVariant.Shadow )
+            .Add( "px-4 shadow-small rounded-medium bg-surface1", when: variant is AccordionVariant.Shadow )
             .Add( "px-4 border border-divider rounded-medium", when: variant is AccordionVariant.Bordered )
             .Add( "group is-splitted flex flex-col gap-2", when: variant is AccordionVariant.Splitted );
     }
@@ -40,7 +40,7 @@ internal readonly record struct AccordionItem
 {
     private readonly static string _base = ElementClass.Empty()
         .Add( "group-[.is-splitted]:px-4" )
-        .Add( "group-[.is-splitted]:bg-content1" )
+        .Add( "group-[.is-splitted]:bg-surface1" )
         .Add( "group-[.is-splitted]:shadow-small" )
         .Add( "group-[.is-splitted]:rounded-medium" )
         .ToString();

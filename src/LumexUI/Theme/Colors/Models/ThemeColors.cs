@@ -60,9 +60,9 @@ public record ThemeColorsLight : ThemeColors
         Overlay = SemanticColors.Light.Overlay;
         Divider = SemanticColors.Light.Divider;
         Focus = SemanticColors.Light.Focus;
-        Content1 = SemanticColors.Light.Content1;
-        Content2 = SemanticColors.Light.Content2;
-        Content3 = SemanticColors.Light.Content3;
+        Surface1 = SemanticColors.Light.Surface1;
+        Surface2 = SemanticColors.Light.Surface2;
+        Surface3 = SemanticColors.Light.Surface3;
         Default = SemanticColors.Light.Default;
         Primary = SemanticColors.Light.Primary;
         Secondary = SemanticColors.Light.Secondary;
@@ -88,9 +88,9 @@ public record ThemeColorsDark : ThemeColors
         Overlay = SemanticColors.Dark.Overlay;
         Divider = SemanticColors.Dark.Divider;
         Focus = SemanticColors.Dark.Focus;
-        Content1 = SemanticColors.Dark.Content1;
-        Content2 = SemanticColors.Dark.Content2;
-        Content3 = SemanticColors.Dark.Content3;
+        Surface1 = SemanticColors.Dark.Surface1;
+        Surface2 = SemanticColors.Dark.Surface2;
+        Surface3 = SemanticColors.Dark.Surface3;
         Default = SemanticColors.Dark.Default;
         Primary = SemanticColors.Dark.Primary;
         Secondary = SemanticColors.Dark.Secondary;

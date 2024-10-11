@@ -29,15 +29,15 @@ internal static class SemanticColors
         Divider = [
             new( Default, Colors.Zinc["900"] )
         ],
-        Content1 = [
+        Surface1 = [
             new( Default, Colors.Zinc["50"] ),
             new( Foreground, Colors.Zinc["700"] )
         ],
-        Content2 = [
+        Surface2 = [
             new( Default, Colors.Zinc["100"] ),
             new( Foreground, Colors.Zinc["800"] )
         ],
-        Content3 = [
+        Surface3 = [
             new( Default, Colors.Zinc["200"] ),
             new( Foreground, Colors.Zinc["700"] )
         ],
@@ -96,15 +96,15 @@ internal static class SemanticColors
         Divider = [
             new( Default, Colors.Zinc["50"] )
         ],
-        Content1 = [
+        Surface1 = [
             new( Default, Colors.Zinc["900"] ),
             new( Foreground, Colors.Zinc["50"] )
         ],
-        Content2 = [
+        Surface2 = [
             new( Default, Colors.Zinc["800"] ),
             new( Foreground, Colors.Zinc["100"] )
         ],
-        Content3 = [
+        Surface3 = [
             new( Default, Colors.Zinc["700"] ),
             new( Foreground, Colors.Zinc["200"] )
         ],

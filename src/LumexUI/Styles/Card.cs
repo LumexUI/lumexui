@@ -18,7 +18,7 @@ internal readonly record struct Card
         .Add( "relative" )
         .Add( "text-foreground" )
         .Add( "overflow-hidden" )
-        .Add( "bg-content1" )
+        .Add( "bg-surface1" )
         .ToString();
 
     private readonly static string _header = ElementClass.Empty()

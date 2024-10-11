@@ -35,17 +35,17 @@ public record BaseColors
     public ColorScale Focus { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets the color scale for components like card, accordion, popover and etc.
+    /// Gets or sets the color scale for the background of components like card, accordion, popover and etc.
     /// </summary>
-    public ColorScale Content1 { get; set; } = [];
+    public ColorScale Surface1 { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets the color scale for components like card, accordion, popover and etc.
+    /// Gets or sets the color scale for the background of components like card, accordion, popover and etc.
     /// </summary>
-    public ColorScale Content2 { get; set; } = [];
+    public ColorScale Surface2 { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets the color scale for components like card, accordion, popover and etc.
+    /// Gets or sets the color scale for the background of components like card, accordion, popover and etc.
     /// </summary>
-    public ColorScale Content3 { get; set; } = [];
+    public ColorScale Surface3 { get; set; } = [];
 }
