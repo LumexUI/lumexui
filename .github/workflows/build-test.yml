@@ -10,7 +10,7 @@ on:
       - 'tests/**'
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
     
     steps:
@@ -28,11 +28,6 @@ jobs:
       - name: Build
         run: dotnet build -c Release --no-restore
 
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
       - name: Test
         run: dotnet test -c Release --no-build --no-restore --verbosity normal --collect:"XPlat Code Coverage"
 
