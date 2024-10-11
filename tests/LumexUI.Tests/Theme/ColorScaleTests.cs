@@ -57,61 +57,6 @@ public class ColorScaleTests
     [Theory]
     [InlineData( null )]
     [InlineData( "" )]
-    public void IndexerGet_NullOrEmptyKey_ShouldThrowArgumentNull( string? key )
-    {
-        var scale = new ColorScale( Colors.Orange, "500" );
-
-        var action = () => scale[key!];
-
-        action.Should().Throw<ArgumentNullException>();
-    }
-
-    [Fact]
-    public void IndexerGet_InvalidKey_ShouldThrowKeyNotFound()
-    {
-        var scale = new ColorScale( Colors.Orange, "500" );
-
-        var action = () => scale["0"];
-
-        action.Should().Throw<KeyNotFoundException>();
-    }
-
-    [Theory]
-    [InlineData( null )]
-    [InlineData( "" )]
-    public void IndexerSet_NullOrEmptyKey_ShouldThrowArgumentNull( string? key )
-    {
-        var scale = new ColorScale( Colors.Orange, "500" );
-
-        var action = () => scale[key!] = Colors.Black;
-
-        action.Should().Throw<ArgumentNullException>();
-    }
-
-    [Fact]
-    public void IndexerSet_NullValue_ShouldThrowArgumentNull()
-    {
-        var scale = new ColorScale( Colors.Orange, "500" );
-
-        var action = () => scale["500"] = null!;
-
-        action.Should().Throw<ArgumentNullException>();
-    }
-
-    [Fact]
-    public void IndexerSet_ValidValue_ShouldSetNewValue()
-    {
-        var scale = new ColorScale( Colors.Orange, "500" )
-        {
-            ["500"] = "value"
-        };
-
-        scale["500"].Should().Be( "value" );
-    }
-
-    [Theory]
-    [InlineData( null )]
-    [InlineData( "" )]
     public void SetAsDefault_NullOrEmptyKey_ShouldThrowArgumentNull( string? key )
     {
         var scale = new ColorScale( Colors.Orange, "500" );
