@@ -175,6 +175,16 @@
     </Callout>
 </DocsSection>
 
+<DocsSection Title="Types">
+    <DocsSection Title="BaseScale">
+        <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "layoutTypesBaseScale"))" />
+    </DocsSection>
+
+    <DocsSection Title="FontScale">
+        <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "layoutTypesFontScale"))" />
+    </DocsSection>
+</DocsSection>
+
 @code {
     [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
 
@@ -193,6 +203,10 @@
             new("Full"),
         ]),
         new("Customization"),
+        new("Types", [
+            new("BaseScale"),
+            new("FontScale")
+        ])
     };
 
     protected override void OnInitialized()
