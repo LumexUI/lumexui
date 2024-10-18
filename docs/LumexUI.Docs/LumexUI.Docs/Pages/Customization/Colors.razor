@@ -2,7 +2,7 @@
 @namespace LumexUI.Docs.Pages
 @layout DocsContentLayout
 
-<DocsSection Title="Colors in LumexUI">
+<DocsSection Title="Overview">
     <p>LumexUI offers a flexible color system that includes 2 types of color palettes:</p>
     <ul>
         <li><LumexNavLink Href="/docs/customization/colors#common-colors">Common Colors</LumexNavLink></li>
@@ -29,7 +29,7 @@
         <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "colorsCommonScale"))" />
     </DocsSection>
 
-    <Callout Variant="@CalloutVariant.Info">
+    <Callout Variant="@CalloutVariant.Warning">
         The common colors are not configurable.
         Any changes made to the Tailwind CSS color palette in the <Code>tailwind.config.js</Code>
         will not affect the C# common colors, and vice versa.
@@ -79,7 +79,7 @@
 
     private readonly Heading[] _headings = new Heading[]
     {
-        new("Colors in LumexUI", [
+        new("Overview", [
             new("Common Colors"),
             new("Semantic Colors"),
         ]),
