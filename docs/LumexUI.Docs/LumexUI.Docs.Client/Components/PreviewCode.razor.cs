@@ -4,34 +4,13 @@ using LumexUI.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-using TailwindMerge;
-
 namespace LumexUI.Docs.Client.Components;
+
 public partial class PreviewCode
 {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter, EditorRequired] public CodeBlock Code { get; set; } = default!;
-    [Parameter] public Slots? Classes { get; set; }
-
-    [Inject] private TwMerge TwMerge { get; set; } = default!;
-
-    private string? BackgroundClass =>
-        TwMerge.Merge( ElementClass.Empty()
-            .Add( _slots.Background )
-            .Add( Classes?.Background )
-            .ToString() );
-
-    private string? PreviewWrapperClass =>
-        TwMerge.Merge( ElementClass.Empty()
-            .Add( _slots.PreviewWrapper )
-            .Add( Classes?.PreviewWrapper )
-            .ToString() );
-
-    private string? PreviewClass => 
-        TwMerge.Merge( ElementClass.Empty()
-            .Add( _slots.Preview )
-            .Add( Classes?.Preview )
-            .ToString() );
+    [Parameter] public Preview.Slots? PreviewClasses { get; set; }
 
     private string ToolbarClass => ElementClass.Empty()
         .Add( "p-2" )
@@ -42,15 +21,21 @@ public partial class PreviewCode
         .ToString();
 
     private readonly string _id = Identifier.New();
-    private readonly Slots _slots = new()
+    private readonly Preview.Slots _previewClasses = new()
     {
-        Preview = "relative flex flex-wrap items-center gap-4",
-        PreviewWrapper = "relative p-8 rounded-t-xl bg-zinc-50 not-prose",
-        Background = "absolute inset-0 bg-dots [mask-image:radial-gradient(#fff_0%,transparent_100%)]",
+        PreviewWrapper = "rounded-b-none",
     };
 
     private bool _expanded;
     private bool _copied;
+
+    protected override void OnInitialized()
+    {
+        // temp solution
+        _previewClasses.Preview += PreviewClasses?.Background;
+        _previewClasses.PreviewWrapper += PreviewClasses?.Background;
+        _previewClasses.Background += PreviewClasses?.Background;
+    }
 
     private void Expand()
     {
@@ -66,12 +51,5 @@ public partial class PreviewCode
         await Task.Delay( 2000 );
         _copied = false;
         StateHasChanged();
-    }
-
-    public class Slots
-    {
-        public string? Preview { get; init; }
-        public string? PreviewWrapper { get; init; }
-        public string? Background { get; init; }
     }
 }

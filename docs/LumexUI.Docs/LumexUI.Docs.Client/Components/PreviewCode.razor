@@ -3,12 +3,9 @@
 @inject IJSRuntime JSRuntime
 
 <div class="rounded-2xl ring-1 ring-foreground-950/5 shadow-sm overflow-hidden">
-    <div class="@PreviewWrapperClass">
-        <div class="@BackgroundClass"></div>
-        <div class="@PreviewClass">
-            @ChildContent
-        </div>
-    </div>
+    <Preview Classes="@_previewClasses">
+        @ChildContent
+    </Preview>
 
     <div class="@ToolbarClass">
         <div class="flex items-center justify-end">

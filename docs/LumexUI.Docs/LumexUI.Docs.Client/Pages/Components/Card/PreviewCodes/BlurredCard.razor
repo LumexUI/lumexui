@@ -1,12 +1,12 @@
 ﻿@rendermode InteractiveAuto
 
 <PreviewCode Code="@new(name: null, snippet: "Card.Code.BlurredCard")"
-             Classes="@_classes">
+             PreviewClasses="@_classes">
     <LumexUI.Docs.Client.Pages.Components.Card.Examples.BlurredCard />
 </PreviewCode>
 
 @code {
-    private PreviewCode.Slots _classes = new()
+    private Preview.Slots _classes = new()
     {
         Preview = "justify-center",
         Background = "bg-[url('/assets/images/card-5.jpg')] bg-cover bg-bottom brightness-90 [mask-image:none]"

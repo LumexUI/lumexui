@@ -1,0 +1,47 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<div class="@PreviewWrapperClass">
+    <div class="@BackgroundClass"></div>
+    <div class="@PreviewClass">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public Slots? Classes { get; set; }
+
+    [Inject] private TwMerge TwMerge { get; set; } = default!;
+
+    private string? BackgroundClass =>
+        TwMerge.Merge( ElementClass.Empty()
+            .Add( _slots.Background )
+            .Add( Classes?.Background )
+            .ToString() );
+
+    private string? PreviewWrapperClass =>
+        TwMerge.Merge( ElementClass.Empty()
+            .Add( _slots.PreviewWrapper )
+            .Add( Classes?.PreviewWrapper )
+            .ToString() );
+
+    private string? PreviewClass =>
+        TwMerge.Merge( ElementClass.Empty()
+            .Add( _slots.Preview )
+            .Add( Classes?.Preview )
+            .ToString() );
+
+    private readonly Slots _slots = new()
+        {
+            Preview = "relative flex flex-wrap items-center gap-4",
+            PreviewWrapper = "relative p-8 rounded-xl bg-zinc-50 ring-1 ring-foreground-950/5 not-prose",
+            Background = "absolute inset-0 bg-dots opacity-60 [mask-image:radial-gradient(#fff_0%,transparent_100%)]",
+        };
+
+    public class Slots
+    {
+        public string? Preview { get; set; }
+        public string? PreviewWrapper { get; set; }
+        public string? Background { get; set; }
+    }
+}
