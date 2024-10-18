@@ -1,42 +1,35 @@
 ﻿namespace LumexUI.Docs.Common;
 
-internal record Navigation
+internal class Navigation
 {
-    private readonly List<NavigationCategory> _categories;
+    private readonly List<NavigationCategory> _categories = [];
 
-    internal IEnumerable<NavigationCategory> Categories => _categories.AsEnumerable();
+    public IEnumerable<NavigationCategory> Categories => _categories.AsEnumerable();
 
-    internal Navigation()
-    {
-        _categories = [];
-    }
-
-    internal Navigation Add( NavigationCategory category )
+    public Navigation Add( NavigationCategory category )
     {
         _categories.Add( category );
         return this;
     }
 }
 
-internal record NavigationCategory
+internal class NavigationCategory( string name, string icon )
 {
-    private readonly List<string> _items;
+    private readonly List<NavigationItem> _items = [];
 
-    internal string Name { get; }
-    internal string Icon { get; }
-    internal IEnumerable<string> Items => _items.AsEnumerable();
+    public string Name { get; } = name;
+    public string Icon { get; } = icon;
+    public IEnumerable<NavigationItem> Items => _items.AsEnumerable();
 
-    internal NavigationCategory( string name, string icon )
-    {
-        _items = [];
-
-        Name = name;
-        Icon = icon;
-    }
-
-    internal NavigationCategory Add( string item )
+    public NavigationCategory Add( NavigationItem item )
     {
         _items.Add( item );
         return this;
     }
+}
+
+internal class NavigationItem( string name, bool locked = false )
+{
+    public string Name { get; } = name;
+    public bool Locked { get; } = locked;
 }

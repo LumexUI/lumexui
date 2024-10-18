@@ -27,28 +27,45 @@
             <ul class="space-y-2 border-l border-divider">
                 @foreach( var item in category.Items )
                 {
-                    var formattedName = item.Replace( "Lumex", "" ).SplitPascalCase();
-
-                    if( category.Name is "Components API" )
-                    {
-                        <LumexNavLink Href="@($"docs/api/{formattedName.ToKebabCase()}")"
-                                      Match="@NavLinkMatch.Prefix"
-                                      Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
-                            @item.Replace( "Lumex", "" )
-                        </LumexNavLink>
-                    }
-                    else
-                    {
-                        <li>
-                            <LumexNavLink Href="@($"docs/{category.Name.ToKebabCase()}/{formattedName.ToKebabCase()}")"
-                                          Match="@NavLinkMatch.Prefix"
-                                          Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
-                                @formattedName
-                            </LumexNavLink>
-                        </li>
-                    }
+                    RenderItem( __builder, item, category.Name );
                 }
             </ul>
         </li>
+    }
+
+    private void RenderItem( RenderTreeBuilder __builder, NavigationItem item, string categoryName )
+    {
+        var formattedName = item.Name.Replace( "Lumex", "" ).SplitPascalCase();
+
+        if( categoryName is "Components API" )
+        {
+            <LumexNavLink Href="@($"docs/api/{formattedName.ToKebabCase()}")"
+                          Match="@NavLinkMatch.Prefix"
+                          Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
+                @item.Name.Replace( "Lumex", "" )
+            </LumexNavLink>
+        }
+        else
+        {
+            <li>
+                @if( item.Locked )
+                {
+                    <div class="pl-4 flex items-center gap-1 opacity-disabled pointer-events-none">
+                        <span>@formattedName</span>
+                        <span class="px-1.5 py-0.5 rounded-full bg-foreground-100 ring-1 ring-foreground-200 font-semibold text-foreground-500 text-[0.5rem] uppercase leading-none">
+                            Soon
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <LumexNavLink Href="@($"docs/{categoryName.ToKebabCase()}/{formattedName.ToKebabCase()}")"
+                                  Match="@NavLinkMatch.Prefix"
+                                  Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
+                        @formattedName
+                    </LumexNavLink>
+                }
+            </li>
+        }
     }
 }
