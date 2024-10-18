@@ -51,6 +51,7 @@ public static class ServiceCollectionExtensions
                     ["shadow"] = new ClassGroup( "shadow", ["small", "medium", "large"] ),
                     ["rounded"] = new ClassGroup( "rounded", ["small", "medium", "large"] ),
                     ["opacity"] = new ClassGroup( "opacity", ["hover", "focus", "disabled", "divider"] ),
+                    ["leading"] = new ClassGroup( "leading", ["tiny", "small", "medium", "large"] ),
                     ["font-size"] = new ClassGroup( "text", ["tiny", "small", "medium", "large"] ),
                 }
             } );

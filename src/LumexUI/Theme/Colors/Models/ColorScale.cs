@@ -12,8 +12,8 @@ namespace LumexUI.Theme;
 // TODO: Think why this is not an implementation of the `IDictionary`?
 
 /// <summary>
-/// Represents a scale of colors, 
-/// implementing <see cref="ICollection{T}"/> for managing color values associated with keys.
+/// Represents a scale of colors, implementing <see cref="ICollection{T}"/> and 
+/// using <see cref="Dictionary{TKey, TValue}"/> under the hood to manage color values associated with keys.
 /// </summary>
 public record ColorScale : ICollection<KeyValuePair<string, string>>
 {

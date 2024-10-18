@@ -89,7 +89,7 @@ internal readonly record struct Navbar
         .ToString();
 
     private readonly static string _item = ElementClass.Empty()
-        .Add( "leading-6" )
+        .Add( "leading-medium" )
         .Add( "text-small" )
         .Add( "font-semibold" )
         .Add( "list-none" )

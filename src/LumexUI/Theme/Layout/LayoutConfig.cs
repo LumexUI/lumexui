@@ -71,6 +71,7 @@ public record LayoutConfig
             Md = "1rem",
             Lg = "1.125rem"
         };
+
         LineHeight = new FontScale()
         {
             Xs = "1rem",

@@ -175,6 +175,12 @@ const lumexui = plugin(
                     medium: ['var(--lumex-font-size-medium)', 'var(--lumex-line-height-medium)'],
                     large: ['var(--lumex-font-size-large)', 'var(--lumex-line-height-large)']
                 },
+                lineHeight: {
+                    tiny: 'var(--lumex-line-height-tiny)',
+                    small: 'var(--lumex-line-height-small)',
+                    medium: 'var(--lumex-line-height-medium)',
+                    large: 'var(--lumex-line-height-large)'
+                },
                 borderRadius: {
                     small: 'var(--lumex-radius-small)',
                     medium: 'var(--lumex-radius-medium)',
