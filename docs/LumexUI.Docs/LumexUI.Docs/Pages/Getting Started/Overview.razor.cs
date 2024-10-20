@@ -45,24 +45,24 @@ public partial class Overview
             Title = "Installation",
             Description = "Add LumexUI to your Blazor project with simple installation steps."
         },
-        new QuickLink()
-        {
-            Icon = Icons.Rounded.Draw,
-            Link = "docs/getting-started/usage",
-            Title = "Usage",
-            Description = "Learn the basics about using LumexUI components in your projects."
-        },
+        //new QuickLink()
+        //{
+        //    Icon = Icons.Rounded.Draw,
+        //    Link = "docs/getting-started/usage",
+        //    Title = "Usage",
+        //    Description = "Learn the basics about using LumexUI components in your projects."
+        //},
         new QuickLink()
         {
             Icon = Icons.Rounded.Joystick,
-            Link = "docs/components",
+            Link = "docs/components/accordion",
             Title = "Components library",
             Description = "Browse the full collection of components and learn how to use them."
         },
         new QuickLink()
         {
             Icon = Icons.Rounded.DesignServices,
-            Link = "docs/customization",
+            Link = "docs/customization/theme",
             Title = "Customizing components",
             Description = "Explore the customization options to tailor components to your needs."
         }
