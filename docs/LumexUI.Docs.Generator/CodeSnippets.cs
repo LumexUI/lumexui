@@ -28,7 +28,7 @@ internal static class CodeSnippets
         }
 
         var contentsPath = Directory
-            .EnumerateDirectories( rootPath, Path.Combine( "LumexUI.Docs", "LumexUI.Docs.Client" ) )
+            .EnumerateDirectories( rootPath, Path.Combine( "LumexUI.Docs.Client" ) )
             .FirstOrDefault();
 
         if( string.IsNullOrEmpty( contentsPath ) )

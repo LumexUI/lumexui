@@ -13,8 +13,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\src\LumexUI.Utilities\LumexUI.Utilities.csproj" />
-	  <ProjectReference Include="..\..\..\src\LumexUI\LumexUI.csproj" />
+	  <ProjectReference Include="..\..\src\LumexUI.Utilities\LumexUI.Utilities.csproj" />
+	  <ProjectReference Include="..\..\src\LumexUI\LumexUI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

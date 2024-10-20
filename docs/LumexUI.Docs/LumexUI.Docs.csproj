@@ -11,7 +11,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MSBuildThisFileDirectory)../../../</SolutionDir>
+		<SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MSBuildThisFileDirectory)../../</SolutionDir>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -24,7 +24,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="../LumexUI.Docs.Client/LumexUI.Docs.Client.csproj" />
-		<ProjectReference Include="../../LumexUI.Docs.Generator/LumexUI.Docs.Generator.csproj" />
+		<ProjectReference Include="../LumexUI.Docs.Generator/LumexUI.Docs.Generator.csproj" />
 	</ItemGroup>
 
 	<!-- Run the docs content generation command -->
