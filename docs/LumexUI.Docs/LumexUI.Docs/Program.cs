@@ -7,7 +7,6 @@ var builder = WebApplication.CreateBuilder( args );
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddLumexServices( options =>
@@ -41,7 +40,6 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.MapRazorComponents<_App>()
-    .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies( typeof( LumexUI.Docs.Client._Imports ).Assembly );
 

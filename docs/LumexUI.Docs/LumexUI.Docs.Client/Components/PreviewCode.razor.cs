@@ -32,8 +32,8 @@ public partial class PreviewCode
     protected override void OnInitialized()
     {
         // temp solution
-        _previewClasses.Preview += PreviewClasses?.Background;
-        _previewClasses.PreviewWrapper += PreviewClasses?.Background;
+        _previewClasses.Preview += PreviewClasses?.Preview;
+        _previewClasses.PreviewWrapper += PreviewClasses?.PreviewWrapper;
         _previewClasses.Background += PreviewClasses?.Background;
     }
 
@@ -44,7 +44,7 @@ public partial class PreviewCode
 
     private async Task CopyToClipboard()
     {
-        await JSRuntime.InvokeVoidAsync( "LumexDocs.copyToClipboard", _id );
+        await JSRuntime.InvokeVoidAsync( "copyToClipboard", _id );
         _copied = true;
         StateHasChanged();
 
