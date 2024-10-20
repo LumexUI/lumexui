@@ -1,5 +1,7 @@
-﻿@page "/docs/customization/theme"
+﻿@page "/docs/customization"
+@page "/docs/customization/theme"
 @layout DocsContentLayout
+@inject NavigationManager NavigationManager
 
 <DocsSection Title="Overview">
     <p>
@@ -146,6 +148,11 @@
 
     protected override void OnInitialized()
     {
+        if( !NavigationManager!.Uri.Contains( "/docs/customization/theme" ) )
+        {
+            NavigationManager.NavigateTo( "/docs/customization/theme" );
+        }
+
         Layout.Initialize(
             title: "Theme",
             category: "Customization",

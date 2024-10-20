@@ -1,5 +1,7 @@
-﻿@page "/docs/components/accordion"
+﻿@page "/docs/components"
+@page "/docs/components/accordion"
 @layout DocsContentLayout
+@inject NavigationManager NavigationManager
 
 @using LumexUI.Docs.Client.Pages.Components.Accordion.PreviewCodes
 
@@ -168,6 +170,11 @@
 
     protected override void OnInitialized()
     {
+        if( !NavigationManager!.Uri.Contains( "/docs/components/accordion" ) )
+        {
+            NavigationManager.NavigateTo( "/docs/components/accordion" );
+        }
+
         Layout.Initialize(
             title: "Accordion",
             category: "Components",

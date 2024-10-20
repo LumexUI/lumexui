@@ -7,6 +7,8 @@ namespace LumexUI.Docs.Client.Pages.Getting_Started;
 
 public partial class Overview
 {
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+
     private readonly Feature[] _features =
     [
         new Feature()
@@ -55,14 +57,14 @@ public partial class Overview
         new QuickLink()
         {
             Icon = Icons.Rounded.Joystick,
-            Link = "docs/components/accordion",
+            Link = "docs/components",
             Title = "Components library",
             Description = "Browse the full collection of components and learn how to use them."
         },
         new QuickLink()
         {
             Icon = Icons.Rounded.DesignServices,
-            Link = "docs/customization/theme",
+            Link = "docs/customization",
             Title = "Customizing components",
             Description = "Explore the customization options to tailor components to your needs."
         }
@@ -79,6 +81,11 @@ public partial class Overview
 
     protected override void OnInitialized()
     {
+        if( !NavigationManager!.Uri.Contains( "/docs/getting-started/overview" ) )
+        {
+            NavigationManager.NavigateTo( "/docs/getting-started/overview" );
+        }
+
         Layout.Initialize(
             title: "Get Started with LumexUI",
             category: "Getting started",
