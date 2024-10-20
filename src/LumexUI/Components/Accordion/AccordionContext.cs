@@ -47,9 +47,9 @@ internal sealed class AccordionContext( LumexAccordion owner ) : IComponentConte
     {
         foreach( var accordionItem in _items )
         {
-            if( accordionItem == item
+            if( accordionItem == item 
                 || accordionItem.Disabled
-                || !accordionItem.Expanded )
+                || !accordionItem.GetExpandedState() )
             {
                 continue;
             }
