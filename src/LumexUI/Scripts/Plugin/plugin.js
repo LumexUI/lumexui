@@ -37,17 +37,17 @@ const lumexui = plugin(
                     divider: {
                         DEFAULT: 'hsl(var(--lumex-divider) / var(--lumex-divider-opacity, <alpha-value>))'
                     },
-                    content1: {
-                        DEFAULT: 'hsl(var(--lumex-content1) / <alpha-value>)',
-                        foreground: 'hsl(var(--lumex-content1-foreground) / <alpha-value>)'
+                    surface1: {
+                        DEFAULT: 'hsl(var(--lumex-surface1) / <alpha-value>)',
+                        foreground: 'hsl(var(--lumex-surface1-foreground) / <alpha-value>)'
                     },
-                    content2: {
-                        DEFAULT: 'hsl(var(--lumex-content2) / <alpha-value>)',
-                        foreground: 'hsl(var(--lumex-content2-foreground) / <alpha-value>)'
+                    surface2: {
+                        DEFAULT: 'hsl(var(--lumex-surface2) / <alpha-value>)',
+                        foreground: 'hsl(var(--lumex-surface2-foreground) / <alpha-value>)'
                     },
-                    content3: {
-                        DEFAULT: 'hsl(var(--lumex-content3) / <alpha-value>)',
-                        foreground: 'hsl(var(--lumex-content3-foreground) / <alpha-value>)'
+                    surface3: {
+                        DEFAULT: 'hsl(var(--lumex-surface3) / <alpha-value>)',
+                        foreground: 'hsl(var(--lumex-surface3-foreground) / <alpha-value>)'
                     },
 
                     // Default
