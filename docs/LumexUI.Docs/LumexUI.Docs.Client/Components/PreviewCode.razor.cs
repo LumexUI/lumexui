@@ -32,9 +32,17 @@ public partial class PreviewCode
     protected override void OnInitialized()
     {
         // temp solution
-        _previewClasses.Preview += PreviewClasses?.Preview;
-        _previewClasses.PreviewWrapper += PreviewClasses?.PreviewWrapper;
-        _previewClasses.Background += PreviewClasses?.Background;
+        _previewClasses.Preview = new ElementClass( _previewClasses.Preview )
+            .Add( PreviewClasses?.Preview )
+            .ToString();
+
+        _previewClasses.PreviewWrapper = new ElementClass( _previewClasses.PreviewWrapper )
+            .Add( PreviewClasses?.PreviewWrapper )
+            .ToString();
+
+        _previewClasses.Background = new ElementClass( _previewClasses.Background )
+            .Add( PreviewClasses?.Background )
+            .ToString();
     }
 
     private void Expand()

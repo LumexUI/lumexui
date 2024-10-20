@@ -31,8 +31,4 @@ document.addEventListener('DOMContentLoaded', () => {
     interceptNavigation();
 });
 
-export const lumexDocs = {
-    copyToClipboard
-};
-
-window["LumexDocs"] = lumexDocs;
+window.copyToClipboard = copyToClipboard;
