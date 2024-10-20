@@ -1,0 +1,29 @@
+﻿@namespace LumexUI.Docs.Client.Components
+@inject NavigationManager NavigationManager
+
+<LumexDivider />
+<DocsSection Title="API">
+    <p>
+        See the API references below for a complete guide to all the
+        parameters available for the components mentioned here.
+    </p>
+    <ul>
+        @foreach( var component in Components )
+        {
+            var componentPathSegment = component.Replace( "Lumex", "" ).SplitPascalCase().ToKebabCase();
+
+            <li>
+                <LumexNavLink Href="@($"{NavigationManager.BaseUri}docs/api/{componentPathSegment}")"
+                              Class="border-none text-orange-500 text-xs font-normal not-prose">
+                    <span class="px-1 py-0.5 rounded-md ring-1 ring-orange-200 bg-orange-50">
+                        @($"<{component} />")
+                    </span>
+                </LumexNavLink>
+            </li>
+        }
+    </ul>
+</DocsSection>
+
+@code {
+    [Parameter, EditorRequired] public string[] Components { get; set; } = default!;
+}

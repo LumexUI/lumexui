@@ -7,10 +7,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<WarningsAsErrors>RZ2012</WarningsAsErrors>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MSBuildThisFileDirectory)../../</SolutionDir>
 	</PropertyGroup>
 

@@ -1,0 +1,55 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<div class="flex flex-wrap gap-3 mt-4">
+    @if( IsServer )
+    {
+        <LumexButton As="a"
+                     Size="@Size.Small"
+                     StartContent="@BlazorIcon"
+                     Class="bg-default-100 text-default-700"
+                     href="https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/?view=aspnetcore-8.0#client-and-server-rendering-concepts"
+                     target="_blank"
+                     rel="noopener noreferrer">
+            Static SSR
+        </LumexButton>
+    }
+
+    <LumexButton As="a"
+                 Size="@Size.Small"
+                 StartContent="@GithubIcon"
+                 Class="bg-default-100 text-default-700"
+                 href="@($"{Constants.GitHub.ComponentPath}/{ComponentName}")"
+                 target="_blank"
+                 rel="noopener noreferrer">
+        Source
+    </LumexButton>
+
+    <LumexButton As="a"
+                 Size="@Size.Small"
+                 StartContent="@GithubIcon"
+                 Class="bg-default-100 text-default-700"
+                 href="@($"{Constants.GitHub.ComponentStylesPath}/{ComponentName}.cs")"
+                 target="_blank"
+                 rel="noopener noreferrer">
+        Styles source
+    </LumexButton>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string ComponentName { get; set; } = default!;
+    [Parameter] public bool IsServer { get; set; }
+
+    private RenderFragment BlazorIcon =>
+    @<text>
+        <LumexIcon Icon="@Icons.Brands.Blazor"
+                   Size="@new("20")"
+                   ViewBox="-10 -38 340 340" />
+    </text>;
+
+    private RenderFragment GithubIcon =>
+    @<text>
+        <LumexIcon Icon="@Icons.Brands.GitHub"
+                   Size="@new("20")"
+                   ViewBox="0 0 24 24" />
+    </text>;
+}

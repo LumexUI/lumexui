@@ -39,7 +39,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapRazorComponents<_App>()
+app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies( typeof( LumexUI.Docs.Client._Imports ).Assembly );
 

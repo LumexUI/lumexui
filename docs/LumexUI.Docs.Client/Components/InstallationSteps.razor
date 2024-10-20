@@ -1,0 +1,27 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<ol class="mt-12 mb-16 space-y-2" style="counter-reset: step;">
+    @if( Steps is not null )
+    {
+        foreach( var step in Steps )
+        {
+            <li class="relative pl-10 pb-8 xl:grid xl:grid-cols-5 xl:gap-10 before:absolute before:content-[counter(step)] before:left-0 before:flex before:items-center before:justify-center before:size-6 before:text-[0.625rem] before:font-bold before:text-zinc-700 before:rounded-md before:shadow-sm before:ring-1 before:ring-foreground-950/5 after:absolute after:top-8 after:bottom-0 after:left-3 after:w-px after:bg-divider" style="counter-increment: step;">
+                <div class="mb-6 xl:mb-0 xl:col-span-2">
+                    <h4 class="text-sm leading-6 font-semibold mb-2">
+                        @step.Title
+                    </h4>
+                    <div class="prose prose-zinc prose-sm dark:prose-invert">
+                        @step.Body
+                    </div>
+                </div>
+                <div class="relative z-10 -ml-10 rounded-2xl shadow-lg xl:col-span-3 xl:ml-0">
+                    <CodeSnippet Code="@step.Code" />
+                </div>
+            </li>
+        }
+    }
+</ol>
+
+@code {
+    [Parameter] public Step[]? Steps { get; set; }
+}

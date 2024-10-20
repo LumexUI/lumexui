@@ -4,7 +4,7 @@ const lumexui = '../../src/LumexUI/';
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        './{Pages,Components}/**/*.{razor,razor.cs}',
+        './Components/**/*.razor',
         '../LumexUI.Docs.Client/{Pages,Components}/**/*.{razor,razor.cs}',
         `${lumexui}/Styles/*.cs`
     ],

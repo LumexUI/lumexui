@@ -1,0 +1,31 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+@if( !string.IsNullOrEmpty( Title ) && !string.IsNullOrEmpty( Description ) )
+{
+    <header class="relative z-20">
+        <div>
+            <p class="mb-2 text-sm leading-6 font-semibold text-orange-500 dark:text-orange-400">
+                @Category
+            </p>
+            <h1 class="text-3xl font-extrabold text-foreground-800">
+                @Title
+            </h1>
+        </div>
+        <div class="mt-4 text-lg space-y-4">
+            @Description
+        </div>
+
+        @if( LinksProps is not null )
+        {
+            <ComponentLinks ComponentName="@LinksProps.ComponentName"
+                            IsServer="@LinksProps.IsServer" />
+        }
+    </header>
+}
+
+@code {
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? Category { get; set; }
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public ComponentLinksProps? LinksProps { get; set; }
+}

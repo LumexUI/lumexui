@@ -1,0 +1,23 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<code class="@BaseClass">
+    @ChildContent
+</code>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string BaseClass => ElementClass.Empty()
+        .Add( "inline-block" )
+        .Add( "px-2" )
+        .Add( "py-0.5" )
+        .Add( "h-fit" )
+        .Add( "font-mono" )
+        .Add( "font-normal" )
+        .Add( "rounded-md" )
+        .Add( "bg-default-100" )
+        .Add( "text-default-700" )
+        .Add( "text-small" )
+        .Add( "whitespace-nowrap" )
+        .ToString();
+}

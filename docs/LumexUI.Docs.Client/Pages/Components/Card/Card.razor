@@ -1,0 +1,126 @@
+﻿@page "/docs/components/card"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Card.PreviewCodes
+
+<DocsCompositionSection Components="@_compositionComponents" />
+
+<DocsSection Title="Usage">
+    <p>
+        The basic card component provides a simple container for organizing content.
+        You can combine the header, body, and footer as needed.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Dividers">
+        <p>
+            You can add <Code>LumexDivider</Code> component between different 
+            sections of the card for a clearer separation of content.
+        </p>
+        <Dividers />
+    </DocsSection>
+
+    <DocsSection Title="Complex">
+        <p>Create a more complex card layout by combining other LumexUI components.</p>
+        <Complex />
+    </DocsSection>
+
+    <DocsSection Title="Image">
+        <p>Display an image inside the card body to enhance its visual presentation.</p>
+        <Image />
+    </DocsSection>
+
+    <DocsSection Title="Cover Image">
+        <p>
+            You can use an image as the cover of the card by
+            taking it out of the <Code>LumexCardBody</Code> component.
+        </p>
+        <CoverImage />
+    </DocsSection>
+
+    <DocsSection Title="Blurred Footer">
+        <p>
+            Apply the blur effect to the card footer, providing a sleek visual effect at the bottom of the card.
+            You can achieve this using the <Code>Blurred</Code> parameter on the <Code>LumexCardFooter</Code> component.
+        </p>
+        <BlurredFooter />
+    </DocsSection>
+
+    <DocsSection Title="Blurred Card">
+        <p>
+            Alternatively, you can apply the blur effect to the entire card for a visually interesting style.
+            You can achieve this using the <Code>Blurred</Code> parameter on the <Code>LumexCard</Code> component.
+        </p>
+        <BlurredCard />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Card</h4>
+        <ul>
+            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the card contents.</li>
+            <li><Code>Classes</Code>: The CSS class names for the card slots style the entire card at once.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+        new(nameof(LumexCard), "The container that groups related content and actions in a structured layout."),
+        new(nameof(LumexCardBody), "The top section of the card, typically used to display a title."),
+        new(nameof(LumexCardFooter), "The main content of the card, such as text, or images."),
+        new(nameof(LumexCardHeader), "The bottom section of the card, typically used for actions.")
+    };
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Composition"),
+        new("Usage", [
+            new("Dividers"),
+            new("Complex"),
+            new("Image"),
+            new("Cover Image"),
+            new("Blurred Footer"),
+            new("Blurred Card")
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new("base", "The overall container of the card."),
+        new("header", "The wrapper of the top section of the card, where you can place titles."),
+        new("body", "The wrapper of the main content of the card."),
+        new("footer", "The wrapper of the bottom section of the card, where you can place actions."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexCard),
+        nameof(LumexCardBody),
+        nameof(LumexCardFooter),
+        nameof(LumexCardHeader),
+        nameof(LumexDivider),
+        nameof(LumexButton),
+        nameof(LumexIcon),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Card",
+            category: "Components",
+            description: "The card is a flexible container for grouping related content and actions in a structured, organized layout.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Card", isServer: true )
+        );
+    }
+}

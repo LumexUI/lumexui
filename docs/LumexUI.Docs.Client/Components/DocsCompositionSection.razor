@@ -1,0 +1,19 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<DocsSection Title="Composition">
+    <p>
+        This component is a composition of @Components.Length key components:
+    </p>
+    <ul>
+        @foreach( var component in Components )
+        {
+            <li>
+                <strong class="text-orange-500">@component.Name</strong>: @component.Description
+            </li>
+        }
+    </ul>
+</DocsSection>
+
+@code {
+    [Parameter, EditorRequired] public CompositionComponent[] Components { get; set; } = default!;
+}

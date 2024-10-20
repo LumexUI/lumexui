@@ -1,0 +1,105 @@
+﻿@page "/docs/components/button"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Button.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+        The basic button component in provides a simple and
+        intuitive way to add clickable elements.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            You can disable a button to prevent user interaction.
+            A disabled button is faded and does not respond to user clicks.
+        </p>
+        <Disabled />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>
+            Several button sizes are offered to accommodate different use cases,
+            from small buttons for compact UIs to large buttons for more prominent actions.
+        </p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>
+            The button component supports various border radius options,
+            allowing you to create buttons with rounded corners or sharp edges.
+        </p>
+        <Radiuses />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>
+            Customize the appearance of the button by applying
+            different colors that suit your application's theme and design.
+        </p>
+        <LumexUI.Docs.Client.Pages.Components.Button.PreviewCodes.Colors />
+    </DocsSection>
+
+    <DocsSection Title="Variants">
+        <p>
+            Multiple button variants are supported, including solid,
+            outlined, shadow and more, to suit different design needs.
+        </p>
+        <Variants />
+    </DocsSection>
+
+    <DocsSection Title="Icons">
+        <p>
+            You can enhance your buttons by including icons.
+            Icons can be positioned on the start or end of the button text for better visual context.
+        </p>
+        <WithIcons />
+    </DocsSection>
+</DocsSection>
+
+<DocsSection Title="Custom Styles">
+    <p>
+        You can customize the button component by passing any Tailwind CSS
+        classes to the component's <code>Class</code> parameter.
+    </p>
+    <CustomStyles />
+</DocsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Disabled"),
+            new("Sizes"),
+            new("Radius"),
+            new("Colors"),
+            new("Variants"),
+            new("Icons"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexButton),
+        nameof(LumexIcon)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Button",
+            category: "Components",
+            description: "Buttons allow users to take actions, and make choices, with a single tap.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Button", isServer: false )
+        );
+    }
+}

@@ -1,0 +1,27 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<DocsSection Title="Custom Styles">
+    <p>
+        This component suppots named slots (represented as <code>data-*</code> attributes) that
+        allow you to apply custom CSS to specific parts of the component.
+    </p>
+    <ul>
+        @foreach( var slot in Slots )
+        {
+            <li>
+                <strong class="text-orange-500">@slot.Name</strong>: @slot.Description
+            </li>
+        }
+    </ul>
+    <p>
+        You can customize the component(s) by passing
+        any Tailwind CSS classes to the following component parameters:
+    </p>
+
+    @ChildContent
+</DocsSection>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter, EditorRequired] public Slot[] Slots { get; set; } = default!;
+}
