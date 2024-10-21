@@ -38,17 +38,8 @@
         <LumexNavbarMenuToggle Class="sm:hidden" />
     </LumexNavbarContent>
 
-    <LumexNavbarMenu>
-        @foreach( var item in _navigationItems )
-        {
-            <LumexNavbarMenuItem>
-                <LumexNavLink Href="@item.Link"
-                              Color="@ThemeColor.None"
-                              Class="hover:text-orange-500 data-[active=true]:text-orange-500">
-                    @item.Name
-                </LumexNavLink>
-            </LumexNavbarMenuItem>
-        }
+    <LumexNavbarMenu Class="pb-12">
+        <NavMenu />
     </LumexNavbarMenu>
 </LumexNavbar>
 

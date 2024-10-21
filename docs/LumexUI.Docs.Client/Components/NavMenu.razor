@@ -1,18 +1,16 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 
-<aside class="hidden fixed z-20 overflow-y-auto inset-0 top-[4.0625rem] left-[max(0px,calc(50%-40rem))] right-auto w-[16rem] pl-6 pb-10 lg:block scrollbar:h-2 scrollbar:w-2 scrollbar-thumb:rounded scrollbar-thumb:bg-foreground-200 scrollbar-track:rounded scrollbar-track:bg-foreground-100">
-    <nav class="lg:text-sm lg:leading-6">
-        <div class="sticky top-0 pointer-events-none">
-            <div class="h-10 bg-gradient-to-b from-background"></div>
-        </div>
-        <ul class="space-y-8">
-            @foreach( var category in _navigation.Categories )
-            {
-                RenderCategory( __builder, category );
-            }
-        </ul>
-    </nav>
-</aside>
+<nav class="lg:text-sm lg:leading-6">
+    <div class="sticky top-0 pointer-events-none">
+        <div class="h-10 bg-gradient-to-b from-background"></div>
+    </div>
+    <ul class="space-y-8">
+        @foreach( var category in _navigation.Categories )
+        {
+            RenderCategory( __builder, category );
+        }
+    </ul>
+</nav>
 
 @code {
     private void RenderCategory( RenderTreeBuilder __builder, NavigationCategory category )

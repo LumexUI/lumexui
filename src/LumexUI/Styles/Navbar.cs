@@ -126,7 +126,7 @@ internal readonly record struct Navbar
         .ToString();
 
     private readonly static string _blurred = ElementClass.Empty()
-        .Add( "backdrop-blur-md" )
+        .Add( "backdrop-blur-lg" )
         .Add( "backdrop-saturate-150" )
         .Add( "bg-background/70" )
         .ToString();
