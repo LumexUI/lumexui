@@ -1,0 +1,90 @@
+﻿@page "/docs/components/link"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Link.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>The link component is used to navigate users to other pages or external resources.</p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            You can disable a link to prevent user interaction.
+            A disabled link is faded and does not respond to user clicks.
+        </p>
+        <Disabled />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>
+            Customize the appearance of the link by applying
+            different colors that suit your application's theme and design.
+        </p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Underline">
+        <p>You can control whether the link has an underline for emphasis or a cleaner look.</p>
+        <Underline />
+    </DocsSection>
+
+    <DocsSection Title="External">
+        <p>
+            The link component can be configured for external URLs,
+            ensuring it opens in a new tab and behaves accordingly.
+        </p>
+        <External />
+    </DocsSection>
+
+    <DocsSection Title="Polymorphic">
+        <p>
+            LumexUI components expose a <Code>As</Code> parameter that allows you to 
+            customize the element tag that is used to render the component.
+        </p>
+        <Polymorphic />
+    </DocsSection>
+</DocsSection>
+
+<DocsSection Title="Custom Styles">
+    <p>
+        You can customize the divider component by passing any Tailwind CSS
+        classes to the component's <Code>Class</Code> and/or <Code>Style</Code> parameters.
+    </p>
+    <CustomStyles />
+</DocsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Disabled"),
+            new("Colors"),
+            new("Underline"),
+            new("External"),
+            new("Polymorphic"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexLink),
+        nameof(LumexButton),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Link",
+            category: "Components",
+            description: "The link component allows users to click their way from page to page.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Link", isServer: true )
+        );
+    }
+}
