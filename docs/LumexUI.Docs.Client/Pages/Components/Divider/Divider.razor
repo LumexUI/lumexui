@@ -1,0 +1,57 @@
+﻿@page "/docs/components/divider"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Divider.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>The divider component is used to create a simple visual separation between elements. </p>
+    <Usage />
+
+    <DocsSection Title="Orientation">
+        <p>
+            The divider component supports both horizontal and vertical orientations. 
+            You can switch it to vertical when needed to separate content vertically.
+            Use the <Code>Orientation</Code> parameter.
+        </p>
+        <Orientation />
+    </DocsSection>
+</DocsSection>
+
+<DocsSection Title="Custom Styles">
+    <p>
+        You can customize the divider component by passing any Tailwind CSS
+        classes to the component's <Code>Class</Code> and/or <Code>Style</Code> parameters.
+    </p>
+    <CustomStyles />
+</DocsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Orientation")
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexDivider),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Divider",
+            category: "Components",
+            description: "The divider component creates a visual separator to structure content in your layout.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Divider", isServer: true )
+        );
+    }
+}
