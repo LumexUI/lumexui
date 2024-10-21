@@ -1,12 +1,12 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 @rendermode InteractiveWebAssembly
 
-@if( Scale is not null )
+@foreach( var swatch in _swatches )
 {
-    <div class="@(Title == "Base" ? "order-last sm:order-none" : default)">
-        <div class="font-semibold text-sm text-foreground-900">@Title</div>
+    <div class="@(swatch.Title == "Base" ? "order-last sm:order-none" : default)">
+        <div class="font-semibold text-sm text-foreground-900">@swatch.Title</div>
         <div class="grid grid-cols-1 sm:grid-cols-11 mt-3 gap-2.5 sm:mt-2">
-            @foreach( var color in Scale )
+            @foreach( var color in swatch.Scale )
             {
                 @if( color.Key != "default" && color.Key != "foreground" )
                 {
@@ -22,22 +22,18 @@
                                 @color.Key
                             </span>
 
-                            @if( Scale.TryGetValue( "default", out var defValue ) && color.Value == defValue )
+                            @if( swatch.Scale.TryGetValue( "default", out var defValue ) && color.Value == defValue )
                             {
                                 <span class="absolute top-1 left-1.5 text-[0.625rem] leading-none"
-                                      style="color: @Scale["foreground"]">
+                                      style="color: @swatch.Scale["foreground"]">
                                     ●
                                 </span>
                             }
                         </div>
 
                         <div class="px-0.5 text-left">
-                            <div class="font-medium text-foreground-900 text-xs sm:hidden">
-                                @color.Key
-                            </div>
-                            <div class="font-mono text-foreground-500 text-xs">
-                                @color.Value
-                            </div>
+                            <div class="font-medium text-foreground-900 text-xs sm:hidden">@color.Key</div>
+                            <div class="font-mono text-foreground-500 text-xs">@color.Value</div>
                         </div>
                     </LumexButton>
                 }
@@ -47,6 +43,26 @@
 }
 
 @code {
-    [Parameter, EditorRequired] public string Title { get; set; } = default!;
-    [Parameter, EditorRequired] public ColorScale Scale { get; set; } = default!;
+    private readonly Swatch[] _swatches = new Swatch[]
+    {
+        new("Base", [
+            new( "bg", SemanticColors.Light.Background["default"] ),
+            new( "text", SemanticColors.Light.Foreground["default"] ),
+            new( "overlay", SemanticColors.Light.Overlay["default"] ),
+            new( "divider", SemanticColors.Light.Divider["default"] ),
+            new( "focus", SemanticColors.Light.Focus["default"] ),
+            new( "surface1", SemanticColors.Light.Surface1["default"] ),
+            new( "surface2", SemanticColors.Light.Surface2["default"] ),
+            new( "surface3", SemanticColors.Light.Surface3["default"] ),
+        ]),
+        new("Default", SemanticColors.Light.Default),
+        new("Primary", SemanticColors.Light.Primary),
+        new("Secondary", SemanticColors.Light.Secondary),
+        new("Success", SemanticColors.Light.Success),
+        new("Warning", SemanticColors.Light.Warning),
+        new("Danger", SemanticColors.Light.Danger),
+        new("Info", SemanticColors.Light.Info),
+    };
+
+    private record Swatch( string Title, ColorScale Scale );
 }

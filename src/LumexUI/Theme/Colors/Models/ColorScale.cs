@@ -15,7 +15,7 @@ namespace LumexUI.Theme;
 /// Represents a scale of colors, implementing <see cref="ICollection{T}"/> and 
 /// using <see cref="Dictionary{TKey, TValue}"/> under the hood to manage color values associated with keys.
 /// </summary>
-public record ColorScale : ICollection<KeyValuePair<string, string>>
+public class ColorScale : ICollection<KeyValuePair<string, string>>
 {
     private readonly Dictionary<string, string> _colors;
 
