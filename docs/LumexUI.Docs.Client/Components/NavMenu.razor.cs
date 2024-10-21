@@ -2,7 +2,7 @@ using LumexUI.Docs.Client.Common;
 
 namespace LumexUI.Docs.Client.Components;
 
-public partial class Sidebar
+public partial class NavMenu
 {
     private Navigation _navigation = default!;
 
