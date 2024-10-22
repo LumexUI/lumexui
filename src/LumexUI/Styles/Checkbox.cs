@@ -50,8 +50,8 @@ internal readonly record struct Checkbox
         .Add( "after:origin-center" )
         .Add( "after:transition-transform-opacity" )
         .Add( "after:!duration-200" )
-        .Add( "group-data-[checked]:after:scale-100" )
-        .Add( "group-data-[checked]:after:opacity-100" )
+        .Add( "group-data-[checked=true]:after:scale-100" )
+        .Add( "group-data-[checked=true]:after:opacity-100" )
         // hover
         .Add( "group-hover:before:bg-default-100" )
         // focus ring
@@ -63,7 +63,7 @@ internal readonly record struct Checkbox
         .Add( "opacity-0" )
         .Add( "transition-opacity" )
         .Add( "motion-reduce:transition-none" )
-        .Add( "group-data-[checked]:opacity-100" )
+        .Add( "group-data-[checked=true]:opacity-100" )
         .ToString();
 
     private readonly static string _label = ElementClass.Empty()
@@ -162,8 +162,8 @@ internal readonly record struct Checkbox
         return ElementClass.Empty()
             .Add( _wrapper )
             .Add( GetColorStyles( checkbox.Color ) )
-            .Add( GetRadiusStyles( checkbox.Radius ) )
             .Add( GetSizeStyles( checkbox.Size, slot: "wrapper" ) )
+            .Add( GetRadiusStyles( checkbox.Radius ) )
             .Add( checkboxGroup?.CheckboxClasses?.Wrapper )
             .Add( checkbox.Classes?.Wrapper )
             .ToString();

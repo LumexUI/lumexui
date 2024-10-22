@@ -4,20 +4,20 @@
 <LumexComponent As="label"
                 Class="@RootClass"
                 Style="@RootStyle"
-                data-checked="@CurrentValue"
-                data-disabled="@GetDisabledState()"
-                data-readonly="@GetReadOnlyState()"
+                data-checked="@CurrentValue.ToAttributeValue()"
+                data-disabled="@GetDisabledState().ToAttributeValue()"
+                data-readonly="@GetReadOnlyState().ToAttributeValue()"
                 tabindex="0"
                 @attributes="@AdditionalAttributes">
-    <span class="@StyleUtils.VisuallyHidden">
-        <input type="checkbox"
-               value="@true"
-               checked="@CurrentValue"
-               disabled="@GetDisabledState()"
-               @onchange="@OnChangeAsync" />
-    </span>
-
     <span class="@WrapperClass">
+        <span class="@StyleUtils.VisuallyHidden">
+            <input type="checkbox"
+                   value="@true"
+                   checked="@CurrentValue"
+                   disabled="@GetDisabledState()"
+                   @onchange="@OnChangeAsync" />
+        </span>
+
         @if( !string.IsNullOrEmpty( CheckIcon ) )
         {
             <LumexIcon Icon="@CheckIcon" Class="@IconClass" />
