@@ -1,0 +1,112 @@
+﻿@page "/docs/components/checkbox"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Checkbox.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>The checkbox component can be used to turn an option on or off.</p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            You can disable a checkbox to prevent user interaction.
+            A disabled checkbox is faded and does not respond to user clicks.
+        </p>
+        <Disabled />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>
+            The checkbox component supports different sizes to fit
+            various layouts and design needs, from small checkboxes to larger ones.
+        </p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>
+            The checkbox component supports various border radius options,
+            allowing you to create checkboxes with rounded corners or sharp edges.
+        </p>
+        <Radius />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>
+            Customize the appearance of the button by applying
+            different colors that suit your application's theme and design.
+        </p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Custom Check Icon">
+        <p>You can replace the default check icon with a custom one.</p>
+        <CustomCheckIcon />
+    </DocsSection>
+
+    <DocsSection Title="Two-way Data Binding">
+        <p>
+            The checkbox component supports two-way data binding,
+            allowing you to programmatically control checked state.
+            You can achieve this using the <Code>@@bind-Value</Code> directive,
+            or the <Code>Value</Code> and <Code>ValueChanged</Code> parameters.
+        </p>
+        <TwoWayDataBinding />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Checkbox</h4>
+        <ul>
+            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the checkbox.</li>
+            <li><Code>Classes</Code>: The CSS class names for the checkbox slots style the entire checkbox at once.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Disabled"),
+            new("Sizes"),
+            new("Colors"),
+            new("Radius"),
+            new("Custom Check Icon"),
+            new("Two-way Data Binding"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(CheckboxSlots.Root), "The overall container of the checkbox."),
+        new(nameof(CheckboxSlots.Wrapper), "The wrappper of the input and icon elements that manages states."),
+        new(nameof(CheckboxSlots.Icon), "The icon within the checkbox that appears when the checkbox is selected."),
+        new(nameof(CheckboxSlots.Label), "The label associated with the checkbox."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexCheckbox),
+        nameof(LumexIcon),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Checkbox",
+            category: "Components",
+            description: "The checkbox allows users to select or deselect options, typically in forms or lists.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Checkbox", isServer: false )
+        );
+    }
+}

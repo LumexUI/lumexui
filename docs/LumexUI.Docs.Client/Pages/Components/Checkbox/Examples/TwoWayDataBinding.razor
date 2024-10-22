@@ -1,0 +1,26 @@
+﻿<div class="flex flex-col gap-2">
+    <LumexCheckbox @bind-Value="@_valueOne">Option</LumexCheckbox>
+    <p class="text-sm text-default-500">
+        Selected: @_valueOne
+    </p>
+</div>
+
+<div class="flex flex-col gap-2">
+    <LumexCheckbox Value="@_valueTwo"
+                   ValueChanged="@OnValueChanged">
+        Option
+    </LumexCheckbox>
+    <p class="text-sm text-default-500">
+        Selected: @_valueTwo
+    </p>
+</div>
+
+@code {
+    private bool _valueOne;
+    private bool _valueTwo;
+
+    private void OnValueChanged( bool @checked )
+    {
+        _valueTwo = @checked;
+    }
+}
