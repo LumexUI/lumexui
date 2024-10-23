@@ -1,0 +1,25 @@
+﻿<LumexCheckboxGroup>
+    <LumexCheckbox Value="@true" Classes="@_classes">
+        <div class="flex items-center gap-4">
+            <LumexIcon Icon="@Icons.Rounded.HealthAndSafety"
+                       Size="@new("32")" />
+            <div>
+                <div class="font-semibold">Mobile Anti-Virus</div>
+                <p class="text-sm text-primary">5,07 €/month</p>
+            </div>
+        </div>
+    </LumexCheckbox>
+</LumexCheckboxGroup>
+
+@code {
+    private CheckboxSlots _classes = new()
+    {
+        Root = ElementClass.Empty()
+            .Add( "w-full max-w-md gap-2 p-4" )
+            .Add( "rounded-lg border-2 border-default-200 " )
+            .Add( "bg-surface1 hover:bg-surface2" )
+            .Add( "data-[checked=true]:border-primary" )
+            .ToString(),
+        Label = "w-full"
+    };
+}

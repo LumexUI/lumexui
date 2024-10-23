@@ -1,0 +1,126 @@
+﻿@page "/docs/components/checkbox-group"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.CheckboxGroup.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+        The checkbox group component groups multiple checkboxes,
+        displaying related choices in a consistent manner.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            You can disable a checkbox group to prevent user interaction.
+            All checkboxes within the group are faded and does not respond to user clicks.
+        </p>
+        <Disabled />
+    </DocsSection>
+
+    <DocsSection Title="Read-Only">
+        <p>
+            You can set a checkbox group to be read-only, allowing the user to 
+            view the selected options without being able to modify them.
+        </p>
+        <ReadOnly />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>
+            The checkbox group component can control the size of the checkboxes within it to fit
+            various layouts and design needs, from small checkbox groups to larger ones.
+        </p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>
+            The checkbox group component can control the border radius of the checkboxes within it,
+            allowing you to create checkboxes with rounded corners or sharp edges.
+        </p>
+        <Radius />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>
+            Customize the appearance of the checkbox group by applying
+            different colors that suit your application's theme and design.
+        </p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Label">
+        <p>
+            The checkbox group can include a label to provide context for the 
+            grouped checkboxes, making it clear what the set of options represents.
+        </p>
+        <Label />
+    </DocsSection>
+
+    <DocsSection Title="Description">
+        <p>
+            Add a description to the checkbox group to give users 
+            additional information about the grouped options.
+        </p>
+        <Description />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Checkbox Group</h4>
+        <ul>
+            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the checkbox group.</li>
+            <li><Code>Classes</Code>: The CSS class names for the checkbox group slots style the entire checkbox group at once.</li>
+            <li><Code>CheckboxClasses</Code>: The CSS class names for the checkboxes slots all the checkboxes at once.</li>
+        </ul>
+    </div>
+    @* <CustomStyles /> *@
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Disabled"),
+            new("Read-Only"),
+            new("Sizes"),
+            new("Radius"),
+            new("Colors"),
+            new("Label"),
+            new("Description"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(CheckboxGroupSlots.Root), "The overall container of the checkbox group."),
+        new(nameof(CheckboxGroupSlots.Wrapper), "The wrapper for the checkboxes within the group."),
+        new(nameof(CheckboxGroupSlots.Label), "The label associated with the checkbox group."),
+        new(nameof(CheckboxGroupSlots.Description), "The description of the checkbox group."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexCheckboxGroup),
+        nameof(LumexCheckbox),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Checkbox Group",
+            category: "Components",
+            description: "The checkbox group allows users to select or deselect options from a set.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Checkbox", isServer: true )
+        );
+    }
+}
