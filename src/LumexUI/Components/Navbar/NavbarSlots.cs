@@ -16,8 +16,8 @@ public class NavbarSlots : ISlot
 	public string? Brand { get; set; }
 	public string? Content { get; set; }
 	public string? Item { get; set; }
-	public string? Menu { get; set; }
-	public string? MenuItem { get; set; }
 	public string? Toggle { get; set; }
 	public string? ToggleIcon { get; set; }
+	public string? Menu { get; set; }
+	public string? MenuItem { get; set; }
 }
