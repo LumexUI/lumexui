@@ -11,6 +11,16 @@ public partial class PreviewCode
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter, EditorRequired] public CodeBlock Code { get; set; } = default!;
     [Parameter] public Preview.Slots? PreviewClasses { get; set; }
+    [Parameter] public string? Class { get; set; }
+
+    private string? BaseClass => ElementClass.Empty()
+        .Add( "rounded-2xl" )
+        .Add( "ring-1" )
+        .Add( "ring-foreground-950/5" )
+        .Add( "shadow-sm" )
+        .Add( "overflow-hidden" )
+        .Add( Class )
+        .ToString();
 
     private string ToolbarClass => ElementClass.Empty()
         .Add( "p-2" )
