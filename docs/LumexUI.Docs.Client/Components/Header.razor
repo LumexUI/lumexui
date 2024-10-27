@@ -5,14 +5,12 @@
              Bordered="@true"
              MaxWidth="@MaxWidth.XLarge"
              Classes="@_navbarClasses">
-    <LumexNavbarContent>
-        <LumexNavbarBrand>
-            <LumexLink Href="/"
-                       Class="font-bold text-xl text-foreground-900">
-                Lumex<span class="font-normal">UI</span>
-            </LumexLink>
-        </LumexNavbarBrand>
-    </LumexNavbarContent>
+    <LumexNavbarBrand>
+        <LumexLink Href="/"
+                   Class="font-bold text-xl text-foreground-900">
+            Lumex<span class="font-normal">UI</span>
+        </LumexLink>
+    </LumexNavbarBrand>
 
     <LumexNavbarContent Align="@Align.End" Class="hidden sm:flex">
         @foreach( var item in _navItems )
