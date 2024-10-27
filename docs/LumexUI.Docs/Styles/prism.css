@@ -27,6 +27,10 @@
     @apply text-teal-400;
 }
 
+.token.block {
+    display: initial;
+}
+
 .line-highlight {
     @apply absolute inset-x-0 mt-[1.25rem] border-l-4 border-indigo-400 bg-indigo-400/15 pointer-events-none;
 }

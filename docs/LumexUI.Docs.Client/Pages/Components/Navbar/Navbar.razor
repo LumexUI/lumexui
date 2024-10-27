@@ -1,0 +1,150 @@
+﻿@page "/docs/components/navbar"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Navbar.PreviewCodes
+
+<Callout Variant="@CalloutVariant.Warning">
+    This webpage may load slower than usual due to examples
+    embedded into the <Code>iframe</Code> elements, which increases load times.
+</Callout>
+
+<DocsCompositionSection Components="@_compositionComponents" />
+
+<DocsSection Title="Usage">
+    <p>
+        The navbar component provides a navbar for your application,
+        supporting branding, links, and interactive elements in a structured layout.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Brand">
+        <p>
+            You can include a brand element in the navbar to display
+            your logo or name, enhancing brand recognition.
+        </p>
+        <Brand />
+    </DocsSection>
+
+    <DocsSection Title="Menu">
+        <p>
+            The navbar component includes a toggleable menu that is useful
+            when the navigation is hidden, organizing links and providing easy access on smaller screens.
+        </p>
+        <Menu />
+    </DocsSection>
+
+    <DocsSection Title="Sticky">
+        <p>
+            The navbar can be set to sticky, keeping it fixed at the top of the viewport
+            as the user scrolls, providing constant access to navigation options.
+        </p>
+        <Sticky />
+    </DocsSection>
+
+    <DocsSection Title="Bordered">
+        <p>Add a bottom border to the navbar for a more defined and structured look.</p>
+        <Bordered />
+    </DocsSection>
+
+    <DocsSection Title="Blurred">
+        <p>
+            The navbar is blurred by default, creating a modern,
+            frosted-glass effect that blends with the page’s content.
+            However, you can disable this effect if a solid background is preferred.
+        </p>
+        <Blurred />
+    </DocsSection>
+
+    <DocsSection Title="Height">
+        <p>Set a custom height for the navbar to adjust its size.</p>
+        <Height />
+    </DocsSection>
+
+    <DocsSection Title="Max-width">
+        <p>
+            Adjust the maximum width of the navbar to fit within your
+            layout and maintain consistency across different screen sizes.
+        </p>
+        <MaxWidth />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Navbar</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class name that styles the wrapper of the navbar.</li>
+            <li><Code>Classes</Code>: The CSS class names for the navbar slots that style entire navbar.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+        new(nameof(LumexNavbar), "A component representing a navbar."),
+        new(nameof(LumexNavbarBrand), "A component representing the brand section."),
+        new(nameof(LumexNavbarContent), "A component representing the content section."),
+        new(nameof(LumexNavbarItem), "A component representing a navigation item."),
+        new(nameof(LumexNavbarMenu), "A component representing a collapsible menu."),
+        new(nameof(LumexNavbarMenuItem), "A component representing a navigation item of the menu."),
+        new(nameof(LumexNavbarMenuToggle), "A component representing a button that toggles the menu."),
+    };
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Brand"),
+            new("Menu"),
+            new("Sticky"),
+            new("Bordered"),
+            new("Blurred"),
+            new("Height"),
+            new("Max-width"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(NavbarSlots.Root), "The overall container of the navbar."),
+        new(nameof(NavbarSlots.Wrapper), "The container of all elements, providing a layout structure."),
+        new(nameof(NavbarSlots.Brand), "The container of the brand content, such as a logo or application name."),
+        new(nameof(NavbarSlots.Content), "The container of the main navigation items and links."),
+        new(nameof(NavbarSlots.Item), "The individual navigation item, such as link or button."),
+        new(nameof(NavbarSlots.Toggle), "The element that toggles the menu."),
+        new(nameof(NavbarSlots.ToggleIcon), "The icon within the toggle that indicates the menu state."),
+        new(nameof(NavbarSlots.Menu), "The container of collapsible menu."),
+        new(nameof(NavbarSlots.MenuItem), "The individual navigation item within the menu.")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexNavbar),
+        nameof(LumexNavbarBrand),
+        nameof(LumexNavbarContent),
+        nameof(LumexNavbarItem),
+        nameof(LumexNavbarMenu),
+        nameof(LumexNavbarMenuItem),
+        nameof(LumexNavbarMenuToggle),
+        nameof(LumexLink),
+        nameof(LumexButton),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Navbar",
+            category: "Components",
+            description: "The top bar of your page that includes support for branding, links, navigation, collapse menu and more.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Navbar", isServer: false )
+        );
+    }
+}

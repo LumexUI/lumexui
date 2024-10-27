@@ -31,7 +31,7 @@ public class NavigationStore
             .Add( new( nameof( LumexDivider ) ) )
             .Add( new( nameof( LumexIcon ), locked: true ) )
             .Add( new( nameof( LumexLink ) ) )
-            .Add( new( nameof( LumexNavbar ), locked: true ) )
+            .Add( new( nameof( LumexNavbar ) ) )
             .Add( new( nameof( LumexNumbox<T> ), locked: true ) )
             .Add( new( nameof( LumexPopover ), locked: true ) )
             .Add( new( nameof( LumexSwitch ), locked: true ) )

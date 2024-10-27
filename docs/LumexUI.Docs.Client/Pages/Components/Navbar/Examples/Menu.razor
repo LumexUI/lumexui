@@ -1,0 +1,49 @@
+﻿<LumexNavbar>
+    <LumexNavbarContent>
+        <LumexNavbarMenuToggle Class="sm:hidden" />
+        <LumexNavbarBrand>
+            <span class="font-bold text-xl">
+                Lumex<span class="font-normal">UI</span>
+            </span>
+        </LumexNavbarBrand>
+    </LumexNavbarContent>
+
+    <LumexNavbarContent Class="hidden sm:flex">
+        @foreach( var link in _navItems )
+        {
+            <LumexNavbarItem>
+                <LumexLink Href="/examples/navbar/menu#"
+                           Color="@ThemeColor.None">
+                    @link
+                </LumexLink>
+            </LumexNavbarItem>
+        }
+    </LumexNavbarContent>
+
+    <LumexNavbarContent Align="@Align.End">
+        <LumexNavbarItem>
+            <LumexButton Size="@Size.Small"
+                         Color="@ThemeColor.Primary"
+                         Variant="@Variant.Flat">
+                Log In
+            </LumexButton>
+        </LumexNavbarItem>
+    </LumexNavbarContent>
+
+    <LumexNavbarMenu>
+        @foreach( var link in _navItems )
+        {
+            <LumexNavbarMenuItem>
+                <LumexLink Color="@ThemeColor.None">@link</LumexLink>
+            </LumexNavbarMenuItem>
+        }
+    </LumexNavbarMenu>
+</LumexNavbar>
+
+@code {
+    private string[] _navItems = [
+        "Home",
+    "About",
+    "Contact"
+    ];
+}

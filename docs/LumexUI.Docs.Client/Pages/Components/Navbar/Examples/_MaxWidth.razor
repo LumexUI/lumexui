@@ -1,0 +1,34 @@
+﻿<LumexNavbar MaxWidth="@MaxWidth.Small"
+             Bordered="@true"
+             Sticky="@true">
+    <LumexNavbarBrand>
+        <span class="font-bold text-xl">
+            Lumex<span class="font-normal">UI</span>
+        </span>
+    </LumexNavbarBrand>
+
+    <LumexNavbarContent Class="hidden sm:flex">
+        <LumexNavbarItem>
+            <LumexLink Href="/examples/navbar/max-width#"
+                       Color="@ThemeColor.None">
+                Home
+            </LumexLink>
+        </LumexNavbarItem>
+        <LumexNavbarItem>
+            <LumexLink Href="/examples/navbar/max-width#"
+                       Color="@ThemeColor.None">
+                About
+            </LumexLink>
+        </LumexNavbarItem>
+    </LumexNavbarContent>
+
+    <LumexNavbarContent Align="@Align.End">
+        <LumexNavbarItem>
+            <LumexButton Size="@Size.Small"
+                         Color="@ThemeColor.Primary"
+                         Variant="@Variant.Flat">
+                Log In
+            </LumexButton>
+        </LumexNavbarItem>
+    </LumexNavbarContent>
+</LumexNavbar>
