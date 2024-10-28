@@ -29,7 +29,7 @@ public class NavigationStore
             .Add( new( nameof( LumexCheckboxGroup ) ) )
             .Add( new( nameof( LumexCollapse ) ) )
             .Add( new( nameof( LumexDivider ) ) )
-            .Add( new( nameof( LumexIcon ), locked: true ) )
+            .Add( new( nameof( LumexIcon ) ) )
             .Add( new( nameof( LumexLink ) ) )
             .Add( new( nameof( LumexNavbar ) ) )
             .Add( new( nameof( LumexNumbox<T> ), locked: true ) )
