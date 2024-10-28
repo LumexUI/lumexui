@@ -39,11 +39,22 @@ public partial class LumexIcon : LumexComponentBase
     private protected override string? RootClass =>
         TwMerge.Merge( Styles.Icon.GetStyles( this ) );
 
-    private string FontIconStyle => ElementStyle.Empty()
-        .Add( "font-size", Size.W, when: Size.W == Size.H )
+    private string? FontIconStyle => ElementStyle.Empty()
+        .Add( "font-size", $"{Size.W}px", when: Size.W == Size.H )
         .Add( RootStyle )
         .ToString();
 
     [MemberNotNullWhen( true, nameof( Icon ) )]
     private bool IsSvgIcon => !string.IsNullOrEmpty( Icon ) && Icon.Trim().StartsWith( '<' );
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        if( ChildContent is not null && ( Size.W != Size.H ) )
+        {
+            throw new InvalidOperationException(
+                $"{GetType()} requires equal width and height dimensions for " +
+                $"{nameof( Size )} if used as a font icon." );
+        }
+    }
 }
