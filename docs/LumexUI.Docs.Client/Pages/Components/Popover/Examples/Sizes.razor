@@ -1,0 +1,23 @@
+﻿@foreach( var size in _sizes )
+{
+    <LumexPopover Size="@size">
+        <LumexPopoverTrigger Color="@ThemeColor.Primary"
+                             Variant="@Variant.Flat">
+            @size.ToString()
+        </LumexPopoverTrigger>
+        <LumexPopoverContent>
+            <div class="px-1 py-2">
+                <div class="text-small font-bold">Oh, hi there!</div>
+                <div>I am the popover content</div>
+            </div>
+        </LumexPopoverContent>
+    </LumexPopover>
+}
+
+@code {
+    private readonly Size[] _sizes = [
+        Size.Small,
+        Size.Medium,
+        Size.Large
+    ];
+}

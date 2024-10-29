@@ -1,0 +1,26 @@
+﻿@foreach( var color in _colors )
+{
+    <LumexPopover Color="@color">
+        <LumexPopoverTrigger>
+            @color.ToString()
+        </LumexPopoverTrigger>
+        <LumexPopoverContent>
+            <div class="px-1 py-2">
+                <div class="text-small font-bold">Oh, hi there!</div>
+                <div class="text-tiny">I am the popover content</div>
+            </div>
+        </LumexPopoverContent>
+    </LumexPopover>
+}
+
+@code {
+    private readonly ThemeColor[] _colors = [
+        ThemeColor.Default,
+        ThemeColor.Primary,
+        ThemeColor.Secondary,
+        ThemeColor.Success,
+        ThemeColor.Warning,
+        ThemeColor.Danger,
+        ThemeColor.Info
+    ];
+}
