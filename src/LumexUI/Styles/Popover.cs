@@ -111,7 +111,7 @@ internal static class Popover
                 .Add( "rounded-medium", when: slot is nameof( _content ) ),
 
             Radius.Large => ElementClass.Empty()
-                .Add( "rounded-medium", when: slot is nameof( _content ) ),
+                .Add( "rounded-large", when: slot is nameof( _content ) ),
 
             _ => ElementClass.Empty()
         };
@@ -131,7 +131,7 @@ internal static class Popover
                 .Add( "shadow-medium", when: slot is nameof( _content ) ),
 
             Shadow.Large => ElementClass.Empty()
-                .Add( "shadow-medium", when: slot is nameof( _content ) ),
+                .Add( "shadow-large", when: slot is nameof( _content ) ),
 
             _ => ElementClass.Empty()
         };
