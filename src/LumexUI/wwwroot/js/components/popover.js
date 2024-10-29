@@ -82,7 +82,10 @@ async function initialize(id, options) {
 }
 
 function destroy() {
-    destroyOutsideClickHandler();
+    if (destroyOutsideClickHandler) {
+        destroyOutsideClickHandler();
+        destroyOutsideClickHandler = null;
+    }
 }
 
 export const popover = {
