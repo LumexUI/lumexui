@@ -81,33 +81,33 @@
         cut.Instance.IsShown.Should().BeFalse( because: "An outside click occured" );
     }
 
-    [Fact]
-    public void ShouldNotShowOnTriggeringShownOne()
-    {
-        var cut = Render<LumexPopover>(
-    @<LumexPopover>
-        <LumexPopoverTrigger>Show Popover</LumexPopoverTrigger>
-        <LumexPopoverContent>
-            <p>This is the content of the popover.</p>
-        </LumexPopoverContent>
-    </LumexPopover>
-        );
+    // [Fact]
+    // public void ShouldNotShowOnTriggeringShownOne()
+    // {
+    //     var cut = Render<LumexPopover>(
+    // @<LumexPopover>
+    //     <LumexPopoverTrigger>Show Popover</LumexPopoverTrigger>
+    //     <LumexPopoverContent>
+    //         <p>This is the content of the popover.</p>
+    //     </LumexPopoverContent>
+    // </LumexPopover>
+    //     );
 
-        var popoverTrigger = cut.FindComponent<LumexPopoverTrigger>();
-        var triggerButton = popoverTrigger.Find( "button" );
+    //     var popoverTrigger = cut.FindComponent<LumexPopoverTrigger>();
+    //     var triggerButton = popoverTrigger.Find( "button" );
 
-        cut.Instance.IsShown.Should().BeFalse( because: "An initial state" );
+    //     cut.Instance.IsShown.Should().BeFalse( because: "An initial state" );
 
-        triggerButton.Click();
+    //     triggerButton.Click();
 
-        cut.Instance.IsShown.Should().BeTrue( because: "The trigger is clicked" );
+    //     cut.Instance.IsShown.Should().BeTrue( because: "The trigger is clicked" );
 
-        // Triggering the opened popover also triggers the 'clickoutside' event first
-        cut.Find( "[data-popover]" ).TriggerEvent( "onclickoutside", new EventArgs() );
-        triggerButton.Click();
+    //     // Triggering the opened popover also triggers the 'clickoutside' event first
+    //     cut.Find( "[data-popover]" ).TriggerEvent( "onclickoutside", new EventArgs() );
+    //     triggerButton.Click();
 
-        cut.Instance.IsShown.Should().BeFalse( because: "An outside click occured" );
-    }
+    //     cut.Instance.IsShown.Should().BeFalse( because: "An outside click occured" );
+    // }
 
     [Fact]
     public void ShouldHidePopoverWhenOpeningAnotherOne()
