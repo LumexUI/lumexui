@@ -1,12 +1,6 @@
 ﻿@namespace LumexUI
-@inherits LumexComponentBase
+@inherits LumexButton
 
-<LumexButton Class="@RootClass"
-             Style="@RootStyle"
-             Color="@Color"
-             OnClick="@Context.TriggerAsync"
-             data-slot="trigger"
-             data-popoverref="@Context.Owner.Id"
-             @attributes="@AdditionalAttributes">
-    @ChildContent
-</LumexButton>
+@{
+    base.BuildRenderTree( __builder );
+}

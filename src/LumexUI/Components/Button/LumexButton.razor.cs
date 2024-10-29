@@ -98,7 +98,7 @@ public partial class LumexButton : LumexComponentBase
         As = "button";
     }
 
-    private Task OnClickAsync( MouseEventArgs args )
+    private protected virtual Task OnClickAsync( MouseEventArgs args )
     {
         return Disabled ? Task.CompletedTask : OnClick.InvokeAsync( args );
     }
