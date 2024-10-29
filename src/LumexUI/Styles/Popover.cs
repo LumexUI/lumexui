@@ -157,7 +157,7 @@ internal static class Popover
             .ToString();
     }
 
-    public static string GetInnerWrapperStyles( LumexPopoverContent popoverContent )
+    public static string GetInnerWrapperStyles()
     {
         return ElementClass.Empty()
             .Add( _innerWrapper )
