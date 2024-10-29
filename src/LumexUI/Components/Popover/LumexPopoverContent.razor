@@ -3,7 +3,7 @@
 
 @if( Context.Owner.IsShown )
 {
-    <div style="position: absolute; z-index: 10000;"
+    <div style="position: absolute;"
          data-popover="@Context.Owner.Id"
          @onclickoutside="@(() => ClickOutsideAsync())">
         <div class="@InnerWrapperClass">
@@ -15,12 +15,12 @@
                                 @attributes="@AdditionalAttributes">
                     @ChildContent
                 </LumexComponent>
-            </div>
 
-            @if( Context.Owner.ShowArrow )
-            {
-                <span class="@ArrowClass" data-slot="arrow" />
-            }
+                @if( Context.Owner.ShowArrow )
+                {
+                    <span class="@ArrowClass" data-slot="arrow" />
+                }
+            </div>
         </div>
     </div>
 }

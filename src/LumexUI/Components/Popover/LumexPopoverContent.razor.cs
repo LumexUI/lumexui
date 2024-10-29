@@ -13,8 +13,7 @@ using Microsoft.JSInterop;
 namespace LumexUI;
 
 /// <summary>
-/// A component representing the content of a <see cref="LumexPopover"/> component, 
-/// which is displayed within the popover.
+/// A component representing the content of the <see cref="LumexPopover"/>.
 /// </summary>
 [CompositionComponent( typeof( LumexPopover ) )]
 public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
@@ -34,7 +33,7 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
         TwMerge.Merge( Popover.GetContentStyles( this ) );
 
     private string? InnerWrapperClass =>
-        TwMerge.Merge( Popover.GetInnerWrapperStyles( this ) );
+        TwMerge.Merge( Popover.GetInnerWrapperStyles() );
 
     private string? ArrowClass =>
         TwMerge.Merge( Popover.GetArrowStyles( this ) );
