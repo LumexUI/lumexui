@@ -1,0 +1,136 @@
+﻿@page "/docs/components/popover"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Popover.PreviewCodes
+
+<DocsCompositionSection Components="@_compositionComponents" />
+
+<DocsSection Title="Usage">
+    <p>
+        The popover component provides a simple floating
+        container for contextual information or actions.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Colors">
+        <p>
+            You can customize the background color of the popover to
+            match your theme or highlight important content.
+        </p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>
+            Adjust the font size of the popover to scale
+            text for readability and emphasis.
+        </p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>
+            The <Code>Radius</Code> parameter allows you to set the border radius,
+            creating rounded or square corners for the popover.
+        </p>
+        <Radius />
+    </DocsSection>
+
+    <DocsSection Title="Shadows">
+        <p>
+            Adjust a shadow effect to the popover for a
+            more elevated, visually distinct appearance.
+        </p>
+        <Shadows />
+    </DocsSection>
+
+    <DocsSection Title="Placements">
+        <p>
+            Specify the position of the popover relative to the trigger element,
+            with options like <Code>Right</Code>, <Code>Left</Code>, <Code>TopStart</Code>, and more.
+        </p>
+        <Placements />
+    </DocsSection>
+
+    <DocsSection Title="Offset">
+        <p>
+            Set an offset to adjust the distance between the
+            popover and its trigger element for finer control over placement.
+        </p>
+        <Offset />
+    </DocsSection>
+
+    <DocsSection Title="Arrow">
+        <p>
+            Enable an arrow on the popover to visually connect it to
+            its trigger element, making the source of information clearer.
+        </p>
+        <Arrow />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Popover</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class name that styles the wrapper of the popover.</li>
+            <li><Code>Classes</Code>: The CSS class names for the popover slots that style entire popover.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+        new(nameof(LumexPopover), "A component representing the popover that displays additional content within a floating container."),
+        new(nameof(LumexPopoverTrigger), "A component representing the trigger of the popover, controlling its display."),
+        new(nameof(LumexPopoverContent), "A component representing the content of the popover."),
+    };
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Composition"),
+        new("Usage", [
+            new("Colors"),
+            new("Sizes"),
+            new("Radius"),
+            new("Shadows"),
+            new("Placements"),
+            new("Offset"),
+            new("Arrow")
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(PopoverSlots.Root), "The overall container of the popover."),
+        new(nameof(PopoverSlots.Trigger), "The element that triggers the popover."),
+        new(nameof(PopoverSlots.Content), "The container of the popover content."),
+        new(nameof(PopoverSlots.Arrow), "The arrow element that connects the popover to its trigger element."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexPopover),
+        nameof(LumexPopoverTrigger),
+        nameof(LumexPopoverContent)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Popover",
+            category: "Components",
+            description: "Popovers display additional content that floats near its trigger element.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Popover", isServer: false )
+        );
+    }
+}
