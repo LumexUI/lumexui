@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Components;
 namespace LumexUI;
 
 /// <summary>
-/// A component representing a popover, providing a floating container 
-/// that displays additional content or information.
+/// A component representing a popover that displays 
+/// additional content within a floating container.
 /// </summary>
 public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSlots>, IDisposable
 {
@@ -112,6 +112,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
     internal void Hide()
     {
         IsShown = false;
+        PopoverService.SetLastShown( null );
         StateHasChanged();
     }
 
