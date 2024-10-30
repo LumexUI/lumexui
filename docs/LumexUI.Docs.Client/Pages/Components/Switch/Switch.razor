@@ -1,0 +1,126 @@
+﻿@page "/docs/components/switch"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Switch.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>The switch component can be used to toggle the state of a single setting on or off.</p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            You can disable a switch to prevent user interaction.
+            A disabled switch is faded and does not respond to user clicks.
+        </p>
+        <Disabled />
+    </DocsSection>
+
+    <DocsSection Title="Read-Only">
+        <p>
+            Set the switch component to read-only to display the
+            current state without allowing changes.
+        </p>
+        <ReadOnly />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>
+            The switch component supports multiple sizes to
+            fit different layouts and design needs.
+        </p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>
+            Customize the color of the switch to align with
+            your application’s theme, providing clear visual feedback.
+        </p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Icons">
+        <p>
+            Add icons to the switch to represent each state,
+            such as an on/off indicator, for additional clarity.
+        </p>
+        <Icons />
+    </DocsSection>
+
+    <DocsSection Title="Custom Thumb Icon">
+        <p>
+            Add an icon indicator to the thumb for on/off states, 
+            providing a clear visual cue for each position.
+        </p>
+        <CustomThumbIcon />
+    </DocsSection>
+
+    <DocsSection Title="Two-way Data Binding">
+        <p>
+            The switch component supports two-way data binding,
+            allowing you to programmatically control checked state.
+            You can achieve this using the <Code>@@bind-Value</Code> directive,
+            or the <Code>Value</Code> and <Code>ValueChanged</Code> parameters.
+        </p>
+        <TwoWayDataBinding />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Switch</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class name that styles the wrapper of the switch.</li>
+            <li><Code>Classes</Code>: The CSS class names for the switch slots that style entire switch.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Disabled"),
+            new("Read-Only"),
+            new("Sizes"),
+            new("Colors"),
+            new("Icons"),
+            new("Custom Thumb Icon"),
+            new("Two-way Data Binding"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(SwitchSlots.Root), "The overall wrapper of the switch."),
+        new(nameof(SwitchSlots.Wrapper), "The wrapper of the start icon, thumb and end icon."),
+        new(nameof(SwitchSlots.Thumb), "The movable part of the switch that toggles between the on and off states."),
+        new(nameof(SwitchSlots.Label), "The text label associated with the switch."),
+        new(nameof(SwitchSlots.StartIcon), "The icon displayed on the left side of the switch, indicating the off state."),
+        new(nameof(SwitchSlots.EndIcon), "The icon displayed on the right side of the switch, indicating the on state."),
+        new(nameof(SwitchSlots.ThumbIcon), "An optional icon within the thumb that reflects the current state.")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexSwitch),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Switch",
+            category: "Components",
+            description: "Switches allow to toggle between two states, typically used for enabling or disabling settings.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Switch", isServer: false )
+        );
+    }
+}

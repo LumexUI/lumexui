@@ -1,0 +1,30 @@
+﻿<LumexSwitch Classes="@_classes">
+    <div class="flex flex-col gap-1">
+        <p class="font-medium">Enable early access</p>
+        <p class="text-tiny text-default-500">
+            Get access to new features before they are released.
+        </p>
+    </div>
+</LumexSwitch>
+
+@code {
+    private SwitchSlots _classes = new()
+    {
+        Root = ElementClass.Empty()
+            .Add( "flex-row-reverse w-full max-w-md gap-2 p-4 justify-between" )
+            .Add( "rounded-lg border-2 border-default-100" )
+            .Add( "bg-surface1 hover:bg-surface2" )
+            .Add( "data-[checked=true]:border-primary" )
+            .ToString(),
+        Wrapper = "p-0 h-4 overflow-visible",
+        Thumb = ElementClass.Empty()
+            .Add( "w-6 h-6 border-2 shadow-lg" )
+            .Add( "group-hover:border-primary" )
+            // toggled
+            .Add( "group-data-[checked=true]:ml-6" )
+            // active
+            .Add( "group-active:w-7" )
+            .Add( "group-data-[checked=true]:group-active:ml-4" )
+            .ToString(),
+    };
+}

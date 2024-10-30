@@ -34,7 +34,7 @@ public class NavigationStore
             .Add( new( nameof( LumexNavbar ) ) )
             .Add( new( nameof( LumexNumbox<T> ), locked: true ) )
             .Add( new( nameof( LumexPopover ) ) )
-            .Add( new( nameof( LumexSwitch ), locked: true ) )
+            .Add( new( nameof( LumexSwitch ) ) )
             .Add( new( nameof( LumexTextbox ), locked: true ) );
 
     private static NavigationCategory ComponentsApiCategory =>
