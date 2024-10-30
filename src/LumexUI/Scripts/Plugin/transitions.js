@@ -2,7 +2,7 @@
 
 const defaultTransitionFunction = defaultTheme.transitionTimingFunction.DEFAULT;
 
-export const DEFAULT_TRANSITION_DURATION = '200ms';
+export const DEFAULT_TRANSITION_DURATION = '250ms';
 
 export default {
     '.transition-colors-opacity': {
