@@ -194,12 +194,4 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
             _disposed = true;
         }
     }
-
-    /// <summary>
-    /// Represents a method that resolves the indicator icon 
-    /// for the <see cref="LumexAccordionItem"/> based on its expanded state.
-    /// </summary>
-    /// <param name="expanded">A boolean value indicating whether the accordion item is expanded.</param>
-    /// <returns>A <see langword="string"/> representing the indicator icon; otherwise, <see langword="null"/> if no indicator is needed.</returns>
-    public delegate string? IndicatorResolver( bool expanded );
 }

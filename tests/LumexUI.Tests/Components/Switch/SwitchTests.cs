@@ -43,7 +43,7 @@ public class SwitchTests : TestContext
     {
         var cut = RenderComponent<LumexSwitch>( p => p
             .Add( p => p.ValueExpression, () => true )
-            .Add( p => p.ThumbIcon, Icons.Rounded.Headphones )
+            .Add( p => p.ThumbIcon, ( _ ) => Icons.Rounded.Headphones )
         );
 
         cut.FindComponent<LumexIcon>().Should().NotBeNull();

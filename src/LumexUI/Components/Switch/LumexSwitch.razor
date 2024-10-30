@@ -24,9 +24,12 @@
         }
 
         <span class="@ThumbClass">
-            @if( !string.IsNullOrEmpty( ThumbIcon ) )
-            {
-                <LumexIcon Icon="@ThumbIcon" Size="@(new("100%"))" Class="@ThumbIconClass" />
+            @{
+                var thumbIcon = ThumbIcon?.Invoke( CurrentValue );
+                if( !string.IsNullOrEmpty( thumbIcon ) )
+                {
+                    <LumexIcon Icon="@thumbIcon" Size="@(new("100%"))" Class="@ThumbIconClass" />
+                }
             }
         </span>
 
