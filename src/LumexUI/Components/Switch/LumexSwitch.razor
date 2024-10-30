@@ -4,9 +4,9 @@
 <LumexComponent As="label"
                 Class="@RootClass"
                 Style="@RootStyle"
-                data-checked="@CurrentValue"
-                data-disabled="@GetDisabledState()"
-                data-readonly="@GetReadOnlyState()"
+                data-checked="@CurrentValue.ToAttributeValue()"
+                data-disabled="@GetDisabledState().ToAttributeValue()"
+                data-readonly="@GetReadOnlyState().ToAttributeValue()"
                 tabindex="0"
                 @attributes="@AdditionalAttributes">
     <span class="@StyleUtils.VisuallyHidden">
@@ -20,7 +20,7 @@
     <span class="@WrapperClass">
         @if( !string.IsNullOrEmpty( StartIcon ) )
         {
-            <LumexIcon Icon="@StartIcon" Size="@(new("100%"))" Class="@StartIconClass" />
+            <LumexIcon Icon="@StartIcon" Size="@(new("1em"))" Class="@StartIconClass" />
         }
 
         <span class="@ThumbClass">
@@ -32,7 +32,7 @@
 
         @if( !string.IsNullOrEmpty( EndIcon ) )
         {
-            <LumexIcon Icon="@EndIcon" Size="@(new("100%"))" Class="@EndIconClass" />
+            <LumexIcon Icon="@EndIcon" Size="@(new("1em"))" Class="@EndIconClass" />
         }
     </span>
 

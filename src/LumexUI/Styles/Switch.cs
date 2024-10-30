@@ -61,7 +61,6 @@ internal readonly record struct Switch
 
     private readonly static string _startIcon = ElementClass.Empty()
         .Add( "z-0" )
-        .Add( "p-0.5" )
         .Add( "absolute" )
         .Add( "left-1.5" )
         .Add( "text-current" )
@@ -69,21 +68,20 @@ internal readonly record struct Switch
         .Add( "opacity-0" )
         .Add( "scale-50" )
         .Add( "transition-[transform,opacity]" )
-        .Add( "group-data-[checked]:scale-100" )
-        .Add( "group-data-[checked]:opacity-100" )
+        .Add( "group-data-[checked=true]:scale-100" )
+        .Add( "group-data-[checked=true]:opacity-100" )
         .ToString();
 
     private readonly static string _endIcon = ElementClass.Empty()
         .Add( "z-0" )
-        .Add( "p-0.5" )
         .Add( "absolute" )
         .Add( "right-1.5" )
         .Add( "text-default-600" )
         // transition
         .Add( "opacity-100" )
         .Add( "transition-[transform,opacity]" )
-        .Add( "group-data-[checked]:translate-x-3" )
-        .Add( "group-data-[checked]:opacity-0" )
+        .Add( "group-data-[checked=true]:translate-x-3" )
+        .Add( "group-data-[checked=true]:opacity-0" )
         .ToString();
 
     private readonly static string _label = ElementClass.Empty()
@@ -100,13 +98,13 @@ internal readonly record struct Switch
     private static ElementClass GetColorStyles( ThemeColor color )
     {
         return ElementClass.Empty()
-            .Add( "group-data-[checked]:bg-default-400 group-data-[checked]:text-default-foreground", when: color is ThemeColor.Default )
-            .Add( "group-data-[checked]:bg-primary group-data-[checked]:text-primary-foreground", when: color is ThemeColor.Primary )
-            .Add( "group-data-[checked]:bg-secodary group-data-[checked]:text-secondary-foreground", when: color is ThemeColor.Secondary )
-            .Add( "group-data-[checked]:bg-success group-data-[checked]:text-success-foreground", when: color is ThemeColor.Success )
-            .Add( "group-data-[checked]:bg-warning group-data-[checked]:text-warning-foreground", when: color is ThemeColor.Warning )
-            .Add( "group-data-[checked]:bg-danger group-data-[checked]:text-danger-foreground", when: color is ThemeColor.Danger )
-            .Add( "group-data-[checked]:bg-info group-data-[checked]:text-info-foreground", when: color is ThemeColor.Info );
+            .Add( "group-data-[checked=true]:bg-default-400 group-data-[checked=true]:text-default-foreground", when: color is ThemeColor.Default )
+            .Add( "group-data-[checked=true]:bg-primary group-data-[checked=true]:text-primary-foreground", when: color is ThemeColor.Primary )
+            .Add( "group-data-[checked=true]:bg-secodary group-data-[checked=true]:text-secondary-foreground", when: color is ThemeColor.Secondary )
+            .Add( "group-data-[checked=true]:bg-success group-data-[checked=true]:text-success-foreground", when: color is ThemeColor.Success )
+            .Add( "group-data-[checked=true]:bg-warning group-data-[checked=true]:text-warning-foreground", when: color is ThemeColor.Warning )
+            .Add( "group-data-[checked=true]:bg-danger group-data-[checked=true]:text-danger-foreground", when: color is ThemeColor.Danger )
+            .Add( "group-data-[checked=true]:bg-info group-data-[checked=true]:text-info-foreground", when: color is ThemeColor.Info );
     }
 
     private static ElementClass GetSizeStyles( Size size, string slot )
@@ -121,9 +119,9 @@ internal readonly record struct Switch
         else if( slot is "thumb" )
         {
             return ElementClass.Empty()
-                .Add( "w-3 h-3 text-tiny group-data-[checked]:ml-5 group-active:w-4 group-data-[checked]:group-active:ml-3", when: size is Size.Small )
-                .Add( "w-4 h-4 text-small group-data-[checked]:ml-6 group-active:w-5 group-data-[checked]:group-active:ml-4", when: size is Size.Medium )
-                .Add( "w-5 h-5 text-medium group-data-[checked]:ml-7 group-active:w-6 group-data-[checked]:group-active:ml-5", when: size is Size.Large );
+                .Add( "w-3 h-3 text-tiny group-data-[checked=true]:ml-5 group-active:w-4 group-data-[checked=true]:group-active:ml-4", when: size is Size.Small )
+                .Add( "w-4 h-4 text-small group-data-[checked=true]:ml-6 group-active:w-5 group-data-[checked=true]:group-active:ml-5", when: size is Size.Medium )
+                .Add( "w-5 h-5 text-medium group-data-[checked=true]:ml-7 group-active:w-6 group-data-[checked=true]:group-active:ml-6", when: size is Size.Large );
         }
         else if( slot is "startIcon" or "endIcon" )
         {
