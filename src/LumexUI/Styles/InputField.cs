@@ -213,6 +213,7 @@ internal static class InputField
                     .Add( "relative" )
                     .Add( "border-b-2" )
                     .Add( "border-default-200" )
+                    .Add( "shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]" )
                     .Add( "hover:border-default-300" )
                     .Add( "after:w-0" )
                     .Add( "after:origin-center" )
