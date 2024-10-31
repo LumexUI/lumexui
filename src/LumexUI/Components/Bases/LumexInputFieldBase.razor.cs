@@ -18,8 +18,8 @@ namespace LumexUI;
 /// Represents a base component for form input field components.
 /// </summary>
 /// <typeparam name="TValue">The type of the input value.</typeparam>
-public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputBase<TValue>, 
-    ISlotComponent<InputFieldSlots>, 
+public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputBase<TValue>,
+    ISlotComponent<InputFieldSlots>,
     IAsyncDisposable
 {
     private const string JavaScriptFile = "./_content/LumexUI/js/components/input.js";
@@ -174,6 +174,21 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
         _renderHelperWrapper = RenderHelperWrapper;
 
         As = "div";
+    }
+
+    /// <inheritdoc />
+    public override async Task SetParametersAsync( ParameterView parameters )
+    {
+        await base.SetParametersAsync( parameters );
+
+        if( parameters.TryGetValue<LabelPlacement>( nameof( LabelPlacement ), out var labelPlacement ) )
+        {
+            LabelPlacement = labelPlacement;
+        }
+        else if( !parameters.TryGetValue<string>( nameof( Label ), out var _ ) )
+        {
+            LabelPlacement = LabelPlacement.Outside;
+        }
     }
 
     /// <inheritdoc />
