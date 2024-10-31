@@ -1,0 +1,63 @@
+﻿@using FluentValidation
+@using FluentValidation.Results
+
+<LumexTextbox Type="@InputType.Email"
+              Variant="@InputVariant.Underlined"
+              Label="Email"
+              Required="@true"
+              ErrorMessage="@_userValidator.EmailErrorMessage"
+              Invalid="@(!string.IsNullOrEmpty(_userValidator.EmailErrorMessage))"
+              Color="@(!string.IsNullOrEmpty(_userValidator.EmailErrorMessage) ? ThemeColor.Danger : ThemeColor.Success)"
+              Value="@_user.Email"
+              ValueChanged="@OnEmailChange"
+              Class="max-w-xs" />
+
+@code {
+    private User _user = new();
+    private UserValidator _userValidator = new();
+
+    protected override void OnInitialized()
+    {
+        _user.Email = "john2doe.com";
+        Validate();
+    }
+
+    private void OnEmailChange( string value )
+    {
+        _user.Email = value;
+        Validate();
+    }
+
+    private void Validate()
+    {
+        var result = _userValidator.Validate( _user );
+        if( !result.IsValid )
+        {
+            _userValidator.EmailErrorMessage = result.Errors
+                .Where( failure => failure.PropertyName == nameof( User.Email ) )
+                .Select( failure => failure.ErrorMessage )
+                .FirstOrDefault();
+        }
+        else
+        {
+            _userValidator.EmailErrorMessage = null;
+        }
+    }
+
+    public class User
+    {
+        public string? Email { get; set; }
+    }
+
+    public class UserValidator : AbstractValidator<User>
+    {
+        public string? EmailErrorMessage { get; set; }
+
+        public UserValidator()
+        {
+            RuleFor( user => user.Email )
+                .NotEmpty().WithMessage( "Email is required" )
+                .EmailAddress().WithMessage( "Please enter a valid email" );
+        }
+    }
+}

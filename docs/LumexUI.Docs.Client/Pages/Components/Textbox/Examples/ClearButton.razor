@@ -1,0 +1,30 @@
+﻿<div class="w-full">
+    <LumexTextbox Clearable="@true"
+                  Type="@InputType.Email"
+                  Label="Email"
+                  Placeholder="Enter your email"
+                  Value="@_value"
+                  Variant="@InputVariant.Outlined"
+                  OnCleared="@Notify"
+                  Class="max-w-xs" />
+</div>
+<p class="text-sm text-default-500">@_text</p>
+
+@code {
+    private string? _text;
+    private string? _value = "john@doe.com";
+
+    private void Notify()
+    {
+        _value = null;
+
+        if( string.IsNullOrEmpty( _text ) )
+        {
+            _text = "Input is cleared!";
+        }
+        else
+        {
+            _text += " ..and again..";
+        }
+    }
+}

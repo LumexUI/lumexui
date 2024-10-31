@@ -1,0 +1,20 @@
+﻿<div class="w-full grid grid-cols-1 gap-4">
+    @foreach( var variant in _variants )
+    {
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexTextbox Variant="@variant" Type="@InputType.Email" Label="Email" />
+                <LumexTextbox Variant="@variant" Type="@InputType.Email" Label="Email" Placeholder="Enter your email" />
+            </div>
+            <small class="text-default-400 mt-1">@variant</small>
+        </div>
+    }
+</div>
+
+@code {
+    private InputVariant[] _variants = [
+        InputVariant.Flat,
+        InputVariant.Outlined,
+        InputVariant.Underlined
+    ];
+}

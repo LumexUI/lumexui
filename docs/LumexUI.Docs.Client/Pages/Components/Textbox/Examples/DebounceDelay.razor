@@ -1,0 +1,17 @@
+﻿<div class="w-full flex flex-col gap-2">
+    <LumexTextbox DebounceDelay="250"
+                  Behavior="@InputBehavior.OnInput"
+                  Type="@InputType.Search"
+                  Label="Search"
+                  Placeholder="Type to search..."
+                  Class="max-w-xs"
+                  @bind-Value="@_value" />
+
+    <p class="text-sm text-default-500">
+        Value: @_value
+    </p>
+</div>
+
+@code {
+    private string? _value;
+}

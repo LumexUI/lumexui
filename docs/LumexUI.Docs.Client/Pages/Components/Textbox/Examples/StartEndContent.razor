@@ -1,0 +1,114 @@
+﻿<div class="grid gap-4">
+    <div class="w-full grid grid-cols-1 gap-4">
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexTextbox Type="@InputType.Url"
+                              Label="Website"
+                              Placeholder="lumexui.org"
+                              LabelPlacement="@LabelPlacement.Outside"
+                              StartContent="@_protocolContent" />
+
+                <LumexTextbox Type="@InputType.Search"
+                              Label="Search"
+                              Placeholder="Type to search..."
+                              LabelPlacement="@LabelPlacement.Outside"
+                              StartContent="@_searchIcon" />
+
+                <LumexTextbox Type="@InputType.Email"
+                              Label="Email"
+                              Placeholder="john@doe.com"
+                              LabelPlacement="@LabelPlacement.Outside"
+                              StartContent="@_mailIcon" />
+            </div>
+            <small class="text-default-500 mt-1">Start</small>
+        </div>
+    </div>
+
+    <div class="w-full grid grid-cols-1 gap-4">
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexTextbox Type="@InputType.Url"
+                              Label="Website"
+                              Placeholder="lumexui"
+                              LabelPlacement="@LabelPlacement.Outside"
+                              EndContent="@_domainContent" />
+
+                <LumexTextbox Type="@InputType.Search"
+                              Label="Search"
+                              Placeholder="Type to search..."
+                              LabelPlacement="@LabelPlacement.Outside"
+                              EndContent="@_searchIcon" />
+
+                <LumexTextbox Type="@InputType.Email"
+                              Label="Email"
+                              Placeholder="john@doe.com"
+                              LabelPlacement="@LabelPlacement.Outside"
+                              EndContent="@_mailIcon" />
+            </div>
+            <small class="text-default-500 mt-1">End</small>
+        </div>
+    </div>
+
+    <div class="w-full grid grid-cols-1 gap-4">
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexTextbox Type="@InputType.Url"
+                              Label="Website"
+                              Placeholder="lumexui"
+                              LabelPlacement="@LabelPlacement.Outside"
+                              StartContent="@_protocolContent"
+                              EndContent="@_domainContent" />
+
+                <LumexTextbox Type="@InputType.Search"
+                              Label="Search"
+                              Placeholder="Type to search..."
+                              LabelPlacement="@LabelPlacement.Outside"
+                              StartContent="@_searchIcon"
+                              EndContent="@_micIcon" />
+
+                <LumexTextbox Type="@InputType.Email"
+                              Label="Email"
+                              Placeholder="john"
+                              LabelPlacement="@LabelPlacement.Outside"
+                              StartContent="@_mailIcon"
+                              EndContent="@_emailDomainContent" />
+            </div>
+            <small class="text-default-500 mt-1">Both</small>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RenderFragment _mailIcon =
+        @<LumexIcon Icon="@Icons.Rounded.Mail"
+                    Size="@new("20")"
+                    Class="text-default-400 shrink-0">
+        </LumexIcon>;
+
+    private RenderFragment _searchIcon =
+        @<LumexIcon Icon="@Icons.Rounded.Search"
+                    Size="@new("20")"
+                    Class="text-default-400 shrink-0">
+        </LumexIcon>;
+
+    private RenderFragment _micIcon =
+        @<LumexIcon Icon="@Icons.Rounded.Mic"
+                    Size="@new("20")"
+                    Class="text-primary-300 shrink-0">
+        </LumexIcon>;
+
+    private RenderFragment _protocolContent =
+        @<div class="pointer-events-none flex items-center">
+            <span class="text-default-400 text-small">https://</span>
+        </div>;
+
+    private RenderFragment _domainContent =
+        @<div class="pointer-events-none flex items-center">
+            <span class="text-default-400 text-small">.org</span>
+        </div>;
+
+    private RenderFragment _emailDomainContent =
+        @<div class="pointer-events-none flex items-center">
+            <span class="text-default-400 text-small">&#64;doe.com</span>
+        </div>;
+}

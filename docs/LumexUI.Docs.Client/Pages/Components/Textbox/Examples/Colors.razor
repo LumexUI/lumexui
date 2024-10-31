@@ -1,0 +1,25 @@
+﻿<div class="w-full grid grid-cols-1 gap-4 md:grid-cols-2">
+    @foreach( var color in _colors )
+    {
+        <div>
+            <LumexTextbox Color="@color"
+                          Type="@InputType.Email"
+                          Label="Email"
+                          Placeholder="Enter your email"
+                          Value="john@doe.com" />
+            <small class="text-default-400 mt-1">@color</small>
+        </div>
+    }
+</div>
+
+@code {
+    private ThemeColor[] _colors = [
+        ThemeColor.Default,
+        ThemeColor.Primary,
+        ThemeColor.Secondary,
+        ThemeColor.Success,
+        ThemeColor.Warning,
+        ThemeColor.Danger,
+        ThemeColor.Info
+    ];
+}

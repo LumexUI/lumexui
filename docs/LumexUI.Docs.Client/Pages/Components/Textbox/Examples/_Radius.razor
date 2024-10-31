@@ -1,0 +1,18 @@
+﻿<div class="w-full grid grid-cols-1 gap-4 md:grid-cols-2">
+    @foreach( var radius in _radiuses )
+    {
+        <div>
+            <LumexTextbox Radius="@radius" Label="Radius" Placeholder="@radius.ToString()" />
+            <small class="text-default-400 mt-1">@radius</small>
+        </div>
+    }
+</div>
+
+@code {
+    private Radius[] _radiuses = [
+        Radius.None,
+        Radius.Small,
+        Radius.Medium,
+        Radius.Large
+    ];
+}

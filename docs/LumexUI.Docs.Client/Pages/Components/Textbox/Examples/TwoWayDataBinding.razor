@@ -1,0 +1,32 @@
+﻿<div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+    <div class="w-full flex flex-col gap-2">
+        <LumexTextbox Label="Value"
+                      Placeholder="Enter any value"
+                      Clearable="@true"
+                      @bind-Value="@_valueOne" />
+        <p class="text-sm text-default-500">
+            Value: @_valueOne
+        </p>
+    </div>
+
+    <div class="w-full flex flex-col gap-2">
+        <LumexTextbox Label="Value"
+                      Placeholder="Enter any value"
+                      Clearable="@true"
+                      Value="@_valueTwo"
+                      ValueChanged="@OnValueChanged" />
+        <p class="text-sm text-default-500">
+            Value: @_valueTwo
+        </p>
+    </div>
+</div>
+
+@code {
+    private string? _valueOne;
+    private string? _valueTwo = "value";
+
+    private void OnValueChanged( string value )
+    {
+        _valueTwo = value;
+    }
+}
