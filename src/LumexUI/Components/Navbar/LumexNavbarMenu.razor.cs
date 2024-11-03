@@ -60,10 +60,8 @@ public partial class LumexNavbarMenu : LumexComponentBase, IDisposable
         StateHasChanged();
     }
 
-    private void HandleLocationChanged( object? sender, LocationChangedEventArgs e )
-    {
-        Toggle();
-    }
+    private void HandleLocationChanged( object? sender, LocationChangedEventArgs e ) 
+        => Toggle();
 
     /// <inheritdoc />
     public void Dispose()

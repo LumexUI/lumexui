@@ -6,6 +6,7 @@ using LumexUI.Common;
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 
 namespace LumexUI;
 
@@ -13,9 +14,11 @@ namespace LumexUI;
 /// A component representing a button that toggles the <see cref="LumexNavbarMenu"/>.
 /// </summary>
 [CompositionComponent( typeof( LumexNavbar ) )]
-public partial class LumexNavbarMenuToggle : LumexComponentBase
+public partial class LumexNavbarMenuToggle : LumexComponentBase, IDisposable
 {
     [CascadingParameter] internal NavbarContext Context { get; set; } = default!;
+
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
     private protected override string? RootClass =>
         TwMerge.Merge( Navbar.GetToggleStyles( this ) );
@@ -35,10 +38,21 @@ public partial class LumexNavbarMenuToggle : LumexComponentBase
     protected override void OnInitialized()
     {
         ContextNullException.ThrowIfNull( Context, nameof( LumexNavbarMenuToggle ) );
+
+        NavigationManager.LocationChanged += HandleLocationChanged;
     }
+
+    private void HandleLocationChanged( object? sender, LocationChangedEventArgs e ) 
+        => StateHasChanged();
 
     private void Toggle()
     {
         Context.Menu?.Toggle();
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= HandleLocationChanged;
     }
 }
