@@ -36,4 +36,9 @@ public partial class LumexNavbarMenuToggle : LumexComponentBase
     {
         ContextNullException.ThrowIfNull( Context, nameof( LumexNavbarMenuToggle ) );
     }
+
+    private void Toggle()
+    {
+        Context.Menu?.Toggle();
+    }
 }

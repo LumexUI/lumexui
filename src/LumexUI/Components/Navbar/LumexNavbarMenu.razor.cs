@@ -3,12 +3,11 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
-using LumexUI.Extensions;
 using LumexUI.Styles;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components.Routing;
 
 namespace LumexUI;
 
@@ -16,7 +15,7 @@ namespace LumexUI;
 /// A component representing a collapsible menu for the <see cref="LumexNavbar"/>.
 /// </summary>
 [CompositionComponent( typeof( LumexNavbar ) )]
-public partial class LumexNavbarMenu : LumexComponentBase
+public partial class LumexNavbarMenu : LumexComponentBase, IDisposable
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the navbar menu.
@@ -25,7 +24,9 @@ public partial class LumexNavbarMenu : LumexComponentBase
 
     [CascadingParameter] internal NavbarContext Context { get; set; } = default!;
 
-    [Inject] private IJSRuntime JS { get; set; } = default!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+
+    internal bool Expanded { get; private set; }
 
     private protected override string? RootClass =>
         TwMerge.Merge( Navbar.GetMenuStyles( this ) );
@@ -49,7 +50,24 @@ public partial class LumexNavbarMenu : LumexComponentBase
     {
         ContextNullException.ThrowIfNull( Context, nameof( LumexNavbarMenu ) );
 
-        Context.Register( this );
-        Context.OnMenuToggle += StateHasChanged;
+        Context.RegisterMenu( this );
+        NavigationManager.LocationChanged += HandleLocationChanged;
+    }
+
+    internal void Toggle()
+    {
+        Expanded = !Expanded;
+        StateHasChanged();
+    }
+
+    private void HandleLocationChanged( object? sender, LocationChangedEventArgs e )
+    {
+        Toggle();
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= HandleLocationChanged;
     }
 }

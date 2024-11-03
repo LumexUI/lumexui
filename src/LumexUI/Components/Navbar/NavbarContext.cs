@@ -6,20 +6,9 @@ internal class NavbarContext( LumexNavbar owner ) : IComponentContext<LumexNavba
 {
     public LumexNavbar Owner { get; } = owner;
     public LumexNavbarMenu? Menu { get; private set; }
-    public bool IsMenuExpanded { get; private set; }
 
-    public event Action OnMenuToggle = default!;
-
-    public void Register( LumexNavbarMenu menu )
+    public void RegisterMenu( LumexNavbarMenu menu )
     {
         Menu = menu;
     }
-
-    public void ToggleMenu()
-    {
-        IsMenuExpanded = !IsMenuExpanded;
-        NotifyStateChanged();
-    }
-
-    private void NotifyStateChanged() => OnMenuToggle.Invoke();
 }
