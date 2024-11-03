@@ -18,7 +18,6 @@ internal readonly record struct Navbar
         .Add( "w-full" )
         .Add( "items-center" )
         .Add( "justify-center" )
-        .Add( "bg-background" )
         .ToString();
 
     private readonly static string _wrapper = ElementClass.Empty()
@@ -108,7 +107,6 @@ internal readonly record struct Navbar
         .Add( "bottom-0" )
         .Add( "inset-x-0" )
         .Add( "overflow-y-auto" )
-        .Add( "bg-background" )
         .ToString();
 
     private readonly static string _menuItem = ElementClass.Empty()
@@ -124,12 +122,6 @@ internal readonly record struct Navbar
     private readonly static string _bordered = ElementClass.Empty()
         .Add( "border-b" )
         .Add( "border-divider" )
-        .ToString();
-
-    private readonly static string _blurred = ElementClass.Empty()
-        .Add( "backdrop-blur-lg" )
-        .Add( "backdrop-saturate-150" )
-        .Add( "bg-background/70" )
         .ToString();
 
     private static ElementClass GetMaxWidthStyles( MaxWidth maxWidth )
@@ -149,13 +141,37 @@ internal readonly record struct Navbar
             .Add( "ms-auto", when: align is Align.End );
     }
 
+    private static ElementClass GetBlurredStyles( bool blurred, string slot )
+    {
+        return blurred switch
+        {
+            false => ElementClass.Empty()
+                .Add( "bg-background", when: slot is nameof( _base ) )
+                .Add( "bg-background", when: slot is nameof( _menu ) ),
+
+            true => ElementClass.Empty()
+                // https://stackoverflow.com/questions/60997948/backdrop-filter-not-working-for-nested-elements-in-chrome
+                .Add( ElementClass.Empty()
+                    .Add( "before:-z-10" )
+                    .Add( "before:absolute" )
+                    .Add( "before:inset-0" )
+                    .Add( "before:backdrop-blur-lg" )
+                    .Add( "before:backdrop-saturate-150" )
+                    .Add( "before:bg-background/70" ), when: slot is nameof( _base ) )
+                .Add( ElementClass.Empty()
+                    .Add( "backdrop-blur-lg" )
+                    .Add( "backdrop-saturate-150" )
+                    .Add( "bg-background/70" ), when: slot is nameof( _menu ) )
+        };
+    }
+
     public static string GetStyles( LumexNavbar navbar )
     {
         return ElementClass.Empty()
             .Add( _base )
             .Add( _sticky, when: navbar.Sticky )
             .Add( _bordered, when: navbar.Bordered )
-            .Add( _blurred, when: navbar.Blurred )
+            .Add( GetBlurredStyles( navbar.Blurred, slot: nameof( _base ) ) )
             .Add( navbar.Classes?.Root )
             .Add( navbar.Class )
             .ToString();
@@ -210,7 +226,7 @@ internal readonly record struct Navbar
 
         return ElementClass.Empty()
             .Add( _menu )
-            .Add( _blurred, when: navbar.Blurred )
+            .Add( GetBlurredStyles( navbar.Blurred, slot: nameof( _menu ) ) )
             .Add( navbar.Classes?.Menu )
             .Add( navbarMenu.Class )
             .ToString();

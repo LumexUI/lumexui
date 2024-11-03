@@ -36,8 +36,6 @@ public partial class LumexNavbarMenu : LumexComponentBase
             .Add( base.RootStyle )
             .ToString();
 
-    private LumexCollapse? _collapse;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexNavbarMenu"/>.
     /// </summary>
@@ -53,14 +51,5 @@ public partial class LumexNavbarMenu : LumexComponentBase
 
         Context.Register( this );
         Context.OnMenuToggle += StateHasChanged;
-    }
-
-    /// <inheritdoc />
-    protected override async Task OnAfterRenderAsync( bool firstRender )
-    {
-        if( firstRender )
-        {
-            await _collapse!.ElementReference.PortalToAsync();
-        }
     }
 }
