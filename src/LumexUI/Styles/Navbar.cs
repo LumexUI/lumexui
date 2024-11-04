@@ -14,6 +14,7 @@ internal readonly record struct Navbar
 {
     private readonly static string _base = ElementClass.Empty()
         .Add( "z-40" )
+        .Add( "relative" )
         .Add( "flex" )
         .Add( "w-full" )
         .Add( "items-center" )
