@@ -1,0 +1,214 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.JSInterop
+
+@using LumexUI.Common
+
+@using TailwindMerge
+
+@code {
+    public static IEnumerable<object[]> EmptyData => new List<object[]>
+    {
+        new object[] { Array.Empty<TestModel>().AsQueryable() }
+    }; 
+    private static readonly IQueryable<TestModel> _data = new TestModel[]
+    {
+        new("Test1"),
+        new("Test2"),
+        new("Test3"),
+        new("Test4"),
+        new("Test5")
+    }.AsQueryable();
+
+    private static readonly DataSource<TestModel> _dataSource = async req =>
+    {
+        return DataSourceResult.From( Array.Empty<TestModel>(), 0 );
+    };
+
+    public DataGridTests()
+    {
+        Services.AddSingleton<TwMerge>();
+
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/data-grid.js" );
+        var module2 = module.SetupModule( "dataGrid.initialize", _ => true );
+        //module.SetupVoid( "dataGrid.destroy", _ => true );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexDataGrid Data="@_data">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderEmptyContentCorrectly()
+    {
+        var data = new List<TestModel>().AsQueryable();
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+    );
+
+        var emptyWrapper = cut.Find( "[data-slot=empty-wrapper]" );
+
+        emptyWrapper.Should().NotBeNull();
+        emptyWrapper.TextContent.Should().Be( "No records available." );
+    }
+
+    [Fact]
+    public void ShouldRenderCustomEmptyContentCorrectly()
+    {
+        var data = new List<TestModel>().AsQueryable();
+        RenderFragment emptyContent = @<text>Test</text>;
+        var cut = Render(
+            @<LumexDataGrid Data="@data" EmptyContent="@emptyContent">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+    );
+
+        var emptyWrapper = cut.Find( "[data-slot=empty-wrapper]" );
+
+        emptyWrapper.Should().NotBeNull();
+        emptyWrapper.TextContent.Should().Be( "Test" );
+    }
+
+    [Theory]
+    [InlineData( null )]
+    [MemberData( nameof( EmptyData ) )]
+    public void ShouldRenderEmptyContentDuringLoading( IQueryable<TestModel>? data )
+    {
+        var cut = Render(
+            @<LumexDataGrid Data="@data" Loading="@true">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+        );
+
+        var emptyWrapper = cut.Find( "[data-slot=empty-wrapper]" );
+
+        emptyWrapper.Should().NotBeNull();
+        emptyWrapper.TextContent.Should().Be( "No records available." );
+    }
+
+    [Fact]
+    public void ShouldRenderLoadingContentCorrectly()
+    {
+        var cut = Render(
+            @<LumexDataGrid Data="@_data" Loading="@true">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+        );
+
+        var loadingWrapper = cut.Find( "[data-slot=loading-wrapper]" );
+
+        loadingWrapper.Should().NotBeNull();
+        loadingWrapper.TextContent.Should().Be( "Loading..." );
+    }
+
+    [Fact]
+    public void ShouldRenderCustomLoadingContentCorrectly()
+    {
+        RenderFragment loadingContent = @<text>Test</text>;
+        var cut = Render(
+            @<LumexDataGrid Data="@_data" 
+                            Loading="@true" 
+                            LoadingContent="@loadingContent">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+        );
+
+        var loadingWrapper = cut.Find( "[data-slot=loading-wrapper]" );
+
+        loadingWrapper.Should().NotBeNull();
+        loadingWrapper.TextContent.Should().Be( "Test" );
+    }
+
+    [Fact]
+    public void ShouldRenderVirtualizeCorrectly()
+    {
+        var cut = Render<LumexDataGrid<TestModel>>(
+            @<LumexDataGrid Data="@_data" Virtualize="@true">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+        );
+
+        var virtualize = cut.FindComponent<Virtualize<(int, TestModel)>>();
+
+        virtualize.Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData( SelectionMode.Single )]
+    [InlineData( SelectionMode.Multiple )]
+    public void ShouldRenderCheckboxColumnWithSelection( SelectionMode selectionMode )
+    {
+        var cut = Render(
+            @<LumexDataGrid Data="@_data" SelectionMode="@selectionMode">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+    );
+
+        var checkboxColumn = cut.FindComponent<_CheckboxColumn<TestModel>>();
+
+        checkboxColumn.Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData( SelectionMode.Single )]
+    [InlineData( SelectionMode.Multiple )]
+    public void ShouldSelectRowOnCheckboxClickWithSelection( SelectionMode selectionMode )
+    {
+        ICollection<TestModel> selectedItems = []; 
+        var cut = Render<LumexDataGrid<TestModel>>(
+            @<LumexDataGrid Data="@_data" 
+                            SelectionMode="@selectionMode" 
+                            @bind-SelectedItems="@selectedItems">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+        );
+
+        var checkbox = cut.Find( "tbody input[type=checkbox]" );
+        checkbox.Change( true );
+
+        selectedItems.Should().HaveCount(1);
+        cut.Instance.SelectedItems.Should().HaveCount(1);
+    }
+
+    [Fact]
+    public void ShouldAutomaticallySetHoverableWithSelection()
+    {
+        var cut = Render<LumexDataGrid<TestModel>>(
+            @<LumexDataGrid Data="@_data" SelectionMode="@SelectionMode.Single">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+        ); 
+
+        cut.Instance.Hoverable.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldThrowWhenDataAndDataSourceProvided()
+    {
+        var action = () => Render(
+            @<LumexDataGrid Data="@_data" DataSource="@_dataSource">
+                <PropertyColumn Property="@(p => p.Property1)" />
+            </LumexDataGrid>
+        );
+
+        action.Should().Throw<InvalidOperationException>();
+    }
+
+    public class TestModel( string? property1 )
+    {
+        public string? Property1 { get; set; } = property1;
+    }
+}
