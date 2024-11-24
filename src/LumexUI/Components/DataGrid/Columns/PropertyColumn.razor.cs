@@ -37,7 +37,7 @@ public partial class PropertyColumn<T, P> : LumexColumnBase<T>
             $"PropertyColumn generates this member internally. For custom sorting rules, see '{typeof( TemplateColumn<T> )}'." );
     }
 
-    internal bool ProperyHasChanged { get; private set; }
+    internal bool PropertyHasChanged { get; private set; }
 
     private Expression<Func<T, P>>? _lastAssignedProperty;
     private Func<T, string?>? _cellContentFunc;
@@ -46,10 +46,10 @@ public partial class PropertyColumn<T, P> : LumexColumnBase<T>
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        ProperyHasChanged = _lastAssignedProperty?.ToString() != Property.ToString();
+        PropertyHasChanged = _lastAssignedProperty?.ToString() != Property.ToString();
 
         // Only do the pre-processing on the lambda expression if it's changed.
-        if( ProperyHasChanged )
+        if( PropertyHasChanged )
         {
             _lastAssignedProperty = Property;
             var compiledPropertyExpession = Property.Compile();

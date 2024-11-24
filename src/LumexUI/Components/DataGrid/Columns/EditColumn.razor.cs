@@ -47,7 +47,7 @@ public partial class EditColumn<T, P> : PropertyColumn<T, P>, IEditableColumn
         }
 
         // Only do the pre-processing on the lambda expression if it's changed.
-        if( ProperyHasChanged )
+        if( PropertyHasChanged )
         {
             if( typeof( P ).IsString() )
             {
