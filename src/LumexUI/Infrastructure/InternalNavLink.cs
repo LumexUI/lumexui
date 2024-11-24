@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 using LumexUI.Utilities;
 
@@ -11,6 +12,10 @@ namespace LumexUI.Infrastructure;
 /// An internal component representing the navigation link that 
 /// overrides default behavior of the native <see cref="NavLink"/>.
 /// </summary>
+/// <remarks>
+/// For internal use only.
+/// </remarks>
+[EditorBrowsable( EditorBrowsableState.Never )]
 public class InternalNavLink : NavLink
 {
     /// <summary>

@@ -12,7 +12,7 @@ namespace LumexUI;
 public partial class PropertyColumn<T, P> : LumexColumnBase<T>
 {
     /// <summary>
-    /// Gets or sets the content to be rendered for each row in the column.
+    /// Gets or sets the content to be rendered for each cell in the column.
     /// </summary>
     [Parameter] public RenderFragment<T>? Content { get; set; }
 

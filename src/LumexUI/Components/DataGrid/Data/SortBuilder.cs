@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 
 using LumexUI.Common;
 
@@ -8,6 +9,7 @@ namespace LumexUI;
 /// Represents a sort order specification used within <see cref="LumexDataGrid{T}"/>.
 /// </summary>
 /// <typeparam name="T">The type of data represented by each row in the grid.</typeparam>
+[ExcludeFromCodeCoverage( Justification = "Taken from the Blazor QuickGrid." )]
 public sealed class SortBuilder<T>
 {
     private const string ExpressionNotRepresentableMessage = "The supplied expression can't be represented as a property name for sorting. Only simple member expressions, such as @(x => x.SomeProperty), can be converted to property names.";
@@ -21,8 +23,8 @@ public sealed class SortBuilder<T>
     private IReadOnlyCollection<SortDescriptor>? _cachedPropertyListAscending;
     private IReadOnlyCollection<SortDescriptor>? _cachedPropertyListDescending;
 
-    internal SortBuilder( 
-        Func<IQueryable<T>, bool, IOrderedQueryable<T>> first, 
+    internal SortBuilder(
+        Func<IQueryable<T>, bool, IOrderedQueryable<T>> first,
         (LambdaExpression, bool) firstExpression )
     {
         _first = first;

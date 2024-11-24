@@ -8,12 +8,10 @@ namespace LumexUI;
 /// <typeparam name="T">The type of data represented by each row in the grid.</typeparam>
 public partial class TemplateColumn<T> : LumexColumnBase<T>
 {
-    private static readonly RenderFragment<T> EmptyChildContent = _ => builder => { };
-
     /// <summary>
     /// Gets or sets the content to be rendered for each row in the column.
     /// </summary>
-    [Parameter] public RenderFragment<T> ChildContent { get; set; } = EmptyChildContent;
+    [Parameter] public RenderFragment<T>? ChildContent { get; set; }
 
     /// <inheritdoc/>
     [Parameter] public override SortBuilder<T>? SortBy { get; set; }

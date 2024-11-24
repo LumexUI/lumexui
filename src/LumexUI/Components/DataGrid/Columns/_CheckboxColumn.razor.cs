@@ -15,6 +15,7 @@ namespace LumexUI;
 public partial class _CheckboxColumn<T> : LumexColumnBase<T>
 {
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
     public override SortBuilder<T>? SortBy
     {
         get => throw new NotImplementedException();
@@ -76,10 +77,9 @@ public partial class _CheckboxColumn<T> : LumexColumnBase<T>
         if( DataGrid.Data is not null )
         {
             var selectableItems = DataGrid.Data
-                .Where( i => !DataGrid.DisabledItems.Contains( i ) )
-                .ToArray();
+                .Where( i => !DataGrid.DisabledItems.Contains( i ) );
 
-            return selectableItems.Length == DataGrid.SelectedItems.Count;
+            return selectableItems.Count() == DataGrid.SelectedItems.Count;
         }
 
         return false;
@@ -87,6 +87,6 @@ public partial class _CheckboxColumn<T> : LumexColumnBase<T>
 
     private bool IsItemSelected( T item )
     {
-        return Context.Owner.SelectedItems.Contains( item );
+        return DataGrid.SelectedItems.Contains( item );
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using Microsoft.AspNetCore.Components;
 
 namespace LumexUI.DataGrid.Core;
 
@@ -8,6 +10,7 @@ namespace LumexUI.DataGrid.Core;
 /// while retaining error flow.
 /// </summary>
 /// <typeparam name="T">A type for the eventargs.</typeparam>
+[ExcludeFromCodeCoverage( Justification = "Taken from the Blazor QuickGrid." )]
 internal sealed class EventCallbackSubscribable<T>
 {
     private readonly Dictionary<EventCallbackSubscriber<T>, EventCallback<T>> _callbacks = [];

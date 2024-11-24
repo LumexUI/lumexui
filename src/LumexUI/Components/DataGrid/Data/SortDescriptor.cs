@@ -1,10 +1,13 @@
-﻿using LumexUI.Common;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using LumexUI.Common;
 
 namespace LumexUI;
 
 /// <summary>
 /// Represents a descriptor for sorting.
 /// </summary>
+[ExcludeFromCodeCoverage( Justification = "Taken from the Blazor QuickGrid." )]
 public readonly struct SortDescriptor
 {
     /// <summary>

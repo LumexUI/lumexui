@@ -36,6 +36,7 @@ namespace LumexUI.DataGrid.Core;
 /// <typeparam name="T">For internal use only.</typeparam>
 [EditorBrowsable( EditorBrowsableState.Never )]
 [SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "For internal use only." )]
+[ExcludeFromCodeCoverage( Justification = "Taken from the Blazor QuickGrid." )]
 public sealed class _ColumnsCollectedNotifier<T> : IComponent
 {
     private bool _isFirstRender = true;

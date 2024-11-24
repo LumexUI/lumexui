@@ -10,6 +10,9 @@
     /// <inheritdoc />
     protected internal override void RenderCellContent( RenderTreeBuilder __builder, T item )
     {
-        @ChildContent( item )
+        if( ChildContent is not null )
+        {
+            @ChildContent( item )
+        }
     }
 }

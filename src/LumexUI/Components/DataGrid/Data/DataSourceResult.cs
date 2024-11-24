@@ -1,9 +1,12 @@
-﻿namespace LumexUI;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace LumexUI;
 
 /// <summary>
 /// Holds data being supplied to a <see cref="LumexDataGrid{T}"/>'s <see cref="LumexDataGrid{T}.DataSource"/>.
 /// </summary>
 /// <typeparam name="T">The type of data represented by each row in the grid.</typeparam>
+[ExcludeFromCodeCoverage( Justification = "Taken from the Blazor QuickGrid." )]
 public readonly struct DataSourceResult<T>
 {
     /// <summary>

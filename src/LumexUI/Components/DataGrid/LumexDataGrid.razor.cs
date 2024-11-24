@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+
 using LumexUI.Common;
 using LumexUI.DataGrid.Core;
 using LumexUI.DataGrid.Interfaces;
@@ -452,18 +454,17 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable, IS
         }
 
         var itemSelected = SelectedItems.Remove( item );
-
-        if( SelectionMode is SelectionMode.Single )
+        if( !itemSelected )
         {
-            if( !itemSelected )
+            if( SelectionMode is SelectionMode.Single )
             {
                 SelectedItems.Clear();
                 SelectedItems.Add( item );
             }
-        }
-        else if( SelectionMode is SelectionMode.Multiple && !itemSelected )
-        {
-            SelectedItems.Add( item );
+            else if( SelectionMode is SelectionMode.Multiple )
+            {
+                SelectedItems.Add( item );
+            }
         }
 
         await SelectedItemsChanged.InvokeAsync( SelectedItems );
@@ -496,6 +497,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable, IS
     }
 
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
     public async ValueTask DisposeAsync()
     {
         try

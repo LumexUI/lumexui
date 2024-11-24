@@ -1,7 +1,9 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 
 namespace LumexUI.Extensions;
 
+[ExcludeFromCodeCoverage]
 internal static class TypeExtensions
 {
     private static readonly HashSet<Type?> _numericTypes = [
@@ -28,10 +30,5 @@ internal static class TypeExtensions
     public static bool IsString( this Type type )
     {
         return typeof( string ) == type;
-    }
-
-    public static bool IsDateTime( this Type type )
-    {
-        return typeof( DateTime ) == type || typeof( DateTime? ) == type;
     }
 }

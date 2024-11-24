@@ -43,7 +43,7 @@ public partial class EditColumn<T, P> : PropertyColumn<T, P>, IEditableColumn
         {
             throw new InvalidOperationException(
                 $"{GetType()} requires the property '{nameof( Property.Body )}' to be of " +
-                $"type '{nameof( MemberExpression )}' aka 'p => p.SomeProperty'." );
+                $"type '{nameof( MemberExpression )}' (e.g., 'p => p.SomeProperty')." );
         }
 
         // Only do the pre-processing on the lambda expression if it's changed.
@@ -66,24 +66,19 @@ public partial class EditColumn<T, P> : PropertyColumn<T, P>, IEditableColumn
         var memberExpression = (MemberExpression)memberLambda.Body;
         var parameter = Expression.Parameter( typeof( V ), "value" );
 
-        Expression? valueExpression;
+        Expression? valueExpression = Expression.Empty();
 
-        if( typeof( P ) == typeof( string ) )
+        if( typeof( P ).IsString() )
         {
             valueExpression = parameter;
         }
-        else if( typeof( P ).IsValueType && Nullable.GetUnderlyingType( typeof( V ) ) == typeof( double ) )
+        else if( typeof( P ).IsNumeric() )
         {
-            // For numeric types, handle nullable double conversion
             valueExpression = Expression.Condition(
-                Expression.Property( parameter, "HasValue" ), // Check if has a value
-                Expression.Convert( Expression.Property( parameter, "Value" ), typeof( P ) ), // Convert value to type `P`..
-                Expression.Default( typeof( P ) ) // .. or assign default value for `P`
+                Expression.Property( parameter, "HasValue" ),
+                Expression.Convert( Expression.Property( parameter, "Value" ), typeof( P ) ),
+                Expression.Default( typeof( P ) )
             );
-        }
-        else
-        {
-            throw new InvalidOperationException( $"Unsupported type {typeof( P )}" );
         }
 
         var assign = Expression.Assign( memberExpression, valueExpression );

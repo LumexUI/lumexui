@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -10,8 +11,9 @@ namespace LumexUI.Infrastructure;
 /// to the end of the render queue so we can collect the list of child components first.
 /// </summary>
 /// <remarks>
-/// For internal use only. Do not use.
+/// For internal use only.
 /// </remarks>
+[ExcludeFromCodeCoverage(Justification = "Taken from the Blazor QuickGrid.")]
 [EditorBrowsable( EditorBrowsableState.Never )]
 public class Defer : ComponentBase
 {

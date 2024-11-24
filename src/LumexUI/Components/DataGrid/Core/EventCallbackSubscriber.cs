@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using Microsoft.AspNetCore.Components;
 
 namespace LumexUI.DataGrid.Core;
 
@@ -8,6 +10,7 @@ namespace LumexUI.DataGrid.Core;
 /// and automatically unsubscribes from earlier <see cref="EventCallbackSubscribable{T}"/> instances
 /// whenever it moves to a new one.
 /// </summary>
+[ExcludeFromCodeCoverage( Justification = "Taken from the Blazor QuickGrid." )]
 internal sealed class EventCallbackSubscriber<T> : IDisposable
 {
     private readonly EventCallback<T> _handler;
