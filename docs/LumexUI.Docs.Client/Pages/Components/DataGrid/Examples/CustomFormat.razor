@@ -1,0 +1,18 @@
+﻿<LumexDataGrid Data="@_users">
+    <PropertyColumn Property="@(p => p.Name)" />
+    <PropertyColumn Property="@(p => p.Role)" />
+    <PropertyColumn Property="@(p => p.Salary)" Format="C0" />
+    <PropertyColumn Property="@(p => p.Status)" />
+</LumexDataGrid>
+
+@code {
+    private readonly IQueryable<User> _users = new List<User>
+    {
+        new( "Alice Johnson", "Administrator", 3000, "Active" ),
+        new( "Bob Smith", "Editor", 2000, "Inactive" ),
+        new( "Charlie Brown", "Viewer", 1500, "Pending" ),
+        new( "Diana Lee", "Moderator", 2500, "Active" )
+    }.AsQueryable();
+
+    private record User( string Name, string Role, decimal Salary, string Status );
+}

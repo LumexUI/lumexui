@@ -12,7 +12,8 @@
                 data-required="@Utils.GetDataAttributeValue( Required )"
                 data-focus="@Utils.GetDataAttributeValue( Focused )"
                 data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )"
-                data-hidden="@Utils.GetDataAttributeValue( _inputType is "hidden" )">
+                data-hidden="@Utils.GetDataAttributeValue( _inputType is "hidden" )"
+                @onclick:stopPropagation="@true">
     @_renderMainWrapper
 </LumexComponent>
 

@@ -1,0 +1,29 @@
+﻿@namespace LumexUI
+@inherits LumexColumnBase<T>
+@typeparam T
+
+@{
+    base.BuildRenderTree( __builder );
+}
+
+@code {
+    /// <inheritdoc />
+    protected internal override void RenderHeaderCellContent( RenderTreeBuilder __builder )
+    {
+        if( DataGrid.SelectionMode is SelectionMode.Multiple )
+        {
+            <LumexCheckbox Color="@DataGrid.Color"
+                           Value="@AreAllItemsSelected()"
+                           ValueChanged="@SelectAllItemsAsync" />
+        }
+    }
+
+    /// <inheritdoc />
+    protected internal override void RenderCellContent( RenderTreeBuilder __builder, T item )
+    {
+        <LumexCheckbox Color="@DataGrid.Color"
+                       Disabled="@DataGrid.DisabledItems.Contains(item)"
+                       Value="@IsItemSelected(item)"
+                       ValueChanged="@((value) => SelectItemAsync(item, value))" />
+    }
+}

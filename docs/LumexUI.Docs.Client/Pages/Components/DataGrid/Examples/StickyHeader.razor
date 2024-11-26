@@ -1,0 +1,35 @@
+﻿<LumexDataGrid Data="@_users"
+               StickyHeader="@true"
+               Class="max-h-64">
+    <PropertyColumn Property="@(p => p.Name)" />
+    <PropertyColumn Property="@(p => p.Role)" />
+    <PropertyColumn Property="@(p => p.Status)" />
+</LumexDataGrid>
+
+@code {
+    private readonly IQueryable<User> _users = new List<User>
+    {
+        new("Alice Johnson", "Admin", "Active"),
+        new("Bob Smith", "Moderator", "Inactive"),
+        new("Carol Brown", "User", "Pending"),
+        new("David Wilson", "Admin", "Active"),
+        new("Eve Davis", "User", "Banned"),
+        new("Frank Miller", "Moderator", "Active"),
+        new("Grace Hall", "User", "Active"),
+        new("Hank Lee", "Admin", "Pending"),
+        new("Ivy Clark", "User", "Inactive"),
+        new("Jack White", "Moderator", "Banned"),
+        new("Kathy Young", "Admin", "Active"),
+        new("Leo King", "User", "Pending"),
+        new("Mona Baker", "Moderator", "Active"),
+        new("Nate Adams", "User", "Banned"),
+        new("Olive Moore", "Admin", "Inactive"),
+        new("Paul Harris", "User", "Active"),
+        new("Quincy Evans", "Moderator", "Pending"),
+        new("Rita Torres", "Admin", "Banned"),
+        new("Sam Ramirez", "User", "Inactive"),
+        new("Tina Perez", "Moderator", "Active")
+    }.AsQueryable();
+
+    private record User( string Name, string Role, string Status );
+}

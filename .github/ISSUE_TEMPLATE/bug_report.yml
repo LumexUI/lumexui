@@ -1,4 +1,4 @@
-name: Bug report
+name: Bug Report
 description: 🐛 If something is broken with LumexUI, create a bug report to help us improve.
 title: "[Bug]: *BUG_TITLE*"
 labels: ["bug"]

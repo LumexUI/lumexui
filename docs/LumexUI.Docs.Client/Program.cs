@@ -6,6 +6,7 @@ using TailwindMerge.Models;
 
 var builder = WebAssemblyHostBuilder.CreateDefault( args );
 
+builder.Services.AddHttpClient();
 builder.Services.AddLumexServices( options =>
 {
     options.Extend( new ExtendedConfig()

@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder( args );
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddHttpClient();
 builder.Services.AddLumexServices( options =>
 {
     options.Extend( new ExtendedConfig()

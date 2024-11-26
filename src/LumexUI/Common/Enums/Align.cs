@@ -10,12 +10,17 @@ namespace LumexUI.Common;
 public enum Align
 {
     /// <summary>
-    /// Aligns the content at the start.
+    /// Aligns the content to the start.
     /// </summary>
     Start,
 
     /// <summary>
-    /// Aligns the content at the end.
+    /// Aligns the content to the center.
+    /// </summary>
+    Center,
+
+    /// <summary>
+    /// Aligns the content to the end.
     /// </summary>
     End
 }

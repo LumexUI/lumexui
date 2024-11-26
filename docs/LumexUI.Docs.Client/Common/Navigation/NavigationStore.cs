@@ -18,7 +18,7 @@ public class NavigationStore
             .Add( new( "Theme" ) )
             .Add( new( "Layout" ) )
             .Add( new( "Colors" ) )
-            .Add( new( "Customize Theme", locked: true ) );
+            .Add( new( "Customize Theme", NavItemStatus.Soon ) );
 
     private static NavigationCategory ComponentsCategory =>
         new NavigationCategory( "Components", Icons.Rounded.Joystick )
@@ -28,11 +28,12 @@ public class NavigationStore
             .Add( new( nameof( LumexCheckbox ) ) )
             .Add( new( nameof( LumexCheckboxGroup ) ) )
             .Add( new( nameof( LumexCollapse ) ) )
+            .Add( new( nameof( LumexDataGrid<T> ), NavItemStatus.Preview ) )
             .Add( new( nameof( LumexDivider ) ) )
             .Add( new( nameof( LumexIcon ) ) )
             .Add( new( nameof( LumexLink ) ) )
             .Add( new( nameof( LumexNavbar ) ) )
-            .Add( new( nameof( LumexNumbox<T> ), locked: true ) )
+            .Add( new( nameof( LumexNumbox<T> ), NavItemStatus.Soon ) )
             .Add( new( nameof( LumexPopover ) ) )
             .Add( new( nameof( LumexSwitch ) ) )
             .Add( new( nameof( LumexTextbox ) ) );

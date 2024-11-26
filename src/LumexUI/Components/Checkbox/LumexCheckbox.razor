@@ -8,7 +8,8 @@
                 data-disabled="@GetDisabledState().ToAttributeValue()"
                 data-readonly="@GetReadOnlyState().ToAttributeValue()"
                 tabindex="0"
-                @attributes="@AdditionalAttributes">
+                @attributes="@AdditionalAttributes"
+                @onclick:stopPropagation="@true">
     <span class="@WrapperClass">
         <span class="@StyleUtils.VisuallyHidden">
             <input type="checkbox"

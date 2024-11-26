@@ -1,0 +1,321 @@
+﻿@page "/docs/components/data-grid"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.DataGrid.PreviewCodes
+
+<DocsSection Title="Columns">
+    <p>
+        The data grid component provides several column components to
+        define and customize the structure and behavior of your grid.
+        Each column type serves a specific purpose, making it easy to tailor the grid to your needs.
+    </p>
+
+    <DocsSection Title="Base">
+        <p>
+            The <Code>ColumnBase</Code> is the foundational class for all column components in the data grid.
+            It provides common properties and functionality that other column types inherit,
+            serving as the base for custom column implementations.
+        </p>
+    </DocsSection>
+
+    <DocsSection Title="Template">
+        <p>
+            The <Code>TemplateColumn</Code> is a flexible column type not bound to any specific model property.
+            It uses arbitrary Razor fragments to supply contents for its cells.
+            It can't infer the column's title or sort order automatically.
+        </p>
+    </DocsSection>
+
+    <DocsSection Title="Property">
+        <p>
+            The <Code>PropertyColumn</Code>  is used to bind to a specific property of your data model.
+            It automatically displays the value of the bound property for each row.
+            This column infers sorting rules automatically,
+            and uses the property's name as its title if not otherwise set.
+        </p>
+    </DocsSection>
+
+    <DocsSection Title="Edit">
+        <p>
+            The <Code>EditColumn</Code> extends the functionality of <Code>PropertyColumn</Code> by enabling incell editing.
+            This column type is ideal for editable grids where users need to update data directly.
+        </p>
+    </DocsSection>
+</DocsSection>
+
+<DocsSection Title="Usage">
+    <p>
+        The data grid component provides a powerful way to
+        display and manage large sets of data.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Loading">
+        <p>
+            Indicate a loading state while data is being fetched,
+            displaying a loading message or spinner.
+        </p>
+        <Loading />
+    </DocsSection>
+
+    <DocsSection Title="Hoverable">
+        <p>Enable hover effects on rows to enhance visual feedback during interaction.</p>
+        <Hoverable />
+    </DocsSection>
+
+    <DocsSection Title="Striped">
+        <p>Alternate row colors for better readability in large datasets.</p>
+        <Striped />
+    </DocsSection>
+
+    <DocsSection Title="Sticky Header">
+        <p>Keep the header fixed at the top as users scroll through data.</p>
+        <StickyHeader />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>Adjust border radius for a more rounded or square appearance.</p>
+        <Radius />
+    </DocsSection>
+
+    <DocsSection Title="Shadows">
+        <p>Add shadows for an elevated, visually distinct look.</p>
+        <Shadows />
+    </DocsSection>
+
+    <DocsSection Title="Table Layout">
+        <p>
+            Choose between different table layouts,
+            such as <Code>Fixed</Code> or <Code>Auto</Code>.
+        </p>
+        <Layout />
+    </DocsSection>
+
+    <DocsSection Title="Disabled Items">
+        <p>Mark specific rows as disabled to prevent interactions on them.</p>
+        <DisabledItems />
+    </DocsSection>
+
+    <DocsSection Title="Selected Items">
+        <h4>Single Selection</h4>
+        <p>
+            The data grid supports single selection mode,
+            allowing users to select one row at a time.
+        </p>
+        <SingleSelection />
+
+        <h4>Multiple Selection</h4>
+        <p>
+            The data grid also supports multiple selection mode,
+            enabling users to select multiple rows simultaneously.
+        </p>
+        <MultipleSelection />
+
+        <Callout Variant="@CalloutVariant.Info">
+            A checkbox column automatically appears as the first column
+            for easy row selection, alongside row selection on click.
+        </Callout>
+    </DocsSection>
+
+    <DocsSection Title="Editing">
+        <p>
+            Allow incell editing for easy data updates
+            directly within the grid using <Code>EditColumn</Code>.
+        </p>
+        <Editing />
+    </DocsSection>
+
+    <DocsSection Title="Sorting">
+        <p>
+            Enable sorting by column headers to arrange
+            data in ascending or descending order.
+        </p>
+        <Sorting />
+    </DocsSection>
+
+    <DocsSection Title="Virtualization">
+        <p>
+            Optimize performance by loading only the rows
+            visible within the viewport.
+        </p>
+        <Virtualization />
+
+        <Callout Variant="@CalloutVariant.Warning">
+            For virtualization to work properly and reliably,
+            you must ensure that every row renders with the same known height.
+            Otherwise, scrolling will behave erratically.
+        </Callout>
+    </DocsSection>
+
+    <DocsSection Title="Custom Cells">
+        <p>
+            Customize individual column cells to display specific
+            content or styles using the <Code>Content</Code> parameter.
+        </p>
+        <CustomCells />
+
+        <p>
+            Alternatively, you can provide an arbitrary content to
+            the <Code>TemplateColumn</Code>, such as action buttons.
+        </p>
+        <CustomCellsTemplateColumn />
+
+        <Callout Variant="@CalloutVariant.Tip">
+            Rendering numerous components or event handlers can affect grid performance.
+            Mitigate this by using pagination or virtualization to reduce the
+            number of components displayed at a time.
+        </Callout>
+    </DocsSection>
+
+    <DocsSection Title="Custom Format">
+        <p>
+            The data grid allows you to define custom formatting for column values, 
+            enabling you to display data in a specific way, such as formatting dates, numbers, or strings.
+        </p>
+        <CustomFormat />
+    </DocsSection>
+
+    <DocsSection Title="Dynamic Columns">
+        <p>
+            The data grid supports dynamic columns, allowing you to show or hide
+            columns based on runtime conditions for a flexible and responsive layout.
+        </p>
+        <DynamicColumns />
+    </DocsSection>
+
+    <DocsSection Title="Header Content">
+        <p>The data grid allows a complete replacement of the default header cell contents.</p>
+        <HeaderContent />
+    </DocsSection>
+
+    <DocsSection Title="Empty Content">
+        <p>
+            The data grid allows you to define custom content or messages
+            that display when there is no data to show.
+        </p>
+        <EmptyContent />
+    </DocsSection>
+
+    <DocsSection Title="Loading Content">
+        <p>
+            The data grid component allows you to display custom loading content,
+            giving users a visual cue while data is being fetched or processed.
+        </p>
+        <LoadingContent />
+    </DocsSection>
+
+    <DocsSection Title="Toolbar Content">
+        <p>Add a toolbar with custom actions or filters above the grid.</p>
+        <ToolbarContent />
+    </DocsSection>
+
+    <DocsSection Title="Remote Data">
+        <p>Fetch data from an external source to populate the grid.</p>
+        <RemoteDataSource />
+
+        <Callout Variant="@CalloutVariant.Warning">
+            It's only possible to perform data operations, such as sorting,
+            filtering, or others, that are supported by the external API.
+        </Callout>
+    </DocsSection>
+
+    <DocsSection Title="Row Click">
+        <p>
+            The data grid exposes an <Code>OnRowClick</Code> event,
+            triggered whenever a row is clicked.
+        </p>
+        <OnRowClick />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">DataGrid</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names for the base container of the data grid.</li>
+            <li><Code>Classes</Code>: The CSS class names for the data grid slots.</li>
+        </ul>
+    </div>
+    @* <CustomStyles /> *@
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Columns", [
+            new("Base"),
+            new("Template"),
+            new("Property"),
+            new("Edit")
+        ]),
+        new("Usage", [
+            new("Loading"),
+            new("Hoverable"),
+            new("Striped"),
+            new("Sticky Header"),
+            new("Radius"),
+            new("Shadows"),
+            new("Table Layout"),
+            new("Disabled Items"),
+            new("Selected Items"),
+            new("Editing"),
+            new("Sorting"),
+            new("Virtualization"),
+            new("Custom Cells"),
+            new("Custom Format"),
+            new("Dynamic Columns"),
+            new("Header Content"),
+            new("Empty Content"),
+            new("Loading Content"),
+            new("Toolbar Content"),
+            new("Remote Data"),
+            new("Row Click"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(DataGridSlots.Root), "The base container of the data grid."),
+        new(nameof(DataGridSlots.Wrapper), "The wrapper element that surrounds the data grid."),
+        new(nameof(DataGridSlots.EmptyWrapper), "The wrapper of a content displayed when the data grid is empty."),
+        new(nameof(DataGridSlots.LoadingWrapper), "The wrapper of a content displayed while the data grid is loading."),
+        new(nameof(DataGridSlots.Table), "The table element within the data grid."),
+        new(nameof(DataGridSlots.Thead), "The table header element (thead) in the data grid."),
+        new(nameof(DataGridSlots.Tbody), "The table body element (tbody) in the data grid."),
+        new(nameof(DataGridSlots.Tfoot), "The table footer element (tfoot) in the data grid."),
+        new(nameof(DataGridSlots.Tr), "The table row element (tr) in the data grid."),
+        new(nameof(DataGridSlots.Th), "The table header cell (th) in the data grid."),
+        new(nameof(DataGridSlots.Td), "The table data cell (td) in the data grid."),
+        new(nameof(DataGridSlots.Placeholder), "The placeholder content displayed in the virtualized data grid."),
+        new(nameof(DataGridSlots.SortIcon), "The sort icon displayed in the header of sortable columns.")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexDataGrid<T>),
+        nameof(TemplateColumn<T>),
+        nameof(PropertyColumn<T, P>),
+        nameof(EditColumn<T, P>),
+        nameof(LumexTextbox),
+        nameof(LumexButton),
+        nameof(LumexIcon),
+        nameof(LumexPopover),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Data Grid",
+            category: "Components",
+            description: "Data grids allow users to quickly scan, sort, compare, and take action on large amounts of data.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "DataGrid", isServer: false )
+        );
+    }
+}

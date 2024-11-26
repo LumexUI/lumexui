@@ -1,0 +1,197 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+@typeparam T
+
+@using LumexUI.DataGrid.Core
+@using LumexUI.DataGrid.Interfaces
+
+<CascadingValue TValue="DataGridContext<T>" Value="@_context" IsFixed="@true">
+    @{
+        StartCollectingColumns();
+    }
+
+    @if( SelectionMode is not SelectionMode.None )
+    {
+        <_CheckboxColumn T="T" data-id="@Identifier.New()" />
+    }
+
+    @ChildContent
+
+    <Defer>
+        @{
+            FinishCollectingColumns();
+        }
+        <_ColumnsCollectedNotifier T="T" />
+
+        <div class="@Slots.Root"
+             style="@RootStyle"
+             data-slot="base"
+             @ref="@_ref"
+             @attributes="@AdditionalAttributes"
+             @onclickoutside="@OnOutsideClick">
+
+            @ToolbarContent
+
+            <div class="@Slots.Wrapper" data-slot="wrapper">
+                <table class="@Slots.Table" data-slot="table">
+                    <thead class="@Slots.Thead" data-slot="thead">
+                        <tr class="@Slots.Tr" data-slot="tr">
+                            @_renderColumnHeaders
+                        </tr>
+                        <tr style="display:block; width:1px; height:1px; margin-top:0.25rem;" />
+                    </thead>
+                    <tbody class="@Slots.Tbody" data-slot="tbody">
+                        @if( ( Data is null || !Data.Any() ) && DataSource is null )
+                        {
+                            @_renderEmptyContent
+                        }
+                        else
+                        {
+                            @if( Virtualize )
+                            {
+                                <Virtualize @ref="@_virtualizeRef"
+                                            TItem="(int RowIndex, T Data)"
+                                            ItemSize="@ItemSize"
+                                            ItemsProvider="@ProvideVirtualizedItems"
+                                            ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
+                                            Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+                            }
+                            else
+                            {
+                                @_renderNonVirtualizedRows
+                            }
+                        }
+
+                        @if( Loading || _pendingDataLoadCts is not null )
+                        {
+                            @_renderLoadingContent
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </Defer>
+</CascadingValue>
+
+@code {
+    private void RenderColumnHeaders( RenderTreeBuilder __builder )
+    {
+        foreach( var column in _columns )
+        {
+            <th class="@Slots.Th"
+                scope="col"
+                data-slot="th"
+                data-align="@column.Align.ToLowerInvariant()"
+                data-sortable="@Utils.GetDataAttributeValue(column.Sortable ?? false)"
+                aria-sort="@column.GetAriaSortValue()"
+                @onclick="@(() => SortByColumnAsync(column))"
+                @key="@column">
+                @{
+                    column.RenderHeaderCellContent( __builder );
+                }
+            </th>
+        }
+    }
+
+    private void RenderNonVirtualizedRows( RenderTreeBuilder __builder )
+    {
+        var initialRowIndex = 2; // aria-rowindex is 1-based, plus the first row is the header
+        var rowIndex = initialRowIndex;
+        foreach( var item in _currentNonVirtualizedItems )
+        {
+            RenderRow( __builder, rowIndex++, item );
+        }
+    }
+
+    private void RenderRow( RenderTreeBuilder __builder, int rowIndex, T item )
+    {
+        var selected = SelectedItems.Contains( item );
+        var disabled = DisabledItems.Contains( item );
+
+        <tr class="@Slots.Tr"
+            style="@RowStyles"
+            data-slot="tr"
+            data-disabled="@Utils.GetDataAttributeValue(disabled)"
+            aria-selected="@Utils.GetDataAttributeValue(selected)"
+            aria-rowindex="@rowIndex"
+            @key="@item"
+            @onclick="@(() => OnRowClickedAsync(item, rowIndex, disabled))">
+            @foreach( var column in _columns )
+            {
+                <td class="@Slots.Td"
+                    data-slot="td"
+                    data-align="@column.Align.ToLowerInvariant()"
+                    data-selected="@Utils.GetDataAttributeValue(selected)"
+                    @key="@column"
+                    @onclick="@(() => OnCellClicked(column, item, disabled))"
+                    @onclick:stopPropagation="@(column is IEditableColumn)">
+                    @* ^^^To prevent row selection when start editing^^^ *@
+                    @{
+                        column.RenderCellContent( __builder, item );
+                    }
+                </td>
+            }
+        </tr>
+    }
+
+    private void RenderPlaceholderRow( RenderTreeBuilder __builder, PlaceholderContext placeholderContext )
+    {
+        <tr class="@Slots.Tr"
+            style="@RowStyles"
+            data-slot="tr"
+            aria-rowindex="@(placeholderContext.Index + 1)">
+            @foreach( var column in _columns )
+            {
+                <td class="@Slots.Placeholder"
+                    data-slot="placeholder"
+                    data-align="@column.Align.ToLowerInvariant()"
+                    @key="@column">
+                    @{
+                        column.RenderPlaceholderContent( __builder, placeholderContext );
+                    }
+                </td>
+            }
+        </tr>
+    }
+
+    private void RenderLoadingContent( RenderTreeBuilder __builder )
+    {
+        <tr>
+            <td class="@Slots.LoadingWrapper"
+                colspan="@(_columns.Count)"
+                data-slot="loading-wrapper">
+                @if( LoadingContent is not null )
+                {
+                    @LoadingContent
+                }
+                else
+                {
+                    <text>Loading...</text>
+                }
+            </td>
+
+            @if( Data is null || !Data.Any() )
+            {
+                <td class="@Slots.EmptyWrapper" data-slot="empty-wrapper" />
+            }
+        </tr>
+    }
+
+    private void RenderEmptyContent( RenderTreeBuilder __builder )
+    {
+        <tr>
+            <td class="@Slots.EmptyWrapper"
+                colspan="@(_columns.Count)"
+                data-slot="empty-wrapper">
+                @if( EmptyContent is not null )
+                {
+                    @EmptyContent
+                }
+                else
+                {
+                    <text>No records available.</text>
+                }
+            </td>
+        </tr>
+    }
+}

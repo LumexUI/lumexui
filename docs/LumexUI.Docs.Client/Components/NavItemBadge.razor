@@ -1,0 +1,30 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+@if( Status.HasValue )
+{
+    <span class="@RootClasses">
+        @Status.ToString()
+    </span>
+}
+
+@code {
+    [Parameter] public NavItemStatus? Status { get; set; }
+
+    private string? RootClasses => ElementClass.Empty()
+        .Add( "px-1.5" )
+        .Add( "py-[3px]" )
+        .Add( "rounded-full" )
+        .Add( "ring-1" )
+        .Add( "font-semibold" )
+        .Add( "text-[0.5rem]" )
+        .Add( "uppercase" )
+        .Add( "leading-none" )
+        .Add( _variants[Status!.Value], when: Status.HasValue )
+        .ToString();
+
+    private static readonly Dictionary<NavItemStatus, string> _variants = new()
+    {
+        [NavItemStatus.Soon] = "bg-foreground-100 ring-foreground-300 text-foreground-600",
+        [NavItemStatus.Preview] = "bg-indigo-50 ring-indigo-200 text-indigo-500"
+    };
+}

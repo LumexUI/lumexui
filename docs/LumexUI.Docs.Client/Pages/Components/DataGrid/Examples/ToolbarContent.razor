@@ -1,0 +1,50 @@
+﻿<LumexDataGrid Data="@FilteredUsers">
+    <ToolbarContent>
+        <div>
+            <LumexTextbox Placeholder="Search by name..."
+                          Behavior="@InputBehavior.OnInput"
+                          Class="max-w-xs"
+                          @bind-Value="@_nameFilter">
+                <StartContent>
+                    <LumexIcon Icon="@Icons.Rounded.Search"
+                               Size="@new("20")"
+                               Color="@ThemeColor.Default" />
+                </StartContent>
+            </LumexTextbox>
+        </div>
+    </ToolbarContent>
+    <ChildContent>
+        <PropertyColumn Property="@(p => p.Name)" />
+        <PropertyColumn Property="@(p => p.Role)" />
+        <PropertyColumn Property="@(p => p.Status)" />
+    </ChildContent>
+</LumexDataGrid>
+
+@code {
+    private readonly IQueryable<User> _users = new List<User>
+    {
+        new( "Alice Johnson", "Administrator", "Active" ),
+        new( "Bob Smith", "Editor", "Inactive" ),
+        new( "Charlie Brown", "Viewer", "Pending" ),
+        new( "Diana Lee", "Moderator", "Active" )
+    }.AsQueryable();
+
+    private string? _nameFilter;
+
+    private IQueryable<User> FilteredUsers
+    {
+        get
+        {
+            var result = _users;
+
+            if( !string.IsNullOrEmpty( _nameFilter ) )
+            {
+                result = result.Where( u => u.Name.Contains( _nameFilter, StringComparison.CurrentCultureIgnoreCase ) );
+            }
+
+            return result;
+        }
+    }
+
+    private record User( string Name, string Role, string Status );
+}

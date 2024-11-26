@@ -1,0 +1,45 @@
+﻿@namespace LumexUI
+@inherits PropertyColumn<T, P>
+@typeparam T
+@typeparam P
+
+@{
+    base.BuildRenderTree( __builder );
+}
+
+@code {
+    /// <inheritdoc />
+    protected internal override void RenderCellContent( RenderTreeBuilder __builder, T item )
+    {
+        if( !State.Edit.IsCellEditing( this, item ) )
+        {
+            base.RenderCellContent( __builder, item );
+        }
+        else if( EditContent is not null )
+        {
+            @EditContent( item )
+        }
+        else
+        {
+            if( typeof( P ).IsString() )
+            {
+                var value = CellContent( item );
+                <LumexTextbox Size="@Size.Small"
+                              Autofocus="@true"
+                              Value="@value"
+                              ValueChanged="@((value) => _setTextProperty!( item, value ))"
+                              Style="@_inputStyles" />
+            }
+            else if( typeof( P ).IsNumeric() )
+            {
+                var parsed = double.TryParse( CellContent( item ), out var value );
+                <LumexNumbox TValue="double?"
+                             Size="@Size.Small"
+                             Autofocus="@true"
+                             Value="@value"
+                             ValueChanged="@((value) => _setNumericProperty!( item, value ))"
+                             Style="@_inputStyles" />
+            }
+        }
+    }
+}

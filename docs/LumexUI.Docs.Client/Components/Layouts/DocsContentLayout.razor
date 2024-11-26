@@ -18,7 +18,7 @@
         </main>
 
         <DocsFooter />
-        <div class="hidden fixed z-20 overflow-y-auto top-[4.0625rem] right-[max(0px,calc(50%-40rem))] bottom-0 w-[13rem] py-10 xl:block">
+        <div class="scrollbar hidden fixed z-20 overflow-y-auto top-[4.0625rem] right-[max(0px,calc(50%-40rem))] bottom-0 w-[13rem] pb-10 xl:block">
             @TableOfContents
         </div>
     </div>
@@ -28,6 +28,9 @@
     private RenderFragment TableOfContents => __builder =>
     {
         <div class="px-6">
+            <div class="sticky top-0 pointer-events-none">
+                <div class="h-10 bg-gradient-to-b from-background"></div>
+            </div>
             <h5 class="text-foreground font-semibold mb-4 text-sm leading-6">
                 On this page
             </h5>

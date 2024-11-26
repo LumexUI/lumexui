@@ -1,0 +1,21 @@
+﻿<LumexDataGrid Data="@_users"
+               DisabledItems="@DisabledUsers">
+    <PropertyColumn Property="@(p => p.Name)" />
+    <PropertyColumn Property="@(p => p.Role)" />
+    <PropertyColumn Property="@(p => p.Status)" />
+</LumexDataGrid>
+
+@code {
+    private readonly IQueryable<User> _users = new List<User>
+    {
+        new( "Alice Johnson", "Administrator", "Active" ),
+        new( "Bob Smith", "Editor", "Inactive" ),
+        new( "Charlie Brown", "Viewer", "Pending" ),
+        new( "Diana Lee", "Moderator", "Active" )
+    }.AsQueryable();
+
+    private ICollection<User> DisabledUsers =>
+        _users.Where( u => u.Status == "Inactive" ).ToList();
+
+    private record User( string Name, string Role, string Status );
+}

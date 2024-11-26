@@ -1,0 +1,61 @@
+﻿<LumexDataGrid Data="@FilteredUsers"
+               Layout="@Layout.Fixed"
+               Classes="@(new() { Table = "w-full" })">
+    <PropertyColumn Property="@(p => p.Name)" />
+    <PropertyColumn Property="@(p => p.Role)" />
+    <PropertyColumn Property="@(p => p.Status)" HeaderContent="@HeaderContent" />
+</LumexDataGrid>
+
+@code {
+    private RenderFragment<LumexColumnBase<User>> HeaderContent => context =>
+    @<div class="flex items-center gap-2">
+        @context.Title?.ToUpperInvariant()
+        <LumexPopover Offset="2"
+                      Radius="@Radius.Small"
+                      Placement="@PopoverPlacement.BottomEnd">
+            <LumexPopoverTrigger Size="@Size.Small"
+                                 Variant="@Variant.Flat"
+                                 Class="min-w-8 w-8 h-8 px-0 hover:bg-none">
+                <LumexIcon Icon="@Icons.Rounded.Tune"
+                           Size="@new("20")"
+                           Color="@ThemeColor.Default" />
+            </LumexPopoverTrigger>
+            <LumexPopoverContent>
+                <LumexTextbox Autofocus="@true"
+                              Size="@Size.Small"
+                              Color="@ThemeColor.Primary"
+                              Variant="@InputVariant.Underlined"
+                              Behavior="@InputBehavior.OnInput"
+                              Placeholder="Status..."
+                              @bind-Value="@_statusFilter" />
+            </LumexPopoverContent>
+        </LumexPopover>
+    </div>;
+
+    private readonly IQueryable<User> _users = new List<User>
+    {
+        new( "Alice Johnson", "Administrator", "Active" ),
+        new( "Bob Smith", "Editor", "Inactive" ),
+        new( "Charlie Brown", "Viewer", "Pending" ),
+        new( "Diana Lee", "Moderator", "Active" )
+    }.AsQueryable();
+
+    private string? _statusFilter;
+
+    private IQueryable<User> FilteredUsers
+    {
+        get
+        {
+            var result = _users;
+
+            if( !string.IsNullOrEmpty( _statusFilter ) )
+            {
+                result = result.Where( u => u.Status.Contains( _statusFilter, StringComparison.CurrentCultureIgnoreCase ) );
+            }
+
+            return result;
+        }
+    }
+
+    private record User( string Name, string Role, string Status );
+}

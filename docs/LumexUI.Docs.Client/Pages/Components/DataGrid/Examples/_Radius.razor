@@ -1,0 +1,48 @@
+﻿<LumexDataGrid Data="@_users" Radius="@_radius">
+    <PropertyColumn Property="@(p => p.Name)" />
+    <PropertyColumn Property="@(p => p.Role)" />
+    <PropertyColumn Property="@(p => p.Status)" />
+</LumexDataGrid>
+
+<fieldset class="flex gap-4">
+    @foreach( var radius in _radiuses )
+    {
+        var value = radius.ToString();
+
+        <div class="flex gap-1">
+            <input type="radio"
+                   id="@($"radius-{value.ToLower()}")"
+                   name="radius"
+                   @bind:event="onchange"
+                   @bind:get="@radius"
+                   @bind:set="@OnRadiusSelect" />
+            <label for="@($"radius-{value.ToLower()}")">@value</label>
+        </div>
+    }
+</fieldset>
+
+@code {
+    private readonly IQueryable<User> _users = new List<User>
+    {
+        new( "Alice Johnson", "Administrator", "Active" ),
+        new( "Bob Smith", "Editor", "Inactive" ),
+        new( "Charlie Brown", "Viewer", "Pending" ),
+        new( "Diana Lee", "Moderator", "Active" )
+    }.AsQueryable();
+
+    private readonly Radius[] _radiuses = [
+        Radius.None,
+        Radius.Small,
+        Radius.Medium,
+        Radius.Large
+    ];
+
+    private Radius _radius = Radius.Small;
+
+    private void OnRadiusSelect( Radius value )
+    {
+        _radius = value;
+    }
+
+    private record User( string Name, string Role, string Status );
+}

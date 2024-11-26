@@ -1,0 +1,26 @@
+﻿@inject HttpClient HttpClient
+
+<LumexDataGrid DataSource="@_peopleProvider">
+    <PropertyColumn Property="@(p => p.Name)" />
+    <PropertyColumn Property="@(p => p.Height)" />
+    <PropertyColumn Property="@(p => p.Mass)" />
+</LumexDataGrid>
+
+@code {
+    private DataSource<Person>? _peopleProvider;
+
+    protected override void OnInitialized()
+    {
+        _peopleProvider = async req =>
+        {
+            var response = await HttpClient.GetFromJsonAsync<PersonQueryResult>( "https://swapi.py4e.com/api/people/", req.CancellationToken );
+
+            return DataSourceResult.From(
+                items: response!.Results,
+                totalItemCount: response!.Results.Length );
+        };
+    }
+
+    private record Person( string Name, string Height, string Mass );
+    private record PersonQueryResult( int Count, string Next, string Previous, Person[] Results );
+}

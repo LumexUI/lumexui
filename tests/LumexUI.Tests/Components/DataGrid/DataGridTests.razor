@@ -1,0 +1,730 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.JSInterop
+
+@using LumexUI.Common
+
+@using TailwindMerge
+
+@code {
+    public static IEnumerable<object[]> EmptyData => new List<object[]>
+    {
+        new object[] { Array.Empty<TestModel>().AsQueryable() }
+    };
+
+    public DataGridTests()
+    {
+        Services.AddSingleton<TwMerge>();
+
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/data-grid.js" );
+        var module2 = module.SetupModule( "dataGrid.initialize", _ => true );
+        JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectlyWithData()
+    {
+        var data = GetData();
+        var action = () => Render(
+            @<LumexDataGrid Data="@data">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectlyWithDataSource()
+    {
+        var dataSource = GetDataSource();
+        var action = () => Render(
+            @<LumexDataGrid DataSource="@dataSource">
+                <PropertyColumn Property="@(p => p.Foo)" Sortable="@true" />
+            </LumexDataGrid>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderEmptyContentCorrectly()
+    {
+        var emptyData = new List<TestModel>().AsQueryable();
+        var cut = Render(
+            @<LumexDataGrid Data="@emptyData">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        var emptyWrapper = cut.Find( "[data-slot=empty-wrapper]" );
+
+        emptyWrapper.Should().NotBeNull();
+        emptyWrapper.TextContent.Should().Be( "No records available." );
+    }
+
+    [Fact]
+    public void ShouldRenderCustomEmptyContentCorrectly()
+    {
+        var emptyData = new List<TestModel>().AsQueryable();
+        RenderFragment emptyContent = @<text>Test</text>;
+        var cut = Render(
+            @<LumexDataGrid Data="@emptyData" EmptyContent="@emptyContent">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        var emptyWrapper = cut.Find( "[data-slot=empty-wrapper]" );
+
+        emptyWrapper.Should().NotBeNull();
+        emptyWrapper.TextContent.Should().Be( "Test" );
+    }
+
+    [Theory]
+    [InlineData( null )]
+    [MemberData( nameof( EmptyData ) )]
+    public void ShouldRenderEmptyContentDuringLoading( IQueryable<TestModel>? data )
+    {
+        var cut = Render(
+            @<LumexDataGrid Data="@data" Loading="@true">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        var emptyWrapper = cut.Find( "[data-slot=empty-wrapper]" );
+
+        emptyWrapper.Should().NotBeNull();
+        emptyWrapper.TextContent.Should().Be( "No records available." );
+    }
+
+    [Fact]
+    public void ShouldRenderLoadingContentCorrectly()
+    {
+        var data = GetData();
+        var cut = Render(
+            @<LumexDataGrid Data="@data" Loading="@true">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        var loadingWrapper = cut.Find( "[data-slot=loading-wrapper]" );
+
+        loadingWrapper.Should().NotBeNull();
+        loadingWrapper.TextContent.Should().Be( "Loading..." );
+    }
+
+    [Fact]
+    public void ShouldRenderCustomLoadingContentCorrectly()
+    {
+        var data = GetData();
+        RenderFragment loadingContent = @<text>Test</text>;
+        var cut = Render(
+            @<LumexDataGrid Data="@data"
+                                Loading="@true"
+                                LoadingContent="@loadingContent">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        var loadingWrapper = cut.Find( "[data-slot=loading-wrapper]" );
+
+        loadingWrapper.Should().NotBeNull();
+        loadingWrapper.TextContent.Should().Be( "Test" );
+    }
+
+    [Fact]
+    public async Task ShouldRenderVirtualizeCorrectly()
+    {
+        var data = GetData();
+        var cut = Render<LumexDataGrid<TestModel>>(
+            @<LumexDataGrid Data="@data" Virtualize="@true">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        await Task.Delay( 100 );
+
+        cut.FindComponent<Virtualize<(int, TestModel)>>().Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderTemplateColumnCustomContentCorrectly()
+    {
+        var data = GetData();
+        RenderFragment<TestModel> content = context => @<text>Test</text>;
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <TemplateColumn ChildContent="@content" />
+            </LumexDataGrid>
+        );
+
+        cut.Find( "tbody td" ).TextContent.Should().Be( "Test" );
+    }
+
+    [Fact]
+    public void ShouldRenderPropertyColumnCustomContentCorrectly()
+    {
+        var data = GetData();
+        RenderFragment<TestModel> content = context => @<text>Test</text>;
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <PropertyColumn Property="@(p => p.Foo)" Content="@content" />
+            </LumexDataGrid>
+        );
+
+        cut.Find( "tbody td" ).TextContent.Should().Be( "Test" );
+    }
+
+    [Fact]
+    public void ShouldRenderEditColumnContentCorrectly()
+    {
+        var data = GetData();
+        RenderFragment<TestModel> editContent = context => @<text>Test</text>;
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <EditColumn Property="@(p => p.Foo)" EditContent="@editContent" />
+            </LumexDataGrid>
+        );
+
+        // Start editing
+        var cell = cut.Find( "tbody td" );
+        cell.Click();
+
+        cell.TextContent.Should().Be( "Test" );
+    }
+
+    [Fact]
+    public void ShouldRenderColumnHeaderContentCorrectly()
+    {
+        var data = GetData();
+        RenderFragment<LumexColumnBase<TestModel>> headerContent = column => @<text>Test</text>;
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <PropertyColumn Property="@(p => p.Foo)" HeaderContent="@headerContent" />
+            </LumexDataGrid>
+        );
+
+        cut.Find( "thead th" ).TextContent.Should().Be( "Test" );
+    }
+
+    [Theory]
+    [InlineData( SelectionMode.Single )]
+    [InlineData( SelectionMode.Multiple )]
+    public void ShouldRenderCheckboxColumnWhenSelection( SelectionMode selectionMode )
+    {
+        var data = GetData();
+        var cut = Render(
+            @<LumexDataGrid Data="@data" SelectionMode="@selectionMode">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        cut.FindComponent<_CheckboxColumn<TestModel>>().Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData( SelectionMode.Single )]
+    [InlineData( SelectionMode.Multiple )]
+    public void ShouldSelectRowOnCheckboxClick( SelectionMode selectionMode )
+    {
+        var data = GetData();
+        ICollection<TestModel> selectedItems = [];
+        var cut = Render(
+            @<LumexDataGrid Data="@data"
+                                SelectionMode="@selectionMode"
+                                @bind-SelectedItems="@selectedItems">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        cut.Find( "tbody input[type=checkbox]" ).Change( true );
+
+        selectedItems.Should().HaveCount( 1 );
+    }
+
+    [Fact]
+    public void ShouldSelectAllRowsOnHeaderCheckboxClick()
+    {
+        var data = GetData();
+        var rowsCount = data.Count();
+        ICollection<TestModel> selectedItems = [];
+        var cut = Render(
+            @<LumexDataGrid Data="@data"
+                                SelectionMode="@SelectionMode.Multiple"
+                                @bind-SelectedItems="@selectedItems">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        cut.Find( "thead input[type=checkbox]" ).Change( true );
+
+        selectedItems.Should().HaveCount( rowsCount );
+    }
+
+    [Theory]
+    [InlineData( SelectionMode.Single )]
+    [InlineData( SelectionMode.Multiple )]
+    public void ShouldDeselectRowOnCheckboxClick( SelectionMode selectionMode )
+    {
+        var data = GetData();
+        ICollection<TestModel> selectedItems = [];
+        var cut = Render(
+            @<LumexDataGrid Data="@data"
+                            SelectionMode="@selectionMode"
+                            @bind-SelectedItems="@selectedItems">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        var checkbox = cut.Find( "tbody input[type=checkbox]" );
+        checkbox.Change( true );
+
+        selectedItems.Should().HaveCount( 1 );
+
+        checkbox.Change( false );
+
+        selectedItems.Should().HaveCount( 0 );
+    }
+
+    [Fact]
+    public void ShouldDeselectAllRowsOnHeaderCheckboxClick()
+    {
+        var data = GetData();
+        var rowsCount = data.Count();
+        ICollection<TestModel> selectedItems = [];
+        var cut = Render(
+            @<LumexDataGrid Data="@data"
+                                SelectionMode="@SelectionMode.Multiple"
+                                @bind-SelectedItems="@selectedItems">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        var checkbox = cut.Find( "thead input[type=checkbox]" );
+        checkbox.Change( true );
+
+        selectedItems.Should().HaveCount( rowsCount );
+
+        checkbox.Change( false );
+
+        selectedItems.Should().HaveCount( 0 );
+    }
+
+    [Theory]
+    [InlineData( SelectionMode.Single )]
+    [InlineData( SelectionMode.Multiple )]
+    public void ShouldSelectRowOnClick( SelectionMode selectionMode )
+    {
+        var data = GetData();
+        ICollection<TestModel> selectedItems = [];
+        var cut = Render(
+            @<LumexDataGrid Data="@data"
+                                SelectionMode="@selectionMode"
+                                @bind-SelectedItems="@selectedItems">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        cut.Find( "tbody tr" ).Click();
+
+        selectedItems.Should().HaveCount( 1 );
+    }
+
+    [Fact]
+    public void ShouldSelectMultipleRowsOnClick()
+    {
+        var data = GetData();
+        ICollection<TestModel> selectedItems = [];
+        var cut = Render(
+            @<LumexDataGrid Data="@data"
+                                SelectionMode="@SelectionMode.Multiple"
+                                @bind-SelectedItems="@selectedItems">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        cut.FindAll( "tbody tr" )[0].Click();
+
+        selectedItems.Should().HaveCount( 1 );
+
+        cut.FindAll( "tbody tr" )[1].Click();
+
+        selectedItems.Should().HaveCount( 2 );
+    }
+
+    [Theory]
+    [InlineData( SelectionMode.Single )]
+    [InlineData( SelectionMode.Multiple )]
+    public void ShouldDeselectRowOnClick( SelectionMode selectionMode )
+    {
+        var data = GetData();
+        ICollection<TestModel> selectedItems = [];
+        var cut = Render(
+            @<LumexDataGrid Data="@data"
+                                SelectionMode="@selectionMode"
+                                @bind-SelectedItems="@selectedItems">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        var row = cut.Find( "tbody tr" );
+        row.Click();
+
+        selectedItems.Should().HaveCount( 1 );
+
+        row.Click();
+
+        selectedItems.Should().HaveCount( 0 );
+    }
+
+    [Theory]
+    [InlineData( SelectionMode.Single )]
+    [InlineData( SelectionMode.Multiple )]
+    public void ShouldNotSelectDisabledRowOnClick( SelectionMode selectionMode )
+    {
+        var data = GetData();
+        ICollection<TestModel> selectedItems = [];
+        var disabledItems = data.Where( m => m.Foo == "1" ).ToList();
+        var cut = Render(
+            @<LumexDataGrid Data="@data"
+                                DisabledItems="@disabledItems"
+                                SelectionMode="@selectionMode"
+                                @bind-SelectedItems="@selectedItems">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        cut.Find( "tbody tr" ).Click();
+
+        selectedItems.Should().HaveCount( 0 );
+    }
+
+    [Fact]
+    public void ShouldNotSelectRowOnClickByDeafult()
+    {
+        var data = GetData();
+        ICollection<TestModel> selectedItems = [];
+        var cut = Render(
+            @<LumexDataGrid Data="@data" @bind-SelectedItems="@selectedItems">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        cut.Find( "tbody tr" ).Click();
+
+        selectedItems.Should().HaveCount( 0 );
+    }
+
+    [Theory]
+    [InlineData( SelectionMode.Single )]
+    [InlineData( SelectionMode.Multiple )]
+    public void ShouldAutomaticallySetHoverableWithSelection( SelectionMode selectionMode )
+    {
+        var data = GetData();
+        var cut = Render<LumexDataGrid<TestModel>>(
+            @<LumexDataGrid Data="@data" SelectionMode="@selectionMode">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        cut.Instance.Hoverable.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldSortByColumnOnHeaderClick()
+    {
+        var data = GetData();
+        var cut = Render<LumexDataGrid<TestModel>>(
+            @<LumexDataGrid Data="@data">
+                <PropertyColumn Property="@(p => p.Foo)" Sortable="@true" />
+                <PropertyColumn Property="@(p => p.Bar)" />
+            </LumexDataGrid>
+        );
+        var sortByColumn = cut.FindComponent<PropertyColumn<TestModel, string>>().Instance;
+
+        cut.FindAll( "thead th" )[0].Click();
+
+        cut.Instance.State.Sort.Column.Should().Be( sortByColumn );
+
+        cut.FindAll( "thead th" )[1].Click();
+
+        cut.Instance.State.Sort.Column.Should().Be( sortByColumn );
+    }
+
+    [Theory]
+    [InlineData( SortDirection.Auto )]
+    [InlineData( SortDirection.Ascending )]
+    [InlineData( SortDirection.Descending )]
+    public async Task ShouldSortColumnProgrammatically( SortDirection sortDirection )
+    {
+        var data = GetData();
+        var cut = Render<LumexDataGrid<TestModel>>(
+            @<LumexDataGrid Data="@data">
+                <PropertyColumn Property="@(p => p.Foo)" Sortable="@true" />
+            </LumexDataGrid>
+        );
+        var sortByColumn = cut.FindComponent<PropertyColumn<TestModel, string>>().Instance;
+
+        await cut.InvokeAsync( () => cut.Instance.SortByColumnAsync( sortByColumn, sortDirection ) );
+
+        cut.Instance.State.Sort.Direction.Should().Be( sortDirection );
+    }
+
+    [Fact]
+    public void ShouldSortColumnByCustomRulesWhenProvided()
+    {
+        var data = GetData();
+        var customSort = SortBuilder<TestModel>
+        .ByDescending( x => x.Baz )
+        .ThenAscending( x => x.Bar )
+        .ThenDescending( x => x.Foo );
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <PropertyColumn Property="@(p => p.Foo)" />
+                <PropertyColumn Property="@(p => p.Bar)" />
+                <PropertyColumn Property="@(p => p.Baz)" />
+                <TemplateColumn Title="Custom Sort"
+                                Sortable="@true"
+                                SortBy="@customSort">
+                    @{
+                        <text>@($"{context.Foo}-{context.Bar}-{context.Baz}")</text>
+                    }
+                </TemplateColumn>
+            </LumexDataGrid>
+        );
+
+        cut.FindAll( "thead th" )[3].Click();
+
+        var lastItem = data.Last();
+        cut.FindAll( "tbody td" )[3].TextContent.Should().Be( $"{lastItem.Foo}-{lastItem.Bar}-{lastItem.Baz}" );
+    }
+
+    [Fact]
+    public void ShouldHaveCorrectAriaSortValueOnSortableColumn()
+    {
+        var data = GetData();
+        var cut = Render<LumexDataGrid<TestModel>>(
+            @<LumexDataGrid Data="@data">
+                <PropertyColumn Property="@(p => p.Foo)" Sortable="@true" />
+                <PropertyColumn Property="@(p => p.Bar)" />
+            </LumexDataGrid>
+        );
+
+        cut.FindAll( "thead th" )[0].Click();
+
+        cut.FindAll( "thead th" )[0].GetAttribute( "aria-sort" ).Should().Be( "ascending" );
+
+        cut.FindAll( "thead th" )[0].Click();
+
+        cut.FindAll( "thead th" )[0].GetAttribute( "aria-sort" ).Should().Be( "descending" );
+
+        cut.FindAll( "thead th" )[1].GetAttribute( "aria-sort" ).Should().Be( "none" );
+    }
+
+    [Fact]
+    public void ShouldStartEditingCellOnClick()
+    {
+        var data = GetData();
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <EditColumn Property="@(p => p.Foo)" />
+                <EditColumn Property="@(p => p.Bar)" />
+            </LumexDataGrid>
+        );
+
+        cut.FindAll( "tbody td" )[0].Click();
+
+        cut.FindComponent<LumexTextbox>().Should().NotBeNull();
+
+        cut.FindAll( "tbody td" )[1].Click();
+
+        cut.FindComponent<LumexNumbox<double?>>().Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldNotStartEditingDisabledCellOnClick()
+    {
+        var data = GetData();
+        var disabledItems = data.Where( m => m.Foo == "1" ).ToList();
+        var cut = Render(
+            @<LumexDataGrid Data="@data" DisabledItems="@disabledItems">
+                <EditColumn Property="@(p => p.Foo)" />
+                <EditColumn Property="@(p => p.Bar)" />
+            </LumexDataGrid>
+        );
+
+        cut.Find( "tbody td" ).Click();
+
+        cut.FindComponents<LumexTextbox>().Should().HaveCount( 0 );
+    }
+
+    [Fact]
+    public void ShouldStopEditingCellOnOutsideClick()
+    {
+        var data = GetData();
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <EditColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        // Start editing
+        cut.Find( "tbody td" ).Click();
+
+        // Stop editing
+        cut.Find( "[data-slot=base]" ).TriggerEvent( "onclickoutside", new EventArgs() );
+
+        cut.FindComponents<LumexTextbox>().Should().HaveCount( 0 );
+    }
+
+    [Fact]
+    public void ShouldUpdateEditingCellCorrectly()
+    {
+        var data = GetData();
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <EditColumn Property="@(p => p.Foo)" />
+                <EditColumn Property="@(p => p.Bar)" />
+            </LumexDataGrid>
+        );
+        var baseSlot = cut.Find( "[data-slot=base]" );
+
+        // #1
+        // Start editing
+        cut.FindAll( "tbody td" )[0].Click();
+
+        // Update value
+        cut.Find( "tbody input" ).Change( "Test" );
+
+        // Stop editing
+        baseSlot.TriggerEvent( "onclickoutside", new EventArgs() );
+
+        cut.FindAll( "tbody td" )[0].TextContent.Should().Be( "Test" );
+
+        // #2
+        // Start editing
+        cut.FindAll( "tbody td" )[1].Click();
+
+        // Update value
+        cut.Find( "tbody input" ).Change( 11 );
+
+        // Stop editing
+        baseSlot.TriggerEvent( "onclickoutside", new EventArgs() );
+
+        cut.FindAll( "tbody td" )[1].TextContent.Should().Be( "11" );
+    }
+
+    [Fact]
+    public void ShouldFormatPropertyColumnCellsWhenFormatProvided()
+    {
+        var data = GetData();
+        var formattedValue = data.First().Bar?.ToString( "C" );
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <EditColumn Property="@(p => p.Bar)" Format="C" />
+            </LumexDataGrid>
+        );
+
+        cut.Find( "tbody td" ).TextContent.Should().Be( formattedValue );
+    }
+
+    [Fact]
+    public void ShouldThrowWhenPropertyColumnSortBySetExplicitly()
+    {
+        var data = GetData();
+        var cut = Render(
+            @<LumexDataGrid Data="@data">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+        var column = cut.FindComponent<PropertyColumn<TestModel, string>>().Instance;
+
+        var action = () =>
+    {
+        column.SortBy = SortBuilder<TestModel>.ByAscending( column.Property );
+    };
+
+        action.Should().Throw<NotSupportedException>();
+    }
+
+    [Fact]
+    public void ShouldThrowWhenColumnTypeDoesNotImplementFormattableWhenFormatProvided()
+    {
+        var data = GetData();
+        var action = () => Render(
+            @<LumexDataGrid Data="@data">
+                <PropertyColumn Property="@(p => p.Foo)" Format="any" />
+            </LumexDataGrid>
+        );
+
+        action.Should().Throw<InvalidOperationException>();
+    }
+
+    [Fact]
+    public void ShouldThrowWhenEditColumnPropertyIsNotMemberExpression()
+    {
+        var data = GetData();
+        var action = () => Render(
+            @<LumexDataGrid Data="@data">
+                <EditColumn Property="@(p => $"custom-{p.Foo}")" />
+            </LumexDataGrid>
+        );
+
+        action.Should().Throw<InvalidOperationException>();
+    }
+
+    [Fact]
+    public void ShouldThrowWhenDataAndDataSourceProvided()
+    {
+        var data = GetData();
+        var dataSource = GetDataSource();
+        var action = () => Render(
+            @<LumexDataGrid Data="@data" DataSource="@dataSource">
+                <PropertyColumn Property="@(p => p.Foo)" />
+            </LumexDataGrid>
+        );
+
+        action.Should().Throw<InvalidOperationException>();
+    }
+
+    private static IQueryable<TestModel> GetData()
+    {
+        return new TestModel[]
+        {
+            new(foo: "1", bar: 1, baz: DateTime.Today.AddDays(1)),
+            new(foo: "2", bar: 2, baz: DateTime.Today.AddDays(2)),
+            new(foo: "3", bar: 3, baz: DateTime.Today.AddDays(3)),
+            new(foo: "4", bar: 4, baz: DateTime.Today.AddDays(4)),
+            new(foo: "5", bar: 5, baz: DateTime.Today.AddDays(5))
+        }.AsQueryable();
+    }
+
+    private static DataSource<TestModel> GetDataSource()
+    {
+        return async req =>
+        {
+            await Task.Delay( 1 );
+            return DataSourceResult.From(
+                items: new TestModel[]
+                {
+                    new(foo: "1", bar: 1, baz: DateTime.Today.AddDays(1)),
+                    new(foo: "2", bar: 2, baz: DateTime.Today.AddDays(2)),
+                    new(foo: "3", bar: 3, baz: DateTime.Today.AddDays(3)),
+                    new(foo: "4", bar: 4, baz: DateTime.Today.AddDays(4)),
+                    new(foo: "5", bar: 5, baz: DateTime.Today.AddDays(5))
+                },
+                totalItemCount: 5
+            );
+        };
+    }
+
+    public class TestModel( string? foo, double? bar, DateTime? baz )
+    {
+        public string? Foo { get; set; } = foo;
+        public double? Bar { get; set; } = bar;
+        public DateTime? Baz { get; set; } = baz;
+    }
+}

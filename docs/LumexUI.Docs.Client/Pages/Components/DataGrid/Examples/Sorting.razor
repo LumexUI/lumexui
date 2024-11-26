@@ -1,0 +1,17 @@
+﻿<LumexDataGrid Data="@_users">
+    <PropertyColumn Property="@(p => p.Name)" Sortable="@true" />
+    <PropertyColumn Property="@(p => p.Role)" Sortable="@true" />
+    <PropertyColumn Property="@(p => p.Status)" Sortable="@true" />
+</LumexDataGrid>
+
+@code {
+    private readonly IQueryable<User> _users = new List<User>
+    {
+        new( "Alice Johnson", "Administrator", "Active" ),
+        new( "Bob Smith", "Editor", "Inactive" ),
+        new( "Charlie Brown", "Viewer", "Pending" ),
+        new( "Diana Lee", "Moderator", "Active" )
+    }.AsQueryable();
+
+    private record User( string Name, string Role, string Status );
+}

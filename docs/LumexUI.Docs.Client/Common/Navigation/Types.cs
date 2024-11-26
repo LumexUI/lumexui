@@ -28,8 +28,8 @@ public class NavigationCategory( string name, string icon )
     }
 }
 
-public class NavigationItem( string name, bool locked = false )
+public class NavigationItem( string name, NavItemStatus? status = null )
 {
     public string Name { get; } = name;
-    public bool Locked { get; } = locked;
+    public NavItemStatus? Status { get; } = status;
 }

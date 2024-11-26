@@ -1,0 +1,64 @@
+﻿@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<LumexDataGrid DataSource="@_foodRecallProvider"
+               ItemSize="48"
+               Virtualize="@true"
+               StickyHeader="@true"
+               Class="max-h-64">
+    <PropertyColumn Property="@(p => p.Event_Id)" Title="ID" />
+    <PropertyColumn Property="@(p => p.State)" />
+    <PropertyColumn Property="@(p => p.City)" />
+    <PropertyColumn Property="@(p => p.Recalling_Firm)" Title="Company" />
+    <PropertyColumn Property="@(p => p.Status)" />
+</LumexDataGrid>
+
+<p class="text-small">
+    <strong>@_resultsCount results found</strong>
+</p>
+
+@code {
+    private DataSource<FoodRecall>? _foodRecallProvider;
+    private int _resultsCount;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _foodRecallProvider = async req =>
+        {
+            var url = NavigationManager.GetUriWithQueryParameters( "https://api.fda.gov/food/enforcement.json", new Dictionary<string, object?>
+            {
+                { "skip", req.StartIndex },
+                { "limit", req.Count },
+            } );
+
+            var response = await HttpClient.GetFromJsonAsync<FoodRecallQueryResult>( url, req.CancellationToken );
+            return DataSourceResult.From(
+                items: response!.Results,
+                totalItemCount: response!.Meta.Results.Total );
+        };
+
+        _resultsCount = ( await HttpClient.GetFromJsonAsync<FoodRecallQueryResult>( "https://api.fda.gov/food/enforcement.json" ) )!.Meta.Results.Total;
+    }
+
+    private class FoodRecall
+    {
+        public string Status { get; set; } = default!;
+        public string City { get; set; } = default!;
+        public string State { get; set; } = default!;
+        public string Recalling_Firm { get; set; } = default!;
+        public string Event_Id { get; set; } = default!;
+    }
+
+    private class FoodRecallQueryResult
+    {
+        public FoodRecall[] Results { get; set; } = default!;
+        public FoodRecallMeta Meta { get; set; } = default!;
+
+        public class FoodRecallMeta
+        {
+            public MetaResults Results { get; set; } = default!;
+
+            public record MetaResults( int Skip, int Limit, int Total );
+        }
+    }
+}

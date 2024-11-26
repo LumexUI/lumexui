@@ -1,0 +1,65 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+@typeparam T
+
+@{
+    DataGrid.AddColumn( this );
+}
+
+@code {
+    /// <summary>
+    /// Renders the content of a header cell for a specified column in the data grid.
+    /// Derived classes can override this method to define how header cell’s content is rendered.
+    /// </summary>
+    /// <param name="__builder">The current <see cref="RenderTreeBuilder" />.</param>
+    protected internal virtual void RenderHeaderCellContent( RenderTreeBuilder __builder )
+    {
+        @if( HeaderContent is not null )
+        {
+            @HeaderContent( this )
+        }
+        else
+        {
+            if( Sortable ?? false )
+            {
+                @Title
+                <LumexIcon Size="@new("16")"
+                           Icon="@Icons.Rounded.ChevronLeft"
+                           Color="@ThemeColor.None"
+                           Class="@DataGrid.Slots.SortIcon"
+                           aria-hidden="true"
+                           data-slot="sort-icon"
+                           data-visible="@Utils.GetDataAttributeValue(State.Sort.Column == this)" />
+            }
+            else
+            {
+                @Title
+            }
+        }
+    }
+
+    /// <summary>
+    /// Renders placeholder content of a cell for a specified column in the data grid during loading.
+    /// Derived classes can override this method to define how each cell’s placeholder content
+    /// is rendered based on the <paramref name="placeholderContext"/>.
+    /// </summary>
+    /// <param name="__builder">The current <see cref="RenderTreeBuilder"/> used to build the placeholder content.</param>
+    /// <param name="placeholderContext">The current <see cref="PlaceholderContext"/> used for rendering the placeholder content.</param>
+    protected internal virtual void RenderPlaceholderContent( RenderTreeBuilder __builder, PlaceholderContext placeholderContext )
+    {
+        if( PlaceholderContent is not null )
+        {
+            PlaceholderContent( placeholderContext );
+        }
+    }
+
+
+    /// <summary>
+    /// Renders the content of a cell for a specified column in the data grid.
+    /// Derived classes must override this method to define how each cell’s content
+    /// is rendered based on the <paramref name="item"/>.
+    /// </summary>
+    /// <param name="builder">The current <see cref="RenderTreeBuilder" />.</param>
+    /// <param name="item">The data for the row being rendered.</param>
+    protected internal abstract void RenderCellContent( RenderTreeBuilder builder, T item );
+}

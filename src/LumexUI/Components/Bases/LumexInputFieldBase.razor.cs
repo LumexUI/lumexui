@@ -70,7 +70,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
     /// <remarks>
     /// The default value is <see cref="InputBehavior.OnChange"/>
     /// </remarks>
-    [Parameter] public InputBehavior Behavior { get; set; }
+    [Parameter] public InputBehavior Behavior { get; set; } = InputBehavior.OnChange;
 
     /// <summary>
     /// Gets or sets the border radius of the textbox.
@@ -97,6 +97,11 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
     /// Gets or sets a value indicating whether the textbox should have a clear button.
     /// </summary>
     [Parameter] public bool Clearable { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the textbox should automatically receive focus.
+    /// </summary>
+    [Parameter] public bool Autofocus { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that is fired when the value in the textbox is cleared.
@@ -209,6 +214,11 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
         }
+
+        if( Autofocus )
+        {
+            await FocusAsync();
+        }
     }
 
     /// <inheritdoc />
@@ -294,6 +304,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
         await FocusAsync();
     }
 
+    /// <inheritdoc />
     public async ValueTask DisposeAsync()
     {
         try
