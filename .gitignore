@@ -402,3 +402,6 @@ FodyWeavers.xsd
 
 /docs/LumexUI.Docs/**/*/css
 /docs/LumexUI.Docs/**/*.exe
+
+# .idea Folder for Rider (IntelliJ IDEA)
+.idea/*
