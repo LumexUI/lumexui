@@ -1,7 +1,12 @@
 @namespace LumexUI
-@inherits LumexComponentBase
+@inherits LumexInputBase<TValue>
+@typeparam TValue
 
-<CascadingValue TValue="RadioGroupContext" Value="@_context" IsFixed="@true">
+@* 
+Note that we must not set IsFixed=true on the CascadingValue, because the mutations to _context 
+are what cause the descendant InputRadio components to re-render themselves
+*@
+<CascadingValue TValue="RadioGroupContext<TValue>" Value="@_context">
     <div class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
         @if( !string.IsNullOrEmpty( Label ) )
         {

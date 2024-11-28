@@ -1,8 +1,16 @@
 ﻿using LumexUI.Common;
 
+using Microsoft.AspNetCore.Components;
+
 namespace LumexUI;
 
-internal sealed class RadioGroupContext( LumexRadioGroup owner ) : IComponentContext<LumexRadioGroup>
+internal sealed class RadioGroupContext<TValue>( LumexRadioGroup<TValue> owner ) : IComponentContext<LumexRadioGroup<TValue>>
 {
-    public LumexRadioGroup Owner { get; } = owner;
+    public LumexRadioGroup<TValue> Owner { get; } = owner;
+    
+    public EventCallback<ChangeEventArgs> ChangeEventCallback { get; }
+    
+    private readonly ILumexRadioValueProvider<TValue> _valueProvider;
+
+    public TValue? CurrentValue => _valueProvider.CurrentValue;
 }

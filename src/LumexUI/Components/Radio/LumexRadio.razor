@@ -1,5 +1,32 @@
-<h3>LumexRadio</h3>
+@namespace LumexUI
+@inherits LumexInputBase<TValue>
+@typeparam TValue
 
-@code {
+<LumexComponent As="label"
+                Class="@RootClass"
+                Style="@RootStyle"
+                data-checked="@((CurrentValue?.Equals(Value) ?? false).ToAttributeValue())"
+                data-disabled="@GetDisabledState().ToAttributeValue()"
+                data-readonly="@GetReadOnlyState().ToAttributeValue()"
+                tabindex="0"
+                @attributes="@AdditionalAttributes"
+                @onclick:stopPropagation="@true">
     
-}
+    <span class="@StyleUtils.VisuallyHidden">
+        <input type="radio"
+               value="@Value"
+               checked="@((CurrentValue?.Equals(Value) ?? false).ToAttributeValue())"
+               disabled="@GetDisabledState()"
+               @onchange="@OnChangeAsync"/>
+    </span>
+    <span class="@WrapperClass">
+        <span class="@ControlClass" data-slot="control"></span>
+    </span>
+    
+    @if (ChildContent is not null)
+    {
+        <span class="@LabelClass">
+            @ChildContent
+        </span>
+    }
+</LumexComponent>}

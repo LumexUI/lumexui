@@ -149,7 +149,7 @@ internal readonly record struct Radio
         }
     }
 
-    public static string GetStyles( LumexRadio radio )
+    public static string GetStyles<TValue>( LumexRadio<TValue> radio )
     {
         var radioGroup = radio.Context?.Owner;
 
@@ -162,7 +162,7 @@ internal readonly record struct Radio
             .ToString();
     }
 
-    public static string GetWrapperStyles( LumexRadio radio )
+    public static string GetWrapperStyles<TValue>( LumexRadio<TValue> radio )
     {
         var radioGroup = radio.Context?.Owner;
 
@@ -175,7 +175,7 @@ internal readonly record struct Radio
             .ToString();
     }
 
-    public static string GetControlStyles( LumexRadio radio )
+    public static string GetControlStyles<TValue>( LumexRadio<TValue> radio )
     {
         var radioGroup = radio.Context?.Owner;
 
@@ -188,7 +188,7 @@ internal readonly record struct Radio
             .ToString();
     }
 
-    public static string GetLabelStyles( LumexRadio radio )
+    public static string GetLabelStyles<TValue>( LumexRadio<TValue> radio )
     {
         var checkboxGroup = radio.Context?.Owner;
 
@@ -229,7 +229,7 @@ internal readonly record struct RadioGroup
         .Add( "text-foreground-400" )
         .ToString();
 
-    public static string GetStyles( LumexRadioGroup radioGroup )
+    public static string GetStyles<TValue>( LumexRadioGroup<TValue> radioGroup )
     {
         return ElementClass.Empty()
             .Add( _base )
@@ -238,7 +238,7 @@ internal readonly record struct RadioGroup
             .ToString();
     }
 
-    public static string GetLabelStyles( LumexRadioGroup radioGroup )
+    public static string GetLabelStyles<TValue>( LumexRadioGroup<TValue> radioGroup )
     {
         return ElementClass.Empty()
             .Add( _label )
@@ -246,7 +246,7 @@ internal readonly record struct RadioGroup
             .ToString();
     }
 
-    public static string GetWrapperStyles( LumexRadioGroup radioGroup )
+    public static string GetWrapperStyles<TValue>( LumexRadioGroup<TValue> radioGroup )
     {
         return ElementClass.Empty()
             .Add( _wrapper )
@@ -254,7 +254,7 @@ internal readonly record struct RadioGroup
             .ToString();
     }
 
-    public static string GetDescriptionStyles( LumexRadioGroup radioGroup )
+    public static string GetDescriptionStyles<TValue>( LumexRadioGroup<TValue> radioGroup )
     {
         return ElementClass.Empty()
             .Add( _description )
