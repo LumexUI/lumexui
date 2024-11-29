@@ -166,7 +166,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     {
         _incomingValueBeforeParsing = value;
 
-        if( _nullableUnderlyingType is not null && string.IsNullOrEmpty( value ) )
+       if( _nullableUnderlyingType is not null && string.IsNullOrEmpty( value ) )
         {
             // Assume if it's a nullable type, null/empty inputs should correspond to default(T)
             // Then all subclasses get nullable support almost automatically (they just have to
@@ -183,6 +183,9 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
         {
             _parsingFailed = true;
         }
+
+        // Set a validation message if an input value has triggered the HTML validation.
+        await SetValidationMessageAsync();
     }
 
     /// <summary>
@@ -207,7 +210,6 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     {
         Focused = false;
 
-        await SetValidationMessageAsync( _parsingFailed );
         await OnBlur.InvokeAsync( args );
     }
 
@@ -229,9 +231,8 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     protected abstract bool TryParseValueFromString( string? value, [MaybeNullWhen( false )] out TValue result );
 
     /// <summary>
-    /// Sets the validation message asynchronously based on the parsing result.
+    /// Asynchronously sets the validation message if any.
     /// </summary>
-    /// <param name="parsingFailed">A boolean value indicating whether the parsing has failed.</param>
     /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
-    protected abstract ValueTask SetValidationMessageAsync( bool parsingFailed );
+    protected abstract ValueTask SetValidationMessageAsync();
 }

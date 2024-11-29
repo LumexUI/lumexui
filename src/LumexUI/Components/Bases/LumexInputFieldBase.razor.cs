@@ -190,6 +190,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
         {
             LabelPlacement = labelPlacement;
         }
+        // Default LabelPlacement to 'Outside' if the label and its placement are not set
         else if( !parameters.TryGetValue<string>( nameof( Label ), out var _ ) )
         {
             LabelPlacement = LabelPlacement.Outside;
@@ -250,21 +251,11 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
     }
 
     /// <inheritdoc />
-    protected override async ValueTask SetValidationMessageAsync( bool parsingFailed )
+    protected override async ValueTask SetValidationMessageAsync()
     {
-        if( parsingFailed )
-        {
-            ValidationMessage = await _jsModule.InvokeAsync<string>( "input.getValidationMessage", ElementReference );
-        }
-        else
-        {
-            ValidationMessage = default;
-        }
-
+        ValidationMessage = await _jsModule.InvokeAsync<string>( "input.getValidationMessage", ElementReference );
         Invalid = !string.IsNullOrEmpty( ErrorMessage ) ||
                   !string.IsNullOrEmpty( ValidationMessage );
-
-        StateHasChanged();
     }
 
     /// <summary>
