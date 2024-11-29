@@ -18,7 +18,7 @@
 
     protected override void OnInitialized()
     {
-        _user.Temperature = -274.15f;
+        _user.Temperature = -274.15;
         Validate();
     }
 
@@ -57,7 +57,7 @@
         {
             RuleFor( user => user.Temperature )
                 .NotNull().WithMessage( "Temperature can't be null" )
-                .GreaterThan( -273.15f ).WithMessage( "Temperature cannot be lower than or equal to absolute zero" );
+                .GreaterThan( -273.15 ).WithMessage( "Temperature cannot be lower than or equal to absolute zero" );
         }
     }
 }
