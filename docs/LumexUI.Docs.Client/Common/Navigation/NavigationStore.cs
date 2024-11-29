@@ -33,7 +33,7 @@ public class NavigationStore
             .Add( new( nameof( LumexIcon ) ) )
             .Add( new( nameof( LumexLink ) ) )
             .Add( new( nameof( LumexNavbar ) ) )
-            .Add( new( nameof( LumexNumbox<T> ), NavItemStatus.Soon ) )
+            .Add( new( nameof( LumexNumbox<T> ) ) )
             .Add( new( nameof( LumexPopover ) ) )
             .Add( new( nameof( LumexSwitch ) ) )
             .Add( new( nameof( LumexTextbox ) ) );

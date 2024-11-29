@@ -1,0 +1,20 @@
+﻿<div class="w-full grid grid-cols-1 gap-4">
+    @foreach( var size in _sizes )
+    {
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexNumbox TValue="double?" Size="@size" Label="Temperature °C" />
+                <LumexNumbox TValue="double?" Size="@size" Label="Temperature °C" Placeholder="Enter the temperature" />
+            </div>
+            <small class="text-default-400 mt-1">@size</small>
+        </div>
+    }
+</div>
+
+@code {
+    private Size[] _sizes = [
+        Size.Small,
+        Size.Medium,
+        Size.Large
+    ];
+}

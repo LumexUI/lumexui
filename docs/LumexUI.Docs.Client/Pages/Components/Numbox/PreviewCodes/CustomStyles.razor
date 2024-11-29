@@ -1,0 +1,14 @@
+﻿@rendermode InteractiveWebAssembly
+
+<PreviewCode Code="@new(name: null, snippet: "Numbox.Code.CustomStyles")"
+             PreviewClasses="@_classes">
+    <LumexUI.Docs.Client.Pages.Components.Numbox.Examples.CustomStyles />
+</PreviewCode>
+
+@code {
+    private Preview.Slots _classes = new()
+    {
+        Background = "bg-gradient-to-tr from-indigo-200 to-violet-300 [mask-image:none]",
+        Preview = "justify-center"
+    };
+}
