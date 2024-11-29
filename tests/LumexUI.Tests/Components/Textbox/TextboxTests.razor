@@ -10,7 +10,8 @@
     public TextboxTests()
     {
         Services.AddSingleton<TwMerge>();
-        JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
+        module.Setup<string>( "input.getValidationMessage", _ => true );
     }
 
     [Fact]

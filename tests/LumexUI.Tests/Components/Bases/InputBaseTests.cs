@@ -186,7 +186,7 @@ public class InputBaseTests : TestContext
             await InvokeAsync( () => { base.CurrentValueAsString = value; } );
         }
 
-        protected override ValueTask SetValidationMessageAsync( bool parsingFailed )
+        protected override ValueTask SetValidationMessageAsync()
         {
             throw new NotImplementedException();
         }

@@ -20,8 +20,9 @@
         Services.AddSingleton<TwMerge>();
 
         var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/data-grid.js" );
-        var module2 = module.SetupModule( "dataGrid.initialize", _ => true );
-        JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
+        var module2 = JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
+        module.SetupModule( "dataGrid.initialize", _ => true );
+        module2.Setup<string>( "input.getValidationMessage", _ => true );
     }
 
     [Fact]
