@@ -1,11 +1,11 @@
 @namespace LumexUI
-@inherits LumexInputBase<TValue>
+@inherits LumexComponentBase
 @typeparam TValue
 
 <LumexComponent As="label"
                 Class="@RootClass"
                 Style="@RootStyle"
-                data-checked="@((CurrentValue?.Equals(Value) ?? false).ToAttributeValue())"
+                data-checked="@GetCheckedState().ToAttributeValue()"
                 data-disabled="@GetDisabledState().ToAttributeValue()"
                 data-readonly="@GetReadOnlyState().ToAttributeValue()"
                 tabindex="0"
@@ -15,9 +15,9 @@
     <span class="@StyleUtils.VisuallyHidden">
         <input type="radio"
                value="@Value"
-               checked="@((CurrentValue?.Equals(Value) ?? false).ToAttributeValue())"
+               checked="@GetCheckedState().ToAttributeValue()"
                disabled="@GetDisabledState()"
-               @onchange="@OnChangeAsync"/>
+               @onchange="@Context.ChangeEventCallback"/>
     </span>
     <span class="@WrapperClass">
         <span class="@ControlClass" data-slot="control"></span>

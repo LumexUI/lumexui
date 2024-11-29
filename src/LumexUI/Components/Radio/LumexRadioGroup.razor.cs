@@ -14,11 +14,19 @@ namespace LumexUI;
 
 public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComponent<RadioGroupSlots>, ILumexRadioValueProvider<TValue>
 {
+    private readonly string _defaultGroupName = Guid.NewGuid().ToString("N");
+    private RadioGroupContext<TValue>? _context;
+    
     /// <summary>
     /// Gets or sets content to be rendered inside the radio group.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name of the group.
+    /// </summary>
+    [Parameter] public string? Name { get; set; }
+    
     /// <summary>
     /// Gets or sets the label for the radio group.
     /// </summary>
@@ -47,17 +55,67 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
     /// </summary>
     [Parameter] public RadioSlots? RadioClasses { get; set; }
     
-    private readonly RadioGroupContext<TValue> _context;
+    /// <inheritdoc />
+    TValue? ILumexRadioValueProvider<TValue>.CurrentValue => _context is null ? default : _context.CurrentValue;
+    
+    private protected override string? RootClass =>
+        TwMerge.Merge( RadioGroup.GetStyles( this ) );
+
+    private string? LabelClass =>
+        TwMerge.Merge( RadioGroup.GetLabelStyles( this ) );
+
+    private string? WrapperClass =>
+        TwMerge.Merge( RadioGroup.GetWrapperStyles( this ) );
+
+    private string? DescriptionClass =>
+        TwMerge.Merge( RadioGroup.GetDescriptionStyles( this ) );
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        // On the first render, we can instantiate the InputRadioContext
+        if (_context is null)
+        {
+            var changeEventCallback = EventCallback.Factory.Create<ChangeEventArgs>( this, OnValueChangeAsync );
+            _context = new RadioGroupContext<TValue>(this, changeEventCallback);
+        }
+        
+        // Mutate the InputRadioContext instance in place. Since this is a non-fixed cascading parameter, the descendant
+        // InputRadio/InputRadioGroup components will get notified to re-render and will see the new values.
+        if (!string.IsNullOrEmpty(Name))
+        {
+            // Prefer the explicitly-specified group name over anything else.
+            _context.GroupName = Name;
+        }
+        else
+        {
+            // Otherwise, just use a GUID to disambiguate this group's radio inputs from any others on the page.
+            _context.GroupName = _defaultGroupName;
+        }
+    }
     
     /// <summary>
-    /// Sets the currently-selected value of the radio group.
+    /// Handles the change event asynchronously.
+    /// Derived classes can override this to specify custom behavior when the input's value changes.
     /// </summary>
-    /// <param name="value"></param>
-    public async ValueTask SetValueAsync( TValue? value )
+    /// <param name="args">The change event arguments.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    private Task OnValueChangeAsync( ChangeEventArgs args )
     {
-        await SetCurrentValueAsync( value );
+        if( Disabled || ReadOnly || _context is null)
+        {
+            return Task.CompletedTask;
+        }
+        
+        return SetCurrentValueAsStringAsync( args.Value?.ToString() );
     }
 
+    /// <inheritdoc />
+    protected override ValueTask SetValidationMessageAsync( bool parsingFailed )
+    {
+        return ValueTask.CompletedTask;
+    }
+    
     /// <inheritdoc />
     protected override bool TryParseValueFromString( string? value, [MaybeNullWhen(false)] out TValue result )
     {
@@ -116,32 +174,4 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
 
         return TryConvertToBool(value, out result);
     }
-
-    /// <inheritdoc />
-    protected override ValueTask SetValidationMessageAsync( bool parsingFailed )
-    {
-        return ValueTask.CompletedTask;
-    }
-    
-    private protected override string? RootClass =>
-        TwMerge.Merge( RadioGroup.GetStyles( this ) );
-
-    private string? LabelClass =>
-        TwMerge.Merge( RadioGroup.GetLabelStyles( this ) );
-
-    private string? WrapperClass =>
-        TwMerge.Merge( RadioGroup.GetWrapperStyles( this ) );
-
-    private string? DescriptionClass =>
-        TwMerge.Merge( RadioGroup.GetDescriptionStyles( this ) );
-    
-    /// <summary>
-    /// Initializes a new instance of the <see cref="LumexRadioGroup"/>.
-    /// </summary>
-    public LumexRadioGroup()
-    {
-        _context = new RadioGroupContext<TValue>( this );
-    }
-
-    public TValue? CurrentValue { get; }
 }
