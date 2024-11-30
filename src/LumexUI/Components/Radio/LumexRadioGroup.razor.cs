@@ -54,9 +54,9 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
     /// Gets or sets the CSS class names for the radio button slots.
     /// </summary>
     [Parameter] public RadioSlots? RadioClasses { get; set; }
-    
+
     /// <inheritdoc />
-    TValue? ILumexRadioValueProvider<TValue>.CurrentValue => _context is null ? default : _context.CurrentValue;
+    TValue? ILumexRadioValueProvider<TValue>.CurrentValue => Value;
     
     private protected override string? RootClass =>
         TwMerge.Merge( RadioGroup.GetStyles( this ) );
@@ -100,14 +100,14 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
     /// </summary>
     /// <param name="args">The change event arguments.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    private Task OnValueChangeAsync( ChangeEventArgs args )
+    private async Task OnValueChangeAsync( ChangeEventArgs args )
     {
         if( Disabled || ReadOnly || _context is null)
         {
-            return Task.CompletedTask;
+            return;
         }
-        
-        return SetCurrentValueAsStringAsync( args.Value?.ToString() );
+
+        await SetCurrentValueAsStringAsync( args.Value?.ToString() );
     }
 
     /// <inheritdoc />

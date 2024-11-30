@@ -6,7 +6,7 @@ namespace LumexUI;
 
 internal sealed class RadioGroupContext<TValue>( LumexRadioGroup<TValue> owner, EventCallback<ChangeEventArgs> changeEventCallback ) : IComponentContext<LumexRadioGroup<TValue>>
 {
-    private readonly ILumexRadioValueProvider<TValue> _valueProvider;
+    private readonly ILumexRadioValueProvider<TValue> _valueProvider = owner;
     
     public LumexRadioGroup<TValue> Owner { get; } = owner;
 
