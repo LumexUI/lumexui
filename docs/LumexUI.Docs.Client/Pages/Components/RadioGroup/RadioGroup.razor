@@ -1,0 +1,118 @@
+﻿@page "/docs/components/radio-group"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.RadioGroup.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+        The radio group component groups multiple radio buttons,
+        displaying related choices in a consistent manner.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            You can disable a radio group to prevent user interaction.
+            All radio buttons within the group are faded and do not respond to user clicks.
+        </p>
+        <Disabled />
+    </DocsSection>
+
+    <DocsSection Title="Read-Only">
+        <p>
+            You can set a radio group to be read-only, allowing the user to 
+            view the selected options without being able to modify them.
+        </p>
+        <ReadOnly />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>
+            The radio group component can control the size of the radio buttons within it to fit
+            various layouts and design needs, from small radio groups to larger ones.
+        </p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>
+            Customize the appearance of the radio group by applying
+            different colors that suit your application's theme and design.
+        </p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Label">
+        <p>
+            The radio group can include a label to provide context for the 
+            grouped radio buttons, making it clear what the set of options represents.
+        </p>
+        <Label />
+    </DocsSection>
+
+    <DocsSection Title="Description">
+        <p>
+            Add a description to the radio group to give users 
+            additional information about the grouped options.
+        </p>
+        <Description />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">radio group</h4>
+        <ul>
+            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the radio group.</li>
+            <li><Code>Classes</Code>: The CSS class names for the radio group slots style the entire radio group at once.</li>
+            <li><Code>RadioClasses</Code>: The CSS class names for the radio buttons slots all the radio buttons at once.</li>
+        </ul>
+    </div>
+    @* <CustomStyles /> *@
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Disabled"),
+            new("Read-Only"),
+            new("Sizes"),
+            new("Radius"),
+            new("Colors"),
+            new("Label"),
+            new("Description"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(RadioGroupSlots.Root), "The overall container of the radio group."),
+        new(nameof(RadioGroupSlots.Wrapper), "The wrapper for the radio buttons within the group."),
+        new(nameof(RadioGroupSlots.Label), "The label associated with the radio group."),
+        new(nameof(RadioGroupSlots.Description), "The description of the radio group."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexRadioGroup<object>),
+        nameof(LumexRadio<object>),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Radio Group",
+            category: "Components",
+            description: "The radio group allows users to select one option from a set.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Radio", isServer: false )
+        );
+    }
+}
