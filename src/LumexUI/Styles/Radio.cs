@@ -81,6 +81,7 @@ internal readonly record struct Radio
         .Add( "select-none" )
         .Add( "transition-colors-opacity" )
         .Add( "motion-reduce:transition-none" )
+        .Add( "group" )
         .ToString();
 
     private readonly static string _disabled = ElementClass.Empty()

@@ -102,7 +102,7 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     private async Task OnValueChangeAsync( ChangeEventArgs args )
     {
-        if( Disabled || ReadOnly || _context is null)
+        if( Disabled || ReadOnly )
         {
             return;
         }

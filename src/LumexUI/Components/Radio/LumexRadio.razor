@@ -17,6 +17,7 @@
                value="@Value"
                checked="@GetCheckedState().ToAttributeValue()"
                disabled="@GetDisabledState()"
+               name="@Context.GroupName"
                @onchange="@Context.ChangeEventCallback"/>
     </span>
     <span class="@WrapperClass">
