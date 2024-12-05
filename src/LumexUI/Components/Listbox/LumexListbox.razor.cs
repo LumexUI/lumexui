@@ -2,6 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Common;
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
@@ -29,6 +30,19 @@ public partial class LumexListbox<T> : LumexComponentBase
     /// 
     /// </summary>
     [Parameter] public IEnumerable<T>? Items { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public ListboxVariant Variant { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="ThemeColor.Default"/>
+    /// </remarks>
+    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
     private readonly ListboxContext<T> _context;
 

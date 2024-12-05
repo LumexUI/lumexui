@@ -20,6 +20,22 @@ public partial class LumexListboxItem<T> : LumexComponentBase
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="ListboxVariant.Solid"/>
+    /// </remarks>
+    [Parameter] public ListboxVariant Variant { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="ThemeColor.Default"/>
+    /// </remarks>
+    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+
     [CascadingParameter] internal ListboxContext<T> Context { get; set; } = default!;
 
     private ListboxItemSlots _slots = default!;
@@ -30,6 +46,24 @@ public partial class LumexListboxItem<T> : LumexComponentBase
     public LumexListboxItem()
     {
         As = "li";
+    }
+
+    /// <inheritdoc />
+    public override Task SetParametersAsync( ParameterView parameters )
+    {
+        parameters.SetParameterProperties( this );
+
+        // Respect the Variant value if provided; otherwise, use the owner's
+        Variant = parameters.TryGetValue<ListboxVariant>( nameof( Variant ), out var variant )
+            ? variant
+            : Context.Owner.Variant;
+
+        // Respect the Color value if provided; otherwise, use the owner's
+        Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
+            ? color
+            : Context.Owner.Color;
+
+        return base.SetParametersAsync( ParameterView.Empty );
     }
 
     /// <inheritdoc />
