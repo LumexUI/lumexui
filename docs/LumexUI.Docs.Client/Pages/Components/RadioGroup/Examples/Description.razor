@@ -1,5 +1,5 @@
 ﻿<LumexRadioGroup Label="Choose the Oscar winner"
-                 Description="Select the actor you believe will win the Oscar"
+                 Description="@CalculatedDescription"
                  @bind-Value="@_selectedActor">
     <LumexRadio Value="@("leo")">Leonardo DiCaprio</LumexRadio>
     <LumexRadio Value="@("denzel")">Denzel Washington</LumexRadio>
@@ -11,4 +11,6 @@
 @code
 {
     private string? _selectedActor;
+    
+    private string CalculatedDescription => $"You chose {_selectedActor ?? "nobody"} to win the Oscar";
 }
