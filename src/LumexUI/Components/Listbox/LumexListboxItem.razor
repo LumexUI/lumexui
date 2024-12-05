@@ -1,0 +1,13 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+@typeparam T
+
+<LumexComponent As="@As"
+                Class="@_slots.Root"
+                Style="@RootStyle"
+                data-slot="base"
+                @attributes="@AdditionalAttributes">
+    <span class="@_slots.Title" data-slot="title">
+        @ChildContent
+    </span>
+</LumexComponent>
