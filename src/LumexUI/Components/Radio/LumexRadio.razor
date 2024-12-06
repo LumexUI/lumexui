@@ -5,7 +5,7 @@
 <LumexComponent As="label"
                 Class="@RootClass"
                 Style="@RootStyle"
-                data-checked="@GetCheckedState().ToAttributeValue()"
+                data-selected="@GetSelectedState().ToAttributeValue()"
                 data-disabled="@GetDisabledState().ToAttributeValue()"
                 data-readonly="@GetReadOnlyState().ToAttributeValue()"
                 tabindex="0"
@@ -15,7 +15,7 @@
     <span class="@StyleUtils.VisuallyHidden">
         <input type="radio"
                value="@Value"
-               checked="@GetCheckedState().ToAttributeValue()"
+               checked="@GetSelectedState().ToAttributeValue()"
                disabled="@GetDisabledState()"
                name="@Context.GroupName"
                @onchange="@Context.ChangeEventCallback"/>

@@ -13,7 +13,7 @@ are what cause the descendant InputRadio components to re-render themselves
             <span class="@LabelClass">@Label</span>
         }
 
-        <div class="@WrapperClass">
+        <div class="@WrapperClass" data-orientation="@(Orientation.ToString().ToLowerInvariant())">
             @ChildContent
         </div>
 

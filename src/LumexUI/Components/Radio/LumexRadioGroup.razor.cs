@@ -71,8 +71,18 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
         TwMerge.Merge( RadioGroup.GetDescriptionStyles( this ) );
 
     /// <inheritdoc />
-    protected override void OnParametersSet()
+    public override async Task SetParametersAsync( ParameterView parameters )
     {
+        await base.SetParametersAsync( parameters );
+
+        Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
+            ? color
+            : ThemeColor.Primary;
+
+        Size = parameters.TryGetValue<Size>( nameof( Size ), out var size )
+            ? size
+            : Size.Medium;
+        
         // On the first render, we can instantiate the InputRadioContext
         if (_context is null)
         {

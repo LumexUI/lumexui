@@ -55,6 +55,9 @@ internal readonly record struct Radio
         .Add( "rounded-full" )
         .Add( "group-hover:bg-default-100" )
         .Add( "mr-2" )
+        .Add( "group-data-[pressed=true]:scale-95" )
+        .Add( "transition-transform-colors" )
+        .Add( "motion-reduce:transition-none" )
         // focus ring
         .Add( Utils.GroupFocusVisible )
         .ToString();
@@ -69,6 +72,8 @@ internal readonly record struct Radio
         .Add( "rounded-full" )
         .Add( "group-data-[selected=true]:opacity-100" )
         .Add( "group-data-[selected=true]:scale-100" )
+        .Add( "transition-transform-opacity" )
+        .Add( "motion-reduce:transition-none" )
         .ToString();
 
     private readonly static string _labelWrapper = ElementClass.Empty()

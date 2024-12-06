@@ -86,7 +86,7 @@ public class RadioGroupTests : TestContext
 
         radioButtons.Count.Should().Be( 4 );
         radioGroup.Value.Should().NotBe( "Mistress" );
-        radioButtons[0].Instance.GetCheckedState().Should().BeTrue();
+        radioButtons[0].Instance.GetSelectedState().Should().BeTrue();
 
         var eventArgs = new ChangeEventArgs
         {
@@ -96,8 +96,8 @@ public class RadioGroupTests : TestContext
         radioButtons[2].Find( "input" ).Change( eventArgs );
 
         radioGroup.Value.Should().Be( "Mistress" );
-        radioButtons[2].Instance.GetCheckedState().Should().BeTrue();
-        radioButtons[1].Instance.GetCheckedState().Should().BeFalse();
+        radioButtons[2].Instance.GetSelectedState().Should().BeTrue();
+        radioButtons[1].Instance.GetSelectedState().Should().BeFalse();
     }
 
     [Theory]
@@ -123,9 +123,9 @@ public class RadioGroupTests : TestContext
         radioButtons[2].Find( "input" ).Change( eventArgs );
 
         radioGroup.Value.Should().NotBe( "Mistress" );
-        radioButtons[0].Instance.GetCheckedState().Should().BeFalse();
-        radioButtons[1].Instance.GetCheckedState().Should().BeTrue();
-        radioButtons[2].Instance.GetCheckedState().Should().BeFalse();
-        radioButtons[3].Instance.GetCheckedState().Should().BeFalse();
+        radioButtons[0].Instance.GetSelectedState().Should().BeFalse();
+        radioButtons[1].Instance.GetSelectedState().Should().BeTrue();
+        radioButtons[2].Instance.GetSelectedState().Should().BeFalse();
+        radioButtons[3].Instance.GetSelectedState().Should().BeFalse();
     }
 }

@@ -1,7 +1,11 @@
-﻿<LumexRadioGroup TValue="int">
+﻿<LumexRadioGroup @bind-Value="@_chosenActorId">
     <LumexRadio Value="@(1)">Leonardo DiCaprio</LumexRadio>
     <LumexRadio Value="@(2)">Denzel Washington</LumexRadio>
     <LumexRadio Value="@(3)">Brad Pitt</LumexRadio>
     <LumexRadio Value="@(5)">Joaquin Phoenix</LumexRadio>
     <LumexRadio Value="@(8)">Christian Bale</LumexRadio>
 </LumexRadioGroup>
+
+@code {
+    private int _chosenActorId = 3;
+}

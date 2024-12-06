@@ -23,4 +23,9 @@ export default {
         'transition-timing-function': defaultTransitionFunction,
         'transition-duration': DEFAULT_TRANSITION_DURATION,
     },
+    '.transition-transform-opacity': {
+        'transition-property': 'transform, opacity',
+        'transition-timing-function': defaultTransitionFunction,
+        'transition-duration': DEFAULT_TRANSITION_DURATION
+    }
 };

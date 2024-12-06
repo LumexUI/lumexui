@@ -26,6 +26,14 @@
         <ReadOnly />
     </DocsSection>
 
+    <DocsSection Title="Orientation">
+        <p>
+            You can control how the radio buttons are laid out within the radio group. You can choose to
+            display the radio buttons vertically (default) or horizontally.
+        </p>
+        <Orientation />
+    </DocsSection>
+    
     <DocsSection Title="Sizes">
         <p>
             The radio group component can control the size of the radio buttons within it to fit
@@ -61,7 +69,7 @@
 
 <DocsSlotsSection Slots="@_slots">
     <div>
-        <h4 class="font-semibold">radio group</h4>
+        <h4 class="font-semibold">Radio Group</h4>
         <ul>
             <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the radio group.</li>
             <li><Code>Classes</Code>: The CSS class names for the radio group slots style the entire radio group at once.</li>
@@ -81,6 +89,7 @@
         new("Usage", [
             new("Disabled"),
             new("Read-Only"),
+            new("Orientation"),
             new("Sizes"),
             new("Radius"),
             new("Colors"),

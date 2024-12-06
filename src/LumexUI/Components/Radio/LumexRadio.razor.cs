@@ -43,7 +43,7 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     /// <remarks>
     /// The default is <see cref="ThemeColor.Default"/>
     /// </remarks>
-    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Primary;
     
     /// <summary>
     /// Gets or sets the size of the radio button.
@@ -91,11 +91,11 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
 
         Color = parameters.TryGetValue<ThemeColor>( nameof(Color), out var color )
             ? color
-            : Context?.Owner.Color ?? ThemeColor.Primary;
+            : Context.Owner.Color;
 
         Size = parameters.TryGetValue<Size>( nameof(Size), out var size )
             ? size
-            : Context?.Owner.Size ?? Size.Medium;
+            : Context.Owner.Size;
     }
 
     /// <inheritdoc />
@@ -124,5 +124,5 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     /// <returns>A <see cref="bool"/> value indicating whether the input is readonly.</returns>
     protected internal bool GetReadOnlyState() => ReadOnly || Context.Owner.ReadOnly;
     
-    protected internal bool GetCheckedState() => Context.CurrentValue?.Equals( Value ) ?? false;
+    protected internal bool GetSelectedState() => Context.CurrentValue?.Equals( Value ) ?? false;
 }
