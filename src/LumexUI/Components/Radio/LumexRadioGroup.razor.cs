@@ -14,9 +14,6 @@ namespace LumexUI;
 
 public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComponent<RadioGroupSlots>, ILumexRadioValueProvider<TValue>
 {
-    private readonly string _defaultGroupName = Guid.NewGuid().ToString("N");
-    private RadioGroupContext<TValue>? _context;
-    
     /// <summary>
     /// Gets or sets content to be rendered inside the radio group.
     /// </summary>
@@ -60,7 +57,7 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
     
     private protected override string? RootClass =>
         TwMerge.Merge( RadioGroup.GetStyles( this ) );
-
+    
     private string? LabelClass =>
         TwMerge.Merge( RadioGroup.GetLabelStyles( this ) );
 
@@ -69,6 +66,10 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
 
     private string? DescriptionClass =>
         TwMerge.Merge( RadioGroup.GetDescriptionStyles( this ) );
+    
+    private readonly string _defaultGroupName = Guid.NewGuid().ToString("N");
+    
+    private RadioGroupContext<TValue>? _context;
 
     /// <inheritdoc />
     public override async Task SetParametersAsync( ParameterView parameters )
@@ -102,22 +103,6 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
             // Otherwise, just use a GUID to disambiguate this group's radio inputs from any others on the page.
             _context.GroupName = _defaultGroupName;
         }
-    }
-    
-    /// <summary>
-    /// Handles the change event asynchronously.
-    /// Derived classes can override this to specify custom behavior when the input's value changes.
-    /// </summary>
-    /// <param name="args">The change event arguments.</param>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    private async Task OnValueChangeAsync( ChangeEventArgs args )
-    {
-        if( Disabled || ReadOnly )
-        {
-            return;
-        }
-
-        await SetCurrentValueAsStringAsync( args.Value?.ToString() );
     }
 
     /// <inheritdoc />
@@ -160,6 +145,22 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
         {
             throw new InvalidOperationException($"{Label} does not support the type '{typeof(TValue)}'.", ex);
         }
+    }
+    
+    /// <summary>
+    /// Handles the change event asynchronously.
+    /// Derived classes can override this to specify custom behavior when the input's value changes.
+    /// </summary>
+    /// <param name="args">The change event arguments.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    protected async Task OnValueChangeAsync( ChangeEventArgs args )
+    {
+        if( Disabled || ReadOnly )
+        {
+            return;
+        }
+
+        await SetCurrentValueAsStringAsync( args.Value?.ToString() );
     }
     
     private static bool TryConvertToBool(string? value, out TValue result)

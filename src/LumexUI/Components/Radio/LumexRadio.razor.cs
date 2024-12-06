@@ -76,13 +76,6 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
 
     private string? LabelClass =>
         TwMerge.Merge( Radio.GetLabelStyles( this ) );
-    
-    /// <summary>
-    /// Initializes a new instance of the <see cref="LumexRadio{TValue}"/>.
-    /// </summary>
-    public LumexRadio()
-    {
-    }
 
     /// <inheritdoc />
     public override async Task SetParametersAsync( ParameterView parameters )
@@ -96,18 +89,6 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
         Size = parameters.TryGetValue<Size>( nameof(Size), out var size )
             ? size
             : Context.Owner.Size;
-    }
-
-    /// <inheritdoc />
-    /// <remarks>
-    /// LumexRadio ensures that it is always used within a LumexRadioGroup.
-    /// </remarks>
-    /// <exception cref="ContextNullException">Thrown when LumexRadio is used outside a <see cref="LumexRadioGroup{TValue}"/></exception>
-    protected override void OnInitialized()
-    {
-        ContextNullException.ThrowIfNull( Context, nameof( LumexRadio<TValue> ) );
-        
-        base.OnInitialized();
     }
     
     /// <summary>
@@ -124,5 +105,23 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     /// <returns>A <see cref="bool"/> value indicating whether the input is readonly.</returns>
     protected internal bool GetReadOnlyState() => ReadOnly || Context.Owner.ReadOnly;
     
+    /// <summary>
+    /// Indicates whether this radio button is selected.
+    /// Derived classes can override this to determine the input's selected state.
+    /// </summary>
+    /// <returns><c>true</c> if the <see cref="Value"/> of this <see cref="LumexRadio{TValue}"/> matches
+    /// the <c>CurrentValue</c> property in the parent <see cref="Context"/>. Otherwise <c>false</c>.</returns>
     protected internal bool GetSelectedState() => Context.CurrentValue?.Equals( Value ) ?? false;
+    
+    /// <inheritdoc />
+    /// <remarks>
+    /// LumexRadio ensures that it is always used within a LumexRadioGroup.
+    /// </remarks>
+    /// <exception cref="ContextNullException">Thrown when LumexRadio is used outside a <see cref="LumexRadioGroup{TValue}"/></exception>
+    protected override void OnInitialized()
+    {
+        ContextNullException.ThrowIfNull( Context, nameof( LumexRadio<TValue> ) );
+        
+        base.OnInitialized();
+    }
 }
