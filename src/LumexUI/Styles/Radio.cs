@@ -49,11 +49,12 @@ internal readonly record struct Radio
         .Add( "flex-shrink-0" )
         .Add( "overflow-hidden" )
         .Add( "border-solid" )
-        .Add( "border-medium" )
+        .Add( "border-2" )
         .Add( "box-border" )
         .Add( "border-default" )
         .Add( "rounded-full" )
-        .Add( "group-data-[hover-unselected=true]:bg-default-100" )
+        .Add( "group-hover:bg-default-100" )
+        .Add( "mr-2" )
         // focus ring
         .Add( Utils.GroupFocusVisible )
         .ToString();
@@ -75,7 +76,7 @@ internal readonly record struct Radio
         .Add( "text-foreground" )
         .Add( "select-none" )
         .ToString();
-    
+
     private readonly static string _label = ElementClass.Empty()
         .Add( "text-foreground" )
         .Add( "select-none" )
@@ -91,7 +92,7 @@ internal readonly record struct Radio
 
     private static ElementClass GetColorStyles( ThemeColor color, ColorSlots slot )
     {
-        switch (slot)
+        switch( slot )
         {
             case ColorSlots.Control:
                 return ElementClass.Empty()
@@ -112,13 +113,13 @@ internal readonly record struct Radio
                     .Add( "group-data-[selected=true]:border-danger", when: color is ThemeColor.Danger )
                     .Add( "group-data-[selected=true]:border-info", when: color is ThemeColor.Info );
             default:
-                throw new ArgumentOutOfRangeException(nameof(slot), slot, "Unsupported slot");
+                throw new ArgumentOutOfRangeException( nameof(slot), slot, "Unsupported slot" );
         }
     }
 
     private static ElementClass GetSizeStyles( Size size, SizeSlots slot )
     {
-        switch (slot)
+        switch( slot )
         {
             case SizeSlots.Wrapper:
                 return ElementClass.Empty()
@@ -146,7 +147,7 @@ internal readonly record struct Radio
                     .Add( "text-small", when: size is Size.Medium )
                     .Add( "text-medium", when: size is Size.Large );
             default:
-                throw new ArgumentOutOfRangeException(nameof(slot), slot, "Unsupported slot");
+                throw new ArgumentOutOfRangeException( nameof(slot), slot, "Unsupported slot" );
         }
     }
 
@@ -170,7 +171,7 @@ internal readonly record struct Radio
         return ElementClass.Empty()
             .Add( _wrapper )
             .Add( GetColorStyles( radio.Color, slot: ColorSlots.Wrapper ) )
-            .Add( GetSizeStyles( radio.Size, slot: SizeSlots.Wrapper) )
+            .Add( GetSizeStyles( radio.Size, slot: SizeSlots.Wrapper ) )
             .Add( radioGroup?.RadioClasses?.Wrapper )
             .Add( radio.Classes?.Wrapper )
             .ToString();
@@ -189,14 +190,26 @@ internal readonly record struct Radio
             .ToString();
     }
 
+    public static string GetLabelWrapperStyles<TValue>( LumexRadio<TValue> radio )
+    {
+        var radioGroup = radio.Context.Owner;
+
+        return ElementClass.Empty()
+            .Add( _labelWrapper )
+            .Add( GetSizeStyles( radio.Size, slot: SizeSlots.LabelWrapper ) )
+            .Add( radioGroup.RadioClasses?.LabelWrapper )
+            .Add( radio.Classes?.LabelWrapper )
+            .ToString();
+    }
+
     public static string GetLabelStyles<TValue>( LumexRadio<TValue> radio )
     {
-        var checkboxGroup = radio.Context?.Owner;
+        var radioGroup = radio.Context.Owner;
 
         return ElementClass.Empty()
             .Add( _label )
             .Add( GetSizeStyles( radio.Size, slot: SizeSlots.Label ) )
-            .Add( checkboxGroup?.RadioClasses?.Label )
+            .Add( radioGroup.RadioClasses?.Label )
             .Add( radio.Classes?.Label )
             .ToString();
     }
