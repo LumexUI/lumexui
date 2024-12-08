@@ -24,7 +24,7 @@ public partial class LumexListbox<T> : LumexComponentBase
     /// <summary>
     /// 
     /// </summary>
-    [Parameter] public RenderFragment EmptyContent { get; set; } = _emptyContent;
+    [Parameter] public RenderFragment? EmptyContent { get; set; }
 
     /// <summary>
     /// 
@@ -45,6 +45,8 @@ public partial class LumexListbox<T> : LumexComponentBase
     };
 
     private readonly ListboxContext<T> _context;
+    private readonly RenderFragment _renderItems;
+    private readonly RenderFragment _renderEmptyContent;
 
     private ListboxSlots _slots = default!;
 
@@ -54,6 +56,8 @@ public partial class LumexListbox<T> : LumexComponentBase
     public LumexListbox()
     {
         _context = new ListboxContext<T>( this );
+        _renderItems = RenderItems;
+        _renderEmptyContent = RenderEmptyContent;
 
         As = "ul";
     }

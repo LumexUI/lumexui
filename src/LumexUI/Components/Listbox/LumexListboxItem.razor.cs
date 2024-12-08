@@ -70,8 +70,6 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     protected override void OnInitialized()
     {
         ContextNullException.ThrowIfNull( Context, nameof( LumexListboxItem<T> ) );
-
-        Context.Items.Add( this );
     }
 
     /// <inheritdoc />

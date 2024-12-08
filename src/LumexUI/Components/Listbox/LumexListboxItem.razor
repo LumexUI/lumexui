@@ -2,12 +2,25 @@
 @inherits LumexComponentBase
 @typeparam T
 
-<LumexComponent As="@As"
-                Class="@_slots.Root"
-                Style="@RootStyle"
-                data-slot="base"
-                @attributes="@AdditionalAttributes">
-    <span class="@_slots.Title" data-slot="title">
-        @ChildContent
-    </span>
-</LumexComponent>
+@{
+    Context.AddItem( this );
+}
+
+@code {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="__builder"></param>
+    protected internal virtual void Render( RenderTreeBuilder __builder )
+    {
+        <LumexComponent As="@As"
+                        Class="@_slots.Root"
+                        Style="@RootStyle"
+                        data-slot="base"
+                        @attributes="@AdditionalAttributes">
+            <span class="@_slots.Title" data-slot="title">
+                @ChildContent
+            </span>
+        </LumexComponent>
+    }
+}
