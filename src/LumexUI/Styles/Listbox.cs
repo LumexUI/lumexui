@@ -91,6 +91,14 @@ internal class ListboxItem
     private readonly static string _title = ElementClass.Empty()
         .Add( "flex-1" )
         .Add( "text-small" )
+        .Add( "truncate" )
+        .ToString();
+
+    private readonly static string _selectedIcon = ElementClass.Empty()
+        .Add( "w-3" )
+        .Add( "h-3" )
+        .Add( "flex-shrink-0" )
+        .Add( "text-inherit" )
         .ToString();
 
     public static ListboxItemSlots GetStyles<T>( LumexListboxItem<T> listboxItem, TwMerge twMerge )
@@ -115,6 +123,11 @@ internal class ListboxItem
             Title = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _title )
+                    .ToString() ),
+
+            SelectedIcon = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _selectedIcon )
                     .ToString() ),
         };
     }

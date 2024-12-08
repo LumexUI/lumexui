@@ -3,7 +3,7 @@
 @typeparam T
 
 @{
-    Context.AddItem( this );
+    Context.Register( this );
 }
 
 @code {
@@ -17,10 +17,35 @@
                         Class="@_slots.Root"
                         Style="@RootStyle"
                         data-slot="base"
-                        @attributes="@AdditionalAttributes">
+                        @attributes="@AdditionalAttributes"
+                        @onclick="@SelectItemAsync">
             <span class="@_slots.Title" data-slot="title">
                 @ChildContent
             </span>
+
+            @if( Context.Owner.SelectionMode is not SelectionMode.None )
+            {
+                <span class="@_slots.SelectedIcon">@_renderSelectedIcon</span>
+            }
         </LumexComponent>
+    }
+
+    private void RenderSelectedIcon(RenderTreeBuilder __builder)
+    {
+        var style = ElementStyle.Empty()
+            .Add("transition", "stroke-dashoffset 0.2s ease")
+            .ToString();
+
+        <svg viewBox="0 0 17 18">
+            <polyline fill="none"
+                      points="1 9 7 14 15 4"
+                      stroke="currentColor"
+                      stroke-dasharray="22"
+                      stroke-dashoffset="@(IsSelected ? 44 : 66)"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      style="@style" />
+        </svg>
     }
 }

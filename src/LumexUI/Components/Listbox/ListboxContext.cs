@@ -8,12 +8,17 @@ internal class ListboxContext<T>( LumexListbox<T> owner ) : IComponentContext<Lu
     public List<LumexListboxItem<T>> Items { get; } = [];
     public bool CollectingItems { get; private set; }
 
-    public void AddItem( LumexListboxItem<T> item )
+    public void Register( LumexListboxItem<T> item )
     {
         if( CollectingItems )
         {
             Items.Add( item );
         }
+    }
+
+    public void Unregister( LumexListboxItem<T> item )
+    {
+        Items.Remove( item );
     }
 
     public void StartCollectingItems()

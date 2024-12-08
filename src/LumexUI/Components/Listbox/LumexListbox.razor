@@ -15,12 +15,12 @@
         }
 
         <div class="@_slots.Root"
-        style="@RootStyle"
-        data-slot="base"
-        @attributes="@AdditionalAttributes">
+             style="@RootStyle"
+             data-slot="base"
+             @attributes="@AdditionalAttributes">
             <LumexComponent As="@As"
-            Class="@_slots.List"
-            data-slot="list">
+                            Class="@_slots.List"
+                            data-slot="list">
                 @if (_context.Items.Count > 0)
                 {
                     @_renderItems

@@ -23,6 +23,11 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// <summary>
     /// 
     /// </summary>
+    [Parameter, EditorRequired] public T Key { get; set; } = default!;
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <remarks>
     /// The default value is <see cref="ListboxVariant.Solid"/>
     /// </remarks>
@@ -38,6 +43,11 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
 
     [CascadingParameter] internal ListboxContext<T> Context { get; set; } = default!;
 
+    private LumexListbox<T> Listbox => Context.Owner;
+    private bool IsSelected => Listbox.SelectedItems.Contains( Key );
+
+    private readonly RenderFragment _renderSelectedIcon;
+
     private ListboxItemSlots _slots = default!;
 
     /// <summary>
@@ -45,6 +55,8 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// </summary>
     public LumexListboxItem()
     {
+        _renderSelectedIcon = RenderSelectedIcon;
+
         As = "li";
     }
 
@@ -75,12 +87,45 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
+        if( Key is null )
+        {
+            throw new InvalidOperationException( $"{GetType()} requires a value for parameter '{nameof( Key )}'." );
+        }
+
         _slots ??= ListboxItem.GetStyles( this, TwMerge );
+    }
+
+    private Task SelectItemAsync()
+    {
+        if( Listbox.SelectionMode is SelectionMode.None )
+        {
+            return Task.CompletedTask;
+        }
+
+        var selectedItems = Listbox.SelectedItems;
+        if( selectedItems.Remove( Key ) )
+        {
+            return Listbox.SelectedItemsChanged.InvokeAsync( selectedItems );
+        }
+
+        switch( Listbox.SelectionMode )
+        {
+            case SelectionMode.Single:
+                selectedItems.Clear();
+                selectedItems.Add( Key );
+                break;
+
+            case SelectionMode.Multiple:
+                selectedItems.Add( Key );
+                break;
+        }
+
+        return Listbox.SelectedItemsChanged.InvokeAsync( selectedItems );
     }
 
     /// <inheritdoc />
     public void Dispose()
     {
-        Context.Items.Remove( this );
+        Context.Unregister( this );
     }
 }

@@ -39,6 +39,24 @@ public partial class LumexListbox<T> : LumexComponentBase
     /// </remarks>
     [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// The default is <see cref="SelectionMode.Single"/>
+    /// </remarks>
+    [Parameter] public SelectionMode SelectionMode { get; set; } = SelectionMode.Single;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public ICollection<T> SelectedItems { get; set; } = new HashSet<T>();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public EventCallback<ICollection<T>> SelectedItemsChanged { get; set; }
+
     private readonly static RenderFragment _emptyContent = builder =>
     {
         builder.AddContent( 0, "No items." );
