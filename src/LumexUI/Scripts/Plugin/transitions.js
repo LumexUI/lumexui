@@ -5,6 +5,12 @@ const defaultTransitionFunction = defaultTheme.transitionTimingFunction.DEFAULT;
 export const DEFAULT_TRANSITION_DURATION = '250ms';
 
 export default {
+    '.transition-colors-shadow': {
+        'transition-property':
+            'color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow',
+        'transition-timing-function': defaultTransitionFunction,
+        'transition-duration': DEFAULT_TRANSITION_DURATION,
+    },
     '.transition-colors-opacity': {
         'transition-property':
             'color, background-color, border-color, text-decoration-color, fill, stroke, opacity',

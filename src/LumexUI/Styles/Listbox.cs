@@ -75,7 +75,7 @@ internal class ListboxItem
         .Add( "rounded-small" )
         .Add( "cursor-pointer" )
         // transition
-        .Add( "hover:transition-colors" )
+        .Add( "hover:transition-colors-shadow" )
         // focus ring
         .Add( Utils.FocusVisible )
         .ToString();
