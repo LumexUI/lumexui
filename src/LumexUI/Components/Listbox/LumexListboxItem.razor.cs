@@ -38,6 +38,11 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// <summary>
     /// 
     /// </summary>
+    [Parameter] public string? Description { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <remarks>
     /// The default value is <see cref="ListboxVariant.Solid"/>
     /// </remarks>

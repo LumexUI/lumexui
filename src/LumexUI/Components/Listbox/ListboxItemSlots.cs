@@ -25,5 +25,10 @@ public class ListboxItemSlots : ISlot
     /// <summary>
     /// 
     /// </summary>
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public string? SelectedIcon { get; set; }
 }

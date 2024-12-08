@@ -3,15 +3,15 @@
 @typeparam T
 
 @{
-    Context.Register( this );
+    Context.Register(this);
 }
 
 @code {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="__builder"></param>
-    protected internal virtual void Render( RenderTreeBuilder __builder )
+    protected internal virtual void Render(RenderTreeBuilder __builder)
     {
         <LumexComponent As="@As"
                         Class="@_slots.Root"
@@ -21,13 +21,23 @@
                         @onclick="@SelectItemAsync">
             @StartContent
 
-            <span class="@_slots.Title" data-slot="title">
-                @ChildContent
-            </span>
-
-            @if( Context.Owner.SelectionMode is not SelectionMode.None )
+            @if (!string.IsNullOrEmpty(Description))
             {
-                <span class="@_slots.SelectedIcon">@_renderSelectedIcon</span>
+                <div class="@_slots.Wrapper" data-slot="wrapper">
+                    <span class="@_slots.Title" data-slot="title">@ChildContent</span>
+                    <span class="@_slots.Description" data-slot="description">@Description</span>
+                </div>
+            }
+            else
+            {
+                <span class="@_slots.Title" data-slot="title">@ChildContent</span>
+            }
+
+            @if (Context.Owner.SelectionMode is not SelectionMode.None)
+            {
+                <span class="@_slots.SelectedIcon" data-slot="selected-icon">
+                    @_renderSelectedIcon
+                </span>
             }
 
             @EndContent
