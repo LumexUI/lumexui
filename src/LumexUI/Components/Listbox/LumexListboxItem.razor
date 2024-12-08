@@ -19,6 +19,8 @@
                         data-slot="base"
                         @attributes="@AdditionalAttributes"
                         @onclick="@SelectItemAsync">
+            @StartContent
+
             <span class="@_slots.Title" data-slot="title">
                 @ChildContent
             </span>
@@ -27,6 +29,8 @@
             {
                 <span class="@_slots.SelectedIcon">@_renderSelectedIcon</span>
             }
+
+            @EndContent
         </LumexComponent>
     }
 

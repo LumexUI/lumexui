@@ -23,6 +23,16 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// <summary>
     /// 
     /// </summary>
+    [Parameter] public RenderFragment? StartContent { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public RenderFragment? EndContent { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
     [Parameter, EditorRequired] public T Key { get; set; } = default!;
 
     /// <summary>
