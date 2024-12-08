@@ -24,12 +24,7 @@ public partial class LumexListbox<T> : LumexComponentBase
     /// <summary>
     /// 
     /// </summary>
-    [Parameter] public RenderFragment? EmptyContent { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Parameter] public IEnumerable<T>? Items { get; set; }
+    [Parameter] public RenderFragment EmptyContent { get; set; } = _emptyContent;
 
     /// <summary>
     /// 
@@ -43,6 +38,11 @@ public partial class LumexListbox<T> : LumexComponentBase
     /// The default value is <see cref="ThemeColor.Default"/>
     /// </remarks>
     [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+
+    private readonly static RenderFragment _emptyContent = builder =>
+    {
+        builder.AddContent( 0, "No items." );
+    };
 
     private readonly ListboxContext<T> _context;
 

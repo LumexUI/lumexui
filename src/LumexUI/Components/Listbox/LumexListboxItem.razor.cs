@@ -13,7 +13,7 @@ namespace LumexUI;
 /// 
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public partial class LumexListboxItem<T> : LumexComponentBase
+public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
 {
     /// <summary>
     /// 
@@ -70,11 +70,19 @@ public partial class LumexListboxItem<T> : LumexComponentBase
     protected override void OnInitialized()
     {
         ContextNullException.ThrowIfNull( Context, nameof( LumexListboxItem<T> ) );
+
+        Context.Items.Add( this );
     }
 
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
         _slots ??= ListboxItem.GetStyles( this, TwMerge );
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        Context.Items.Remove( this );
     }
 }

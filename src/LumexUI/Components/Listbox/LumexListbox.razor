@@ -10,7 +10,7 @@
         <LumexComponent As="@As"
                         Class="@_slots.List"
                         data-slot="list">
-            @if( !Items?.Any() ?? false )
+            @if (_context.Items.Count == 0)
             {
                 <li>
                     <div class="@_slots.EmptyContent" data-slot="empty-content">
@@ -18,16 +18,7 @@
                     </div>
                 </li>
             }
-            @if( Items is not null )
-            {
-                foreach( var item in Items )
-                {
-                    <LumexListboxItem T="T" @key="@item">
-                        @item
-                    </LumexListboxItem>
-                }
-            }
-            else if( ChildContent is not null )
+            else
             {
                 @ChildContent
             }
