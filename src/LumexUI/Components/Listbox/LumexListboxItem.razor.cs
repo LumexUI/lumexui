@@ -6,6 +6,7 @@ using LumexUI.Common;
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace LumexUI;
 
@@ -60,10 +61,15 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// 
     /// </summary>
     [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
     [CascadingParameter] internal ListboxContext<T> Context { get; set; } = default!;
 
     private LumexListbox<T> Listbox => Context.Owner;
-    private bool IsSelected => Listbox.SelectedItems.Contains( Key );
 
     private readonly RenderFragment _renderSelectedIcon;
 
@@ -114,9 +120,24 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
         _slots ??= ListboxItem.GetStyles( this, TwMerge );
     }
 
-    private Task SelectItemAsync()
+    private async Task OnClickAsync( MouseEventArgs args )
     {
-        if( Listbox.SelectionMode is SelectionMode.None )
+        if( GetDisabledState() )
+        {
+            return;
+        }
+
+        await OnClick.InvokeAsync( args );
+
+        if( Listbox.SelectionMode is not SelectionMode.None )
+        {
+            await SelectAsync();
+        }
+    }
+
+    private Task SelectAsync()
+    {
+        if( Listbox.SelectedItems is null )
         {
             return Task.CompletedTask;
         }

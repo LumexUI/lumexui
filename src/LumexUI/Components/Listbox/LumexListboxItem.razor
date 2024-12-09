@@ -20,7 +20,7 @@
                         data-selected="@GetSelectedState().ToAttributeValue()"
                         data-disabled="@GetDisabledState().ToAttributeValue()"
                         @attributes="@AdditionalAttributes"
-                        @onclick="@SelectItemAsync">
+                        @onclick="@OnClickAsync">
             @StartContent
 
             @if (!string.IsNullOrEmpty(Description))
