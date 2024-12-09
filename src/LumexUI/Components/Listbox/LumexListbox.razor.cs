@@ -50,12 +50,17 @@ public partial class LumexListbox<T> : LumexComponentBase
     /// <summary>
     /// 
     /// </summary>
-    [Parameter] public ICollection<T> SelectedItems { get; set; } = new HashSet<T>();
+    [Parameter] public ICollection<T>? SelectedItems { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [Parameter] public EventCallback<ICollection<T>> SelectedItemsChanged { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public ICollection<T>? DisabledItems { get; set; }
 
     private readonly static RenderFragment _emptyContent = builder =>
     {

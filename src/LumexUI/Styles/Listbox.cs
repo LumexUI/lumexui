@@ -108,6 +108,11 @@ internal class ListboxItem
         .Add( "text-inherit" )
         .ToString();
 
+    private readonly static string _disabled = ElementClass.Empty()
+        .Add( "opacity-disabled" )
+        .Add( "pointer-events-none" )
+        .ToString();
+
     public static ListboxItemSlots GetStyles<T>( LumexListboxItem<T> listboxItem, TwMerge twMerge )
     {
         var listbox = listboxItem.Context.Owner;
@@ -117,6 +122,7 @@ internal class ListboxItem
             Root = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _base )
+                    .Add( _disabled, when: listboxItem.GetDisabledState() )
                     .Add( listboxItem.Class )
                     .Add( GetVariantStyles( listbox.Variant, slot: nameof( _base ) ) )
                     .Add( GetCompoundStyles( listbox.Variant, listboxItem.Color, slot: nameof( _base ) ) )

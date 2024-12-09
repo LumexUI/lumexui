@@ -56,6 +56,10 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// </remarks>
     [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public bool Disabled { get; set; }
     [CascadingParameter] internal ListboxContext<T> Context { get; set; } = default!;
 
     private LumexListbox<T> Listbox => Context.Owner;
@@ -137,6 +141,12 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
 
         return Listbox.SelectedItemsChanged.InvokeAsync( selectedItems );
     }
+
+    private bool GetSelectedState() =>
+        Listbox.SelectedItems is not null && Listbox.SelectedItems.Contains( Key );
+
+    internal bool GetDisabledState() =>
+        Listbox.DisabledItems is not null && Listbox.DisabledItems.Contains( Key );
 
     /// <inheritdoc />
     public void Dispose()
