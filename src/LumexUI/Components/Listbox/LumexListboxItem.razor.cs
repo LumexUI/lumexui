@@ -11,38 +11,38 @@ using Microsoft.AspNetCore.Components.Web;
 namespace LumexUI;
 
 /// <summary>
-/// 
+/// A component representing an item within the <see cref="LumexListbox{T}"/>.
 /// </summary>
-/// <typeparam name="T"></typeparam>
+/// <typeparam name="T">The type of the value associated with the listbox item.</typeparam>
 public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
 {
     /// <summary>
-    /// 
+    /// Gets or sets a unique identifier for the listbox item.
+    /// </summary>
+    [Parameter, EditorRequired] public T Id { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets content to be rendered inside the listbox item.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets content to be rendered at the start of the listbox item.
     /// </summary>
     [Parameter] public RenderFragment? StartContent { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets content to be rendered at the end of the listbox item.
     /// </summary>
     [Parameter] public RenderFragment? EndContent { get; set; }
 
     /// <summary>
-    /// 
-    /// </summary>
-    [Parameter, EditorRequired] public T Key { get; set; } = default!;
-
-    /// <summary>
-    /// 
+    /// Gets or sets a description of the listbox item.
     /// </summary>
     [Parameter] public string? Description { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets an appearance style of the listbox item.
     /// </summary>
     /// <remarks>
     /// The default value is <see cref="ListboxVariant.Solid"/>
@@ -50,7 +50,7 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     [Parameter] public ListboxVariant Variant { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets a color of the listbox item.
     /// </summary>
     /// <remarks>
     /// The default value is <see cref="ThemeColor.Default"/>
@@ -58,12 +58,12 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
     /// <summary>
-    /// 
+    /// Gets or sets a value indicating whether the listbox item is disabled.
     /// </summary>
     [Parameter] public bool Disabled { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets a callback that is fired whenever the listbox item is clicked.
     /// </summary>
     [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
@@ -112,13 +112,19 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        if( Key is null )
+        if( Id is null )
         {
-            throw new InvalidOperationException( $"{GetType()} requires a value for parameter '{nameof( Key )}'." );
+            throw new InvalidOperationException( $"{GetType()} requires a value for parameter '{nameof( Id )}'." );
         }
 
         _slots ??= ListboxItem.GetStyles( this, TwMerge );
     }
+
+    internal bool GetSelectedState() =>
+        Listbox.SelectedItems is not null && Listbox.SelectedItems.Contains( Id );
+
+    internal bool GetDisabledState() =>
+        Listbox.DisabledItems is not null && Listbox.DisabledItems.Contains( Id );
 
     private async Task OnClickAsync( MouseEventArgs args )
     {
@@ -143,7 +149,7 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
         }
 
         var selectedItems = Listbox.SelectedItems;
-        if( selectedItems.Remove( Key ) )
+        if( selectedItems.Remove( Id ) )
         {
             return Listbox.SelectedItemsChanged.InvokeAsync( selectedItems );
         }
@@ -152,22 +158,16 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
         {
             case SelectionMode.Single:
                 selectedItems.Clear();
-                selectedItems.Add( Key );
+                selectedItems.Add( Id );
                 break;
 
             case SelectionMode.Multiple:
-                selectedItems.Add( Key );
+                selectedItems.Add( Id );
                 break;
         }
 
         return Listbox.SelectedItemsChanged.InvokeAsync( selectedItems );
     }
-
-    private bool GetSelectedState() =>
-        Listbox.SelectedItems is not null && Listbox.SelectedItems.Contains( Key );
-
-    internal bool GetDisabledState() =>
-        Listbox.DisabledItems is not null && Listbox.DisabledItems.Contains( Key );
 
     /// <inheritdoc />
     public void Dispose()

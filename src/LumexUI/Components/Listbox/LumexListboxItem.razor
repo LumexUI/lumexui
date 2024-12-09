@@ -8,9 +8,10 @@
 
 @code {
     /// <summary>
-    ///
+    /// Renders the content of the listbox item.
+    /// Derived classes can override this method to customize the rendering logic.
     /// </summary>
-    /// <param name="__builder"></param>
+    /// <param name="__builder">The current <see cref="RenderTreeBuilder"/>.</param>
     protected internal virtual void Render(RenderTreeBuilder __builder)
     {
         <LumexComponent As="@As"
