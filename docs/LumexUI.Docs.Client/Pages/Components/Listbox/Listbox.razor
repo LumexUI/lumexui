@@ -1,0 +1,65 @@
+﻿@page "/docs/components/listbox"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Listbox.PreviewCodes
+
+<DocsCompositionSection Components="@_compositionComponents" />
+
+<DocsSection Title="Usage">
+    <p></p>
+    <Usage />
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Listbox</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class name that styles the wrapper of the navbar.</li>
+            <li><Code>Classes</Code>: The CSS class names for the navbar slots that style entire navbar.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+        new(nameof(LumexListbox<T>), "A component representing a navbar."),
+        new(nameof(LumexListboxItem<T>), "A component representing the brand section.")
+    };
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexListbox<T>),
+        nameof(LumexListboxItem<T>)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Listbox",
+            category: "Components",
+            description: "asd",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Listbox", isServer: false )
+        );
+    }
+}

@@ -1,0 +1,55 @@
+﻿<div class="w-full max-w-[260px] px-1 py-2 border border-default-200 rounded-small">
+    <LumexListbox T="string"
+                  Variant="@ListboxVariant.Flat"
+                  SelectionMode="@SelectionMode.Multiple"
+                  @bind-SelectedItems="@_selectedItems">
+        <LumexListboxItem Id="@("new")" Description="Create a new file">
+            New file
+        </LumexListboxItem>
+        <LumexListboxItem Id="@("copy")" Description="Copy the file">
+            Copy file
+        </LumexListboxItem>
+        <LumexListboxItem Id="@("edit")" Description="Edit the file">
+            Edit file
+        </LumexListboxItem>
+        <LumexListboxItem Id="@("delete")"
+                          Description="Permanently delete the file"
+                          Color="@ThemeColor.Danger"
+                          Class="text-danger">
+            Delete file
+        </LumexListboxItem>
+    </LumexListbox>
+</div>
+
+@if (_selectedItems is not null)
+{
+    foreach (var item in _selectedItems)
+    {
+        <p>@item</p>
+    }
+}
+
+@code {
+    private Country[] _countries = [
+        new("argentina", "Argentina", "https://flagcdn.com/ar.svg"),
+    new("venezuela", "Venezuela", "https://flagcdn.com/ve.svg"),
+    new("brazil", "Brazil", "https://flagcdn.com/br.svg"),
+    new("germany", "Germany", "https://flagcdn.com/de.svg"),
+    new("spain", "Spain", "https://flagcdn.com/es.svg")
+    ];
+
+    private ICollection<string> _selectedItems = [];
+
+    private class Control(string key, string label)
+    {
+        public string Key { get; set; } = key;
+        public string Label { get; set; } = label;
+    }
+
+    private class Country(string key, string name, string flag)
+    {
+        public string Key { get; set; } = key;
+        public string Name { get; set; } = name;
+        public string Flag { get; set; } = flag;
+    }
+}
