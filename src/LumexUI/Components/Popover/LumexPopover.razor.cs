@@ -78,6 +78,17 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
     /// Gets or sets a value indicating whether the popover should match the width of the reference element.
     /// </summary>
     [Parameter] public bool MatchRefWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the popover is currently open.
+    /// </summary>
+    [Parameter] public bool Opened { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that is invoked when the open state of the popover changes.
+    /// </summary>
+    [Parameter] public EventCallback<bool> OpenedChanged { get; set; }
+
     /// <summary>
     /// Gets or sets the CSS class names for the popover slots.
     /// </summary>
@@ -100,7 +111,16 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
         _context = new PopoverContext( this );
     }
 
-    internal bool Show()
+    /// <summary>
+    /// Asynchronously triggers the popover.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous trigger operation.</returns>
+    public Task TriggerAsync()
+    {
+        return _context.TriggerAsync();
+    }
+
+    internal async Task<bool> ShowAsync()
     {
         if( PopoverService.LastShown == this )
         {
@@ -108,16 +128,17 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
             return false;
         }
 
-        IsShown = true;
+        Opened = true;
         PopoverService.SetLastShown( this );
+        await OpenedChanged.InvokeAsync( Opened );
         return true;
     }
 
-    internal void Hide()
+    internal Task HideAsync()
     {
-        IsShown = false;
+        Opened = false;
         PopoverService.SetLastShown( null );
-        StateHasChanged();
+        return OpenedChanged.InvokeAsync( Opened );
     }
 
     /// <inheritdoc />
