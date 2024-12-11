@@ -22,6 +22,11 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 
+    /// </summary>
+    [Parameter] public string Id { get; set; } = Identifier.New();
+
+    /// <summary>
     /// Gets or sets a color of the popover.
     /// </summary>
     /// <remarks>
@@ -96,8 +101,6 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 
     [Inject] private IPopoverService PopoverService { get; set; } = default!;
 
-    internal string Id { get; private set; } = Identifier.New();
-    internal bool IsShown { get; private set; }
     internal PopoverOptions Options { get; private set; }
 
     private readonly PopoverContext _context;
