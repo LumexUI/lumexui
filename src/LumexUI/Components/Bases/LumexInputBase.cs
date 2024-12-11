@@ -177,7 +177,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
         else if( TryParseValueFromString( value, out var parsedValue ) )
         {
             _parsingFailed = false;
-            await SetCurrentValueAsync( parsedValue );
+            CurrentValue = parsedValue;
         }
         else
         {
