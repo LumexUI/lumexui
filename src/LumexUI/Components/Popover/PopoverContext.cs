@@ -10,7 +10,7 @@ internal class PopoverContext( LumexPopover owner ) : IComponentContext<LumexPop
 
     public async Task TriggerAsync()
     {
-        if( Owner.Show() )
+        if( await Owner.ShowAsync() )
         {
             await NotifyStateChangedAsync();
         }
