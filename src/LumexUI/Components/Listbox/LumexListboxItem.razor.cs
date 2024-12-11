@@ -17,9 +17,9 @@ namespace LumexUI;
 public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
 {
     /// <summary>
-    /// Gets or sets a unique identifier for the listbox item.
+    /// Gets or sets a unique value for the listbox item.
     /// </summary>
-    [Parameter, EditorRequired] public T Id { get; set; } = default!;
+    [Parameter, EditorRequired] public T Value { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets content to be rendered inside the listbox item.
@@ -93,12 +93,12 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
         // Respect the Variant value if provided; otherwise, use the owner's
         Variant = parameters.TryGetValue<ListboxVariant>( nameof( Variant ), out var variant )
             ? variant
-            : Context.Owner.Variant;
+            : Listbox.Variant;
 
         // Respect the Color value if provided; otherwise, use the owner's
         Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
             ? color
-            : Context.Owner.Color;
+            : Listbox.Color;
 
         return base.SetParametersAsync( ParameterView.Empty );
     }
@@ -112,19 +112,19 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        if( Id is null )
+        if( Value is null )
         {
-            throw new InvalidOperationException( $"{GetType()} requires a value for parameter '{nameof( Id )}'." );
+            throw new InvalidOperationException( $"{GetType()} requires a value for parameter '{nameof( Value )}'." );
         }
 
         _slots ??= ListboxItem.GetStyles( this, TwMerge );
     }
 
     internal bool GetSelectedState() =>
-        Listbox.SelectedItems is not null && Listbox.SelectedItems.Contains( Id );
+        Listbox.SelectedItems is not null && Listbox.SelectedItems.Contains( Value );
 
     internal bool GetDisabledState() =>
-        Listbox.DisabledItems is not null && Listbox.DisabledItems.Contains( Id );
+        Listbox.DisabledItems is not null && Listbox.DisabledItems.Contains( Value );
 
     private async Task OnClickAsync( MouseEventArgs args )
     {
@@ -149,7 +149,7 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
         }
 
         var selectedItems = Listbox.SelectedItems;
-        if( selectedItems.Remove( Id ) )
+        if( selectedItems.Remove( Value ) )
         {
             return Listbox.SelectedItemsChanged.InvokeAsync( selectedItems );
         }
@@ -158,11 +158,11 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
         {
             case SelectionMode.Single:
                 selectedItems.Clear();
-                selectedItems.Add( Id );
+                selectedItems.Add( Value );
                 break;
 
             case SelectionMode.Multiple:
-                selectedItems.Add( Id );
+                selectedItems.Add( Value );
                 break;
         }
 
