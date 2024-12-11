@@ -68,10 +68,10 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
         return _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id, Context.Owner.Options );
     }
 
-    private ValueTask ClickOutsideAsync()
+    private async ValueTask ClickOutsideAsync()
     {
-        Context.Owner.Hide();
-        return _jsModule.InvokeVoidAsync( "popover.destroy" );
+        await Context.Owner.HideAsync();
+        await _jsModule.InvokeVoidAsync( "popover.destroy" );
     }
 
     /// <inheritdoc />
