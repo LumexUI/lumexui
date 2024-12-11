@@ -51,7 +51,7 @@
             return;
         }
 
-        @(string.Join(", ", _context.SelectedItems.Select(item => item.TextValue)))
+        @(IsMultipleSelect ? CurrentValuesAsString : CurrentValueAsString)
     }
 
     private void RenderLabel(RenderTreeBuilder __builder)

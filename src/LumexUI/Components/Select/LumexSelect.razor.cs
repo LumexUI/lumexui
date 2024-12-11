@@ -2,7 +2,6 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Common;
@@ -105,6 +104,11 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
     {
         get => Values;
         set => SetCurrentValuesAsync( value );
+    }
+
+    private string? CurrentValuesAsString
+    {
+        get => CurrentValues is null ? null : string.Join( ", ", CurrentValues );
     }
 
     private bool HasValue =>
@@ -210,7 +214,10 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
 
     private async Task OnSelectionChangeAsync( ICollection<TValue> items )
     {
-        Debug.Assert( _popoverRef is not null );
+        if( _popoverRef is null )
+        {
+            return;
+        }
 
         if( IsMultipleSelect )
         {
@@ -223,8 +230,6 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
             await SetCurrentValueAsStringAsync( value );
             await _popoverRef.HideAsync();
         }
-
-        _context.SetSelectedItems( items );
     }
 
     private Task SetCurrentValuesAsync( ICollection<TValue> values )
