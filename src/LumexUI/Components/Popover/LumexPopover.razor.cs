@@ -75,6 +75,10 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
     [Parameter] public bool ShowArrow { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the popover should match the width of the reference element.
+    /// </summary>
+    [Parameter] public bool MatchRefWidth { get; set; }
+    /// <summary>
     /// Gets or sets the CSS class names for the popover slots.
     /// </summary>
     [Parameter] public PopoverSlots? Classes { get; set; }
@@ -157,6 +161,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
     {
         public int Offset { get; } = popover.Offset;
         public bool ShowArrow { get; } = popover.ShowArrow;
+        public bool MatchRefWidth { get; } = popover.MatchRefWidth;
         public string Placement { get; } = popover.Placement.ToDescription();
     }
 }
