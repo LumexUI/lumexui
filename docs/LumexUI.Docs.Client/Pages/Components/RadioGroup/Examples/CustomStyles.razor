@@ -1,25 +1,65 @@
-﻿<LumexRadioGroup TValue="bool">
-    <LumexRadio Value="@(true)" Classes="@_classes">
+﻿<LumexRadioGroup Classes="_groupSlots" RadioClasses="_radioClasses" @bind-Value="@_chosenFood" Label="Choose your preferred meal">
+    <LumexRadio Value="@( "Kebab" )">
         <div class="flex items-center gap-4">
-            <LumexIcon Icon="@Icons.Rounded.HealthAndSafety"
-                       Size="@new("32")" />
+            <LumexIcon Icon="@Icons.Rounded.KebabDining"
+                       Size="@new("32")"/>
             <div>
-                <div class="font-semibold">Mobile Anti-Virus</div>
-                <p class="text-sm text-primary">5,07 €/month</p>
+                <div class="font-semibold">Chicken Kebab</div>
+                <p class="text-sm text-primary">$11.99</p>
+            </div>
+        </div>
+    </LumexRadio>
+
+    <LumexRadio Value="@( "Ramen" )">
+        <div class="flex items-center gap-4">
+            <LumexIcon Icon="@Icons.Rounded.RamenDining"
+                       Size="@new("32")"/>
+            <div>
+                <div class="font-semibold">Ramen Bowl</div>
+                <p class="text-sm text-primary">$12.99</p>
+            </div>
+        </div>
+    </LumexRadio>
+
+    <LumexRadio Value="@( "Pizza" )">
+        <div class="flex items-center gap-4">
+            <LumexIcon Icon="@Icons.Rounded.LocalPizza"
+                       Size="@new("32")"/>
+            <div>
+                <div class="font-semibold">Pizza</div>
+                <p class="text-sm text-primary">$5.99</p>
+            </div>
+        </div>
+    </LumexRadio>
+
+    <LumexRadio Value="@( "Nothing" )">
+        <div class="flex items-center gap-4">
+            <LumexIcon Icon="@Icons.Rounded.NoFood"
+                       Size="@new("32")"/>
+            <div>
+                <div class="font-semibold">No Food</div>
+                <p class="text-sm text-primary">No Cost</p>
             </div>
         </div>
     </LumexRadio>
 </LumexRadioGroup>
 
-@code {
-    private RadioSlots _classes = new()
+@code
+{
+    private string? _chosenFood = null;
+
+    private RadioGroupSlots _groupSlots = new()
+    {
+        Label = "text-lg text-neutral-700 font-semibold"
+    };
+
+    private RadioSlots _radioClasses = new()
     {
         Root = ElementClass.Empty()
-            .Add( "w-full max-w-md gap-2 p-4" )
-            .Add( "rounded-lg border-2 border-default-200 " )
+            .Add( "inline-flex m-0 bg-content1 hover:bg-content2 items-center justify-between p-2 rounded" )
+            .Add( "flex-row-reverse max-w-[300px] cursor-pointer rounded-lg gap-4 p-4 border-2 border-default-200" )
             .Add( "bg-surface1 hover:bg-surface2" )
-            .Add( "data-[checked=true]:border-primary" )
-            .ToString(),
-        Label = "w-full"
+            .Add( "data-[selected=true]:border-primary" )
+            .ToString()
     };
 }
