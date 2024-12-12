@@ -1,0 +1,63 @@
+﻿@using FluentValidation
+@using FluentValidation.Results
+
+<LumexNumbox TValue="double?"
+             Variant="@InputVariant.Outlined"
+             Label="Temperature °C"
+             Required="@true"
+             ErrorMessage="@_userValidator.TempErrorMessage"
+             Invalid="@(!string.IsNullOrEmpty(_userValidator.TempErrorMessage))"
+             Color="@(!string.IsNullOrEmpty(_userValidator.TempErrorMessage) ? ThemeColor.Danger : ThemeColor.Success)"
+             Value="@_user.Temperature"
+             ValueChanged="@OnAgeChange"
+             Class="max-w-xs" />
+
+@code {
+    private User _user = new();
+    private UserValidator _userValidator = new();
+
+    protected override void OnInitialized()
+    {
+        _user.Temperature = -274.15;
+        Validate();
+    }
+
+    private void OnAgeChange( double? value )
+    {
+        _user.Temperature = value;
+        Validate();
+    }
+
+    private void Validate()
+    {
+        var result = _userValidator.Validate( _user );
+        if( !result.IsValid )
+        {
+            _userValidator.TempErrorMessage = result.Errors
+                .Where( failure => failure.PropertyName == nameof( User.Temperature ) )
+                .Select( failure => failure.ErrorMessage )
+                .FirstOrDefault();
+        }
+        else
+        {
+            _userValidator.TempErrorMessage = null;
+        }
+    }
+
+    public class User
+    {
+        public double? Temperature { get; set; }
+    }
+
+    public class UserValidator : AbstractValidator<User>
+    {
+        public string? TempErrorMessage { get; set; }
+
+        public UserValidator()
+        {
+            RuleFor( user => user.Temperature )
+                .NotNull().WithMessage( "Temperature can't be null" )
+                .GreaterThan( -273.15 ).WithMessage( "Temperature cannot be lower than or equal to absolute zero" );
+        }
+    }
+}

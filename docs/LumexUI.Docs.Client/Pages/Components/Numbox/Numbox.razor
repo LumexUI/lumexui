@@ -1,0 +1,228 @@
+﻿@page "/docs/components/numbox"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Numbox.PreviewCodes
+
+<DocsSection Title="Types">
+    <p>
+        The numbox component is almost identical to the
+        <LumexLink Href="/docs/components/textbox">textbox</LumexLink>
+        but includes additional features specific to numeric input.
+    </p>
+    <p>
+        It supports various numeric types, including
+        <Code>short</Code>, <Code>int</Code>, <Code>long</Code>,
+        <Code>float</Code>, <Code>double</Code>, and <Code>decimal</Code>.
+        Additionally, their nullable counterparts (e.g., <Code>int?</Code>,
+        <Code>double?</Code>, <Code>decimal?</Code>) are also supported,
+        providing flexibility for scenarios where input values may be optional or undefined.
+    </p>
+</DocsSection>
+
+<DocsSection Title="Usage">
+    <p>The numbox component provides a simple way to input and edit numeric data.</p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            You can disable a numbox to prevent user interaction.
+            A disabled numbox is faded and does not respond to user clicks.
+        </p>
+        <Disabled />
+    </DocsSection>
+
+    <DocsSection Title="Read-Only">
+        <p>
+            Set the numbox component to read-only to display the
+            current state without allowing changes.
+        </p>
+        <ReadOnly />
+    </DocsSection>
+
+    <DocsSection Title="Required">
+        <p>
+            Mark the numbox as required to indicate that it
+            must be filled out before form submission.
+            An asterisk will appear at the end of the label.
+        </p>
+        <Required />
+    </DocsSection>
+
+    <DocsSection Title="Step">
+        <p>
+            The <Code>step</Code> attribute defines the increment or decrement
+            value when using the spin buttons, enabling fine-tuned adjustments.
+        </p>
+        <Step />
+    </DocsSection>
+
+    <DocsSection Title="Min & Max">
+        <p>
+            Set minimum and maximum constraints to restrict input 
+            values within a specific range, ensuring valid and meaningful data.
+        </p>
+        <MinMax />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>
+            The numbox component supports multiple sizes to
+            fit different layouts and design needs.
+        </p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>Adjust the border radius of the numbox for rounded or squared corners.</p>
+        <Radius />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>Customize the numbox color to match your theme or emphasize certain fields.</p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Variants">
+        <p>
+            Choose from different numbox variants,
+            such as <Code>Flat</Code>, <Code>Underlined</Code>,
+            or <Code>Outlined</Code>, for various visual styles.
+        </p>
+        <Variants />
+    </DocsSection>
+
+    <DocsSection Title="Label Placements">
+        <p>
+            Position the label either inside or outside the numbox
+            for flexibility in layout and design.
+        </p>
+        <LabelPlacements />
+    </DocsSection>
+
+    <Callout Variant="@CalloutVariant.Info">
+        If the <Code>Label</Code> parameter is not set, the <Code>LabelPlacement</Code>
+        parameter will default to <Code>Outside</Code>.
+    </Callout>
+
+    <DocsSection Title="Clear Button">
+        <p>Enable the button to clear the input with a single click.</p>
+        <ClearButton />
+    </DocsSection>
+
+    <DocsSection Title="Start & End Content">
+        <p>
+            Add custom content, such as icons or labels, to the
+            start or end of the numbox for added functionality.
+        </p>
+        <StartEndContent />
+    </DocsSection>
+
+    <DocsSection Title="Description">
+        <p>
+            Provide a brief description below the numbox to
+            offer guidance or additional context.
+        </p>
+        <Description />
+    </DocsSection>
+
+    <DocsSection Title="Error Message">
+        <p>
+            Display an error message below the numbox to indicate validation issues.
+            You can combine the <Code>Invalid</Code> and <Code>ErrorMessage</Code> parameters to show an invalid input.
+            An error message is shown only when the <Code>Invalid</Code> parameter is set to <Code>true</Code>.
+        </p>
+        <ErrorMessage />
+    </DocsSection>
+
+    <DocsSection Title="Debounce Delay">
+        <p>
+            Enable debounced input to delay updates to the numbox value,
+            reducing the frequency of changes and improving performance.
+            You can achieve this by setting the <Code>DebounceDelay</Code> value and
+            <Code>Behavior</Code> to <Code>OnInput</Code>.
+        </p>
+        <DebounceDelay />
+    </DocsSection>
+
+    <DocsSection Title="Two-way Data Binding">
+        <p>
+            The numbox component supports two-way data binding,
+            allowing you to programmatically control the value.
+            You can achieve this using the <Code>@@bind-Value</Code> directive,
+            or the <Code>Value</Code> and <Code>ValueChanged</Code> parameters.
+        </p>
+        <TwoWayDataBinding />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Textbox</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class name that styles the wrapper of the numbox.</li>
+            <li><Code>Classes</Code>: The CSS class names for the numbox slots that style entire numbox.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Disabled"),
+            new("Read-Only"),
+            new("Required"),
+            new("Step"),
+            new("Min & Max"),
+            new("Sizes"),
+            new("Radius"),
+            new("Colors"),
+            new("Variants"),
+            new("Label Placements"),
+            new("Clear Button"),
+            new("Start & End Content"),
+            new("Description"),
+            new("Error message"),
+            new("Debounce Delay"),
+            new("Two-way Data Binding"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(InputFieldSlots.Root), "The overall wrapper."),
+        new(nameof(InputFieldSlots.Label), "The label element."),
+        new(nameof(InputFieldSlots.MainWrapper), "The wrapper of the input wrapper (when the label is outside)."),
+        new(nameof(InputFieldSlots.InputWrapper), "The wrapper of the label and the inner wrapper (when the label is inside)."),
+        new(nameof(InputFieldSlots.InnerWrapper), "The wrapper of the input, start/end content."),
+        new(nameof(InputFieldSlots.Input), "The input element."),
+        new(nameof(InputFieldSlots.ClearButton), "The clear button element."),
+        new(nameof(InputFieldSlots.HelperWrapper), "The wrapper of a description and an error message."),
+        new(nameof(InputFieldSlots.Description), "The description of the input field."),
+        new(nameof(InputFieldSlots.ErrorMessage), "The error message of the input field.")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexNumbox<T>),
+        nameof(LumexIcon)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Numbox",
+            category: "Components",
+            description: "Numbox allows users to input numeric data, making it essential for forms and data collection.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Numbox", isServer: false )
+        );
+    }
+}

@@ -1,0 +1,30 @@
+﻿<div class="w-full">
+    <LumexNumbox TValue="double?"
+                 Clearable="@true"
+                 Label="Temperature °C"
+                 Placeholder="Enter the temperature"
+                 Value="@_value"
+                 Variant="@InputVariant.Outlined"
+                 OnCleared="@Notify"
+                 Class="max-w-xs" />
+</div>
+<p class="text-sm text-default-500">@_text</p>
+
+@code {
+    private string? _text;
+    private double? _value = 25;
+
+    private void Notify()
+    {
+        _value = default;
+
+        if( string.IsNullOrEmpty( _text ) )
+        {
+            _text = "Input is cleared!";
+        }
+        else
+        {
+            _text += " ..and again..";
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<pre><code class="language-csharp">record MyTheme : LumexTheme
+{
+    public MyTheme()
+    {
+        Light = new ThemeConfigLight()
+        {
+            Colors = new ThemeColorsLight()
+            {
+                Primary = new ColorScale( Colors.Orange ),
+                Focus = new ColorScale( Colors.Orange[&quot;500&quot;] ) // #f97316
+            }
+        };
+    }
+}
+</code></pre>

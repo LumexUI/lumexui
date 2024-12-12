@@ -60,16 +60,6 @@
     </DocsSection>
 </DocsSection>
 
-<DocsSection Title="Customization">
-    <Callout Variant="@CalloutVariant.Info">
-        For detailed color customization examples, visit the
-        <LumexLink Href="/docs/customization/customizing-theme#customizing-colors"
-                   Class="bordered-link">
-            Customizing Theme
-        </LumexLink> page.
-    </Callout>
-</DocsSection>
-
 @code {
     [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
 
@@ -78,8 +68,7 @@
         new("Overview", [
             new("Common Colors"),
             new("Semantic Colors"),
-        ]),
-        new("Customization")
+        ])
     };
 
     protected override void OnInitialized()
@@ -87,7 +76,7 @@
         Layout.Initialize(
             title: "Colors",
             category: "Customization",
-            description: "Color customization allows you you define and adjust your components' visual palette for a consistent, cohesive design.",
+            description: "Color system simplifies managing and customizing the application's color palette.",
             _headings
         );
     }

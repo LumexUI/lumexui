@@ -1,0 +1,19 @@
+﻿<div class="w-full grid grid-cols-1 gap-4">
+    @foreach( var placement in _labelPlacements )
+    {
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexNumbox TValue="double?" LabelPlacement="@placement" Label="Temperature °C" />
+                <LumexNumbox TValue="double?" LabelPlacement="@placement" Label="Temperature °C" Placeholder="Enter the temperature" />
+            </div>
+            <small class="text-default-400 mt-1">@placement</small>
+        </div>
+    }
+</div>
+
+@code {
+    private LabelPlacement[] _labelPlacements = [
+        LabelPlacement.Inside,
+        LabelPlacement.Outside
+    ];
+}

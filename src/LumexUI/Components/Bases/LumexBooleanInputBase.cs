@@ -34,7 +34,7 @@ public abstract class LumexBooleanInputBase : LumexInputBase<bool>
     }
 
     /// <inheritdoc />
-    protected override ValueTask SetValidationMessageAsync( bool parsingFailed )
+    protected override ValueTask SetValidationMessageAsync()
     {
         // This component doesn't have a validation message by default.
         return ValueTask.CompletedTask;

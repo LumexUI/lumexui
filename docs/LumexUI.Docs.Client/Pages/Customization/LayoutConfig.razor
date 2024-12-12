@@ -164,16 +164,6 @@
     </DocsSection>
 </DocsSection>
 
-<DocsSection Title="Customization">
-    <Callout Variant="@CalloutVariant.Info">
-        For detailed layout customization examples, visit the
-        <LumexLink Href="/docs/customization/customizing-theme#customizing-layout"
-                   Class="bordered-link">
-            Customizing Theme
-        </LumexLink> page.
-    </Callout>
-</DocsSection>
-
 <DocsSection Title="Types">
     <DocsSection Title="BaseScale">
         <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "layoutTypesBaseScale"))" />
@@ -201,7 +191,6 @@
             new("Opacity"),
             new("Full"),
         ]),
-        new("Customization"),
         new("Types", [
             new("BaseScale"),
             new("FontScale")
@@ -213,7 +202,7 @@
         Layout.Initialize(
             title: "Layout",
             category: "Customization",
-            description: "Layout customization defines important aspects of the UI, including typography, shadows, and opacities for component states.",
+            description: "Layout configuration simplifies managing and customizing key interface aspects like typography, shadows and more.",
             _headings
         );
     }

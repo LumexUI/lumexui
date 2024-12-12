@@ -1,0 +1,122 @@
+﻿<div class="grid gap-4">
+    <div class="w-full grid grid-cols-1 gap-4">
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexNumbox TValue="double?"
+                             Label="Temperature °C"
+                             Placeholder="25"
+                             LabelPlacement="@LabelPlacement.Outside"
+                             StartContent="@_thermometerIcon" />
+
+                <LumexNumbox TValue="double?"
+                             Label="Distance"
+                             Placeholder="100"
+                             LabelPlacement="@LabelPlacement.Outside"
+                             StartContent="@_distanceIcon" />
+
+                <LumexNumbox TValue="decimal?"
+                             Label="Price"
+                             Placeholder="0.00"
+                             LabelPlacement="@LabelPlacement.Outside"
+                             StartContent="@_euroSymbolIcon" />
+            </div>
+            <small class="text-default-500 mt-1">Start</small>
+        </div>
+    </div>
+
+    <div class="w-full grid grid-cols-1 gap-4">
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexNumbox TValue="double?"
+                             Label="Temperature °C"
+                             Placeholder="25"
+                             LabelPlacement="@LabelPlacement.Outside"
+                             EndContent="@_thermometerIcon" />
+
+                <LumexNumbox TValue="double?"
+                             Label="Distance"
+                             Placeholder="100"
+                             LabelPlacement="@LabelPlacement.Outside"
+                             EndContent="@_distanceIcon" />
+
+                <LumexNumbox TValue="decimal?"
+                             Label="Price"
+                             Placeholder="0.00"
+                             LabelPlacement="@LabelPlacement.Outside"
+                             EndContent="@_euroSymbolIcon" />
+            </div>
+            <small class="text-default-500 mt-1">End</small>
+        </div>
+    </div>
+
+    <div class="w-full grid grid-cols-1 gap-4">
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexNumbox TValue="double?"
+                             Label="Temperature °C"
+                             Placeholder="25"
+                             LabelPlacement="@LabelPlacement.Outside"
+                             StartContent="@_thermometerIcon"
+                             EndContent="@_tempCelsiusContent" />
+
+                <LumexNumbox TValue="double?"
+                             Label="Distance"
+                             Placeholder="100"
+                             LabelPlacement="@LabelPlacement.Outside"
+                             StartContent="@_distanceIcon"
+                             EndContent="@_kmContent" />
+
+                <LumexNumbox TValue="decimal?"
+                             Label="Price"
+                             Placeholder="0.00"
+                             LabelPlacement="@LabelPlacement.Outside"
+                             StartContent="@_euroSymbolIcon"
+                             EndContent="@_currenciesContent" />
+            </div>
+            <small class="text-default-500 mt-1">Both</small>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RenderFragment _thermometerIcon =
+    @<LumexIcon Icon="@Icons.Rounded.Thermometer"
+                Size="@new("20")"
+                Class="text-default-400 shrink-0">
+    </LumexIcon>;
+
+    private RenderFragment _distanceIcon =
+    @<LumexIcon Icon="@Icons.Rounded.Distance"
+                Size="@new("20")"
+                Class="text-default-400 shrink-0">
+    </LumexIcon>;
+
+    private RenderFragment _euroSymbolIcon =
+    @<LumexIcon Icon="@Icons.Rounded.EuroSymbol"
+                Size="@new("16")"
+                Class="text-default-400 shrink-0">
+    </LumexIcon>;
+
+    private RenderFragment _tempCelsiusContent =
+    @<div class="pointer-events-none flex items-center">
+        <span class="text-default-400 text-small">°C</span>
+    </div>;
+
+    private RenderFragment _kmContent =
+    @<div class="pointer-events-none flex items-center">
+        <span class="text-default-400 text-small">km</span>
+    </div>;
+
+    private RenderFragment _currenciesContent =
+    @<div class="flex items-center">
+        <label class="sr-only" for="currency">Currency</label>
+        <select class="outline-none border-0 bg-transparent text-default-400 text-small"
+                id="currency"
+                name="currency"
+                @onclick:stopPropagation="@true">
+            <option>USD</option>
+            <option>ARS</option>
+            <option>EUR</option>
+        </select>
+    </div>;
+}

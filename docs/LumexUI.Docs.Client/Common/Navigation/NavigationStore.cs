@@ -18,7 +18,7 @@ public class NavigationStore
             .Add( new( "Theme" ) )
             .Add( new( "Layout" ) )
             .Add( new( "Colors" ) )
-            .Add( new( "Customize Theme", NavItemStatus.Soon ) );
+            .Add( new( "Customize Theme" ) );
 
     private static NavigationCategory ComponentsCategory =>
         new NavigationCategory( "Components", Icons.Rounded.Joystick )
@@ -33,7 +33,7 @@ public class NavigationStore
             .Add( new( nameof( LumexIcon ) ) )
             .Add( new( nameof( LumexLink ) ) )
             .Add( new( nameof( LumexNavbar ) ) )
-            .Add( new( nameof( LumexNumbox<T> ), NavItemStatus.Soon ) )
+            .Add( new( nameof( LumexNumbox<T> ) ) )
             .Add( new( nameof( LumexPopover ) ) )
             .Add( new( nameof( LumexRadioGroup<T>) ) )
             .Add( new( nameof( LumexSwitch ) ) )

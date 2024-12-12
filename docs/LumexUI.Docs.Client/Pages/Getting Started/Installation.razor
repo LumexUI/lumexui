@@ -16,7 +16,14 @@
         {
             Title = "Install Tailwind CSS",
             Code = new CodeBlock("tailwind.config.js", "installationConfig"),
-            Body = @<p>LumexUI is built on top of Tailwind CSS. To install, follow the official <LumexLink Href="https://tailwindcss.com/docs/installation" External="@true">installation guide</LumexLink>. Then, modify the <code>tailwind.config.js</code> file.</p>
+            Body = @<text>
+                <p>
+                    LumexUI is built on top of Tailwind CSS. To install, follow the official <LumexLink Href="https://tailwindcss.com/docs/installation" External="@true">installation guide</LumexLink>. Then, modify the <code>tailwind.config.js</code> file.
+                </p>
+                <i>
+                    Note: the <code>PATH_TO_NUGET</code> is the NuGet package path on the machine.
+                </i>
+                </text>
         },
         new Step()
         {

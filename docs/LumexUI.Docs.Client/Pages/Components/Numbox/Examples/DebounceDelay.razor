@@ -1,0 +1,18 @@
+﻿<div class="w-full flex flex-col gap-2">
+    <LumexNumbox TValue="double?"
+                 DebounceDelay="250"
+                 Behavior="@InputBehavior.OnInput"
+                 Label="Temperature °C"
+                 Placeholder="Enter the temperatute"
+                 Clearable="@true"
+                 Class="max-w-xs"
+                 @bind-Value="@_value" />
+
+    <p class="text-sm text-default-500">
+        Value: @_value
+    </p>
+</div>
+
+@code {
+    private double? _value = 25;
+}
