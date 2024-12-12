@@ -106,7 +106,7 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
     }
 
     /// <inheritdoc />
-    protected override ValueTask SetValidationMessageAsync( bool parsingFailed )
+    protected override ValueTask SetValidationMessageAsync()
     {
         return ValueTask.CompletedTask;
     }
