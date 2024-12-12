@@ -54,6 +54,11 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     [Parameter] public Size Size { get; set; } = Size.Medium;
     
     /// <summary>
+    /// Gets or sets the description for this particular option.
+    /// </summary>
+    [Parameter] public string? Description { get; set; }
+    
+    /// <summary>
     /// Gets or sets the value of this input.
     /// </summary>
     [Parameter] public TValue? Value { get; set; }
@@ -74,14 +79,20 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     private string? ControlClass =>
         TwMerge.Merge( Radio.GetControlStyles( this ) );
 
+    private string? LabelWrapperClass =>
+        TwMerge.Merge( Radio.GetLabelWrapperStyles( this ) );
+    
     private string? LabelClass =>
         TwMerge.Merge( Radio.GetLabelStyles( this ) );
+
+    private string? DescriptionClass =>
+        TwMerge.Merge( Radio.GetDescriptionStyles( this ) );
 
     /// <inheritdoc />
     public override async Task SetParametersAsync( ParameterView parameters )
     {
         await base.SetParametersAsync( parameters );
-
+        
         Color = parameters.TryGetValue<ThemeColor>( nameof(Color), out var color )
             ? color
             : Context.Owner.Color;
@@ -118,10 +129,10 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     /// LumexRadio ensures that it is always used within a LumexRadioGroup.
     /// </remarks>
     /// <exception cref="ContextNullException">Thrown when LumexRadio is used outside a <see cref="LumexRadioGroup{TValue}"/></exception>
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         ContextNullException.ThrowIfNull( Context, nameof( LumexRadio<TValue> ) );
         
-        base.OnInitialized();
+        await base.OnInitializedAsync();
     }
 }

@@ -1,6 +1,11 @@
-﻿<LumexRadioGroup Orientation="@Orientation.Horizontal" TValue="string" Label="Choose Preferred Accommodations">
+﻿<LumexRadioGroup Orientation="@Orientation.Horizontal" Label="Choose Preferred Accommodations" @bind-Value="@_chosenClass">
     <LumexRadio Value="@("first")">First Class</LumexRadio>
     <LumexRadio Value="@("second")">Second Class</LumexRadio>
     <LumexRadio Value="@("third")">Third Class</LumexRadio>
     <LumexRadio Value="@("steerage")">Steerage</LumexRadio>
 </LumexRadioGroup>
+
+@code
+{
+    private string? _chosenClass = null;
+}

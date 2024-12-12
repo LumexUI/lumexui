@@ -54,7 +54,6 @@ internal readonly record struct Radio
         .Add( "border-default" )
         .Add( "rounded-full" )
         .Add( "group-hover:bg-default-100" )
-        .Add( "mr-2" )
         .Add( "group-data-[pressed=true]:scale-95" )
         .Add( "transition-transform-colors" )
         .Add( "motion-reduce:transition-none" )
@@ -77,9 +76,8 @@ internal readonly record struct Radio
         .ToString();
 
     private readonly static string _labelWrapper = ElementClass.Empty()
-        .Add( "relative" )
-        .Add( "text-foreground" )
-        .Add( "select-none" )
+        .Add( "flex" )
+        .Add( "flex-col" )
         .ToString();
 
     private readonly static string _label = ElementClass.Empty()
@@ -88,6 +86,13 @@ internal readonly record struct Radio
         .Add( "transition-colors-opacity" )
         .Add( "motion-reduce:transition-none" )
         .Add( "group" )
+        .ToString();
+    
+    private readonly static string _description = ElementClass.Empty()
+        .Add( "relative" )
+        .Add( "text-foreground-400" )
+        .Add( "transition-colors" )
+        .Add( "motion-reduce:transition-none")
         .ToString();
 
     private readonly static string _disabled = ElementClass.Empty()
@@ -216,6 +221,18 @@ internal readonly record struct Radio
             .Add( GetSizeStyles( radio.Size, slot: SizeSlots.Label ) )
             .Add( radioGroup.RadioClasses?.Label )
             .Add( radio.Classes?.Label )
+            .ToString();
+    }
+    
+    public static string GetDescriptionStyles<TValue>( LumexRadio<TValue> radio )
+    {
+        var radioGroup = radio.Context.Owner;
+
+        return ElementClass.Empty()
+            .Add( _description )
+            .Add( GetSizeStyles( radio.Size, slot: SizeSlots.Description ) )
+            .Add( radioGroup.RadioClasses?.Description )
+            .Add( radio.Classes?.Description )
             .ToString();
     }
 }

@@ -6,7 +6,19 @@
 <DocsSection Title="Usage">
     <p>
         The radio group component groups multiple radio buttons,
-        displaying related choices in a consistent manner.
+        displaying related choices in a consistent manner. 
+        Users can select only one option from the group.
+    </p>
+    
+    <p>
+        First start out with a <Code>LumexRadioGroup</Code> component, and place the 
+        <Code>LumexRadio</Code> components inside it.
+    </p>
+    
+    <p>
+        The currently-selected value is bound to the <Code>Value</Code> parameter 
+        on the <Code>LumexRadioGroup</Code> component. As the user selects a radio button, 
+        the <Code>Value</Code> is updated accordingly.
     </p>
     <Usage />
 
@@ -33,7 +45,16 @@
         </p>
         <Orientation />
     </DocsSection>
-    
+
+    <DocsSection Title="Option Descriptions">
+        <p>
+            You can display a description for each of the various options in the radio group, guiding your
+            users to make the best choice.
+        </p>
+        <OptionDescriptions />
+    </DocsSection>
+
+
     <DocsSection Title="Sizes">
         <p>
             The radio group component can control the size of the radio buttons within it to fit

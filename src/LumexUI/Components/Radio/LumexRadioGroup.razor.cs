@@ -74,8 +74,6 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
     /// <inheritdoc />
     public override async Task SetParametersAsync( ParameterView parameters )
     {
-        await base.SetParametersAsync( parameters );
-
         Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
             ? color
             : ThemeColor.Primary;
@@ -103,6 +101,8 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
             // Otherwise, just use a GUID to disambiguate this group's radio inputs from any others on the page.
             _context.GroupName = _defaultGroupName;
         }
+        
+        await base.SetParametersAsync( parameters );
     }
 
     /// <inheritdoc />

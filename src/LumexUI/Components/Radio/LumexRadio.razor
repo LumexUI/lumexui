@@ -24,10 +24,20 @@
         <span class="@ControlClass" data-slot="control"></span>
     </span>
     
-    @if (ChildContent is not null)
-    {
-        <span class="@LabelClass">
-            @ChildContent
-        </span>
-    }
+    <div class="@LabelWrapperClass">
+        @if (ChildContent is not null)
+        {
+            <span class="@LabelClass">
+                @ChildContent
+            </span>
+        }
+    
+        @if (Description is not null)
+        {
+            <span class="@DescriptionClass">
+                @Description
+            </span>
+        }
+    </div>
+    
 </LumexComponent>
