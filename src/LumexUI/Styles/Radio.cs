@@ -27,7 +27,7 @@ internal enum ColorSlots
 [ExcludeFromCodeCoverage]
 internal readonly record struct Radio
 {
-    private readonly static string _base = ElementClass.Empty()
+    private static readonly string _base = ElementClass.Empty()
         .Add( "group" )
         .Add( "relative" )
         .Add( "max-w-fit" )
@@ -41,7 +41,7 @@ internal readonly record struct Radio
         .Add( "select-none" )
         .ToString();
 
-    private readonly static string _wrapper = ElementClass.Empty()
+    private static readonly string _wrapper = ElementClass.Empty()
         .Add( "relative" )
         .Add( "inline-flex" )
         .Add( "items-center" )
@@ -56,12 +56,12 @@ internal readonly record struct Radio
         .Add( "group-hover:bg-default-100" )
         .Add( "group-data-[pressed=true]:scale-95" )
         .Add( "transition-transform-colors" )
-        .Add( "motion-reduce:transition-none" )
+        .Add( Utils.ReduceMotion )
         // focus ring
         .Add( Utils.GroupFocusVisible )
         .ToString();
 
-    private readonly static string _control = ElementClass.Empty()
+    private static readonly string _control = ElementClass.Empty()
         .Add( "z-10" )
         .Add( "w-2" )
         .Add( "h-2" )
@@ -72,30 +72,30 @@ internal readonly record struct Radio
         .Add( "group-data-[selected=true]:opacity-100" )
         .Add( "group-data-[selected=true]:scale-100" )
         .Add( "transition-transform-opacity" )
-        .Add( "motion-reduce:transition-none" )
+        .Add( Utils.ReduceMotion )
         .ToString();
 
-    private readonly static string _labelWrapper = ElementClass.Empty()
+    private static readonly string _labelWrapper = ElementClass.Empty()
         .Add( "flex" )
         .Add( "flex-col" )
         .ToString();
 
-    private readonly static string _label = ElementClass.Empty()
+    private static readonly string _label = ElementClass.Empty()
         .Add( "text-foreground" )
         .Add( "select-none" )
         .Add( "transition-colors-opacity" )
-        .Add( "motion-reduce:transition-none" )
+        .Add( Utils.ReduceMotion )
         .Add( "group" )
         .ToString();
-    
-    private readonly static string _description = ElementClass.Empty()
+
+    private static readonly string _description = ElementClass.Empty()
         .Add( "relative" )
         .Add( "text-foreground-400" )
         .Add( "transition-colors" )
-        .Add( "motion-reduce:transition-none")
+        .Add( "motion-reduce:transition-none" )
         .ToString();
 
-    private readonly static string _disabled = ElementClass.Empty()
+    private static readonly string _disabled = ElementClass.Empty()
         .Add( "opacity-disabled" )
         .Add( "pointer-events-none" )
         .ToString();
@@ -163,39 +163,39 @@ internal readonly record struct Radio
 
     public static string GetStyles<TValue>( LumexRadio<TValue> radio )
     {
-        var radioGroup = radio.Context?.Owner;
+        var radioGroup = radio.Context.Owner;
 
         return ElementClass.Empty()
             .Add( _base )
             .Add( _disabled, when: radio.GetDisabledState() )
-            .Add( radioGroup?.RadioClasses?.Root )
+            .Add( radioGroup.RadioClasses?.Root )
             .Add( radio.Classes?.Root )
             .Add( radio.Class )
             .ToString();
     }
 
-    public static string GetWrapperStyles<TValue>( LumexRadio<TValue> radio )
+    public static string GetControlWrapperStyles<TValue>( LumexRadio<TValue> radio )
     {
-        var radioGroup = radio.Context?.Owner;
+        var radioGroup = radio.Context.Owner;
 
         return ElementClass.Empty()
             .Add( _wrapper )
             .Add( GetColorStyles( radio.Color, slot: ColorSlots.Wrapper ) )
             .Add( GetSizeStyles( radio.Size, slot: SizeSlots.Wrapper ) )
-            .Add( radioGroup?.RadioClasses?.Wrapper )
-            .Add( radio.Classes?.Wrapper )
+            .Add( radioGroup.RadioClasses?.ControlWrapper )
+            .Add( radio.Classes?.ControlWrapper )
             .ToString();
     }
 
     public static string GetControlStyles<TValue>( LumexRadio<TValue> radio )
     {
-        var radioGroup = radio.Context?.Owner;
+        var radioGroup = radio.Context.Owner;
 
         return ElementClass.Empty()
             .Add( _control )
             .Add( GetColorStyles( radio.Color, slot: ColorSlots.Control ) )
             .Add( GetSizeStyles( radio.Size, slot: SizeSlots.Control ) )
-            .Add( radioGroup?.RadioClasses?.Control )
+            .Add( radioGroup.RadioClasses?.Control )
             .Add( radio.Classes?.Control )
             .ToString();
     }
@@ -223,7 +223,7 @@ internal readonly record struct Radio
             .Add( radio.Classes?.Label )
             .ToString();
     }
-    
+
     public static string GetDescriptionStyles<TValue>( LumexRadio<TValue> radio )
     {
         var radioGroup = radio.Context.Owner;
@@ -240,19 +240,19 @@ internal readonly record struct Radio
 [ExcludeFromCodeCoverage]
 internal readonly record struct RadioGroup
 {
-    private readonly static string _base = ElementClass.Empty()
+    private static readonly string _base = ElementClass.Empty()
         .Add( "relative" )
         .Add( "flex" )
         .Add( "flex-col" )
         .Add( "gap-2" )
         .ToString();
 
-    private readonly static string _label = ElementClass.Empty()
+    private static readonly string _label = ElementClass.Empty()
         .Add( "text-medium" )
         .Add( "text-foreground-500" )
         .ToString();
 
-    private readonly static string _wrapper = ElementClass.Empty()
+    private static readonly string _wrapper = ElementClass.Empty()
         .Add( "flex" )
         .Add( "flex-col" )
         .Add( "flex-wrap" )
@@ -260,7 +260,7 @@ internal readonly record struct RadioGroup
         .Add( "data-[orientation=horizontal]:flex-row" )
         .ToString();
 
-    private readonly static string _description = ElementClass.Empty()
+    private static readonly string _description = ElementClass.Empty()
         .Add( "text-tiny" )
         .Add( "text-foreground-400" )
         .ToString();

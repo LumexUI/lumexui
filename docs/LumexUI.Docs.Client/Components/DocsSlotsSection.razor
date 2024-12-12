@@ -1,6 +1,6 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 
-<DocsSection Title="Custom Styles">
+<DocsSection Title="@Title">
     <p>
         This component supports named slots (represented as <code>data-*</code> attributes) that
         allow you to apply custom CSS to specific parts of the component.
@@ -23,5 +23,6 @@
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string Title { get; set; } = "Custom Styles";
     [Parameter, EditorRequired] public Slot[] Slots { get; set; } = default!;
 }

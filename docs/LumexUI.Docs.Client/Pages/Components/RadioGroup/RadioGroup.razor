@@ -6,36 +6,36 @@
 <DocsSection Title="Usage">
     <p>
         The radio group component groups multiple radio buttons,
-        displaying related choices in a consistent manner. 
+        displaying related choices in a consistent manner.
         Users can select only one option from the group.
     </p>
-    
+
     <p>
-        First start out with a <Code>LumexRadioGroup</Code> component, and place the 
+        First start out with a <Code>LumexRadioGroup</Code> component, and place the
         <Code>LumexRadio</Code> components inside it.
     </p>
-    
+
     <p>
-        The currently-selected value is bound to the <Code>Value</Code> parameter 
-        on the <Code>LumexRadioGroup</Code> component. As the user selects a radio button, 
+        The currently-selected value is bound to the <Code>Value</Code> parameter
+        on the <Code>LumexRadioGroup</Code> component. As the user selects a radio button,
         the <Code>Value</Code> is updated accordingly.
     </p>
-    <Usage />
+    <Usage/>
 
     <DocsSection Title="Disabled">
         <p>
             You can disable a radio group to prevent user interaction.
             All radio buttons within the group are faded and do not respond to user clicks.
         </p>
-        <Disabled />
+        <Disabled/>
     </DocsSection>
 
     <DocsSection Title="Read-Only">
         <p>
-            You can set a radio group to be read-only, allowing the user to 
+            You can set a radio group to be read-only, allowing the user to
             view the selected options without being able to modify them.
         </p>
-        <ReadOnly />
+        <ReadOnly/>
     </DocsSection>
 
     <DocsSection Title="Orientation">
@@ -43,7 +43,7 @@
             You can control how the radio buttons are laid out within the radio group. You can choose to
             display the radio buttons vertically (default) or horizontally.
         </p>
-        <Orientation />
+        <Orientation/>
     </DocsSection>
 
     <DocsSection Title="Option Descriptions">
@@ -51,7 +51,7 @@
             You can display a description for each of the various options in the radio group, guiding your
             users to make the best choice.
         </p>
-        <OptionDescriptions />
+        <OptionDescriptions/>
     </DocsSection>
 
 
@@ -60,7 +60,7 @@
             The radio group component can control the size of the radio buttons within it to fit
             various layouts and design needs, from small radio groups to larger ones.
         </p>
-        <Sizes />
+        <Sizes/>
     </DocsSection>
 
     <DocsSection Title="Colors">
@@ -68,72 +68,95 @@
             Customize the appearance of the radio group by applying
             different colors that suit your application's theme and design.
         </p>
-        <Colors />
+        <Colors/>
     </DocsSection>
 
     <DocsSection Title="Label">
         <p>
-            The radio group can include a label to provide context for the 
+            The radio group can include a label to provide context for the
             grouped radio buttons, making it clear what the set of options represents.
         </p>
-        <Label />
+        <Label/>
     </DocsSection>
 
     <DocsSection Title="Description">
         <p>
-            Add a description to the radio group to give users 
+            Add a description to the radio group to give users
             additional information about the grouped options.
         </p>
-        <Description />
+        <Description/>
     </DocsSection>
 </DocsSection>
 
-<DocsSlotsSection Slots="@_slots">
-    <div>
-        <h4 class="font-semibold">Radio Group</h4>
+<DocsSection Title="Custom Styles">
+    <DocsSlotsSection Title="Radio Group" Slots="@_groupSlots">
         <ul>
             <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the radio group.</li>
-            <li><Code>Classes</Code>: The CSS class names for the radio group slots style the entire radio group at once.</li>
-            <li><Code>RadioClasses</Code>: The CSS class names for the radio buttons slots all the radio buttons at once.</li>
+            <li><Code>Classes</Code>: The CSS class names to apply to the Radio Group and its elements (wrapper, label, etc).</li>
+            <li><Code>RadioClasses</Code>: The CSS class names to apply to each of the radio buttons inside this Radio Group.</li>
         </ul>
-    </div>
-    <CustomStyles />
-</DocsSlotsSection>
+    </DocsSlotsSection>
 
-<DocsApiSection Components="@_apiComponents" />
+    <DocsSlotsSection Title="Radio" Slots="_radioSlots">
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to apply to the main wrapper around the Radio option.</li>
+            <li><Code>Classes</Code>: The CSS class names to apply to just this instance of the Radio component and its elements (control, label, etc).</li>
+        </ul>
+    </DocsSlotsSection>
+
+    <CustomStyles/>
+</DocsSection>
+
+
+<DocsApiSection Components="@_apiComponents"/>
 
 @code {
-    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
 
-    private readonly Heading[] _headings = new Heading[]
-    {
+    [CascadingParameter]
+    private DocsContentLayout Layout { get; set; } = null!;
+
+    private readonly Heading[] _headings =
+    [
         new("Usage", [
             new("Disabled"),
             new("Read-Only"),
             new("Orientation"),
+            new("Option Descriptions"),
             new("Sizes"),
-            new("Radius"),
             new("Colors"),
             new("Label"),
             new("Description"),
         ]),
-        new("Custom Styles"),
+        new("Custom Styles", [
+            new("Radio Group"),
+            new("Radio")
+        ]),
         new("API")
-    };
+    ];
 
-    private readonly Slot[] _slots = new Slot[]
-    {
+    private readonly Slot[] _groupSlots =
+    [
         new(nameof(RadioGroupSlots.Root), "The overall container of the radio group."),
         new(nameof(RadioGroupSlots.Wrapper), "The wrapper for the radio buttons within the group."),
         new(nameof(RadioGroupSlots.Label), "The label associated with the radio group."),
-        new(nameof(RadioGroupSlots.Description), "The description of the radio group."),
-    };
+        new(nameof(RadioGroupSlots.Description), "The description of the radio group.")
+    ];
 
-    private readonly string[] _apiComponents = new string[]
-    {
+    private readonly Slot[] _radioSlots =
+    [
+        new(nameof(RadioSlots.Root), "The main wrapper around the radio option."),
+        new(nameof(RadioSlots.ControlWrapper), "The wrapper around the visual control (the actual radio button)."),
+        new(nameof(RadioSlots.Control), "The radio button control (the visual circle)."),
+        new(nameof(RadioSlots.LabelWrapper), "The wrapper around the label and description."),
+        new(nameof(RadioSlots.Label), "The label associated with the radio option."),
+        new(nameof(RadioSlots.Description), "The description of the radio option.")
+    ];
+
+    private readonly string[] _apiComponents =
+    [
         nameof(LumexRadioGroup<object>),
-        nameof(LumexRadio<object>),
-    };
+        nameof(LumexRadio<object>)
+    ];
 
     protected override void OnInitialized()
     {
@@ -145,4 +168,5 @@
             linksProps: new ComponentLinksProps( "Radio", isServer: false )
         );
     }
+
 }

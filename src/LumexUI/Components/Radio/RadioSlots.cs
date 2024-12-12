@@ -4,6 +4,9 @@ using LumexUI.Common;
 
 namespace LumexUI;
 
+/// <summary>
+/// Style slots for <see cref="LumexRadio{TValue}"/>
+/// </summary>
 [ExcludeFromCodeCoverage]
 public class RadioSlots : ISlot
 {
@@ -15,7 +18,7 @@ public class RadioSlots : ISlot
     /// <summary>
     /// Radio wrapper, it wraps the control element.
     /// </summary>
-    public string? Wrapper { get; set; }
+    public string? ControlWrapper { get; set; }
     
     /// <summary>
     /// Label and description wrapper.

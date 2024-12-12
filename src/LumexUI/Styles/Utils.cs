@@ -24,6 +24,10 @@ internal class Utils
         .Add( "group-focus-visible:ring-offset-2" )
         .Add( "group-focus-visible:ring-offset-background" )
         .ToString();
+    
+    public readonly static string ReduceMotion = ElementClass.Empty()
+        .Add( "reduce-motion:transition-none" )
+        .ToString();
 
     //public readonly static string GroupDataFocusVisible = ElementClass.Empty()
     //    .Add( "outline-none" )

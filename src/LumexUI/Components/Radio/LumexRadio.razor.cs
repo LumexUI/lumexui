@@ -73,8 +73,8 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     private protected override string? RootClass =>
         TwMerge.Merge( Radio.GetStyles( this ) );
 
-    private string? WrapperClass =>
-        TwMerge.Merge( Radio.GetWrapperStyles( this ) );
+    private string? ControlWrapperClass =>
+        TwMerge.Merge( Radio.GetControlWrapperStyles( this ) );
 
     private string? ControlClass =>
         TwMerge.Merge( Radio.GetControlStyles( this ) );

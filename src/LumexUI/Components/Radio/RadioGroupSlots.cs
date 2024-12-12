@@ -4,6 +4,9 @@ using LumexUI.Common;
 
 namespace LumexUI;
 
+/// <summary>
+/// Style slots for <see cref="LumexRadioGroup{TValue}"/>
+/// </summary>
 [ExcludeFromCodeCoverage]
 public class RadioGroupSlots : ISlot
 {
