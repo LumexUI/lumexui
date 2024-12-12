@@ -89,20 +89,17 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
             _context = new RadioGroupContext<TValue>(this, changeEventCallback);
         }
         
-        // Mutate the InputRadioContext instance in place. Since this is a non-fixed cascading parameter, the descendant
-        // InputRadio/InputRadioGroup components will get notified to re-render and will see the new values.
-        if (!string.IsNullOrEmpty(Name))
-        {
-            // Prefer the explicitly-specified group name over anything else.
-            _context.GroupName = Name;
-        }
-        else
-        {
-            // Otherwise, just use a GUID to disambiguate this group's radio inputs from any others on the page.
-            _context.GroupName = _defaultGroupName;
-        }
-        
         await base.SetParametersAsync( parameters );
+    }
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        // Prefer the explicitly-specified group name over anything else.
+        // Otherwise, just use a GUID to disambiguate this group's radio inputs from any others on the page.
+        _context!.GroupName = !string.IsNullOrEmpty(Name) ? Name : _defaultGroupName;
+
+        base.OnParametersSet();
     }
 
     /// <inheritdoc />

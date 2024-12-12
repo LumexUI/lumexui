@@ -123,16 +123,16 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     /// <returns><c>true</c> if the <see cref="Value"/> of this <see cref="LumexRadio{TValue}"/> matches
     /// the <c>CurrentValue</c> property in the parent <see cref="Context"/>. Otherwise <c>false</c>.</returns>
     protected internal bool GetSelectedState() => Context.CurrentValue?.Equals( Value ) ?? false;
-    
+
     /// <inheritdoc />
     /// <remarks>
     /// LumexRadio ensures that it is always used within a LumexRadioGroup.
     /// </remarks>
     /// <exception cref="ContextNullException">Thrown when LumexRadio is used outside a <see cref="LumexRadioGroup{TValue}"/></exception>
-    protected override async Task OnInitializedAsync()
+    protected override void OnParametersSet()
     {
         ContextNullException.ThrowIfNull( Context, nameof( LumexRadio<TValue> ) );
         
-        await base.OnInitializedAsync();
+        base.OnParametersSet();
     }
 }
