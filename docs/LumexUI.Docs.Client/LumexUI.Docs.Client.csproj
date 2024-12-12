@@ -28,23 +28,4 @@
 		<EmbeddedResource Include="Samples/**/*.html" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\Examples\Colors.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\Examples\CustomStyles.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\Examples\Description.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\Examples\Disabled.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\Examples\Label.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\Examples\ReadOnly.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\Examples\Sizes.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\Examples\Usage.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\PreviewCodes\Colors.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\PreviewCodes\CustomStyles.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\PreviewCodes\Description.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\PreviewCodes\Disabled.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\PreviewCodes\Label.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\PreviewCodes\ReadOnly.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\PreviewCodes\Sizes.razor" />
-	  <AdditionalFiles Include="Pages\Components\RadioGroup\PreviewCodes\Usage.razor" />
-	</ItemGroup>
-
 </Project>
