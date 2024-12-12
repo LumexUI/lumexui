@@ -15,7 +15,7 @@
     <span class="@StyleUtils.VisuallyHidden">
         <input type="radio"
                value="@Value"
-               checked="@GetSelectedState().ToAttributeValue()"
+               checked="@GetSelectedState()"
                disabled="@GetDisabledState()"
                name="@Context.GroupName"
                @onchange="@Context.ChangeEventCallback"/>
