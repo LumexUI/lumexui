@@ -53,7 +53,7 @@ public class RadioGroupTests : TestContext
     {
         return () => RenderComponent<LumexRadioGroup<string>>( g => g
             .Add( p => p.Label, "Select Officer" )
-            .Add( p => p.Description, "Select the officer you'd to lead the away mission" )
+            .Add( p => p.Description, "Select the officer you'd prefer to lead the away mission" )
             .Add( p => p.Name, groupName )
             .Add( p => p.Disabled, isDisabled )
             .Add( p => p.ReadOnly, isReadOnly )
@@ -127,5 +127,123 @@ public class RadioGroupTests : TestContext
         radioButtons[1].Instance.GetSelectedState().Should().BeTrue();
         radioButtons[2].Instance.GetSelectedState().Should().BeFalse();
         radioButtons[3].Instance.GetSelectedState().Should().BeFalse();
+    }
+
+    [Theory]
+    [InlineData( "true" )]
+    [InlineData( "false" )]
+    [InlineData( "foobool" )]
+    [InlineData( "" )]
+    [InlineData( null )]
+    public void RadioGroup_BooleansAreParsedProperly(string? boolString)
+    {
+        var action = () => RenderComponent<LumexRadioGroup<bool>>( c => c
+            .AddChildContent<LumexRadio<bool>>( r => r
+                .Add( p => p.Value, true )
+                .AddChildContent( "Yes" )
+            )
+            .AddChildContent<LumexRadio<bool>>( r => r
+                .Add( p => p.Value, false )
+                .AddChildContent( "No" )
+            )
+        );
+
+        action.Should().NotThrow();
+        
+        var cut = action.Invoke();
+        var radioGroup = cut.Instance;
+        var radioButtons = cut.FindComponents<LumexRadio<bool>>();
+
+        radioButtons.Count.Should().Be( 2 );
+        radioGroup.Value.Should().BeFalse();
+        radioButtons[0].Instance.GetSelectedState().Should().BeFalse();
+        radioButtons[1].Instance.GetSelectedState().Should().BeTrue();
+        
+        var boolEvent = new ChangeEventArgs
+        {
+            Value = boolString
+        };
+
+        radioButtons[0].Find( "input" ).Change( boolEvent );
+
+        switch( boolString?.ToLower() )
+        {   
+            case "true":
+                radioGroup.Value.Should().BeTrue();
+                radioButtons[0].Instance.GetSelectedState().Should().BeTrue();
+                radioButtons[1].Instance.GetSelectedState().Should().BeFalse();
+                break;
+            case "":
+            case "foobool": 
+            case null:
+            case "false":
+                radioGroup.Value.Should().BeFalse();
+                radioButtons[0].Instance.GetSelectedState().Should().BeFalse();
+                radioButtons[1].Instance.GetSelectedState().Should().BeTrue();
+                break;
+            default:
+                throw new InvalidOperationException( "Invalid boolean string" );
+        }
+    }
+    
+    [Theory]
+    [InlineData( "true" )]
+    [InlineData( "false" )]
+    [InlineData( "foobool" )]
+    [InlineData( "" )]
+    [InlineData( null )]
+    public void RadioGroup_NullableBooleansAreParsedProperly(string? boolString)
+    {
+        var action = () => RenderComponent<LumexRadioGroup<bool?>>( c => c
+            .AddChildContent<LumexRadio<bool?>>( r => r
+                .Add( p => p.Value, true )
+                .AddChildContent( "Yes" )
+            )
+            .AddChildContent<LumexRadio<bool?>>( r => r
+                .Add( p => p.Value, false )
+                .AddChildContent( "No" )
+            )
+        );
+
+        action.Should().NotThrow();
+        
+        var cut = action.Invoke();
+        var radioGroup = cut.Instance;
+        var radioButtons = cut.FindComponents<LumexRadio<bool?>>();
+
+        radioButtons.Count.Should().Be( 2 );
+        radioGroup.Value.Should().BeNull();
+        radioButtons[0].Instance.GetSelectedState().Should().BeFalse();
+        radioButtons[1].Instance.GetSelectedState().Should().BeFalse();
+        
+        var boolEvent = new ChangeEventArgs
+        {
+            Value = boolString
+        };
+
+        radioButtons[0].Find( "input" ).Change( boolEvent );
+
+        switch( boolString?.ToLower() )
+        {   
+            case "true":
+                radioGroup.Value.Should().NotBeNull();
+                radioButtons[0].Instance.GetSelectedState().Should().BeTrue();
+                radioButtons[1].Instance.GetSelectedState().Should().BeFalse();
+                break;
+            case "false":
+                radioGroup.Value.Should().NotBeNull();
+                radioButtons[0].Instance.GetSelectedState().Should().BeFalse();
+                radioButtons[1].Instance.GetSelectedState().Should().BeTrue();
+                break;
+            case "":
+            case "foobool": // Special case that should return null on a nullable boolean because it can't be parsed
+            case null:
+                radioGroup.Value.Should().BeNull();
+                radioButtons[0].Instance.GetSelectedState().Should().BeFalse();
+                radioButtons[1].Instance.GetSelectedState().Should().BeFalse();
+                break;
+            default:
+                throw new InvalidOperationException( "Invalid boolean string" );
+        }
     }
 }

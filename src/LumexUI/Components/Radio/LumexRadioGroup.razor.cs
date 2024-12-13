@@ -174,6 +174,8 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
 
     private static bool TryConvertToNullableBool(string? value, out TValue result)
     {
+        // This is unlikely to be true because LumexInputBase.SetCurrentValueAsStringAsync 
+        // should have already handled this case.
         if (string.IsNullOrEmpty(value))
         {
             result = default!;
