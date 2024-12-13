@@ -521,13 +521,13 @@ internal class Select
             // size / outlined
 
             (Size.Small, InputVariant.Outlined ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.tiny)/2_-_8px_-_theme(borderWidth.medium))]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.tiny)/2_-_8px_-_theme(borderWidth.2))]", when: slot is nameof( _label ) ),
 
             (Size.Medium, InputVariant.Outlined ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_6px_-_theme(borderWidth.medium))]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_6px_-_theme(borderWidth.2))]", when: slot is nameof( _label ) ),
 
             (Size.Large, InputVariant.Outlined ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_8px_-_theme(borderWidth.medium))]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_8px_-_theme(borderWidth.2))]", when: slot is nameof( _label ) ),
 
             // size / underlined
 
