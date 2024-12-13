@@ -58,8 +58,11 @@
         Root = ElementClass.Empty()
             .Add( "inline-flex m-0 bg-content1 hover:bg-content2 items-center justify-between p-2 rounded" )
             .Add( "flex-row-reverse max-w-[300px] cursor-pointer rounded-lg gap-4 p-4 border-2 border-default-200" )
-            .Add( "bg-surface1 hover:bg-surface2" )
+            .Add( "bg-white hover:bg-default-100" )
+            .Add( "transition-colors")
             .Add( "data-[selected=true]:border-primary" )
+            .Add( "data-[selected=true]:bg-primary-100/25" )
+            .Add( "data-[selected=true]:hover:bg-primary-100/50" )
             .ToString()
     };
 }
