@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 using LumexUI.Utilities;
@@ -44,6 +45,7 @@ public class InternalNavLink : NavLink
         builder.CloseElement();
     }
 
+    [ExcludeFromCodeCoverage]
     [UnsafeAccessor( UnsafeAccessorKind.Field, Name = "_isActive" )]
     private static extern ref bool GetActiveState( NavLink navLink );
 }

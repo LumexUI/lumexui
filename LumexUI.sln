@@ -8,6 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F98196F8-3B41-461E-A47A-CC1B80E34C68}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LumexUI.Utilities", "src\LumexUI.Utilities\LumexUI.Utilities.csproj", "{92A1C629-AB3E-4264-B03D-407E09162902}"

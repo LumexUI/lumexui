@@ -1,0 +1,43 @@
+@namespace LumexUI
+@inherits LumexComponentBase
+@typeparam TValue
+
+<LumexComponent As="label"
+                Class="@RootClass"
+                Style="@RootStyle"
+                data-selected="@GetSelectedState().ToAttributeValue()"
+                data-disabled="@GetDisabledState().ToAttributeValue()"
+                data-readonly="@GetReadOnlyState().ToAttributeValue()"
+                tabindex="0"
+                @attributes="@AdditionalAttributes"
+                @onclick:stopPropagation="@true">
+    
+    <span class="@StyleUtils.VisuallyHidden">
+        <input type="radio"
+               value="@Value"
+               checked="@GetSelectedState()"
+               disabled="@GetDisabledState()"
+               name="@Context.GroupName"
+               @onchange="@Context.ChangeEventCallback"/>
+    </span>
+    <span class="@ControlWrapperClass">
+        <span class="@ControlClass" data-slot="control"></span>
+    </span>
+    
+    <div class="@LabelWrapperClass">
+        @if (ChildContent is not null)
+        {
+            <span class="@LabelClass">
+                @ChildContent
+            </span>
+        }
+    
+        @if (Description is not null)
+        {
+            <span class="@DescriptionClass">
+                @Description
+            </span>
+        }
+    </div>
+    
+</LumexComponent>
