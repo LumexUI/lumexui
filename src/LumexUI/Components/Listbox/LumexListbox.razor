@@ -1,8 +1,8 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
-@typeparam T
+@typeparam TValue
 
-<CascadingValue TValue="ListboxContext<T>" Value="@_context" IsFixed="@true">
+<CascadingValue TValue="ListboxContext<TValue>" Value="@_context" IsFixed="@true">
     @{
         _context.StartCollectingItems();
     }

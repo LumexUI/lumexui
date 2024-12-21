@@ -115,8 +115,6 @@ internal class ListboxItem
 
     public static ListboxItemSlots GetStyles<T>( LumexListboxItem<T> listboxItem, TwMerge twMerge )
     {
-        var listbox = listboxItem.Context.Owner;
-
         return new ListboxItemSlots()
         {
             Root = twMerge.Merge(
@@ -124,8 +122,8 @@ internal class ListboxItem
                     .Add( _base )
                     .Add( _disabled, when: listboxItem.GetDisabledState() )
                     .Add( listboxItem.Class )
-                    .Add( GetVariantStyles( listbox.Variant, slot: nameof( _base ) ) )
-                    .Add( GetCompoundStyles( listbox.Variant, listboxItem.Color, slot: nameof( _base ) ) )
+                    .Add( GetVariantStyles( listboxItem.Variant, slot: nameof( _base ) ) )
+                    .Add( GetCompoundStyles( listboxItem.Variant, listboxItem.Color, slot: nameof( _base ) ) )
                     .ToString() ),
 
             Wrapper = twMerge.Merge(

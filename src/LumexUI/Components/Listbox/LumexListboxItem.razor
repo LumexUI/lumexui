@@ -1,9 +1,9 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
-@typeparam T
+@typeparam TValue
 
 @{
-    Context.Register(this);
+    Context?.Register(this);
 }
 
 @code {
@@ -36,7 +36,7 @@
                 <span class="@_slots.Title" data-slot="title">@ChildContent</span>
             }
 
-            @if (Context.Owner.SelectionMode is not SelectionMode.None)
+            @if (Context?.SelectionMode is not SelectionMode.None)
             {
                 <span class="@_slots.SelectedIcon" data-slot="selected-icon">
                     @_renderSelectedIcon

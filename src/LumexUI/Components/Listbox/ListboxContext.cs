@@ -4,13 +4,15 @@ namespace LumexUI;
 
 internal class ListboxContext<T>( LumexListbox<T> owner ) : IComponentContext<LumexListbox<T>>
 {
+    private bool _collectingItems;
+
     public LumexListbox<T> Owner { get; } = owner;
     public List<LumexListboxItem<T>> Items { get; } = [];
-    public bool CollectingItems { get; private set; }
+    public SelectionMode SelectionMode { get; set; }
 
     public void Register( LumexListboxItem<T> item )
     {
-        if( CollectingItems )
+        if( _collectingItems )
         {
             Items.Add( item );
         }
@@ -24,11 +26,11 @@ internal class ListboxContext<T>( LumexListbox<T> owner ) : IComponentContext<Lu
     public void StartCollectingItems()
     {
         Items.Clear();
-        CollectingItems = true;
+        _collectingItems = true;
     }
 
     public void FinishCollectingItems()
     {
-        CollectingItems = false;
+        _collectingItems = false;
     }
 }
