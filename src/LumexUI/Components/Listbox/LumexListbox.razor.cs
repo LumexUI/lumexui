@@ -4,6 +4,7 @@
 
 using LumexUI.Common;
 using LumexUI.Styles;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -14,7 +15,7 @@ namespace LumexUI;
 /// </summary>
 /// <typeparam name="TValue">The type of the values associated with the items in the listbox.</typeparam>
 [CascadingTypeParameter( nameof( TValue ) )]
-public partial class LumexListbox<TValue> : LumexComponentBase
+public partial class LumexListbox<TValue> : LumexComponentBase, ISlotComponent<ListboxSlots>
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the listbox.
@@ -67,12 +68,23 @@ public partial class LumexListbox<TValue> : LumexComponentBase
     /// </summary>
     [Parameter] public EventCallback<ICollection<TValue?>> ValuesChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the CSS class names for the listbox slots.
+    /// </summary>
+    [Parameter] public ListboxSlots? Classes { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class names for the listbox items slots.
+    /// </summary>
+    [Parameter] public ListboxItemSlots? ItemClasses { get; set; }
+
     private readonly static RenderFragment _emptyContent = builder =>
     {
         builder.AddContent( 0, "No items." );
     };
 
     private readonly ListboxContext<TValue> _context;
+    private readonly Memoizer<ListboxSlots> _slotsMemoizer;
     private readonly RenderFragment _renderItems;
     private readonly RenderFragment _renderEmptyContent;
 
@@ -84,6 +96,7 @@ public partial class LumexListbox<TValue> : LumexComponentBase
     public LumexListbox()
     {
         _context = new ListboxContext<TValue>( this );
+        _slotsMemoizer = new Memoizer<ListboxSlots>();
         _renderItems = RenderItems;
         _renderEmptyContent = RenderEmptyContent;
 
@@ -119,6 +132,17 @@ public partial class LumexListbox<TValue> : LumexComponentBase
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        _slots ??= Listbox.GetStyles( this, TwMerge );
+        // Perform a re-building only if the dependencies have changed
+        _slots = _slotsMemoizer.Memoize( GetSlots, [
+            Color,
+            Variant,
+            Classes,
+            Class
+        ] );
+    }
+
+    private ListboxSlots GetSlots()
+    {
+        return Listbox.GetStyles( this, TwMerge );
     }
 }

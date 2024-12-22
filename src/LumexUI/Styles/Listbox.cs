@@ -42,17 +42,20 @@ internal class Listbox
             Root = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _base )
+                    .Add( listbox.Classes?.Root )
                     .Add( listbox.Class )
                     .ToString() ),
 
             List = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _list )
+                    .Add( listbox.Classes?.List )
                     .ToString() ),
 
             EmptyContent = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _emptyContent )
+                    .Add( listbox.Classes?.EmptyContent )
                     .ToString() ),
         };
     }
@@ -115,35 +118,42 @@ internal class ListboxItem
 
     public static ListboxItemSlots GetStyles<T>( LumexListboxItem<T> listboxItem, TwMerge twMerge )
     {
+        var listbox = listboxItem.Context?.Owner;
+
         return new ListboxItemSlots()
         {
             Root = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _base )
                     .Add( _disabled, when: listboxItem.GetDisabledState() )
-                    .Add( listboxItem.Class )
                     .Add( GetVariantStyles( listboxItem.Variant, slot: nameof( _base ) ) )
                     .Add( GetCompoundStyles( listboxItem.Variant, listboxItem.Color, slot: nameof( _base ) ) )
+                    .Add( listbox?.ItemClasses?.Root )
+                    .Add( listboxItem.Class )
                     .ToString() ),
 
             Wrapper = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _wrapper )
+                    .Add( listbox?.ItemClasses?.Wrapper )
                     .ToString() ),
 
             Title = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _title )
+                    .Add( listbox?.ItemClasses?.Title )
                     .ToString() ),
 
             Description = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _description )
+                    .Add( listbox?.ItemClasses?.Description )
                     .ToString() ),
 
             SelectedIcon = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _selectedIcon )
+                    .Add( listbox?.ItemClasses?.SelectedIcon )
                     .ToString() ),
         };
     }
@@ -156,7 +166,7 @@ internal class ListboxItem
                 .Add( "", when: slot is nameof( _base ) ),
 
             ListboxVariant.Outlined => ElementClass.Empty()
-                .Add( "border-medium border-transparent bg-transparent", when: slot is nameof( _base ) ),
+                .Add( "border-2 border-transparent bg-transparent", when: slot is nameof( _base ) ),
 
             ListboxVariant.Flat => ElementClass.Empty()
                 .Add( "", when: slot is nameof( _base ) ),
@@ -213,27 +223,27 @@ internal class ListboxItem
 
             (ListboxVariant.Outlined, ThemeColor.Primary ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:border-primary" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:border-primary hover:text-primary" ), when: slot is nameof( _base ) ),
 
             (ListboxVariant.Outlined, ThemeColor.Secondary ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:border-secondary" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:border-secondary hover:text-secondary" ), when: slot is nameof( _base ) ),
 
             (ListboxVariant.Outlined, ThemeColor.Success ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:border-success" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:border-success hover:text-success" ), when: slot is nameof( _base ) ),
 
             (ListboxVariant.Outlined, ThemeColor.Warning ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:border-warning" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:border-warning hover:text-warning" ), when: slot is nameof( _base ) ),
 
             (ListboxVariant.Outlined, ThemeColor.Danger ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:border-danger" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:border-danger hover:text-danger" ), when: slot is nameof( _base ) ),
 
             (ListboxVariant.Outlined, ThemeColor.Info ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:border-info" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:border-info hover:text-info" ), when: slot is nameof( _base ) ),
 
             // flat / color
 

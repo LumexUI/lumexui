@@ -6,6 +6,7 @@ using System.Diagnostics;
 
 using LumexUI.Common;
 using LumexUI.Styles;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -16,7 +17,8 @@ namespace LumexUI;
 /// A component representing an item within the <see cref="LumexListbox{T}"/>.
 /// </summary>
 /// <typeparam name="TValue">The type of the value associated with the listbox item.</typeparam>
-public partial class LumexListboxItem<TValue> : LumexComponentBase, IDisposable
+[CompositionComponent( typeof( LumexListbox<> ) )]
+public partial class LumexListboxItem<TValue> : LumexComponentBase, ISlotComponent<ListboxItemSlots>, IDisposable
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the listbox item.
@@ -69,10 +71,16 @@ public partial class LumexListboxItem<TValue> : LumexComponentBase, IDisposable
     /// </summary>
     [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
+    /// <summary>
+    /// Gets or sets the CSS class names for the listbox item slots.
+    /// </summary>
+    [Parameter] public ListboxItemSlots? Classes { get; set; }
+
     [CascadingParameter] internal ListboxContext<TValue>? Context { get; set; }
 
     private LumexListbox<TValue>? Listbox => Context?.Owner;
 
+    private readonly Memoizer<ListboxItemSlots> _slotsMemoizer;
     private readonly RenderFragment _renderSelectedIcon;
 
     private ListboxItemSlots _slots = default!;
@@ -82,6 +90,7 @@ public partial class LumexListboxItem<TValue> : LumexComponentBase, IDisposable
     /// </summary>
     public LumexListboxItem()
     {
+        _slotsMemoizer = new Memoizer<ListboxItemSlots>();
         _renderSelectedIcon = RenderSelectedIcon;
 
         As = "li";
@@ -117,7 +126,14 @@ public partial class LumexListboxItem<TValue> : LumexComponentBase, IDisposable
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        _slots ??= ListboxItem.GetStyles( this, TwMerge );
+        // Perform a re-building only if the dependencies have changed
+        _slots = _slotsMemoizer.Memoize( GetSlots, [
+            Color,
+            Variant,
+            GetDisabledState(),
+            Classes,
+            Class
+        ] );
     }
 
     internal bool GetSelectedState() =>
@@ -125,7 +141,7 @@ public partial class LumexListboxItem<TValue> : LumexComponentBase, IDisposable
         Listbox?.Values?.Contains( Value ) is true;
 
     internal bool GetDisabledState() =>
-        Listbox?.DisabledItems?.Contains( Value ) is true;
+        Disabled || Listbox?.DisabledItems?.Contains( Value ) is true;
 
     private async Task OnClickAsync( MouseEventArgs args )
     {
@@ -162,6 +178,11 @@ public partial class LumexListboxItem<TValue> : LumexComponentBase, IDisposable
         }
 
         return Task.CompletedTask;
+    }
+
+    private ListboxItemSlots GetSlots()
+    {
+        return ListboxItem.GetStyles( this, TwMerge );
     }
 
     /// <inheritdoc />
