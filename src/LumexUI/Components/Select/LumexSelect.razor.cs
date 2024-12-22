@@ -107,6 +107,11 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
         set => SetCurrentValuesAsync( value );
     }
 
+    private string? CurrentValuesAsString
+    {
+        get => CurrentValues is null ? null : string.Join( ", ", CurrentValues );
+    }
+
     private bool HasValue =>
         CurrentValue is not null ||
         CurrentValues.Count > 0;
