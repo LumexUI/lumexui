@@ -2,8 +2,11 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics;
+
 using LumexUI.Common;
 using LumexUI.Styles;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -13,14 +16,10 @@ namespace LumexUI;
 /// <summary>
 /// A component representing an item within the <see cref="LumexListbox{T}"/>.
 /// </summary>
-/// <typeparam name="T">The type of the value associated with the listbox item.</typeparam>
-public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
+/// <typeparam name="TValue">The type of the value associated with the listbox item.</typeparam>
+[CompositionComponent( typeof( LumexListbox<> ) )]
+public partial class LumexListboxItem<TValue> : LumexComponentBase, ISlotComponent<ListboxItemSlots>, IDisposable
 {
-    /// <summary>
-    /// Gets or sets a unique value for the listbox item.
-    /// </summary>
-    [Parameter, EditorRequired] public T Value { get; set; } = default!;
-
     /// <summary>
     /// Gets or sets content to be rendered inside the listbox item.
     /// </summary>
@@ -35,6 +34,11 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// Gets or sets content to be rendered at the end of the listbox item.
     /// </summary>
     [Parameter] public RenderFragment? EndContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value representing the listbox item.
+    /// </summary>
+    [Parameter] public TValue? Value { get; set; }
 
     /// <summary>
     /// Gets or sets a description of the listbox item.
@@ -67,10 +71,16 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// </summary>
     [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
-    [CascadingParameter] internal ListboxContext<T> Context { get; set; } = default!;
+    /// <summary>
+    /// Gets or sets the CSS class names for the listbox item slots.
+    /// </summary>
+    [Parameter] public ListboxItemSlots? Classes { get; set; }
 
-    private LumexListbox<T> Listbox => Context.Owner;
+    [CascadingParameter] internal ListboxContext<TValue>? Context { get; set; }
 
+    private LumexListbox<TValue>? Listbox => Context?.Owner;
+
+    private readonly Memoizer<ListboxItemSlots> _slotsMemoizer;
     private readonly RenderFragment _renderSelectedIcon;
 
     private ListboxItemSlots _slots = default!;
@@ -80,6 +90,7 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// </summary>
     public LumexListboxItem()
     {
+        _slotsMemoizer = new Memoizer<ListboxItemSlots>();
         _renderSelectedIcon = RenderSelectedIcon;
 
         As = "li";
@@ -90,15 +101,18 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     {
         parameters.SetParameterProperties( this );
 
-        // Respect the Variant value if provided; otherwise, use the owner's
-        Variant = parameters.TryGetValue<ListboxVariant>( nameof( Variant ), out var variant )
-            ? variant
-            : Listbox.Variant;
+        if( Listbox is not null )
+        {
+            // Respect the Variant value if provided; otherwise, use the owner's
+            Variant = parameters.TryGetValue<ListboxVariant>( nameof( Variant ), out var variant )
+                ? variant
+                : Listbox.Variant;
 
-        // Respect the Color value if provided; otherwise, use the owner's
-        Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
-            ? color
-            : Listbox.Color;
+            // Respect the Color value if provided; otherwise, use the owner's
+            Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
+                ? color
+                : Listbox.Color;
+        }
 
         return base.SetParametersAsync( ParameterView.Empty );
     }
@@ -106,25 +120,28 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
     /// <inheritdoc />
     protected override void OnInitialized()
     {
-        ContextNullException.ThrowIfNull( Context, nameof( LumexListboxItem<T> ) );
+        ContextNullException.ThrowIfNull( Context, nameof( LumexListboxItem<TValue> ) );
     }
 
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        if( Value is null )
-        {
-            throw new InvalidOperationException( $"{GetType()} requires a value for parameter '{nameof( Value )}'." );
-        }
-
-        _slots ??= ListboxItem.GetStyles( this, TwMerge );
+        // Perform a re-building only if the dependencies have changed
+        _slots = _slotsMemoizer.Memoize( GetSlots, [
+            Color,
+            Variant,
+            GetDisabledState(),
+            Classes,
+            Class
+        ] );
     }
 
-    internal bool GetSelectedState() =>
-        Listbox.SelectedItems is not null && Listbox.SelectedItems.Contains( Value );
+    internal bool GetSelectedState() => Context?.SelectionMode is SelectionMode.Single
+        ? Listbox?.Value?.Equals( Value ) is true
+        : Listbox?.Values?.Contains( Value ) is true;
 
     internal bool GetDisabledState() =>
-        Listbox.DisabledItems is not null && Listbox.DisabledItems.Contains( Value );
+        Disabled || Listbox?.DisabledItems?.Contains( Value ) is true;
 
     private async Task OnClickAsync( MouseEventArgs args )
     {
@@ -133,45 +150,44 @@ public partial class LumexListboxItem<T> : LumexComponentBase, IDisposable
             return;
         }
 
-        await OnClick.InvokeAsync( args );
-
-        if( Listbox.SelectionMode is not SelectionMode.None )
+        if( Context?.SelectionMode is not SelectionMode.None )
         {
             await SelectAsync();
         }
+
+        await OnClick.InvokeAsync( args );
     }
 
     private Task SelectAsync()
     {
-        if( Listbox.SelectedItems is null )
-        {
-            return Task.CompletedTask;
-        }
+        Debug.Assert( Context is not null && Listbox is not null );
 
-        var selectedItems = Listbox.SelectedItems;
-        if( selectedItems.Remove( Value ) )
+        if( Context.SelectionMode is SelectionMode.Single )
         {
-            return Listbox.SelectedItemsChanged.InvokeAsync( selectedItems );
+            return Listbox.ValueChanged.InvokeAsync( Value );
         }
-
-        switch( Listbox.SelectionMode )
+        else if( Context.SelectionMode is SelectionMode.Multiple )
         {
-            case SelectionMode.Single:
-                selectedItems.Clear();
+            var selectedItems = Listbox.Values ?? new HashSet<TValue?>();
+            if( !selectedItems.Remove( Value ) )
+            {
                 selectedItems.Add( Value );
-                break;
+            }
 
-            case SelectionMode.Multiple:
-                selectedItems.Add( Value );
-                break;
+            return Listbox.ValuesChanged.InvokeAsync( selectedItems );
         }
 
-        return Listbox.SelectedItemsChanged.InvokeAsync( selectedItems );
+        return Task.CompletedTask;
+    }
+
+    private ListboxItemSlots GetSlots()
+    {
+        return ListboxItem.GetStyles( this, TwMerge );
     }
 
     /// <inheritdoc />
-    public void Dispose()
+    public virtual void Dispose()
     {
-        Context.Unregister( this );
+        Context?.Unregister( this );
     }
 }

@@ -90,6 +90,8 @@ public partial class LumexListbox<TValue> : LumexComponentBase, ISlotComponent<L
 
     private ListboxSlots _slots = default!;
 
+    private bool _hasInitializedParameters;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexListbox{T}"/>.
     /// </summary>
@@ -108,22 +110,26 @@ public partial class LumexListbox<TValue> : LumexComponentBase, ISlotComponent<L
     {
         parameters.SetParameterProperties( this );
 
-        if( parameters.TryGetValue<TValue>( nameof( Value ), out var _ ) &&
-            parameters.TryGetValue<ICollection<TValue>>( nameof( Values ), out var _ ) )
+        if( !_hasInitializedParameters )
         {
-            throw new InvalidOperationException(
-                $"{GetType()} requires one of {nameof( Value )} or {nameof( Values )}, but both were specified." );
-        }
+            if( parameters.TryGetValue<TValue>( nameof( Value ), out var _ ) &&
+                parameters.TryGetValue<ICollection<TValue>>( nameof( Values ), out var _ ) )
+            {
+                throw new InvalidOperationException(
+                    $"{GetType()} requires one of {nameof( Value )} or {nameof( Values )}, but both were specified." );
+            }
 
-        // Automatically set the SelectionMode depending on
-        // which of the 2-way bindable parameters are provided.
-        if( parameters.TryGetValue<TValue>( nameof( Value ), out var _ ) )
-        {
-            _context.SelectionMode = SelectionMode.Single;
-        }
-        else if( parameters.TryGetValue<ICollection<TValue>>( nameof( Values ), out var _ ) )
-        {
-            _context.SelectionMode = SelectionMode.Multiple;
+            // Automatically set the SelectionMode depending on the 2-way bindable parameters.
+            if( parameters.TryGetValue<TValue>( nameof( Value ), out var _ ) )
+            {
+                _context.SelectionMode = SelectionMode.Single;
+            }
+            else if( parameters.TryGetValue<ICollection<TValue>>( nameof( Values ), out var _ ) )
+            {
+                _context.SelectionMode = SelectionMode.Multiple;
+            }
+
+            _hasInitializedParameters = true;
         }
 
         return base.SetParametersAsync( ParameterView.Empty );
