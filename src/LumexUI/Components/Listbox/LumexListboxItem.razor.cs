@@ -136,9 +136,9 @@ public partial class LumexListboxItem<TValue> : LumexComponentBase, ISlotCompone
         ] );
     }
 
-    internal bool GetSelectedState() =>
-        Listbox?.Value?.Equals( Value ) is true ||
-        Listbox?.Values?.Contains( Value ) is true;
+    internal bool GetSelectedState() => Context?.SelectionMode is SelectionMode.Single
+        ? Listbox?.Value?.Equals( Value ) is true
+        : Listbox?.Values?.Contains( Value ) is true;
 
     internal bool GetDisabledState() =>
         Disabled || Listbox?.DisabledItems?.Contains( Value ) is true;
@@ -168,7 +168,7 @@ public partial class LumexListboxItem<TValue> : LumexComponentBase, ISlotCompone
         }
         else if( Context.SelectionMode is SelectionMode.Multiple )
         {
-            var selectedItems = Listbox.Values ?? [];
+            var selectedItems = Listbox.Values ?? new HashSet<TValue?>();
             if( !selectedItems.Remove( Value ) )
             {
                 selectedItems.Add( Value );
