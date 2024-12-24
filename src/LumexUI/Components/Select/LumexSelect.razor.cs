@@ -2,6 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Common;
@@ -85,35 +86,24 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
     /// <summary>
     /// 
     /// </summary>
-    /// <remarks>
-    /// The default is <see cref="SelectionMode.Single"/>
-    /// </remarks>
-    [Parameter] public SelectionMode SelectionMode { get; set; } = SelectionMode.Single;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Parameter] public ICollection<TValue> Values { get; set; } = new HashSet<TValue>();
+    [Parameter] public ICollection<TValue>? Values { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [Parameter] public EventCallback<ICollection<TValue>> ValuesChanged { get; set; }
 
-    private ICollection<TValue> CurrentValues
+    private ICollection<TValue>? CurrentValues
     {
         get => Values;
-        set => SetCurrentValuesAsync( value );
+        set => _ = SetCurrentValuesAsync( value );
     }
 
-    private string? CurrentValuesAsString
-    {
-        get => CurrentValues is null ? null : string.Join( ", ", CurrentValues );
-    }
+    private bool ShouldLabelBeOutside => LabelPlacement is LabelPlacement.Outside;
 
-    private bool HasValue =>
-        CurrentValue is not null ||
-        CurrentValues.Count > 0;
+    private bool HasValue => _context.IsMultiSelect
+        ? CurrentValues is { Count: > 0 }
+        : CurrentValue is not null;
 
     private bool HasHelper =>
         !string.IsNullOrEmpty( Description ) ||
@@ -126,18 +116,17 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
         EndContent is not null ||
         !string.IsNullOrEmpty( Placeholder );
 
-    private bool ShouldLabelBeOutside => LabelPlacement is LabelPlacement.Outside;
-    private bool IsMultipleSelect => SelectionMode is SelectionMode.Multiple;
-
     private readonly SelectContext<TValue> _context;
     private readonly RenderFragment _renderMenu;
     private readonly RenderFragment _renderLabel;
     private readonly RenderFragment _renderValue;
     private readonly RenderFragment _renderHelperWrapper;
 
-    private bool _isOpened;
-    private LumexPopover? _popoverRef;
     private SelectSlots _slots = default!;
+    private LumexPopover? _popoverRef;
+
+    private bool _isOpened;
+    private bool _hasInitializedParameters;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LumexSelect{TValue}"/>.
@@ -154,19 +143,31 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
     }
 
     /// <inheritdoc />
-    public override Task SetParametersAsync( ParameterView parameters )
+    public override async Task SetParametersAsync( ParameterView parameters )
     {
-        if( parameters.TryGetValue<LabelPlacement>( nameof( LabelPlacement ), out var labelPlacement ) )
-        {
-            LabelPlacement = labelPlacement;
-        }
-        // Default LabelPlacement to 'Outside' if the label and the placement are not set
-        else if( !parameters.TryGetValue<string>( nameof( Label ), out var _ ) )
-        {
-            LabelPlacement = LabelPlacement.Outside;
-        }
+        await base.SetParametersAsync( parameters );
 
-        return base.SetParametersAsync( parameters );
+        if( !_hasInitializedParameters )
+        {
+            if( parameters.TryGetValue<TValue>( nameof( Value ), out var _ ) &&
+                parameters.TryGetValue<ICollection<TValue>>( nameof( Values ), out var _ ) )
+            {
+                throw new InvalidOperationException(
+                    $"{GetType()} requires one of {nameof( Value )} or {nameof( Values )}, but both were specified." );
+            }
+
+            // Set the selection mode depending on the 2-way bindable parameter.
+            _context.IsMultiSelect = parameters.TryGetValue<ICollection<TValue>>( nameof( Values ), out _ );
+
+            // Set the LabelPlacement to 'Outside' by default if both Label and LabelPlacement are not specified.
+            if( !parameters.TryGetValue<string>( nameof( Label ), out var _ ) &&
+                !parameters.TryGetValue<LabelPlacement>( nameof( LabelPlacement ), out var _ ) )
+            {
+                LabelPlacement = LabelPlacement.Outside;
+            }
+
+            _hasInitializedParameters = true;
+        }
     }
 
     /// <inheritdoc />
@@ -212,29 +213,24 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
         return _popoverRef.TriggerAsync();
     }
 
-    private async Task OnSelectionChangeAsync( ICollection<TValue> items )
+    private async Task OnValueChangedAsync( TValue? value )
     {
-        if( _popoverRef is null )
-        {
-            return;
-        }
+        Debug.Assert( _popoverRef is not null );
 
-        if( IsMultipleSelect )
-        {
-            await SetCurrentValuesAsync( items );
-        }
-        else
-        {
-            var value = items.FirstOrDefault()?.ToString();
-
-            await SetCurrentValueAsStringAsync( value );
-            await _popoverRef.HideAsync();
-        }
+        await SetCurrentValueAsync( value );
+        await _popoverRef.HideAsync();
+        _context.UpdateSelectedItem( CurrentValue );
     }
 
-    private Task SetCurrentValuesAsync( ICollection<TValue> values )
+    private async Task OnValuesChangedAsync( ICollection<TValue> values )
+    {
+        await SetCurrentValuesAsync( values );
+        _context.UpdateSelectedItems( CurrentValues );
+    }
+
+    private Task SetCurrentValuesAsync( ICollection<TValue>? values )
     {
         Values = values;
-        return ValuesChanged.InvokeAsync( values );
+        return ValuesChanged.InvokeAsync( Values );
     }
 }
