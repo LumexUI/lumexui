@@ -2,11 +2,10 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using System.Diagnostics;
-
 using LumexUI.Common;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace LumexUI;
 
@@ -29,22 +28,28 @@ public class LumexSelectItem<TValue> : LumexListboxItem<TValue>, IDisposable
     /// <inheritdoc />
     protected override void OnInitialized()
     {
-        base.OnInitialized();
-
         ContextNullException.ThrowIfNull( SelectContext, nameof( LumexSelectItem<TValue> ) );
-        SelectContext.Register( this );
     }
 
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        base.OnParametersSet();
-        Debug.Assert( Value is not null );
+        if( Value is null )
+        {
+            throw new InvalidOperationException(
+                $"{GetType()} requires a value for the {nameof( Value )} parameter." );
+        }
 
         if( string.IsNullOrEmpty( TextValue ) )
         {
             TextValue = Value.ToString();
         }
+    }
+
+    /// <inheritdoc />
+    protected override void BuildRenderTree( RenderTreeBuilder builder )
+    {
+        SelectContext.Register( this );
     }
 
     /// <inheritdoc />
