@@ -89,6 +89,7 @@
                     <LumexListbox TValue="TValue"
                                   Values="@CurrentValues"
                                   ValuesChanged="@OnValuesChangedAsync"
+                                  DisabledItems="@DisabledItems"
                                   Class="@_slots.Listbox"
                                   Style="@ListboxStyles"
                                   data-slot="listbox">
@@ -115,6 +116,7 @@
                     <LumexListbox TValue="TValue"
                                   Value="@CurrentValue"
                                   ValueChanged="@OnValueChangedAsync"
+                                  DisabledItems="@DisabledItems"
                                   Class="@_slots.Listbox"
                                   Style="@ListboxStyles"
                                   data-slot="listbox">

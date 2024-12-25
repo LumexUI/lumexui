@@ -93,6 +93,11 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     [Parameter] public bool FullWidth { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets the collection of items currently disabled in the select.
+    /// </summary>
+    [Parameter] public ICollection<TValue?>? DisabledItems { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     [Parameter] public ICollection<TValue>? Values { get; set; }
