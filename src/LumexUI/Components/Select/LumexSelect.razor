@@ -92,23 +92,25 @@
         <LumexPopover Offset="5"
                       MatchRefWidth="@true"
                       Placement="@PopoverPlacement.Bottom"
+                      Classes="@_popoverSlots"
                       data-slot="popover"
                       @ref="@_popoverRef"
                       @bind-Opened="@_isOpened">
-            <LumexPopoverContent Class="@_slots.PopoverContent">
+            <LumexPopoverContent>
                 @if (_context.IsMultiSelect)
                 {
                     <LumexListbox TValue="TValue"
                                   Values="@CurrentValues"
                                   ValuesChanged="@OnValuesChangedAsync"
                                   DisabledItems="@DisabledItems"
-                                  Class="@_slots.Listbox"
+                                  Classes="@_listboxSlots"
                                   Style="@ListboxStyles"
                                   data-slot="listbox">
                         @foreach (var item in _context.Items)
                         {
                             <LumexListboxItem As="@item.As"
                                               Class="@item.Class"
+                                              Classes="@item.Classes"
                                               Style="@item.Style"
                                               Value="@item.Value"
                                               Color="@item.Color"
@@ -129,13 +131,14 @@
                                   Value="@CurrentValue"
                                   ValueChanged="@OnValueChangedAsync"
                                   DisabledItems="@DisabledItems"
-                                  Class="@_slots.Listbox"
+                                  Classes="@_listboxSlots"
                                   Style="@ListboxStyles"
                                   data-slot="listbox">
                         @foreach (var item in _context.Items)
                         {
                             <LumexListboxItem As="@item.As"
                                               Class="@item.Class"
+                                              Classes="@item.Classes"
                                               Style="@item.Style"
                                               Value="@item.Value"
                                               Color="@item.Color"

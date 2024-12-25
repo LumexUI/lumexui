@@ -117,6 +117,16 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     /// </summary>
     [Parameter] public SelectSlots? Classes { get; set; }
 
+    /// <summary>
+    /// Gets or sets the CSS class names for the listbox slots.
+    /// </summary>
+    [Parameter] public PopoverSlots? PopoverClasses { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class names for the listbox slots.
+    /// </summary>
+    [Parameter] public ListboxSlots? ListboxClasses { get; set; }
+
     private string? ListboxStyles => ElementStyle.Empty()
         .Add( "max-height", $"{ListboxMaxHeight}px" )
         .ToString();
@@ -146,12 +156,16 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
 
     private readonly SelectContext<TValue> _context;
     private readonly Memoizer<SelectSlots> _slotsMemoizer;
+    private readonly Memoizer<PopoverSlots> _popoverSlotsMemoizer;
+    private readonly Memoizer<ListboxSlots> _listboxSlotsMemoizer;
     private readonly RenderFragment _renderMenu;
     private readonly RenderFragment _renderLabel;
     private readonly RenderFragment _renderValue;
     private readonly RenderFragment _renderHelperWrapper;
 
     private SelectSlots _slots = default!;
+    private PopoverSlots _popoverSlots = default!;
+    private ListboxSlots _listboxSlots = default!;
     private LumexPopover? _popoverRef;
 
     private bool _isOpened;
@@ -164,6 +178,9 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     {
         _context = new SelectContext<TValue>( this );
         _slotsMemoizer = new Memoizer<SelectSlots>();
+        _popoverSlotsMemoizer = new Memoizer<PopoverSlots>();
+        _listboxSlotsMemoizer = new Memoizer<ListboxSlots>();
+
         _renderMenu = RenderMenu;
         _renderLabel = RenderLabel;
         _renderValue = RenderValue;
@@ -217,6 +234,20 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
             Class,
             Classes
         ] );
+
+        // Perform a re-building only if the dependencies have changed
+        _popoverSlots = _popoverSlotsMemoizer.Memoize( GetPopoverSlots, [
+            _slots.PopoverContent,
+            Classes?.PopoverContent,
+            PopoverClasses
+        ] );
+
+        // Perform a re-building only if the dependencies have changed
+        _listboxSlots = _listboxSlotsMemoizer.Memoize( GetListboxSlots, [
+            _slots.Listbox,
+            Classes?.Listbox,
+            ListboxClasses
+        ] );
     }
 
     /// <inheritdoc />
@@ -248,7 +279,7 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
 
     private Task TriggerAsync()
     {
-        if( _popoverRef is null )
+        if( _popoverRef is null || ReadOnly )
         {
             return Task.CompletedTask;
         }
@@ -280,5 +311,49 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     private SelectSlots GetSlots()
     {
         return Select.GetStyles( this, TwMerge );
+    }
+
+    private PopoverSlots GetPopoverSlots()
+    {
+        return new PopoverSlots
+        {
+            Root = ElementClass.Empty()
+                .Add( PopoverClasses?.Root )
+                .ToString(),
+
+            Content = ElementClass.Empty()
+                .Add( _slots.PopoverContent )
+                .Add( Classes?.PopoverContent )
+                .Add( PopoverClasses?.Content )
+                .ToString(),
+
+            Trigger = ElementClass.Empty()
+                .Add( PopoverClasses?.Trigger )
+                .ToString(),
+
+            Arrow = ElementClass.Empty()
+                .Add( PopoverClasses?.Arrow )
+                .ToString()
+        };
+    }
+
+    private ListboxSlots GetListboxSlots()
+    {
+        return new ListboxSlots
+        {
+            Root = ElementClass.Empty()
+                .Add( _slots.Listbox )
+                .Add( Classes?.Listbox )
+                .Add( ListboxClasses?.Root )
+                .ToString(),
+
+            List = ElementClass.Empty()
+                .Add( ListboxClasses?.List )
+                .ToString(),
+
+            EmptyContent = ElementClass.Empty()
+                .Add( ListboxClasses?.EmptyContent )
+                .ToString()
+        };
     }
 }
