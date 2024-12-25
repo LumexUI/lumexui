@@ -1,10 +1,12 @@
 ﻿import plugin from 'tailwindcss/plugin';
 import animations from './animations';
+import scrollbarHide from './scrollbar-hide';
 import transitions, { DEFAULT_TRANSITION_DURATION } from './transitions';
 
 const lumexui = plugin(
     ({ addUtilities }) => {
         addUtilities({ ...transitions });
+        addUtilities({ ...scrollbarHide });
     },
     {
         theme: {
