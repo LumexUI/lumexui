@@ -129,6 +129,7 @@ internal class ListboxItem
                     .Add( GetVariantStyles( listboxItem.Variant, slot: nameof( _base ) ) )
                     .Add( GetCompoundStyles( listboxItem.Variant, listboxItem.Color, slot: nameof( _base ) ) )
                     .Add( listbox?.ItemClasses?.Root )
+                    .Add( listboxItem.Classes?.Root )
                     .Add( listboxItem.Class )
                     .ToString() ),
 
@@ -136,24 +137,28 @@ internal class ListboxItem
                 ElementClass.Empty()
                     .Add( _wrapper )
                     .Add( listbox?.ItemClasses?.Wrapper )
+                    .Add( listboxItem.Classes?.Wrapper )
                     .ToString() ),
 
             Title = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _title )
                     .Add( listbox?.ItemClasses?.Title )
+                    .Add( listboxItem.Classes?.Title )
                     .ToString() ),
 
             Description = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _description )
                     .Add( listbox?.ItemClasses?.Description )
+                    .Add( listboxItem.Classes?.Description )
                     .ToString() ),
 
             SelectedIcon = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _selectedIcon )
                     .Add( listbox?.ItemClasses?.SelectedIcon )
+                    .Add( listboxItem.Classes?.SelectedIcon )
                     .ToString() ),
         };
     }
