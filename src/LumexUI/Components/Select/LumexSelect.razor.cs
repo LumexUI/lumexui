@@ -38,6 +38,11 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     /// <summary>
     /// 
     /// </summary>
+    [Parameter] public RenderFragment<TValue?>? ValueContent { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
     [Parameter] public string? Label { get; set; }
 
     /// <summary>

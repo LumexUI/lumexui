@@ -64,7 +64,16 @@
             return;
         }
 
-        @(IsMultipleSelect ? CurrentValuesAsString : CurrentValueAsString)
+        if (ValueContent is not null)
+        {
+            foreach (var item in _context.SelectedItems)
+            {
+                @ValueContent(item.Value)
+            }
+            return;
+        }
+
+        @string.Join(", ", _context.SelectedItems.Select(item => item.TextValue))
     }
 
     private void RenderLabel(RenderTreeBuilder __builder)
