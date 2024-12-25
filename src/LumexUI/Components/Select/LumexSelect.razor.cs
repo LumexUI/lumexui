@@ -8,6 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using LumexUI.Common;
 using LumexUI.Extensions;
 using LumexUI.Styles;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -17,7 +18,7 @@ namespace LumexUI;
 /// 
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class LumexSelect<TValue> : LumexInputBase<TValue>
+public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponent<SelectSlots>
 {
     /// <summary>
     /// 
@@ -93,6 +94,10 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
     /// </summary>
     [Parameter] public EventCallback<ICollection<TValue>> ValuesChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the CSS class names for the select slots.
+    /// </summary>
+    [Parameter] public SelectSlots? Classes { get; set; }
     private ICollection<TValue>? CurrentValues
     {
         get => Values;
@@ -117,6 +122,7 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
         !string.IsNullOrEmpty( Placeholder );
 
     private readonly SelectContext<TValue> _context;
+    private readonly Memoizer<SelectSlots> _slotsMemoizer;
     private readonly RenderFragment _renderMenu;
     private readonly RenderFragment _renderLabel;
     private readonly RenderFragment _renderValue;
@@ -134,6 +140,7 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
     public LumexSelect()
     {
         _context = new SelectContext<TValue>( this );
+        _slotsMemoizer = new Memoizer<SelectSlots>();
         _renderMenu = RenderMenu;
         _renderLabel = RenderLabel;
         _renderValue = RenderValue;
@@ -173,7 +180,20 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        _slots ??= Select.GetStyles( this, TwMerge );
+        // Perform a re-building only if the dependencies have changed
+        _slots = _slotsMemoizer.Memoize( GetSlots, [
+            LabelPlacement,
+            FullWidth,
+            Required,
+            Disabled,
+            Invalid,
+            Variant,
+            Radius,
+            Color,
+            Size,
+            Class,
+            Classes
+        ] );
     }
 
     /// <inheritdoc />
@@ -232,5 +252,10 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>
     {
         Values = values;
         return ValuesChanged.InvokeAsync( Values );
+    }
+
+    private SelectSlots GetSlots()
+    {
+        return Select.GetStyles( this, TwMerge );
     }
 }

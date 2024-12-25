@@ -15,9 +15,6 @@ internal class Select
         .Add( "group" )
         .Add( "flex" )
         .Add( "flex-col" )
-        // transition
-        .Add( "transition-[background]" )
-        .Add( "motion-reduce:transition-none" )
         .ToString();
 
     private readonly static string _label = ElementClass.Empty()
@@ -50,6 +47,9 @@ internal class Select
         .Add( "px-3" )
         .Add( "shadow-sm" )
         .Add( "outline-none" )
+        // transition
+        .Add( "transition-[background]" )
+        .Add( "motion-reduce:transition-none" )
         .ToString();
 
     private readonly static string _innerWrapper = ElementClass.Empty()
@@ -68,7 +68,7 @@ internal class Select
         .Add( "end-3" )
         .Add( "data-[open=true]:rotate-180" )
         // transition
-        .Add( "transition-transform" )
+        .Add( "transition-[transform,color]" )
         .Add( "duration-150" )
         .Add( "ease" )
         .Add( "motion-reduce:transition-none" )
@@ -78,6 +78,15 @@ internal class Select
         .Add( "w-full" )
         .Add( "text-left" )
         .Add( "text-foreground-500" )
+        .Add( "truncate" )
+        // transition
+        .Add( "transition-colors" )
+        .Add( "motion-reduce:transition-none" )
+        .ToString();
+
+    private readonly static string _listbox = ElementClass.Empty()
+        .Add( "overflow-y-auto" )
+        .Add( "scrollbar-hide" )
         .ToString();
 
     private readonly static string _popoverContent = ElementClass.Empty()
@@ -116,30 +125,37 @@ internal class Select
                 ElementClass.Empty()
                     .Add( _base )
                     .Add( _fullWidth, when: select.FullWidth )
-                    .Add( select.Class )
+                    .Add( GetDisabledStyles( slot: nameof( _base ) ), when: select.Disabled )
                     .Add( GetLabelPlacementStyles( select.LabelPlacement, slot: nameof( _base ) ) )
                     .Add( GetCompoundStyles( select.LabelPlacement, select.Size, slot: nameof( _base ) ) )
+                    .Add( select.Classes?.Root )
+                    .Add( select.Class )
                     .ToString() ),
 
             Label = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _label )
+                    .Add( GetInvalidStyles( slot: nameof( _label ) ), when: select.Invalid )
+                    .Add( GetRequiredStyles( slot: nameof( _label ) ), when: select.Required )
                     .Add( GetSizeStyles( select.Size, slot: nameof( _label ) ) )
                     .Add( GetLabelPlacementStyles( select.LabelPlacement, slot: nameof( _label ) ) )
                     .Add( GetCompoundStyles( select.Variant, select.Color, slot: nameof( _label ) ) )
                     .Add( GetCompoundStyles( select.LabelPlacement, select.Size, slot: nameof( _label ) ) )
                     .Add( GetCompoundStyles( select.LabelPlacement, slot: nameof( _label ) ), when: select.Color is ThemeColor.Default )
                     .Add( GetCompoundStyles( select.Size, select.Variant, slot: nameof( _label ) ), when: select.LabelPlacement is LabelPlacement.Inside )
+                    .Add( select.Classes?.Label )
                     .ToString() ),
 
             MainWrapper = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _mainWrapper )
+                    .Add( select.Classes?.MainWrapper )
                     .ToString() ),
 
             Trigger = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _trigger )
+                    .Add( GetDisabledStyles( slot: nameof( _trigger ) ), when: select.Disabled )
                     .Add( GetSizeStyles( select.Size, slot: nameof( _trigger ) ) )
                     .Add( GetRadiusStyles( select.Radius, slot: nameof( _trigger ) ) )
                     .Add( GetVariantStyles( select.Variant, slot: nameof( _trigger ) ) )
@@ -147,49 +163,61 @@ internal class Select
                     .Add( GetCompoundStyles( select.Variant, select.Color, slot: nameof( _trigger ) ) )
                     .Add( GetCompoundStyles( select.LabelPlacement, select.Size, slot: nameof( _trigger ) ) )
                     .Add( GetCompoundStyles( select.Variant, slot: nameof( _trigger ) ), when: select.Invalid )
+                    .Add( select.Classes?.Trigger )
                     .ToString() ),
 
             InnerWrapper = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _innerWrapper )
                     .Add( GetCompoundStyles( select.LabelPlacement, select.Size, slot: nameof( _innerWrapper ) ) )
+                    .Add( select.Classes?.InnerWrapper )
                     .ToString() ),
 
             SelectorIcon = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _selectorIcon )
+                    .Add( GetInvalidStyles( slot: nameof( _selectorIcon ) ), when: select.Invalid )
+                    .Add( select.Classes?.SelectorIcon )
                     .ToString() ),
 
             Value = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _value )
+                    .Add( GetInvalidStyles( slot: nameof( _value ) ), when: select.Invalid )
                     .Add( GetSizeStyles( select.Size, slot: nameof( _value ) ) )
                     .Add( GetVariantStyles( select.Variant, slot: nameof( _value ) ) )
                     .Add( GetCompoundStyles( select.Variant, select.Color, slot: nameof( _value ) ) )
+                    .Add( select.Classes?.Value )
                     .ToString() ),
 
             Listbox = twMerge.Merge(
                 ElementClass.Empty()
+                    .Add( _listbox )
+                    .Add( select.Classes?.Listbox )
                     .ToString() ),
 
             PopoverContent = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _popoverContent )
+                    .Add( select.Classes?.PopoverContent )
                     .ToString() ),
 
             HelperWrapper = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _helperWrapper )
+                    .Add( select.Classes?.HelperWrapper )
                     .ToString() ),
 
             Description = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _description )
+                    .Add( select.Classes?.Description )
                     .ToString() ),
 
             ErrorMessage = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _errorMessage )
+                    .Add( select.Classes?.ErrorMessage )
                     .ToString() ),
         };
     }
@@ -212,7 +240,7 @@ internal class Select
                     .Add( "border-default-200" )
                     .Add( "hover:border-default-300" )
                     .Add( "data-[open=true]:border-default-foreground" )
-                    .Add( "data-[focus=true]:border-default-foreground" )
+                    .Add( "group-data-[focus=true]:border-default-foreground" )
                     .Add( "transition-colors" )
                     .Add( "motion-reduce:transition-none" ), when: slot is nameof( _trigger ) )
                 .Add( "group-data-[has-value=true]:text-default-foreground", when: slot is nameof( _value ) ),
@@ -237,7 +265,7 @@ internal class Select
                     .Add( "after:-bottom-[2px]" )
                     .Add( "after:h-[2px]" )
                     .Add( "data-[open=true]:after:w-full" )
-                    .Add( "data-[focus=true]:after:w-full" )
+                    .Add( "group-data-[focus=true]:after:w-full" )
                     .Add( "after:transition-[width]" )
                     .Add( "motion-reduce:after:transition-none" ), when: slot is nameof( _trigger ) )
                 .Add( "group-data-[has-value=true]:text-default-foreground", when: slot is nameof( _value ) ),
@@ -300,6 +328,27 @@ internal class Select
 
             _ => ElementClass.Empty()
         };
+    }
+
+    private static ElementClass GetDisabledStyles( string slot )
+    {
+        return ElementClass.Empty()
+            .Add( "opacity-disabled pointer-events-none", when: slot is nameof( _base ) )
+            .Add( "pointer-events-none", when: slot is nameof( _trigger ) );
+    }
+
+    private static ElementClass GetRequiredStyles( string slot )
+    {
+        return ElementClass.Empty()
+            .Add( "after:content-['*'] after:text-danger after:ms-0.5", when: slot is nameof( _label ) );
+    }
+
+    private static ElementClass GetInvalidStyles( string slot )
+    {
+        return ElementClass.Empty()
+            .Add( "!text-danger", when: slot is nameof( _label ) )
+            .Add( "!text-danger", when: slot is nameof( _value ) )
+            .Add( "!text-danger", when: slot is nameof( _selectorIcon ) );
     }
 
     private static ElementClass GetCompoundStyles( InputVariant variant, ThemeColor color, string slot )
@@ -400,27 +449,27 @@ internal class Select
             // outlined / color
 
             (InputVariant.Outlined, ThemeColor.Primary ) => ElementClass.Empty()
-                .Add( "data-[open=true]:border-primary data-[focus=true]:border-primary", when: slot is nameof( _trigger ) )
+                .Add( "data-[open=true]:border-primary group-data-[focus=true]:border-primary", when: slot is nameof( _trigger ) )
                 .Add( "text-primary", when: slot is nameof( _label ) ),
 
             (InputVariant.Outlined, ThemeColor.Secondary ) => ElementClass.Empty()
-                .Add( "data-[open=true]:border-secondary data-[focus=true]:border-secondary", when: slot is nameof( _trigger ) )
+                .Add( "data-[open=true]:border-secondary group-data-[focus=true]:border-secondary", when: slot is nameof( _trigger ) )
                 .Add( "text-secondary", when: slot is nameof( _label ) ),
 
             (InputVariant.Outlined, ThemeColor.Success ) => ElementClass.Empty()
-                .Add( "data-[open=true]:border-success data-[focus=true]:border-success", when: slot is nameof( _trigger ) )
+                .Add( "data-[open=true]:border-success group-data-[focus=true]:border-success", when: slot is nameof( _trigger ) )
                 .Add( "text-success", when: slot is nameof( _label ) ),
 
             (InputVariant.Outlined, ThemeColor.Warning ) => ElementClass.Empty()
-                .Add( "data-[open=true]:border-warning data-[focus=true]:border-warning", when: slot is nameof( _trigger ) )
+                .Add( "data-[open=true]:border-warning group-data-[focus=true]:border-warning", when: slot is nameof( _trigger ) )
                 .Add( "text-warning", when: slot is nameof( _label ) ),
 
             (InputVariant.Outlined, ThemeColor.Danger ) => ElementClass.Empty()
-                .Add( "data-[open=true]:border-danger data-[focus=true]:border-danger", when: slot is nameof( _trigger ) )
+                .Add( "data-[open=true]:border-danger group-data-[focus=true]:border-danger", when: slot is nameof( _trigger ) )
                 .Add( "text-danger", when: slot is nameof( _label ) ),
 
             (InputVariant.Outlined, ThemeColor.Info ) => ElementClass.Empty()
-                .Add( "data-[open=true]:border-info data-[focus=true]:border-info", when: slot is nameof( _trigger ) )
+                .Add( "data-[open=true]:border-info group-data-[focus=true]:border-info", when: slot is nameof( _trigger ) )
                 .Add( "text-info", when: slot is nameof( _label ) ),
 
             _ => ElementClass.Empty()
