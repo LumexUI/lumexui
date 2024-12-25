@@ -15,61 +15,61 @@ using Microsoft.AspNetCore.Components;
 namespace LumexUI;
 
 /// <summary>
-/// 
+/// A component representing a select input component, allowing users to choose from a list of options.
 /// </summary>
-/// <typeparam name="TValue"></typeparam>
+/// <typeparam name="TValue">The type of the value associated with the options in the select.</typeparam>
 public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponent<SelectSlots>
 {
     /// <summary>
-    /// 
+    /// Gets or sets the content to be rendered inside the select input.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the content to be rendered at the start of the select input.
     /// </summary>
     [Parameter] public RenderFragment? StartContent { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the content to be rendered at the end of the select input.
     /// </summary>
     [Parameter] public RenderFragment? EndContent { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the content to display for the currently selected value.
     /// </summary>
     [Parameter] public RenderFragment<TValue?>? ValueContent { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the label for the select input.
     /// </summary>
     [Parameter] public string? Label { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the placeholder text to display when no value is selected.
     /// </summary>
     [Parameter] public string? Placeholder { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the description text to display below the select input.
     /// </summary>
     [Parameter] public string? Description { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the error message to display when the select input is in an invalid state.
     /// </summary>
     [Parameter] public string? ErrorMessage { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the placement of the label of the select input.
     /// </summary>
     /// <remarks>
     /// The default value is <see cref="LabelPlacement.Inside"/>
     /// </remarks>
-    [Parameter] public LabelPlacement LabelPlacement { get; set; } = LabelPlacement.Inside;
+    [Parameter] public LabelPlacement LabelPlacement { get; set; }
 
     /// <summary>
-    /// Gets or sets the appearance variant of the select.
+    /// Gets or sets the appearance variant of the select input.
     /// </summary>
     /// <remarks>
     /// The default value is <see cref="InputVariant.Flat"/>
@@ -77,12 +77,12 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     [Parameter] public InputVariant Variant { get; set; }
 
     /// <summary>
-    /// Gets or sets the border radius of the select.
+    /// Gets or sets the border radius of the select input.
     /// </summary>
     [Parameter] public Radius? Radius { get; set; }
 
     /// <summary>
-    /// Gets or sets a maximum height of the listbox containing options.
+    /// Gets or sets the maximum height of the options listbox.
     /// </summary>
     /// <remarks>
     /// The default value is 256
@@ -90,7 +90,7 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     [Parameter] public float ListboxMaxHeight { get; set; } = 256;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the select is full-width.
+    /// Gets or sets a value indicating whether the select input is full-width.
     /// </summary>
     /// <remarks>
     /// The default value is <see langword="true"/>
@@ -98,17 +98,17 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     [Parameter] public bool FullWidth { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the collection of items currently disabled in the select.
+    /// Gets or sets the collection of items currently disabled in the select input.
     /// </summary>
     [Parameter] public ICollection<TValue?>? DisabledItems { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the collection of selected values in the select input.
     /// </summary>
     [Parameter] public ICollection<TValue>? Values { get; set; }
 
     /// <summary>
-    /// 
+    /// Gets or sets the callback invoked when the collection of selected values changes.
     /// </summary>
     [Parameter] public EventCallback<ICollection<TValue>> ValuesChanged { get; set; }
 
