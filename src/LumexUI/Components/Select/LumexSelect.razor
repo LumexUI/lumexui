@@ -25,6 +25,8 @@
              data-readonly="@Utils.GetDataAttributeValue( ReadOnly )"
              data-required="@Utils.GetDataAttributeValue( Required )"
              data-has-value="@Utils.GetDataAttributeValue( HasValue )"
+             @ref="@ElementReference"
+             @attributes="@AdditionalAttributes"
              @onclick:stopPropagation="@true">
             @(ShouldLabelBeOutside ? _renderLabel : null)
             <div class="@_slots.MainWrapper" data-slot="main-wrapper">
@@ -45,6 +47,7 @@
                     </div>
                     <LumexIcon Icon="@Icons.Rounded.KeyboardArrowDown"
                                Class="@_slots.SelectorIcon"
+                               data-slot="selector-icon"
                                data-open="@Utils.GetDataAttributeValue( _isOpened )">
                     </LumexIcon>
                 </LumexComponent>
