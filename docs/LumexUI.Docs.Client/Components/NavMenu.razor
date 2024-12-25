@@ -50,7 +50,7 @@
             var styles = ElementClass.Default( "flex items-center gap-2" )
                 .Add( ElementClass.Empty()
                     .Add( "opacity-disabled" )
-                    .Add( "pointer-events-none" ), when: item.Status.HasValue && item.Status.Value is NavItemStatus.Soon )
+                    .Add( "pointer-events-none" ), when: item.Status.HasValue && item.Status.Value is ComponentStatus.Soon )
                 .ToString();
 
             <li class="@styles">

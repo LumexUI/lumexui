@@ -8,7 +8,7 @@
 }
 
 @code {
-    [Parameter] public NavItemStatus? Status { get; set; }
+    [Parameter] public ComponentStatus? Status { get; set; }
 
     private string? RootClasses => ElementClass.Empty()
         .Add( "px-1.5" )
@@ -22,9 +22,10 @@
         .Add( _variants[Status!.Value], when: Status.HasValue )
         .ToString();
 
-    private static readonly Dictionary<NavItemStatus, string> _variants = new()
+    private static readonly Dictionary<ComponentStatus, string> _variants = new()
     {
-        [NavItemStatus.Soon] = "bg-foreground-100 ring-foreground-300 text-foreground-600",
-        [NavItemStatus.Preview] = "bg-indigo-50 ring-indigo-200 text-indigo-500"
+        [ComponentStatus.New] = "bg-orange-100 ring-orange-300 text-orange-600",
+        [ComponentStatus.Soon] = "bg-foreground-100 ring-foreground-300 text-foreground-600",
+        [ComponentStatus.Preview] = "bg-indigo-50 ring-indigo-200 text-indigo-500"
     };
 }
