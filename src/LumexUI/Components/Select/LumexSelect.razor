@@ -89,7 +89,9 @@
                     <LumexListbox TValue="TValue"
                                   Values="@CurrentValues"
                                   ValuesChanged="@OnValuesChangedAsync"
-                                  Class="@_slots.Listbox">
+                                  Class="@_slots.Listbox"
+                                  Style="@ListboxStyles"
+                                  data-slot="listbox">
                         @foreach (var item in _context.Items)
                         {
                             <LumexListboxItem As="@item.As"
@@ -113,7 +115,9 @@
                     <LumexListbox TValue="TValue"
                                   Value="@CurrentValue"
                                   ValueChanged="@OnValueChangedAsync"
-                                  Class="@_slots.Listbox">
+                                  Class="@_slots.Listbox"
+                                  Style="@ListboxStyles"
+                                  data-slot="listbox">
                         @foreach (var item in _context.Items)
                         {
                             <LumexListboxItem As="@item.As"

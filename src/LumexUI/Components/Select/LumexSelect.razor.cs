@@ -77,6 +77,14 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     [Parameter] public Radius? Radius { get; set; }
 
     /// <summary>
+    /// Gets or sets a maximum height of the listbox containing options.
+    /// </summary>
+    /// <remarks>
+    /// The default value is 256
+    /// </remarks>
+    [Parameter] public float ListboxMaxHeight { get; set; } = 256;
+
+    /// <summary>
     /// Gets or sets a value indicating whether the select is full-width.
     /// </summary>
     /// <remarks>
@@ -98,6 +106,11 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     /// Gets or sets the CSS class names for the select slots.
     /// </summary>
     [Parameter] public SelectSlots? Classes { get; set; }
+
+    private string? ListboxStyles => ElementStyle.Empty()
+        .Add( "max-height", $"{ListboxMaxHeight}px" )
+        .ToString();
+
     private ICollection<TValue>? CurrentValues
     {
         get => Values;
