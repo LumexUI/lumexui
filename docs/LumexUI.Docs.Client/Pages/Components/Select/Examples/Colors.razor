@@ -1,0 +1,49 @@
+﻿<div class="w-full grid grid-cols-1 gap-4 md:grid-cols-2">
+    @foreach( var color in _colors )
+    {
+        <div>
+            <LumexSelect TValue="string"
+                         Label="Favorite Animal"
+                         Placeholder="Select an animal"
+                         Color="@color"
+                         Class="max-w-xs">
+                @foreach (var animal in _animals)
+                {
+                    <LumexSelectItem @key="@animal" Value="@animal.Key">
+                        @animal.Value
+                    </LumexSelectItem>
+                }
+            </LumexSelect>
+            <small class="text-default-500 mt-1">@color</small>
+        </div>
+    }
+</div>
+
+@code {
+    private Dictionary<string, string> _animals = new()
+    {
+        ["cat"] = "Cat",
+        ["dog"] = "Dog",
+        ["elephant"] = "Elephant",
+        ["lion"] = "Lion",
+        ["tiger"] = "Tiger",
+        ["giraffe"] = "Giraffe",
+        ["dolphin"] = "Dolphin",
+        ["penguin"] = "Penguin",
+        ["zebra"] = "Zebra",
+        ["shark"] = "Shark",
+        ["whale"] = "Whale",
+        ["otter"] = "Otter",
+        ["crocodile"] = "Crocodile"
+    };
+
+    private ThemeColor[] _colors = [
+        ThemeColor.Default,
+        ThemeColor.Primary,
+        ThemeColor.Secondary,
+        ThemeColor.Success,
+        ThemeColor.Warning,
+        ThemeColor.Danger,
+        ThemeColor.Info
+    ];
+}

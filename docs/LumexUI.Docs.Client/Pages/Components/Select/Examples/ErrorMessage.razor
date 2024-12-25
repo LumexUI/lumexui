@@ -1,0 +1,44 @@
+﻿<LumexSelect TValue="string"
+             Label="Favorite Animal"
+             Placeholder="Select an animal"
+             Description="The second most popular pet in the world"
+             ErrorMessage="@(_isValid ? "" : "You must select a cat")"
+             Invalid="@(!_isValid)"
+             Value="@_selectedValue"
+             ValueChanged="@OnAnimalSelect"
+             Class="max-w-xs">
+    @foreach (var animal in _animals)
+    {
+        <LumexSelectItem @key="@animal" Value="@animal.Key">
+            @animal.Value
+        </LumexSelectItem>
+    }
+</LumexSelect>
+
+@code {
+    private Dictionary<string, string> _animals = new()
+    {
+        ["cat"] = "Cat",
+        ["dog"] = "Dog",
+        ["elephant"] = "Elephant",
+        ["lion"] = "Lion",
+        ["tiger"] = "Tiger",
+        ["giraffe"] = "Giraffe",
+        ["dolphin"] = "Dolphin",
+        ["penguin"] = "Penguin",
+        ["zebra"] = "Zebra",
+        ["shark"] = "Shark",
+        ["whale"] = "Whale",
+        ["otter"] = "Otter",
+        ["crocodile"] = "Crocodile"
+    };
+
+    private string? _selectedValue;
+    private bool _isValid = true;
+
+    private void OnAnimalSelect(string? value)
+    {
+        _selectedValue = value;
+        _isValid = value is "cat";
+    }
+}

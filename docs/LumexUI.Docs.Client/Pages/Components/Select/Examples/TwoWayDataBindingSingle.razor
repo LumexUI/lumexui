@@ -1,0 +1,64 @@
+﻿<div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+    <div class="w-full flex flex-col gap-2">
+        <LumexSelect Label="Favorite Animal"
+                     Placeholder="Select an animal"
+                     Class="max-w-xs"
+                     @bind-Value="@_valueOne">
+            @foreach (var animal in _animals)
+            {
+                <LumexSelectItem @key="@animal" Value="@animal.Key">
+                    @animal.Value
+                </LumexSelectItem>
+            }
+        </LumexSelect>
+        <p class="text-sm text-default-500">
+            Selected value: @_valueOne
+        </p>
+    </div>
+
+    <div class="w-full flex flex-col gap-2">
+        <LumexSelect TValue="string"
+                     Label="Favorite Animal"
+                     Placeholder="Select an animal"
+                     Class="max-w-xs"
+                     Value="@_valueTwo"
+                     ValueChanged="@OnValueChanged">
+            @foreach (var animal in _animals)
+            {
+                <LumexSelectItem @key="@animal" Value="@animal.Key">
+                    @animal.Value
+                </LumexSelectItem>
+            }
+        </LumexSelect>
+        <p class="text-sm text-default-500">
+            Selected value: @_valueTwo
+        </p>
+    </div>
+</div>
+
+@code {
+    private Dictionary<string, string> _animals = new()
+    {
+        ["cat"] = "Cat",
+        ["dog"] = "Dog",
+        ["elephant"] = "Elephant",
+        ["lion"] = "Lion",
+        ["tiger"] = "Tiger",
+        ["giraffe"] = "Giraffe",
+        ["dolphin"] = "Dolphin",
+        ["penguin"] = "Penguin",
+        ["zebra"] = "Zebra",
+        ["shark"] = "Shark",
+        ["whale"] = "Whale",
+        ["otter"] = "Otter",
+        ["crocodile"] = "Crocodile"
+    };
+
+    private string? _valueOne;
+    private string? _valueTwo;
+
+    private void OnValueChanged(string? value)
+    {
+        _valueTwo = value;
+    }
+}
