@@ -28,8 +28,8 @@ public class NavigationCategory( string name, string icon )
     }
 }
 
-public class NavigationItem( string name, NavItemStatus? status = null )
+public class NavigationItem( string name, ComponentStatus? status = null )
 {
     public string Name { get; } = name;
-    public NavItemStatus? Status { get; } = status;
+    public ComponentStatus? Status { get; } = status;
 }
