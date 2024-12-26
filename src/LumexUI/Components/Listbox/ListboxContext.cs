@@ -2,15 +2,15 @@
 
 namespace LumexUI;
 
-internal class ListboxContext<T>( LumexListbox<T> owner ) : IComponentContext<LumexListbox<T>>
+internal class ListboxContext<TValue>( LumexListbox<TValue> owner ) : IComponentContext<LumexListbox<TValue>>
 {
     private bool _collectingItems;
 
-    public LumexListbox<T> Owner { get; } = owner;
-    public List<LumexListboxItem<T>> Items { get; } = [];
+    public LumexListbox<TValue> Owner { get; } = owner;
+    public List<LumexListboxItem<TValue>> Items { get; } = [];
     public SelectionMode SelectionMode { get; set; }
 
-    public void Register( LumexListboxItem<T> item )
+    public void Register( LumexListboxItem<TValue> item )
     {
         if( _collectingItems )
         {
@@ -18,7 +18,7 @@ internal class ListboxContext<T>( LumexListbox<T> owner ) : IComponentContext<Lu
         }
     }
 
-    public void Unregister( LumexListboxItem<T> item )
+    public void Unregister( LumexListboxItem<TValue> item )
     {
         Items.Remove( item );
     }

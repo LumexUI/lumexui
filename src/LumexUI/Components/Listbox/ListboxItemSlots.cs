@@ -1,11 +1,14 @@
-﻿using LumexUI.Common;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using LumexUI.Common;
 
 namespace LumexUI;
 
 /// <summary>
 /// Represents a collection of customizable slots for styling various 
-/// elements within a <see cref="LumexListboxItem{T}"/>.
+/// elements within a <see cref="LumexListboxItem{TValue}"/>.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class ListboxItemSlots : ISlot
 {
     /// <summary>
