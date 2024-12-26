@@ -56,7 +56,7 @@ public partial class LumexListbox<TValue> : LumexComponentBase, ISlotComponent<L
     /// <summary>
     /// Gets or sets the collection of items currently selected in the listbox.
     /// </summary>
-    [Parameter] public ICollection<TValue?>? Values { get; set; }
+    [Parameter] public ICollection<TValue?> Values { get; set; } = new HashSet<TValue?>();
 
     /// <summary>
     /// Gets or sets the callback that is invoked when the selection of item in the listbox changes.
@@ -139,6 +139,23 @@ public partial class LumexListbox<TValue> : LumexComponentBase, ISlotComponent<L
             Classes,
             Class
         ] );
+    }
+
+    internal Task SetSelectedValue( TValue? value )
+    {
+        var hasChanged = !EqualityComparer<TValue>.Default.Equals( value, Value );
+        Value = hasChanged ? value : default;
+        return ValueChanged.InvokeAsync( Value );
+    }
+
+    internal Task SetSelectedValues( TValue? value )
+    {
+        if( !Values.Remove( value ) )
+        {
+            Values.Add( value );
+        }
+
+        return ValuesChanged.InvokeAsync( Values );
     }
 
     private ListboxSlots GetSlots()

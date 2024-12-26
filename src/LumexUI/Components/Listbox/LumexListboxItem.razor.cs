@@ -164,17 +164,11 @@ public partial class LumexListboxItem<TValue> : LumexComponentBase, ISlotCompone
 
         if( Context.SelectionMode is SelectionMode.Single )
         {
-            return Listbox.ValueChanged.InvokeAsync( Value );
+            return Listbox.SetSelectedValue( Value );
         }
         else if( Context.SelectionMode is SelectionMode.Multiple )
         {
-            var selectedItems = Listbox.Values ?? [];
-            if( !selectedItems.Remove( Value ) )
-            {
-                selectedItems.Add( Value );
-            }
-
-            return Listbox.ValuesChanged.InvokeAsync( selectedItems );
+            return Listbox.SetSelectedValues( Value );
         }
 
         return Task.CompletedTask;
