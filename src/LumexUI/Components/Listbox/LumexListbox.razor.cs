@@ -56,7 +56,7 @@ public partial class LumexListbox<TValue> : LumexComponentBase, ISlotComponent<L
     /// <summary>
     /// Gets or sets the collection of items currently selected in the listbox.
     /// </summary>
-    [Parameter] public ICollection<TValue?> Values { get; set; } = new HashSet<TValue?>();
+    [Parameter] public ICollection<TValue?>? Values { get; set; }
 
     /// <summary>
     /// Gets or sets the callback that is invoked when the selection of item in the listbox changes.
@@ -156,6 +156,7 @@ public partial class LumexListbox<TValue> : LumexComponentBase, ISlotComponent<L
 
     internal Task SetSelectedValues( TValue? value )
     {
+        Values ??= new HashSet<TValue?>();
         if( !Values.Remove( value ) )
         {
             Values.Add( value );
