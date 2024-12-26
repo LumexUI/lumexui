@@ -37,21 +37,6 @@
         <ColorsVariants />
     </DocsSection>
 
-    <DocsSection Title="Selection">
-        <h4>Single Selection</h4>
-        <p>Enable single selection mode to allow users to select only one item from the list.</p>
-        <SingleSelection />
-
-        <Callout Variant="@CalloutVariant.Info">
-            Selection is set automatically when using two-way binding:
-            <Code>@@bind-Value</Code> for single selection or <Code>@@bind-Values</Code> for multiple selection.
-        </Callout>
-
-        <h4>Multiple Selection</h4>
-        <p>Alternatively, enable multiple selection mode to allow users to select multiple items from the list.</p>
-        <MultipleSelection />
-    </DocsSection>
-
     <DocsSection Title="Start & End Content">
         <p>
             Add custom content, such as icons or additional information,
@@ -74,6 +59,27 @@
             providing a better user experience.
         </p>
         <EmptyContent />
+    </DocsSection>
+
+    <DocsSection Title="Two-way Data Binding">
+        <p>
+            The listbox component supports two-way data binding,
+            allowing you to programmatically control the value(s).
+        </p>
+
+        <h4>Single Selection</h4>
+        <p>
+            Use the <Code>@@bind-Value</Code> directive,
+            or the <Code>Value</Code> and <Code>ValueChanged</Code> parameters.
+        </p>
+        <TwoWayDataBindingSingle />
+
+        <h4>Multiple Selection</h4>
+        <p>
+            Use the <Code>@@bind-Values</Code> directive,
+            or the <Code>Values</Code> and <Code>ValuesChanged</Code> parameters.
+        </p>        
+        <TwoWayDataBindingMultiple />
     </DocsSection>
 </DocsSection>
 
@@ -150,10 +156,10 @@
         new("Usage", [
             new("Disabled"),
             new("Colors & Variants"),
-            new("Selection"),
             new("Start & End Content"),
             new("Description"),
-            new("Empty Content")
+            new("Empty Content"),
+            new("Two-way Data Binding")
         ]),
         new("Custom Styles"),
         new("API")
