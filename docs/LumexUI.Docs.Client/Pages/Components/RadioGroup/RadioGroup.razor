@@ -60,6 +60,13 @@
             The radio group component can control the size of the radio buttons within it to fit
             various layouts and design needs, from small radio groups to larger ones.
         </p>
+
+        <Callout Variant="@CalloutVariant.Tip">
+            This example uses a nullable value type to allow for an initial unselected state.
+            If you use a nullable value type, then the value will need to be explicitly set on the <code>TValue</code>
+            type parameter of the <code>LumexRadio</code> component. This is not needed with nullable reference types.
+        </Callout>
+
         <Sizes/>
     </DocsSection>
 

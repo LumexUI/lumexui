@@ -6,7 +6,7 @@
 Note that we must not set IsFixed=true on the CascadingValue, because the mutations to _context 
 are what cause the descendant InputRadio components to re-render themselves
 *@
-<CascadingValue TValue="RadioGroupContext<TValue>" Value="@_context">
+<CascadingValue Value="@_context" Name="Context" TValue="RadioGroupContext<TValue>">
     <div class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
         @if( !string.IsNullOrEmpty( Label ) )
         {

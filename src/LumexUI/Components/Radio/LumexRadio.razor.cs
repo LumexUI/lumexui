@@ -68,7 +68,7 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    [CascadingParameter] internal RadioGroupContext<TValue> Context { get; set; } = default!;
+    [CascadingParameter(Name = "Context")] internal RadioGroupContext<TValue> Context { get; set; } = default!;
     
     private protected override string? RootClass =>
         TwMerge.Merge( Radio.GetStyles( this ) );

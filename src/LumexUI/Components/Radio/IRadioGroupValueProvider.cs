@@ -8,7 +8,7 @@ namespace LumexUI;
 /// Interface for providing the value of a radio group.
 /// </summary>
 /// <typeparam name="TValue">Type of value the radio group represents.</typeparam>
-public interface ILumexRadioValueProvider<out TValue>
+public interface IRadioGroupValueProvider<out TValue>
 {
     /// <summary>
     /// The currently-selected value of the radio group.

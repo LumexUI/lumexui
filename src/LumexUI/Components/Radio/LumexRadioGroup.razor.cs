@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComponent<RadioGroupSlots>, ILumexRadioValueProvider<TValue>
+[CascadingTypeParameter(nameof(TValue))]
+public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComponent<RadioGroupSlots>, IRadioGroupValueProvider<TValue>
 {
     /// <summary>
     /// Gets or sets content to be rendered inside the radio group.
@@ -53,7 +54,7 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>, ISlotComp
     [Parameter] public RadioSlots? RadioClasses { get; set; }
 
     /// <inheritdoc />
-    TValue? ILumexRadioValueProvider<TValue>.CurrentValue => Value;
+    TValue? IRadioGroupValueProvider<TValue>.CurrentValue => Value;
     
     private protected override string? RootClass =>
         TwMerge.Merge( RadioGroup.GetStyles( this ) );

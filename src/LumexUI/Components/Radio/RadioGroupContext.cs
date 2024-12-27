@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
+[CascadingTypeParameter(nameof(TValue))]
 internal sealed class RadioGroupContext<TValue>( LumexRadioGroup<TValue> owner, EventCallback<ChangeEventArgs> changeEventCallback ) : IComponentContext<LumexRadioGroup<TValue>>
 {
     /// <summary>
@@ -38,5 +39,5 @@ internal sealed class RadioGroupContext<TValue>( LumexRadioGroup<TValue> owner, 
     /// <summary>
     /// The provider for the value of the radio group. In this instance, it's <see cref="LumexRadioGroup{TValue}"/>.
     /// </summary>
-    private readonly ILumexRadioValueProvider<TValue> _valueProvider = owner;
+    private readonly IRadioGroupValueProvider<TValue> _valueProvider = owner;
 }
