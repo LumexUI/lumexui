@@ -57,18 +57,18 @@
 
 @code {
     private RenderFragment<(RenderFragment ChildContent, string Class)> _iconWrapper = props =>
-    @<div class="flex items-center rounded-small justify-center w-7 h-7 @props.Class">
-        @props.ChildContent
-    </div>;
+        @<div class="flex items-center rounded-small justify-center w-7 h-7 @props.Class">
+            @props.ChildContent
+        </div>;
 
     private RenderFragment<string> _icon = icon =>
-    @<LumexIcon Icon="@($"bx bx-{icon}")" Size="@new("18")" />;
+        @<LumexIcon Icon="@($"bx bx-{icon}")" Size="@new("18")" />;
 
     private RenderFragment<int> _counter = counter =>
-    @<div class="flex items-center gap-1 text-default-400">
-        <span class="text-small">@counter</span>
-        <LumexIcon Icon="@Icons.Rounded.ChevronRight" Size="@new("20")" />
-    </div>;
+        @<div class="flex items-center gap-1 text-default-400">
+            <span class="text-small">@counter</span>
+            <LumexIcon Icon="@Icons.Rounded.ChevronRight" Size="@new("20")" />
+        </div>;
 
     private ListboxSlots _classes = new()
     {
