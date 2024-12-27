@@ -11,19 +11,19 @@
                 tabindex="0"
                 @attributes="@AdditionalAttributes"
                 @onclick:stopPropagation="@true">
-    
     <span class="@StyleUtils.VisuallyHidden">
         <input type="radio"
-               value="@Value"
+               value="@BindConverter.FormatValue(Value?.ToString())"
+               name="@Context.GroupName"
                checked="@GetSelectedState()"
                disabled="@GetDisabledState()"
-               name="@Context.GroupName"
-               @onchange="@Context.ChangeEventCallback"/>
+               @onchange="@Context.ChangeEventCallback" />
     </span>
+
     <span class="@ControlWrapperClass">
         <span class="@ControlClass" data-slot="control"></span>
     </span>
-    
+
     <div class="@LabelWrapperClass">
         @if (ChildContent is not null)
         {
@@ -31,7 +31,7 @@
                 @ChildContent
             </span>
         }
-    
+
         @if (Description is not null)
         {
             <span class="@DescriptionClass">
@@ -39,5 +39,4 @@
             </span>
         }
     </div>
-    
 </LumexComponent>

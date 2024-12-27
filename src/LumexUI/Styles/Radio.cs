@@ -25,7 +25,7 @@ internal enum ColorSlots
 }
 
 [ExcludeFromCodeCoverage]
-internal readonly record struct Radio
+internal static class Radio
 {
     private static readonly string _base = ElementClass.Empty()
         .Add( "group" )
@@ -35,7 +35,6 @@ internal readonly record struct Radio
         .Add( "items-center" )
         .Add( "justify-start" )
         .Add( "cursor-pointer" )
-        .Add( "tap-highlight-transparent" )
         .Add( "p-2" )
         .Add( "-m-2" )
         .Add( "select-none" )
@@ -46,15 +45,14 @@ internal readonly record struct Radio
         .Add( "inline-flex" )
         .Add( "items-center" )
         .Add( "justify-center" )
-        .Add( "flex-shrink-0" )
+        .Add( "shrink-0" )
         .Add( "overflow-hidden" )
-        .Add( "border-solid" )
         .Add( "border-2" )
-        .Add( "box-border" )
         .Add( "border-default" )
         .Add( "rounded-full" )
         .Add( "group-hover:bg-default-100" )
-        .Add( "group-data-[pressed=true]:scale-95" )
+        .Add( "group-active:scale-95" )
+        // transition
         .Add( "transition-transform-colors" )
         .Add( Utils.ReduceMotion )
         // focus ring
@@ -71,6 +69,7 @@ internal readonly record struct Radio
         .Add( "rounded-full" )
         .Add( "group-data-[selected=true]:opacity-100" )
         .Add( "group-data-[selected=true]:scale-100" )
+        // transition
         .Add( "transition-transform-opacity" )
         .Add( Utils.ReduceMotion )
         .ToString();
@@ -81,18 +80,20 @@ internal readonly record struct Radio
         .ToString();
 
     private static readonly string _label = ElementClass.Empty()
+        .Add( "group" )
         .Add( "text-foreground" )
         .Add( "select-none" )
+        // transition
         .Add( "transition-colors-opacity" )
         .Add( Utils.ReduceMotion )
-        .Add( "group" )
         .ToString();
 
     private static readonly string _description = ElementClass.Empty()
         .Add( "relative" )
         .Add( "text-foreground-400" )
+        // transition
         .Add( "transition-colors" )
-        .Add( "motion-reduce:transition-none" )
+        .Add( Utils.ReduceMotion )
         .ToString();
 
     private static readonly string _disabled = ElementClass.Empty()
@@ -123,7 +124,7 @@ internal readonly record struct Radio
                     .Add( "group-data-[selected=true]:border-danger", when: color is ThemeColor.Danger )
                     .Add( "group-data-[selected=true]:border-info", when: color is ThemeColor.Info );
             default:
-                throw new ArgumentOutOfRangeException( nameof(slot), slot, "Unsupported slot" );
+                throw new ArgumentOutOfRangeException( nameof( slot ), slot, "Unsupported slot" );
         }
     }
 
@@ -157,7 +158,7 @@ internal readonly record struct Radio
                     .Add( "text-small", when: size is Size.Medium )
                     .Add( "text-medium", when: size is Size.Large );
             default:
-                throw new ArgumentOutOfRangeException( nameof(slot), slot, "Unsupported slot" );
+                throw new ArgumentOutOfRangeException( nameof( slot ), slot, "Unsupported slot" );
         }
     }
 
@@ -238,7 +239,7 @@ internal readonly record struct Radio
 }
 
 [ExcludeFromCodeCoverage]
-internal readonly record struct RadioGroup
+internal static class RadioGroup
 {
     private static readonly string _base = ElementClass.Empty()
         .Add( "relative" )

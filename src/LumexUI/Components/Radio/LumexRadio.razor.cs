@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-[CompositionComponent( typeof(LumexRadioGroup<>) )]
+[CompositionComponent( typeof( LumexRadioGroup<> ) )]
 public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<RadioSlots>
 {
     /// <summary>
@@ -31,7 +31,7 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     /// Gets or sets a value indicating whether the input is invalid.
     /// </summary>
     [Parameter] public bool Invalid { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the CSS class names for the checkbox slots.
     /// </summary>
@@ -44,7 +44,7 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     /// The default is <see cref="ThemeColor.Default"/>
     /// </remarks>
     [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Primary;
-    
+
     /// <summary>
     /// Gets or sets the size of the radio button.
     /// </summary>
@@ -52,24 +52,24 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     /// The default value is <see cref="Size.Medium"/>
     /// </remarks>
     [Parameter] public Size Size { get; set; } = Size.Medium;
-    
+
     /// <summary>
     /// Gets or sets the description for this particular option.
     /// </summary>
     [Parameter] public string? Description { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the value of this input.
     /// </summary>
     [Parameter] public TValue? Value { get; set; }
-    
+
     /// <summary>
     /// Gets or sets content to be rendered inside the input.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    [CascadingParameter(Name = "Context")] internal RadioGroupContext<TValue> Context { get; set; } = default!;
-    
+    [CascadingParameter( Name = "Context" )] internal RadioGroupContext<TValue> Context { get; set; } = default!;
+
     private protected override string? RootClass =>
         TwMerge.Merge( Radio.GetStyles( this ) );
 
@@ -81,7 +81,7 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
 
     private string? LabelWrapperClass =>
         TwMerge.Merge( Radio.GetLabelWrapperStyles( this ) );
-    
+
     private string? LabelClass =>
         TwMerge.Merge( Radio.GetLabelStyles( this ) );
 
@@ -92,16 +92,16 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     public override async Task SetParametersAsync( ParameterView parameters )
     {
         await base.SetParametersAsync( parameters );
-        
-        Color = parameters.TryGetValue<ThemeColor>( nameof(Color), out var color )
+
+        Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
             ? color
             : Context.Owner.Color;
 
-        Size = parameters.TryGetValue<Size>( nameof(Size), out var size )
+        Size = parameters.TryGetValue<Size>( nameof( Size ), out var size )
             ? size
             : Context.Owner.Size;
     }
-    
+
     /// <summary>
     /// Gets the disabled state of the input.
     /// Derived classes can override this to determine the input's disabled state.
@@ -115,7 +115,7 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     /// </summary>
     /// <returns>A <see cref="bool"/> value indicating whether the input is readonly.</returns>
     protected internal bool GetReadOnlyState() => ReadOnly || Context.Owner.ReadOnly;
-    
+
     /// <summary>
     /// Indicates whether this radio button is selected.
     /// Derived classes can override this to determine the input's selected state.
@@ -125,14 +125,8 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
     protected internal bool GetSelectedState() => Context.CurrentValue?.Equals( Value ) ?? false;
 
     /// <inheritdoc />
-    /// <remarks>
-    /// LumexRadio ensures that it is always used within a LumexRadioGroup.
-    /// </remarks>
-    /// <exception cref="ContextNullException">Thrown when LumexRadio is used outside a <see cref="LumexRadioGroup{TValue}"/></exception>
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
         ContextNullException.ThrowIfNull( Context, nameof( LumexRadio<TValue> ) );
-        
-        base.OnParametersSet();
     }
 }
