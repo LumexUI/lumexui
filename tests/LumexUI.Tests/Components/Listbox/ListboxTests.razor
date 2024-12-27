@@ -66,8 +66,6 @@
         var items = cut.FindAll("li");
         items[0].Click();
 
-
-
         selectedValue.Should().Be("new");
         cut.Instance.Value.Should().Be("new");
     }
