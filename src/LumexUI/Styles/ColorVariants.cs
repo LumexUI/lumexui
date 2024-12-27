@@ -31,7 +31,7 @@ internal class ColorVariants
     public readonly static Dictionary<ThemeColor, string> Flat = new()
     {
         [ThemeColor.None] = "",
-        [ThemeColor.Default] = "bg-default-100 text-default-700",
+        [ThemeColor.Default] = "bg-default/40 text-default-700",
         [ThemeColor.Primary] = "bg-primary-100 text-primary-700",
         [ThemeColor.Secondary] = "bg-secondary-100 text-secondary-700",
         [ThemeColor.Success] = "bg-success-100 text-success-700",

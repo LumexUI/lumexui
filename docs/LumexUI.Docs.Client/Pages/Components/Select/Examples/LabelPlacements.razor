@@ -1,0 +1,53 @@
+﻿<div class="w-full grid grid-cols-1 gap-4">
+    @foreach( var placement in Enum.GetValues<LabelPlacement>() )
+    {
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexSelect TValue="string"
+                             Label="Favorite Animal"
+                             LabelPlacement="@placement"
+                             Class="max-w-xs">
+                    @foreach (var animal in _animals)
+                    {
+                        <LumexSelectItem @key="@animal" Value="@animal.Key">
+                            @animal.Value
+                        </LumexSelectItem>
+                    }
+                </LumexSelect>
+
+                <LumexSelect TValue="string"
+                             Label="Favorite Animal"
+                             Placeholder="Select an animal"
+                             LabelPlacement="@placement"
+                             Class="max-w-xs">
+                    @foreach (var animal in _animals)
+                    {
+                        <LumexSelectItem @key="@animal" Value="@animal.Key">
+                            @animal.Value
+                        </LumexSelectItem>
+                    }
+                </LumexSelect>
+            </div>
+            <small class="text-default-500 mt-1">@placement</small>
+        </div>
+    }
+</div>
+
+@code {
+    private Dictionary<string, string> _animals = new()
+    {
+        ["cat"] = "Cat",
+        ["dog"] = "Dog",
+        ["elephant"] = "Elephant",
+        ["lion"] = "Lion",
+        ["tiger"] = "Tiger",
+        ["giraffe"] = "Giraffe",
+        ["dolphin"] = "Dolphin",
+        ["penguin"] = "Penguin",
+        ["zebra"] = "Zebra",
+        ["shark"] = "Shark",
+        ["whale"] = "Whale",
+        ["otter"] = "Otter",
+        ["crocodile"] = "Crocodile"
+    };
+}

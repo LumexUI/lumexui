@@ -1,0 +1,56 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+@typeparam TValue
+
+<CascadingValue TValue="ListboxContext<TValue>" Value="@_context" IsFixed="@true">
+    @{
+        _context.StartCollectingItems();
+    }
+
+    @ChildContent
+
+    <Defer>
+        @{
+            _context.FinishCollectingItems();
+        }
+
+        <div class="@_slots.Root"
+             style="@RootStyle"
+             data-slot="base"
+             @attributes="@AdditionalAttributes">
+            <LumexComponent As="@As"
+                            Class="@_slots.List"
+                            data-slot="list">
+                @if (_context.Items.Count > 0)
+                {
+                    @_renderItems
+                }
+                else
+                {
+                    @_renderEmptyContent
+                }
+            </LumexComponent>
+        </div>
+    </Defer>
+</CascadingValue>
+
+@code {
+    private void RenderItems(RenderTreeBuilder __builder)
+    {
+        foreach (var item in _context.Items)
+        {
+            item.Render(__builder);
+        }
+    }
+
+    private void RenderEmptyContent(RenderTreeBuilder __builder)
+    {
+        var content = EmptyContent ?? _emptyContent;
+
+        <li>
+            <div class="@_slots.EmptyContent" data-slot="empty-content">
+                @content
+            </div>
+        </li>
+    }
+}

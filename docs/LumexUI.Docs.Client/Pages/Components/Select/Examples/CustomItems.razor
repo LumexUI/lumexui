@@ -1,0 +1,40 @@
+﻿<LumexSelect TValue="Character"
+             Label="Assign To"
+             Placeholder="Select a character"
+             Class="max-w-xs">
+    @foreach (var character in _character)
+    {
+        <LumexSelectItem @key="@character"
+                         Value="@character"
+                         TextValue="@character.Name">
+            <div class="flex gap-2 items-center">
+                <span class="w-8 h-8 flex rounded-full overflow-hidden shrink-0">
+                    <img src="@character.Avatar" alt="@character.Name" class="object-cover" />
+                </span>
+                <div class="flex flex-col">
+                    <span class="text-small">@character.Name</span>
+                    <span class="text-tiny text-default-400">@character.Email</span>
+                </div>
+            </div>
+        </LumexSelectItem>
+    }
+</LumexSelect>
+
+@code {
+    private Character[] _character = [
+        new(1, "Tony Stark", "tony.stark@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/male/1.png"),
+        new(2, "Natasha Romanoff", "natasha.romanoff@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/female/1.png"),
+        new(3, "Steve Rogers", "steve.rogers@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/male/2.png"),
+        new(4, "Bruce Banner", "bruce.banner@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/male/3.png"),
+        new(5, "Carol Danvers", "carol.danvers@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/female/2.png"),
+        new(6, "Thor Odinson", "thor.odinson@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/male/4.png"),
+        new(7, "Wanda Maximoff", "wanda.maximoff@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/female/3.png"),
+        new(8, "Pepper Potts", "pepper.potts@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/female/4.png"),
+        new(9, "Peter Parker", "peter.parker@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/male/5.png"),
+        new(10, "Hope van Dyne", "hope.van.dyne@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/female/5.png"),
+        new(11, "Stephen Strange", "stephen.strange@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/male/6.png"),
+        new(12, "Shuri", "shuri@example.com", "https://d2u8k2ocievbld.cloudfront.net/memojis/female/6.png")
+    ];
+
+    private record Character(int Id, string Name, string Email, string Avatar);
+}

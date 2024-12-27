@@ -1,0 +1,83 @@
+﻿<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<LumexListbox TValue="string"
+              Variant="@ListboxVariant.Flat"
+              Classes="@_classes"
+              ItemClasses="@_itemClasses">
+    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("bug"), "bg-success/15 text-success-600"))"
+                      EndContent="@_counter(7)">
+        Issues
+    </LumexListboxItem>
+    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("git-pull-request"), "bg-primary/15 text-primary"))"
+                      EndContent="@_counter(6)">
+        Pull Requests
+    </LumexListboxItem>
+    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("conversation"), "bg-secondary/15 text-secondary"))"
+                      EndContent="@_counter(3)">
+        Discussions
+    </LumexListboxItem>
+    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("play-circle"), "bg-warning/15 text-warning"))"
+                      EndContent="@_counter(2)">
+        Actions
+    </LumexListboxItem>
+    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("layout"), "bg-default/30 text-foreground"))"
+                      EndContent="@_counter(1)">
+        Projects
+    </LumexListboxItem>
+    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("purchase-tag"), "bg-primary/15 text-primary"))"
+                      EndContent="@_counter(12)"
+                      Class="h-auto">
+        <ChildContent>
+            <div class="flex flex-col gap-1">
+                <span>Releases</span>
+                <div class="px-2 py-1 rounded-small bg-default-100 ring-1 ring-default-200/30 ring-inset group-hover:bg-default-200/50">
+                    <p class="text-tiny">v1.0.0-preview.4</p>
+                    <p class="text-tiny text-default-500">
+                        3 months ago · <span class="text-success-600">Latest</span>
+                    </p>
+                </div>
+            </div>
+        </ChildContent>
+    </LumexListboxItem>
+    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("group"), "bg-orange-500/15 text-orange-500"))"
+                      EndContent="@_counter(2)">
+        Contributors
+    </LumexListboxItem>
+    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("show"), "bg-warning/15 text-warning"))"
+                      EndContent="@_counter(3)">
+        Watchers
+    </LumexListboxItem>
+    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("certification"), "bg-danger/15 text-danger"))">
+        <ChildContent>License</ChildContent>
+        <EndContent>
+            <span class="text-small text-default-400">MIT</span>
+        </EndContent>
+    </LumexListboxItem>
+</LumexListbox>
+
+@code {
+    private RenderFragment<(RenderFragment ChildContent, string Class)> _iconWrapper = props =>
+        @<div class="flex items-center rounded-small justify-center w-7 h-7 @props.Class">
+            @props.ChildContent
+        </div>;
+
+    private RenderFragment<string> _icon = icon =>
+        @<LumexIcon Icon="@($"bx bx-{icon}")" Size="@new("18")" />;
+
+    private RenderFragment<int> _counter = counter =>
+        @<div class="flex items-center gap-1 text-default-400">
+            <span class="text-small">@counter</span>
+            <LumexIcon Icon="@Icons.Rounded.ChevronRight" Size="@new("20")" />
+        </div>;
+
+    private ListboxSlots _classes = new()
+    {
+        Root = "p-0 bg-surface1 max-w-72 shadow-small rounded-medium",
+        List = "gap-0 divide-y divide-default-200/50"
+    };
+
+    private ListboxItemSlots _itemClasses = new()
+    {
+        Root = "px-3 first:rounded-t-medium last:rounded-b-medium rounded-none gap-3 h-12 hover:bg-default/15"
+    };
+}

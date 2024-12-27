@@ -7,7 +7,8 @@ import {
     flip,
     shift,
     offset,
-    arrow
+    arrow,
+    size
 } from '@floating-ui/dom';
 
 import {
@@ -30,17 +31,30 @@ async function initialize(id, options) {
         const {
             placement,
             showArrow,
-            offset: offsetVal
+            offset: offsetVal,
+            matchRefWidth
         } = options;
 
         const middlewares = [
             flip(),
             shift(),
-            offset(offsetVal),
+            offset(offsetVal)
         ];
 
         if (showArrow) {
             middlewares.push(arrow({ element: arrowElement }));
+        }
+
+        if (matchRefWidth) {
+            middlewares.push(
+                size({
+                    apply({ rects, elements }) {
+                        Object.assign(elements.floating.style, {
+                            width: `${rects.reference.width}px`,
+                        });
+                    }
+                })
+            );
         }
 
         const data = await computePosition(ref, popover, {

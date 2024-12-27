@@ -1,0 +1,43 @@
+﻿<div class="flex w-full flex-wrap md:flex-nowrap gap-4">
+    <LumexSelect TValue="string"
+                 Label="Favorite Animal"
+                 Class="max-w-xs">
+        @foreach (var animal in _animals)
+        {
+            <LumexSelectItem @key="@animal" Value="@animal.Key">
+                @animal.Value
+            </LumexSelectItem>
+        }
+    </LumexSelect>
+
+    <LumexSelect TValue="string"
+                 Label="Favorite Animal"
+                 Placeholder="Select an animal"
+                 Class="max-w-xs">
+        @foreach (var animal in _animals)
+        {
+            <LumexSelectItem @key="@animal" Value="@animal.Key">
+                @animal.Value
+            </LumexSelectItem>
+        }
+    </LumexSelect>
+</div>
+
+@code {
+    private Dictionary<string, string> _animals = new()
+    {
+        ["cat"] = "Cat",
+        ["dog"] = "Dog",
+        ["elephant"] = "Elephant",
+        ["lion"] = "Lion",
+        ["tiger"] = "Tiger",
+        ["giraffe"] = "Giraffe",
+        ["dolphin"] = "Dolphin",
+        ["penguin"] = "Penguin",
+        ["zebra"] = "Zebra",
+        ["shark"] = "Shark",
+        ["whale"] = "Whale",
+        ["otter"] = "Otter",
+        ["crocodile"] = "Crocodile"
+    };
+}

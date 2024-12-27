@@ -1,0 +1,44 @@
+﻿<div class="w-full max-w-60 px-1 py-2 border border-default-200 rounded-small">
+    <LumexListbox TValue="string" Variant="@ListboxVariant.Flat">
+        <LumexListboxItem Description="Create a new file" 
+                          StartContent="@_newFile">
+            New file
+        </LumexListboxItem>
+        <LumexListboxItem Description="Edit the file" 
+                          StartContent="@_editFile">
+            Edit file
+        </LumexListboxItem>
+        <LumexListboxItem Description="Share the file" 
+                          StartContent="@_shareFile">
+            Share file
+        </LumexListboxItem>
+        <LumexListboxItem Description="Delete the file"
+                          Color="@ThemeColor.Danger"
+                          StartContent="@_deleteFile"
+                          Class="text-danger">
+            Delete file
+        </LumexListboxItem>
+    </LumexListbox>
+</div>
+
+@code {
+    private RenderFragment _newFile =
+        @<LumexIcon Icon="@Icons.Rounded.LibraryAdd"
+                    Size="@new("20")"
+                    Class="text-default-500 shrink-0" />;
+
+    private RenderFragment _editFile =
+        @<LumexIcon Icon="@Icons.Rounded.EditSquare"
+                    Size="@new("20")"
+                    Class="text-default-500 shrink-0" />;
+
+    private RenderFragment _shareFile =
+        @<LumexIcon Icon="@Icons.Rounded.Share"
+                    Size="@new("20")"
+                    Class="text-default-500 shrink-0" />;
+
+    private RenderFragment _deleteFile =
+        @<LumexIcon Icon="@Icons.Rounded.Delete"
+                    Size="@new("20")"
+                    Class="shrink-0" />;
+}

@@ -48,11 +48,11 @@
         var popoverTrigger = cut.FindComponent<LumexPopoverTrigger>();
         var triggerButton = popoverTrigger.Find( "button" );
 
-        cut.Instance.IsShown.Should().BeFalse( because: "An initial state" );
+        cut.Instance.Opened.Should().BeFalse( because: "An initial state" );
 
         triggerButton.Click();
 
-        cut.Instance.IsShown.Should().BeTrue( because: "The trigger is clicked" );
+        cut.Instance.Opened.Should().BeTrue( because: "The trigger is clicked" );
     }
 
     [Fact]
@@ -70,15 +70,15 @@
         var popoverTrigger = cut.FindComponent<LumexPopoverTrigger>();
         var triggerButton = popoverTrigger.Find( "button" );
 
-        cut.Instance.IsShown.Should().BeFalse( because: "An initial state" );
+        cut.Instance.Opened.Should().BeFalse( because: "An initial state" );
 
         triggerButton.Click();
 
-        cut.Instance.IsShown.Should().BeTrue( because: "The trigger is clicked" );
+        cut.Instance.Opened.Should().BeTrue( because: "The trigger is clicked" );
 
         cut.Find( "[data-popover]" ).TriggerEvent( "onclickoutside", new EventArgs() );
 
-        cut.Instance.IsShown.Should().BeFalse( because: "An outside click occured" );
+        cut.Instance.Opened.Should().BeFalse( because: "An outside click occured" );
     }
 
     // [Fact]
@@ -96,17 +96,17 @@
     //     var popoverTrigger = cut.FindComponent<LumexPopoverTrigger>();
     //     var triggerButton = popoverTrigger.Find( "button" );
 
-    //     cut.Instance.IsShown.Should().BeFalse( because: "An initial state" );
+    //     cut.Instance.Opened.Should().BeFalse( because: "An initial state" );
 
     //     triggerButton.Click();
 
-    //     cut.Instance.IsShown.Should().BeTrue( because: "The trigger is clicked" );
+    //     cut.Instance.Opened.Should().BeTrue( because: "The trigger is clicked" );
 
     //     // Triggering the opened popover also triggers the 'clickoutside' event first
     //     cut.Find( "[data-popover]" ).TriggerEvent( "onclickoutside", new EventArgs() );
     //     triggerButton.Click();
 
-    //     cut.Instance.IsShown.Should().BeFalse( because: "An outside click occured" );
+    //     cut.Instance.Opened.Should().BeFalse( because: "An outside click occured" );
     // }
 
     [Fact]
@@ -134,15 +134,15 @@
 
         popoverTriggers[0].Find( "button" ).Click();
 
-        popovers[0].Instance.IsShown.Should().BeTrue();
-        popovers[1].Instance.IsShown.Should().BeFalse();
+        popovers[0].Instance.Opened.Should().BeTrue();
+        popovers[1].Instance.Opened.Should().BeFalse();
 
         // Triggering the 2nd popover also triggers the 'clickoutside' event first
         popovers[0].Find( "[data-popover]" ).TriggerEvent( "onclickoutside", new EventArgs() );
         popoverTriggers[1].Find( "button" ).Click();
 
-        popovers[0].Instance.IsShown.Should().BeFalse();
-        popovers[1].Instance.IsShown.Should().BeTrue();
+        popovers[0].Instance.Opened.Should().BeFalse();
+        popovers[1].Instance.Opened.Should().BeTrue();
     }
 
     [Fact]

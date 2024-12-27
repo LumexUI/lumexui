@@ -1,0 +1,46 @@
+﻿<div class="w-full max-w-60 px-1 py-2 border border-default-200 rounded-small">
+    <LumexListbox TValue="string" Color="@_color" Variant="@_variant">
+        <LumexListboxItem>New file</LumexListboxItem>
+        <LumexListboxItem>Edit file</LumexListboxItem>
+        <LumexListboxItem>Share file</LumexListboxItem>
+        <LumexListboxItem Color="@ThemeColor.Danger"
+                          Class="text-danger">
+            Delete file
+        </LumexListboxItem>
+    </LumexListbox>
+</div>
+
+<fieldset>
+    <legend class="text-small text-default-500">Color</legend>
+    <div class="flex flex-wrap gap-2">
+        <InputRadioGroup @bind-Value="@_color">
+            @foreach (var color in Enum.GetValues<ThemeColor>())
+            {
+                <label>
+                    <InputRadio Value="@color" />
+                    @color
+                </label>
+            }
+        </InputRadioGroup>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend class="text-small text-default-500">Variant</legend>
+    <div class="flex flex-wrap gap-2">
+        <InputRadioGroup @bind-Value="@_variant">
+            @foreach (var variant in Enum.GetValues<ListboxVariant>())
+            {
+                <label>
+                    <InputRadio Value="@variant" />
+                    @variant
+                </label>
+            }
+        </InputRadioGroup>
+    </div>
+</fieldset>
+
+@code {
+    private ThemeColor _color = ThemeColor.Default;
+    private ListboxVariant _variant = ListboxVariant.Solid;
+}

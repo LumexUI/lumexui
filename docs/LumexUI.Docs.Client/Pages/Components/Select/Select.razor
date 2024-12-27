@@ -1,0 +1,224 @@
+﻿@page "/docs/components/select"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Select.PreviewCodes
+
+<DocsCompositionSection Components="@_compositionComponents" />
+
+<DocsSection Title="Usage">
+    <p>
+        The select component is used for collecting user provided
+        information from a list of options.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            You can disable a select to prevent user interaction.
+            A disabled select is faded and does not respond to user clicks.
+        </p>
+        <p>You can achieve this by using the <Code>Disabled</Code> parameter on a <Code>Select</Code>.</p>
+        <Disabled />
+
+        <p>
+            Alternatively, you can prevent user interaction by disabling specific items.
+            You can achieve this by using the <Code>DisabledItems</Code> parameter on a <Code>Select</Code>.
+        </p>
+        <DisabledItems />
+    </DocsSection>
+
+    <DocsSection Title="Read-Only">
+        <p>Set the select to read-only to display data without allowing modifications.</p>
+        <ReadOnly />
+    </DocsSection>
+
+    <DocsSection Title="Required">
+        <p>
+            Mark the select as required to indicate that it must be filled out before form submission.
+            An asterisk will appear at the end of the label.
+        </p>
+        <Required />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>The select supports multiple sizes to fit different layouts and design needs.</p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>Adjust the border radius of the select for rounded or squared corners.</p>
+        <Radius />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>Customize the select color to match your theme or emphasize certain fields.</p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Variants">
+        <p>
+            Choose from different variants, such as <Code>Flat</Code>,
+            <Code>Underlined</Code>, or <Code>Outlined</Code>, for various visual styles.
+        </p>
+        <Variants />
+    </DocsSection>
+
+    <DocsSection Title="Label Placements">
+        <p>
+            Position the label either inside or outside
+            the select for flexibility in layout and design.
+        </p>
+        <LabelPlacements />
+    </DocsSection>
+
+    <DocsSection Title="Start & End Content">
+        <p>
+            Add custom content, such as icons or labels,
+            to the start or end of the select for added functionality.
+        </p>
+        <StartEndContent />
+    </DocsSection>
+
+    <DocsSection Title="Item Start & End Content">
+        <p>Add icons or elements to individual items within the listbox.</p>
+        <ItemStartEndContent />
+    </DocsSection>
+
+    <DocsSection Title="Description">
+        <p>Provide a brief description below the select to offer guidance or additional context.</p>
+        <Description />
+    </DocsSection>
+
+    <DocsSection Title="Error Message">
+        <p>
+            Display an error message below the select to indicate validation issues.
+            You can combine the <Code>Invalid</Code> and <Code>ErrorMessage</Code> parameters to show an invalid input.
+            An error message is shown only when the <Code>Invalid</Code> parameter is set to <Code>true</Code>.
+        </p>
+        <ErrorMessage />
+    </DocsSection>
+
+    <DocsSection Title="Two-way Data Binding">
+        <p>
+            The select component supports two-way data binding,
+            allowing you to programmatically control the value(s).
+        </p>
+
+        <h4>Single Selection</h4>
+        <p>
+            Use the <Code>@@bind-Value</Code> directive,
+            or the <Code>Value</Code> and <Code>ValueChanged</Code> parameters.
+        </p>
+        <TwoWayDataBindingSingle />
+
+        <h4>Multiple Selection</h4>
+        <p>
+            Use the <Code>@@bind-Values</Code> directive,
+            or the <Code>Values</Code> and <Code>ValuesChanged</Code> parameters.
+        </p>
+        <TwoWayDataBindingMultiple />
+    </DocsSection>
+
+    <DocsSection Title="Custom Items">
+        <p>
+            You can customize the select items by modifying the
+            <Code>ChildContent</Code> of the <Code>SelectItem</Code>.
+        </p>
+        <CustomItems />
+    </DocsSection>
+
+    <DocsSection Title="Custom Values">
+        <p>
+            You can also customize the value representation of selected items
+            by providing the <Code>ValueContent</Code> to the <Code>Select</Code>.
+        </p>
+        <CustomValues />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Select</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the select wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the select slots.</li>
+        </ul>
+
+        <h4 class="font-semibold">Select Item</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the select item wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the select item slots.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+        new(nameof(LumexSelect<T>), "A component representing a select input."),
+        new(nameof(LumexSelectItem<T>), "A component representing a select item.")
+    };
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Disabled"),
+            new("Read-Only"),
+            new("Required"),
+            new("Sizes"),
+            new("Radius"),
+            new("Colors"),
+            new("Variants"),
+            new("Label Placements"),
+            //new("Clear Button"),
+            new("Start & End Content"),
+            new("Item Start & End Content"),
+            new("Description"),
+            new("Error Message"),
+            new("Two-way Data Binding"),
+            new("Custom Items"),
+            new("Custom Values"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(SelectSlots.Root), "The main container for the entire select component."),
+        new(nameof(SelectSlots.Label), "The label of the select."),
+        new(nameof(SelectSlots.MainWrapper), "Wraps the helper wrapper and the trigger slots."),
+        new(nameof(SelectSlots.Trigger), "The trigger button of the select."),
+        new(nameof(SelectSlots.InnerWrapper), "The wrapper of the start/end content and the value."),
+        new(nameof(SelectSlots.SelectorIcon), "The selector icon of the select."),
+        new(nameof(SelectSlots.Value), "The select value."),
+        new(nameof(SelectSlots.Listbox), "The listbox component slot."),
+        new(nameof(SelectSlots.PopoverContent), "The popover content slot."),
+        new(nameof(SelectSlots.HelperWrapper), "The wrapper of a description and an error message."),
+        new(nameof(SelectSlots.Description), "The description of the select."),
+        new(nameof(SelectSlots.ErrorMessage), "The error message of the select."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexSelect<T>),
+        nameof(LumexSelectItem<T>),
+        nameof(LumexIcon)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Select",
+            category: "Components",
+            description: "Selects display a collapsible list of options and allow users to select them.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps("Select", isServer: false)
+        );
+    }
+}

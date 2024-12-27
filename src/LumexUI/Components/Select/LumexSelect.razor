@@ -1,0 +1,181 @@
+﻿@namespace LumexUI
+@inherits LumexInputBase<TValue>
+@typeparam TValue
+
+<CascadingValue TValue="SelectContext<TValue>" Value="@_context" IsFixed="@true">
+    @{
+        _context.StartCollectingItems();
+    }
+
+    @ChildContent
+
+    <Defer>
+        @{
+            _context.FinishCollectingItems();
+        }
+        <_ItemsCollectedNotifier TValue="TValue" />
+
+        <div class="@_slots.Root"
+             style="@RootStyle"
+             data-slot="base"
+             data-focus="@Utils.GetDataAttributeValue( Focused )"
+             data-filled="@Utils.GetDataAttributeValue( Filled )"
+             data-invalid="@Utils.GetDataAttributeValue( Invalid )"
+             data-disabled="@Utils.GetDataAttributeValue( Disabled )"
+             data-readonly="@Utils.GetDataAttributeValue( ReadOnly )"
+             data-required="@Utils.GetDataAttributeValue( Required )"
+             data-has-value="@Utils.GetDataAttributeValue( HasValue )"
+             @ref="@ElementReference"
+             @attributes="@AdditionalAttributes"
+             @onclick:stopPropagation="@true">
+            @(ShouldLabelBeOutside ? _renderLabel : null)
+            <div class="@_slots.MainWrapper" data-slot="main-wrapper">
+                <LumexComponent As="@As"
+                                Class="@_slots.Trigger"
+                                type="button"
+                                data-slot="trigger"
+                                data-popoverref="@_popoverRef?.Id"
+                                data-open="@Utils.GetDataAttributeValue( _isOpened )"
+                                @onclick="@TriggerAsync"
+                                @onfocus="@OnFocusAsync"
+                                @onblur="@OnBlurAsync">
+                    @(!ShouldLabelBeOutside ? _renderLabel : null)
+                    <div class="@_slots.InnerWrapper" data-slot="inner-wrapper">
+                        @StartContent
+                        <span class="@_slots.Value" data-slot="value">@_renderValue</span>
+                        @EndContent
+                    </div>
+                    <LumexIcon Icon="@Icons.Rounded.KeyboardArrowDown"
+                               Class="@_slots.SelectorIcon"
+                               data-slot="selector-icon"
+                               data-open="@Utils.GetDataAttributeValue( _isOpened )">
+                    </LumexIcon>
+                </LumexComponent>
+                @_renderHelperWrapper
+            </div>
+            @_renderMenu
+        </div>
+    </Defer>
+</CascadingValue>
+
+@code {
+    private void RenderValue(RenderTreeBuilder __builder)
+    {
+        if (!HasValue)
+        {
+            @Placeholder
+            return;
+        }
+
+        if (ValueContent is not null)
+        {
+            foreach (var item in _context.SelectedItems)
+            {
+                @ValueContent(item.Value)
+            }
+            return;
+        }
+
+        @string.Join(", ", _context.SelectedItems.Select(item => item.TextValue))
+    }
+
+    private void RenderLabel(RenderTreeBuilder __builder)
+    {
+        if (!string.IsNullOrEmpty(Label))
+        {
+            <label class="@_slots.Label" data-slot="label">@Label</label>
+        }
+    }
+
+    private void RenderMenu(RenderTreeBuilder __builder)
+    {
+        <LumexPopover Offset="5"
+                      MatchRefWidth="@true"
+                      Placement="@PopoverPlacement.Bottom"
+                      Classes="@_popoverSlots"
+                      data-slot="popover"
+                      @ref="@_popoverRef"
+                      @bind-Opened="@_isOpened">
+            <LumexPopoverContent>
+                @if (_context.IsMultiSelect)
+                {
+                    <LumexListbox TValue="TValue"
+                                  Values="@CurrentValues"
+                                  ValuesChanged="@OnValuesChangedAsync"
+                                  DisabledItems="@DisabledItems"
+                                  Classes="@_listboxSlots"
+                                  Style="@ListboxStyles"
+                                  data-slot="listbox">
+                        @foreach (var item in _context.Items)
+                        {
+                            <LumexListboxItem As="@item.As"
+                                              Class="@item.Class"
+                                              Classes="@item.Classes"
+                                              Style="@item.Style"
+                                              Value="@item.Value"
+                                              Color="@item.Color"
+                                              Variant="@item.Variant"
+                                              Description="@item.Description"
+                                              Disabled="@item.Disabled"
+                                              OnClick="@item.OnClick"
+                                              ChildContent="@item.ChildContent"
+                                              StartContent="@item.StartContent"
+                                              EndContent="@item.EndContent"
+                                              @attributes="@item.AdditionalAttributes" />
+                        }
+                    </LumexListbox>
+                }
+                else
+                {
+                    <LumexListbox TValue="TValue"
+                                  Value="@CurrentValue"
+                                  ValueChanged="@OnValueChangedAsync"
+                                  DisabledItems="@DisabledItems"
+                                  Classes="@_listboxSlots"
+                                  Style="@ListboxStyles"
+                                  data-slot="listbox">
+                        @foreach (var item in _context.Items)
+                        {
+                            <LumexListboxItem As="@item.As"
+                                              Class="@item.Class"
+                                              Classes="@item.Classes"
+                                              Style="@item.Style"
+                                              Value="@item.Value"
+                                              Color="@item.Color"
+                                              Variant="@item.Variant"
+                                              Description="@item.Description"
+                                              Disabled="@item.Disabled"
+                                              OnClick="@item.OnClick"
+                                              ChildContent="@item.ChildContent"
+                                              StartContent="@item.StartContent"
+                                              EndContent="@item.EndContent"
+                                              @attributes="@item.AdditionalAttributes" />
+                        }
+                    </LumexListbox>
+                }
+            </LumexPopoverContent>
+        </LumexPopover>
+    }
+
+    private void RenderHelperWrapper(RenderTreeBuilder __builder)
+    {
+        var shouldShowError = Invalid && !string.IsNullOrEmpty(ErrorMessage);
+        var hasContent = shouldShowError || !string.IsNullOrEmpty(Description);
+
+        if (!HasHelper || !hasContent)
+        {
+            return;
+        }
+
+        <div class="@_slots.HelperWrapper" data-slot="helper-wrapper">
+            @if (shouldShowError)
+            {
+                <div class="@_slots.ErrorMessage" data-slot="error-message">@ErrorMessage</div>
+            }
+            else
+            {
+                <div class="@_slots.Description" data-slot="description">@Description</div>
+            }
+        </div>
+    }
+}

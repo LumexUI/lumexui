@@ -1,0 +1,68 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+@typeparam TValue
+
+@{
+    Context?.Register(this);
+}
+
+@code {
+    /// <summary>
+    /// Renders the content of the listbox item.
+    /// Derived classes can override this method to customize the rendering logic.
+    /// </summary>
+    /// <param name="__builder">The current <see cref="RenderTreeBuilder"/>.</param>
+    protected internal virtual void Render(RenderTreeBuilder __builder)
+    {
+        <LumexComponent As="@As"
+                        Class="@_slots.Root"
+                        Style="@RootStyle"
+                        data-slot="base"
+                        data-selected="@GetSelectedState().ToAttributeValue()"
+                        data-disabled="@GetDisabledState().ToAttributeValue()"
+                        @attributes="@AdditionalAttributes"
+                        @onclick="@OnClickAsync">
+            @StartContent
+
+            @if (!string.IsNullOrEmpty(Description))
+            {
+                <div class="@_slots.Wrapper" data-slot="wrapper">
+                    <span class="@_slots.Title" data-slot="title">@ChildContent</span>
+                    <span class="@_slots.Description" data-slot="description">@Description</span>
+                </div>
+            }
+            else
+            {
+                <span class="@_slots.Title" data-slot="title">@ChildContent</span>
+            }
+
+            @if (Context?.SelectionMode is not SelectionMode.None)
+            {
+                <span class="@_slots.SelectedIcon" data-slot="selected-icon">
+                    @_renderSelectedIcon
+                </span>
+            }
+
+            @EndContent
+        </LumexComponent>
+    }
+
+    private void RenderSelectedIcon(RenderTreeBuilder __builder)
+    {
+        var style = ElementStyle.Empty()
+            .Add("transition", "stroke-dashoffset 0.2s ease")
+            .ToString();
+
+        <svg viewBox="0 0 17 18">
+            <polyline fill="none"
+                      points="1 9 7 14 15 4"
+                      stroke="currentColor"
+                      stroke-dasharray="22"
+                      stroke-dashoffset="@(GetSelectedState() ? 44 : 66)"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      style="@style" />
+        </svg>
+    }
+}

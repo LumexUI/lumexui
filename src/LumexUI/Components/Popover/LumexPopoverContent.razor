@@ -1,11 +1,11 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-@if( Context.Owner.IsShown )
+@if( Context.Owner.Opened )
 {
     <div style="position: absolute; z-index: 10000;"
          data-popover="@Context.Owner.Id"
-         @onclickoutside="@(() => ClickOutsideAsync())">
+         @onclickoutside="@(async() => await ClickOutsideAsync())">
         <div class="@InnerWrapperClass">
             <div role="dialog" tabindex="-1" data-slot="base">
                 <LumexComponent As="@As"

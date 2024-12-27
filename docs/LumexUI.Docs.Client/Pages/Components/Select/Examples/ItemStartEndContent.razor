@@ -1,0 +1,32 @@
+﻿<LumexSelect TValue="string"
+             Label="Country"
+             Class="max-w-xs">
+    @foreach (var country in _countries)
+    {
+        <LumexSelectItem @key="@country"
+                         Value="@country.Key"
+                         TextValue="@country.Name"
+                         StartContent="@_countryFlag(new(country.Name, country.Flag))">
+            @country.Name
+        </LumexSelectItem>
+    }
+</LumexSelect>
+
+@code {
+    private RenderFragment<(string Alt, string Src)> _countryFlag = flag =>
+        @<span class="w-6 h-6 flex rounded-full overflow-hidden ring-1 ring-default-200">
+            <img src="@flag.Src" alt="@flag.Alt" class="object-cover" />
+        </span>;
+
+    private Country[] _countries = [
+        new("estonia", "Estonia", "https://flagcdn.com/ee.svg"),
+        new("sweden", "Sweden", "https://flagcdn.com/se.svg"),
+        new("finland", "Finland", "https://flagcdn.com/fi.svg"),
+        new("germany", "Germany", "https://flagcdn.com/de.svg"),
+        new("france", "France", "https://flagcdn.com/fr.svg"),
+        new("spain", "Spain", "https://flagcdn.com/es.svg"),
+        new("belgium", "Belgium", "https://flagcdn.com/be.svg")
+    ];
+
+    private record Country(string Key, string Name, string Flag);
+}

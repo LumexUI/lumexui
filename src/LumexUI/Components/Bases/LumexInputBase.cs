@@ -177,7 +177,7 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
         else if( TryParseValueFromString( value, out var parsedValue ) )
         {
             _parsingFailed = false;
-            await SetCurrentValueAsync( parsedValue );
+            CurrentValue = parsedValue;
         }
         else
         {
@@ -221,6 +221,13 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// <returns>A string representation of the input value.</returns>
     protected virtual string? FormatValueAsString( TValue? value ) => value?.ToString();
 
+
+    /// <summary>
+    /// Asynchronously sets the validation message if any.
+    /// </summary>
+    /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
+    protected virtual ValueTask SetValidationMessageAsync() => ValueTask.CompletedTask;
+
     /// <summary>
     /// Parses a string to create an instance of <typeparamref name="TValue"/>.
     /// Derived classes can override this to change how <see cref="CurrentValueAsString"/> interprets incoming values.
@@ -229,10 +236,4 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// <param name="result">An instance of <typeparamref name="TValue"/>.</param>
     /// <returns><see langword="true"/> if the value could be parsed; otherwise <see langword="false"/>.</returns>
     protected abstract bool TryParseValueFromString( string? value, [MaybeNullWhen( false )] out TValue result );
-
-    /// <summary>
-    /// Asynchronously sets the validation message if any.
-    /// </summary>
-    /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
-    protected abstract ValueTask SetValidationMessageAsync();
 }

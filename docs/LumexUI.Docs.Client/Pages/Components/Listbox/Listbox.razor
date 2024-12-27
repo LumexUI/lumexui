@@ -1,0 +1,201 @@
+﻿@page "/docs/components/listbox"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Listbox.PreviewCodes
+
+<DocsCompositionSection Components="@_compositionComponents" />
+
+<DocsSection Title="Usage">
+    <p>
+        The listbox component is a versatile control that
+        allows users to select one or more options from a predefined list.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            The listbox items can be disabled to prevent user interaction.
+            A disabled listbox item is faded and does not respond to user clicks.
+        </p>
+        <p>
+            You can achieve this by using the <Code>Disabled</Code> parameter on a <Code>ListboxItem</Code>.
+        </p>
+        <Disabled />
+        <p>
+            Alternatively, you can achieve this by using the
+            <Code>DisabledItems</Code> parameter on a <Code>Listbox</Code>.
+            In this case, the <Code>Value</Code> parameter must be specified for each listbox item.
+        </p>
+        <DisabledItems />
+    </DocsSection>
+
+    <DocsSection Title="Colors & Variants">
+        <p>
+            Customize the listbox with different visual
+            styles and color themes to match your application’s design.
+        </p>
+        <ColorsVariants />
+    </DocsSection>
+
+    <DocsSection Title="Start & End Content">
+        <p>
+            Add custom content, such as icons or additional information,
+            to the start or end of each item in the listbox.
+        </p>
+        <StartEndContent />
+    </DocsSection>
+
+    <DocsSection Title="Description">
+        <p>
+            Add a description to individual listbox item to
+            provide additional context or details about the options.
+        </p>
+        <Description />
+    </DocsSection>
+
+    <DocsSection Title="Empty Content">
+        <p>
+            Define custom content to display when the list has no items,
+            providing a better user experience.
+        </p>
+        <EmptyContent />
+    </DocsSection>
+
+    <DocsSection Title="Two-way Data Binding">
+        <p>
+            The listbox component supports two-way data binding,
+            allowing you to programmatically control the value(s).
+        </p>
+
+        <h4>Single Selection</h4>
+        <p>
+            Use the <Code>@@bind-Value</Code> directive,
+            or the <Code>Value</Code> and <Code>ValueChanged</Code> parameters.
+        </p>
+        <TwoWayDataBindingSingle />
+
+        <h4>Multiple Selection</h4>
+        <p>
+            Use the <Code>@@bind-Values</Code> directive,
+            or the <Code>Values</Code> and <Code>ValuesChanged</Code> parameters.
+        </p>        
+        <TwoWayDataBindingMultiple />
+    </DocsSection>
+</DocsSection>
+
+<DocsSection Title="Custom Styles">
+    <p>
+        This component suppots named slots (represented as <code>data-*</code> attributes) that
+        allow you to apply custom CSS to specific parts of the component.
+    </p>
+    @foreach (var (componentName, slots) in _slots)
+    {
+        <h4>@componentName</h4>
+        <ul>
+            @foreach (var slot in slots)
+            {
+                <li>
+                    <strong class="text-orange-500">@slot.Name:</strong> @slot.Description
+                </li>
+            }
+        </ul>
+    }
+    <p>
+        You can customize the component(s) by passing
+        any Tailwind CSS classes to the following component parameters:
+    </p>
+
+    <div>
+        <h4 class="font-semibold">Listbox</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the listbox wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the listbox slots.</li>
+            <li><Code>ItemClasses</Code>: The CSS class names to style the listbox item slots.</li>
+        </ul>
+
+        <h4 class="font-semibold">Listbox Item</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the listbox item wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the listbox item slots.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSection>
+
+@* <DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Listbox</h4>
+        <ul>
+            <li><Code>Class</Code>: </li>
+            <li><Code>Classes</Code>: </li>
+            <li><Code>ItemClasses</Code>: </li>
+        </ul>
+
+        <h4 class="font-semibold">Listbox Item</h4>
+        <ul>
+            <li><Code>Class</Code>: </li>
+            <li><Code>Classes</Code>: </li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection> *@
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+        new(nameof(LumexListbox<T>), "A component representing a listbox."),
+        new(nameof(LumexListboxItem<T>), "A component representing a listbox item.")
+    };
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Disabled"),
+            new("Colors & Variants"),
+            new("Start & End Content"),
+            new("Description"),
+            new("Empty Content"),
+            new("Two-way Data Binding")
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Dictionary<string, Slot[]> _slots = new()
+    {
+        [nameof(LumexListbox<T>)] = [
+            new(nameof(ListboxSlots.Root), "The main container for the entire listbox component."),
+            new(nameof(ListboxSlots.List), "The wrapper for the list items, containing all listbox items."),
+            new(nameof(ListboxSlots.EmptyContent), "The area displayed when the list is empty."),
+        ],
+        [nameof(LumexListboxItem<T>)] = [
+            new(nameof(ListboxItemSlots.Root), "The main container for the listbox item."),
+            new(nameof(ListboxItemSlots.Wrapper), "The wrapper for the title, description, and icons."),
+            new(nameof(ListboxItemSlots.Title), "The title of the listbox item."),
+            new(nameof(ListboxItemSlots.Description), "The description of the listbox item."),
+            new(nameof(ListboxItemSlots.SelectedIcon), "The icon that indicates the item is selected."),
+        ]
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexListbox<T>),
+        nameof(LumexListboxItem<T>),
+        nameof(LumexIcon)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Listbox",
+            category: "Components",
+            description: "Listboxes display a list of options and allow users to select one or more of them.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps("Listbox", isServer: false)
+        );
+    }
+}

@@ -1,0 +1,130 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@using Microsoft.Extensions.DependencyInjection
+@using TailwindMerge
+
+@code {
+    public ListboxTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexListbox TValue="string">
+                <LumexListboxItem>New file</LumexListboxItem>
+                <LumexListboxItem>Edit file</LumexListboxItem>
+                <LumexListboxItem>Share file</LumexListboxItem>
+                <LumexListboxItem>Delete file</LumexListboxItem>
+            </LumexListbox>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderEmptyContent()
+    {
+        var cut = Render(
+            @<LumexListbox TValue="string" />
+        );
+
+        cut.Find("[data-slot=empty-content]").Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderItemDescription()
+    {
+        var cut = Render(
+            @<LumexListbox TValue="string">
+                <LumexListboxItem Description="test">New file</LumexListboxItem>
+                <LumexListboxItem>Edit file</LumexListboxItem>
+                <LumexListboxItem>Share file</LumexListboxItem>
+                <LumexListboxItem>Delete file</LumexListboxItem>
+            </LumexListbox>
+        );
+
+        cut.Find("li [data-slot=wrapper]").Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldSelectSingleItem()
+    {
+        var selectedValue = "";
+        var cut = Render<LumexListbox<string>>(
+            @<LumexListbox @bind-Value="@selectedValue">
+                <LumexListboxItem Value="@("new")">New file</LumexListboxItem>
+                <LumexListboxItem Value="@("edit")">Edit file</LumexListboxItem>
+                <LumexListboxItem Value="@("share")">Share file</LumexListboxItem>
+                <LumexListboxItem Value="@("delete")">Delete file</LumexListboxItem>
+            </LumexListbox>
+        );
+
+        var items = cut.FindAll("li");
+        items[0].Click();
+
+        selectedValue.Should().Be("new");
+        cut.Instance.Value.Should().Be("new");
+    }
+
+    [Fact]
+    public void ShouldSelectMultipleItems()
+    {
+        ICollection<string> selectedValues = [];
+        var cut = Render<LumexListbox<string>>(
+            @<LumexListbox @bind-Values="@selectedValues">
+                <LumexListboxItem Value="@("new")">New file</LumexListboxItem>
+                <LumexListboxItem Value="@("edit")">Edit file</LumexListboxItem>
+                <LumexListboxItem Value="@("share")">Share file</LumexListboxItem>
+                <LumexListboxItem Value="@("delete")">Delete file</LumexListboxItem>
+            </LumexListbox>
+        );
+
+        var items = cut.FindAll("li");
+        items[0].Click();
+        items[1].Click();
+
+        selectedValues.Should().HaveCount(2);
+        selectedValues.Should().Contain("new").And.Contain("edit");
+        cut.Instance.Values.Should().HaveCount(2);
+        cut.Instance.Values.Should().Contain("new").And.Contain("edit");
+    }
+
+    [Fact]
+    public void ShouldThrowWhenValueAndValuesProvided()
+    {
+        string selectedValue = "";
+        ICollection<string> selectedValues = [];
+        var action = () => Render(
+            @<LumexListbox @bind-Value="@selectedValue" @bind-Values="@selectedValues">
+                <LumexListboxItem Value="@("new")">New file</LumexListboxItem>
+                <LumexListboxItem Value="@("edit")">Edit file</LumexListboxItem>
+                <LumexListboxItem Value="@("share")">Share file</LumexListboxItem>
+                <LumexListboxItem Value="@("delete")">Delete file</LumexListboxItem>
+            </LumexListbox>
+        );
+
+        action.Should().Throw<InvalidOperationException>();
+    }
+
+    [Fact]
+    public void ShouldNotTriggerItemEventsWhenDisabled()
+    {
+        var count = 0;
+        var cut = Render(
+            @<LumexListbox TValue="string">
+                <LumexListboxItem Disabled="@true" OnClick="(() => count++)">New file</LumexListboxItem>
+                <LumexListboxItem>Edit file</LumexListboxItem>
+                <LumexListboxItem>Share file</LumexListboxItem>
+                <LumexListboxItem>Delete file</LumexListboxItem>
+            </LumexListbox>
+        );
+
+        cut.Find("li").Click();
+
+        count.Should().Be(0);
+    }
+}
