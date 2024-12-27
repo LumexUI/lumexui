@@ -36,7 +36,7 @@ public class NavigationStore
             .Add( new( nameof( LumexNavbar ) ) )
             .Add( new( nameof( LumexNumbox<T> ) ) )
             .Add( new( nameof( LumexPopover ) ) )
-            .Add( new( nameof( LumexRadioGroup<T>) ) )
+            .Add( new( nameof( LumexRadioGroup<T>), ComponentStatus.New ) )
             .Add( new( nameof( LumexSelect<T> ), ComponentStatus.New ) )
             .Add( new( nameof( LumexSwitch ) ) )
             .Add( new( nameof( LumexTextbox ) ) );
