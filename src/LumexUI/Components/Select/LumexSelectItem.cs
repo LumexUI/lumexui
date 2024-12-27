@@ -42,7 +42,7 @@ public class LumexSelectItem<TValue> : LumexListboxItem<TValue>, IDisposable
 
         if( string.IsNullOrEmpty( TextValue ) )
         {
-            TextValue = Value.ToString();
+            TextValue = BindConverter.FormatValue( Value.ToString() );
         }
     }
 

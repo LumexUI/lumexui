@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Common;
-using LumexUI.Extensions;
 using LumexUI.Styles;
 using LumexUI.Utilities;
 
@@ -251,30 +250,11 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     }
 
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
     protected override bool TryParseValueFromString( string? value, [MaybeNullWhen( false )] out TValue result )
-        => this.TryParseSelectableValueFromString( value, out result );
-
-    /// <inheritdoc />
-    protected override string? FormatValueAsString( TValue? value )
     {
-        // We special-case bool values because BindConverter reserves bool conversion for conditional attributes.
-        if( typeof( TValue ) == typeof( bool ) )
-        {
-            return (bool)(object)value! ? "true" : "false";
-        }
-        else if( typeof( TValue ) == typeof( bool? ) )
-        {
-            return value is not null && (bool)(object)value ? "true" : "false";
-        }
-
-        return base.FormatValueAsString( value );
-    }
-
-    /// <inheritdoc />
-    protected override ValueTask SetValidationMessageAsync()
-    {
-        // This component doesn't have a validation message by default.
-        return ValueTask.CompletedTask;
+        result = default;
+        return false;
     }
 
     private Task TriggerAsync()
