@@ -1,19 +1,14 @@
-﻿<LumexRadioGroup Label="Choose Preferred Accommodations" @bind-Value="@_chosenClass">
-    <LumexRadio Value="@("first")" Description="The best if the best, the lap of luxury.">
+﻿<LumexRadioGroup TValue="string" Label="Choose Preferred Accommodations">
+    <LumexRadio Description="The best of the best, the lap of luxury." Value="@("first")">
         First Class
     </LumexRadio>
-    <LumexRadio Value="@("second")" Description="Almost First Class, but not quite.">
+    <LumexRadio Description="Almost First Class, but not quite." Value="@("second")">
         Second Class
     </LumexRadio>
-    <LumexRadio Value="@("third")" Description="You'll feel lucky to have a bed.">
+    <LumexRadio Description="You'll feel lucky to have a bed." Value="@("third")">
         Third Class
     </LumexRadio>
-    <LumexRadio Value="@("steerage")" Description="For the full stowaway experience.">
+    <LumexRadio Description="For the full stowaway experience." Value="@("steerage")">
         Steerage
     </LumexRadio>
 </LumexRadioGroup>
-
-@code
-{
-    private string? _chosenClass = null;
-}

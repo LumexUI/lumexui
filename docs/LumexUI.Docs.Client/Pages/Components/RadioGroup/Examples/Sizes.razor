@@ -1,10 +1,5 @@
-﻿<LumexRadioGroup Size="@Size.Medium" @bind-Value="@_size">
-    <LumexRadio Size="@Size.Large" Value="@Size.Large" TValue="Size?">Large</LumexRadio>
-    <LumexRadio Size="@Size.Medium" Value="@Size.Medium" TValue="Size?">Medium</LumexRadio>
-    <LumexRadio Size="@Size.Small" Value="@Size.Small" TValue="Size?">Small</LumexRadio>
+﻿<LumexRadioGroup TValue="string">
+    <LumexRadio Size="@Size.Small" Value="@("sm")">Small</LumexRadio>
+    <LumexRadio Size="@Size.Medium" Value="@("md")">Medium</LumexRadio>
+    <LumexRadio Size="@Size.Large" Value="@("lg")">Large</LumexRadio>
 </LumexRadioGroup>
-
-@code
-{
-    private Size? _size = null;
-}

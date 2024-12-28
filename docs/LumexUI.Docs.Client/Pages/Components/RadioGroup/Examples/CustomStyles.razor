@@ -1,8 +1,11 @@
-﻿<LumexRadioGroup Classes="_groupSlots" RadioClasses="_radioClasses" @bind-Value="@_chosenFood" Label="Choose your preferred meal">
-    <LumexRadio Value="@( "Kebab" )">
+﻿<LumexRadioGroup Label="Choose your preferred meal"
+                 Classes="@_groupSlots"
+                 RadioClasses="@_radioClasses" 
+                 @bind-Value="@_chosenFood">
+    <LumexRadio Value="@("Kebab")">
         <div class="flex items-center gap-4">
             <LumexIcon Icon="@Icons.Rounded.KebabDining"
-                       Size="@new("32")"/>
+                       Size="@new("32")" />
             <div>
                 <div class="font-semibold">Chicken Kebab</div>
                 <p class="text-sm text-primary">$11.99</p>
@@ -10,10 +13,10 @@
         </div>
     </LumexRadio>
 
-    <LumexRadio Value="@( "Ramen" )">
+    <LumexRadio Value="@("Ramen")">
         <div class="flex items-center gap-4">
             <LumexIcon Icon="@Icons.Rounded.RamenDining"
-                       Size="@new("32")"/>
+                       Size="@new("32")" />
             <div>
                 <div class="font-semibold">Ramen Bowl</div>
                 <p class="text-sm text-primary">$12.99</p>
@@ -21,10 +24,10 @@
         </div>
     </LumexRadio>
 
-    <LumexRadio Value="@( "Pizza" )">
+    <LumexRadio Value="@("Pizza")">
         <div class="flex items-center gap-4">
             <LumexIcon Icon="@Icons.Rounded.LocalPizza"
-                       Size="@new("32")"/>
+                       Size="@new("32")" />
             <div>
                 <div class="font-semibold">Pizza</div>
                 <p class="text-sm text-primary">$5.99</p>
@@ -32,10 +35,10 @@
         </div>
     </LumexRadio>
 
-    <LumexRadio Value="@( "Nothing" )">
+    <LumexRadio Value="@("Nothing")">
         <div class="flex items-center gap-4">
             <LumexIcon Icon="@Icons.Rounded.NoFood"
-                       Size="@new("32")"/>
+                       Size="@new("32")" />
             <div>
                 <div class="font-semibold">No Food</div>
                 <p class="text-sm text-primary">No Cost</p>
@@ -46,23 +49,21 @@
 
 @code
 {
-    private string? _chosenFood = null;
+    private string? _chosenFood;
 
     private RadioGroupSlots _groupSlots = new()
     {
-        Label = "text-lg text-neutral-700 font-semibold"
+        Label = "text-neutral-700 font-medium"
     };
 
     private RadioSlots _radioClasses = new()
     {
         Root = ElementClass.Empty()
-            .Add( "inline-flex m-0 bg-content1 hover:bg-content2 items-center justify-between p-2 rounded" )
-            .Add( "flex-row-reverse max-w-[300px] cursor-pointer rounded-lg gap-4 p-4 border-2 border-default-200" )
-            .Add( "bg-white hover:bg-default-100" )
-            .Add( "transition-colors")
-            .Add( "data-[selected=true]:border-primary" )
-            .Add( "data-[selected=true]:bg-primary-100/25" )
-            .Add( "data-[selected=true]:hover:bg-primary-100/50" )
+            .Add("inline-flex m-0 bg-surface1 hover:bg-surface2 items-center justify-between")
+            .Add("flex-row-reverse max-w-[300px] rounded-lg gap-4 p-4 border-2 border-default-200")
+            .Add("data-[selected=true]:border-primary")
+            .Add("data-[selected=true]:bg-primary-100/25")
+            .Add("transition-colors")
             .ToString()
     };
 }

@@ -7,27 +7,15 @@
     <p>
         The radio group component groups multiple radio buttons,
         displaying related choices in a consistent manner.
-        Users can select only one option from the group.
     </p>
-
-    <p>
-        First start out with a <Code>LumexRadioGroup</Code> component, and place the
-        <Code>LumexRadio</Code> components inside it.
-    </p>
-
-    <p>
-        The currently-selected value is bound to the <Code>Value</Code> parameter
-        on the <Code>LumexRadioGroup</Code> component. As the user selects a radio button,
-        the <Code>Value</Code> is updated accordingly.
-    </p>
-    <Usage/>
+    <Usage />
 
     <DocsSection Title="Disabled">
         <p>
             You can disable a radio group to prevent user interaction.
             All radio buttons within the group are faded and do not respond to user clicks.
         </p>
-        <Disabled/>
+        <Disabled />
     </DocsSection>
 
     <DocsSection Title="Read-Only">
@@ -35,7 +23,7 @@
             You can set a radio group to be read-only, allowing the user to
             view the selected options without being able to modify them.
         </p>
-        <ReadOnly/>
+        <ReadOnly />
     </DocsSection>
 
     <DocsSection Title="Orientation">
@@ -43,31 +31,15 @@
             You can control how the radio buttons are laid out within the radio group. You can choose to
             display the radio buttons vertically (default) or horizontally.
         </p>
-        <Orientation/>
+        <Orientation />
     </DocsSection>
-
-    <DocsSection Title="Option Descriptions">
-        <p>
-            You can display a description for each of the various options in the radio group, guiding your
-            users to make the best choice.
-        </p>
-        <OptionDescriptions/>
-    </DocsSection>
-
 
     <DocsSection Title="Sizes">
         <p>
             The radio group component can control the size of the radio buttons within it to fit
             various layouts and design needs, from small radio groups to larger ones.
         </p>
-
-        <Callout Variant="@CalloutVariant.Tip">
-            This example uses a nullable value type to allow for an initial unselected state.
-            If you use a nullable value type, then the value will need to be explicitly set on the <code>TValue</code>
-            type parameter of the <code>LumexRadio</code> component. This is not needed with nullable reference types.
-        </Callout>
-
-        <Sizes/>
+        <Sizes />
     </DocsSection>
 
     <DocsSection Title="Colors">
@@ -75,7 +47,7 @@
             Customize the appearance of the radio group by applying
             different colors that suit your application's theme and design.
         </p>
-        <Colors/>
+        <Colors />
     </DocsSection>
 
     <DocsSection Title="Label">
@@ -83,7 +55,7 @@
             The radio group can include a label to provide context for the
             grouped radio buttons, making it clear what the set of options represents.
         </p>
-        <Label/>
+        <Label />
     </DocsSection>
 
     <DocsSection Title="Description">
@@ -91,36 +63,42 @@
             Add a description to the radio group to give users
             additional information about the grouped options.
         </p>
-        <Description/>
+        <Description />
+    </DocsSection>
+
+    <DocsSection Title="Option Descriptions">
+        <p>
+            You can also display a description for each radio group option,
+            guiding users to make the best choice.
+        </p>
+        <OptionDescriptions />
     </DocsSection>
 </DocsSection>
 
 <DocsSection Title="Custom Styles">
-    <DocsSlotsSection Title="Radio Group" Slots="@_groupSlots">
+    <DocsSlotsSection Title="Radio Group" Slots="@_radioGroupSlots">
         <ul>
-            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the radio group.</li>
-            <li><Code>Classes</Code>: The CSS class names to apply to the Radio Group and its elements (wrapper, label, etc).</li>
-            <li><Code>RadioClasses</Code>: The CSS class names to apply to each of the radio buttons inside this Radio Group.</li>
+            <li><Code>Class</Code>: The CSS class names to style the radio group wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the radio group slots.</li>
+            <li><Code>RadioClasses</Code>: The CSS class names to style the radio group option slots.</li>
         </ul>
     </DocsSlotsSection>
 
-    <DocsSlotsSection Title="Radio" Slots="_radioSlots">
+    <DocsSlotsSection Title="Radio" Slots="@_radioSlots">
         <ul>
-            <li><Code>Class</Code>: The CSS class names to apply to the main wrapper around the Radio option.</li>
-            <li><Code>Classes</Code>: The CSS class names to apply to just this instance of the Radio component and its elements (control, label, etc).</li>
+            <li><Code>Class</Code>: The CSS class names to style the radio button wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the radio button slots.</li>
         </ul>
     </DocsSlotsSection>
 
-    <CustomStyles/>
+    <CustomStyles />
 </DocsSection>
 
-
-<DocsApiSection Components="@_apiComponents"/>
+<DocsApiSection Components="@_apiComponents" />
 
 @code {
 
-    [CascadingParameter]
-    private DocsContentLayout Layout { get; set; } = null!;
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
 
     private readonly Heading[] _headings =
     [
@@ -128,11 +106,11 @@
             new("Disabled"),
             new("Read-Only"),
             new("Orientation"),
-            new("Option Descriptions"),
             new("Sizes"),
             new("Colors"),
             new("Label"),
             new("Description"),
+            new("Option Descriptions"),
         ]),
         new("Custom Styles", [
             new("Radio Group"),
@@ -141,7 +119,7 @@
         new("API")
     ];
 
-    private readonly Slot[] _groupSlots =
+    private readonly Slot[] _radioGroupSlots =
     [
         new(nameof(RadioGroupSlots.Root), "The overall container of the radio group."),
         new(nameof(RadioGroupSlots.Wrapper), "The wrapper for the radio buttons within the group."),
@@ -161,8 +139,8 @@
 
     private readonly string[] _apiComponents =
     [
-        nameof(LumexRadioGroup<object>),
-        nameof(LumexRadio<object>)
+        nameof(LumexRadioGroup<T>),
+        nameof(LumexRadio<T>)
     ];
 
     protected override void OnInitialized()
@@ -172,8 +150,7 @@
             category: "Components",
             description: "The radio group allows users to select one option from a set.",
             headings: _headings,
-            linksProps: new ComponentLinksProps( "Radio", isServer: false )
+            linksProps: new ComponentLinksProps("Radio", isServer: false)
         );
     }
-
 }

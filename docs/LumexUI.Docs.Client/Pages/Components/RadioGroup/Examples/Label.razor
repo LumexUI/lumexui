@@ -1,13 +1,7 @@
-﻿<LumexRadioGroup Label="Choose the Oscar winner"
-                 @bind-Value="@_selectedActor">
+﻿<LumexRadioGroup TValue="string" Label="Choose the Oscar winner">
     <LumexRadio Value="@("leo")">Leonardo DiCaprio</LumexRadio>
     <LumexRadio Value="@("denzel")">Denzel Washington</LumexRadio>
     <LumexRadio Value="@("brad")">Brad Pitt</LumexRadio>
     <LumexRadio Value="@("joaquin")">Joaquin Phoenix</LumexRadio>
     <LumexRadio Value="@("christian")">Christian Bale</LumexRadio>
 </LumexRadioGroup>
-
-@code
-{
-    private string? _selectedActor;
-}
