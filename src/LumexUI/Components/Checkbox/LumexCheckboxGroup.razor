@@ -2,19 +2,26 @@
 @inherits LumexComponentBase
 
 <CascadingValue TValue="CheckboxGroupContext" Value="@_context" IsFixed="@true">
-    <div class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
+    <div class="@RootClass" 
+         style="@RootStyle" 
+         data-slot="base"
+         @attributes="@AdditionalAttributes">
         @if( !string.IsNullOrEmpty( Label ) )
         {
-            <span class="@LabelClass">@Label</span>
+            <span class="@LabelClass" data-slot="label">
+                @Label
+            </span>
         }
 
-        <div class="@WrapperClass">
+        <div class="@WrapperClass" data-slot="wrapper">
             @ChildContent
         </div>
 
         @if( !string.IsNullOrEmpty( Description ) )
         {
-            <div class="@DescriptionClass">@Description</div>
+            <div class="@DescriptionClass" data-slot="description">
+                @Description
+            </div>
         }
     </div>
 </CascadingValue>
