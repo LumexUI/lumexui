@@ -4,8 +4,8 @@
 <CascadingValue TValue="CardContext" Value="@_context" IsFixed="@true">
     <LumexComponent Class="@RootClass"
                     Style="@RootStyle"
-                    @attributes="@AdditionalAttributes"
-                    data-slot="root">
+                    data-slot="base"
+                    @attributes="@AdditionalAttributes">
         @ChildContent
     </LumexComponent>
 </CascadingValue>
