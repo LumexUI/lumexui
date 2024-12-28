@@ -5,8 +5,9 @@
     <LumexComponent As="@As"
                     Class="@RootClass"
                     Style="@RootStyle"
+                    data-slot="base"
                     @attributes="@AdditionalAttributes">
-        <nav class="@WrapperClass">
+        <nav class="@WrapperClass" data-slot="wrapper">
             @ChildContent
         </nav>
     </LumexComponent>
