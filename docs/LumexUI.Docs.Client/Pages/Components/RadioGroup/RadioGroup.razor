@@ -73,6 +73,16 @@
         </p>
         <OptionDescriptions />
     </DocsSection>
+
+    <DocsSection Title="Two-way Data Binding">
+        <p>
+            The radio group component supports two-way data binding, 
+            allowing you to programmatically control toggled state. 
+            You can achieve this using the <Code>@@bind-Value</Code> directive, 
+            or the <Code>Value</Code> and <Code>ValueChanged</Code> parameters.
+        </p>
+        <TwoWayDataBinding />
+    </DocsSection>
 </DocsSection>
 
 <DocsSection Title="Custom Styles">
@@ -111,6 +121,7 @@
             new("Label"),
             new("Description"),
             new("Option Descriptions"),
+            new("Two-way Data Binding")
         ]),
         new("Custom Styles", [
             new("Radio Group"),

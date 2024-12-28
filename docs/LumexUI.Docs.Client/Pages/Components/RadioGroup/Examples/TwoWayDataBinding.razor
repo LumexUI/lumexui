@@ -1,0 +1,37 @@
+﻿<div class="flex flex-col gap-2">
+    <LumexRadioGroup @bind-Value="@_valueOne">
+        <LumexRadio Value="@("leo")">Leonardo DiCaprio</LumexRadio>
+        <LumexRadio Value="@("denzel")">Denzel Washington</LumexRadio>
+        <LumexRadio Value="@("brad")">Brad Pitt</LumexRadio>
+        <LumexRadio Value="@("joaquin")">Joaquin Phoenix</LumexRadio>
+        <LumexRadio Value="@("christian")">Christian Bale</LumexRadio>
+    </LumexRadioGroup>
+    <p class="text-sm text-default-500">
+        Selected: @_valueOne
+    </p>
+</div>
+
+<div class="flex flex-col gap-2">
+    <LumexRadioGroup TValue="string"
+                     Value="@_valueTwo"
+                     ValueChanged="@OnValueChanged">
+        <LumexRadio Value="@("leo")">Leonardo DiCaprio</LumexRadio>
+        <LumexRadio Value="@("denzel")">Denzel Washington</LumexRadio>
+        <LumexRadio Value="@("brad")">Brad Pitt</LumexRadio>
+        <LumexRadio Value="@("joaquin")">Joaquin Phoenix</LumexRadio>
+        <LumexRadio Value="@("christian")">Christian Bale</LumexRadio>
+    </LumexRadioGroup>
+    <p class="text-sm text-default-500">
+        Selected: @_valueTwo
+    </p>
+</div>
+
+@code {
+    private string? _valueOne;
+    private string? _valueTwo;
+
+    private void OnValueChanged(string value)
+    {
+        _valueTwo = value;
+    }
+}
