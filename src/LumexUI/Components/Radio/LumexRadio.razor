@@ -5,10 +5,11 @@
 <LumexComponent As="label"
                 Class="@RootClass"
                 Style="@RootStyle"
+                tabindex="0"
+                data-slot="base"
                 data-selected="@GetSelectedState().ToAttributeValue()"
                 data-disabled="@GetDisabledState().ToAttributeValue()"
                 data-readonly="@GetReadOnlyState().ToAttributeValue()"
-                tabindex="0"
                 @attributes="@AdditionalAttributes"
                 @onclick:stopPropagation="@true">
     <span class="@StyleUtils.VisuallyHidden">
@@ -20,21 +21,21 @@
                @onchange="@Context.ChangeEventCallback" />
     </span>
 
-    <span class="@ControlWrapperClass">
-        <span class="@ControlClass" data-slot="control"></span>
+    <span class="@ControlWrapperClass" data-slot="wrapper">
+        <span class="@ControlClass" data-slot="control" />
     </span>
 
-    <div class="@LabelWrapperClass">
+    <div class="@LabelWrapperClass" data-slot="label-wrapper">
         @if (ChildContent is not null)
         {
-            <span class="@LabelClass">
+            <span class="@LabelClass" data-slot="label">
                 @ChildContent
             </span>
         }
 
         @if (Description is not null)
         {
-            <span class="@DescriptionClass">
+            <span class="@DescriptionClass" data-slot="description">
                 @Description
             </span>
         }
