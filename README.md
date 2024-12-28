@@ -25,14 +25,6 @@ These components are designed to be not only aesthetically pleasing, but also hi
 allowing you to tailor them to meet your specific needs. The library is optimized for performance, 
 ensuring that your applications remain fast and responsive.
 
-We drew inspiration from [NextUI](https://nextui.org/), a React component library, in shaping the 
-foundational ideas behind LumexUI. NextUI’s approach to using Tailwind CSS, its elegant design, 
-and robust customization system greatly influenced us. Our goal is to bring these same principles 
-to the Blazor ecosystem, making them accessible to developers who prefer Blazor for their projects.
-
-> [!NOTE]
-> This project is currently in the development stage, and we welcome contributions from the community to help improve and expand the library. Your feedback and involvement are crucial as we continue to evolve and refine the components.
-
 ## Documentation
 
 For full documentation, visit [lumexui.org](https://lumexui.org).
