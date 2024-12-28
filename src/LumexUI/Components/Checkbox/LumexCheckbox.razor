@@ -4,13 +4,14 @@
 <LumexComponent As="label"
                 Class="@RootClass"
                 Style="@RootStyle"
+                tabindex="0"
+                data-slot="base"
                 data-checked="@CurrentValue.ToAttributeValue()"
                 data-disabled="@GetDisabledState().ToAttributeValue()"
                 data-readonly="@GetReadOnlyState().ToAttributeValue()"
-                tabindex="0"
                 @attributes="@AdditionalAttributes"
                 @onclick:stopPropagation="@true">
-    <span class="@WrapperClass">
+    <span class="@WrapperClass" data-slot="wrapper">
         <span class="@StyleUtils.VisuallyHidden">
             <input type="checkbox"
                    value="@true"
@@ -21,7 +22,9 @@
 
         @if( !string.IsNullOrEmpty( CheckIcon ) )
         {
-            <LumexIcon Icon="@CheckIcon" Class="@IconClass" />
+            <LumexIcon Icon="@CheckIcon" 
+                       Class="@IconClass" 
+                       data-slot="icon" />
         }
         else
         {
@@ -31,7 +34,7 @@
 
     @if( ChildContent is not null )
     {
-        <span class="@LabelClass">
+        <span class="@LabelClass" data-slot="label">
             @ChildContent
         </span>
     }
@@ -44,7 +47,9 @@
             .Add( "transition", "stroke-dashoffset 0.2s linear 0.15s", when: CurrentValue )
             .ToString();
 
-        <svg class="@IconClass" viewBox="0 0 17 18">
+        <svg class="@IconClass" 
+             viewBox="0 0 17 18" 
+             data-slot="icon">
             <polyline fill="none"
                       points="1 9 7 14 15 4"
                       stroke="currentColor"
