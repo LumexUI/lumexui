@@ -1,31 +1,25 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 
 <footer class="mt-12 text-sm leading-6">
-    <div class="pt-10 pb-28 border-t border-divider flex flex-col justify-center items-center gap-1">
-        <p className="text-sm text-default-400">
-            &copy; @( DateTimeOffset.UtcNow.ToString( "yyyy" ) ) LumexUI. All rights reserved.
+    <div class="pt-10 pb-20 border-t border-divider flex flex-col justify-center items-center gap-1">
+        <p class="text-default-500">
+            &copy; @(DateTimeOffset.UtcNow.ToString("yyyy")) LumexUI. All rights reserved.
         </p>
 
-        <div className="flex items-center gap-1">
-            <LumexLink
-                Href="https://github.com/LumexUI/lumexui"
-                External="@true"
-                Class="p-1 text-default-600 dark:text-default-500"
-                rel="noopener noreferrer">
+        <div class="flex items-center gap-1">
+            <LumexLink Href="https://github.com/LumexUI/lumexui"
+                       External="@true"
+                       Class="p-1 text-default-600">
                 <LumexIcon Icon="@Icons.Brands.GitHub"
-                           Size="@new("48")"
-                           viewBox="0 0 48 48" />
+                           viewBox="0 0 24 24" />
                 <span class="sr-only">GitHub</span>
             </LumexLink>
 
-            <LumexLink
-                Href="https://discord.gg/jjgMz3apcb"
-                External="@true"
-                Class="p-1 text-default-600 dark:text-default-500"
-                rel="noopener noreferrer">
+            <LumexLink Href="https://discord.gg/jjgMz3apcb"
+                       External="@true"
+                       Class="p-1 text-default-600">
                 <LumexIcon Icon="@Icons.Brands.Discord"
-                           Size="@new("48")"
-                           viewBox="0 0 48 48" />
+                           viewBox="0 0 24 24" />
                 <span class="sr-only">Discord</span>
             </LumexLink>
         </div>
