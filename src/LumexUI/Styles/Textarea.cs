@@ -18,7 +18,6 @@ internal class Textarea
 		.Add( "px-3" )
 		.Add( "py-2" )
 		.Add( "text-sm" )
-		.Add( "shadow-sm" )
 		.Add( "text-default-600" )
 		.Add( "placeholder:text-muted-foreground" ) 
 		.ToString();
