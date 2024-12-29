@@ -4,10 +4,11 @@
 <LumexComponent As="label"
                 Class="@RootClass"
                 Style="@RootStyle"
+                tabindex="0"
+                data-slot="base"
                 data-checked="@CurrentValue.ToAttributeValue()"
                 data-disabled="@GetDisabledState().ToAttributeValue()"
                 data-readonly="@GetReadOnlyState().ToAttributeValue()"
-                tabindex="0"
                 @attributes="@AdditionalAttributes">
     <span class="@StyleUtils.VisuallyHidden">
         <input type="checkbox"
@@ -17,31 +18,40 @@
                @onchange="@OnChangeAsync" />
     </span>
 
-    <span class="@WrapperClass">
+    <span class="@WrapperClass" data-slot="wrapper">
         @if( !string.IsNullOrEmpty( StartIcon ) )
         {
-            <LumexIcon Icon="@StartIcon" Size="@(new("1em"))" Class="@StartIconClass" />
+            <LumexIcon Icon="@StartIcon" 
+                       Size="@(new("1em"))" 
+                       Class="@StartIconClass" 
+                       data-slot="start-icon" />
         }
 
-        <span class="@ThumbClass">
+        <span class="@ThumbClass" data-slot="thumb">
             @{
                 var thumbIcon = ThumbIcon?.Invoke( CurrentValue );
                 if( !string.IsNullOrEmpty( thumbIcon ) )
                 {
-                    <LumexIcon Icon="@thumbIcon" Size="@(new("100%"))" Class="@ThumbIconClass" />
+                    <LumexIcon Icon="@thumbIcon" 
+                               Size="@(new("100%"))" 
+                               Class="@ThumbIconClass"
+                               data-slot="thumb-icon" />
                 }
             }
         </span>
 
         @if( !string.IsNullOrEmpty( EndIcon ) )
         {
-            <LumexIcon Icon="@EndIcon" Size="@(new("1em"))" Class="@EndIconClass" />
+            <LumexIcon Icon="@EndIcon" 
+                       Size="@(new("1em"))" 
+                       Class="@EndIconClass" 
+                       data-slot="end-icon" />
         }
     </span>
 
     @if( ChildContent is not null )
     {
-        <span class="@LabelClass">
+        <span class="@LabelClass" data-slot="label">
             @ChildContent
         </span>
     }
