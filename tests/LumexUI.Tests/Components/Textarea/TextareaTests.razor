@@ -1,0 +1,77 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+@using LumexUI.Common
+@using TailwindMerge
+@using Microsoft.Extensions.DependencyInjection
+
+@code {
+    public TextareaTests()
+    {
+        Services.AddSingleton<TwMerge>();
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
+        module.Setup<string>( "input.getValidationMessage", _ => true );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(@<LumexTextarea Placeholder="Test" />);
+
+        action.Should().NotThrow();
+    }
+    
+    [Fact]
+    public void ShouldRenderWithPlaceholder()
+    {
+	    var cut = Render(@<LumexTextarea Placeholder="Test" />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.HasAttribute( "placeholder" ).Should().BeTrue();
+	    input.GetAttribute( "placeholder" ).Should().Be( "Test" );
+    }
+    
+    [Fact]
+    public void ShouldRenderWithPlaceholderButShowsValue()
+    {
+	    var cut = Render(@<LumexTextarea Placeholder="Test" Value="Hello World!" />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.HasAttribute( "placeholder" ).Should().BeTrue();
+	    input.GetAttribute( "placeholder" ).Should().Be( "Test" );
+	    input.HasAttribute( "value" ).Should().BeTrue();
+	    input.GetAttribute( "value" ).Should().Be( "Hello World!" );
+    }
+    
+    [Fact]
+    public void ShouldRenderReadonly()
+    {
+	    var cut = Render(@<LumexTextarea Placeholder="Test" Value="Hello World!" Readonly />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.HasAttribute( "readonly" ).Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldRenderDisabled()
+    {
+	    var cut = Render(@<LumexTextarea Placeholder="Test" Value="Hello World!" Disabled />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.HasAttribute( "disabled" ).Should().BeTrue();
+    }
+    
+    [Fact]
+    public void ShouldChangeValueOnInput()
+    {
+	    var cut = Render<LumexTextarea>( @<LumexTextarea Value="Test" Behavior="@InputBehavior.OnInput" />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.Input( "test 2" );
+	    cut.Instance.Value.Should().Be( "test 2" );
+    }
+}

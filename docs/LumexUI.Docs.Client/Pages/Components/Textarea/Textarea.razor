@@ -1,0 +1,63 @@
+@page "/docs/components/textarea"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Textarea.PreviewCodes
+
+<DocsSection Title="Usage">
+	<p>The textarea component provides a simple way to input and edit multiline text data.</p>
+	<Usage />
+
+	<DocsSection Title="Disabled">
+		<p>
+			You can disable a textarea to prevent user interaction.
+			A disabled textarea is faded and does not respond to user clicks.
+		</p>
+		
+		<Disabled />
+	</DocsSection>
+
+	<DocsSection Title="Readonly">
+		<p>
+			You can make a textareas value read only to prevent Changes.
+		</p>
+
+		<Readonly />
+	</DocsSection>
+
+	<DocsSection Title="Controlled">
+		<p>
+			It is possible to get an event after changing the value. If you set the Intermediate
+			flag, the event will be called on every input. Otherwise the event will be called after
+			leaving the textarea.
+		</p>
+
+		<Controlled />
+	</DocsSection>
+</DocsSection>
+
+@code {
+	[CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+	private readonly Heading[] _headings =
+	[
+		new("Usage", [
+			new("Disabled"),
+			new("Readonly"),
+			new("Controlled"),
+		]),
+		new("Custom Styles"),
+		new("API")
+	];
+	
+	protected override void OnInitialized()
+	{
+		Layout.Initialize(
+			title: "Textarea",
+			category: "Components",
+			description: "Textarea allows users to input multiline text data.",
+			headings: _headings,
+			linksProps: new ComponentLinksProps( "Textarea", isServer: false )
+		);
+	}
+
+}
