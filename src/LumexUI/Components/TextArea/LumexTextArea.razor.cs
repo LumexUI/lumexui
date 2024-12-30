@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
-public partial class LumexTextarea : LumexComponentBase
+public partial class LumexTextArea : LumexComponentBase
 {
 	/// <summary>
 	/// Gets or sets a value indicating whether the textarea is disabled.
@@ -15,7 +15,7 @@ public partial class LumexTextarea : LumexComponentBase
 	/// <summary>
 	/// Gets or sets a value indicating whether the textareas value is readonly.
 	/// </summary>
-	[Parameter] public bool Readonly { get; set; }
+	[Parameter] public bool ReadOnly { get; set; }
 	
 	/// <summary>
 	/// Gets or sets a value indicating whether the textareas value is required.
@@ -54,9 +54,9 @@ public partial class LumexTextarea : LumexComponentBase
 		TwMerge.Merge( Textarea.GetStyles( this ) );
 	
 	/// <summary>
-	/// Initializes a new instance of the <see cref="LumexTextarea"/>.
+	/// Initializes a new instance of the <see cref="LumexTextArea"/>.
 	/// </summary>
-	public LumexTextarea()
+	public LumexTextArea()
 	{
 		As = "textarea";
 	}

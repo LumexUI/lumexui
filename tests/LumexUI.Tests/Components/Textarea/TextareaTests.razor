@@ -15,7 +15,7 @@
     [Fact]
     public void ShouldRenderCorrectly()
     {
-        var action = () => Render(@<LumexTextarea Placeholder="Test" />);
+        var action = () => Render(@<LumexTextArea Placeholder="Test" />);
 
         action.Should().NotThrow();
     }
@@ -23,7 +23,7 @@
     [Fact]
     public void ShouldRenderWithPlaceholder()
     {
-	    var cut = Render(@<LumexTextarea Placeholder="Test" />);
+	    var cut = Render(@<LumexTextArea Placeholder="Test" />);
 
 	    var input = cut.Find( "textarea" );
 
@@ -34,7 +34,7 @@
     [Fact]
     public void ShouldRenderWithPlaceholderButShowsValue()
     {
-	    var cut = Render(@<LumexTextarea Placeholder="Test" Value="Hello World!" />);
+	    var cut = Render(@<LumexTextArea Placeholder="Test" Value="Hello World!" />);
 
 	    var input = cut.Find( "textarea" );
 
@@ -47,7 +47,7 @@
     [Fact]
     public void ShouldRenderReadonly()
     {
-	    var cut = Render(@<LumexTextarea Placeholder="Test" Value="Hello World!" Readonly />);
+	    var cut = Render(@<LumexTextArea Placeholder="Test" Value="Hello World!" ReadOnly />);
 
 	    var input = cut.Find( "textarea" );
 
@@ -57,7 +57,7 @@
     [Fact]
     public void ShouldRenderDisabled()
     {
-	    var cut = Render(@<LumexTextarea Placeholder="Test" Value="Hello World!" Disabled />);
+	    var cut = Render(@<LumexTextArea Placeholder="Test" Value="Hello World!" Disabled />);
 
 	    var input = cut.Find( "textarea" );
 
@@ -67,7 +67,7 @@
     [Fact]
     public void ShouldChangeValueOnInput()
     {
-	    var cut = Render<LumexTextarea>( @<LumexTextarea Value="Test" Behavior="@InputBehavior.OnInput" />);
+	    var cut = Render<LumexTextArea>( @<LumexTextArea Value="Test" Behavior="@InputBehavior.OnInput" />);
 
 	    var input = cut.Find( "textarea" );
 

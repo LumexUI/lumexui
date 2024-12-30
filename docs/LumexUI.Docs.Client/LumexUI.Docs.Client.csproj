@@ -29,7 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Pages\Components\Textarea\Code\" />
+	  <Folder Include="Pages\Components\TextArea\Code\" />
 	</ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
-@page "/docs/components/textarea"
+@page "/docs/components/text-area"
 @layout DocsContentLayout
 
-@using LumexUI.Docs.Client.Pages.Components.Textarea.PreviewCodes
+@using LumexUI.Docs.Client.Pages.Components.TextArea.PreviewCodes
 
 <DocsSection Title="Usage">
 	<p>The textarea component provides a simple way to input and edit multiline text data.</p>
@@ -21,7 +21,7 @@
 			You can make a textareas value read only to prevent Changes.
 		</p>
 
-		<Readonly />
+		<ReadOnly />
 	</DocsSection>
 
 	<DocsSection Title="Controlled">
@@ -52,11 +52,11 @@
 	protected override void OnInitialized()
 	{
 		Layout.Initialize(
-			title: "Textarea",
+			title: "TextArea",
 			category: "Components",
-			description: "Textarea allows users to input multiline text data.",
+			description: "TextArea allows users to input multiline text data.",
 			headings: _headings,
-			linksProps: new ComponentLinksProps( "Textarea", isServer: false )
+			linksProps: new ComponentLinksProps( "TextArea", isServer: false )
 		);
 	}
 

@@ -38,7 +38,7 @@ internal class Textarea
 		.Add( "w-full" )
 		.ToString();
 	
-	public static string GetStyles( LumexTextarea textarea )
+	public static string GetStyles( LumexTextArea textarea )
 	{
 		return ElementClass.Empty()
 			.Add( _base )
