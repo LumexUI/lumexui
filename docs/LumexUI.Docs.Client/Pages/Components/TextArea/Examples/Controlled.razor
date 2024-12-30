@@ -9,9 +9,9 @@
 @code {
 
 	private string _value = string.Empty;
-	private string _newValue = string.Empty;
+	private string? _newValue = string.Empty;
 	
-	private void OnValueChanged( string value )
+	private void OnValueChanged( string? value )
 	{
 		_newValue = value;
 		StateHasChanged();

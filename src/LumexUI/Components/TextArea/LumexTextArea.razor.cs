@@ -23,7 +23,7 @@ public partial class LumexTextArea : LumexComponentBase
 	[Parameter] public bool Required { get; set; }
 
 	/// <summary>
-	/// Gets or sets a value indicating wether the ValueChanged event will be fired on input or change.
+	/// /// Gets or sets a value indicating whether the ValueChanged event will be fired on input or change. <see cref="InputBehavior"/>
 	/// </summary>
 	[Parameter] public InputBehavior Behavior { get; set; } = InputBehavior.OnChange;
 
@@ -45,7 +45,7 @@ public partial class LumexTextArea : LumexComponentBase
 	/// <summary>
 	/// Gets or sets Value changed event.
 	/// </summary>
-	[Parameter] public Action<string?>? ValueChanged { get; set; }
+	[Parameter] public EventCallback<string> ValueChanged { get; set; }
 
 	/// <summary>
 	/// Get the merged style of this instance.
@@ -66,6 +66,6 @@ public partial class LumexTextArea : LumexComponentBase
 	/// </summary>
 	private void OnValueChanged()
 	{
-		ValueChanged?.Invoke( Value );
+		ValueChanged.InvokeAsync( Value );
 	}
 }

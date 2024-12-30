@@ -5,7 +5,7 @@
 @using Microsoft.Extensions.DependencyInjection
 
 @code {
-    public TextareaTests()
+    public TextAreaTests()
     {
         Services.AddSingleton<TwMerge>();
         var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
@@ -45,7 +45,7 @@
     }
     
     [Fact]
-    public void ShouldRenderReadonly()
+    public void ShouldRenderReadOnly()
     {
 	    var cut = Render(@<LumexTextArea Placeholder="Test" Value="Hello World!" ReadOnly />);
 
@@ -73,5 +73,17 @@
 
 	    input.Input( "test 2" );
 	    cut.Instance.Value.Should().Be( "test 2" );
+    }
+    
+    [Fact]
+    public void ShouldChangeValueOnValueChangedEvent()
+    {
+	    var text = string.Empty;
+	    var cut = Render<LumexTextArea>( @<LumexTextArea Value="Test" Behavior="@InputBehavior.OnInput" ValueChanged="@(e => text = e )" />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.Input( "test 2" );
+	    text.Should().Be( "test 2" );
     }
 }
