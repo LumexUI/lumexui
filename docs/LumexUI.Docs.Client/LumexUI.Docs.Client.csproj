@@ -28,8 +28,4 @@
 		<EmbeddedResource Include="Samples/**/*.html" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Pages\Components\TextArea\Code\" />
-	</ItemGroup>
-
 </Project>
