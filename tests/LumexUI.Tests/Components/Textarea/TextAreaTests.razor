@@ -1,0 +1,89 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+@using LumexUI.Common
+@using TailwindMerge
+@using Microsoft.Extensions.DependencyInjection
+
+@code {
+    public TextAreaTests()
+    {
+        Services.AddSingleton<TwMerge>();
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
+        module.Setup<string>( "input.getValidationMessage", _ => true );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(@<LumexTextArea Placeholder="Test" />);
+
+        action.Should().NotThrow();
+    }
+    
+    [Fact]
+    public void ShouldRenderWithPlaceholder()
+    {
+	    var cut = Render(@<LumexTextArea Placeholder="Test" />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.HasAttribute( "placeholder" ).Should().BeTrue();
+	    input.GetAttribute( "placeholder" ).Should().Be( "Test" );
+    }
+    
+    [Fact]
+    public void ShouldRenderWithPlaceholderButShowsValue()
+    {
+	    var cut = Render(@<LumexTextArea Placeholder="Test" Value="Hello World!" />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.HasAttribute( "placeholder" ).Should().BeTrue();
+	    input.GetAttribute( "placeholder" ).Should().Be( "Test" );
+	    input.HasAttribute( "value" ).Should().BeTrue();
+	    input.GetAttribute( "value" ).Should().Be( "Hello World!" );
+    }
+    
+    [Fact]
+    public void ShouldRenderReadOnly()
+    {
+	    var cut = Render(@<LumexTextArea Placeholder="Test" Value="Hello World!" ReadOnly />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.HasAttribute( "readonly" ).Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldRenderDisabled()
+    {
+	    var cut = Render(@<LumexTextArea Placeholder="Test" Value="Hello World!" Disabled />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.HasAttribute( "disabled" ).Should().BeTrue();
+    }
+    
+    [Fact]
+    public void ShouldChangeValueOnInput()
+    {
+	    var cut = Render<LumexTextArea>( @<LumexTextArea Value="Test" Behavior="@InputBehavior.OnInput" />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.Input( "test 2" );
+	    cut.Instance.Value.Should().Be( "test 2" );
+    }
+    
+    [Fact]
+    public void ShouldChangeValueOnValueChangedEvent()
+    {
+	    var text = string.Empty;
+	    var cut = Render<LumexTextArea>( @<LumexTextArea Value="Test" Behavior="@InputBehavior.OnInput" ValueChanged="@(e => text = e )" />);
+
+	    var input = cut.Find( "textarea" );
+
+	    input.Input( "test 2" );
+	    text.Should().Be( "test 2" );
+    }
+}

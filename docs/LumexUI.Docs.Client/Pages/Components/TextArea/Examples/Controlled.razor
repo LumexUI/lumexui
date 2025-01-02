@@ -1,0 +1,19 @@
+﻿<div class="w-full flex flex-col flex-wrap gap-4 md:flex-nowrap">
+	<LumexTextArea Placeholder="Enter your email" ValueChanged="@OnValueChanged" />
+	<div class="flex flex-col items-center text-sm">
+		<span>Changed Value:</span>
+		<span>@_newValue</span>
+	</div>
+</div>
+
+@code {
+
+	private string _value = string.Empty;
+	private string? _newValue = string.Empty;
+	
+	private void OnValueChanged( string? value )
+	{
+		_newValue = value;
+		StateHasChanged();
+	}
+}

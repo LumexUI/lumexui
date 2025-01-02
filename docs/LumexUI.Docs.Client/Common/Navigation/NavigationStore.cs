@@ -39,6 +39,7 @@ public class NavigationStore
             .Add( new( nameof( LumexRadioGroup<T>), ComponentStatus.New ) )
             .Add( new( nameof( LumexSelect<T> ), ComponentStatus.New ) )
             .Add( new( nameof( LumexSwitch ) ) )
+            .Add( new( nameof( LumexTextArea ), ComponentStatus.Preview ) )
             .Add( new( nameof( LumexTextbox ) ) );
 
     private static NavigationCategory ComponentsApiCategory =>
@@ -78,6 +79,7 @@ public class NavigationStore
             .Add( new( nameof( LumexSelect<T> ) ) )
             .Add( new( nameof( LumexSelectItem<T> ) ) )
             .Add( new( nameof( LumexSwitch ) ) )
+            .Add( new( nameof( LumexTextArea ) ) )
             .Add( new( nameof( LumexTextbox ) ) )
             .Add( new( nameof( LumexThemeProvider ) ) );
 
