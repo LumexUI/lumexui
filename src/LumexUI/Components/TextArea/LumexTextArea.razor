@@ -1,0 +1,18 @@
+@namespace LumexUI
+@inherits LumexComponentBase
+
+<textarea
+	class="@RootClass"
+	style="@RootStyle"
+	disabled="@Disabled"
+	readonly="@ReadOnly"
+	aria-disabled="@Disabled"
+	aria-readonly="@ReadOnly"
+	placeholder="@Placeholder"
+	required="@Required"
+	data-disabled="@Disabled.ToAttributeValue()"
+	@bind="Value" 
+	@bind:event="@(Behavior == InputBehavior.OnInput ? "oninput" : "onchange")" 
+	@bind:after="OnValueChanged"
+	@attributes="@AdditionalAttributes" >
+</textarea>
