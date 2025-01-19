@@ -1,0 +1,35 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<CascadingValue TValue="TabsContext" Value="@_context" IsFixed="@true">
+    @{
+        _context.StartCollectingTabs();
+    }
+    @ChildContent
+
+    <Defer>
+        @{
+            _context.StopCollectingTabs();
+        }
+        <div class="@Slots.Root" data-slot="base">
+            <LumexComponent As="@As"
+                            Class="@Slots.TabList"
+                            Style="@Style"
+                            data-slot="tab-list"
+                            @attributes="@AdditionalAttributes">
+                @_renderTabs
+            </LumexComponent>
+        </div>
+        <_TabPanel ActiveTab="@_context.GetActiveTab()" />
+    </Defer>
+</CascadingValue>
+
+@code {
+    private void RenderTabs(RenderTreeBuilder __builder)
+    {
+        foreach (var tab in _context.Tabs)
+        {
+            tab.Render(__builder);
+        }
+    }
+}

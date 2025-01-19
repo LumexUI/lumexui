@@ -51,7 +51,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\LumexUI.Motion\LumexUI.Motion.csproj" PrivateAssets="all" />
+		<ProjectReference Include="..\LumexUI.Motion\LumexUI.Motion.csproj" />
 		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj" PrivateAssets="all" />
 	</ItemGroup>
 

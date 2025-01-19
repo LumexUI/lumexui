@@ -1,0 +1,41 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@{
+    Context.Register(this);
+}
+
+@code {
+    internal void Render(RenderTreeBuilder __builder)
+    {
+        <LumexComponent As="@As"
+                        Class="@Slots.Tab"
+                        Style="@Style"
+                        type="button"
+                        data-slot="tab"
+                        data-selected="@Utils.GetDataAttributeValue(IsSelected)"
+                        @ref="@_ref"
+                        @attributes="@AdditionalAttributes"
+                        @onclick="@HandleClick">
+            @if (IsSelected)
+            {
+                <Motion As="span"
+                        LayoutId="cursor"
+                        Transition="@_motionProps.Transition"
+                        class="@Slots.Cursor"
+                        data-slot="cursor" />
+            }
+
+            <div class="@Slots.TabContent" data-slot="tab-content">
+                @if (!string.IsNullOrEmpty(Title))
+                {
+                    @Title
+                }
+                else if (TitleContent is not null)
+                {
+                    @TitleContent
+                }
+            </div>
+        </LumexComponent>
+    }
+}

@@ -28,7 +28,7 @@ public class NavigationStore
             .Add( new( nameof( LumexCheckbox ) ) )
             .Add( new( nameof( LumexCheckboxGroup ) ) )
             .Add( new( nameof( LumexCollapse ) ) )
-            .Add( new( nameof( LumexDataGrid<T> ), ComponentStatus.Preview ) )
+            .Add( new( nameof( LumexDataGrid<T> ) ) )
             .Add( new( nameof( LumexDivider ) ) )
             .Add( new( nameof( LumexIcon ) ) )
             .Add( new( nameof( LumexLink ) ) )
@@ -36,9 +36,10 @@ public class NavigationStore
             .Add( new( nameof( LumexNavbar ) ) )
             .Add( new( nameof( LumexNumbox<T> ) ) )
             .Add( new( nameof( LumexPopover ) ) )
-            .Add( new( nameof( LumexRadioGroup<T>), ComponentStatus.New ) )
+            .Add( new( nameof( LumexRadioGroup<T> ), ComponentStatus.New ) )
             .Add( new( nameof( LumexSelect<T> ), ComponentStatus.New ) )
             .Add( new( nameof( LumexSwitch ) ) )
+            .Add( new( nameof( LumexTabs ), ComponentStatus.New ) )
             .Add( new( nameof( LumexTextbox ) ) );
 
     private static NavigationCategory ComponentsApiCategory =>

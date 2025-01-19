@@ -1,0 +1,42 @@
+﻿@page "/docs/components/tabs"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Tabs.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>The textbox component provides a simple way to input and edit text data.</p>
+    <Usage />
+</DocsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Tabs",
+            category: "Components",
+            description: "Tabs organize content into multiple sections, allowing users to switch between them.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Tabs", isServer: false )
+        );
+    }
+}
