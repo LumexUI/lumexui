@@ -81,6 +81,7 @@ internal class Tabs
 			Root = twMerge.Merge(
 				ElementClass.Empty()
 					.Add( _base )
+					.Add( GetFullWidthStyles( tabs.FullWidth, slot: nameof( _base ) ) )
 					.Add( tabs.Class )
 					.ToString() ),
 
@@ -90,6 +91,7 @@ internal class Tabs
 					.Add( GetSizeStyles( tabs.Size, slot: nameof( _tabList ) ) )
 					.Add( GetRadiusStyles( tabs.Radius, slot: nameof( _tabList ) ) )
 					.Add( GetVariantStyles( tabs.Variant, slot: nameof( _tabList ) ) )
+					.Add( GetFullWidthStyles( tabs.FullWidth, slot: nameof( _tabList ) ) )
 					.ToString() ),
 
 			Tab = twMerge.Merge(
@@ -188,6 +190,18 @@ internal class Tabs
 				.Add( "rounded-large", when: slot is nameof( _tabList ) )
 				.Add( "rounded-medium", when: slot is nameof( _tab ) )
 				.Add( "rounded-medium", when: slot is nameof( _cursor ) ),
+
+			_ => ElementClass.Empty()
+		};
+	}
+
+	private static ElementClass GetFullWidthStyles( bool isFullWidth, string slot )
+	{
+		return isFullWidth switch
+		{
+			true => ElementClass.Empty()
+				.Add( "w-full", when: slot is nameof( _base ) )
+				.Add( "w-full", when: slot is nameof( _tabList ) ),
 
 			_ => ElementClass.Empty()
 		};

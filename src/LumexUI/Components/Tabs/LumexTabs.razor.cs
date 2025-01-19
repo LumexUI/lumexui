@@ -35,6 +35,11 @@ public partial class LumexTabs : LumexComponentBase, IDisposable
 	/// </summary>
 	[Parameter] public Radius Radius { get; set; }
 
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public bool FullWidth { get; set; }
+
 	internal TabsSlots Slots { get; private set; } = default!;
 
 	private readonly TabsContext _context;
