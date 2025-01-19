@@ -91,6 +91,7 @@ internal class Tabs
 					.Add( GetSizeStyles( tabs.Size, slot: nameof( _tabList ) ) )
 					.Add( GetRadiusStyles( tabs.Radius, slot: nameof( _tabList ) ) )
 					.Add( GetVariantStyles( tabs.Variant, slot: nameof( _tabList ) ) )
+					.Add( GetDisabledStyles( tabs.Disabled, slot: nameof( _tabList ) ) )
 					.Add( GetFullWidthStyles( tabs.FullWidth, slot: nameof( _tabList ) ) )
 					.ToString() ),
 
@@ -202,6 +203,17 @@ internal class Tabs
 			true => ElementClass.Empty()
 				.Add( "w-full", when: slot is nameof( _base ) )
 				.Add( "w-full", when: slot is nameof( _tabList ) ),
+
+			_ => ElementClass.Empty()
+		};
+	}
+
+	private static ElementClass GetDisabledStyles( bool isDisabled, string slot )
+	{
+		return isDisabled switch
+		{
+			true => ElementClass.Empty()
+				.Add( "opacity-disabled pointer-events-none", when: slot is nameof( _tabList ) ),
 
 			_ => ElementClass.Empty()
 		};
