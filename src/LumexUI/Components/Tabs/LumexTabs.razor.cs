@@ -25,6 +25,11 @@ public partial class LumexTabs : LumexComponentBase, IDisposable
 	/// </summary>
 	[Parameter] public TabVariant Variant { get; set; }
 
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public Size Size { get; set; }
+
 	internal TabsSlots Slots { get; private set; } = default!;
 
 	private readonly TabsContext _context;
@@ -52,6 +57,8 @@ public partial class LumexTabs : LumexComponentBase, IDisposable
 	{
 		// Perform a re-building only if the dependencies have changed
 		Slots = _slotsMemoizer.Memoize( GetSlots, [
+			Variant,
+			Size,
 			Class
 		] );
 	}

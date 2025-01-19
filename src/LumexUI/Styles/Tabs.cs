@@ -87,12 +87,14 @@ internal class Tabs
 			TabList = twMerge.Merge(
 				ElementClass.Empty()
 					.Add( _tabList )
+					.Add( GetSizeStyles( tabs.Size, slot: nameof( _tabList ) ) )
 					.Add( GetVariantStyles( tabs.Variant, slot: nameof( _tabList ) ) )
 					.ToString() ),
 
 			Tab = twMerge.Merge(
 				ElementClass.Empty()
 					.Add( _tab )
+					.Add( GetSizeStyles( tabs.Size, slot: nameof( _tab ) ) )
 					.ToString() ),
 
 			TabContent = twMerge.Merge(
@@ -103,6 +105,8 @@ internal class Tabs
 			Cursor = twMerge.Merge(
 				ElementClass.Empty()
 					.Add( _cursor )
+					.Add( GetSizeStyles( tabs.Size, slot: nameof( _cursor ) ) )
+					.Add( GetVariantStyles( tabs.Variant, slot: nameof( _cursor ) ) )
 					.ToString() ),
 
 			TabPanel = twMerge.Merge(
@@ -130,6 +134,29 @@ internal class Tabs
 			TabVariant.Light => ElementClass.Empty()
 				.Add( "bg-transparent", when: slot is nameof( _tabList ) )
 				.Add( "inset-0", when: slot is nameof( _cursor ) ),
+
+			_ => ElementClass.Empty()
+		};
+	}
+
+	private static ElementClass GetSizeStyles( Size size, string slot )
+	{
+		return size switch
+		{
+			Size.Small => ElementClass.Empty()
+				.Add( "rounded-medium", when: slot is nameof( _tabList ) )
+				.Add( "h-7 text-tiny rounded-small", when: slot is nameof( _tab ) )
+				.Add( "rounded-small", when: slot is nameof( _cursor ) ),
+
+			Size.Medium => ElementClass.Empty()
+				.Add( "rounded-medium", when: slot is nameof( _tabList ) )
+				.Add( "h-8 text-small rounded-small", when: slot is nameof( _tab ) )
+				.Add( "rounded-small", when: slot is nameof( _cursor ) ),
+
+			Size.Large => ElementClass.Empty()
+				.Add( "rounded-large", when: slot is nameof( _tabList ) )
+				.Add( "h-9 text-medium rounded-medium", when: slot is nameof( _tab ) )
+				.Add( "rounded-medium", when: slot is nameof( _cursor ) ),
 
 			_ => ElementClass.Empty()
 		};
