@@ -105,6 +105,7 @@ internal class Tabs
 			TabContent = twMerge.Merge(
 				ElementClass.Empty()
 					.Add( _tabContent )
+					.Add( GetCompoundStyles( tabs.Variant, tabs.Color, slot: nameof( _tabContent ) ) )
 					.ToString() ),
 
 			Cursor = twMerge.Merge(
@@ -113,6 +114,7 @@ internal class Tabs
 					.Add( GetSizeStyles( tabs.Size, slot: nameof( _cursor ) ) )
 					.Add( GetRadiusStyles( tabs.Radius, slot: nameof( _cursor ) ) )
 					.Add( GetVariantStyles( tabs.Variant, slot: nameof( _cursor ) ) )
+					.Add( GetCompoundStyles( tabs.Variant, tabs.Color, slot: nameof( _cursor ) ) )
 					.ToString() ),
 
 			TabPanel = twMerge.Merge(
@@ -214,6 +216,74 @@ internal class Tabs
 		{
 			true => ElementClass.Empty()
 				.Add( "opacity-disabled pointer-events-none", when: slot is nameof( _tabList ) ),
+
+			_ => ElementClass.Empty()
+		};
+	}
+
+	private static ElementClass GetCompoundStyles( TabVariant variant, ThemeColor color, string slot )
+	{
+		return (variant, color) switch
+		{
+			// solid / outlined / light && color
+
+			(TabVariant.Solid or TabVariant.Outlined or TabVariant.Light, ThemeColor.Default ) => ElementClass.Empty()
+				.Add( "bg-background shadow-small", when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-default-foreground", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Solid or TabVariant.Outlined or TabVariant.Light, ThemeColor.Primary ) => ElementClass.Empty()
+				.Add( ColorVariants.Solid[ThemeColor.Primary], when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-primary-foreground", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Solid or TabVariant.Outlined or TabVariant.Light, ThemeColor.Secondary ) => ElementClass.Empty()
+				.Add( ColorVariants.Solid[ThemeColor.Secondary], when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-secondary-foreground", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Solid or TabVariant.Outlined or TabVariant.Light, ThemeColor.Success ) => ElementClass.Empty()
+				.Add( ColorVariants.Solid[ThemeColor.Success], when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-success-foreground", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Solid or TabVariant.Outlined or TabVariant.Light, ThemeColor.Warning ) => ElementClass.Empty()
+				.Add( ColorVariants.Solid[ThemeColor.Warning], when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-warning-foreground", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Solid or TabVariant.Outlined or TabVariant.Light, ThemeColor.Danger ) => ElementClass.Empty()
+				.Add( ColorVariants.Solid[ThemeColor.Danger], when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-danger-foreground", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Solid or TabVariant.Outlined or TabVariant.Light, ThemeColor.Info ) => ElementClass.Empty()
+				.Add( ColorVariants.Solid[ThemeColor.Info], when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-info-foreground", when: slot is nameof( _tabContent ) ),
+
+			// underlined && color
+
+			(TabVariant.Underlined, ThemeColor.Default ) => ElementClass.Empty()
+				.Add( "bg-foreground", when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-foreground", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Underlined, ThemeColor.Primary ) => ElementClass.Empty()
+				.Add( "bg-primary", when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-primary", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Underlined, ThemeColor.Secondary ) => ElementClass.Empty()
+				.Add( "bg-secondary", when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-secondary", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Underlined, ThemeColor.Success ) => ElementClass.Empty()
+				.Add( "bg-success", when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-success", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Underlined, ThemeColor.Warning ) => ElementClass.Empty()
+				.Add( "bg-warning", when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-warning", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Underlined, ThemeColor.Danger ) => ElementClass.Empty()
+				.Add( "bg-danger", when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-danger", when: slot is nameof( _tabContent ) ),
+
+			(TabVariant.Underlined, ThemeColor.Info ) => ElementClass.Empty()
+				.Add( "bg-info", when: slot is nameof( _cursor ) )
+				.Add( "group-data-[selected=true]:text-info", when: slot is nameof( _tabContent ) ),
 
 			_ => ElementClass.Empty()
 		};

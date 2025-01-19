@@ -28,6 +28,11 @@ public partial class LumexTabs : LumexComponentBase, IDisposable
 	/// <summary>
 	/// 
 	/// </summary>
+	[Parameter] public ThemeColor Color { get; set; }
+
+	/// <summary>
+	/// 
+	/// </summary>
 	[Parameter] public Size Size { get; set; }
 
 	/// <summary>
@@ -76,6 +81,7 @@ public partial class LumexTabs : LumexComponentBase, IDisposable
 			Disabled,
 			Variant,
 			Radius,
+			Color,
 			Size,
 			Class
 		] );
