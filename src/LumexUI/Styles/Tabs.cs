@@ -88,6 +88,7 @@ internal class Tabs
 				ElementClass.Empty()
 					.Add( _tabList )
 					.Add( GetSizeStyles( tabs.Size, slot: nameof( _tabList ) ) )
+					.Add( GetRadiusStyles( tabs.Radius, slot: nameof( _tabList ) ) )
 					.Add( GetVariantStyles( tabs.Variant, slot: nameof( _tabList ) ) )
 					.ToString() ),
 
@@ -95,6 +96,7 @@ internal class Tabs
 				ElementClass.Empty()
 					.Add( _tab )
 					.Add( GetSizeStyles( tabs.Size, slot: nameof( _tab ) ) )
+					.Add( GetRadiusStyles( tabs.Radius, slot: nameof( _tab ) ) )
 					.ToString() ),
 
 			TabContent = twMerge.Merge(
@@ -106,6 +108,7 @@ internal class Tabs
 				ElementClass.Empty()
 					.Add( _cursor )
 					.Add( GetSizeStyles( tabs.Size, slot: nameof( _cursor ) ) )
+					.Add( GetRadiusStyles( tabs.Radius, slot: nameof( _cursor ) ) )
 					.Add( GetVariantStyles( tabs.Variant, slot: nameof( _cursor ) ) )
 					.ToString() ),
 
@@ -156,6 +159,34 @@ internal class Tabs
 			Size.Large => ElementClass.Empty()
 				.Add( "rounded-large", when: slot is nameof( _tabList ) )
 				.Add( "h-9 text-medium rounded-medium", when: slot is nameof( _tab ) )
+				.Add( "rounded-medium", when: slot is nameof( _cursor ) ),
+
+			_ => ElementClass.Empty()
+		};
+	}
+
+	private static ElementClass GetRadiusStyles( Radius radius, string slot )
+	{
+		return radius switch
+		{
+			Radius.None => ElementClass.Empty()
+				.Add( "rounded-none", when: slot is nameof( _tabList ) )
+				.Add( "rounded-none", when: slot is nameof( _tab ) )
+				.Add( "rounded-none", when: slot is nameof( _cursor ) ),
+
+			Radius.Small => ElementClass.Empty()
+				.Add( "rounded-medium", when: slot is nameof( _tabList ) )
+				.Add( "rounded-small", when: slot is nameof( _tab ) )
+				.Add( "rounded-small", when: slot is nameof( _cursor ) ),
+
+			Radius.Medium => ElementClass.Empty()
+				.Add( "rounded-medium", when: slot is nameof( _tabList ) )
+				.Add( "rounded-small", when: slot is nameof( _tab ) )
+				.Add( "rounded-small", when: slot is nameof( _cursor ) ),
+
+			Radius.Large => ElementClass.Empty()
+				.Add( "rounded-large", when: slot is nameof( _tabList ) )
+				.Add( "rounded-medium", when: slot is nameof( _tab ) )
 				.Add( "rounded-medium", when: slot is nameof( _cursor ) ),
 
 			_ => ElementClass.Empty()
