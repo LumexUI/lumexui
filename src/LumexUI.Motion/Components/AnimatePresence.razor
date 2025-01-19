@@ -1,0 +1,66 @@
+﻿@namespace LumexUI.Motion
+@inherits ComponentBase
+
+<CascadingValue TValue="PresenceContext" Value="@_context" IsFixed="@true">
+    @{
+        _context.StartCollecting();
+    }
+
+    @ChildContent
+
+    <_Defer>
+        @{
+            _context.StopCollecting();
+
+            if (_context.PresenceHasChanged)
+            {
+                var children = new List<Motion>(_context.PresentChildren);
+
+                foreach (var child in _context.RenderedChildren)
+                {
+                    if (!_context.PresentKeys.Contains(child.Key))
+                    {
+                        children.Add(child);
+                    }
+                }
+
+                _context.RenderedChildren = [.. children];
+                _context.DiffChildren = [.. _context.PresentChildren];
+                StateHasChanged();
+
+                return;
+            }
+            else
+            {
+                @_render
+            }
+        }
+    </_Defer>
+</CascadingValue>
+
+@code {
+    private void Render(RenderTreeBuilder __builder)
+    {
+        foreach (var m in _context.RenderedChildren)
+        {
+            var isPresent =
+                _context.PresentChildren.SequenceEqual(_context.RenderedChildren) ||
+                _context.PresentKeys.Contains(m.Key);
+
+            var onExit = async () =>
+            {
+                await m.AnimateExitAsync();
+                _context.RenderedChildren = [.. _context.PresentChildren];
+                StateHasChanged();
+            };
+
+            <_PresenceChild @key="@m.Key"
+                            IsPresent="@isPresent"
+                            OnExit="@onExit">
+                @{
+                    m.Render(__builder2);
+                }
+            </_PresenceChild>
+        }
+    }
+}
