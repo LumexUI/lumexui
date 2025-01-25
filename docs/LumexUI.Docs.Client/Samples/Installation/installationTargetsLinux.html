@@ -1,9 +1,9 @@
 <pre lang="xml"><code class="language-xml">&lt;Target Name="InstallTailwind" AfterTargets="PostBuildEvent" Condition="!Exists('tailwindcss')"&gt; 
-     &lt;Exec Command="wget -O tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64" /&gt; 
-     &lt;Exec Command="chmod u+x tailwindcss" /&gt; 
- &lt;/Target&gt; 
+  &lt;Exec Command="wget -O tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64" /&gt; 
+  &lt;Exec Command="chmod u+x tailwindcss" /&gt; 
+&lt;/Target&gt;
 
- &lt;Target Name="RunTailwind" AfterTargets="InstallTailwind"&gt; 
-     &lt;Exec Command="./tailwindcss -i ./wwwroot/app.css -o ./wwwroot/output.css --minify" /&gt; 
- &lt;/Target&gt;
+&lt;Target Name="RunTailwind" AfterTargets="InstallTailwind"&gt;
+  &lt;Exec Command="./tailwindcss -i ./wwwroot/app.css -o ./wwwroot/output.css --minify" /&gt; 
+&lt;/Target&gt;
 </code></pre>
