@@ -1,0 +1,9 @@
+<pre><code class="language-xml"> &lt;Target Name="InstallTailwind" AfterTargets="PostBuildEvent" Condition="!Exists('tailwindcss.exe')"&gt; 
+     &lt;Exec Command="curl -LO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe" /&gt;
+     &lt;Exec Command="ren tailwindcss-windows-x64.exe tailwindcss.exe" /&gt;
+ &lt;/Target&gt; 
+
+ &lt;Target Name="RunTailwind" AfterTargets="InstallTailwind"&gt; 
+     &lt;Exec Command="tailwindcss -i ./wwwroot/app.css -o ./wwwroot/output.css --minify" /&gt; 
+ &lt;/Target&gt;
+</code></pre>

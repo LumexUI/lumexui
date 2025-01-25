@@ -1,10 +1,18 @@
 ﻿@page "/docs/getting-started/installation"
 @layout InstallationLayout
 
-<InstallationSteps Steps="@_steps" />
+<DocsSection Title="Instructions for Tailwind CSS v3.*">
+	<InstallationSteps Steps="@_stepsForTailwindCssv3" />
+</DocsSection>
+
+<LumexDivider />
+
+<DocsSection Title="Instructions for Tailwind CSS v4.0">
+	<InstallationSteps Steps="@_stepsForTailwindCssv4" />
+</DocsSection>
 
 @code {
-    private Step[] _steps = new Step[]
+    private readonly Step[] _stepsForTailwindCssv3 = new Step[]
     {
         new Step()
         {
@@ -14,16 +22,90 @@
         },
         new Step()
         {
-            Title = "Install Tailwind CSS",
+            Title = "Install Tailwind CSS (up to v3.*)",
             Code = new CodeBlock("tailwind.config.js", "installationConfig"),
             Body = @<text>
-                <p>
-                    LumexUI is built on top of Tailwind CSS. To install, follow the official <LumexLink Href="https://tailwindcss.com/docs/installation" External="@true">installation guide</LumexLink>. Then, modify the <code>tailwind.config.js</code> file.
-                </p>
-                <i>
-                    Note: the <code>PATH_TO_NUGET</code> is the NuGet package path on the machine.
-                </i>
-                </text>
+	                    <p>
+		                    LumexUI is built on top of Tailwind CSS. To install, follow the official <LumexLink Href="https://v3.tailwindcss.com/docs/installation" External="@true">installation guide</LumexLink>. Then, modify the <code>tailwind.config.js</code> file.
+	                    </p>
+	                    <i>
+		                    Note: the <code>PATH_TO_NUGET</code> is the NuGet package path on the machine.
+	                    </i>
+	                    <i>
+		                    Note: if you are using Tailwind CSS v4.0, see /docs/getting-started/installation/tailwindcssv4 instead.
+	                    </i>
+                    </text>
+        },
+        new Step()
+        {
+            Title = "Configure startup file",
+            Code = new CodeBlock("Program.cs", "installationServices"),
+            Body = @<p>Inject the vital LumexUI services in the <code>Program.cs</code>.</p>
+        },
+        new Step()
+        {
+            Title = "Include CSS and JS",
+            Code = new CodeBlock("App.razor", "installationFiles"),
+            Body = @<p>Include the mandatory static files into the <code>@("<head>")</code> and the <code>@("<body>")</code>.</p>
+        },
+        new Step()
+        {
+            Title = "Import library's namespace",
+            Code = new CodeBlock("_Imports.razor", "installationImport"),
+            Body = @<p>Modify <code>_Imports.razor</code> file to easily access components throughout your app.</p>
+        },
+        new Step()
+        {
+            Title = "Setup theme provider",
+            Code = new CodeBlock("MainLayout.razor", "installationThemeProvider"),
+            Body = @<p>Add the <code>LumexThemeProvider</code> into your <code>MainLayout.razor</code> file to enable theming.</p>
+        },
+        new Step()
+        {
+            Title = "Use the components",
+            Code = new CodeBlock("Index.razor", "installationUsage"),
+            Body = @<p>Now you are all set up to start using LumexUI components in your app!</p>
+        }
+    };
+    
+    private readonly Step[] _stepsForTailwindCssv4 = new Step[]
+    {
+        new Step()
+        {
+            Title = "Install LumexUI",
+            Code = new CodeBlock("Terminal", "installationPackage"),
+            Body = @<p>Install LumexUI via terminal using .NET CLI.</p>
+        },
+        new Step()
+        {
+	        Title = "Install Tailwind CSS (Windows)",
+	        Code = new CodeBlock("App.csproj", "installationTargetsWindows"),
+	        Body = @<p>
+		               Modify the main <code>.csproj</code> file that serves your app.
+		               This will download the Tailwind CSS standalone CLI if not found and run it when the app builds. 
+	               </p>
+        },
+        new Step()
+        {
+	        Title = "Install Tailwind CSS (Linux)",
+	        Code = new CodeBlock("App.csproj", "installationTargetsLinux"),
+	        Body = @<p>
+		               Modify the main <code>.csproj</code> file that serves your app.
+		               This will automatically download the Tailwind CSS standalone CLI if not found, give it execute permissions, and run it when the app builds. 
+	               </p>
+        },
+        new Step()
+        {
+	        Title = "Import Tailwind CSS in your CSS file",
+	        Code = new CodeBlock("app.css", "installationConfigTailwindV4"),
+	        Body = @<text>
+		                <p>
+			                Import and configure Tailwind CSS in the main <code>.css</code> file of your app.
+		                </p>
+		                <i>
+			                Note: the <code>PATH_TO_NUGET</code> is the path to the folder that contains NuGet packages on your machine.
+		                </i>
+	                </text>
         },
         new Step()
         {
