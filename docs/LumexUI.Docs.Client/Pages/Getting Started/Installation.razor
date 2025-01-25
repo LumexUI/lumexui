@@ -1,15 +1,19 @@
 ﻿@page "/docs/getting-started/installation"
 @layout InstallationLayout
 
-<DocsSection Title="Instructions for Tailwind CSS v3.*">
-	<InstallationSteps Steps="@_stepsForTailwindCssv3" />
-</DocsSection>
+<div class="prose mb-8">
+	<DocsSection Title="Instructions for Tailwind CSS v3.*">
+		<InstallationSteps Steps="@_stepsForTailwindCssv3" />
+	</DocsSection>
 
-<LumexDivider />
+	<LumexDivider />
+</div>
 
-<DocsSection Title="Instructions for Tailwind CSS v4.0">
-	<InstallationSteps Steps="@_stepsForTailwindCssv4" />
-</DocsSection>
+<div class="prose">
+	<DocsSection Title="Instructions for Tailwind CSS v4.0">
+		<InstallationSteps Steps="@_stepsForTailwindCssv4" />
+	</DocsSection>
+</div>
 
 @code {
     private readonly Step[] _stepsForTailwindCssv3 = new Step[]
