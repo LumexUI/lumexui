@@ -17,6 +17,11 @@ public partial class LumexTab : LumexComponentBase
 	/// <summary>
 	/// 
 	/// </summary>
+	[Parameter, EditorRequired] public object Id { get; set; } = default!;
+
+	/// <summary>
+	/// 
+	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
 	/// <summary>
@@ -59,6 +64,16 @@ public partial class LumexTab : LumexComponentBase
 	protected override void OnInitialized()
 	{
 		ContextNullException.ThrowIfNull( Context, nameof( LumexTab ) );
+	}
+
+	/// <inheritdoc />
+	protected override void OnParametersSet()
+	{
+		if( Id is null )
+		{
+			throw new InvalidOperationException(
+				$"{GetType()} requires a value for the {nameof( Id )} parameter." );
+		}
 	}
 
 	private void HandleClick()

@@ -12,7 +12,7 @@ internal class TabsContext( LumexTabs owner ) : IComponentContext<LumexTabs>
     private LumexTab _activeTab = default!;
 
     public LumexTabs Owner { get; } = owner;
-    public List<LumexTab> Tabs { get; } = [];
+	public Dictionary<object, LumexTab> Tabs { get; } = [];
 
     public event Action? OnTabsChanged;
 
@@ -21,13 +21,13 @@ internal class TabsContext( LumexTabs owner ) : IComponentContext<LumexTabs>
         if( _collectingTabs )
         {
             _activeTab ??= tab;
-            Tabs.Add( tab );
+			Tabs.Add( tab.Id, tab );
         }
     }
 
     public void Unregister( LumexTab tab )
     {
-        _ = Tabs.Remove( tab );
+		Tabs.Remove( tab );
     }
 
     public void StartCollectingTabs()
