@@ -41,13 +41,18 @@ public partial class LumexTab : LumexComponentBase
 
 	[CascadingParameter] internal TabsContext Context { get; set; } = default!;
 
+	// Do not use.
 	// Unfortunate hack to make `LumexTab` always re-render when the `ActiveTab` changes to prevent its removal.
-	[CascadingParameter] internal LumexTab ActiveTab { get; set; } = default!;
+	[CascadingParameter] private LumexTab ActiveTab { get; set; } = default!;
+
+	[Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
 	private TabsSlots Slots => Context.Owner.Slots;
 	private bool Selected => Context.ActiveTab == this;
 
 	private readonly MotionProps _motionProps;
+
+	private bool _isLink;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexTab"/>.
@@ -80,6 +85,23 @@ public partial class LumexTab : LumexComponentBase
 		{
 			throw new InvalidOperationException(
 				$"{GetType()} requires a value for the {nameof( Id )} parameter." );
+		}
+
+		if( AdditionalAttributes?.TryGetValue( "href", out var value ) == true )
+		{
+			As = "a";
+			_isLink = true;
+
+			// Set as active if current route's relative path contains href value.
+			var href = value?.ToString();
+			if( !Selected && !string.IsNullOrEmpty( href ) )
+			{
+				var relativePath = $"/{NavigationManager.ToBaseRelativePath( NavigationManager.Uri )}";
+				if( relativePath.Contains( href ) )
+				{
+					Context.ActiveTab = this;
+				}
+			}
 		}
 	}
 

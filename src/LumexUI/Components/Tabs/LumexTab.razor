@@ -11,7 +11,7 @@
         <LumexComponent As="@As"
                         Class="@Slots.Tab"
                         Style="@Style"
-                        type="button"
+                        type="@(As == "button" ? "button" : null)"
                         data-slot="tab"
                         data-disabled="@Utils.GetDataAttributeValue(GetDisabledState())"
                         data-selected="@Utils.GetDataAttributeValue(Selected)"
