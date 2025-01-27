@@ -13,11 +13,11 @@
                         Style="@Style"
                         type="button"
                         data-slot="tab"
-                        data-selected="@Utils.GetDataAttributeValue(IsSelected)"
-                        @ref="@_ref"
+                        data-disabled="@Utils.GetDataAttributeValue(GetDisabledState())"
+                        data-selected="@Utils.GetDataAttributeValue(Selected)"
                         @attributes="@AdditionalAttributes"
                         @onclick="@HandleClick">
-            @if (IsSelected)
+            @if (Selected)
             {
                 <Motion As="span"
                         LayoutId="cursor"

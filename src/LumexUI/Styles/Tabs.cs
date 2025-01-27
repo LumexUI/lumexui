@@ -42,6 +42,8 @@ internal class Tabs
 		.Add( "items-center" )
 		.Add( "outline-none" )
 		.Add( "cursor-pointer" )
+		.Add( "data-[disabled=true]:opacity-disabled" )
+		.Add( "data-[disabled=true]:cursor-not-allowed" )
 		.Add( "data-[selected=false]:hover:opacity-hover" )
 		// transition
 		.Add( "transition-opacity" )

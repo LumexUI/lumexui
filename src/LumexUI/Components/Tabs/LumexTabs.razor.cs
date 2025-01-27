@@ -13,7 +13,7 @@ namespace LumexUI;
 /// <summary>
 /// 
 /// </summary>
-public partial class LumexTabs : LumexComponentBase, IDisposable
+public partial class LumexTabs : LumexComponentBase
 {
 	/// <summary>
 	/// 
@@ -62,6 +62,11 @@ public partial class LumexTabs : LumexComponentBase, IDisposable
 	/// </summary>
 	[Parameter] public bool Disabled { get; set; }
 
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public ICollection<object>? DisabledItems { get; set; }
+
 	internal TabsSlots Slots { get; private set; } = default!;
 
 	private readonly TabsContext _context;
@@ -76,12 +81,6 @@ public partial class LumexTabs : LumexComponentBase, IDisposable
 		_context = new TabsContext( this );
 		_slotsMemoizer = new Memoizer<TabsSlots>();
 		_renderTabs = RenderTabs;
-	}
-
-	/// <inheritdoc />
-	protected override void OnInitialized()
-	{
-		_context.OnTabsChanged += StateHasChanged;
 	}
 
 	/// <inheritdoc />
@@ -102,11 +101,5 @@ public partial class LumexTabs : LumexComponentBase, IDisposable
 	private TabsSlots GetSlots()
 	{
 		return Tabs.GetStyles( this, TwMerge );
-	}
-
-	/// <inheritdoc />
-	public void Dispose()
-	{
-		_context.OnTabsChanged -= StateHasChanged;
 	}
 }

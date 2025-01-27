@@ -34,10 +34,15 @@ public partial class LumexTab : LumexComponentBase
 	/// </summary>
 	[Parameter] public string? Title { get; set; }
 
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public bool Disabled { get; set; }
+
 	[CascadingParameter] internal TabsContext Context { get; set; } = default!;
 
 	private TabsSlots Slots => Context.Owner.Slots;
-	private bool IsSelected => Context.GetActiveTab() == this;
+	private bool Selected => Context.ActiveTab == this;
 
 	private readonly MotionProps _motionProps;
 	private LumexComponent? _ref;
@@ -78,6 +83,16 @@ public partial class LumexTab : LumexComponentBase
 
 	private void HandleClick()
 	{
-		Context.SetActiveTab( this );
+		if( GetDisabledState() )
+		{
+			return;
+		}
+
+		Context.ActiveTab = this;
 	}
+
+	private bool GetDisabledState() =>
+		Disabled ||
+		Context.Owner.Disabled ||
+		Context.Owner.DisabledItems?.Contains( Id ) is true;
 }

@@ -15,28 +15,28 @@ namespace LumexUI;
 /// </summary>
 public abstract class LumexComponentBase : ComponentBase
 {
-	/// <summary>
-	/// Gets or sets an HTML tag of the component.
-	/// </summary>
-	[Parameter] public string As { get; set; } = "div";
+    /// <summary>
+    /// Gets or sets an HTML tag of the component.
+    /// </summary>
+    [Parameter] public string As { get; set; } = "div";
 
-	/// <summary>
-	/// Gets or sets CSS class names that will be applied to the component.
-	/// </summary>
-	[Parameter] public string? Class { get; set; }
+    /// <summary>
+    /// Gets or sets CSS class names that will be applied to the component.
+    /// </summary>
+    [Parameter] public string? Class { get; set; }
 
-	/// <summary>
-	/// Gets or sets styles that will be applied to the component.
-	/// </summary>
-	[Parameter] public string? Style { get; set; }
+    /// <summary>
+    /// Gets or sets styles that will be applied to the component.
+    /// </summary>
+    [Parameter] public string? Style { get; set; }
 
-	/// <summary>
-	/// Gets or sets a collection of additional attributes that will be applied to the component.
-	/// </summary>
-	[Parameter( CaptureUnmatchedValues = true )]
-	public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+    /// <summary>
+    /// Gets or sets a collection of additional attributes that will be applied to the component.
+    /// </summary>
+    [Parameter( CaptureUnmatchedValues = true )]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
-	[Inject] private protected TwMerge TwMerge { get; set; } = default!;
+    [Inject] private protected TwMerge TwMerge { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the associated <see cref="ElementReference"/>.
@@ -47,5 +47,7 @@ public abstract class LumexComponentBase : ComponentBase
     [DisallowNull] public ElementReference? ElementReference { get; protected set; }
 
     private protected virtual string? RootClass => Class;
-	private protected virtual string? RootStyle => Style;
+    private protected virtual string? RootStyle => Style;
+
+    public void Rerender() => StateHasChanged();
 }

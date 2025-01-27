@@ -8,49 +8,43 @@ namespace LumexUI;
 
 internal class TabsContext( LumexTabs owner ) : IComponentContext<LumexTabs>
 {
-    private bool _collectingTabs;
-    private LumexTab _activeTab = default!;
+	private bool _collectingTabs;
+	private LumexTab _activeTab = default!;
 
-    public LumexTabs Owner { get; } = owner;
+	public LumexTabs Owner { get; } = owner;
 	public Dictionary<object, LumexTab> Tabs { get; } = [];
+	public LumexTab ActiveTab
+	{
+		get => _activeTab;
+		set
+		{
+			_activeTab = value;
+			Owner.Rerender();
+		}
+	}
 
-    public event Action? OnTabsChanged;
-
-    public void Register( LumexTab tab )
-    {
-        if( _collectingTabs )
-        {
-            _activeTab ??= tab;
+	public void Register( LumexTab tab )
+	{
+		if( _collectingTabs )
+		{
+			_activeTab ??= tab;
 			Tabs.Add( tab.Id, tab );
-        }
-    }
+		}
+	}
 
-    public void Unregister( LumexTab tab )
-    {
+	public void Unregister( LumexTab tab )
+	{
 		Tabs.Remove( tab );
-    }
+	}
 
-    public void StartCollectingTabs()
-    {
-        Tabs.Clear();
-        _collectingTabs = true;
-    }
+	public void StartCollectingTabs()
+	{
+		Tabs.Clear();
+		_collectingTabs = true;
+	}
 
-    public void StopCollectingTabs()
-    {
-        _collectingTabs = false;
-    }
-
-    public LumexTab GetActiveTab()
-    {
-        return _activeTab;
-    }
-
-    public void SetActiveTab( LumexTab tab )
-    {
-        _activeTab = tab;
-        NotifyStateChanged();
-    }
-
-    private void NotifyStateChanged() => OnTabsChanged?.Invoke();
+	public void StopCollectingTabs()
+	{
+		_collectingTabs = false;
+	}
 }

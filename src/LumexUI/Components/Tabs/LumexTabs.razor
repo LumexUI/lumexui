@@ -20,7 +20,8 @@
                 @_renderTabs
             </LumexComponent>
         </div>
-        <_TabPanel ActiveTab="@_context.GetActiveTab()" />
+
+            <_TabPanel ActiveTab="@_context.ActiveTab" />
     </Defer>
 </CascadingValue>
 
@@ -28,6 +29,7 @@
     private void RenderTabs(RenderTreeBuilder __builder)
     {
         foreach (var tab in _context.Tabs)
+            @foreach (var (id, tab) in _context.Tabs)
         {
             tab.Render(__builder);
         }
