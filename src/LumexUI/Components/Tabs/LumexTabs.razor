@@ -2,27 +2,30 @@
 @inherits LumexComponentBase
 
 <CascadingValue TValue="TabsContext" Value="@_context" IsFixed="@true">
-    @{
-        _context.StartCollectingTabs();
-    }
-    @ChildContent
-
-    <Defer>
+    @* Unfortunate hack to make `LumexTab` always re-render when the `ActiveTab` changes to prevent its removal. *@
+    <CascadingValue TValue="LumexTab" Value="@_context.ActiveTab">
         @{
-            _context.StopCollectingTabs();
+            _context.StartCollectingTabs();
         }
-        <div class="@Slots.Root" data-slot="base">
-            <LumexComponent As="@As"
-                            Class="@Slots.TabList"
-                            Style="@Style"
-                            data-slot="tab-list"
-                            @attributes="@AdditionalAttributes">
-                @_renderTabs
-            </LumexComponent>
-        </div>
+        @ChildContent
+
+        <Defer>
+            @{
+                _context.StopCollectingTabs();
+            }
+            <div class="@Slots.Root" data-slot="base">
+                <LumexComponent As="@As"
+                                Class="@Slots.TabList"
+                                Style="@Style"
+                                data-slot="tab-list"
+                                @attributes="@AdditionalAttributes">
+                    @_renderTabs
+                </LumexComponent>
+            </div>
 
             <_TabPanel ActiveTab="@_context.ActiveTab" />
-    </Defer>
+        </Defer>
+    </CascadingValue>
 </CascadingValue>
 
 @code {
@@ -30,9 +33,9 @@
     {
         <LayoutGroup Id="@_layoutGroupId">
             @foreach (var (id, tab) in _context.Tabs)
-        {
+            {
                 tab.Render(__builder2);
-        }
+            }
         </LayoutGroup>
     }
 }

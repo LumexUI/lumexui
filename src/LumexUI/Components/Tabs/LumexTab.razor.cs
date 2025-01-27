@@ -41,11 +41,13 @@ public partial class LumexTab : LumexComponentBase
 
 	[CascadingParameter] internal TabsContext Context { get; set; } = default!;
 
+	// Unfortunate hack to make `LumexTab` always re-render when the `ActiveTab` changes to prevent its removal.
+	[CascadingParameter] internal LumexTab ActiveTab { get; set; } = default!;
+
 	private TabsSlots Slots => Context.Owner.Slots;
 	private bool Selected => Context.ActiveTab == this;
 
 	private readonly MotionProps _motionProps;
-	private LumexComponent? _ref;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexTab"/>.
