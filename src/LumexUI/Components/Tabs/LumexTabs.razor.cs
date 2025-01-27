@@ -72,6 +72,7 @@ public partial class LumexTabs : LumexComponentBase
 	private readonly TabsContext _context;
 	private readonly Memoizer<TabsSlots> _slotsMemoizer;
 	private readonly RenderFragment _renderTabs;
+	private readonly string _layoutGroupId;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexTabs"/>.
@@ -80,6 +81,7 @@ public partial class LumexTabs : LumexComponentBase
 	{
 		_context = new TabsContext( this );
 		_slotsMemoizer = new Memoizer<TabsSlots>();
+		_layoutGroupId = Identifier.New();
 		_renderTabs = RenderTabs;
 	}
 

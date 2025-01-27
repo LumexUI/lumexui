@@ -28,10 +28,11 @@
 @code {
     private void RenderTabs(RenderTreeBuilder __builder)
     {
-        foreach (var tab in _context.Tabs)
+        <LayoutGroup Id="@_layoutGroupId">
             @foreach (var (id, tab) in _context.Tabs)
         {
-            tab.Render(__builder);
+                tab.Render(__builder2);
         }
+        </LayoutGroup>
     }
 }
