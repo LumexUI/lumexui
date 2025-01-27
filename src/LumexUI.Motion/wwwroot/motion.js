@@ -50,6 +50,8 @@ async function animateLayoutId(ref, props, layoutId) {
             // First time we see this layoutId, store it
             layoutRegistry[layoutId] = curr;
         }
+
+        console.log(layoutRegistry);
     } catch (error) {
         console.error("animateLayoutId:", error);
     }
