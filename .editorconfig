@@ -141,15 +141,15 @@ csharp_style_prefer_range_operator = true
 csharp_style_prefer_tuple_swap = true
 csharp_style_prefer_utf8_string_literals = true
 csharp_style_throw_expression = true:warning
-csharp_style_unused_value_assignment_preference = discard_variable
-csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
+csharp_style_unused_value_assignment_preference = discard_variable:silent
+csharp_style_unused_value_expression_statement_preference = discard_variable
 
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:error
 
 # New line preferences
 csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = false:warning
-csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = false:warning
+csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = false
 csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental = false:warning
 csharp_style_allow_blank_lines_between_consecutive_braces_experimental = false:warning
 csharp_style_allow_embedded_statements_on_same_line_experimental = true
@@ -217,9 +217,9 @@ dotnet_naming_rule.property_should_be_pascal_case.severity = warning
 dotnet_naming_rule.property_should_be_pascal_case.symbols = property
 dotnet_naming_rule.property_should_be_pascal_case.style = pascal_case
 
-dotnet_naming_rule.field_should_be_camel_case_prefixed_with__.severity = warning
-dotnet_naming_rule.field_should_be_camel_case_prefixed_with__.symbols = field
-dotnet_naming_rule.field_should_be_camel_case_prefixed_with__.style = camel_case_prefixed_with__
+dotnet_naming_rule.private_or_internal_field_should_be_camel_case_prefixed_with__.severity = warning
+dotnet_naming_rule.private_or_internal_field_should_be_camel_case_prefixed_with__.symbols = private_or_internal_field
+dotnet_naming_rule.private_or_internal_field_should_be_camel_case_prefixed_with__.style = camel_case_prefixed_with__
 
 # Symbol specifications
 
@@ -231,13 +231,13 @@ dotnet_naming_symbols.property.applicable_kinds = property
 dotnet_naming_symbols.property.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
 dotnet_naming_symbols.property.required_modifiers = 
 
+dotnet_naming_symbols.private_or_internal_field.applicable_kinds = field
+dotnet_naming_symbols.private_or_internal_field.applicable_accessibilities = internal, private, private_protected
+dotnet_naming_symbols.private_or_internal_field.required_modifiers = 
+
 dotnet_naming_symbols.types.applicable_kinds = class, struct, interface, enum
 dotnet_naming_symbols.types.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
 dotnet_naming_symbols.types.required_modifiers = 
-
-dotnet_naming_symbols.field.applicable_kinds = field
-dotnet_naming_symbols.field.applicable_accessibilities = private
-dotnet_naming_symbols.field.required_modifiers = readonly, static
 
 # Naming styles
 
