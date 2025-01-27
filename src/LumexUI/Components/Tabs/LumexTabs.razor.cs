@@ -23,22 +23,34 @@ public partial class LumexTabs : LumexComponentBase, IDisposable
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="TabVariant.Solid"/>
+	/// </remarks>
 	[Parameter] public TabVariant Variant { get; set; }
 
 	/// <summary>
 	/// 
 	/// </summary>
-	[Parameter] public ThemeColor Color { get; set; }
+	/// <remarks>
+	/// The default value is <see cref="ThemeColor.Default"/>
+	/// </remarks>
+	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
 	/// <summary>
 	/// 
 	/// </summary>
-	[Parameter] public Size Size { get; set; }
+	/// <remarks>
+	/// The default value is <see cref="Size.Medium"/>
+	/// </remarks>
+	[Parameter] public Size Size { get; set; } = Size.Medium;
 
 	/// <summary>
 	/// 
 	/// </summary>
-	[Parameter] public Radius Radius { get; set; }
+	/// <remarks>
+	/// The default value is <see cref="Radius.Medium"/>
+	/// </remarks>
+	[Parameter] public Radius Radius { get; set; } = Radius.Medium;
 
 	/// <summary>
 	/// 
