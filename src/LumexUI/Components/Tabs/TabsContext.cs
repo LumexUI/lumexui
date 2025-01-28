@@ -9,25 +9,15 @@ namespace LumexUI;
 internal class TabsContext( LumexTabs owner ) : IComponentContext<LumexTabs>
 {
 	private bool _collectingTabs;
-	private LumexTab _activeTab = default!;
+	private LumexTab _selectedTab = default!;
 
 	public LumexTabs Owner { get; } = owner;
 	public Dictionary<object, LumexTab> Tabs { get; } = [];
-	public LumexTab ActiveTab
-	{
-		get => _activeTab;
-		set
-		{
-			_activeTab = value;
-			Owner.Rerender();
-		}
-	}
 
 	public void Register( LumexTab tab )
 	{
 		if( _collectingTabs )
 		{
-			_activeTab ??= tab;
 			Tabs.Add( tab.Id, tab );
 		}
 	}
@@ -46,5 +36,14 @@ internal class TabsContext( LumexTabs owner ) : IComponentContext<LumexTabs>
 	public void StopCollectingTabs()
 	{
 		_collectingTabs = false;
+	}
+
+	public LumexTab GetSelectedTab() => _selectedTab;
+
+	public Task SetSelectedTabAsync( LumexTab tab )
+	{
+		_selectedTab = tab;
+		Owner.Rerender();
+		return Owner.SetSelectedIdAsync( tab.Id );
 	}
 }

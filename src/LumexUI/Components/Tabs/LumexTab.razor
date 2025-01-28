@@ -16,7 +16,7 @@
                         data-disabled="@Utils.GetDataAttributeValue(GetDisabledState())"
                         data-selected="@Utils.GetDataAttributeValue(Selected)"
                         @attributes="@AdditionalAttributes"
-                        @onclick="@HandleClick">
+                        @onclick="@HandleClickAsync">
             @if (Selected)
             {
                 <Motion As="span"

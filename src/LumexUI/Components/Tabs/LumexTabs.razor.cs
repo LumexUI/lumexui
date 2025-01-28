@@ -67,6 +67,16 @@ public partial class LumexTabs : LumexComponentBase
 	/// </summary>
 	[Parameter] public ICollection<object>? DisabledItems { get; set; }
 
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public object? SelectedId { get; set; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public EventCallback<object> SelectedIdChanged { get; set; }
+
 	internal TabsSlots Slots { get; private set; } = default!;
 
 	private readonly TabsContext _context;
@@ -90,6 +100,7 @@ public partial class LumexTabs : LumexComponentBase
 	{
 		// Perform a re-building only if the dependencies have changed
 		Slots = _slotsMemoizer.Memoize( GetSlots, [
+			DisabledItems,
 			FullWidth,
 			Disabled,
 			Variant,
@@ -98,6 +109,12 @@ public partial class LumexTabs : LumexComponentBase
 			Size,
 			Class
 		] );
+	}
+
+	internal Task SetSelectedIdAsync( object id )
+	{
+		SelectedId = id;
+		return SelectedIdChanged.InvokeAsync( id );
 	}
 
 	private TabsSlots GetSlots()

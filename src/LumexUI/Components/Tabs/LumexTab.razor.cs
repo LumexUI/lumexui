@@ -48,7 +48,7 @@ public partial class LumexTab : LumexComponentBase
 	[Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
 	private TabsSlots Slots => Context.Owner.Slots;
-	private bool Selected => Context.ActiveTab == this;
+	private bool Selected => Context.GetSelectedTab() == this;
 
 	private readonly MotionProps _motionProps;
 
@@ -73,13 +73,15 @@ public partial class LumexTab : LumexComponentBase
 	}
 
 	/// <inheritdoc />
-	protected override void OnInitialized()
+	protected override Task OnInitializedAsync()
 	{
 		ContextNullException.ThrowIfNull( Context, nameof( LumexTab ) );
+
+		return Context.GetSelectedTab() is null ? Context.SetSelectedTabAsync( this ) : Task.CompletedTask;
 	}
 
 	/// <inheritdoc />
-	protected override void OnParametersSet()
+	protected override async Task OnParametersSetAsync()
 	{
 		if( Id is null )
 		{
@@ -99,20 +101,20 @@ public partial class LumexTab : LumexComponentBase
 				var relativePath = $"/{NavigationManager.ToBaseRelativePath( NavigationManager.Uri )}";
 				if( relativePath.Contains( href ) )
 				{
-					Context.ActiveTab = this;
+					await Context.SetSelectedTabAsync( this );
 				}
 			}
 		}
 	}
 
-	private void HandleClick()
+	private Task HandleClickAsync()
 	{
 		if( GetDisabledState() )
 		{
-			return;
+			return Task.CompletedTask;
 		}
 
-		Context.ActiveTab = this;
+		return Context.SetSelectedTabAsync( this );
 	}
 
 	private bool GetDisabledState() =>
