@@ -32,18 +32,32 @@ async function animateLayoutId(ref, props, layoutId) {
         // animate from the prev -> curr.
         if (layoutRegistry[layoutId]) {
             const prev = layoutRegistry[layoutId];
+
             const deltaX = prev.rect.x - curr.rect.x;
+            const deltaWidth = prev.rect.width - curr.rect.width;
+            const widthAdjustment = Math.abs(deltaWidth / 2);
+
+            const x = deltaX + (deltaWidth < 0 ? -widthAdjustment : widthAdjustment);
+            const scaleX = prev.rect.width / curr.rect.width;
+
             const enter = {
-                x: [deltaX, 0]
+                x: [x, 0], // from a translated pos back to the original (0)
+                scaleX: [scaleX, 1] // from a scaled size back to the original (1)
             };
 
-            props = mergeDeep(props || {}, { enter });
+            const transition = {
+                onUpdate: latest => {
+                    curr.rect = ref.getBoundingClientRect();
+                }
+            };
+
+            props = mergeDeep(props || {}, { enter, transition });
 
             // Update the stored rect
             layoutRegistry[layoutId] = curr;
 
             if (ref != prev.ref) {
-                // Animate from prev => curr
+                // Animate from prev -> curr
                 await animateEnter(ref, props);
             }
         } else {
