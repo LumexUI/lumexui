@@ -62,18 +62,18 @@ internal class Tabs
 		.Add( "transition-colors" )
 		.ToString();
 
-	private static readonly string _cursor = ElementClass.Empty()
-		.Add( "z-0" )
-		.Add( "absolute" )
-		.Add( "bg-white" )
-		.ToString();
-
 	private static readonly string _tabPanel = ElementClass.Empty()
 		.Add( "px-1" )
 		.Add( "py-3" )
 		.Add( "outline-none" )
 		// focus ring
 		.Add( Utils.FocusVisible )
+		.ToString();
+
+	private static readonly string _cursor = ElementClass.Empty()
+		.Add( "z-0" )
+		.Add( "absolute" )
+		.Add( "bg-white" )
 		.ToString();
 
 	public static TabsSlots GetStyles( LumexTabs tabs, TwMerge twMerge )
@@ -84,6 +84,7 @@ internal class Tabs
 				ElementClass.Empty()
 					.Add( _base )
 					.Add( GetFullWidthStyles( tabs.FullWidth, slot: nameof( _base ) ) )
+					.Add( tabs.Classes?.Root )
 					.Add( tabs.Class )
 					.ToString() ),
 
@@ -95,6 +96,7 @@ internal class Tabs
 					.Add( GetVariantStyles( tabs.Variant, slot: nameof( _tabList ) ) )
 					.Add( GetDisabledStyles( tabs.Disabled, slot: nameof( _tabList ) ) )
 					.Add( GetFullWidthStyles( tabs.FullWidth, slot: nameof( _tabList ) ) )
+					.Add( tabs.Classes?.TabList )
 					.ToString() ),
 
 			Tab = twMerge.Merge(
@@ -102,12 +104,20 @@ internal class Tabs
 					.Add( _tab )
 					.Add( GetSizeStyles( tabs.Size, slot: nameof( _tab ) ) )
 					.Add( GetRadiusStyles( tabs.Radius, slot: nameof( _tab ) ) )
+					.Add( tabs.Classes?.Tab )
 					.ToString() ),
 
 			TabContent = twMerge.Merge(
 				ElementClass.Empty()
 					.Add( _tabContent )
 					.Add( GetCompoundStyles( tabs.Variant, tabs.Color, slot: nameof( _tabContent ) ) )
+					.Add( tabs.Classes?.TabContent )
+					.ToString() ),
+
+			TabPanel = twMerge.Merge(
+				ElementClass.Empty()
+					.Add( _tabPanel )
+					.Add( tabs.Classes?.TabPanel )
 					.ToString() ),
 
 			Cursor = twMerge.Merge(
@@ -117,11 +127,7 @@ internal class Tabs
 					.Add( GetRadiusStyles( tabs.Radius, slot: nameof( _cursor ) ) )
 					.Add( GetVariantStyles( tabs.Variant, slot: nameof( _cursor ) ) )
 					.Add( GetCompoundStyles( tabs.Variant, tabs.Color, slot: nameof( _cursor ) ) )
-					.ToString() ),
-
-			TabPanel = twMerge.Merge(
-				ElementClass.Empty()
-					.Add( _tabPanel )
+					.Add( tabs.Classes?.Cursor )
 					.ToString() )
 		};
 	}

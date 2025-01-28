@@ -13,7 +13,7 @@ namespace LumexUI;
 /// <summary>
 /// 
 /// </summary>
-public partial class LumexTabs : LumexComponentBase
+public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 {
 	/// <summary>
 	/// 
@@ -77,6 +77,11 @@ public partial class LumexTabs : LumexComponentBase
 	/// </summary>
 	[Parameter] public EventCallback<object> SelectedIdChanged { get; set; }
 
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public TabsSlots? Classes { get; set; }
+
 	internal TabsSlots Slots { get; private set; } = default!;
 
 	private readonly TabsContext _context;
@@ -107,7 +112,8 @@ public partial class LumexTabs : LumexComponentBase
 			Radius,
 			Color,
 			Size,
-			Class
+			Class,
+			Classes
 		] );
 	}
 
