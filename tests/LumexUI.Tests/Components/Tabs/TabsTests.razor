@@ -1,0 +1,160 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    private readonly TestModel[] _tabs = new TestModel[]
+    {
+        new("item-1", "Item 1", "Content 1"),
+        new("item-2", "Item 2", "Content 2"),
+        new("item-3", "Item 3", "Content 3")
+    };
+
+    public TabsTests()
+    {
+        Services.AddSingleton<TwMerge>();
+        Services.AddSingleton<MotionInterop>();
+
+        var module = JSInterop.SetupModule("./_content/LumexUI.Motion/motion.js");
+        module.SetupVoid("motion.animateLayoutId", _ => true);
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexTabs>
+                @foreach(var tab in _tabs)
+                {
+                    <LumexTab Id="@tab.Id" Title="@tab.Title">
+                        @tab.Content
+                    </LumexTab>
+                }
+            </LumexTabs>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldSelectTabWithProvidedId()
+    {
+        var cut = Render(
+            @<LumexTabs SelectedId="@("item-2")">
+                @foreach(var tab in _tabs)
+                {
+                    <LumexTab Id="@tab.Id" Title="@tab.Title" data-testid="@tab.Id">
+                        @tab.Content
+                    </LumexTab>
+                }
+            </LumexTabs>
+        );
+
+        var tab = cut.FindByTestId("item-2");
+
+        tab.GetAttribute("data-selected").Should().Be("true");
+    }
+
+    [Fact]
+    public void ShouldSelectTab()
+    {
+        var cut = Render(
+            @<LumexTabs>
+                @foreach(var tab in _tabs)
+                {
+                    <LumexTab Id="@tab.Id" Title="@tab.Title" data-testid="@tab.Id">
+                        @tab.Content
+                    </LumexTab>
+                }
+            </LumexTabs>
+        );
+
+        var tab = cut.FindByTestId("item-2");
+        tab.Click();
+
+        tab.GetAttribute("data-selected").Should().Be("true");
+    }
+
+    [Fact]
+    public void ShouldAutoSelectTabIfRouteMatches()
+    {
+        var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
+        navigationManager.NavigateTo("item-2");
+
+        var cut = Render(
+            @<LumexTabs>
+                @foreach(var tab in _tabs)
+                {
+                    <LumexTab Id="@tab.Id" Title="@tab.Title" href="@($"{tab.Id}")" data-testid="@tab.Id">
+                        @tab.Content
+                    </LumexTab>
+                }
+            </LumexTabs>
+        );
+
+        var tab = cut.FindByTestId("item-2");
+        tab.GetAttribute("data-selected").Should().Be("true");
+    }
+
+    [Fact]
+    public void ShouldNotSelectDisabledTab()
+    {
+        var cut = Render(
+            @<LumexTabs DisabledItems="@(["item-2"])">
+                @foreach(var tab in _tabs)
+                {
+                    <LumexTab Id="@tab.Id" Title="@tab.Title" data-testid="@tab.Id">
+                        @tab.Content
+                    </LumexTab>
+                }
+            </LumexTabs>
+        );
+
+        var tab = cut.FindByTestId("item-2");
+        tab.Click();
+
+        tab.GetAttribute("data-selected").Should().Be("false");
+    }
+
+    [Fact]
+    public void ShouldRenderTitleContent()
+    {
+        var cut = Render(
+            @<LumexTabs>
+                @foreach(var tab in _tabs)
+                {
+                    <LumexTab Id="@tab.Id">
+                        <TitleContent>
+                            @tab.Title
+                        </TitleContent>
+                        <ChildContent>
+                            @tab.Content
+                        </ChildContent>
+                    </LumexTab>
+                }
+            </LumexTabs>
+        );
+
+        var tab = cut.FindBySlot("tab-content");
+
+        tab.TextContent.Should().Be("Item 1");
+    }
+
+    [Fact]
+    public void ShouldThrowWhenTabIdIsNotProvided()
+    {
+        var action = () => Render(
+            @<LumexTabs>
+                @foreach(var tab in _tabs)
+                {
+                    <LumexTab Title="@tab.Title">
+                        @tab.Content
+                    </LumexTab>
+                }
+            </LumexTabs>
+        );
+
+        action.Should().Throw<InvalidOperationException>();
+    }
+
+    private record TestModel(string Id, string Title, string Content);
+}
