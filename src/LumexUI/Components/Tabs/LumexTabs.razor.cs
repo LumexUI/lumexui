@@ -11,17 +11,17 @@ using Microsoft.AspNetCore.Components;
 namespace LumexUI;
 
 /// <summary>
-/// 
+/// A component that represents a tab container, managing a collection of <see cref="LumexTab"/>.
 /// </summary>
 public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 {
 	/// <summary>
-	/// 
+	/// Gets or sets the content to be rendered inside the tabs component.
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the visual variant of the tabs.
 	/// </summary>
 	/// <remarks>
 	/// The default value is <see cref="TabVariant.Solid"/>
@@ -29,7 +29,7 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 	[Parameter] public TabVariant Variant { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the color theme of the tabs.
 	/// </summary>
 	/// <remarks>
 	/// The default value is <see cref="ThemeColor.Default"/>
@@ -37,7 +37,7 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
 	/// <summary>
-	/// 
+	/// Gets or sets the size of the tabs.
 	/// </summary>
 	/// <remarks>
 	/// The default value is <see cref="Size.Medium"/>
@@ -45,7 +45,7 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 	[Parameter] public Size Size { get; set; } = Size.Medium;
 
 	/// <summary>
-	/// 
+	/// Gets or sets the border radius of the tabs.
 	/// </summary>
 	/// <remarks>
 	/// The default value is <see cref="Radius.Medium"/>
@@ -53,32 +53,32 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 	[Parameter] public Radius Radius { get; set; } = Radius.Medium;
 
 	/// <summary>
-	/// 
+	/// Gets or sets a value indicating whether the tabs container is full-width.
 	/// </summary>
 	[Parameter] public bool FullWidth { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets a value indicating whether all tabs are disabled.
 	/// </summary>
 	[Parameter] public bool Disabled { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets a collection of tab IDs that should be disabled.
 	/// </summary>
 	[Parameter] public ICollection<object>? DisabledItems { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the ID of the currently selected tab.
 	/// </summary>
 	[Parameter] public object? SelectedId { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the callback invoked when the selected tab changes.
 	/// </summary>
 	[Parameter] public EventCallback<object> SelectedIdChanged { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the CSS class names for the tabs slots.
 	/// </summary>
 	[Parameter] public TabsSlots? Classes { get; set; }
 

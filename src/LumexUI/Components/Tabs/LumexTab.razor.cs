@@ -10,41 +10,40 @@ using Microsoft.AspNetCore.Components;
 namespace LumexUI;
 
 /// <summary>
-/// 
+/// A component that represents a tab within <see cref="LumexTabs"/>.
 /// </summary>
 [CompositionComponent( typeof( LumexTab ) )]
 public partial class LumexTab : LumexComponentBase
 {
 	/// <summary>
-	/// 
+	/// Gets or sets the unique identifier for the tab.
 	/// </summary>
 	[Parameter, EditorRequired] public object Id { get; set; } = default!;
 
 	/// <summary>
-	/// 
+	/// Gets or sets the content to be rendered inside the tab panel.
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the content to be rendered as the tab's title.
 	/// </summary>
 	[Parameter] public RenderFragment? TitleContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the title text of the tab.
 	/// </summary>
 	[Parameter] public string? Title { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets a value indicating whether the tab is disabled.
 	/// </summary>
 	[Parameter] public bool Disabled { get; set; }
 
 	[CascadingParameter] internal TabsContext Context { get; set; } = default!;
 
-	// Do not use.
-	// Unfortunate hack to make `LumexTab` always re-render when the `ActiveTab` changes to prevent its removal.
-	[CascadingParameter] private LumexTab ActiveTab { get; set; } = default!;
+	// Unfortunate hack to make `LumexTab` always re-render when the `SelectedTab` changes to prevent its removal.
+	[CascadingParameter] private LumexTab SelectedTab { get; set; } = default!;
 
 	[Inject] private NavigationManager NavigationManager { get; set; } = default!;
 

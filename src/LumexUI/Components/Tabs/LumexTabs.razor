@@ -2,7 +2,7 @@
 @inherits LumexComponentBase
 
 <CascadingValue TValue="TabsContext" Value="@_context" IsFixed="@true">
-    @* Unfortunate hack to make `LumexTab` always re-render when the `ActiveTab` changes to prevent its removal. *@
+    @* Unfortunate hack to make `LumexTab` always re-render when the `SelectedTab` changes to prevent its removal. *@
     <CascadingValue TValue="LumexTab" Value="@_context.GetSelectedTab()">
         @{
             _context.StartCollectingTabs();
