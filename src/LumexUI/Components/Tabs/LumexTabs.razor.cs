@@ -119,8 +119,14 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 
 	internal Task SetSelectedIdAsync( object id )
 	{
-		SelectedId = id;
-		return SelectedIdChanged.InvokeAsync( id );
+		var hasChanged = EqualityComparer<object>.Default.Equals( SelectedId, id );
+		if( hasChanged )
+		{
+			SelectedId = id;
+			return SelectedIdChanged.InvokeAsync( id );
+		}
+
+		return Task.CompletedTask;
 	}
 
 	private TabsSlots GetSlots()

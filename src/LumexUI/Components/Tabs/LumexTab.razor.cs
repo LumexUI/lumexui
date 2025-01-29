@@ -12,6 +12,7 @@ namespace LumexUI;
 /// <summary>
 /// 
 /// </summary>
+[CompositionComponent( typeof( LumexTab ) )]
 public partial class LumexTab : LumexComponentBase
 {
 	/// <summary>
@@ -52,8 +53,6 @@ public partial class LumexTab : LumexComponentBase
 
 	private readonly MotionProps _motionProps;
 
-	private bool _isLink;
-
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexTab"/>.
 	/// </summary>
@@ -77,7 +76,22 @@ public partial class LumexTab : LumexComponentBase
 	{
 		ContextNullException.ThrowIfNull( Context, nameof( LumexTab ) );
 
-		return Context.GetSelectedTab() is null ? Context.SetSelectedTabAsync( this ) : Task.CompletedTask;
+		if( Context.GetSelectedTab() is null )
+		{
+			if( Context.Owner.SelectedId is not null )
+			{
+				if( Equals( Context.Owner.SelectedId, Id ) )
+				{
+					return Context.SetSelectedTabAsync( this );
+				}
+
+				return Task.CompletedTask;
+			}
+
+			return Context.SetSelectedTabAsync( this );
+		}
+
+		return Task.CompletedTask;
 	}
 
 	/// <inheritdoc />
@@ -92,7 +106,6 @@ public partial class LumexTab : LumexComponentBase
 		if( AdditionalAttributes?.TryGetValue( "href", out var value ) == true )
 		{
 			As = "a";
-			_isLink = true;
 
 			// Set as active if current route's relative path contains href value.
 			var href = value?.ToString();

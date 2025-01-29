@@ -13,18 +13,18 @@ namespace LumexUI.Internal;
 /// </summary>
 public partial class _TabPanel : LumexComponentBase
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [Parameter] public LumexTab ActiveTab { get; set; } = default!;
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public LumexTab? SelectedTab { get; set; }
 
-    [CascadingParameter] internal TabsContext Context { get; set; } = default!;
+	[CascadingParameter] internal TabsContext Context { get; set; } = default!;
 
-    private TabsSlots Slots => Context.Owner.Slots;
+	private TabsSlots Slots => Context.Owner.Slots;
 
-    /// <inheritdoc />
-    protected override void OnInitialized()
-    {
-        ContextNullException.ThrowIfNull( Context, nameof( _TabPanel ) );
-    }
+	/// <inheritdoc />
+	protected override void OnInitialized()
+	{
+		ContextNullException.ThrowIfNull( Context, nameof( _TabPanel ) );
+	}
 }

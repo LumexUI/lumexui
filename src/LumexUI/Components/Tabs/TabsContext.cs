@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+
 using LumexUI.Common;
 
 namespace LumexUI;
@@ -9,19 +11,25 @@ namespace LumexUI;
 internal class TabsContext( LumexTabs owner ) : IComponentContext<LumexTabs>
 {
 	private bool _collectingTabs;
-	private LumexTab _selectedTab = default!;
+	private LumexTab? _selectedTab;
 
 	public LumexTabs Owner { get; } = owner;
 	public Dictionary<object, LumexTab> Tabs { get; } = [];
 
 	public void Register( LumexTab tab )
 	{
-		if( _collectingTabs )
+		if( !_collectingTabs )
+		{
+			return;
+		}
+
+		if( tab.Id is not null )
 		{
 			Tabs.Add( tab.Id, tab );
 		}
 	}
 
+	[ExcludeFromCodeCoverage( Justification = "Not used. Will be refactored." )]
 	public void Unregister( LumexTab tab )
 	{
 		Tabs.Remove( tab );
@@ -38,7 +46,7 @@ internal class TabsContext( LumexTabs owner ) : IComponentContext<LumexTabs>
 		_collectingTabs = false;
 	}
 
-	public LumexTab GetSelectedTab() => _selectedTab;
+	public LumexTab? GetSelectedTab() => _selectedTab;
 
 	public Task SetSelectedTabAsync( LumexTab tab )
 	{
