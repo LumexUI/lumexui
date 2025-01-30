@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
@@ -45,14 +45,21 @@
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.11" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="TailwindMerge.NET" Version="0.3.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\LumexUI.Motion\LumexUI.Motion.csproj" />
-		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj" PrivateAssets="all" />
+		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj" />
 	</ItemGroup>
 
 	<!-- Add utilities to the build output -->
