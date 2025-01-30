@@ -112,7 +112,7 @@ public partial class LumexTab : LumexComponentBase
 			{
 				var relativePath = $"/{NavigationManager.ToBaseRelativePath( NavigationManager.Uri )}";
 				if( relativePath.Equals( href, StringComparison.OrdinalIgnoreCase ) ||
-					relativePath.StartsWith( $"{href}/", StringComparison.OrdinalIgnoreCase ) )
+					relativePath.StartsWith( $"{href}", StringComparison.OrdinalIgnoreCase ) )
 				{
 					await Context.SetSelectedTabAsync( this );
 				}
