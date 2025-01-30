@@ -84,7 +84,7 @@
             @<LumexTabs>
                 @foreach(var tab in _tabs)
                 {
-                    <LumexTab Id="@tab.Id" Title="@tab.Title" href="@($"{tab.Id}")" data-testid="@tab.Id">
+                    <LumexTab Id="@tab.Id" Title="@tab.Title" href="@($"/{tab.Id}")" data-testid="@tab.Id">
                         @tab.Content
                     </LumexTab>
                 }
