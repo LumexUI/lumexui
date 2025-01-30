@@ -1,5 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const lumexui = '../../src/LumexUI/';
+const lumexui = '../../src/LumexUI';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
