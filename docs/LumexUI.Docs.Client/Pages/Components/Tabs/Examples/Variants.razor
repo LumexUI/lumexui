@@ -1,0 +1,10 @@
+﻿<div class="flex flex-wrap gap-4">
+    @foreach (var variant in Enum.GetValues<TabVariant>())
+    {
+        <LumexTabs Variant="@variant">
+            <LumexTab Id="@("photos")" Title="Photos" />
+            <LumexTab Id="@("music")" Title="Music" />
+            <LumexTab Id="@("videos")" Title="Videos" />
+        </LumexTabs>
+    }
+</div>

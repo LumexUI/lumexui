@@ -1,0 +1,48 @@
+﻿<div class="w-full flex flex-col">
+    <LumexTabs Variant="@TabVariant.Underlined"
+               Color="@ThemeColor.Primary"
+               Classes="@_classes">
+        <LumexTab Id="@("photos")">
+            <TitleContent>
+                <div class="flex items-center space-x-2">
+                    <LumexIcon Icon="@Icons.Rounded.PhotoLibrary" />
+                    <span>Photos</span>
+                    @_chip(12)
+                </div>
+            </TitleContent>
+        </LumexTab>
+        <LumexTab Id="@("music")">
+            <TitleContent>
+                <div class="flex items-center space-x-2">
+                    <LumexIcon Icon="@Icons.Rounded.LibraryMusic" />
+                    <span>Music</span>
+                    @_chip(2)
+                </div>
+            </TitleContent>
+        </LumexTab>
+        <LumexTab Id="@("videos")">
+            <TitleContent>
+                <div class="flex items-center space-x-2">
+                    <LumexIcon Icon="@Icons.Rounded.VideoLibrary" />
+                    <span>Videos</span>
+                    @_chip(7)
+                </div>
+            </TitleContent>
+        </LumexTab>
+    </LumexTabs>
+</div>
+
+@code {
+    private RenderFragment<int> _chip = content =>
+    @<div class="size-5 inline-flex items-center justify-center border-2 border-default-200 bg-default-100 text-default-foreground rounded-full">
+        <span class="text-tiny">@content</span>
+    </div>;
+
+    private TabsSlots _classes = new()
+    {
+        TabList = "gap-6 w-full rounded-none p-0 border-b border-divider",
+        Tab = "max-w-fit px-0 h-12",
+        TabContent = "group-data-[selected=true]:text-secondary",
+        Cursor = "w-full bg-secondary"
+    };
+}

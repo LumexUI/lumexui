@@ -3,10 +3,84 @@
 
 @using LumexUI.Docs.Client.Pages.Components.Tabs.PreviewCodes
 
+<DocsCompositionSection Components="@_compositionComponents" />
+
 <DocsSection Title="Usage">
-    <p>The textbox component provides a simple way to input and edit text data.</p>
+    <p>
+        Tabs organize content into multiple sections and
+        allow users to navigate between them seamlessly.
+    </p>
     <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            You can disable the tabs to prevent user interaction.
+            The disabled tabs are faded and does not respond to user clicks.
+        </p>
+        <Disabled />
+
+        <p>Alternatively, you can prevent user interaction by disabling specific tabs.</p>
+        <DisabledItems />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>Adjust the size of the tabs, from small to larger ones.</p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>Customize the border radius of the tabs for rounded or squared edges.</p>
+        <Radius />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>Apply different color schemes to the tabs.</p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Variants">
+        <p>
+            Switch between different visual styles,
+            such as <Code>Solid</Code>, <Code>Outlined</Code>,
+            <Code>Underlined</Code>, or <Code>Light</Code> tabs.
+        </p>
+        <Variants />
+    </DocsSection>
+
+    <DocsSection Title="Links">
+        <p>
+            Tabs can be rendered as links by providing the
+            <Code>href</Code> attribute to the <Code>Tab</Code> component.
+        </p>
+        <Links />
+    </DocsSection>
+
+    <DocsSection Title="Title Content">
+        <p>Add custom content to the tab titles, such as icons or additional information.</p>
+        <TitleContent />
+    </DocsSection>
+
+    <DocsSection Title="Two-Way Data Binding">
+        <p>
+            The <Code>Tabs</Code> component supports two-way data binding,
+            allowing you to programmatically control the selected tab.
+            You can achieve this using the <Code>@@bind-Value</Code> directive,
+            or the <Code>@@Value</Code> and <Code>@@ValueChanged</Code> parameters.
+        </p>
+        <TwoWayDataBinding />
+    </DocsSection>
 </DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Tabs</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the slots.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
 
 <DocsApiSection Components="@_apiComponents" />
 
@@ -16,17 +90,39 @@
     private readonly Heading[] _headings = new Heading[]
     {
         new("Usage", [
+            new("Disalbed"),
+            new("Sizes"),
+            new("Radius"),
+            new("Colors"),
+            new("Variants"),
+            new("Links"),
+            new("Title Content"),
+            new("Two-Way Data Binding")
         ]),
         new("Custom Styles"),
         new("API")
     };
 
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+        new(nameof(LumexTabs), "A component representing a tab list."),
+        new(nameof(LumexTab), "A component representing a tab and its content.")
+    };
+
     private readonly Slot[] _slots = new Slot[]
     {
+        new(nameof(TabsSlots.Root), "The main container for the entire tabs component."),
+        new(nameof(TabsSlots.TabList), "The wrapper for all the tabs."),
+        new(nameof(TabsSlots.Tab), "The individual tab that users click to switch between panels."),
+        new(nameof(TabsSlots.TabContent), "The content displayed within a tab."),
+        new(nameof(TabsSlots.TabPanel), "The container for the content associated with the selected tab."),
+        new(nameof(TabsSlots.Cursor), "The indicator that highlights the selected tab.")
     };
 
     private readonly string[] _apiComponents = new string[]
     {
+        nameof(LumexTabs),
+        nameof(LumexTab)
     };
 
     protected override void OnInitialized()
@@ -34,9 +130,9 @@
         Layout.Initialize(
             title: "Tabs",
             category: "Components",
-            description: "Tabs organize content into multiple sections, allowing users to switch between them.",
+            description: "Tabs make it easy to explore and switch between different views.",
             headings: _headings,
-            linksProps: new ComponentLinksProps( "Tabs", isServer: false )
+            linksProps: new ComponentLinksProps("Tabs", isServer: false)
         );
     }
 }
