@@ -2,7 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-namespace LumexUI;
+namespace LumexUI.Common;
 
 /// <summary>
 /// Specifies the placement options for label in input field components, 
