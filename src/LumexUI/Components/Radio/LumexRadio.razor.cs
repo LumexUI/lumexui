@@ -45,7 +45,7 @@ public partial class LumexRadio<TValue> : LumexComponentBase, ISlotComponent<Rad
 	/// Gets or sets a color of the radio button.
 	/// </summary>
 	/// <remarks>
-	/// The default is <see cref="ThemeColor.Default"/>
+	/// The default is <see cref="ThemeColor.Primary"/>
 	/// </remarks>
 	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Primary;
 
