@@ -17,6 +17,8 @@ insert_final_newline = false
 
 #### .NET Code Actions ####
 
+dotnet_diagnostic.IDE0130.severity = silent
+
 # Type members
 dotnet_hide_advanced_members = false
 dotnet_member_insertion_location = with_other_members_of_the_same_kind
@@ -217,7 +219,7 @@ dotnet_naming_rule.property_should_be_pascal_case.severity = warning
 dotnet_naming_rule.property_should_be_pascal_case.symbols = property
 dotnet_naming_rule.property_should_be_pascal_case.style = pascal_case
 
-dotnet_naming_rule.private_or_internal_field_should_be_camel_case_prefixed_with__.severity = warning
+dotnet_naming_rule.private_or_internal_field_should_be_camel_case_prefixed_with__.severity = silent
 dotnet_naming_rule.private_or_internal_field_should_be_camel_case_prefixed_with__.symbols = private_or_internal_field
 dotnet_naming_rule.private_or_internal_field_should_be_camel_case_prefixed_with__.style = camel_case_prefixed_with__
 
