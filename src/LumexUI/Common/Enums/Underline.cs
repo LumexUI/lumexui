@@ -4,11 +4,23 @@
 
 namespace LumexUI.Common;
 
+/// <summary>
+/// Specifies underline behavior for the <see cref="LumexLink"/>.
+/// </summary>
 public enum Underline
 {
+	/// <summary>
+	/// No underline.
+	/// </summary>
 	None,
 
+	/// <summary>
+	/// Underline on hover.
+	/// </summary>
 	Hover,
 
+	/// <summary>
+	/// Underline always visible.
+	/// </summary>
 	Always
 }

@@ -4,11 +4,23 @@
 
 namespace LumexUI.Common;
 
+/// <summary>
+/// Specifies the type of the <see cref="LumexButton"/>.
+/// </summary>
 public enum ButtonType
 {
+	/// <summary>
+	/// A standard button with no default behavior.
+	/// </summary>
 	Button,
 
-    Submit,
+	/// <summary>
+	/// A button that submits form data.
+	/// </summary>
+	Submit,
 
-    Reset
+	/// <summary>
+	/// A button that resets all form fields to their initial values.
+	/// </summary>
+	Reset
 }

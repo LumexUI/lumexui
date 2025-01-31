@@ -10,36 +10,35 @@ using Microsoft.JSInterop;
 
 namespace LumexUI.Extensions;
 
+/// <summary>
+/// Provides extension methods for working with <see cref="ElementReference"/>.
+/// </summary>
 [ExcludeFromCodeCoverage]
 public static class ElementReferenceExtensions
 {
-    [UnsafeAccessor( UnsafeAccessorKind.Field, Name = "<JSRuntime>k__BackingField" )]
-    private static extern ref IJSRuntime GetJSRuntime( WebElementReferenceContext context );
+	[UnsafeAccessor( UnsafeAccessorKind.Field, Name = "<JSRuntime>k__BackingField" )]
+	private static extern ref IJSRuntime GetJSRuntime( WebElementReferenceContext context );
 
-    public static ValueTask<int> GetScrollHeightAsync( this ElementReference? elementReference )
-    {
-        var jsRuntime = elementReference.GetJSRuntime();
-        return jsRuntime.InvokeAsync<int>( "Lumex.elementReference.getScrollHeight", elementReference );
-    }
+	/// <summary>
+	/// Asynchronously gets the scroll height of the specified <see cref="ElementReference"/>.
+	/// </summary>
+	/// <param name="elementReference">The element reference.</param>
+	/// <returns>
+	/// A <see cref="ValueTask{Int32}"/> representing the asynchronous operation that returns the scroll height of the element.
+	/// </returns>
+	public static ValueTask<int> GetScrollHeightAsync( this ElementReference? elementReference )
+	{
+		var jsRuntime = elementReference.GetJSRuntime();
+		return jsRuntime.InvokeAsync<int>( "Lumex.elementReference.getScrollHeight", elementReference );
+	}
 
-    public static ValueTask PortalToAsync( this ElementReference? elementReference )
-    {
-        return PortalToAsync( elementReference, "body" );
-    }
+	private static IJSRuntime GetJSRuntime( this ElementReference? elementReference )
+	{
+		if( elementReference is not { Context: WebElementReferenceContext context } )
+		{
+			throw new InvalidOperationException( "ElementReference has not been configured correctly." );
+		}
 
-    public static ValueTask PortalToAsync( this ElementReference? elementReference, string selector )
-    {
-        var jsRuntime = elementReference.GetJSRuntime();
-        return jsRuntime.InvokeVoidAsync( "Lumex.elementReference.portalTo", elementReference, selector );
-    }
-
-    private static IJSRuntime GetJSRuntime( this ElementReference? elementReference )
-    {
-        if( elementReference is not { Context: WebElementReferenceContext context } )
-        {
-            throw new InvalidOperationException( "ElementReference has not been configured correctly." );
-        }
-
-        return GetJSRuntime( context ) ?? throw new InvalidOperationException( "No JavaScript runtime found." );
-    }
+		return GetJSRuntime( context ) ?? throw new InvalidOperationException( "No JavaScript runtime found." );
+	}
 }

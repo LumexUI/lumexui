@@ -4,15 +4,33 @@
 
 namespace LumexUI.Common;
 
+/// <summary>
+/// Specifies the visual variants for the <see cref="LumexListboxItem{TValue}"/>.
+/// </summary>
 public enum ListboxVariant
 {
-    Solid,
+	/// <summary>
+	/// A variant with a solid background.
+	/// </summary>
+	Solid,
 
-    Outlined,
+	/// <summary>
+	/// A variant with an outlined border.
+	/// </summary>
+	Outlined,
 
-    Flat,
+	/// <summary>
+	/// A variant with a subtle background.
+	/// </summary>
+	Flat,
 
-    Shadow,
+	/// <summary>
+	/// A variant with a shadow effect.
+	/// </summary>
+	Shadow,
 
-    Light
+	/// <summary>
+	/// A variant without any styling.
+	/// </summary>
+	Light
 }

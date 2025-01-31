@@ -9,18 +9,21 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
+/// <summary>
+/// A component that represents a divider for separating content.
+/// </summary>
 public partial class LumexDivider : LumexComponentBase
 {
-    /// <summary>
-    /// Gets or sets a value defining the divider's orientation.
-    /// </summary>
-    /// <remarks>
-    /// Default value is <see cref="Orientation.Horizontal" />
-    /// </remarks>
-    [Parameter] public Orientation Orientation { get; set; }
+	/// <summary>
+	/// Gets or sets a value defining the divider's orientation.
+	/// </summary>
+	/// <remarks>
+	/// Default value is <see cref="Orientation.Horizontal" />
+	/// </remarks>
+	[Parameter] public Orientation Orientation { get; set; }
 
-    private protected override string? RootClass => 
-        TwMerge.Merge( Divider.GetStyles( this ) );
+	private protected override string? RootClass =>
+		TwMerge.Merge( Divider.GetStyles( this ) );
 
-    private new string As => Orientation is Orientation.Horizontal ? "hr" : "div";
+	private new string As => Orientation is Orientation.Horizontal ? "hr" : "div";
 }

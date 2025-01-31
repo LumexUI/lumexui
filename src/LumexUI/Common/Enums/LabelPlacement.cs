@@ -1,17 +1,22 @@
-﻿namespace LumexUI;
+﻿// Copyright (c) LumexUI 2024
+// LumexUI licenses this file to you under the MIT license
+// See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
+
+namespace LumexUI;
 
 /// <summary>
-/// Specifies the placement options for the label of an input component.
+/// Specifies the placement options for label in input field components, 
+/// such as <see cref="LumexTextbox"/>, <see cref="LumexSelect{TValue}"/> and others.
 /// </summary>
 public enum LabelPlacement
 {
-    /// <summary>
-    /// Places the label inside the input component.
-    /// </summary>
-    Inside,
+	/// <summary>
+	/// The label is placed inside the input field.
+	/// </summary>
+	Inside,
 
-    /// <summary>
-    /// Places the label outside the input component.
-    /// </summary>
-    Outside
+	/// <summary>
+	/// The label is placed outside the input field.
+	/// </summary>
+	Outside
 }

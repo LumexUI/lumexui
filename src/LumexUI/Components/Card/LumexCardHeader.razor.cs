@@ -9,21 +9,25 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
+/// <summary>
+/// A component that represents the header section of the <see cref="LumexCard"/>.
+/// </summary>
 [CompositionComponent( typeof( LumexCard ) )]
 public partial class LumexCardHeader : LumexComponentBase
 {
-    /// <summary>
-    /// Gets or sets content to be rendered inside the card header.
-    /// </summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+	/// <summary>
+	/// Gets or sets content to be rendered inside the card header.
+	/// </summary>
+	[Parameter] public RenderFragment? ChildContent { get; set; }
 
-    [CascadingParameter] internal CardContext Context { get; set; } = default!;
+	[CascadingParameter] internal CardContext Context { get; set; } = default!;
 
-    private protected override string? RootClass
-        => TwMerge.Merge( Card.GetHeaderStyles( this ) );
+	private protected override string? RootClass
+		=> TwMerge.Merge( Card.GetHeaderStyles( this ) );
 
-    protected override void OnInitialized()
-    {
-        ContextNullException.ThrowIfNull( Context, nameof( LumexCardHeader ) );
-    }
+	/// <inheritdoc />
+	protected override void OnInitialized()
+	{
+		ContextNullException.ThrowIfNull( Context, nameof( LumexCardHeader ) );
+	}
 }

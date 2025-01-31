@@ -4,9 +4,18 @@
 
 namespace LumexUI.Common;
 
+/// <summary>
+/// Specifies the orientation of a component.
+/// </summary>
 public enum Orientation
 {
+	/// <summary>
+	/// The horizontal arrangement.
+	/// </summary>
 	Horizontal,
 
+	/// <summary>
+	/// The vertical arrangement.
+	/// </summary>
 	Vertical
 }

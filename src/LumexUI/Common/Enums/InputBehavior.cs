@@ -5,19 +5,17 @@
 namespace LumexUI.Common;
 
 /// <summary>
-/// Specifies when the input component updates its value and triggers validation.
+/// Specifies the behavior of an input field when handling user input.
 /// </summary>
 public enum InputBehavior
 {
-    /// <summary>
-    /// Updates the value and triggers validation 
-    /// on each input event (e.g., when the user types in the input field).
-    /// </summary>
-    OnInput,
+	/// <summary>
+	/// Triggers the input event as the user types.
+	/// </summary>
+	OnInput,
 
-    /// <summary>
-    /// Updates the value and triggers validation 
-    /// on change events (e.g., when the input field loses focus or the user presses enter).
-    /// </summary>
-    OnChange
+	/// <summary>
+	/// Triggers the input event only when the field loses focus or the value changes.
+	/// </summary>
+	OnChange
 }

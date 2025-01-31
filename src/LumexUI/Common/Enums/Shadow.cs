@@ -4,13 +4,28 @@
 
 namespace LumexUI.Common;
 
+/// <summary>
+/// Specifies the shadow intensity levels for a component.
+/// </summary>
 public enum Shadow
 {
-    None,
+	/// <summary>
+	/// No shadow.
+	/// </summary>
+	None,
 
+	/// <summary>
+	/// A small shadow.
+	/// </summary>
 	Small,
 
+	/// <summary>
+	/// A medium shadow.
+	/// </summary>
 	Medium,
 
+	/// <summary>
+	/// A large shadow.
+	/// </summary>
 	Large
 }

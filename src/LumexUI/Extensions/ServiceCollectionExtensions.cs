@@ -21,54 +21,55 @@ namespace LumexUI.Extensions;
 [ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
-    /// <summary>
-    /// Adds the LumexUI services to the specified <see cref="IServiceCollection"/>.
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/>.</param>
-    public static void AddLumexServices( this IServiceCollection services )
-    {
-        services.AddLumexMotion();
-        services.AddTwMerge();
-        services.AddPopoverService();
-    }
+	/// <summary>
+	/// Adds the LumexUI services to the specified <see cref="IServiceCollection"/>.
+	/// </summary>
+	/// <param name="services">The <see cref="IServiceCollection"/>.</param>
+	public static void AddLumexServices( this IServiceCollection services )
+	{
+		services.AddLumexMotion();
+		services.AddTwMerge();
+		services.AddPopoverService();
+	}
 
-    /// <summary>
-    /// Adds the LumexUI services to the specified <see cref="IServiceCollection"/>.
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/>.</param>
-    public static void AddLumexServices( this IServiceCollection services, Action<TwMergeConfig> options )
-    {
-        services.AddLumexMotion();
-        services.AddTwMerge( options );
-        services.AddPopoverService();
-    }
+	/// <summary>
+	/// Adds Lumex services to the specified <see cref="IServiceCollection"/>.
+	/// </summary>
+	/// <param name="services">The service collection to configure.</param>
+	/// <param name="options">An action to configure the <see cref="TwMergeConfig"/>.</param>
+	public static void AddLumexServices( this IServiceCollection services, Action<TwMergeConfig> options )
+	{
+		services.AddLumexMotion();
+		services.AddTwMerge( options );
+		services.AddPopoverService();
+	}
 
-    private static void AddTwMerge( this IServiceCollection services )
-    {
-        services.AddTailwindMerge( options =>
-        {
-            options.Extend( new ExtendedConfig()
-            {
-                ClassGroups = new()
-                {
-                    ["shadow"] = new ClassGroup( "shadow", ["small", "medium", "large"] ),
-                    ["rounded"] = new ClassGroup( "rounded", ["small", "medium", "large"] ),
-                    ["opacity"] = new ClassGroup( "opacity", ["hover", "focus", "disabled", "divider"] ),
-                    ["leading"] = new ClassGroup( "leading", ["tiny", "small", "medium", "large"] ),
-                    ["font-size"] = new ClassGroup( "text", ["tiny", "small", "medium", "large"] ),
-                }
-            } );
-        } );
-    }
+	private static void AddTwMerge( this IServiceCollection services )
+	{
+		services.AddTailwindMerge( options =>
+		{
+			options.Extend( new ExtendedConfig()
+			{
+				ClassGroups = new()
+				{
+					["shadow"] = new ClassGroup( "shadow", ["small", "medium", "large"] ),
+					["rounded"] = new ClassGroup( "rounded", ["small", "medium", "large"] ),
+					["opacity"] = new ClassGroup( "opacity", ["hover", "focus", "disabled", "divider"] ),
+					["leading"] = new ClassGroup( "leading", ["tiny", "small", "medium", "large"] ),
+					["font-size"] = new ClassGroup( "text", ["tiny", "small", "medium", "large"] ),
+				}
+			} );
+		} );
+	}
 
-    private static void AddTwMerge( this IServiceCollection services, Action<TwMergeConfig> options )
-    {
-        services.AddTwMerge();
-        services.Configure( options );
-    }
+	private static void AddTwMerge( this IServiceCollection services, Action<TwMergeConfig> options )
+	{
+		services.AddTwMerge();
+		services.Configure( options );
+	}
 
-    private static void AddPopoverService( this IServiceCollection services )
-    {
-        services.AddScoped<IPopoverService, PopoverService>();
-    }
+	private static void AddPopoverService( this IServiceCollection services )
+	{
+		services.AddScoped<IPopoverService, PopoverService>();
+	}
 }

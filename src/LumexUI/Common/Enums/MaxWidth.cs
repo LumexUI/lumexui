@@ -4,17 +4,38 @@
 
 namespace LumexUI.Common;
 
+/// <summary>
+/// Specifies the maximum width options for a <see cref="LumexNavbar"/>.
+/// </summary>
 public enum MaxWidth
 {
+	/// <summary>
+	/// A small maximum width.
+	/// </summary>
 	Small,
 
+	/// <summary>
+	/// A medium maximum width.
+	/// </summary>
 	Medium,
 
+	/// <summary>
+	/// A large maximum width.
+	/// </summary>
 	Large,
 
-    XLarge,
+	/// <summary>
+	/// An extra-large maximum width.
+	/// </summary>
+	XLarge,
 
-    XXLarge,
+	/// <summary>
+	/// A double extra-large maximum width.
+	/// </summary>
+	XXLarge,
 
-    Full
+	/// <summary>
+	/// The maximum width spans the full available space.
+	/// </summary>
+	Full
 }

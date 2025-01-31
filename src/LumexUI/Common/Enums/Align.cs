@@ -5,22 +5,22 @@
 namespace LumexUI.Common;
 
 /// <summary>
-/// Specifies the alignment options.
+/// Specifies alignment options of a component.
 /// </summary>
 public enum Align
 {
-    /// <summary>
-    /// Aligns the content to the start.
-    /// </summary>
-    Start,
+	/// <summary>
+	/// Alignment to the start.
+	/// </summary>
+	Start,
 
-    /// <summary>
-    /// Aligns the content to the center.
-    /// </summary>
-    Center,
+	/// <summary>
+	/// Alignment to the center.
+	/// </summary>
+	Center,
 
-    /// <summary>
-    /// Aligns the content to the end.
-    /// </summary>
-    End
+	/// <summary>
+	/// Alignment to the end.
+	/// </summary>
+	End
 }

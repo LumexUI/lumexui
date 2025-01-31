@@ -5,22 +5,22 @@
 namespace LumexUI.Common;
 
 /// <summary>
-/// Specifies the selection mode for a component.
+/// Specifies the selection modes for a component.
 /// </summary>
 public enum SelectionMode
 {
-    /// <summary>
-    /// No selection is allowed.
-    /// </summary>
-    None,
+	/// <summary>
+	/// No selection allowed.
+	/// </summary>
+	None,
 
-    /// <summary>
-    /// Single item selection is allowed.
-    /// </summary>
-    Single,
+	/// <summary>
+	/// Allows selecting a single item.
+	/// </summary>
+	Single,
 
-    /// <summary>
-    /// Multiple items selection is allowed.
-    /// </summary>
-    Multiple
+	/// <summary>
+	/// Allows selecting multiple items.
+	/// </summary>
+	Multiple
 }

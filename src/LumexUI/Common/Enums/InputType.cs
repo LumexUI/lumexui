@@ -7,55 +7,55 @@ using System.ComponentModel;
 namespace LumexUI.Common;
 
 /// <summary>
-/// Specifies the different types of input elements.
+/// Specifies the type of the <see cref="LumexTextbox"/>.
 /// </summary>
 public enum InputType
 {
-    /// <summary>
-    /// A text input field.
-    /// </summary>
-    [Description( "text" )]
-    Text,
+	/// <summary>
+	/// A single-line text input field.
+	/// </summary>
+	[Description( "text" )]
+	Text,
 
-    /// <summary>
-    /// A password input field.
-    /// </summary>
-    [Description( "password" )]
-    Password,
+	/// <summary>
+	/// A password input field that masks the entered characters.
+	/// </summary>
+	[Description( "password" )]
+	Password,
 
-    /// <summary>
-    /// An email input field.
-    /// </summary>
-    [Description( "email" )]
-    Email,
+	/// <summary>
+	/// An input field for email addresses with built-in validation.
+	/// </summary>
+	[Description( "email" )]
+	Email,
 
-    /// <summary>
-    /// A hidden input field.
-    /// </summary>
-    [Description( "hidden" )]
-    Hidden,
+	/// <summary>
+	/// A hidden input field that is not visible to the user.
+	/// </summary>
+	[Description( "hidden" )]
+	Hidden,
 
-    /// <summary>
-    /// A search input field.
-    /// </summary>
-    [Description( "search" )]
-    Search,
+	/// <summary>
+	/// A search input field optimized for search queries.
+	/// </summary>
+	[Description( "search" )]
+	Search,
 
-    /// <summary>
-    /// A telephone input field.
-    /// </summary>
-    [Description( "tel" )]
-    Telephone,
+	/// <summary>
+	/// An input field for telephone numbers.
+	/// </summary>
+	[Description( "tel" )]
+	Telephone,
 
-    /// <summary>
-    /// A URL input field.
-    /// </summary>
-    [Description( "url" )]
-    Url,
+	/// <summary>
+	/// An input field for entering a URL.
+	/// </summary>
+	[Description( "url" )]
+	Url,
 
-    /// <summary>
-    /// A color input field.
-    /// </summary>
-    [Description( "color" )]
-    Color
+	/// <summary>
+	/// An input field for selecting a color.
+	/// </summary>
+	[Description( "color" )]
+	Color
 }

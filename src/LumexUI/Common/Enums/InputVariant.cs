@@ -5,22 +5,23 @@
 namespace LumexUI.Common;
 
 /// <summary>
-/// Specifies the different variants for an input component.
+/// Specifies the visual variants for input field components, 
+/// such as <see cref="LumexTextbox"/>, <see cref="LumexSelect{TValue}"/>, and others.
 /// </summary>
 public enum InputVariant
 {
-    /// <summary>
-    /// A flat variant input.
-    /// </summary>
-    Flat,
+	/// <summary>
+	/// A variant with a subtle background.
+	/// </summary>
+	Flat,
 
-    /// <summary>
-    /// An outlined variant input.
-    /// </summary>
-    Outlined,
+	/// <summary>
+	/// A variant with an outlined border.
+	/// </summary>
+	Outlined,
 
-    /// <summary>
-    /// An underlined variant input.
-    /// </summary>
-    Underlined
+	/// <summary>
+	/// A variant with an underline.
+	/// </summary>
+	Underlined
 }

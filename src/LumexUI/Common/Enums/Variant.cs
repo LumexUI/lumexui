@@ -4,17 +4,38 @@
 
 namespace LumexUI.Common;
 
+/// <summary>
+/// Specifies the visual variants for a component.
+/// </summary>
 public enum Variant
 {
-    Solid,
+	/// <summary>
+	/// A variant with a filled background.
+	/// </summary>
+	Solid,
 
-    Outlined,
+	/// <summary>
+	/// A variant with an outlined border.
+	/// </summary>
+	Outlined,
 
-    Flat,
+	/// <summary>
+	/// A variant with a subtle background.
+	/// </summary>
+	Flat,
 
-    Shadow,
+	/// <summary>
+	/// A variant with a shadow effect.
+	/// </summary>
+	Shadow,
 
-    Ghost,
+	/// <summary>
+	/// A variant with an outlined border; with a filled background on hover.
+	/// </summary>
+	Ghost,
 
-    Light
+	/// <summary>
+	/// A variant without any styling.
+	/// </summary>
+	Light
 }

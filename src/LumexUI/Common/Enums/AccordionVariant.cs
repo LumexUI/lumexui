@@ -4,13 +4,28 @@
 
 namespace LumexUI.Common;
 
+/// <summary>
+/// Specifies the visual variants for the <see cref="LumexAccordion"/>.
+/// </summary>
 public enum AccordionVariant
 {
-    Light,
+	/// <summary>
+	/// A variant without any styling.
+	/// </summary>
+	Light,
 
-    Shadow,
+	/// <summary>
+	/// A variant with a shadow effect.
+	/// </summary>
+	Shadow,
 
-    Bordered,
+	/// <summary>
+	/// A variant with a visible border around the accordion.
+	/// </summary>
+	Bordered,
 
-    Splitted
+	/// <summary>
+	/// A variant where sections are visually separated.
+	/// </summary>
+	Splitted
 }

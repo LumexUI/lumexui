@@ -5,26 +5,20 @@
 namespace LumexUI.Common;
 
 /// <summary>
-/// Specifies the layout behavior for a table, determining how the table and its columns are sized.
+/// Specifies the table layout algorithm used for rendering.
 /// </summary>
 /// <remarks>
-/// See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout" />
+/// See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout">table-layout</see> for details.
 /// </remarks>
 public enum Layout
 {
-    /// <summary>
-    /// Automatically sizes columns based on content, allowing for flexible widths.
-    /// </summary>
-    /// <remarks>
-    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout" />
-    /// </remarks>
-    Auto,
+	/// <summary>
+	/// The table layout is determined automatically based on the content of the cells.
+	/// </summary>
+	Auto,
 
-    /// <summary>
-    /// Fixes the width of columns, preventing them from adjusting based on content.
-    /// </summary>
-    /// <remarks>
-    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout" />
-    /// </remarks>
-    Fixed
+	/// <summary>
+	/// The table layout is fixed, meaning column widths are determined by the table's first row and do not change based on content.
+	/// </summary>
+	Fixed
 }

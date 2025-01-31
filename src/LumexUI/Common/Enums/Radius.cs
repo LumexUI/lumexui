@@ -4,13 +4,28 @@
 
 namespace LumexUI.Common;
 
+/// <summary>
+/// Specifies the border radius options for a component.
+/// </summary>
 public enum Radius
 {
-    None,
+	/// <summary>
+	/// No border radius.
+	/// </summary>
+	None,
 
+	/// <summary>
+	/// A small border radius.
+	/// </summary>
 	Small,
 
+	/// <summary>
+	/// A medium border radius.
+	/// </summary>
 	Medium,
 
+	/// <summary>
+	/// A large border radius.
+	/// </summary>
 	Large
 }
