@@ -1,4 +1,6 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-<h3>LumexDropdown</h3>
+<CascadingValue TValue="DropdownContext" Value="@_context" IsFixed="@true">
+    @ChildContent
+</CascadingValue>
