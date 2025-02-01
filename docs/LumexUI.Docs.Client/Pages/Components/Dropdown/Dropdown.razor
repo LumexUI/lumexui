@@ -1,0 +1,53 @@
+﻿@page "/docs/components/dropdown"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Dropdown.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p></p>
+    <Usage />
+
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Dropdown</h4>
+        <ul>
+            <li><Code>Class</Code></li>
+            <li><Code>Classes</Code></li>
+        </ul>
+    </div>
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Dropdown",
+            category: "Components",
+            description: "Dropdown",
+            headings: _headings,
+            linksProps: new ComponentLinksProps("Dropdown", isServer: false)
+        );
+    }
+}
