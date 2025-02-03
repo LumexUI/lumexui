@@ -60,6 +60,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\LumexUI.Motion\LumexUI.Motion.csproj" />
 		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj" />
+		<ProjectReference Include="..\LumexUI.Variants\LumexUI.Variants.csproj" />
 	</ItemGroup>
 
 	<!-- Add utilities to the build output -->
