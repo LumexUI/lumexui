@@ -31,4 +31,11 @@ public interface IPopoverService
 	/// </summary>
 	/// <param name="popover">The popover to set as the last shown instance.</param>
 	void SetLastShown( LumexPopover? popover );
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="id"></param>
+	/// <returns></returns>
+	Task TriggerAsync( string id );
 }

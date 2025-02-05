@@ -9,7 +9,7 @@ namespace LumexUI.Services;
 /// </summary>
 public class PopoverService : IPopoverService
 {
-	private readonly HashSet<LumexPopover> _registeredPopovers = [];
+	private readonly Dictionary<string, LumexPopover> _registeredPopovers = [];
 
 	/// <inheritdoc />
 	public LumexPopover? LastShown { get; private set; }
@@ -23,12 +23,26 @@ public class PopoverService : IPopoverService
 	/// <inheritdoc />
 	public void Register( LumexPopover popover )
 	{
-		_registeredPopovers.Add( popover );
+		if( !string.IsNullOrEmpty( popover.Id ) )
+		{
+			_registeredPopovers.Add( popover.Id, popover );
+		}
 	}
 
 	/// <inheritdoc />
 	public void Unregister( LumexPopover popover )
 	{
-		_registeredPopovers.Remove( popover );
+		_registeredPopovers.Remove( popover.Id );
+	}
+
+	/// <inheritdoc />
+	public Task TriggerAsync( string id )
+	{
+		if( _registeredPopovers.TryGetValue( id, out var popover ) )
+		{
+			return popover.TriggerAsync();
+		};
+
+		return Task.CompletedTask;
 	}
 }
