@@ -1,6 +1,8 @@
 ﻿@namespace LumexUI
-@inherits LumexComponentBase
+@inherits LumexPopover
 
 <CascadingValue TValue="DropdownContext" Value="@_context" IsFixed="@true">
-    @ChildContent
+    @{
+        base.BuildRenderTree(__builder2);
+    }
 </CascadingValue>
