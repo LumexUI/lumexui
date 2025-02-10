@@ -8,7 +8,7 @@ namespace LumexUI.Variants;
 
 public delegate Dictionary<string, ComponentSlot> ComponentVariant( Dictionary<string, string>? overrides = null );
 
-public delegate string? ComponentSlot( string? className = null );
+public delegate string? ComponentSlot( params string?[] classNames );
 
 public class TwVariant( TwMerge twMerge )
 {
@@ -30,7 +30,7 @@ public class TwVariant( TwMerge twMerge )
 			}
 			else if( !string.IsNullOrEmpty( @base ) )
 			{
-				result["base"] = CreateComponentSlot( @base );
+				result["Base"] = CreateComponentSlot( @base );
 			}
 
 			// 2. Merge variant-specific values.
@@ -110,11 +110,8 @@ public class TwVariant( TwMerge twMerge )
 	{
 		var joinedClassNames = string.Join( ' ', classNames );
 
-		return ( className ) => string.IsNullOrEmpty( className )
+		return ( @classNames ) => @classNames?.Length < 0
 			? joinedClassNames
-			: Merge( joinedClassNames, className );
+			: twMerge.Merge( [joinedClassNames, .. @classNames] );
 	}
-
-	private string? Merge( params string?[] classNames )
-		=> twMerge.Merge( classNames );
 }

@@ -4,6 +4,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+using LumexUI.Variants;
+
 using Microsoft.AspNetCore.Components;
 
 using TailwindMerge;
@@ -36,7 +38,8 @@ public abstract class LumexComponentBase : ComponentBase
 	[Parameter( CaptureUnmatchedValues = true )]
 	public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
-	[Inject] private protected TwMerge TwMerge { get; set; } = default!;
+	[Inject] internal TwMerge TwMerge { get; set; } = default!;
+	[Inject] internal TwVariant TwVariant { get; set; } = default!;
 
 	/// <summary>
 	/// Gets or sets the associated <see cref="ElementReference"/>.
