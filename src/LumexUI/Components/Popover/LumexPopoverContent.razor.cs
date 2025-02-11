@@ -5,7 +5,6 @@
 using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Common;
-using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -18,80 +17,73 @@ namespace LumexUI;
 [CompositionComponent( typeof( LumexPopover ) )]
 public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
 {
-    private const string JavaScriptFile = "./_content/LumexUI/js/components/popover.bundle.js";
+	private const string JavaScriptFile = "./_content/LumexUI/js/components/popover.bundle.js";
 
-    /// <summary>
-    /// Gets or sets content to be rendered as the popover content.
-    /// </summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+	/// <summary>
+	/// Gets or sets content to be rendered as the popover content.
+	/// </summary>
+	[Parameter] public RenderFragment? ChildContent { get; set; }
 
-    [CascadingParameter] internal PopoverContext Context { get; set; } = default!;
+	[CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
-    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+	[Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
-    private protected override string? RootClass =>
-        TwMerge.Merge( Popover.GetContentStyles( this ) );
+	private LumexPopover Popover => Context.Owner;
 
-    private string? InnerWrapperClass =>
-        TwMerge.Merge( Popover.GetInnerWrapperStyles() );
+	private IJSObjectReference _jsModule = default!;
 
-    private string? ArrowClass =>
-        TwMerge.Merge( Popover.GetArrowStyles( this ) );
+	/// <inheritdoc />
+	protected override void OnInitialized()
+	{
+		ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverContent ) );
 
-    private IJSObjectReference _jsModule = default!;
+		Context.OnTrigger += ShowAsync;
+	}
 
-    /// <inheritdoc />
-    protected override void OnInitialized()
-    {
-        ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverContent ) );
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync( bool firstRender )
+	{
+		if( firstRender )
+		{
+			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
+		}
+	}
 
-        Context.OnTrigger += ShowAsync;
-    }
+	private ValueTask ShowAsync()
+	{
+		// We need to render a popover first.
+		StateHasChanged();
 
-    /// <inheritdoc />
-    protected override async Task OnAfterRenderAsync( bool firstRender )
-    {
-        if( firstRender )
-        {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
-        }
-    }
+		// Then we initialize the popover on the JS side by:
+		//  1. Adding a 'clickoutside' event handler
+		//  2. Applying a proper positioning
+		return _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id, Context.Owner.Options );
+	}
 
-    private ValueTask ShowAsync()
-    {
-        // We need to render a popover first.
-        StateHasChanged();
+	private async ValueTask ClickOutsideAsync()
+	{
+		await Context.Owner.HideAsync();
+		await _jsModule.InvokeVoidAsync( "popover.destroy" );
+	}
 
-        // Then we initialize the popover on the JS side by:
-        //  1. Adding a 'clickoutside' event handler
-        //  2. Applying a proper positioning
-        return _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id, Context.Owner.Options );
-    }
+	/// <inheritdoc />
+	[ExcludeFromCodeCoverage]
+	public async ValueTask DisposeAsync()
+	{
+		try
+		{
+			if( _jsModule is not null )
+			{
+				await _jsModule.InvokeVoidAsync( "popover.destroy" );
+				await _jsModule.DisposeAsync();
+			}
 
-    private async ValueTask ClickOutsideAsync()
-    {
-        await Context.Owner.HideAsync();
-        await _jsModule.InvokeVoidAsync( "popover.destroy" );
-    }
-
-    /// <inheritdoc />
-    [ExcludeFromCodeCoverage]
-    public async ValueTask DisposeAsync()
-    {
-        try
-        {
-            if( _jsModule is not null )
-            {
-                await _jsModule.InvokeVoidAsync( "popover.destroy" );
-                await _jsModule.DisposeAsync();
-            }
-
-            Context.OnTrigger -= ShowAsync;
-        }
-        catch( Exception ex ) when( ex is JSDisconnectedException or OperationCanceledException )
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
-        }
-    }
+			Context.OnTrigger -= ShowAsync;
+		}
+		catch( Exception ex ) when( ex is JSDisconnectedException or OperationCanceledException )
+		{
+			// The JSRuntime side may routinely be gone already if the reason we're disposing is that
+			// the client disconnected. This is not an error.
+		}
+	}
 }

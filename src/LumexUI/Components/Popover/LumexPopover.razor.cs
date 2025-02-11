@@ -4,7 +4,9 @@
 
 using LumexUI.Common;
 using LumexUI.Services;
+using LumexUI.Styles;
 using LumexUI.Utilities;
+using LumexUI.Variants;
 
 using Microsoft.AspNetCore.Components;
 
@@ -22,7 +24,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the unique identifier for the popover.
 	/// </summary>
 	[Parameter, EditorRequired] public string Id { get; set; } = Identifier.New();
 
@@ -102,8 +104,10 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	[Inject] private IPopoverService PopoverService { get; set; } = default!;
 
 	internal PopoverOptions Options { get; private set; }
+	internal Dictionary<string, ComponentSlot> Slots { get; private set; } = [];
 
 	private readonly PopoverContext _context;
+
 	private bool _disposed;
 
 	/// <summary>
@@ -138,6 +142,15 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 		}
 
 		Options = new PopoverOptions( this );
+
+		var popover = Popover.Style( TwVariant );
+		Slots = popover( new()
+		{
+			[nameof( Size )] = Size.ToString(),
+			[nameof( Color )] = Color.ToString(),
+			[nameof( Radius )] = Radius.ToString(),
+			[nameof( Shadow )] = Shadow.ToString(),
+		} );
 	}
 
 	internal async Task<bool> ShowAsync()

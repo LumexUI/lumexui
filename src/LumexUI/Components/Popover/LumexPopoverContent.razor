@@ -1,26 +1,29 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-@if( Context.Owner.Opened )
+@if (Popover.Opened)
 {
-    <div style="position: absolute; z-index: 10000;"
-         data-popover="@Context.Owner.Id"
+    <div class="@Popover.Slots["Wrapper"]()"
+         style="position: absolute; z-index: 10000;"
+         data-popover="@Popover.Id"
          @onclickoutside="@(async() => await ClickOutsideAsync())">
-        <div class="@InnerWrapperClass">
-            <div role="dialog" tabindex="-1" data-slot="base">
-                <LumexComponent As="@As"
-                                Class="@RootClass"
-                                Style="@RootStyle"
-                                data-slot="content"
-                                @attributes="@AdditionalAttributes">
-                    @ChildContent
-                </LumexComponent>
-
-                @if( Context.Owner.ShowArrow )
-                {
-                    <span class="@ArrowClass" data-slot="arrow" />
-                }
-            </div>
+        <div role="dialog"
+             class="@Popover.Slots["Base"](Popover.Classes?.Base, Popover.Class)"
+             tabindex="-1"
+             data-slot="base"
+             @attributes="@Popover.AdditionalAttributes">
+            <LumexComponent As="@As"
+                            Class="@Popover.Slots["Content"](Popover.Classes?.Content, Class)"
+                            Style="@RootStyle"
+                            data-slot="content"
+                            @attributes="@AdditionalAttributes">
+                @ChildContent
+            </LumexComponent>
+            @if (Popover.ShowArrow)
+            {
+                <span class="@Popover.Slots["Arrow"](Popover.Classes?.Arrow)"
+                      data-slot="arrow" />
+            }
         </div>
     </div>
 }

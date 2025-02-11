@@ -5,7 +5,6 @@
 using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Common;
-using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -15,29 +14,32 @@ namespace LumexUI;
 /// <summary>
 /// A component representing the trigger of the <see cref="LumexPopover"/> component, controlling its display.
 /// </summary>
-[Obsolete( "Deprecated. Thi will be removed in the future releases. See the Popover usage in the docs." )]
+[Obsolete( "Deprecated. This will be removed in the future releases. See the Popover usage in the docs." )]
 [CompositionComponent( typeof( LumexPopover ) )]
 public partial class LumexPopoverTrigger : LumexButton
 {
 	[CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
-	private protected override string? RootClass =>
-		TwMerge.Merge( base.RootClass, Popover.GetTriggerStyles( this ) );
+	private LumexPopover Popover => Context.Owner;
 
 	/// <inheritdoc />
-	public override async Task SetParametersAsync( ParameterView parameters )
+	public override Task SetParametersAsync( ParameterView parameters )
 	{
-		await base.SetParametersAsync( parameters );
+		parameters.SetParameterProperties( this );
 
 		Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
 			? color
-			: Context.Owner.Color;
+			: Popover.Color;
+
+		return base.SetParametersAsync( parameters );
 	}
 
 	/// <inheritdoc />
 	protected override void OnInitialized()
 	{
 		ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverTrigger ) );
+
+		Class = Popover.Slots["Trigger"]( Popover.Classes?.Trigger, Class );
 
 		SetAdditionalAttributes();
 	}
@@ -50,7 +52,7 @@ public partial class LumexPopoverTrigger : LumexButton
 		}
 
 		additionalAttributes["data-slot"] = "trigger";
-		additionalAttributes["data-popoverref"] = Context.Owner.Id;
+		additionalAttributes["data-popoverref"] = Popover.Id;
 	}
 
 	private protected override async Task OnClickAsync( MouseEventArgs args )
