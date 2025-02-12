@@ -11,13 +11,13 @@ namespace LumexUI;
 /// <summary>
 /// 
 /// </summary>
-public partial class LumexDropdownItem : LumexComponentBase
+public partial class LumexDropdownItem : Internal.MenuItem
 {
-	[CascadingParameter] internal DropdownContext Context { get; set; } = default!;
+	[CascadingParameter] internal DropdownContext DropdownContext { get; set; } = default!;
 
 	/// <inheritdoc />
 	protected override void OnInitialized()
 	{
-		ContextNullException.ThrowIfNull( Context, nameof( LumexDropdownItem ) );
+		ContextNullException.ThrowIfNull( DropdownContext, nameof( LumexDropdownItem ) );
 	}
 }

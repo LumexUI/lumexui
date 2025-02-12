@@ -3,17 +3,18 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.Internal;
 
 namespace LumexUI;
 
-internal sealed class DropdownContext( LumexDropdown owner ) : IComponentContext<LumexDropdown>
+internal sealed class MenuContext( Menu owner ) : IComponentContext<Menu>
 {
 	private bool _collectingItems;
 
-	public LumexDropdown Owner { get; } = owner;
-	public List<LumexDropdownItem> Items { get; } = [];
+	public Menu Owner { get; } = owner;
+	public List<MenuItem> Items { get; } = [];
 
-	public void Register( LumexDropdownItem item )
+	public void Register( MenuItem item )
 	{
 		if( !_collectingItems )
 		{
