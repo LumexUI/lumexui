@@ -2,7 +2,7 @@
 @inherits LumexComponentBase
 
 @{
-    Context.Register(this);
+    Context.Register( this );
 }
 
 @code {
@@ -10,30 +10,35 @@
     ///
     /// </summary>
     /// <param name="__builder"></param>
-    protected internal virtual void Render(RenderTreeBuilder __builder)
+    protected internal virtual void Render( RenderTreeBuilder __builder )
     {
         <LumexComponent As="@As"
-                        Class="@_slots["Base"]( Class )"
+                        Class="@_slots["Base"]( Menu.ItemClasses?.Base, Classes?.Base, Class )"
                         Style="@Style"
                         data-slot="base"
+                        data-disabled="@_disabled.ToAttributeValue()"
                         @attributes="@AdditionalAttributes"
                         @onclick="@OnClickAsync">
             @StartContent
 
-            @if (!string.IsNullOrEmpty(Description))
+            @if( !string.IsNullOrEmpty( Description ) )
             {
-                <div class="@_slots["Wrapper"]()" data-slot="wrapper">
-                    <span class="@_slots["Title"]()" data-slot="title">
+                <div class="@_slots["Wrapper"]( Menu.ItemClasses?.Wrapper, Classes?.Wrapper )"
+                     data-slot="wrapper">
+                    <span class="@_slots["Title"]( Menu.ItemClasses?.Title, Classes?.Title )"
+                          data-slot="title">
                         @ChildContent
                     </span>
-                    <span class="@_slots["Description"]()" data-slot="description">
+                    <span class="@_slots["Description"]( Menu.ItemClasses?.Description, Classes?.Description )"
+                          data-slot="description">
                         @Description
                     </span>
                 </div>
             }
             else
             {
-                <span class="@_slots["Title"]()" data-slot="title">
+                <span class="@_slots["Title"]( Menu.ItemClasses?.Title, Classes?.Title )"
+                      data-slot="title">
                     @ChildContent
                 </span>
             }

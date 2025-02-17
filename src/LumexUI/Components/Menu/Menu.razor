@@ -11,14 +11,14 @@
         @{
             _context.StopCollectingItems();
         }
-        <div class="@_slots["Base"]()"
+        <div class="@_slots["Base"]( Classes?.Base, Class )"
              style="@Style"
              data-slot="base"
              @attributes="@AdditionalAttributes">
             <LumexComponent As="@As"
-                            Class="@_slots["List"]()"
+                            Class="@_slots["List"]( Classes?.List )"
                             data-slot="list">
-                @if (_context.Items.Count > 0)
+                @if( _context.Items.Count > 0 )
                 {
                     @_renderItems
                 }
@@ -32,20 +32,21 @@
 </CascadingValue>
 
 @code {
-    private void RenderItems(RenderTreeBuilder __builder)
+    private void RenderItems( RenderTreeBuilder __builder )
     {
-        foreach (var item in _context.Items)
+        foreach( var (id, item) in _context.Items )
         {
-            item.Render(__builder);
+            item.Render( __builder );
         }
     }
 
-    private void RenderEmptyContent(RenderTreeBuilder __builder)
+    private void RenderEmptyContent( RenderTreeBuilder __builder )
     {
         var content = EmptyContent ?? _emptyContent;
 
         <li>
-            <div class="@_slots["EmptyContent"]()" data-slot="empty-content">
+            <div class="@_slots["EmptyContent"]( Classes?.EmptyContent )"
+                 data-slot="empty-content">
                 @content
             </div>
         </li>

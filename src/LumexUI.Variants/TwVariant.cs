@@ -110,7 +110,7 @@ public class TwVariant( TwMerge twMerge )
 	{
 		var joinedClassNames = string.Join( ' ', classNames );
 
-		return ( @classNames ) => @classNames?.Length < 0
+		return ( @classNames ) => @classNames.Length < 0
 			? joinedClassNames
 			: twMerge.Merge( [joinedClassNames, .. @classNames] );
 	}

@@ -9,7 +9,10 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI.Internal;
 
-public partial class Menu : LumexComponentBase
+/// <summary>
+/// 
+/// </summary>
+public partial class Menu : LumexComponentBase, ISlotComponent<MenuSlots>
 {
 	/// <summary>
 	/// 
@@ -24,7 +27,27 @@ public partial class Menu : LumexComponentBase
 	/// <summary>
 	/// 
 	/// </summary>
-	[Parameter] public ThemeColor Color { get; set; }
+	[Parameter] public MenuVariant Variant { get; set; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public ICollection<object>? DisabledItems { get; set; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public MenuSlots? Classes { get; set; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public MenuItemSlots? ItemClasses { get; set; }
 
 	private readonly static RenderFragment _emptyContent = builder =>
 	{

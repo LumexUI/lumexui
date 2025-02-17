@@ -9,6 +9,8 @@ using LumexUI.Internal;
 using LumexUI.Utilities;
 using LumexUI.Variants;
 
+using MenuItemComp = LumexUI.Internal.MenuItem;
+
 namespace LumexUI.Styles;
 
 [ExcludeFromCodeCoverage]
@@ -78,6 +80,8 @@ internal static class MenuItem
 					.Add( "rounded-small" )
 					.Add( "outline-none" )
 					.Add( "cursor-pointer" )
+					// transition
+					.Add( "hover:transition-colors" )
 					// focus ring
 					.Add( Utils.FocusVisible )
 					.ToString(),
@@ -108,7 +112,7 @@ internal static class MenuItem
 
 			Variants = new VariantCollection()
 			{
-				[nameof( MenuVariant )] = new VariantValueCollection()
+				[nameof( MenuItemComp.Variant )] = new VariantValueCollection()
 				{
 					[nameof( MenuVariant.Solid )] = new SlotCollection()
 					{
@@ -148,8 +152,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Solid ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Default )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Solid ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Default )
 					},
 					Classes = new SlotCollection()
 					{
@@ -160,8 +164,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Solid ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Primary )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Solid ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Primary )
 					},
 					Classes = new SlotCollection()
 					{
@@ -172,8 +176,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Solid ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Secondary )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Solid ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Secondary )
 					},
 					Classes = new SlotCollection()
 					{
@@ -184,8 +188,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Solid ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Success )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Solid ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Success )
 					},
 					Classes = new SlotCollection()
 					{
@@ -196,8 +200,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Solid ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Warning )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Solid ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Warning )
 					},
 					Classes = new SlotCollection()
 					{
@@ -208,8 +212,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Solid ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Danger )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Solid ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Danger )
 					},
 					Classes = new SlotCollection()
 					{
@@ -220,8 +224,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Solid ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Info )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Solid ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Info )
 					},
 					Classes = new SlotCollection()
 					{
@@ -234,8 +238,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Shadow ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Default )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Shadow ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Default )
 					},
 					Classes = new SlotCollection()
 					{
@@ -246,8 +250,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Shadow ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Primary )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Shadow ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Primary )
 					},
 					Classes = new SlotCollection()
 					{
@@ -258,8 +262,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Shadow ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Secondary )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Shadow ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Secondary )
 					},
 					Classes = new SlotCollection()
 					{
@@ -270,8 +274,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Shadow ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Success )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Shadow ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Success )
 					},
 					Classes = new SlotCollection()
 					{
@@ -282,8 +286,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Shadow ),
-						[nameof( ThemeColor )] = nameof(ThemeColor.Warning)
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Shadow ),
+						[nameof( MenuItemComp.Color )] = nameof(ThemeColor.Warning)
 					},
 					Classes = new SlotCollection()
 					{
@@ -294,8 +298,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Shadow ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Danger )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Shadow ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Danger )
 					},
 					Classes = new SlotCollection()
 					{
@@ -306,8 +310,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Shadow ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Info )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Shadow ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Info )
 					},
 					Classes = new SlotCollection()
 					{
@@ -320,8 +324,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Outlined ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Default )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Outlined ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Default )
 					},
 					Classes = new SlotCollection()
 					{
@@ -332,8 +336,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Outlined ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Primary )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Outlined ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Primary )
 					},
 					Classes = new SlotCollection()
 					{
@@ -344,8 +348,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Outlined ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Secondary )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Outlined ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Secondary )
 					},
 					Classes = new SlotCollection()
 					{
@@ -356,8 +360,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Outlined ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Success )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Outlined ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Success )
 					},
 					Classes = new SlotCollection()
 					{
@@ -368,8 +372,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Outlined ),
-						[nameof( ThemeColor )] = nameof(ThemeColor.Warning)
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Outlined ),
+						[nameof( MenuItemComp.Color )] = nameof(ThemeColor.Warning)
 					},
 					Classes = new SlotCollection()
 					{
@@ -380,8 +384,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Outlined ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Danger )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Outlined ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Danger )
 					},
 					Classes = new SlotCollection()
 					{
@@ -392,8 +396,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Outlined ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Info )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Outlined ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Info )
 					},
 					Classes = new SlotCollection()
 					{
@@ -406,8 +410,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Flat ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Default )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Flat ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Default )
 					},
 					Classes = new SlotCollection()
 					{
@@ -418,8 +422,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Flat ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Primary )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Flat ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Primary )
 					},
 					Classes = new SlotCollection()
 					{
@@ -430,8 +434,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Flat ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Secondary )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Flat ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Secondary )
 					},
 					Classes = new SlotCollection()
 					{
@@ -442,8 +446,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Flat ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Success )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Flat ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Success )
 					},
 					Classes = new SlotCollection()
 					{
@@ -454,8 +458,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Flat ),
-						[nameof( ThemeColor )] = nameof(ThemeColor.Warning)
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Flat ),
+						[nameof( MenuItemComp.Color )] = nameof(ThemeColor.Warning)
 					},
 					Classes = new SlotCollection()
 					{
@@ -466,8 +470,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Flat ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Danger )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Flat ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Danger )
 					},
 					Classes = new SlotCollection()
 					{
@@ -478,8 +482,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Flat ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Info )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Flat ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Info )
 					},
 					Classes = new SlotCollection()
 					{
@@ -492,8 +496,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Light ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Default )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Light ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Default )
 					},
 					Classes = new SlotCollection()
 					{
@@ -504,8 +508,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Light ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Primary )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Light ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Primary )
 					},
 					Classes = new SlotCollection()
 					{
@@ -516,8 +520,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Light ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Secondary )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Light ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Secondary )
 					},
 					Classes = new SlotCollection()
 					{
@@ -528,8 +532,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Light ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Success )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Light ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Success )
 					},
 					Classes = new SlotCollection()
 					{
@@ -540,8 +544,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Light ),
-						[nameof( ThemeColor )] = nameof(ThemeColor.Warning)
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Light ),
+						[nameof( MenuItemComp.Color )] = nameof(ThemeColor.Warning)
 					},
 					Classes = new SlotCollection()
 					{
@@ -552,8 +556,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Light ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Danger )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Light ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Danger )
 					},
 					Classes = new SlotCollection()
 					{
@@ -564,8 +568,8 @@ internal static class MenuItem
 				{
 					Conditions = new Dictionary<string, string>()
 					{
-						[nameof( MenuVariant )] = nameof( MenuVariant.Light ),
-						[nameof( ThemeColor )] = nameof( ThemeColor.Info )
+						[nameof( MenuItemComp.Variant )] = nameof( MenuVariant.Light ),
+						[nameof( MenuItemComp.Color )] = nameof( ThemeColor.Info )
 					},
 					Classes = new SlotCollection()
 					{
