@@ -10,15 +10,6 @@ using LumexUI.Variants;
 namespace LumexUI.Styles;
 
 [ExcludeFromCodeCoverage]
-internal class DropdownItemSlots
-{
-	public string? Base { get; set; }
-	public string? Wrapper { get; set; }
-	public string? Title { get; set; }
-	public string? Description { get; set; }
-}
-
-[ExcludeFromCodeCoverage]
 internal static class Dropdown
 {
 	private static ComponentVariant? _variant;

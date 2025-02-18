@@ -12,66 +12,79 @@ using Microsoft.AspNetCore.Components.Web;
 namespace LumexUI.Internal;
 
 /// <summary>
-/// 
+/// A component that represents an item within a <see cref="Internal.Menu"/>.
 /// </summary>
-public partial class MenuItem : LumexComponentBase, ISlotComponent<MenuItemSlots>
+public partial class MenuItem : LumexComponentBase
 {
 	/// <summary>
-	/// 
+	/// Gets or sets the content to render inside the menu item.
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the content to render at the start of the menu item.
 	/// </summary>
 	[Parameter] public RenderFragment? StartContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the content to render at the end of the menu item.
 	/// </summary>
 	[Parameter] public RenderFragment? EndContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the unique identifier for the menu item.
 	/// </summary>
 	[Parameter, EditorRequired] public object Id { get; set; } = default!;
 
 	/// <summary>
-	/// 
+	/// Gets or sets the description of the menu item.
 	/// </summary>
 	[Parameter] public string? Description { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the visual variant of the menu item.
 	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="MenuVariant.Solid"/>.
+	/// </remarks>
 	[Parameter] public MenuVariant Variant { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the theme color of the menu item.
 	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="ThemeColor.Default"/>.
+	/// </remarks>
 	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
 	/// <summary>
-	/// 
+	/// Gets or sets a value indicating whether a divider should be displayed after the menu item.
+	/// </summary>
+	[Parameter] public bool ShowDivider { get; set; }
+
+	/// <summary>
+	/// Gets or sets a value indicating whether the menu item is read-only.
+	/// </summary>
+	[Parameter] public bool ReadOnly { get; set; }
+
+	/// <summary>
+	/// Gets or sets a value indicating whether the menu item is disabled.
 	/// </summary>
 	[Parameter] public bool Disabled { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the callback invoked when the menu item is clicked.
 	/// </summary>
 	[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
-	/// <summary>
-	/// 
-	/// </summary>
-	[Parameter] public MenuItemSlots? Classes { get; set; }
-
 	[CascadingParameter] internal MenuContext Context { get; set; } = default!;
+
+	internal MenuItemSlots? Classes { get; set; }
 
 	private Menu Menu => Context.Owner;
 
 	private Dictionary<string, ComponentSlot> _slots = [];
-	private bool _disabled;
+	private protected bool _disabled;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="MenuItem"/>.
@@ -116,11 +129,18 @@ public partial class MenuItem : LumexComponentBase, ISlotComponent<MenuItemSlots
 			[nameof( Color )] = Color.ToString(),
 			[nameof( Variant )] = Variant.ToString(),
 			[nameof( Disabled )] = _disabled.ToString(),
+			[nameof( ReadOnly )] = ReadOnly.ToString(),
+			[nameof( ShowDivider )] = ShowDivider.ToString(),
 		} );
 	}
 
-	private Task OnClickAsync( MouseEventArgs args )
+	private protected virtual Task OnClickAsync( MouseEventArgs args )
 	{
+		if( _disabled || ReadOnly )
+		{
+			return Task.CompletedTask;
+		}
+
 		return OnClick.InvokeAsync( args );
 	}
 }

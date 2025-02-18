@@ -10,44 +10,43 @@ using Microsoft.AspNetCore.Components;
 namespace LumexUI.Internal;
 
 /// <summary>
-/// 
+/// A component that represents a menu, containing one or more <see cref="MenuItem"/>.
 /// </summary>
-public partial class Menu : LumexComponentBase, ISlotComponent<MenuSlots>
+public partial class Menu : LumexComponentBase
 {
 	/// <summary>
-	/// 
+	/// Gets or sets the content to render inside the menu.
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the content to render when the menu is empty.
 	/// </summary>
 	[Parameter] public RenderFragment? EmptyContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the visual variant of the menu.
 	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="MenuVariant.Solid"/>.
+	/// </remarks>
 	[Parameter] public MenuVariant Variant { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the theme color of the menu.
 	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="ThemeColor.Default"/>.
+	/// </remarks>
 	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
 	/// <summary>
-	/// 
+	/// Gets or sets a collection of items that should be disabled in the menu.
 	/// </summary>
 	[Parameter] public ICollection<object>? DisabledItems { get; set; }
 
-	/// <summary>
-	/// 
-	/// </summary>
-	[Parameter] public MenuSlots? Classes { get; set; }
-
-	/// <summary>
-	/// 
-	/// </summary>
-	[Parameter] public MenuItemSlots? ItemClasses { get; set; }
+	internal MenuSlots? Classes { get; set; }
+	internal MenuItemSlots? ItemClasses { get; set; }
 
 	private readonly static RenderFragment _emptyContent = builder =>
 	{

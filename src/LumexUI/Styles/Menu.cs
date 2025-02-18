@@ -44,7 +44,6 @@ internal static class Menu
 				[nameof( MenuSlots.EmptyContent )] = new ElementClass()
 					.Add( "w-full" )
 					.Add( "h-full" )
-					.Add( "h-10" )
 					.Add( "px-2" )
 					.Add( "py-1.5" )
 					.Add( "text-foreground-400" )
@@ -133,6 +132,30 @@ internal static class MenuItem
 					[nameof( MenuVariant.Shadow )] = new SlotCollection()
 					{
 						[nameof( DropdownItemSlots.Base )] = "hover:shadow-lg"
+					}
+				},
+
+				[nameof( LumexDropdownItem.ShowDivider )] = new VariantValueCollection()
+				{
+					[bool.TrueString] = new SlotCollection()
+					{
+						[nameof( DropdownItemSlots.Base )] = new ElementClass()
+							.Add( "mb-1.5" )
+							.Add( "after:absolute" )
+							.Add( "after:left-0" )
+							.Add( "after:right-0" )
+							.Add( "after:-bottom-1" )
+							.Add( "after:h-px" )
+							.Add( "after:bg-divider" )
+							.ToString()
+					}
+				},
+
+				[nameof( LumexDropdownItem.ReadOnly )] = new VariantValueCollection()
+				{
+					[bool.TrueString] = new SlotCollection()
+					{
+						[nameof( DropdownItemSlots.Base )] = "cursor-default"
 					}
 				},
 

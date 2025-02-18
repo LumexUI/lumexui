@@ -3,6 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.Internal;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -10,13 +11,22 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace LumexUI;
 
 /// <summary>
-/// 
+/// A component that represents a menu within a <see cref="LumexDropdown"/>,
+/// containing one or more <see cref="LumexDropdownItem"/>.
 /// </summary>
-public partial class LumexDropdownMenu : Internal.Menu
+public partial class LumexDropdownMenu : Menu, ISlotComponent<DropdownMenuSlots>
 {
-	[CascadingParameter] internal DropdownContext Context { get; set; } = default!;
+	/// <summary>
+	/// Gets or sets the CSS class names for the dropdown menu slots.
+	/// </summary>
+	[Parameter] public new DropdownMenuSlots? Classes { get; set; }
 
-	private LumexDropdown Dropdown => Context.Owner;
+	/// <summary>
+	/// Gets or sets the CSS class names for the dropdown item slots.
+	/// </summary>
+	[Parameter] public new DropdownItemSlots? ItemClasses { get; set; }
+
+	[CascadingParameter] internal DropdownContext Context { get; set; } = default!;
 
 	/// <inheritdoc />
 	protected override void OnInitialized()
@@ -25,13 +35,18 @@ public partial class LumexDropdownMenu : Internal.Menu
 	}
 
 	/// <inheritdoc />
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		base.Classes = Classes;
+		base.ItemClasses = ItemClasses;
+	}
+
+	/// <inheritdoc />
 	protected override void BuildRenderTree( RenderTreeBuilder builder )
 	{
 		builder.OpenComponent<LumexPopoverContent>( 0 );
-		builder.AddComponentParameter( 1, nameof( Class ), Class );
-		builder.AddComponentParameter( 2, nameof( Style ), Style );
-		builder.AddComponentParameter( 3, nameof( ChildContent ), (RenderFragment)base.BuildRenderTree );
-		builder.AddMultipleAttributes( 4, AdditionalAttributes );
+		builder.AddComponentParameter( 1, nameof( ChildContent ), (RenderFragment)base.BuildRenderTree );
 		builder.CloseComponent();
 	}
 }

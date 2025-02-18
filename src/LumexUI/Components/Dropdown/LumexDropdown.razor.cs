@@ -9,7 +9,8 @@ using LumexUI.Variants;
 namespace LumexUI;
 
 /// <summary>
-/// 
+/// A component that represents a dropdown, 
+/// extending <see cref="LumexPopover"/> and inheriting its core functionalities.
 /// </summary>
 public partial class LumexDropdown : LumexPopover
 {
@@ -18,7 +19,7 @@ public partial class LumexDropdown : LumexPopover
 	private Dictionary<string, ComponentSlot> _slots = [];
 
 	/// <summary>
-	/// 
+	/// Initializes a new instance of the <see cref="LumexDropdown"/>.
 	/// </summary>
 	public LumexDropdown()
 	{

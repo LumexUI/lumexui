@@ -17,6 +17,7 @@
                         Style="@Style"
                         data-slot="base"
                         data-disabled="@_disabled.ToAttributeValue()"
+                        data-readonly="@ReadOnly.ToAttributeValue()"
                         @attributes="@AdditionalAttributes"
                         @onclick="@OnClickAsync">
             @StartContent
