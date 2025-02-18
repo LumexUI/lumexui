@@ -2,6 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Common;
 using LumexUI.Styles;
 using LumexUI.Variants;
 
@@ -22,6 +23,8 @@ public partial class LumexDropdown : LumexPopover
 	public LumexDropdown()
 	{
 		_context = new DropdownContext( this );
+
+		Placement = PopoverPlacement.Bottom;
 	}
 
 	/// <inheritdoc />
