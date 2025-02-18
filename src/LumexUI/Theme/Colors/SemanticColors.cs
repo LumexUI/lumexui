@@ -36,8 +36,8 @@ public static class SemanticColors
             new( Default, Colors.Zinc["900"] )
         ],
         Surface1 = [
-            new( Default, Colors.Zinc["50"] ),
-            new( Foreground, Colors.Zinc["700"] )
+            new( Default, Colors.White ),
+            new( Foreground, Colors.Zinc["900"] )
         ],
         Surface2 = [
             new( Default, Colors.Zinc["100"] ),
