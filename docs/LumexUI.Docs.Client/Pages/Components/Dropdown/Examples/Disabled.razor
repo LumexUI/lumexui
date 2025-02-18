@@ -9,11 +9,12 @@
 </LumexButton>
 
 <LumexDropdown Id="@_dropdownId">
-    <LumexDropdownMenu Classes="@(new() { Base = "ahalamala" })">
+    <LumexDropdownMenu>
         <LumexDropdownItem Id="@("new")">New file</LumexDropdownItem>
         <LumexDropdownItem Id="@("edit")">Edit file</LumexDropdownItem>
         <LumexDropdownItem Id="@("share")">Share file</LumexDropdownItem>
         <LumexDropdownItem Id="@("delete")"
+                           Disabled="@true"
                            Color="@ThemeColor.Danger"
                            Class="text-danger">
             Delete file
@@ -22,7 +23,7 @@
 </LumexDropdown>
 
 @code {
-    private string _dropdownId = "dropdown-usage";
+    private string _dropdownId = "dropdown-disabled";
 
     private Task TriggerAsync()
     {

@@ -1,0 +1,62 @@
+﻿@using LumexUI.Services
+
+@inject IPopoverService PopoverService
+
+<div class="flex flex-wrap gap-4">
+    @foreach( var variant in Enum.GetValues<MenuVariant>() )
+    {
+        var id = $"dropdown-{variant.ToString()}";
+
+        <LumexButton Color="@_color"
+                     Variant="@GetTriggerVariant(variant)"
+                     OnClick="@(() => TriggerAsync(id))"
+                     data-popoverref="@id">
+            @variant.ToString()
+        </LumexButton>
+
+        <LumexDropdown Id="@id">
+            <LumexDropdownMenu Color="@_color" Variant="@_variant">
+                <LumexDropdownItem Id="@("new")">New file</LumexDropdownItem>
+                <LumexDropdownItem Id="@("edit")">Edit file</LumexDropdownItem>
+                <LumexDropdownItem Id="@("share")">Share file</LumexDropdownItem>
+                <LumexDropdownItem Id="@("delete")"
+                                   Color="@ThemeColor.Danger"
+                                   Class="text-danger">
+                    Delete file
+                </LumexDropdownItem>
+            </LumexDropdownMenu>
+        </LumexDropdown>
+    }
+</div>
+
+<LumexRadioGroup Label="Choose a dropdown color"
+                 Orientation="@Orientation.Horizontal"
+                 @bind-Value="@_color">
+    @foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
+    {
+        <LumexRadio Value="@color">@color.ToString()</LumexRadio>
+    }
+</LumexRadioGroup>
+
+@code {
+    private ThemeColor _color = ThemeColor.Default;
+    private MenuVariant _variant = MenuVariant.Solid;
+
+    private Task TriggerAsync( string id )
+    {
+        return PopoverService.TriggerAsync( id );
+    }
+
+    private Variant GetTriggerVariant( MenuVariant variant )
+    {
+        return variant switch
+        {
+            MenuVariant.Solid => Variant.Solid,
+            MenuVariant.Outlined => Variant.Outlined,
+            MenuVariant.Flat => Variant.Flat,
+            MenuVariant.Shadow => Variant.Shadow,
+            MenuVariant.Light => Variant.Light,
+            _ => Variant.Solid
+        };
+    }
+}

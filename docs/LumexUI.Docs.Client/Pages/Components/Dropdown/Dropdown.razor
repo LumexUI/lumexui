@@ -3,13 +3,105 @@
 
 @using LumexUI.Docs.Client.Pages.Components.Dropdown.PreviewCodes
 
+<DocsCompositionSection Components="@_compositionComponents" />
+
 <DocsSection Title="Usage">
-    <p></p>
+    <p>
+        The dropdown provides a menu that expands when triggered,
+        allowing users to select an action from a list.
+    </p>
     <Usage />
 
+    <DocsSection Title="Disabled">
+        <p>
+            The dropdown items can be disabled to prevent user interaction.
+            A disabled dropdown item is faded and does not respond to user clicks.
+        </p>
+        <p>
+            You can achieve this by using the <Code>Disabled</Code> parameter on a <Code>DropdownItem</Code>.
+        </p>
+        <Disabled />
+
+        <p>
+            Alternatively, you can achieve this by using the
+            <Code>DisabledItems</Code> parameter on a <Code>DropdownMenu</Code>.
+        </p>
+        <DisabledItems />
+    </DocsSection>
+
+    <DocsSection Title="Colors & Variants">
+        <p>
+            Customize the dropdown with different visual styles
+            and color themes to match your application’s design.
+        </p>
+        <ColorsVariants />
+    </DocsSection>
+
+    <DocsSection Title="Start & End Content">
+        <p>
+            Add custom content, such as icons or additional information,
+            to the start or end of each item in the dropdown.
+        </p>
+        <StartEndContent />
+    </DocsSection>
+
+    <DocsSection Title="Description">
+        <p>
+            Add a description to individual dropdown item
+            to provide additional context or details about the actions.
+        </p>
+        <Description />
+    </DocsSection>
+
+    <DocsSection Title="Empty Content">
+        <p>
+            Define custom content to display when the dropdown has no items,
+            providing a better user experience.
+        </p>
+        <EmptyContent />
+    </DocsSection>
 </DocsSection>
 
-<DocsSlotsSection Slots="@_slots">
+<DocsSection Title="Custom Styles">
+    <p>
+        This component suppots named slots (represented as <code>data-*</code> attributes) that
+        allow you to apply custom CSS to specific parts of the component.
+    </p>
+    @foreach( var (componentName, slots) in _slots )
+    {
+        <h4>@componentName</h4>
+        <ul>
+            @foreach( var slot in slots )
+            {
+                <li>
+                    <strong class="text-orange-500">@slot.Name:</strong> @slot.Description
+                </li>
+            }
+        </ul>
+    }
+    <p>
+        You can customize the component(s) by passing
+        any Tailwind CSS classes to the following component parameters:
+    </p>
+
+    <div>
+        <h4 class="font-semibold">Dropdown Menu</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the slots.</li>
+            <li><Code>ItemClasses</Code>: The CSS class names to style the items slots.</li>
+        </ul>
+
+        <h4 class="font-semibold">Dropdown Item</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the slots.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSection>
+
+@* <DocsSlotsSection Slots="@_slots">
     <div>
         <h4 class="font-semibold">Dropdown</h4>
         <ul>
@@ -17,27 +109,55 @@
             <li><Code>Classes</Code></li>
         </ul>
     </div>
-</DocsSlotsSection>
+</DocsSlotsSection> *@
 
 <DocsApiSection Components="@_apiComponents" />
 
 @code {
     [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
 
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+        new(nameof(LumexDropdown), "A component that represents a dropdown, extending Popover."),
+        new(nameof(LumexDropdownMenu), "A component that represents a dropdown menu."),
+        new(nameof(LumexDropdownItem), "A component that represents a dropdown item.")
+    };
+
     private readonly Heading[] _headings = new Heading[]
     {
         new("Usage", [
+            new("Disabled"),
+            new("Colors & Variants"),
+            new("Start & End Content"),
+            new("Description"),
+            new("Empty Content"),
         ]),
         new("Custom Styles"),
         new("API")
     };
 
-    private readonly Slot[] _slots = new Slot[]
+    private readonly Dictionary<string, Slot[]> _slots = new()
     {
+        [nameof( LumexDropdownMenu )] = [
+            new(nameof(DropdownMenuSlots.Base), "The main container for the entire dropdown menu."),
+            new(nameof(DropdownMenuSlots.List), "The wrapper for the dropdown items, containing all dropdown items."),
+            new(nameof(DropdownMenuSlots.EmptyContent), "The area displayed when the dropdown is empty."),
+        ],
+        [nameof( LumexDropdownItem )] = [
+            new(nameof(DropdownItemSlots.Base), "The main container for the dropdown item."),
+            new(nameof(DropdownItemSlots.Wrapper), "The wrapper for the title, description, and icons."),
+            new(nameof(DropdownItemSlots.Title), "The title of the dropdown item."),
+            new(nameof(DropdownItemSlots.Description), "The description of the dropdown item."),
+        ]
     };
 
     private readonly string[] _apiComponents = new string[]
     {
+        nameof(LumexDropdown),
+        nameof(LumexDropdownMenu),
+        nameof(LumexDropdownItem),
+        nameof(LumexButton),
+        nameof(LumexIcon)
     };
 
     protected override void OnInitialized()
@@ -45,9 +165,9 @@
         Layout.Initialize(
             title: "Dropdown",
             category: "Components",
-            description: "Dropdown",
+            description: "Dropdowns display a list of actions in a popover that users can select.",
             headings: _headings,
-            linksProps: new ComponentLinksProps("Dropdown", isServer: false)
+            linksProps: new ComponentLinksProps( "Dropdown", isServer: false )
         );
     }
 }

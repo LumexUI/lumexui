@@ -1,0 +1,83 @@
+﻿@using LumexUI.Services
+
+@inject IPopoverService PopoverService
+
+<LumexButton Variant="@Variant.Outlined"
+             OnClick="@TriggerAsync"
+             data-popoverref="@_dropdownId">
+    Open Dropdown
+</LumexButton>
+
+<LumexDropdown Id="@_dropdownId"
+               ShowArrow="@true"
+               Radius="@Radius.Small"
+               Classes="@_classes">
+    <LumexDropdownMenu Class="p-3"
+                       ItemClasses="@_itemClasses">
+        <LumexDropdownItem Id="@("profile")"
+                           Disabled="@true"
+                           Class="h-14 gap-2 opacity-100">
+            <div class="inline-flex flex-col items-start">
+                <span class="text-small text-default-600">John Doe</span>
+                <span class="text-tiny text-default-500">@@johndoe</span>
+            </div>
+        </LumexDropdownItem>
+        <LumexDropdownItem Id="@("dashboard")">Dashboard</LumexDropdownItem>
+        <LumexDropdownItem Id="@("settings")"
+                           ShowDivider="@true">
+            Settings
+        </LumexDropdownItem>
+        <LumexDropdownItem Id="@("theme")"
+                           ShowDivider="@true"
+                           ReadOnly="@true">
+            <ChildContent>
+                Theme
+            </ChildContent>
+            <EndContent>
+                <select id="theme"
+                        name="theme"
+                        class="z-10 outline-none w-16 py-0.5 rounded-md text-tiny group-hover:border-default-500 border border-default-300 bg-transparent text-default-500">
+                    <option>Light</option>
+                    <option>Dark</option>
+                    <option>System</option>
+                </select>
+            </EndContent>
+        </LumexDropdownItem>
+        <LumexDropdownItem Id="@("help-support")">Help & Support</LumexDropdownItem>
+        <LumexDropdownItem Id="@("logout")">
+            <ChildContent>
+                Log Out
+            </ChildContent>
+            <EndContent>
+                <LumexIcon Icon="@Icons.Rounded.Logout" Size="@new("20")" />
+            </EndContent>
+        </LumexDropdownItem>
+    </LumexDropdownMenu>
+</LumexDropdown>
+
+@code {
+    private PopoverSlots _classes = new()
+    {
+        Content = "p-0 border-small border-divider bg-background",
+        Arrow = "bg-default-200"
+    };
+
+    private DropdownItemSlots _itemClasses = new()
+    {
+        Base = new ElementClass()
+            .Add( "rounded-md" )
+            .Add( "text-default-500" )
+            .Add( "transition-opacity" )
+            .Add( "hover:text-foreground" )
+            .Add( "hover:bg-default-100" )
+            .Add( "active:opacity-focus" )
+            .ToString()
+    };
+
+    private string _dropdownId = "dropdown-custom-styles";
+
+    private Task TriggerAsync()
+    {
+        return PopoverService.TriggerAsync( _dropdownId );
+    }
+}

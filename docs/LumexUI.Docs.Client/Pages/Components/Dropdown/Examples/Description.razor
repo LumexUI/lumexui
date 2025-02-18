@@ -1,0 +1,65 @@
+﻿@using LumexUI.Services
+
+@inject IPopoverService PopoverService
+
+<LumexButton Variant="@Variant.Outlined"
+             OnClick="@TriggerAsync"
+             data-popoverref="@_dropdownId">
+    Open Dropdown
+</LumexButton>
+
+<LumexDropdown Id="@_dropdownId">
+    <LumexDropdownMenu Variant="@MenuVariant.Flat">
+        <LumexDropdownItem Id="@("new")"
+                           Description="Create a new file"
+                           StartContent="@_newFile">
+            New file
+        </LumexDropdownItem>
+        <LumexDropdownItem Id="@("edit")"
+                           Description="Edit the file"
+                           StartContent="@_editFile">
+            Edit file
+        </LumexDropdownItem>
+        <LumexDropdownItem Id="@("share")"
+                           Description="Share the file"
+                           StartContent="@_shareFile">
+            Share file
+        </LumexDropdownItem>
+        <LumexDropdownItem Id="@("delete")"
+                           Description="Delete the file"
+                           StartContent="@_deleteFile"
+                           Color="@ThemeColor.Danger"
+                           Class="text-danger">
+            Delete file
+        </LumexDropdownItem>
+    </LumexDropdownMenu>
+</LumexDropdown>
+
+@code {
+    private RenderFragment _newFile =
+        @<LumexIcon Icon="@Icons.Rounded.LibraryAdd"
+                    Size="@new("20")"
+                    Class="text-default-500 shrink-0" />;
+
+    private RenderFragment _editFile =
+        @<LumexIcon Icon="@Icons.Rounded.EditSquare"
+                    Size="@new("20")"
+                    Class="text-default-500 shrink-0" />;
+
+    private RenderFragment _shareFile =
+        @<LumexIcon Icon="@Icons.Rounded.Share"
+                    Size="@new("20")"
+                    Class="text-default-500 shrink-0" />;
+
+    private RenderFragment _deleteFile =
+        @<LumexIcon Icon="@Icons.Rounded.Delete"
+                    Size="@new("20")"
+                    Class="shrink-0" />;
+
+    private string _dropdownId = "dropdown-description";
+
+    private Task TriggerAsync()
+    {
+        return PopoverService.TriggerAsync( _dropdownId );
+    }
+}
