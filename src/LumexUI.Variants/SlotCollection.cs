@@ -6,20 +6,27 @@ using System.Collections;
 
 namespace LumexUI.Variants;
 
-public class SlotCollection : IEnumerable<KeyValuePair<string, string>>
+public class SlotCollection : IEnumerable<KeyValuePair<string, string?>>
 {
-	private readonly Dictionary<string, string> _dictionary = [];
+	private readonly Dictionary<string, string?> _dictionary = [];
 
-	public string this[string slotName]
+	public string? this[string slotName]
 	{
-		get => _dictionary[slotName];
-		set => _dictionary[slotName] = value;
+		get
+		{
+			_dictionary.TryGetValue( slotName, out var classes );
+			return classes;
+		}
+		set
+		{
+			_dictionary[slotName] = value;
+		}
 	}
 
 	public IEnumerable<string> Slots => _dictionary.Keys;
-	public IEnumerable<string> Values => _dictionary.Values;
+	public IEnumerable<string?> Values => _dictionary.Values;
 
-	public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
+	public IEnumerator<KeyValuePair<string, string?>> GetEnumerator()
 		=> _dictionary.GetEnumerator();
 
 	IEnumerator IEnumerable.GetEnumerator()
