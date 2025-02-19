@@ -4,6 +4,7 @@
 
 using LumexUI.Common;
 using LumexUI.Utilities;
+using LumexUI.Variants;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +17,8 @@ public class ButtonTests : TestContext
     public ButtonTests()
     {
         Services.AddSingleton<TwMerge>();
-    }
+		Services.AddSingleton<TwVariant>();
+	}
 
     [Fact]
     public void Button_ShouldRenderCorrectly()

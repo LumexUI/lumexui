@@ -3,6 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.Variants;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +16,8 @@ public class RadioTests : TestContext
     public RadioTests()
     {
         Services.AddSingleton<TwMerge>();
-    }
+		Services.AddSingleton<TwVariant>();
+	}
     
     [Fact]
     public void Radio_MustBeInsideRadioGroup()

@@ -18,6 +18,7 @@
     public DataGridTests()
     {
         Services.AddSingleton<TwMerge>();
+        Services.AddSingleton<TwVariant>();
 
         var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/data-grid.js" );
         var module2 = JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );

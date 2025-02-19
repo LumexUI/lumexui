@@ -2,7 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using LumexUI.Common;
+using LumexUI.Variants;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +16,8 @@ public class RadioGroupTests : TestContext
     public RadioGroupTests()
     {
         Services.AddSingleton<TwMerge>();
-    }
+		Services.AddSingleton<TwVariant>();
+	}
 
     [Fact]
     public void RadioGroup_ShouldRenderCorrectly()

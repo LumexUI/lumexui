@@ -11,6 +11,7 @@
     public PopoverTests()
     {
         Services.AddSingleton<TwMerge>();
+        Services.AddSingleton<TwVariant>();
         Services.AddSingleton<IPopoverService, PopoverService>();
 
         var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/popover.bundle.js" );

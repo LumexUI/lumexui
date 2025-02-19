@@ -4,6 +4,8 @@
 
 using System.Globalization;
 
+using LumexUI.Variants;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using TailwindMerge;
@@ -15,7 +17,8 @@ public class InputBaseTests : TestContext
     public InputBaseTests()
     {
         Services.AddSingleton<TwMerge>();
-        JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
+		Services.AddSingleton<TwVariant>();
+		JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
     }
 
     [Fact]

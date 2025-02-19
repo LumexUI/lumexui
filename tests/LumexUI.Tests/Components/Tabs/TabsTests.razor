@@ -12,6 +12,7 @@
     public TabsTests()
     {
         Services.AddSingleton<TwMerge>();
+        Services.AddSingleton<TwVariant>();
         Services.AddSingleton<MotionInterop>();
 
         var module = JSInterop.SetupModule("./_content/LumexUI.Motion/motion.js");

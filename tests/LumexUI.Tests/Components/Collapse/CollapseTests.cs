@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Variants;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using TailwindMerge;
@@ -15,7 +17,8 @@ public class CollapseTests : TestContext
     public CollapseTests()
     {
         Services.AddSingleton<TwMerge>();
-        JSInterop.Setup<int>( "Lumex.elementReference.getScrollHeight", _ => true );
+		Services.AddSingleton<TwVariant>();
+		JSInterop.Setup<int>( "Lumex.elementReference.getScrollHeight", _ => true );
     }
 
     [Fact]
