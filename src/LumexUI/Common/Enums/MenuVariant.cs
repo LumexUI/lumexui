@@ -2,12 +2,11 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using LumexUI.Internal;
-
 namespace LumexUI.Common;
 
 /// <summary>
-/// Specifies the visual variants for the <see cref="MenuItem"/>.
+/// Specifies the visual variants for menu-like components, 
+/// such as <see cref="LumexDropdown"/>, and others.
 /// </summary>
 public enum MenuVariant
 {
