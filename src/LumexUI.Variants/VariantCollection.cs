@@ -6,27 +6,20 @@ using System.Collections;
 
 namespace LumexUI.Variants;
 
-public class VariantCollection : IEnumerable<KeyValuePair<string, VariantValueCollection?>>
+public class VariantCollection : IEnumerable<KeyValuePair<string, VariantValueCollection>>
 {
-	private readonly Dictionary<string, VariantValueCollection?> _dictionary = [];
+	private readonly Dictionary<string, VariantValueCollection> _dictionary = [];
 
-	public VariantValueCollection? this[string variantName]
+	public VariantValueCollection this[string variantName]
 	{
-		get
-		{
-			_dictionary.TryGetValue( variantName, out var variantValues );
-			return variantValues;
-		}
-		set
-		{
-			_dictionary[variantName] = value;
-		}
+		get => _dictionary[variantName];
+		set => _dictionary[variantName] = value;
 	}
 
 	public IEnumerable<string> Variants => _dictionary.Keys;
-	public IEnumerable<VariantValueCollection?> Values => _dictionary.Values;
+	public IEnumerable<VariantValueCollection> Values => _dictionary.Values;
 
-	public IEnumerator<KeyValuePair<string, VariantValueCollection?>> GetEnumerator()
+	public IEnumerator<KeyValuePair<string, VariantValueCollection>> GetEnumerator()
 		=> _dictionary.GetEnumerator();
 
 	IEnumerator IEnumerable.GetEnumerator()
