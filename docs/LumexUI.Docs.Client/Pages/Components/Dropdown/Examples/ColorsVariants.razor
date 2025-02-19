@@ -33,7 +33,9 @@
                  @bind-Value="@_color">
     @foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
     {
-        <LumexRadio Value="@color">@color.ToString()</LumexRadio>
+        <LumexRadio Value="@color" Color="@color">
+            @color.ToString()
+        </LumexRadio>
     }
 </LumexRadioGroup>
 

@@ -27,6 +27,10 @@
             <Code>DisabledItems</Code> parameter on a <Code>DropdownMenu</Code>.
         </p>
         <DisabledItems />
+        <Callout Variant="@CalloutVariant.Warning">
+            It's important to set a unique <Code>Id</Code> for each item, 
+            otherwise the disabled items will not work.
+        </Callout>
     </DocsSection>
 
     <DocsSection Title="Colors & Variants">
@@ -137,19 +141,19 @@
     };
 
     private readonly Dictionary<string, Slot[]> _slots = new()
-    {
-        [nameof( LumexDropdownMenu )] = [
-            new(nameof(DropdownMenuSlots.Base), "The main container for the entire dropdown menu."),
+        {
+            [nameof( LumexDropdownMenu )] = [
+                new(nameof(DropdownMenuSlots.Base), "The main container for the entire dropdown menu."),
             new(nameof(DropdownMenuSlots.List), "The wrapper for the dropdown items, containing all dropdown items."),
             new(nameof(DropdownMenuSlots.EmptyContent), "The area displayed when the dropdown is empty."),
         ],
-        [nameof( LumexDropdownItem )] = [
-            new(nameof(DropdownItemSlots.Base), "The main container for the dropdown item."),
+            [nameof( LumexDropdownItem )] = [
+                new(nameof(DropdownItemSlots.Base), "The main container for the dropdown item."),
             new(nameof(DropdownItemSlots.Wrapper), "The wrapper for the title, description, and icons."),
             new(nameof(DropdownItemSlots.Title), "The title of the dropdown item."),
             new(nameof(DropdownItemSlots.Description), "The description of the dropdown item."),
         ]
-    };
+        };
 
     private readonly string[] _apiComponents = new string[]
     {
