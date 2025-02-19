@@ -15,12 +15,11 @@
         </LumexButton>
 
         <LumexDropdown Id="@id">
-            <LumexDropdownMenu Color="@_color" Variant="@_variant">
-                <LumexDropdownItem Id="@("new")">New file</LumexDropdownItem>
-                <LumexDropdownItem Id="@("edit")">Edit file</LumexDropdownItem>
-                <LumexDropdownItem Id="@("share")">Share file</LumexDropdownItem>
-                <LumexDropdownItem Id="@("delete")"
-                                   Color="@ThemeColor.Danger"
+            <LumexDropdownMenu Color="@_color" Variant="@variant">
+                <LumexDropdownItem>New file</LumexDropdownItem>
+                <LumexDropdownItem>Edit file</LumexDropdownItem>
+                <LumexDropdownItem>Share file</LumexDropdownItem>
+                <LumexDropdownItem Color="@ThemeColor.Danger"
                                    Class="text-danger">
                     Delete file
                 </LumexDropdownItem>

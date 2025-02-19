@@ -10,23 +10,19 @@
 
 <LumexDropdown Id="@_dropdownId">
     <LumexDropdownMenu Variant="@MenuVariant.Flat">
-        <LumexDropdownItem Id="@("new")"
-                           Description="Create a new file"
+        <LumexDropdownItem Description="Create a new file"
                            StartContent="@_newFile">
             New file
         </LumexDropdownItem>
-        <LumexDropdownItem Id="@("edit")"
-                           Description="Edit the file"
+        <LumexDropdownItem Description="Edit the file"
                            StartContent="@_editFile">
             Edit file
         </LumexDropdownItem>
-        <LumexDropdownItem Id="@("share")"
-                           Description="Share the file"
+        <LumexDropdownItem Description="Share the file"
                            StartContent="@_shareFile">
             Share file
         </LumexDropdownItem>
-        <LumexDropdownItem Id="@("delete")"
-                           Description="Delete the file"
+        <LumexDropdownItem Description="Delete the file"
                            StartContent="@_deleteFile"
                            Color="@ThemeColor.Danger"
                            Class="text-danger">

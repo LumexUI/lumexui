@@ -14,21 +14,18 @@
                Classes="@_classes">
     <LumexDropdownMenu Class="p-3"
                        ItemClasses="@_itemClasses">
-        <LumexDropdownItem Id="@("profile")"
-                           Disabled="@true"
+        <LumexDropdownItem Disabled="@true"
                            Class="h-14 gap-2 opacity-100">
             <div class="inline-flex flex-col items-start">
                 <span class="text-small text-default-600">John Doe</span>
                 <span class="text-tiny text-default-500">@@johndoe</span>
             </div>
         </LumexDropdownItem>
-        <LumexDropdownItem Id="@("dashboard")">Dashboard</LumexDropdownItem>
-        <LumexDropdownItem Id="@("settings")"
-                           ShowDivider="@true">
+        <LumexDropdownItem>Dashboard</LumexDropdownItem>
+        <LumexDropdownItem ShowDivider="@true">
             Settings
         </LumexDropdownItem>
-        <LumexDropdownItem Id="@("theme")"
-                           ShowDivider="@true"
+        <LumexDropdownItem ShowDivider="@true"
                            ReadOnly="@true">
             <ChildContent>
                 Theme
@@ -43,8 +40,8 @@
                 </select>
             </EndContent>
         </LumexDropdownItem>
-        <LumexDropdownItem Id="@("help-support")">Help & Support</LumexDropdownItem>
-        <LumexDropdownItem Id="@("logout")">
+        <LumexDropdownItem>Help & Support</LumexDropdownItem>
+        <LumexDropdownItem>
             <ChildContent>
                 Log Out
             </ChildContent>
