@@ -8,9 +8,16 @@ namespace LumexUI.Tests.Extensions;
 
 internal static class AngleSharpExtensions
 {
-	public static IElement FindByTestId( this IRenderedFragment fragment, string id )
+	public static IElement? FindByTestId( this IRenderedFragment fragment, string id )
 	{
-		return fragment.Find( $"[data-testid={id}]" );
+		try
+		{
+			return fragment.Find( $"[data-testid={id}]" );
+		}
+		catch
+		{
+			return null;
+		}
 	}
 
 	public static IElement FindBySlot( this IRenderedFragment fragment, string slot )

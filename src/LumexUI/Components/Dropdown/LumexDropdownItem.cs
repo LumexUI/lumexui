@@ -3,6 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.Internal;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -12,7 +13,7 @@ namespace LumexUI;
 /// <summary>
 /// A component that represents an item within a <see cref="LumexDropdown"/>.
 /// </summary>
-public partial class LumexDropdownItem : Internal.MenuItem, ISlotComponent<DropdownItemSlots>
+public partial class LumexDropdownItem : MenuItem, ISlotComponent<DropdownItemSlots>
 {
 	/// <summary>
 	/// Gets or sets the CSS class names for the dropdown item slots.
@@ -26,6 +27,7 @@ public partial class LumexDropdownItem : Internal.MenuItem, ISlotComponent<Dropd
 	/// <inheritdoc />
 	protected override void OnInitialized()
 	{
+		base.OnInitialized();
 		ContextNullException.ThrowIfNull( DropdownContext, nameof( LumexDropdownItem ) );
 	}
 

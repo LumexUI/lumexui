@@ -4,6 +4,7 @@
 
 using LumexUI.Common;
 using LumexUI.Extensions;
+using LumexUI.Utilities;
 using LumexUI.Variants;
 
 using Microsoft.AspNetCore.Components;
@@ -14,7 +15,7 @@ namespace LumexUI.Internal;
 /// <summary>
 /// A component that represents an item within a <see cref="Internal.Menu"/>.
 /// </summary>
-public partial class MenuItem : LumexComponentBase
+public abstract partial class MenuItem : LumexComponentBase
 {
 	/// <summary>
 	/// Gets or sets the content to render inside the menu item.
@@ -34,7 +35,7 @@ public partial class MenuItem : LumexComponentBase
 	/// <summary>
 	/// Gets or sets the unique identifier for the menu item.
 	/// </summary>
-	[Parameter] public string Id { get; set; } = default!;
+	[Parameter] public string Id { get; set; } = Identifier.New();
 
 	/// <summary>
 	/// Gets or sets the description of the menu item.
@@ -128,13 +129,5 @@ public partial class MenuItem : LumexComponentBase
 		} );
 	}
 
-	private protected virtual Task OnClickAsync( MouseEventArgs args )
-	{
-		if( _disabled || ReadOnly )
-		{
-			return Task.CompletedTask;
-		}
-
-		return OnClick.InvokeAsync( args );
-	}
+	private protected abstract Task OnClickAsync( MouseEventArgs args );
 }

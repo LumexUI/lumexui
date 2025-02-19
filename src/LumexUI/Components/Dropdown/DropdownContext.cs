@@ -8,29 +8,5 @@ namespace LumexUI;
 
 internal sealed class DropdownContext( LumexDropdown owner ) : IComponentContext<LumexDropdown>
 {
-	private bool _collectingItems;
-
 	public LumexDropdown Owner { get; } = owner;
-	public List<LumexDropdownItem> Items { get; } = [];
-
-	public void Register( LumexDropdownItem item )
-	{
-		if( !_collectingItems )
-		{
-			return;
-		}
-
-		Items.Add( item );
-	}
-
-	public void StartCollectingItems()
-	{
-		Items.Clear();
-		_collectingItems = true;
-	}
-
-	public void StopCollectingItems()
-	{
-		_collectingItems = false;
-	}
 }

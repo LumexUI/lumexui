@@ -12,7 +12,7 @@ internal sealed class MenuContext( Menu owner ) : IComponentContext<Menu>
 	private bool _collectingItems;
 
 	public Menu Owner { get; } = owner;
-	public Dictionary<object, MenuItem> Items { get; } = [];
+	public Dictionary<string, MenuItem> Items { get; } = [];
 
 	public void Register( MenuItem item )
 	{
@@ -21,10 +21,7 @@ internal sealed class MenuContext( Menu owner ) : IComponentContext<Menu>
 			return;
 		}
 
-		if( item.Id is not null )
-		{
-			Items.Add( item.Id, item );
-		}
+		Items.Add( item.Id, item );
 	}
 
 	public void StartCollectingItems()

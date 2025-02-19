@@ -12,7 +12,7 @@ namespace LumexUI.Internal;
 /// <summary>
 /// A component that represents a menu, containing one or more <see cref="MenuItem"/>.
 /// </summary>
-public partial class Menu : LumexComponentBase
+public abstract partial class Menu : LumexComponentBase
 {
 	/// <summary>
 	/// Gets or sets the content to render inside the menu.

@@ -1,0 +1,181 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public DropdownTests()
+    {
+        Services.AddSingleton<TwMerge>();
+        Services.AddSingleton<TwVariant>();
+        Services.AddSingleton<IPopoverService, PopoverService>();
+
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/popover.bundle.js" );
+        module.SetupVoid( "popover.initialize", _ => true );
+        module.SetupVoid( "popover.destroy", _ => true );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var id = "1";
+        var action = () => Render(
+            @<text>
+                <LumexButton data-popoverref="@id">
+                    Trigger
+                </LumexButton>
+                <LumexDropdown Id="@id">
+                    <LumexDropdownMenu>
+                        <LumexDropdownItem>New file</LumexDropdownItem>
+                        <LumexDropdownItem>Edit file</LumexDropdownItem>
+                        <LumexDropdownItem>Share file</LumexDropdownItem>
+                        <LumexDropdownItem>Delete file</LumexDropdownItem>
+                    </LumexDropdownMenu>
+                </LumexDropdown>
+            </text>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderEmptyContent()
+    {
+        var id = "2";
+        var cut = Render(
+            @<text>
+                <LumexButton OnClick="@(() => TriggerAsync(id))" data-popoverref="@id">
+                    Trigger
+                </LumexButton>
+                <LumexDropdown Id="@id">
+                    <LumexDropdownMenu></LumexDropdownMenu>
+                </LumexDropdown>
+            </text>
+        );
+
+        var trigger = cut.Find( "[data-popoverref]" );
+        trigger.Click();
+
+        cut.FindBySlot("empty-content").Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderItemDescription()
+    {
+        var id = "3";
+        var cut = Render(
+            @<text>
+                <LumexButton OnClick="@(() => TriggerAsync(id))" data-popoverref="@id">
+                    Trigger
+                </LumexButton>
+                <LumexDropdown Id="@id">
+                    <LumexDropdownMenu>
+                        <LumexDropdownItem Description="test">New file</LumexDropdownItem>
+                        <LumexDropdownItem>Edit file</LumexDropdownItem>
+                        <LumexDropdownItem>Share file</LumexDropdownItem>
+                        <LumexDropdownItem>Delete file</LumexDropdownItem>
+                    </LumexDropdownMenu>
+                </LumexDropdown>
+            </text>
+        );
+
+        var trigger = cut.Find( "[data-popoverref]" );
+        trigger.Click();
+
+        cut.FindBySlot("description").Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldTriggerDropdownOnClick()
+    {
+        var id = "4";
+        var cut = Render(
+            @<text>
+                <LumexButton OnClick="@(() => TriggerAsync(id))" data-popoverref="@id">
+                    Trigger
+                </LumexButton>
+                <LumexDropdown Id="@id">
+                    <LumexDropdownMenu data-testid="menu-test">
+                        <LumexDropdownItem>New file</LumexDropdownItem>
+                        <LumexDropdownItem>Edit file</LumexDropdownItem>
+                        <LumexDropdownItem>Share file</LumexDropdownItem>
+                        <LumexDropdownItem>Delete file</LumexDropdownItem>
+                    </LumexDropdownMenu>
+                </LumexDropdown>
+            </text>
+        );
+
+        var trigger = cut.Find( "[data-popoverref]" );
+        trigger.Click();
+
+        var menu = cut.FindByTestId( "menu-test" );
+        menu.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldHideDropdownOnItemClick()
+    {
+        var id = "5";
+        var cut = Render(
+            @<text>
+                <LumexButton OnClick="@(() => TriggerAsync(id))" data-popoverref="@id">
+                    Trigger
+                </LumexButton>
+                <LumexDropdown Id="@id">
+                    <LumexDropdownMenu data-testid="menu-test">
+                        <LumexDropdownItem>New file</LumexDropdownItem>
+                        <LumexDropdownItem>Edit file</LumexDropdownItem>
+                        <LumexDropdownItem>Share file</LumexDropdownItem>
+                        <LumexDropdownItem>Delete file</LumexDropdownItem>
+                    </LumexDropdownMenu>
+                </LumexDropdown>
+            </text>
+        );
+
+        var trigger = cut.Find( "[data-popoverref]" );
+        trigger.Click();
+
+        var menuItems = cut.FindAll( "li" );
+        menuItems[0].Click();
+
+        var menu = cut.FindByTestId( "menu-test" );
+        menu.Should().BeNull();
+    }
+
+    [Fact]
+    public void ShouldNotTriggerDisabledItem()
+    {
+        var id = "6";
+        var clicked = false;
+        var cut = Render(
+            @<text>
+                <LumexButton OnClick="@(() => TriggerAsync(id))" data-popoverref="@id">
+                    Trigger
+                </LumexButton>
+                <LumexDropdown Id="@id">
+                    <LumexDropdownMenu DisabledItems="@(["new"])">
+                        <LumexDropdownItem Id="new" 
+                                           OnClick="@(() => clicked = !clicked)">
+                            New file
+                        </LumexDropdownItem>
+                        <LumexDropdownItem Id="edit">Edit file</LumexDropdownItem>
+                        <LumexDropdownItem Id="share">Share file</LumexDropdownItem>
+                        <LumexDropdownItem Id="delete">Delete file</LumexDropdownItem>
+                    </LumexDropdownMenu>
+                </LumexDropdown>
+            </text>
+        );
+
+        var trigger = cut.Find( "[data-popoverref]" );
+        trigger.Click();
+
+        var menuItems = cut.FindAll( "li" );
+        menuItems[0].Click();
+
+        clicked.Should().BeFalse();
+    }
+
+    private Task TriggerAsync( string id )
+    {
+        var popoverService = Services.GetRequiredService<IPopoverService>();
+        return popoverService.TriggerAsync( id );
+    }
+}
