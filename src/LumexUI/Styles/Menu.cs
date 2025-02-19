@@ -80,7 +80,7 @@ internal static class MenuItem
 					.Add( "outline-none" )
 					.Add( "cursor-pointer" )
 					// transition
-					.Add( "hover:transition-colors" )
+					.Add( "hover:transition-colors-shadow" )
 					// focus ring
 					.Add( Utils.FocusVisible )
 					.ToString(),
