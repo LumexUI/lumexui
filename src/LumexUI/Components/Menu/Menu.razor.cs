@@ -43,7 +43,7 @@ public partial class Menu : LumexComponentBase
 	/// <summary>
 	/// Gets or sets a collection of items that should be disabled in the menu.
 	/// </summary>
-	[Parameter] public ICollection<object>? DisabledItems { get; set; }
+	[Parameter] public ICollection<string>? DisabledItems { get; set; }
 
 	internal MenuSlots? Classes { get; set; }
 	internal MenuItemSlots? ItemClasses { get; set; }

@@ -34,7 +34,7 @@ public partial class MenuItem : LumexComponentBase
 	/// <summary>
 	/// Gets or sets the unique identifier for the menu item.
 	/// </summary>
-	[Parameter, EditorRequired] public object Id { get; set; } = default!;
+	[Parameter] public string Id { get; set; } = default!;
 
 	/// <summary>
 	/// Gets or sets the description of the menu item.
@@ -115,12 +115,6 @@ public partial class MenuItem : LumexComponentBase
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
-		if( Id is null )
-		{
-			throw new InvalidOperationException(
-				$"{GetType()} requires a value for the {nameof( Id )} parameter." );
-		}
-
 		_disabled = Disabled || Menu.DisabledItems?.Contains( Id ) is true;
 
 		var menuItem = Styles.MenuItem.Style( TwVariant );
