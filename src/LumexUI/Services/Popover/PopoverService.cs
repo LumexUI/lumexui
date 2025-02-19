@@ -41,7 +41,7 @@ public class PopoverService : IPopoverService
 		if( _registeredPopovers.TryGetValue( id, out var popover ) )
 		{
 			return popover.TriggerAsync();
-		};
+		}
 
 		return Task.CompletedTask;
 	}

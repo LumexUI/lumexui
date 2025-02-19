@@ -86,7 +86,7 @@ internal class Button
 				.Add( "hover:bg-default-200", when: color is ThemeColor.Default )
 				.Add( "hover:bg-primary-100", when: color is ThemeColor.Primary )
 				.Add( "hover:bg-secondary-100", when: color is ThemeColor.Secondary )
-				.Add( "hover:bg-sucess-100", when: color is ThemeColor.Success )
+				.Add( "hover:bg-success-100", when: color is ThemeColor.Success )
 				.Add( "hover:bg-warning-100", when: color is ThemeColor.Warning )
 				.Add( "hover:bg-danger-100", when: color is ThemeColor.Danger )
 				.Add( "hover:bg-info-100", when: color is ThemeColor.Info ),
@@ -95,7 +95,7 @@ internal class Button
 				.Add( "hover:!bg-default hover:!text-default-foreground", when: color is ThemeColor.Default )
 				.Add( "hover:!bg-primary hover:!text-primary-foreground", when: color is ThemeColor.Primary )
 				.Add( "hover:!bg-secondary hover:!text-secondary-foreground", when: color is ThemeColor.Secondary )
-				.Add( "hover:!bg-sucess hover:!text-sucess-foreground", when: color is ThemeColor.Success )
+				.Add( "hover:!bg-success hover:!text-success-foreground", when: color is ThemeColor.Success )
 				.Add( "hover:!bg-warning hover:!text-warning-foreground", when: color is ThemeColor.Warning )
 				.Add( "hover:!bg-danger hover:!text-danger-foreground", when: color is ThemeColor.Danger )
 				.Add( "hover:!bg-info hover:!text-info-foreground", when: color is ThemeColor.Info ),
