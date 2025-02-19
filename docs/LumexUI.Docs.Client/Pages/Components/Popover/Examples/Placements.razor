@@ -1,12 +1,21 @@
-﻿<div class="flex flex-wrap md:inline-grid md:grid-cols-3 gap-4">
-    @foreach( var placement in _placements )
+﻿@using LumexUI.Services
+
+@inject IPopoverService PopoverService
+
+<div class="flex flex-wrap md:inline-grid md:grid-cols-3 gap-4">
+    @foreach( var placement in Enum.GetValues<PopoverPlacement>() )
     {
-        <LumexPopover Placement="@placement">
-            <LumexPopoverTrigger Color="@ThemeColor.Danger"
-                                 Variant="@Variant.Flat"
-                                 Class="capitalize">
-                @placement.ToDescription().Replace( "-", " " )
-            </LumexPopoverTrigger>
+        var id = $"popover-placement-{placement.ToString()}";
+
+        <LumexButton Color="@ThemeColor.Danger"
+                     Variant="@Variant.Flat"
+                     OnClick="@(() => TriggerAsync(id))"
+                     Class="capitalize"
+                     data-popoverref="@id">
+            @placement.ToDescription().Replace( "-", " " )
+        </LumexButton>
+
+        <LumexPopover Id="@id" Placement="@placement">
             <LumexPopoverContent>
                 <div class="px-1 py-2">
                     <div class="text-small font-bold">Oh, hi there!</div>
@@ -18,18 +27,8 @@
 </div>
 
 @code {
-    private readonly PopoverPlacement[] _placements = [
-        PopoverPlacement.TopStart,
-        PopoverPlacement.Top,
-        PopoverPlacement.TopEnd,
-        PopoverPlacement.RightStart,
-        PopoverPlacement.Right,
-        PopoverPlacement.RightEnd,
-        PopoverPlacement.BottomStart,
-        PopoverPlacement.Bottom,
-        PopoverPlacement.BottomEnd,
-        PopoverPlacement.LeftStart,
-        PopoverPlacement.Left,
-        PopoverPlacement.LeftEnd
-    ];
+    private Task TriggerAsync( string id )
+    {
+        return PopoverService.TriggerAsync( id );
+    }
 }

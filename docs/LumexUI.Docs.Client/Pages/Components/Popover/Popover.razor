@@ -88,7 +88,6 @@
     private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
     {
         new(nameof(LumexPopover), "A component representing the popover that displays additional content within a floating container."),
-        new(nameof(LumexPopoverTrigger), "A component representing the trigger of the popover, controlling its display."),
         new(nameof(LumexPopoverContent), "A component representing the content of the popover."),
     };
 
@@ -110,8 +109,7 @@
 
     private readonly Slot[] _slots = new Slot[]
     {
-        new(nameof(PopoverSlots.Root), "The overall container of the popover."),
-        new(nameof(PopoverSlots.Trigger), "The element that triggers the popover."),
+        new(nameof(PopoverSlots.Base), "The overall container of the popover."),
         new(nameof(PopoverSlots.Content), "The container of the popover content."),
         new(nameof(PopoverSlots.Arrow), "The arrow element that connects the popover to its trigger element."),
     };
@@ -119,7 +117,6 @@
     private readonly string[] _apiComponents = new string[]
     {
         nameof(LumexPopover),
-        nameof(LumexPopoverTrigger),
         nameof(LumexPopoverContent)
     };
 

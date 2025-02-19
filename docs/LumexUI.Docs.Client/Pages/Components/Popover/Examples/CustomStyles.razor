@@ -1,10 +1,17 @@
-﻿<LumexPopover Placement="@PopoverPlacement.Right"
+﻿@using LumexUI.Services
+
+@inject IPopoverService PopoverService
+
+<LumexButton OnClick="@TriggerAsync"
+             data-popoverref="@_popoverId">
+    Open Popover
+</LumexButton>
+
+<LumexPopover Id="@_popoverId"
+              Placement="@PopoverPlacement.Right"
               ShowArrow="@true"
               Offset="16"
               Classes="@_classes">
-    <LumexPopoverTrigger>
-        Open Popover
-    </LumexPopoverTrigger>
     <LumexPopoverContent>
         <div class="px-1 py-2">
             <h3 class="text-small font-bold">Oh, hi there!</h3>
@@ -22,4 +29,11 @@
             .ToString(),
         Arrow = "bg-default-200"
     };
+
+    private string _popoverId = "popover-custom-styles";
+
+    private Task TriggerAsync()
+    {
+        return PopoverService.TriggerAsync( _popoverId );
+    }
 }

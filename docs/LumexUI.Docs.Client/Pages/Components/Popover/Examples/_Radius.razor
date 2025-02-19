@@ -1,10 +1,19 @@
-﻿@foreach( var radius in _radiuses )
+﻿@using LumexUI.Services
+
+@inject IPopoverService PopoverService
+
+@foreach( var radius in Enum.GetValues<Radius>() )
 {
-    <LumexPopover Radius="@radius">
-        <LumexPopoverTrigger Color="@ThemeColor.Secondary"
-                             Variant="@Variant.Flat">
-            @radius.ToString()
-        </LumexPopoverTrigger>
+    var id = $"popover-radius-{radius.ToString()}";
+
+    <LumexButton Color="@ThemeColor.Secondary"
+                 Variant="@Variant.Flat"
+                 OnClick="@(() => TriggerAsync(id))"
+                 data-popoverref="@id">
+        @radius.ToString()
+    </LumexButton>
+
+    <LumexPopover Id="@id" Radius="@radius">
         <LumexPopoverContent>
             <div class="px-1 py-2">
                 <div class="text-small font-bold">Oh, hi there!</div>
@@ -15,10 +24,8 @@
 }
 
 @code {
-    private readonly Radius[] _radiuses = [
-        Radius.None,
-        Radius.Small,
-        Radius.Medium,
-        Radius.Large
-    ];
+    private Task TriggerAsync( string id )
+    {
+        return PopoverService.TriggerAsync( id );
+    }
 }
