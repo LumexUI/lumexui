@@ -100,7 +100,7 @@ internal readonly record struct Switch
         return ElementClass.Empty()
             .Add( "group-data-[checked=true]:bg-default-400 group-data-[checked=true]:text-default-foreground", when: color is ThemeColor.Default )
             .Add( "group-data-[checked=true]:bg-primary group-data-[checked=true]:text-primary-foreground", when: color is ThemeColor.Primary )
-            .Add( "group-data-[checked=true]:bg-secodary group-data-[checked=true]:text-secondary-foreground", when: color is ThemeColor.Secondary )
+            .Add( "group-data-[checked=true]:bg-secondary group-data-[checked=true]:text-secondary-foreground", when: color is ThemeColor.Secondary )
             .Add( "group-data-[checked=true]:bg-success group-data-[checked=true]:text-success-foreground", when: color is ThemeColor.Success )
             .Add( "group-data-[checked=true]:bg-warning group-data-[checked=true]:text-warning-foreground", when: color is ThemeColor.Warning )
             .Add( "group-data-[checked=true]:bg-danger group-data-[checked=true]:text-danger-foreground", when: color is ThemeColor.Danger )
