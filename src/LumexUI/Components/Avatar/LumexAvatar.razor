@@ -1,0 +1,44 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexComponent As="@As"
+                Class="@Class"
+                Style="@Style"
+                @attributes="@AdditionalAttributes">
+    @if( !string.IsNullOrEmpty( Src ) )
+    {
+        <img src="@Src" alt="@Alt" />
+    }
+
+    @_renderFallback
+</LumexComponent>
+
+@code {
+    private void RenderFallback( RenderTreeBuilder __builder )
+    {
+        if( !string.IsNullOrEmpty( Src ) )
+        {
+            return;
+        }
+
+        if( FallbackContent is not null )
+        {
+            <div role="img" class="" aria-label="@Alt">
+                @FallbackContent
+            </div>
+        }
+
+        if( !string.IsNullOrEmpty( Name ) )
+        {
+            <span role="img" class="" aria-label="@Alt">
+                @Initials( Name )
+            </span>
+        }
+        else
+        {
+            <span role="img" class="" aria-label="@Alt">
+                <LumexIcon Icon="@Icon" />
+            </span>
+        }
+    }
+}
