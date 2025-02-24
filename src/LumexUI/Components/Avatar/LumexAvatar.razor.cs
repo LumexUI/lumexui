@@ -46,6 +46,30 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	[Parameter] public string Icon { get; set; } = Icons.Rounded.Person;
 
 	/// <summary>
+	/// Gets or sets the color of the avatar.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="ThemeColor.Default"/>.
+	/// </remarks>
+	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+
+	/// <summary>
+	/// Gets or sets the size of the avatar.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="Size.Medium"/>.
+	/// </remarks>
+	[Parameter] public Size Size { get; set; } = Size.Medium;
+
+	/// <summary>
+	/// Gets or sets the border radius of the avatar.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="Radius.Full"/>.
+	/// </remarks>
+	[Parameter] public Radius Radius { get; set; } = Radius.Full;
+
+	/// <summary>
 	/// Gets or sets the function that resolves initials from the provided name.
 	/// </summary>
 	[Parameter] public InitialsResolver Initials { get; set; }

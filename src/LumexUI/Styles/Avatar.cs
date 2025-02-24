@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+using LumexUI.Common;
 using LumexUI.Utilities;
 
 using TailwindMerge;
@@ -82,6 +83,79 @@ internal static class Avatar
 					.Add( "w-full" )
 					.Add( "h-full" )
 					.ToString()
+			},
+
+			Variants = new VariantCollection
+			{
+				[nameof( LumexAvatar.Size )] = new VariantValueCollection
+				{
+					[nameof( Size.Small )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "w-8 h-8 text-tiny"
+					},
+					[nameof( Size.Medium )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "w-10 h-10 text-tiny"
+					},
+					[nameof( Size.Large )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "w-14 h-14 text-small"
+					}
+				},
+				[nameof( LumexAvatar.Color )] = new VariantValueCollection
+				{
+					[nameof( ThemeColor.Default )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = ColorVariants.Solid[ThemeColor.Default]
+					},
+					[nameof( ThemeColor.Primary )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = ColorVariants.Solid[ThemeColor.Primary]
+					},
+					[nameof( ThemeColor.Secondary )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = ColorVariants.Solid[ThemeColor.Secondary]
+					},
+					[nameof( ThemeColor.Success )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = ColorVariants.Solid[ThemeColor.Success]
+					},
+					[nameof( ThemeColor.Warning )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = ColorVariants.Solid[ThemeColor.Warning]
+					},
+					[nameof( ThemeColor.Danger )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = ColorVariants.Solid[ThemeColor.Danger]
+					},
+					[nameof( ThemeColor.Info )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = ColorVariants.Solid[ThemeColor.Info]
+					}
+				},
+				[nameof( LumexAvatar.Radius )] = new VariantValueCollection
+				{
+					[nameof( Radius.None )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "rounded-none"
+					},
+					[nameof( Radius.Small )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "rounded-small"
+					},
+					[nameof( Radius.Medium )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "rounded-medium"
+					},
+					[nameof( Radius.Large )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "rounded-large"
+					},
+					[nameof( Radius.Full )] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "rounded-full"
+					}
+				}
 			}
 		} );
 	}

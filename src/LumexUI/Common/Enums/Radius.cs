@@ -27,5 +27,13 @@ public enum Radius
 	/// <summary>
 	/// A large border radius.
 	/// </summary>
-	Large
+	Large,
+
+	/// <summary>
+	/// A full border radius.
+	/// </summary>
+	/// <remarks>
+	/// Not every component supports this.
+	/// </remarks>
+	Full
 }
