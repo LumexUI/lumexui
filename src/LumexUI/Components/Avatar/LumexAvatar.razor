@@ -4,10 +4,11 @@
 <LumexComponent As="@As"
                 Class="@Class"
                 Style="@Style"
+                data-slot="base"
                 @attributes="@AdditionalAttributes">
     @if( !string.IsNullOrEmpty( Src ) )
     {
-        <img src="@Src" alt="@Alt" />
+        <img src="@Src" alt="@Alt" data-slot="img" />
     }
 
     @_renderFallback
@@ -23,20 +24,20 @@
 
         if( FallbackContent is not null )
         {
-            <div role="img" class="" aria-label="@Alt">
+            <div role="img" class="" data-slot="fallback" aria-label="@Alt">
                 @FallbackContent
             </div>
         }
 
         if( !string.IsNullOrEmpty( Name ) )
         {
-            <span role="img" class="" aria-label="@Alt">
+            <span role="img" class="" data-slot="name" aria-label="@Alt">
                 @Initials( Name )
             </span>
         }
         else
         {
-            <span role="img" class="" aria-label="@Alt">
+            <span role="img" class="" data-slot="icon" aria-label="@Alt">
                 <LumexIcon Icon="@Icon" />
             </span>
         }

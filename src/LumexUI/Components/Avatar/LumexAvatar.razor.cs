@@ -11,7 +11,7 @@ namespace LumexUI;
 /// <summary>
 /// A component that represents an avatar, typically displaying a user's profile image or initials.
 /// </summary>
-public partial class LumexAvatar : LumexComponentBase
+public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlots>
 {
 	/// <summary>
 	/// Gets or sets the content to render when the avatar image is unavailable.
@@ -49,6 +49,11 @@ public partial class LumexAvatar : LumexComponentBase
 	/// Gets or sets the function that resolves initials from the provided name.
 	/// </summary>
 	[Parameter] public InitialsResolver Initials { get; set; }
+
+	/// <summary>
+	/// Gets or sets the CSS class names for the avatar slots.
+	/// </summary>
+	[Parameter]  public AvatarSlots? Classes { get; set; }
 
 	private readonly RenderFragment _renderFallback;
 
