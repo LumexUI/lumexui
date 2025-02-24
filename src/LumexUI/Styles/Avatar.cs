@@ -174,7 +174,94 @@ internal static class Avatar
 						[nameof( AvatarSlots.Base )] = "opacity-disabled"
 					}
 				}
-			}
+			},
+
+			CompoundVariants = [
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Default ),
+						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+					},
+					Classes = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "ring-default"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Primary ),
+						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+					},
+					Classes = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "ring-primary"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Secondary ),
+						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+					},
+					Classes = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "ring-secondary"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Success ),
+						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+					},
+					Classes = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "ring-success"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Warning ),
+						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+					},
+					Classes = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "ring-warning"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Danger ),
+						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+					},
+					Classes = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "ring-danger"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Info ),
+						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+					},
+					Classes = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "ring-info"
+					}
+				},
+			]
 		} );
 	}
 }
