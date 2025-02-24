@@ -70,6 +70,16 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	[Parameter] public Radius Radius { get; set; } = Radius.Full;
 
 	/// <summary>
+	/// Gets or sets a value indicating whether the border should be added around the avatar.
+	/// </summary>
+	[Parameter] public bool Bordered { get; set; }
+
+	/// <summary>
+	/// Gets or sets a value indicating whether the avatar is disabled.
+	/// </summary>
+	[Parameter] public bool Disabled { get; set; }
+
+	/// <summary>
 	/// Gets or sets the function that resolves initials from the provided name.
 	/// </summary>
 	[Parameter] public InitialsResolver Initials { get; set; }

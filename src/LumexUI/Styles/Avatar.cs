@@ -102,6 +102,7 @@ internal static class Avatar
 						[nameof( AvatarSlots.Base )] = "w-14 h-14 text-small"
 					}
 				},
+
 				[nameof( LumexAvatar.Color )] = new VariantValueCollection
 				{
 					[nameof( ThemeColor.Default )] = new SlotCollection
@@ -133,6 +134,7 @@ internal static class Avatar
 						[nameof( AvatarSlots.Base )] = ColorVariants.Solid[ThemeColor.Info]
 					}
 				},
+
 				[nameof( LumexAvatar.Radius )] = new VariantValueCollection
 				{
 					[nameof( Radius.None )] = new SlotCollection
@@ -154,6 +156,22 @@ internal static class Avatar
 					[nameof( Radius.Full )] = new SlotCollection
 					{
 						[nameof( AvatarSlots.Base )] = "rounded-full"
+					}
+				},
+
+				[nameof( LumexAvatar.Bordered )] = new VariantValueCollection
+				{
+					[bool.TrueString] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "ring-2 ring-offset-2 ring-offset-background"
+					}
+				},
+
+				[nameof( LumexAvatar.Disabled )] = new VariantValueCollection
+				{
+					[bool.TrueString] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "opacity-disabled"
 					}
 				}
 			}
