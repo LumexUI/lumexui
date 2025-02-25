@@ -3,6 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -87,9 +88,11 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	/// <summary>
 	/// Gets or sets the CSS class names for the avatar slots.
 	/// </summary>
-	[Parameter]  public AvatarSlots? Classes { get; set; }
+	[Parameter] public AvatarSlots? Classes { get; set; }
 
 	private readonly RenderFragment _renderFallback;
+
+	private Dictionary<string, ComponentSlot> _slots = [];
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexAvatar"/>.
@@ -109,6 +112,16 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 		{
 			Alt = Name;
 		}
+
+		var avatar = Styles.Avatar.Style( TwMerge );
+		_slots = avatar( new()
+		{
+			[nameof( Size )] = Size.ToString(),
+			[nameof( Color )] = Color.ToString(),
+			[nameof( Radius )] = Radius.ToString(),
+			[nameof( Bordered )] = Bordered.ToString(),
+			[nameof( Disabled )] = Disabled.ToString()
+		} );
 	}
 
 	private string ExtractInitials( string name )
@@ -122,5 +135,23 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 		{
 			return text.Length <= 4 ? text : text[0..3];
 		}
+	}
+
+	private string? GetStyles( string slot )
+	{
+		if( !_slots.TryGetValue( slot, out var styles ) )
+		{
+			throw new NotImplementedException();
+		}
+
+		return slot switch
+		{
+			nameof( AvatarSlots.Base ) => styles( Classes?.Base, Class ),
+			nameof( AvatarSlots.Img ) => styles( Classes?.Img ),
+			nameof( AvatarSlots.Fallback ) => styles( Classes?.Fallback ),
+			nameof( AvatarSlots.Name ) => styles( Classes?.Name ),
+			nameof( AvatarSlots.Icon ) => styles( Classes?.Icon ),
+			_ => throw new NotImplementedException()
+		};
 	}
 }

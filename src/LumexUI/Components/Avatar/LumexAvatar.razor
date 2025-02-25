@@ -1,14 +1,16 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
+@using S = AvatarSlots;
+
 <LumexComponent As="@As"
-                Class="@Class"
+                Class="@GetStyles(nameof(S.Base))"
                 Style="@Style"
                 data-slot="base"
                 @attributes="@AdditionalAttributes">
     @if( !string.IsNullOrEmpty( Src ) )
     {
-        <img src="@Src" alt="@Alt" data-slot="img" />
+        <img src="@Src" class="@GetStyles(nameof(S.Img))" alt="@Alt" data-slot="img" />
     }
 
     @_renderFallback
@@ -24,20 +26,29 @@
 
         if( FallbackContent is not null )
         {
-            <div role="img" class="" data-slot="fallback" aria-label="@Alt">
+            <div role="img"
+                 class="@GetStyles(nameof(S.Fallback))"
+                 data-slot="fallback"
+                 aria-label="@Alt">
                 @FallbackContent
             </div>
         }
 
         if( !string.IsNullOrEmpty( Name ) )
         {
-            <span role="img" class="" data-slot="name" aria-label="@Alt">
+            <span role="img"
+                  class="@GetStyles(nameof(S.Name))"
+                  data-slot="name"
+                  aria-label="@Alt">
                 @Initials( Name )
             </span>
         }
         else
         {
-            <span role="img" class="" data-slot="icon" aria-label="@Alt">
+            <span role="img"
+                  class="@GetStyles(nameof(S.Icon))"
+                  data-slot="icon"
+                  aria-label="@Alt">
                 <LumexIcon Icon="@Icon" />
             </span>
         }
