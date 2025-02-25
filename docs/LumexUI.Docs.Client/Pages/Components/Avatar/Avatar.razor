@@ -1,0 +1,67 @@
+﻿@page "/docs/components/avatar"
+@layout DocsContentLayout
+@inject NavigationManager NavigationManager
+
+@using LumexUI.Docs.Client.Pages.Components.Avatar.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+    </p>
+    <Usage />
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Accordion</h4>
+        <ul>
+            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the accordion items.</li>
+            <li><Code>ItemClasses</Code>: The CSS class names for the accordion items slots style all the accordion items at once.</li>
+        </ul>
+    </div>
+    <div>
+        <h4 class="font-semibold">Accordion Item</h4>
+        <ul>
+            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the accordion item.</li>
+            <li><Code>Classes</Code>: The CSS class names for the accordion item slots style the entire accordion item at once.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+    };
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Composition"),
+        new("Usage", [
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Avatar",
+            category: "Components",
+            description: "Avatar.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Avatar", isServer: true )
+        );
+    }
+}
