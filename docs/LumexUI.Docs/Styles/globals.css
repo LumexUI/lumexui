@@ -1,29 +1,43 @@
-﻿@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+﻿@import "tailwindcss";
+@import "../bin/lumexui/_theme";
+@import "./prism";
+@import "./fonts";
+@import "./blazor";
 
-@import 'blazor.css';
-@import 'prism.css';
-@import 'fonts.css';
+@source "../../LumexUI.Docs.Client/{Pages,Components}/**/*.{razor,razor.cs}"; /* docs */
+@source "../bin/lumexui/*.cs"; /* components */
+
+@plugin "@tailwindcss/typography";
+
+@custom-variant children (& > *);
+@custom-variant scrollbar (&::-webkit-scrollbar);
+@custom-variant scrollbar-track (&::-webkit-scrollbar-track);
+@custom-variant scrollbar-thumb (&::-webkit-scrollbar-thumb);
 
 .dark {
     color-scheme: dark;
 }
 
-html {
-    height: 100%;
+.light {
+    color-scheme: light;
 }
 
-body {
-    min-height: 100%;
+.scrollbar {
+    @apply 
+        scrollbar:h-2 
+        scrollbar:w-2 
+        scrollbar-thumb:rounded 
+        scrollbar-thumb:bg-foreground-200 
+        scrollbar-track:rounded 
+        scrollbar-track:bg-foreground-100;
 }
 
-@layer utilities {
-    .bordered-link {
-        @apply font-semibold leading-tight text-current border-b border-current hover:border-b-2;
-    }
-
-    .scrollbar {
-        @apply scrollbar:h-2 scrollbar:w-2 scrollbar-thumb:rounded scrollbar-thumb:bg-foreground-200 scrollbar-track:rounded scrollbar-track:bg-foreground-100;
-    }
+.bordered-link {
+    @apply 
+        font-semibold 
+        leading-tight 
+        text-current 
+        border-b 
+        border-current 
+        hover:border-b-2;
 }
