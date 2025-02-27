@@ -1,5 +1,5 @@
 ﻿/* https://tailwindcss.com/docs/theme#theme-variable-namespaces */
-@theme {
+@theme static {
     /* Colors */
     --color-background: hsl(var(--lumex-background));
 
@@ -18,7 +18,7 @@
 
     --color-focus: hsl(var(--lumex-focus));
     --color-overlay: hsl(var(--lumex-overlay));
-    --color-divider: hsl(var(--lumex-divider));
+    --color-divider: --alpha(hsl(var(--lumex-divider)) / var(--lumex-opacity-divider));
     --color-surface1: hsl(var(--lumex-surface1));
     --color-surface1-foreground: hsl(var(--lumex-surface1-foreground));
     --color-surface2: hsl(var(--lumex-surface2));
@@ -37,7 +37,7 @@
     --color-default-800: hsl(var(--lumex-default-800));
     --color-default-900: hsl(var(--lumex-default-900));
     --color-default-950: hsl(var(--lumex-default-950));
-    --color-default: hsl(var(--lumex-default));
+    --color-default: hsl(var(--lumex-default-foreground));
 
     --color-primary-50: hsl(var(--lumex-primary-50));
     --color-primary-100: hsl(var(--lumex-primary-100));
