@@ -12,9 +12,9 @@ export default defineConfig([
         plugins: [resolve()],
     },
     {
-        input: 'Scripts/Plugin/plugin.js',
+        input: 'Plugin/plugin.js',
         output: {
-            file: 'Scripts/Plugin/dist/plugin.js',
+            file: 'Plugin/dist/plugin.js',
             format: 'cjs',
         },
         plugins: [
