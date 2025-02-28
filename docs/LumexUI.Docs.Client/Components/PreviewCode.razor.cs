@@ -15,7 +15,7 @@ public partial class PreviewCode
 
     private string? BaseClass => ElementClass.Empty()
         .Add( "rounded-2xl" )
-        .Add( "ring-1" )
+        .Add( "ring" )
         .Add( "ring-foreground-950/5" )
         .Add( "shadow-xs" )
         .Add( "overflow-hidden" )
