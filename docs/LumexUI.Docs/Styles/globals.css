@@ -26,9 +26,9 @@
     @apply 
         scrollbar:h-2 
         scrollbar:w-2 
-        scrollbar-thumb:rounded 
+        scrollbar-thumb:rounded-sm
         scrollbar-thumb:bg-foreground-200 
-        scrollbar-track:rounded 
+        scrollbar-track:rounded-sm
         scrollbar-track:bg-foreground-100;
 }
 
