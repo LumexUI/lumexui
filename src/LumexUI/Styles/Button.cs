@@ -25,6 +25,7 @@ internal class Button
 		.Add( "whitespace-nowrap" )
 		.Add( "subpixel-antialiased" )
 		.Add( "overflow-hidden" )
+		.Add( "cursor-pointer" )
 		.Add( "active:scale-[0.97]" )
 		// transition
 		.Add( "transition-colors-transform-opacity" )
