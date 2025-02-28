@@ -27,7 +27,7 @@ internal class Button
 		.Add( "overflow-hidden" )
 		.Add( "active:scale-[0.97]" )
 		// transition
-		.Add( "transition-transform-colors-opacity" )
+		.Add( "transition-colors-transform-opacity" )
 		.Add( "motion-reduce:transition-none" )
 		// focus ring
 		.Add( Utils.FocusVisible )

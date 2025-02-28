@@ -53,7 +53,7 @@ internal static class Radio
         .Add( "group-hover:bg-default-100" )
         .Add( "group-active:scale-95" )
         // transition
-        .Add( "transition-transform-colors" )
+        .Add( "transition-colors-transform" )
         .Add( Utils.ReduceMotion )
         // focus ring
         .Add( Utils.GroupFocusVisible )
@@ -70,7 +70,7 @@ internal static class Radio
         .Add( "group-data-[selected=true]:opacity-100" )
         .Add( "group-data-[selected=true]:scale-100" )
         // transition
-        .Add( "transition-transform-opacity" )
+        .Add( "transition-[transform,opacity]" )
         .Add( Utils.ReduceMotion )
         .ToString();
 

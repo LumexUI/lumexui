@@ -48,7 +48,7 @@ internal readonly record struct Checkbox
         .Add( "after:scale-50" )
         .Add( "after:opacity-0" )
         .Add( "after:origin-center" )
-        .Add( "after:transition-transform-opacity" )
+        .Add( "after:transition[transform,opacity]" )
         .Add( "after:!duration-200" )
         .Add( "group-data-[checked=true]:after:scale-100" )
         .Add( "group-data-[checked=true]:after:opacity-100" )

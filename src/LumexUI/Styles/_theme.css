@@ -150,7 +150,18 @@
     --opacity-focus: var(--lumex-opacity-focus);
     --opacity-hover: var(--lumex-opacity-hover);
 
+    /* Transitions */
+    /* 
+        `--transition-colors` is the reusable variable. 
         It's not defined as `--transition-property-colors` due to a bug in the Tailwind compiler.
+        See https://github.com/tailwindlabs/tailwindcss/issues/16639#issuecomment-2668844455
+    */
+    --transition-colors: color, background-color, border-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    --transition-property-colors-shadow: var(--transition-colors) box-shadow;
+    --transition-property-colors-opacity: var(--transition-colors) opacity;
+    --transition-property-colors-transform: var(--transition-colors) transform;
+    --transition-property-colors-transform-opacity: var(--transition-colors) transform opacity;
+
     /* Animations */
     --animate-enter: appearance-in 200ms ease-out normal both;
 
