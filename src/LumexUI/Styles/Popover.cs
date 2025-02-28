@@ -55,7 +55,7 @@ internal static class Popover
 					.Add( "h-2.5" )
 					.Add( "absolute" )
 					.Add( "rotate-45" )
-					.Add( "rounded-sm" )
+					.Add( "rounded-xs" )
 					.ToString(),
 			},
 
