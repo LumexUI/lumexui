@@ -140,7 +140,7 @@ internal class Tabs
 				.Add( "inset-0", when: slot is nameof( _cursor ) ),
 
 			TabVariant.Outlined => ElementClass.Empty()
-				.Add( "bg-transparent border-2 border-default-200 shadow-sm", when: slot is nameof( _tabList ) )
+				.Add( "bg-transparent border-2 border-default-200 shadow-xs", when: slot is nameof( _tabList ) )
 				.Add( "inset-0", when: slot is nameof( _cursor ) ),
 
 			TabVariant.Underlined => ElementClass.Empty()

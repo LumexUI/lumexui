@@ -51,7 +51,7 @@ internal static class InputField
         .Add( "px-3" )
         .Add( "gap-3" )
         .Add( "w-full" )
-        .Add( "shadow-sm" )
+        .Add( "shadow-xs" )
         .Add( "cursor-text" )
         // transition
         .Add( "transition-[background]" )

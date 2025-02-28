@@ -45,7 +45,7 @@ internal class Select
         .Add( "items-center" )
         .Add( "gap-3" )
         .Add( "px-3" )
-        .Add( "shadow-sm" )
+        .Add( "shadow-xs" )
         .Add( "outline-none" )
         // transition
         .Add( "transition-[background]" )
