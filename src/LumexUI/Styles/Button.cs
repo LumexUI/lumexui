@@ -20,7 +20,6 @@ internal class Button
 		.Add( "text-medium" )
 		.Add( "font-normal" )
 		.Add( "appearance-none" )
-		.Add( "outline-hidden" )
 		.Add( "select-none" )
 		.Add( "whitespace-nowrap" )
 		.Add( "subpixel-antialiased" )

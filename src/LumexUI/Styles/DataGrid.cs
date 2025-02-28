@@ -58,7 +58,6 @@ internal class DataGrid
 
     private readonly static string _tr = ElementClass.Empty()
         .Add( "group" )
-        .Add( "outline-hidden" )
         // focus
         .Add( Utils.FocusVisible )
         .ToString();
@@ -73,7 +72,6 @@ internal class DataGrid
         .Add( "text-tiny" )
         .Add( "font-semibold" )
         .Add( "whitespace-nowrap" )
-        .Add( "outline-hidden" )
         .Add( "first:rounded-s-lg" )
         .Add( "last:rounded-e-lg" )
         .Add( "hover:text-foreground-400" )
@@ -88,7 +86,6 @@ internal class DataGrid
         .Add( "px-3" )
         .Add( "align-middle" )
         .Add( "text-small" )
-        .Add( "outline-hidden" )
         .Add( "data-[selected=false]:bg-transparent" )
         // disabled
         .Add( "group-data-[disabled=true]:text-foreground-300" )

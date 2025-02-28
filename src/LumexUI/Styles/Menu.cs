@@ -82,7 +82,6 @@ internal static class MenuItem
 					.Add( "items-center" )
 					.Add( "justify-between" )
 					.Add( "rounded-small" )
-					.Add( "outline-hidden" )
 					.Add( "cursor-pointer" )
 					// transition
 					.Add( "hover:transition-colors-shadow" )
