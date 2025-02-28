@@ -167,7 +167,7 @@
     --transition-property-colors-transform-opacity: var(--transition-colors) transform opacity;
 
     /* Animations */
-    --animate-enter: appearance-in 200ms ease-out normal both;
+    --animate-enter: enter 200ms ease-out normal both;
 
     @keyframes enter {
         0% {
