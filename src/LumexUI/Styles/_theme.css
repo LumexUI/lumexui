@@ -151,7 +151,10 @@
     --opacity-focus: var(--lumex-opacity-focus);
     --opacity-hover: var(--lumex-opacity-hover);
 
-    /* Transitions */
+    /* 
+        Transitions
+        See https://github.com/tailwindlabs/tailwindcss/issues/16639#issuecomment-2668151481
+    */
     /* 
         `--transition-colors` is the reusable variable. 
         It's not defined as `--transition-property-colors` due to a bug in the Tailwind compiler.
