@@ -150,6 +150,7 @@
     --opacity-focus: var(--lumex-opacity-focus);
     --opacity-hover: var(--lumex-opacity-hover);
 
+        It's not defined as `--transition-property-colors` due to a bug in the Tailwind compiler.
     /* Animations */
     --animate-enter: appearance-in 200ms ease-out normal both;
 

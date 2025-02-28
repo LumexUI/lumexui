@@ -34,9 +34,6 @@
 		<None Include="LumexUI.targets" Pack="true" PackagePath="buildTransitive\LumexUI.targets" />
 		<None Include="Styles\*.cs" Pack="true" PackagePath="theme\components\%(Filename)%(Extension)" />
 		<None Include="Styles\_theme.css" Pack="true" PackagePath="theme\theme.css" />
-
-		<!-- Legacy support Tailwind CSS v3 -->
-		<None Include="Plugin\dist\plugin.js" Pack="true" PackagePath="theme\plugin.js" />
 	</ItemGroup>
 
 	<ItemGroup>
