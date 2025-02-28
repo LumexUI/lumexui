@@ -35,7 +35,7 @@ internal readonly record struct Navbar
         .Add( "group" )
         .Add( "w-6" )
         .Add( "h-full" )
-        .Add( "outline-none" )
+        .Add( "outline-hidden" )
         .Add( "rounded-small" )
         // focus
         .Add( Utils.FocusVisible )

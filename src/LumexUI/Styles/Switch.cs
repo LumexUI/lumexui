@@ -19,7 +19,7 @@ internal readonly record struct Switch
         .Add( "inline-flex" )
         .Add( "items-center" )
         .Add( "justify-start" )
-        .Add( "outline-none" )
+        .Add( "outline-hidden" )
         .Add( "cursor-pointer" )
         .Add( "touch-none" )
         .ToString();

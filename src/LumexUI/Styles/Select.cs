@@ -46,7 +46,7 @@ internal class Select
         .Add( "gap-3" )
         .Add( "px-3" )
         .Add( "shadow-xs" )
-        .Add( "outline-none" )
+        .Add( "outline-hidden" )
         // transition
         .Add( "transition-[background]" )
         .Add( "motion-reduce:transition-none" )

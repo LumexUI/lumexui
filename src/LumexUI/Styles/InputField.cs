@@ -70,7 +70,7 @@ internal static class InputField
         .Add( "w-full" )
         .Add( "font-normal" )
         .Add( "bg-transparent" )
-        .Add( "focus-visible:outline-none" )
+        .Add( "focus-visible:outline-hidden" )
         .Add( "placeholder:text-foreground-500" )
         .Add( "autofill:bg-transparent" )
         .Add( "data-[has-start-content=true]:ps-1.5" )

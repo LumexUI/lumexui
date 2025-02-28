@@ -40,7 +40,7 @@ internal class Tabs
 		.Add( "py-1" )
 		.Add( "justify-center" )
 		.Add( "items-center" )
-		.Add( "outline-none" )
+		.Add( "outline-hidden" )
 		.Add( "cursor-pointer" )
 		.Add( "data-[disabled=true]:!opacity-disabled" )
 		.Add( "data-[disabled=true]:cursor-not-allowed" )
@@ -65,7 +65,7 @@ internal class Tabs
 	private static readonly string _tabPanel = ElementClass.Empty()
 		.Add( "px-1" )
 		.Add( "py-3" )
-		.Add( "outline-none" )
+		.Add( "outline-hidden" )
 		// focus ring
 		.Add( Utils.FocusVisible )
 		.ToString();
