@@ -9,7 +9,6 @@
 
 @plugin "@tailwindcss/typography";
 
-@custom-variant children (& > *);
 @custom-variant scrollbar (&::-webkit-scrollbar);
 @custom-variant scrollbar-track (&::-webkit-scrollbar-track);
 @custom-variant scrollbar-thumb (&::-webkit-scrollbar-thumb);
