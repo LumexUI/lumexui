@@ -161,10 +161,10 @@
         See https://github.com/tailwindlabs/tailwindcss/issues/16639#issuecomment-2668844455
     */
     --transition-colors: color, background-color, border-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
-    --transition-property-colors-shadow: var(--transition-colors) box-shadow;
-    --transition-property-colors-opacity: var(--transition-colors) opacity;
-    --transition-property-colors-transform: var(--transition-colors) transform;
-    --transition-property-colors-transform-opacity: var(--transition-colors) transform opacity;
+    --transition-property-colors-shadow: var(--transition-colors), box-shadow;
+    --transition-property-colors-opacity: var(--transition-colors), opacity;
+    --transition-property-colors-transform: var(--transition-colors), transform;
+    --transition-property-colors-transform-opacity: var(--transition-colors), transform, opacity;
 
     /* Animations */
     --animate-enter: enter 200ms ease-out normal both;
