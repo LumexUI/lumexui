@@ -37,7 +37,8 @@
     --color-default-800: hsl(var(--lumex-default-800));
     --color-default-900: hsl(var(--lumex-default-900));
     --color-default-950: hsl(var(--lumex-default-950));
-    --color-default: hsl(var(--lumex-default-foreground));
+    --color-default: hsl(var(--lumex-default));
+    --color-default-foreground: hsl(var(--lumex-default-foreground));
 
     --color-primary-50: hsl(var(--lumex-primary-50));
     --color-primary-100: hsl(var(--lumex-primary-100));
