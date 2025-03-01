@@ -1,5 +1,5 @@
 ﻿/* https://tailwindcss.com/docs/theme#theme-variable-namespaces */
-@theme static {
+@theme static inline {
     /* Colors */
     --color-background: hsl(var(--lumex-background));
 
