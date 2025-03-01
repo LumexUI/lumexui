@@ -1,13 +1,20 @@
 ﻿@import "tailwindcss" theme(static);
 @import "../bin/lumexui/_theme";
-@import "./prism";
+@import "./prism" layer(components);
+@import "./blazor" layer(components);
+@import "./typography" layer(utilities);
 @import "./fonts";
-@import "./blazor";
 
 @source "../../LumexUI.Docs.Client/{Pages,Components}/**/*.{razor,razor.cs}"; /* docs */
 @source "../bin/lumexui/*.cs"; /* components */
 
 @plugin "@tailwindcss/typography";
+
+@theme {
+    --font-sans: Inter var, system-ui;
+    --font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    --font-mono: Fira Code var, ui-monospace;
+}
 
 @custom-variant scrollbar (&::-webkit-scrollbar);
 @custom-variant scrollbar-track (&::-webkit-scrollbar-track);
