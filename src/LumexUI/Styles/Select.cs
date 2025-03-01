@@ -55,7 +55,7 @@ internal class Select
     private readonly static string _innerWrapper = ElementClass.Empty()
         .Add( "h-full" )
         .Add( "min-h-4" )
-        .Add( "w-[calc(100%_-_theme(spacing.6))]" )
+        .Add( "w-[calc(100%_-_--spacing(6))]" )
         .Add( "gap-1.5" )
         .Add( "inline-flex" )
         .Add( "items-center" )
@@ -515,7 +515,7 @@ internal class Select
             // outside / size
 
             (LabelPlacement.Outside, Size.Small ) => ElementClass.Empty()
-                .Add( "justify-end has-[label]:mt-[calc(theme(fontSize.small)_+_8px)]", when: slot is nameof( _base ) )
+                .Add( "justify-end has-[label]:mt-[calc(var(--text-small)_+_8px)]", when: slot is nameof( _base ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-tiny" )
                     .Add( "z-20" )
@@ -523,10 +523,10 @@ internal class Select
                     .Add( "start-2" )
                     .Add( "-translate-y-1/2" )
                     .Add( "group-data-[filled=true]:start-0" )
-                    .Add( "group-data-[filled=true]:-translate-y-[calc(100%_+_theme(fontSize.tiny)/2_+_16px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled=true]:-translate-y-[calc(100%_+_var(--text-tiny)/2_+_16px)]" ), when: slot is nameof( _label ) ),
 
             (LabelPlacement.Outside, Size.Medium ) => ElementClass.Empty()
-                .Add( "justify-end has-[label]:mt-[calc(theme(fontSize.small)_+_10px)]", when: slot is nameof( _base ) )
+                .Add( "justify-end has-[label]:mt-[calc(var(--text-small)_+_10px)]", when: slot is nameof( _base ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-small" )
                     .Add( "z-20" )
@@ -534,10 +534,10 @@ internal class Select
                     .Add( "start-3" )
                     .Add( "-translate-y-1/2" )
                     .Add( "group-data-[filled=true]:start-0" )
-                    .Add( "group-data-[filled=true]:-translate-y-[calc(100%_+_theme(fontSize.small)/2_+_20px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled=true]:-translate-y-[calc(100%_+_var(--text-small)/2_+_20px)]" ), when: slot is nameof( _label ) ),
 
             (LabelPlacement.Outside, Size.Large ) => ElementClass.Empty()
-                .Add( "justify-end has-[label]:mt-[calc(theme(fontSize.small)_+_12px)]", when: slot is nameof( _base ) )
+                .Add( "justify-end has-[label]:mt-[calc(var(--text-small)_+_12px)]", when: slot is nameof( _base ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-medium" )
                     .Add( "z-20" )
@@ -545,7 +545,7 @@ internal class Select
                     .Add( "start-3" )
                     .Add( "-translate-y-1/2" )
                     .Add( "group-data-[filled=true]:start-0" )
-                    .Add( "group-data-[filled=true]:-translate-y-[calc(100%_+_theme(fontSize.small)/2_+_24px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled=true]:-translate-y-[calc(100%_+_var(--text-small)/2_+_24px)]" ), when: slot is nameof( _label ) ),
 
             _ => ElementClass.Empty()
         };
@@ -559,35 +559,35 @@ internal class Select
             // size / flat
 
             (Size.Small, InputVariant.Flat ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.tiny)/2_-_8px)]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_var(--text-tiny)/2_-_8px)]", when: slot is nameof( _label ) ),
 
             (Size.Medium, InputVariant.Flat ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_6px)]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_var(--text-small)/2_-_6px)]", when: slot is nameof( _label ) ),
 
             (Size.Large, InputVariant.Flat ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_8px)]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_var(--text-small)/2_-_8px)]", when: slot is nameof( _label ) ),
 
             // size / outlined
 
             (Size.Small, InputVariant.Outlined ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.tiny)/2_-_8px_-_theme(borderWidth.2))]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_var(--text-tiny)/2_-_8px_-_--spacing(0.5))]", when: slot is nameof( _label ) ),
 
             (Size.Medium, InputVariant.Outlined ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_6px_-_theme(borderWidth.2))]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_var(--text-small)/2_-_6px_-_--spacing(0.5))]", when: slot is nameof( _label ) ),
 
             (Size.Large, InputVariant.Outlined ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_8px_-_theme(borderWidth.2))]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_var(--text-small)/2_-_8px_-_--spacing(0.5))]", when: slot is nameof( _label ) ),
 
             // size / underlined
 
             (Size.Small, InputVariant.Underlined ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.tiny)/2_-_5px)]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_var(--text-tiny)/2_-_5px)]", when: slot is nameof( _label ) ),
 
             (Size.Medium, InputVariant.Underlined ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_3.5px)]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_var(--text-small)/2_-_3.5px)]", when: slot is nameof( _label ) ),
 
             (Size.Large, InputVariant.Underlined ) => ElementClass.Empty()
-                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_4px)]", when: slot is nameof( _label ) ),
+                .Add( "group-data-[filled=true]:-translate-y-[calc(50%_+_var(--text-small)/2_-_4px)]", when: slot is nameof( _label ) ),
 
             _ => ElementClass.Empty()
         };

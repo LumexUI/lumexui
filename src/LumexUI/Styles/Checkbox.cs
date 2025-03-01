@@ -79,21 +79,21 @@ internal readonly record struct Checkbox
         .ToString();
 
     private readonly static string _radiusSmall = ElementClass.Empty()
-        .Add( "rounded-[calc(theme(borderRadius.small)*0.5)]" )
-        .Add( "before:rounded-[calc(theme(borderRadius.small)*0.5)]" )
-        .Add( "after:rounded-[calc(theme(borderRadius.small)*0.5)]" )
+        .Add( "rounded-[calc(var(--radius-small))*0.5)]" )
+        .Add( "before:rounded-[calc(var(--radius-small))*0.5)]" )
+        .Add( "after:rounded-[calc(var(--radius-small))*0.5)]" )
         .ToString();
 
     private readonly static string _radiusMedium = ElementClass.Empty()
-        .Add( "rounded-[calc(theme(borderRadius.medium)*0.5)]" )
-        .Add( "before:rounded-[calc(theme(borderRadius.medium)*0.5)]" )
-        .Add( "after:rounded-[calc(theme(borderRadius.medium)*0.5)]" )
+        .Add( "rounded-[calc(var(--radius-medium))*0.5)]" )
+        .Add( "before:rounded-[calc(var(--radius-medium))*0.5)]" )
+        .Add( "after:rounded-[calc(var(--radius-medium))*0.5)]" )
         .ToString();
 
     private readonly static string _radiusLarge = ElementClass.Empty()
-        .Add( "rounded-[calc(theme(borderRadius.large)*0.5)]" )
-        .Add( "before:rounded-[calc(theme(borderRadius.large)*0.5)]" )
-        .Add( "after:rounded-[calc(theme(borderRadius.large)*0.5)]" )
+        .Add( "rounded-[calc(var(--radius-large))*0.5)]" )
+        .Add( "before:rounded-[calc(var(--radius-large))*0.5)]" )
+        .Add( "after:rounded-[calc(var(--radius-large))*0.5)]" )
         .ToString();
 
     private static ElementClass GetColorStyles( ThemeColor color )
