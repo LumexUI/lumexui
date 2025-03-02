@@ -55,12 +55,12 @@ public static class SemanticColors
         Primary = [
             .. Colors.Blue,
             new( Default, Colors.Blue["500"] ),
-            new( Foreground, Colors.White )
+            new( Foreground, GetReadableColor( Colors.Blue["500"] ) )
         ],
         Secondary = [
             .. Colors.Violet,
             new( Default, Colors.Violet["500"] ),
-            new( Foreground, Colors.White )
+            new( Foreground, GetReadableColor( Colors.Violet["500"] ) )
         ],
         Success = [
             .. Colors.Green,
@@ -75,7 +75,7 @@ public static class SemanticColors
         Danger = [
             .. Colors.Rose,
             new( Default, Colors.Rose["500"] ),
-            new( Foreground, Colors.White )
+            new( Foreground, GetReadableColor( Colors.Rose["500"] ) )
         ],
         Info = [
             .. Colors.Sky,
