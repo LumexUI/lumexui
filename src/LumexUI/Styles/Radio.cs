@@ -70,7 +70,7 @@ internal static class Radio
         .Add( "group-data-[selected=true]:opacity-100" )
         .Add( "group-data-[selected=true]:scale-100" )
         // transition
-        .Add( "transition-[transform,opacity]" )
+        .Add( "transition-transform-opacity" )
         .Add( Utils.ReduceMotion )
         .ToString();
 

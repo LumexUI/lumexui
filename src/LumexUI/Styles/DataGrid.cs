@@ -107,7 +107,7 @@ internal class DataGrid
          .Add( "ms-2" )
          .Add( "opacity-0" )
          .Add( "-rotate-90" )
-         .Add( "transition-[transform,opacity]" )
+         .Add( "transition-transform-opacity" )
          .Add( "data-[visible=true]:opacity-100" )
          .Add( "group-hover/th:opacity-100" )
          .Add( "group-aria-[sort=ascending]/th:rotate-90" )

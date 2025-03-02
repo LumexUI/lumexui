@@ -156,15 +156,17 @@
         See https://github.com/tailwindlabs/tailwindcss/issues/16639#issuecomment-2668151481
     */
     /* 
-        `--transition-colors` is the reusable variable. 
-        It's not defined as `--transition-property-colors` due to a bug in the Tailwind compiler.
+        `--transition-colors` and `transition-transform` are reusable variables. 
+        They not defined as `--transition-property-colors` and `--transition-property-transform` due to a bug in the Tailwind compiler.
         See https://github.com/tailwindlabs/tailwindcss/issues/16639#issuecomment-2668844455
     */
     --transition-colors: color, background-color, border-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    --transition-transforms: transform, translate, scale, rotate;
     --transition-property-colors-shadow: var(--transition-colors), box-shadow;
     --transition-property-colors-opacity: var(--transition-colors), opacity;
-    --transition-property-colors-transform: var(--transition-colors), transform;
-    --transition-property-colors-transform-opacity: var(--transition-colors), transform, opacity;
+    --transition-property-colors-transform: var(--transition-colors), var(--transition-transforms);
+    --transition-property-colors-transform-opacity: var(--transition-property-colors-transform), opacity;
+    --transition-property-transform-opacity: var(--transition-transforms), opacity;
 
     /* Animations */
     --animate-enter: enter 200ms ease-out normal both;

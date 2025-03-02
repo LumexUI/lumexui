@@ -28,7 +28,7 @@ internal class Select
         // transition
         .Add( "will-change-auto" )
         .Add( "origin-top-left" )
-        .Add( "transition-[transform,color,left,opacity]" )
+        .Add( "transition-colors-transform-opacity" )
         .Add( "motion-reduce:transition-none" )
         .ToString();
 
@@ -47,6 +47,7 @@ internal class Select
         .Add( "px-3" )
         .Add( "shadow-xs" )
         .Add( "outline-hidden" )
+        .Add( "cursor-pointer" )
         // transition
         .Add( "transition-[background]" )
         .Add( "motion-reduce:transition-none" )
@@ -68,9 +69,9 @@ internal class Select
         .Add( "end-3" )
         .Add( "data-[open=true]:rotate-180" )
         // transition
-        .Add( "transition-[transform,color]" )
-        .Add( "duration-150" )
-        .Add( "ease" )
+        .Add( "duration-200" )
+        .Add( "ease-out" )
+        .Add( "transition-colors-transform-opacity" )
         .Add( "motion-reduce:transition-none" )
         .ToString();
 

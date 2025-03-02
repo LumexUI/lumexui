@@ -36,7 +36,7 @@ internal static class InputField
         .Add( "group-data-[filled-focused=true]:pointer-events-auto" )
         // transition
         .Add( "will-change-auto" )
-        .Add( "transition-[transform,color,left,opacity]" )
+        .Add( "transition-colors-transform-opacity" )
         .Add( "motion-reduce:transition-none" )
         .ToString();
 
