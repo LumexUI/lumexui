@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: ${{ env.ENVIRONMENT_NAME }}
+      name: $ENVIRONMENT_NAME
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write
@@ -66,6 +66,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ env.AZURE_APP_NAME }}
-          slot-name: ${{ env.SLOT_NAME }}
+          app-name: $AZURE_APP_NAME
+          slot-name: $SLOT_NAME
           package: .
