@@ -36,7 +36,7 @@ internal static class InputField
         .Add( "group-data-[filled-focused=true]:pointer-events-auto" )
         // transition
         .Add( "will-change-auto" )
-        .Add( "transition-[transform,color,left,opacity]" )
+        .Add( "transition-[transform,color,left,opacity,translate,scale]" )
         .Add( "motion-reduce:transition-none" )
         .ToString();
 
@@ -51,7 +51,7 @@ internal static class InputField
         .Add( "px-3" )
         .Add( "gap-3" )
         .Add( "w-full" )
-        .Add( "shadow-sm" )
+        .Add( "shadow-xs" )
         .Add( "cursor-text" )
         // transition
         .Add( "transition-[background]" )
@@ -70,7 +70,7 @@ internal static class InputField
         .Add( "w-full" )
         .Add( "font-normal" )
         .Add( "bg-transparent" )
-        .Add( "focus-visible:outline-none" )
+        .Add( "focus-visible:outline-hidden" )
         .Add( "placeholder:text-foreground-500" )
         .Add( "autofill:bg-transparent" )
         .Add( "data-[has-start-content=true]:ps-1.5" )
@@ -79,7 +79,6 @@ internal static class InputField
 
     private readonly static string _clearButton = ElementClass.Empty()
         .Add( "p-0.5" )
-        //.Add( "-m-2" )
         .Add( "z-10" )
         .Add( "absolute" )
         .Add( "end-1.5" )
@@ -87,6 +86,7 @@ internal static class InputField
         .Add( "hover:!opacity-100" )
         .Add( "active:!opacity-focus" )
         .Add( "rounded-full" )
+        .Add( "cursor-pointer" )
         // transition
         .Add( "transition-opacity" )
         .Add( "motion-reduce:transition-none" )
@@ -191,8 +191,8 @@ internal static class InputField
             InputVariant.Flat => ElementClass.Empty()
                 .Add( ElementClass.Empty()
                     .Add( "bg-default-100" )
-                    .Add( "hover:bg-default-200" )
-                    .Add( "group-data-[focus=true]:bg-default-100" ), when: slot is nameof( _inputWrapper ) ),
+                    .Add( "group-data-[focus=true]:bg-default-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-default-200" ), when: slot is nameof( _inputWrapper ) ),
             // focus ring
             // TODO: Seems like we need a JavaScript call similar to React Aria `useFocusVisible` hook
             //.Add( Utils.GroupDataFocusVisible ) )
@@ -201,9 +201,9 @@ internal static class InputField
                 .Add( ElementClass.Empty()
                     .Add( "border-2" )
                     .Add( "border-default-200" )
-                    .Add( "hover:border-default-300" )
-                    .Add( "transition-colors" )
-                    .Add( "group-data-[focus=true]:border-default-foreground" ), when: slot is nameof( _inputWrapper ) ),
+                    .Add( "group-data-[focus=true]:border-default-foreground" )
+                    .Add( "group-data-[focus=false]:hover:border-default-300" )
+                    .Add( "transition-colors" ), when: slot is nameof( _inputWrapper ) ),
 
             InputVariant.Underlined => ElementClass.Empty()
                 .Add( ElementClass.Empty()
@@ -237,13 +237,13 @@ internal static class InputField
             InputVariant.Flat => ElementClass.Empty()
                 .Add( ElementClass.Empty()
                     .Add( "!bg-danger-50" )
-                    .Add( "hover:!bg-danger-100" )
-                    .Add( "group-data-[focus=true]:!bg-danger-50" ), when: slot is nameof( _inputWrapper ) ),
+                    .Add( "hover:bg-danger-100!" )
+                    .Add( "group-data-[focus=true]:bg-danger-50!" ), when: slot is nameof( _inputWrapper ) ),
 
             InputVariant.Outlined => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "!border-danger" )
-                    .Add( "group-data-[focus=true]:!border-danger" ), when: slot is nameof( _inputWrapper ) ),
+                    .Add( "border-danger!" )
+                    .Add( "group-data-[focus=true]:border-danger!" ), when: slot is nameof( _inputWrapper ) ),
 
             InputVariant.Underlined => ElementClass.Empty()
                 .Add( "after:!bg-danger", when: slot is nameof( _inputWrapper ) ),
@@ -263,7 +263,7 @@ internal static class InputField
                 .Add( ElementClass.Empty()
                     .Add( "text-primary" )
                     .Add( "bg-primary-50" )
-                    .Add( "hover:bg-primary-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-primary-100" )
                     .Add( "placeholder:text-primary" )
                     .Add( "group-data-[focus=true]:bg-primary-50" ), when: slot is nameof( _inputWrapper ) )
                 .Add( "placeholder:text-primary", when: slot is nameof( _input ) )
@@ -273,7 +273,7 @@ internal static class InputField
                 .Add( ElementClass.Empty()
                     .Add( "text-secondary" )
                     .Add( "bg-secondary-50" )
-                    .Add( "hover:bg-secondary-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-secondary-100" )
                     .Add( "placeholder:text-secondary" )
                     .Add( "group-data-[focus=true]:bg-secondary-50" ), when: slot is nameof( _inputWrapper ) )
                 .Add( "placeholder:text-secondary", when: slot is nameof( _input ) )
@@ -284,7 +284,7 @@ internal static class InputField
                     .Add( "text-success-600" )
                     .Add( "dark:text-success" )
                     .Add( "bg-success-50" )
-                    .Add( "hover:bg-success-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-success-100" )
                     .Add( "placeholder:text-success-600" )
                     .Add( "group-data-[focus=true]:bg-success-50" ), when: slot is nameof( _inputWrapper ) )
                 .Add( "placeholder:text-success-600 dark:placeholder:text-success", when: slot is nameof( _input ) )
@@ -295,7 +295,7 @@ internal static class InputField
                     .Add( "text-warning-600" )
                     .Add( "dark:text-warning" )
                     .Add( "bg-warning-50" )
-                    .Add( "hover:bg-warning-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-warning-100" )
                     .Add( "placeholder:text-warning-600" )
                     .Add( "group-data-[focus=true]:bg-warning-50" ), when: slot is nameof( _inputWrapper ) )
                 .Add( "placeholder:text-warning-600 dark:placeholder:text-warning", when: slot is nameof( _input ) )
@@ -306,7 +306,7 @@ internal static class InputField
                     .Add( "text-danger-600" )
                     .Add( "dark:text-danger" )
                     .Add( "bg-danger-50" )
-                    .Add( "hover:bg-danger-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-danger-100" )
                     .Add( "placeholder:text-danger-600" )
                     .Add( "group-data-[focus=true]:bg-danger-50" ), when: slot is nameof( _inputWrapper ) )
                 .Add( "placeholder:text-danger-600 dark:placeholder:text-danger", when: slot is nameof( _input ) )
@@ -316,7 +316,7 @@ internal static class InputField
                 .Add( ElementClass.Empty()
                     .Add( "text-info" )
                     .Add( "bg-info-50" )
-                    .Add( "hover:bg-info-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-info-100" )
                     .Add( "placeholder:text-info" )
                     .Add( "group-data-[focus=true]:bg-info-50" ), when: slot is nameof( _inputWrapper ) )
                 .Add( "placeholder:text-info", when: slot is nameof( _input ) )
@@ -423,19 +423,19 @@ internal static class InputField
                 .Add( "h-12 py-1.5", when: slot is nameof( _inputWrapper ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-small" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.tiny)/2_-_8px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_var(--text-tiny)/2_-_8px)]" ), when: slot is nameof( _label ) ),
 
             Size.Medium => ElementClass.Empty()
                 .Add( "h-14 py-2", when: slot is nameof( _inputWrapper ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-small" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_6px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_var(--text-small)/2_-_6px)]" ), when: slot is nameof( _label ) ),
 
             Size.Large => ElementClass.Empty()
                 .Add( "h-16 py-2.5", when: slot is nameof( _inputWrapper ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-medium" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_8px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_var(--text-small)/2_-_8px)]" ), when: slot is nameof( _label ) ),
 
             _ => ElementClass.Empty()
         };
@@ -446,25 +446,25 @@ internal static class InputField
         return size switch
         {
             Size.Small => ElementClass.Empty()
-                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_8px)]", when: slot is nameof( _base ) )
+                .Add( "has-[label]:mt-[calc(var(--text-small))_+_8px)]", when: slot is nameof( _base ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-tiny" )
                     .Add( "left-2" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.tiny)/2_+_16px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_var(--text-tiny)/2_+_16px)]" ), when: slot is nameof( _label ) ),
 
             Size.Medium => ElementClass.Empty()
-                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_10px)]", when: slot is nameof( _base ) )
+                .Add( "has-[label]:mt-[calc(var(--text-small)_+_10px)]", when: slot is nameof( _base ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-small" )
                     .Add( "left-3" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.small)/2_+_20px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_var(--text-small)/2_+_20px)]" ), when: slot is nameof( _label ) ),
 
             Size.Large => ElementClass.Empty()
-                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_12px)]", when: slot is nameof( _base ) )
+                .Add( "has-[label]:mt-[calc(var(--text-small)_+_12px)]", when: slot is nameof( _base ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-medium" )
                     .Add( "left-3" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.small)/2_+_24px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_var(--text-small)/2_+_24px)]" ), when: slot is nameof( _label ) ),
 
             _ => ElementClass.Empty()
         };

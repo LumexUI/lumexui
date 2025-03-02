@@ -1,29 +1,49 @@
-﻿@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+﻿@import "tailwindcss" theme(static);
+@import "../bin/lumexui/_theme";
+@import "./prism" layer(components);
+@import "./blazor" layer(components);
+@import "./typography" layer(utilities);
+@import "./fonts";
 
-@import 'blazor.css';
-@import 'prism.css';
-@import 'fonts.css';
+@source "../../LumexUI.Docs.Client/{Pages,Components}/**/*.{razor,razor.cs}"; /* docs */
+@source "../bin/lumexui/*.cs"; /* components */
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+    --font-sans: Inter var, system-ui;
+    --font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    --font-mono: Fira Code var, ui-monospace;
+}
+
+@custom-variant scrollbar (&::-webkit-scrollbar);
+@custom-variant scrollbar-track (&::-webkit-scrollbar-track);
+@custom-variant scrollbar-thumb (&::-webkit-scrollbar-thumb);
 
 .dark {
     color-scheme: dark;
 }
 
-html {
-    height: 100%;
+.light {
+    color-scheme: light;
 }
 
-body {
-    min-height: 100%;
+.scrollbar {
+    @apply 
+        scrollbar:h-2 
+        scrollbar:w-2 
+        scrollbar-thumb:rounded-sm
+        scrollbar-thumb:bg-foreground-200 
+        scrollbar-track:rounded-sm
+        scrollbar-track:bg-foreground-100;
 }
 
-@layer utilities {
-    .bordered-link {
-        @apply font-semibold leading-tight text-current border-b border-current hover:border-b-2;
-    }
-
-    .scrollbar {
-        @apply scrollbar:h-2 scrollbar:w-2 scrollbar-thumb:rounded scrollbar-thumb:bg-foreground-200 scrollbar-track:rounded scrollbar-track:bg-foreground-100;
-    }
+.bordered-link {
+    @apply 
+        font-semibold 
+        leading-tight 
+        text-current 
+        border-b 
+        border-current 
+        hover:border-b-2;
 }

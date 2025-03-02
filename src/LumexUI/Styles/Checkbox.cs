@@ -20,7 +20,7 @@ internal readonly record struct Checkbox
         .Add( "inline-flex" )
         .Add( "items-center" )
         .Add( "justify-start" )
-        .Add( "outline-none" )
+        .Add( "outline-hidden" )
         .Add( "cursor-pointer" )
         .ToString();
 
@@ -48,7 +48,7 @@ internal readonly record struct Checkbox
         .Add( "after:scale-50" )
         .Add( "after:opacity-0" )
         .Add( "after:origin-center" )
-        .Add( "after:transition-transform-opacity" )
+        .Add( "after:transition[transform,opacity]" )
         .Add( "after:!duration-200" )
         .Add( "group-data-[checked=true]:after:scale-100" )
         .Add( "group-data-[checked=true]:after:opacity-100" )
@@ -79,21 +79,21 @@ internal readonly record struct Checkbox
         .ToString();
 
     private readonly static string _radiusSmall = ElementClass.Empty()
-        .Add( "rounded-[calc(theme(borderRadius.small)*0.5)]" )
-        .Add( "before:rounded-[calc(theme(borderRadius.small)*0.5)]" )
-        .Add( "after:rounded-[calc(theme(borderRadius.small)*0.5)]" )
+        .Add( "rounded-[calc(var(--radius-small)*0.5)]" )
+        .Add( "before:rounded-[calc(var(--radius-small)*0.5)]" )
+        .Add( "after:rounded-[calc(var(--radius-small)*0.5)]" )
         .ToString();
 
     private readonly static string _radiusMedium = ElementClass.Empty()
-        .Add( "rounded-[calc(theme(borderRadius.medium)*0.5)]" )
-        .Add( "before:rounded-[calc(theme(borderRadius.medium)*0.5)]" )
-        .Add( "after:rounded-[calc(theme(borderRadius.medium)*0.5)]" )
+        .Add( "rounded-[calc(var(--radius-medium)*0.5)]" )
+        .Add( "before:rounded-[calc(var(--radius-medium)*0.5)]" )
+        .Add( "after:rounded-[calc(var(--radius-medium)*0.5)]" )
         .ToString();
 
     private readonly static string _radiusLarge = ElementClass.Empty()
-        .Add( "rounded-[calc(theme(borderRadius.large)*0.5)]" )
-        .Add( "before:rounded-[calc(theme(borderRadius.large)*0.5)]" )
-        .Add( "after:rounded-[calc(theme(borderRadius.large)*0.5)]" )
+        .Add( "rounded-[calc(var(--radius-large)*0.5)]" )
+        .Add( "before:rounded-[calc(var(--radius-large)*0.5)]" )
+        .Add( "after:rounded-[calc(var(--radius-large)*0.5)]" )
         .ToString();
 
     private static ElementClass GetColorStyles( ThemeColor color )

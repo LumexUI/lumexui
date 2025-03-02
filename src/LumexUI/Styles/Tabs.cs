@@ -40,7 +40,6 @@ internal class Tabs
 		.Add( "py-1" )
 		.Add( "justify-center" )
 		.Add( "items-center" )
-		.Add( "outline-none" )
 		.Add( "cursor-pointer" )
 		.Add( "data-[disabled=true]:!opacity-disabled" )
 		.Add( "data-[disabled=true]:cursor-not-allowed" )
@@ -65,7 +64,6 @@ internal class Tabs
 	private static readonly string _tabPanel = ElementClass.Empty()
 		.Add( "px-1" )
 		.Add( "py-3" )
-		.Add( "outline-none" )
 		// focus ring
 		.Add( Utils.FocusVisible )
 		.ToString();
@@ -140,7 +138,7 @@ internal class Tabs
 				.Add( "inset-0", when: slot is nameof( _cursor ) ),
 
 			TabVariant.Outlined => ElementClass.Empty()
-				.Add( "bg-transparent border-2 border-default-200 shadow-sm", when: slot is nameof( _tabList ) )
+				.Add( "bg-transparent border-2 border-default-200 shadow-xs", when: slot is nameof( _tabList ) )
 				.Add( "inset-0", when: slot is nameof( _cursor ) ),
 
 			TabVariant.Underlined => ElementClass.Empty()

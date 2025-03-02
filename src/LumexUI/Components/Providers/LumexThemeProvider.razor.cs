@@ -52,10 +52,11 @@ public partial class LumexThemeProvider : ComponentBase
 		{
 			foreach( var scale in color.Value )
 			{
-				var scaleKey = scale.Key == "default" ? "" : $"-{scale.Key}";
-				var scaleValue = ColorUtils.HexToHsl( scale.Value );
+				var scaleKey = scale.Key != "default" 
+					? $"{color.Key}-{scale.Key}"
+					: $"{color.Key}";
 
-				sb.AppendLine( $"--{Prefix}-{color.Key}{scaleKey}: {scaleValue};" );
+				sb.AppendLine( $"--{Prefix}-{scaleKey}: {scale.Value};" );
 			}
 		}
 
@@ -73,13 +74,13 @@ public partial class LumexThemeProvider : ComponentBase
 		sb.AppendLine( $"--{Prefix}-radius-small: {theme.Layout.Radius.Sm};" );
 		sb.AppendLine( $"--{Prefix}-radius-medium: {theme.Layout.Radius.Md};" );
 		sb.AppendLine( $"--{Prefix}-radius-large: {theme.Layout.Radius.Lg};" );
-		sb.AppendLine( $"--{Prefix}-box-shadow-small: {theme.Layout.Shadow.Sm};" );
-		sb.AppendLine( $"--{Prefix}-box-shadow-medium: {theme.Layout.Shadow.Md};" );
-		sb.AppendLine( $"--{Prefix}-box-shadow-large: {theme.Layout.Shadow.Lg};" );
-		sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-divider-opacity: {theme.Layout.DividerOpacity};" );
-		sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-disabled-opacity: {theme.Layout.DisabledOpacity};" );
-		sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-focus-opacity: {theme.Layout.FocusOpacity};" );
-		sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-hover-opacity: {theme.Layout.HoverOpacity};" );
+		sb.AppendLine( $"--{Prefix}-shadow-small: {theme.Layout.Shadow.Sm};" );
+		sb.AppendLine( $"--{Prefix}-shadow-medium: {theme.Layout.Shadow.Md};" );
+		sb.AppendLine( $"--{Prefix}-shadow-large: {theme.Layout.Shadow.Lg};" );
+		sb.AppendLine( $"--{Prefix}-opacity-divider: {theme.Layout.DividerOpacity * 100}%;" );
+		sb.AppendLine( $"--{Prefix}-opacity-disabled: {theme.Layout.DisabledOpacity * 100}%;" );
+		sb.AppendLine( $"--{Prefix}-opacity-focus: {theme.Layout.FocusOpacity * 100}%;" );
+		sb.AppendLine( $"--{Prefix}-opacity-hover: {theme.Layout.HoverOpacity * 100}%;" );
 
 		sb.AppendLine( "}" );
 		return sb.ToString();

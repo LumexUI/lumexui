@@ -10,19 +10,19 @@
         {
             Title = "Install LumexUI",
             Code = new CodeBlock("Terminal", "installationPackage"),
-            Body = @<p>Install LumexUI via terminal using .NET CLI.</p>
+            Body = @<p>Install LumexUI via terminal using .NET CLI or NuGet Package Manager.</p>
         },
         new Step()
         {
             Title = "Install Tailwind CSS",
-            Code = new CodeBlock("tailwind.config.js", "installationConfig"),
+            Code = new CodeBlock("app.css", "installationConfig"),
             Body = @<text>
                 <p>
-                    LumexUI is built on top of Tailwind CSS. To install, follow the official <LumexLink Href="https://v3.tailwindcss.com/docs/installation" External="@true">installation guide</LumexLink>. Then, modify the <code>tailwind.config.js</code> file.
+                    LumexUI is built on top of Tailwind CSS. To install it, follow the official <LumexLink Href="https://tailwindcss.com/docs/installation/tailwind-cli" External="@true">installation guide</LumexLink>. Then, modify your app CSS file.
                 </p>
-                <i>
-                    Note: the <code>PATH_TO_NUGET</code> is the <LumexLink Href="https://learn.microsoft.com/en-us/nuget/consume-packages/managing-the-global-packages-and-cache-folders#:~:text=Windows%3A%20%25userprofile,~/.nuget/packages" External="@true">NuGet package path on the machine</LumexLink>.
-                </i>
+                <p>
+                    Note: Using <LumexLink Href="https://tailwindcss.com/blog/standalone-cli" External="@true">Tailwind standalone CLI</LumexLink> is recommended if you don't need Node.js or npm.
+                </p>
                 </text>
         },
         new Step()
@@ -39,21 +39,9 @@
         },
         new Step()
         {
-            Title = "Import library's namespace",
-            Code = new CodeBlock("_Imports.razor", "installationImport"),
-            Body = @<p>Modify <code>_Imports.razor</code> file to easily access components throughout your app.</p>
-        },
-        new Step()
-        {
             Title = "Setup theme provider",
             Code = new CodeBlock("MainLayout.razor", "installationThemeProvider"),
             Body = @<p>Add the <code>LumexThemeProvider</code> into your <code>MainLayout.razor</code> file to enable theming.</p>
-        },
-        new Step()
-        {
-            Title = "Use the components",
-            Code = new CodeBlock("Index.razor", "installationUsage"),
-            Body = @<p>Now you are all set up to start using LumexUI components in your app!</p>
         }
     };
 }

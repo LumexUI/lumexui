@@ -1,0 +1,212 @@
+﻿/* https://tailwindcss.com/docs/theme#theme-variable-namespaces */
+@theme static inline {
+    /* Colors */
+    --color-background: var(--lumex-background);
+
+    --color-foreground-50: var(--lumex-foreground-50);
+    --color-foreground-100: var(--lumex-foreground-100);
+    --color-foreground-200: var(--lumex-foreground-200);
+    --color-foreground-300: var(--lumex-foreground-300);
+    --color-foreground-400: var(--lumex-foreground-400);
+    --color-foreground-500: var(--lumex-foreground-500);
+    --color-foreground-600: var(--lumex-foreground-600);
+    --color-foreground-700: var(--lumex-foreground-700);
+    --color-foreground-800: var(--lumex-foreground-800);
+    --color-foreground-900: var(--lumex-foreground-900);
+    --color-foreground-950: var(--lumex-foreground-950);
+    --color-foreground: var(--lumex-foreground);
+
+    --color-focus: var(--lumex-focus);
+    --color-overlay: var(--lumex-overlay);
+    --color-divider: --alpha(var(--lumex-divider) / var(--lumex-opacity-divider));
+    --color-surface1: var(--lumex-surface1);
+    --color-surface1-foreground: var(--lumex-surface1-foreground);
+    --color-surface2: var(--lumex-surface2);
+    --color-surface2-foreground: var(--lumex-surface2-foreground);
+    --color-surface3: var(--lumex-surface3);
+    --color-surface3-foreground: var(--lumex-surface3-foreground);
+
+    --color-default-50: var(--lumex-default-50);
+    --color-default-100: var(--lumex-default-100);
+    --color-default-200: var(--lumex-default-200);
+    --color-default-300: var(--lumex-default-300);
+    --color-default-400: var(--lumex-default-400);
+    --color-default-500: var(--lumex-default-500);
+    --color-default-600: var(--lumex-default-600);
+    --color-default-700: var(--lumex-default-700);
+    --color-default-800: var(--lumex-default-800);
+    --color-default-900: var(--lumex-default-900);
+    --color-default-950: var(--lumex-default-950);
+    --color-default: var(--lumex-default);
+    --color-default-foreground: var(--lumex-default-foreground);
+
+    --color-primary-50: var(--lumex-primary-50);
+    --color-primary-100: var(--lumex-primary-100);
+    --color-primary-200: var(--lumex-primary-200);
+    --color-primary-300: var(--lumex-primary-300);
+    --color-primary-400: var(--lumex-primary-400);
+    --color-primary-500: var(--lumex-primary-500);
+    --color-primary-600: var(--lumex-primary-600);
+    --color-primary-700: var(--lumex-primary-700);
+    --color-primary-800: var(--lumex-primary-800);
+    --color-primary-900: var(--lumex-primary-900);
+    --color-primary-950: var(--lumex-primary-950);
+    --color-primary: var(--lumex-primary);
+    --color-primary-foreground: var(--lumex-primary-foreground);
+
+    --color-secondary-50: var(--lumex-secondary-50);
+    --color-secondary-100: var(--lumex-secondary-100);
+    --color-secondary-200: var(--lumex-secondary-200);
+    --color-secondary-300: var(--lumex-secondary-300);
+    --color-secondary-400: var(--lumex-secondary-400);
+    --color-secondary-500: var(--lumex-secondary-500);
+    --color-secondary-600: var(--lumex-secondary-600);
+    --color-secondary-700: var(--lumex-secondary-700);
+    --color-secondary-800: var(--lumex-secondary-800);
+    --color-secondary-900: var(--lumex-secondary-900);
+    --color-secondary-950: var(--lumex-secondary-950);
+    --color-secondary: var(--lumex-secondary);
+    --color-secondary-foreground: var(--lumex-secondary-foreground);
+
+    --color-success-50: var(--lumex-success-50);
+    --color-success-100: var(--lumex-success-100);
+    --color-success-200: var(--lumex-success-200);
+    --color-success-300: var(--lumex-success-300);
+    --color-success-400: var(--lumex-success-400);
+    --color-success-500: var(--lumex-success-500);
+    --color-success-600: var(--lumex-success-600);
+    --color-success-700: var(--lumex-success-700);
+    --color-success-800: var(--lumex-success-800);
+    --color-success-900: var(--lumex-success-900);
+    --color-success-950: var(--lumex-success-950);
+    --color-success: var(--lumex-success);
+    --color-success-foreground: var(--lumex-success-foreground);
+
+    --color-warning-50: var(--lumex-warning-50);
+    --color-warning-100: var(--lumex-warning-100);
+    --color-warning-200: var(--lumex-warning-200);
+    --color-warning-300: var(--lumex-warning-300);
+    --color-warning-400: var(--lumex-warning-400);
+    --color-warning-500: var(--lumex-warning-500);
+    --color-warning-600: var(--lumex-warning-600);
+    --color-warning-700: var(--lumex-warning-700);
+    --color-warning-800: var(--lumex-warning-800);
+    --color-warning-900: var(--lumex-warning-900);
+    --color-warning-950: var(--lumex-warning-950);
+    --color-warning: var(--lumex-warning);
+    --color-warning-foreground: var(--lumex-warning-foreground);
+
+    --color-danger-50: var(--lumex-danger-50);
+    --color-danger-100: var(--lumex-danger-100);
+    --color-danger-200: var(--lumex-danger-200);
+    --color-danger-300: var(--lumex-danger-300);
+    --color-danger-400: var(--lumex-danger-400);
+    --color-danger-500: var(--lumex-danger-500);
+    --color-danger-600: var(--lumex-danger-600);
+    --color-danger-700: var(--lumex-danger-700);
+    --color-danger-800: var(--lumex-danger-800);
+    --color-danger-900: var(--lumex-danger-900);
+    --color-danger-950: var(--lumex-danger-950);
+    --color-danger: var(--lumex-danger);
+    --color-danger-foreground: var(--lumex-danger-foreground);
+
+    --color-info-50: var(--lumex-info-50);
+    --color-info-100: var(--lumex-info-100);
+    --color-info-200: var(--lumex-info-200);
+    --color-info-300: var(--lumex-info-300);
+    --color-info-400: var(--lumex-info-400);
+    --color-info-500: var(--lumex-info-500);
+    --color-info-600: var(--lumex-info-600);
+    --color-info-700: var(--lumex-info-700);
+    --color-info-800: var(--lumex-info-800);
+    --color-info-900: var(--lumex-info-900);
+    --color-info-950: var(--lumex-info-950);
+    --color-info: var(--lumex-info);
+    --color-info-foreground: var(--lumex-info-foreground);
+
+    /* Typography */
+    --text-tiny: var(--lumex-font-size-tiny);
+    --text-small: var(--lumex-font-size-small);
+    --text-medium: var(--lumex-font-size-medium);
+    --text-large: var(--lumex-font-size-large);
+
+    --text-tiny--line-height: var(--lumex-line-height-tiny);
+    --text-small--line-height: var(--lumex-line-height-small);
+    --text-medium--line-height: var(--lumex-line-height-medium);
+    --text-large--line-height: var(--lumex-line-height-large);
+
+    --leading-tiny: var(--lumex-line-height-tiny);
+    --leading-small: var(--lumex-line-height-small);
+    --leading-medium: var(--lumex-line-height-medium);
+    --leading-large: var(--lumex-line-height-large);
+
+    /* Border Radii */
+    --radius-small: var(--lumex-radius-small);
+    --radius-medium: var(--lumex-radius-medium);
+    --radius-large: var(--lumex-radius-large);
+
+    /* Box Shadows */
+    --shadow-small: var(--lumex-shadow-small);
+    --shadow-medium: var(--lumex-shadow-medium);
+    --shadow-large: var(--lumex-shadow-large);
+
+    /* Opacities */
+    --opacity-divider: var(--lumex-opacity-divider);
+    --opacity-disabled: var(--lumex-opacity-disabled);
+    --opacity-focus: var(--lumex-opacity-focus);
+    --opacity-hover: var(--lumex-opacity-hover);
+
+    /* 
+        Transitions
+        See https://github.com/tailwindlabs/tailwindcss/issues/16639#issuecomment-2668151481
+    */
+    /* 
+        `--transition-colors` and `transition-transform` are reusable variables. 
+        They not defined as `--transition-property-colors` and `--transition-property-transform` due to a bug in the Tailwind compiler.
+        See https://github.com/tailwindlabs/tailwindcss/issues/16639#issuecomment-2668844455
+    */
+    --transition-colors: color, background-color, border-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    --transition-transforms: transform, translate, scale, rotate;
+    --transition-property-colors-shadow: var(--transition-colors), box-shadow;
+    --transition-property-colors-opacity: var(--transition-colors), opacity;
+    --transition-property-colors-transform: var(--transition-colors), var(--transition-transforms);
+    --transition-property-colors-transform-opacity: var(--transition-property-colors-transform), opacity;
+    --transition-property-transform-opacity: var(--transition-transforms), opacity;
+
+    /* Animations */
+    --animate-enter: enter 200ms ease-out normal both;
+
+    @keyframes enter {
+        0% {
+            opacity: 0;
+            transform: translateZ(0)  scale(0.85);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateZ(0) scale(1);
+        }
+    }
+
+    /* Override Defaults */
+    --default-transition-duration: 250ms;
+}
+
+/*
+    The `opacity-*` utilities are generated from the `--opacity-*` theme values.
+    See https://tailwindcss.com/docs/adding-custom-styles#matching-theme-values
+*/
+@utility opacity-* {
+    opacity: --value(--opacity-*);
+}
+
+@utility scrollbar-hide {
+    /* Hide scrollbar for IE, Edge and Firefox */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

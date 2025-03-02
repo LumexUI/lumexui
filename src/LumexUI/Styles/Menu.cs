@@ -41,7 +41,7 @@ internal static class Menu
 					.Add( "flex" )
 					.Add( "flex-col" )
 					.Add( "gap-0.5" )
-					.Add( "outline-none" )
+					.Add( "outline-hidden" )
 					.ToString(),
 
 				[nameof( MenuSlots.EmptyContent )] = new ElementClass()
@@ -82,7 +82,6 @@ internal static class MenuItem
 					.Add( "items-center" )
 					.Add( "justify-between" )
 					.Add( "rounded-small" )
-					.Add( "outline-none" )
 					.Add( "cursor-pointer" )
 					// transition
 					.Add( "hover:transition-colors-shadow" )

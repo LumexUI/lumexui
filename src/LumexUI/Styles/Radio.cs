@@ -53,7 +53,7 @@ internal static class Radio
         .Add( "group-hover:bg-default-100" )
         .Add( "group-active:scale-95" )
         // transition
-        .Add( "transition-transform-colors" )
+        .Add( "transition-colors-transform" )
         .Add( Utils.ReduceMotion )
         // focus ring
         .Add( Utils.GroupFocusVisible )

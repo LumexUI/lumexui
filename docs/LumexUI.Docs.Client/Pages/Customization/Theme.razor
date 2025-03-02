@@ -9,7 +9,6 @@
         typography, and component styles, that defines the visual appearance of a UI.
         It provides a consistent look and feel across all components, allowing developers to
         easily customize and align the UI with the app's brand identity or design preferences.
-        By applying a theme, you can ensure uniformity in the presentation.
     </p>
 </DocsSection>
 
@@ -25,8 +24,8 @@
     <ol>
         <li>
             <h4>C# Object for Customization</h4>
-            <p class="mb-[0.25em]">
-                LumexUI exports the <Code>@nameof( LumexTheme )</Code> that allows you to
+            <p>
+                LumexUI exports the <code>@nameof( LumexTheme )</code> that allows you to
                 configure colors, fonts, layout settings, and more.
                 This approach ensures that Blazor developers can define their
                 theme programmatically, staying within the familiar environment.
@@ -37,32 +36,14 @@
         </li>
         <li>
             <h4>Extensible Tailwind CSS Configuration</h4>
-            <p class="mb-[0.25em]">
+            <p>
                 In addition to the C# object, LumexUI leverages Tailwind CSS for styling.
                 The Tailwind CSS configuration is fully extensible,
                 allowing you to build upon the base configurations set by the library.
                 Developers can extend the default Tailwind setup to suit their specific needs,
                 adding or modifying utility classes for more granular control over the design.
             </p>
-            <LumexLink Href="https://tailwindcss.com/"
-                       External="@true">
-                Learn More
-                <LumexIcon Icon="@Icons.Rounded.OpenInNew"
-                           Size="@new("16")"
-                           Class="mx-1 text-orange-400" />
-            </LumexLink>
-        </li>
-        <li>
-            <h4>Custom Tailwind CSS Plugin</h4>
-            <p class="mb-[0.25em]">
-                To ensure seamless integration between the <Code>@nameof( LumexTheme )</Code>
-                configurations and Tailwind CSS, LumexUI exports a custom Tailwind plugin.
-                This plugin takes the configurations defined in C# and injects them
-                into the Tailwind config, automatically extending it with your custom styles and settings.
-                This means that any C# theme adjustments you make will be reflected in your Tailwind styles,
-                creating a smooth and cohesive theming experience for Blazor applications.
-            </p>
-            <LumexLink Href="https://tailwindcss.com/docs/plugins"
+            <LumexLink Href="https://tailwindcss.com/docs/styling-with-utility-classes"
                        External="@true">
                 Learn More
                 <LumexIcon Icon="@Icons.Rounded.OpenInNew"
@@ -83,7 +64,7 @@
     <Callout Variant="@CalloutVariant.Warning">
         The following section assumes that you have already completed a basic setup of Tailwind CSS.
         If you haven't, please refer to the
-        <LumexLink Href="https://tailwindcss.com/docs/installation"
+        <LumexLink Href="https://tailwindcss.com/docs/installation/tailwind-cli"
                    External="@true"
                    Class="bordered-link">
             official documentation
@@ -95,9 +76,9 @@
     </Callout>
 
     <p>
-        The last step is adding the LumexUI plugin to your <Code>tailwind.config.js</Code> file.
+        The last step is adding the LumexUI theme file to your <Code>app.css</Code> file.
     </p>
-    <CodeSnippet Code="@(new CodeBlock(name: "tailwind.config.js", snippet: "installationConfig"))" />
+    <CodeSnippet Code="@(new CodeBlock(name: "app.css", snippet: "installationConfig"))" />
 </DocsSection>
 
 <DocsSection Title="Usage">

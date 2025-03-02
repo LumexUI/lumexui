@@ -14,7 +14,7 @@
 
 @code {
     private RenderFragment<(string Alt, string Src)> _countryFlag = flag =>
-        @<span class="w-6 h-6 flex rounded-full overflow-hidden ring-1 ring-default-200">
+        @<span class="w-6 h-6 flex rounded-full overflow-hidden ring ring-default-200">
             <img src="@flag.Src" alt="@flag.Alt" class="object-cover" />
         </span>;
 
