@@ -201,9 +201,9 @@ internal static class InputField
                 .Add( ElementClass.Empty()
                     .Add( "border-2" )
                     .Add( "border-default-200" )
-                    .Add( "hover:border-default-300" )
-                    .Add( "transition-colors" )
-                    .Add( "group-data-[focus=true]:border-default-foreground" ), when: slot is nameof( _inputWrapper ) ),
+                    .Add( "group-data-[focus=true]:border-default-foreground" )
+                    .Add( "group-data-[focus=false]:hover:border-default-300" )
+                    .Add( "transition-colors" ), when: slot is nameof( _inputWrapper ) ),
 
             InputVariant.Underlined => ElementClass.Empty()
                 .Add( ElementClass.Empty()
