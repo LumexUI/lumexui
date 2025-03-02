@@ -26,8 +26,23 @@
 
 	<!-- Run the docs content generation command -->
 	<Target Name="InstallTailwindCSS" AfterTargets="Build" Condition="!Exists('tailwindcss.exe')">
-		<Exec Command="curl -LO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe" />
-		<Exec Command="ren tailwindcss-windows-x64.exe tailwindcss.exe" />
+		<PropertyGroup>
+			<!-- Download a file for Windows -->
+			<TailwindURL Condition="'$(OS)' == 'Windows_NT'">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe</TailwindURL>
+			<TailwindFile Condition="'$(OS)' == 'Windows_NT'">tailwindcss-windows-x64.exe</TailwindFile>
+
+			<!-- Download a file for Linux -->
+			<TailwindURL Condition="'$(OS)' != 'Windows_NT'">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64</TailwindURL>
+			<TailwindFile Condition="'$(OS)' != 'Windows_NT'">tailwindcss-linux-x64</TailwindFile>
+		</PropertyGroup>
+
+		<!-- Rename a file for Windows -->
+		<Exec Command="curl -LO $(TailwindURL)" />
+		<Exec Command="ren $(TailwindFile) tailwindcss.exe" Condition="'$(OS)' == 'Windows_NT'" />
+
+		<!-- Rename a file for Linux -->
+		<Exec Command="mv $(TailwindFile) tailwindcss" Condition="'$(OS)' != 'Windows_NT'" />
+		<Exec Command="chmod +x tailwindcss" Condition="'$(OS)' != 'Windows_NT'" />
 	</Target>
 
 	<Target Name="TailwindCSS" AfterTargets="InstallTailwindCSS">
