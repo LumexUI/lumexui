@@ -28,7 +28,7 @@ internal class Select
         // transition
         .Add( "will-change-auto" )
         .Add( "origin-top-left" )
-        .Add( "transition-colors-transform-opacity" )
+        .Add( "transition-[transform,color,left,opacity,translate,scale]" )
         .Add( "motion-reduce:transition-none" )
         .ToString();
 
