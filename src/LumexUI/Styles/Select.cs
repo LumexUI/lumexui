@@ -230,8 +230,8 @@ internal class Select
             InputVariant.Flat => ElementClass.Empty()
                 .Add( ElementClass.Empty()
                     .Add( "bg-default-100" )
-                    .Add( "hover:bg-default-50" )
                     .Add( "group-data-[focus=true]:bg-default-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-default-50" )
                     // focus ring
                     .Add( Utils.FocusVisible ), when: slot is nameof( _trigger ) ),
 
@@ -361,14 +361,14 @@ internal class Select
             (InputVariant.Flat, ThemeColor.Default ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
                     .Add( "bg-default-100" )
-                    .Add( "hover:bg-default-50" ), when: slot is nameof( _trigger ) )
+                    .Add( "group-data-[focus=false]:hover:bg-default-50" ), when: slot is nameof( _trigger ) )
                 .Add( "group-data-[has-value=true]:text-default-foreground", when: slot is nameof( _value ) ),
 
             (InputVariant.Flat, ThemeColor.Primary ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
                     .Add( "bg-primary-50" )
                     .Add( "text-primary" )
-                    .Add( "hover:bg-primary-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-primary-100" )
                     .Add( "group-data-[focus=true]:bg-primary-50" ), when: slot is nameof( _trigger ) )
                 .Add( "text-primary", when: slot is nameof( _value ) )
                 .Add( "text-primary", when: slot is nameof( _label ) ),
@@ -377,7 +377,7 @@ internal class Select
                 .Add( ElementClass.Empty()
                     .Add( "bg-secondary-50" )
                     .Add( "text-secondary" )
-                    .Add( "hover:bg-secondary-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-secondary-100" )
                     .Add( "group-data-[focus=true]:bg-secondary-50" ), when: slot is nameof( _trigger ) )
                 .Add( "text-secondary", when: slot is nameof( _value ) )
                 .Add( "text-secondary", when: slot is nameof( _label ) ),
@@ -386,7 +386,7 @@ internal class Select
                 .Add( ElementClass.Empty()
                     .Add( "bg-success-50" )
                     .Add( "text-success-600" )
-                    .Add( "hover:bg-success-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-success-100" )
                     .Add( "group-data-[focus=true]:bg-success-50" ), when: slot is nameof( _trigger ) )
                 .Add( "text-success-600", when: slot is nameof( _value ) )
                 .Add( "text-success-600", when: slot is nameof( _label ) ),
@@ -395,7 +395,7 @@ internal class Select
                 .Add( ElementClass.Empty()
                     .Add( "bg-warning-50" )
                     .Add( "text-warning-600" )
-                    .Add( "hover:bg-warning-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-warning-100" )
                     .Add( "group-data-[focus=true]:bg-warning-50" ), when: slot is nameof( _trigger ) )
                 .Add( "text-warning", when: slot is nameof( _value ) )
                 .Add( "text-warning", when: slot is nameof( _label ) ),
@@ -404,7 +404,7 @@ internal class Select
                 .Add( ElementClass.Empty()
                     .Add( "bg-danger-50" )
                     .Add( "text-danger-600" )
-                    .Add( "hover:bg-danger-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-danger-100" )
                     .Add( "group-data-[focus=true]:bg-danger-50" ), when: slot is nameof( _trigger ) )
                 .Add( "text-danger", when: slot is nameof( _value ) )
                 .Add( "text-danger", when: slot is nameof( _label ) ),
@@ -413,7 +413,7 @@ internal class Select
                 .Add( ElementClass.Empty()
                     .Add( "bg-info-50" )
                     .Add( "text-info-600" )
-                    .Add( "hover:bg-info-100" )
+                    .Add( "group-data-[focus=false]:hover:bg-info-100" )
                     .Add( "group-data-[focus=true]:bg-info-50" ), when: slot is nameof( _trigger ) )
                 .Add( "text-info", when: slot is nameof( _value ) )
                 .Add( "text-info", when: slot is nameof( _label ) ),
@@ -603,7 +603,7 @@ internal class Select
                 .Add( "bg-danger-50 hover:bg-danger-100 group-data-[focus=true]:bg-danger-50", when: slot is nameof( _trigger ) ),
 
             InputVariant.Outlined => ElementClass.Empty()
-                .Add( "!border-danger group-data-[focus=true]:border-danger", when: slot is nameof( _trigger ) ),
+                .Add( "border-danger! group-data-[focus=true]:border-danger", when: slot is nameof( _trigger ) ),
 
             InputVariant.Underlined => ElementClass.Empty()
                 .Add( "after:bg-danger", when: slot is nameof( _trigger ) ),
