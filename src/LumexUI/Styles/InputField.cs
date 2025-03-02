@@ -79,7 +79,6 @@ internal static class InputField
 
     private readonly static string _clearButton = ElementClass.Empty()
         .Add( "p-0.5" )
-        //.Add( "-m-2" )
         .Add( "z-10" )
         .Add( "absolute" )
         .Add( "end-1.5" )
@@ -87,6 +86,7 @@ internal static class InputField
         .Add( "hover:!opacity-100" )
         .Add( "active:!opacity-focus" )
         .Add( "rounded-full" )
+        .Add( "cursor-pointer" )
         // transition
         .Add( "transition-opacity" )
         .Add( "motion-reduce:transition-none" )
