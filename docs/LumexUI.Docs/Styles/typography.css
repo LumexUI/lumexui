@@ -31,7 +31,7 @@
         color: var(--color-zinc-100);
     }
 
-    .prose pre code:where(:not(.not-prose, .not-prose *))::before,
-    .prose pre code:where(:not(.not-prose, .not-prose *))::after {
+    .prose :where(code[class]):not(:where([class~=not-prose],[class~=not-prose] *)):before,
+    .prose :where(code[class]):not(:where([class~=not-prose],[class~=not-prose] *)):after {
         content: none;
     }
