@@ -135,6 +135,11 @@
     --text-medium--line-height: var(--lumex-line-height-medium);
     --text-large--line-height: var(--lumex-line-height-large);
 
+    --leading-tiny: var(--lumex-line-height-tiny);
+    --leading-small: var(--lumex-line-height-small);
+    --leading-medium: var(--lumex-line-height-medium);
+    --leading-large: var(--lumex-line-height-large);
+
     /* Border Radii */
     --radius-small: var(--lumex-radius-small);
     --radius-medium: var(--lumex-radius-medium);
