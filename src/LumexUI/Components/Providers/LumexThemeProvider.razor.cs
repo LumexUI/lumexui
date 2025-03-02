@@ -52,10 +52,11 @@ public partial class LumexThemeProvider : ComponentBase
 		{
 			foreach( var scale in color.Value )
 			{
-				var scaleKey = scale.Key == "default" ? "" : $"-{scale.Key}";
-				var scaleValue = ColorUtils.HexToHsl( scale.Value );
+				var scaleKey = scale.Key != "default" 
+					? $"{color.Key}-{scale.Key}"
+					: $"{color.Key}";
 
-				sb.AppendLine( $"--{Prefix}-{color.Key}{scaleKey}: {scaleValue};" );
+				sb.AppendLine( $"--{Prefix}-{scaleKey}: {scale.Value};" );
 			}
 		}
 
@@ -76,10 +77,10 @@ public partial class LumexThemeProvider : ComponentBase
 		sb.AppendLine( $"--{Prefix}-shadow-small: {theme.Layout.Shadow.Sm};" );
 		sb.AppendLine( $"--{Prefix}-shadow-medium: {theme.Layout.Shadow.Md};" );
 		sb.AppendLine( $"--{Prefix}-shadow-large: {theme.Layout.Shadow.Lg};" );
-		sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-opacity-divider: {theme.Layout.DividerOpacity * 100}%;" );
-		sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-opacity-disabled: {theme.Layout.DisabledOpacity * 100}%;" );
-		sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-opacity-focus: {theme.Layout.FocusOpacity * 100}%;" );
-		sb.AppendLine( CultureInfo.InvariantCulture, $"--{Prefix}-opacity-hover: {theme.Layout.HoverOpacity * 100}%;" );
+		sb.AppendLine( $"--{Prefix}-opacity-divider: {theme.Layout.DividerOpacity * 100}%;" );
+		sb.AppendLine( $"--{Prefix}-opacity-disabled: {theme.Layout.DisabledOpacity * 100}%;" );
+		sb.AppendLine( $"--{Prefix}-opacity-focus: {theme.Layout.FocusOpacity * 100}%;" );
+		sb.AppendLine( $"--{Prefix}-opacity-hover: {theme.Layout.HoverOpacity * 100}%;" );
 
 		sb.AppendLine( "}" );
 		return sb.ToString();

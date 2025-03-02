@@ -1,5 +1,5 @@
 <Project>
-	<Target Name="CopyContents" AfterTargets="Build">
+	<Target Name="CopyContents" BeforeTargets="Build">
 		<ItemGroup>
 			<Files Include="$(SolutionDir)src\LumexUI\Styles\**\*" />
 		</ItemGroup>
