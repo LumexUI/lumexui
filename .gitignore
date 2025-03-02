@@ -405,3 +405,4 @@ FodyWeavers.xsd
 /src/LumexUI/**/dist
 
 /docs/LumexUI.Docs/**/*/css
+/docs/LumexUI.Docs/*.exe

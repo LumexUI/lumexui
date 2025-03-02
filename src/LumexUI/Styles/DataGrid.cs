@@ -58,7 +58,6 @@ internal class DataGrid
 
     private readonly static string _tr = ElementClass.Empty()
         .Add( "group" )
-        .Add( "outline-none" )
         // focus
         .Add( Utils.FocusVisible )
         .ToString();
@@ -73,7 +72,6 @@ internal class DataGrid
         .Add( "text-tiny" )
         .Add( "font-semibold" )
         .Add( "whitespace-nowrap" )
-        .Add( "outline-none" )
         .Add( "first:rounded-s-lg" )
         .Add( "last:rounded-e-lg" )
         .Add( "hover:text-foreground-400" )
@@ -88,7 +86,6 @@ internal class DataGrid
         .Add( "px-3" )
         .Add( "align-middle" )
         .Add( "text-small" )
-        .Add( "outline-none" )
         .Add( "data-[selected=false]:bg-transparent" )
         // disabled
         .Add( "group-data-[disabled=true]:text-foreground-300" )
@@ -110,7 +107,7 @@ internal class DataGrid
          .Add( "ms-2" )
          .Add( "opacity-0" )
          .Add( "-rotate-90" )
-         .Add( "transition-[transform,opacity]" )
+         .Add( "transition-transform-opacity" )
          .Add( "data-[visible=true]:opacity-100" )
          .Add( "group-hover/th:opacity-100" )
          .Add( "group-aria-[sort=ascending]/th:rotate-90" )

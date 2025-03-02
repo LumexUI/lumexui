@@ -9,7 +9,7 @@ internal class Utils
         .ToString();
 
     public readonly static string FocusVisible = ElementClass.Empty()
-        .Add( "outline-none" )
+        .Add( "outline-hidden" )
         .Add( "focus-visible:z-10" )
         .Add( "focus-visible:outline-2" )
         .Add( "focus-visible:outline-focus" )
@@ -17,7 +17,7 @@ internal class Utils
         .ToString();
 
     public readonly static string GroupFocusVisible = ElementClass.Empty()
-        .Add( "outline-none" )
+        .Add( "outline-hidden" )
         .Add( "group-focus-visible:z-10" )
         .Add( "group-focus-visible:ring-2" )
         .Add( "group-focus-visible:ring-focus" )
@@ -30,7 +30,7 @@ internal class Utils
         .ToString();
 
     //public readonly static string GroupDataFocusVisible = ElementClass.Empty()
-    //    .Add( "outline-none" )
+    //    .Add( "outline-hidden" )
     //    .Add( "group-data-[focus-visible=true]:z-10" )
     //    .Add( "group-data-[focus-visible=true]:ring-2" )
     //    .Add( "group-data-[focus-visible=true]:ring-focus" )

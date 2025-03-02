@@ -1,0 +1,11 @@
+<Project>
+	<Target Name="CopyContents" BeforeTargets="Build">
+		<ItemGroup>
+			<Files Include="$(SolutionDir)src\LumexUI\Styles\**\*" />
+		</ItemGroup>
+		
+		<Copy SourceFiles="@(Files)" 
+			  DestinationFolder="$(MSBuildProjectDirectory)\bin\lumexui" 
+			  SkipUnchangedFiles="true" />
+	</Target>
+</Project>

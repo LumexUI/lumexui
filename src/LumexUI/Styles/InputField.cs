@@ -36,7 +36,7 @@ internal static class InputField
         .Add( "group-data-[filled-focused=true]:pointer-events-auto" )
         // transition
         .Add( "will-change-auto" )
-        .Add( "transition-[transform,color,left,opacity]" )
+        .Add( "transition-colors-transform-opacity" )
         .Add( "motion-reduce:transition-none" )
         .ToString();
 
@@ -51,7 +51,7 @@ internal static class InputField
         .Add( "px-3" )
         .Add( "gap-3" )
         .Add( "w-full" )
-        .Add( "shadow-sm" )
+        .Add( "shadow-xs" )
         .Add( "cursor-text" )
         // transition
         .Add( "transition-[background]" )
@@ -70,7 +70,7 @@ internal static class InputField
         .Add( "w-full" )
         .Add( "font-normal" )
         .Add( "bg-transparent" )
-        .Add( "focus-visible:outline-none" )
+        .Add( "focus-visible:outline-hidden" )
         .Add( "placeholder:text-foreground-500" )
         .Add( "autofill:bg-transparent" )
         .Add( "data-[has-start-content=true]:ps-1.5" )
@@ -423,19 +423,19 @@ internal static class InputField
                 .Add( "h-12 py-1.5", when: slot is nameof( _inputWrapper ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-small" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.tiny)/2_-_8px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_var(--text-tiny)/2_-_8px)]" ), when: slot is nameof( _label ) ),
 
             Size.Medium => ElementClass.Empty()
                 .Add( "h-14 py-2", when: slot is nameof( _inputWrapper ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-small" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_6px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_var(--text-small)/2_-_6px)]" ), when: slot is nameof( _label ) ),
 
             Size.Large => ElementClass.Empty()
                 .Add( "h-16 py-2.5", when: slot is nameof( _inputWrapper ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-medium" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_theme(fontSize.small)/2_-_8px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(50%_+_var(--text-small)/2_-_8px)]" ), when: slot is nameof( _label ) ),
 
             _ => ElementClass.Empty()
         };
@@ -446,25 +446,25 @@ internal static class InputField
         return size switch
         {
             Size.Small => ElementClass.Empty()
-                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_8px)]", when: slot is nameof( _base ) )
+                .Add( "has-[label]:mt-[calc(var(--text-small))_+_8px)]", when: slot is nameof( _base ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-tiny" )
                     .Add( "left-2" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.tiny)/2_+_16px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_var(--text-tiny)/2_+_16px)]" ), when: slot is nameof( _label ) ),
 
             Size.Medium => ElementClass.Empty()
-                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_10px)]", when: slot is nameof( _base ) )
+                .Add( "has-[label]:mt-[calc(var(--text-small)_+_10px)]", when: slot is nameof( _base ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-small" )
                     .Add( "left-3" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.small)/2_+_20px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_var(--text-small)/2_+_20px)]" ), when: slot is nameof( _label ) ),
 
             Size.Large => ElementClass.Empty()
-                .Add( "has-[label]:mt-[calc(theme(fontSize.small)_+_12px)]", when: slot is nameof( _base ) )
+                .Add( "has-[label]:mt-[calc(var(--text-small)_+_12px)]", when: slot is nameof( _base ) )
                 .Add( ElementClass.Empty()
                     .Add( "text-medium" )
                     .Add( "left-3" )
-                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_theme(fontSize.small)/2_+_24px)]" ), when: slot is nameof( _label ) ),
+                    .Add( "group-data-[filled-focused=true]:-translate-y-[calc(100%_+_var(--text-small)/2_+_24px)]" ), when: slot is nameof( _label ) ),
 
             _ => ElementClass.Empty()
         };

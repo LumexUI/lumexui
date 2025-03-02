@@ -20,14 +20,14 @@ internal class Button
 		.Add( "text-medium" )
 		.Add( "font-normal" )
 		.Add( "appearance-none" )
-		.Add( "outline-none" )
 		.Add( "select-none" )
 		.Add( "whitespace-nowrap" )
 		.Add( "subpixel-antialiased" )
 		.Add( "overflow-hidden" )
+		.Add( "cursor-pointer" )
 		.Add( "active:scale-[0.97]" )
 		// transition
-		.Add( "transition-transform-colors-opacity" )
+		.Add( "transition-colors-transform-opacity" )
 		.Add( "motion-reduce:transition-none" )
 		// focus ring
 		.Add( Utils.FocusVisible )
