@@ -31,8 +31,9 @@
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
 		<!--<None Include="..\assets\logo.png" Pack="true" Visible="false" PackagePath="" />-->
-		<Content Include="Styles\*.cs" Pack="true" PackagePath="theme\components\%(Filename)%(Extension)" />
-		<Content Include="Scripts\Plugin\dist\plugin.js" Pack="true" PackagePath="theme\plugin.js" />
+		<None Include="LumexUI.targets" Pack="true" PackagePath="buildTransitive\LumexUI.targets" />
+		<None Include="Styles\*.cs" Pack="true" PackagePath="theme\components\%(Filename)%(Extension)" />
+		<None Include="Styles\_theme.css" Pack="true" PackagePath="theme\theme.css" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -49,11 +50,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="LumexUI.Motion" Version="0.0.4" />
-		<PackageReference Include="TailwindMerge.NET" Version="0.3.0" />
+		<PackageReference Include="TailwindMerge.NET" Version="1.0.0" />
 	</ItemGroup>
-
+	
 	<!-- Install npm dependencies if 'node_modules' is not present -->
-	<Target Name="Npm" BeforeTargets="BeforeBuild" Condition="!Exists('node_modules')">
+	<Target Name="Npm" AfterTargets="Build" Condition="!Exists('node_modules')">
 		<Message Text="Running npm ci..." Importance="high" />
 		<Exec Command="npm ci" />
 	</Target>

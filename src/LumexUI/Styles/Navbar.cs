@@ -35,10 +35,10 @@ internal readonly record struct Navbar
         .Add( "group" )
         .Add( "w-6" )
         .Add( "h-full" )
-        .Add( "outline-none" )
         .Add( "rounded-small" )
-        // focus
-        .Add( Utils.FocusVisible )
+		.Add( "cursor-pointer" )
+		// focus
+		.Add( Utils.FocusVisible )
         .ToString();
 
     private readonly static string _toggleIcon = ElementClass.Empty()

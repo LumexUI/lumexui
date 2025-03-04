@@ -14,8 +14,8 @@
 
     <DocsSection Title="Common Colors">
         <p>
-            The <strong>common colors</strong> are based on the full range of the expertly-crafted
-            <LumexLink Href="https://tailwindcss.com/docs/customizing-colors" External="@true">Tailwind colors</LumexLink>,
+            The <strong>common colors</strong> are constants based on the full range of the expertly-crafted
+            <LumexLink Href="https://tailwindcss.com/docs/colors" External="@true">Tailwind colors</LumexLink>,
             providing a great starting point if you don’t have your own specific branding in mind.
         </p>
         <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "colorsCommon"))" />
@@ -27,13 +27,6 @@
         <p>As in Tailwind, common colors are represented using a scale from <Code>50</Code> to <Code>950</Code>.</p>
         <CodeSnippet Code="@(new CodeBlock(name: null, snippet: "colorsCommonScale"))" />
     </DocsSection>
-
-    <Callout Variant="@CalloutVariant.Warning">
-        The common colors are not configurable.
-        Any changes made to the Tailwind CSS color palette in the <Code>tailwind.config.js</Code>
-        will not affect the C# common colors, and vice versa.
-        The C# <Code>Colors</Code> and Tailwind colors operate independently and do not share configuration settings.
-    </Callout>
 
     <DocsSection Title="Semantic Colors">
         <p>

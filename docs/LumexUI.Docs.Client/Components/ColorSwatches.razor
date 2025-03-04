@@ -14,10 +14,10 @@
 
                     <LumexButton Color="@ThemeColor.None"
                                  Class="w-full min-w-fit h-auto p-0 justify-start gap-x-3 overflow-visible rounded-small sm:block sm:space-y-1">
-                        <div class="relative w-12 h-12 rounded-md ring-1 ring-inset ring-foreground-950/10 sm:w-full"
+                        <div class="relative w-12 h-12 rounded-md ring ring-inset ring-foreground-950/10 sm:w-full"
                              style="background-color: @(color.Value + (isDivider ? "26" : default))">
 
-                            <span class="hidden absolute top-1 right-1.5 font-medium text-[0.625rem] leading-none sm:block"
+                            <span class="absolute top-1 right-1.5 font-medium text-[0.625rem] leading-none"
                                   style="color: @(isDivider ? "black" : ColorUtils.GetReadableColor(color.Value))">
                                 @color.Key
                             </span>
@@ -29,11 +29,6 @@
                                     ●
                                 </span>
                             }
-                        </div>
-
-                        <div class="px-0.5 text-left">
-                            <div class="font-medium text-foreground-900 text-xs sm:hidden">@color.Key</div>
-                            <div class="font-mono text-foreground-500 text-xs">@color.Value</div>
                         </div>
                     </LumexButton>
                 }

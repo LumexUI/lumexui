@@ -17,17 +17,16 @@ internal class Button
 		.Add( "items-center" )
 		.Add( "justify-center" )
 		.Add( "min-w-max" )
-		.Add( "text-medium" )
 		.Add( "font-normal" )
 		.Add( "appearance-none" )
-		.Add( "outline-none" )
 		.Add( "select-none" )
 		.Add( "whitespace-nowrap" )
 		.Add( "subpixel-antialiased" )
 		.Add( "overflow-hidden" )
+		.Add( "cursor-pointer" )
 		.Add( "active:scale-[0.97]" )
 		// transition
-		.Add( "transition-transform-colors-opacity" )
+		.Add( "transition-colors-transform-opacity" )
 		.Add( "motion-reduce:transition-none" )
 		// focus ring
 		.Add( Utils.FocusVisible )
@@ -45,9 +44,9 @@ internal class Button
 	private static ElementClass GetSizeStyles( Size size )
 	{
 		return ElementClass.Empty()
-			.Add( "min-w-16 h-8 px-3 gap-2 text-small rounded-small", when: size is Size.Small )
-			.Add( "min-w-20 h-10 px-4 gap-2 text-medium rounded-medium", when: size is Size.Medium )
-			.Add( "min-w-24 h-12 px-6 gap-2 text-large rounded-large", when: size is Size.Large );
+			.Add( "min-w-16 h-8 px-3 gap-2 text-tiny rounded-small", when: size is Size.Small )
+			.Add( "min-w-20 h-10 px-4 gap-2 text-small rounded-medium", when: size is Size.Medium )
+			.Add( "min-w-24 h-12 px-6 gap-2 text-medium rounded-large", when: size is Size.Large );
 	}
 
 	private static ElementClass GetRadiusStyles( Radius radius )

@@ -51,7 +51,8 @@ internal readonly record struct AccordionItem
         .Add( "gap-3" )
         .Add( "w-full" )
         .Add( "items-center" )
-        .Add( "outline-none" )
+        .Add( "outline-hidden" )
+        .Add( "cursor-pointer" )
         .ToString();
 
     private readonly static string _startContent = ElementClass.Empty()

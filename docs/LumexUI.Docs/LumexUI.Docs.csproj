@@ -7,10 +7,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<SolutionDir Condition=" '$(SolutionDir)' == '' ">$(MSBuildThisFileDirectory)../../</SolutionDir>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<DocsGeneratorProject>dotnet run -c Release --project "$(SolutionDir)docs/LumexUI.Docs.Generator/LumexUI.Docs.Generator.csproj"</DocsGeneratorProject>
 	</PropertyGroup>
 
@@ -27,29 +23,33 @@
 	<Target Name="DocsGenerator" BeforeTargets="BeforeBuild">
 		<Exec Command="$(DocsGeneratorProject)" />
 	</Target>
-	
-	<!-- Install npm dependencies if 'node_modules' is not present -->
-	<Target Name="Npm" AfterTargets="DocsGenerator" Condition="!Exists('node_modules')">
-		<Message Text="LumexUI.Docs: running npm ci..." Importance="high" />
-		<Exec Command="npm ci" />
+
+	<!-- Run the docs content generation command -->
+	<Target Name="InstallTailwindCSS" AfterTargets="Build" Condition="!Exists('tailwindcss.exe')">
+		<PropertyGroup>
+			<!-- Tailwind standalone CLI for Windows -->
+			<TailwindURL Condition="'$(OS)' == 'Windows_NT'">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe</TailwindURL>
+			<TailwindFile Condition="'$(OS)' == 'Windows_NT'">tailwindcss-windows-x64.exe</TailwindFile>
+
+			<!-- Tailwind standalone CLI for Linux -->
+			<TailwindURL Condition="'$(OS)' != 'Windows_NT'">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64</TailwindURL>
+			<TailwindFile Condition="'$(OS)' != 'Windows_NT'">tailwindcss-linux-x64</TailwindFile>
+		</PropertyGroup>
+
+		<!-- Download Tailwind standalone CLI -->
+		<Exec Command="curl -LO $(TailwindURL)" />
+		
+		<!-- Rename a file for Windows -->
+		<Exec Command="ren $(TailwindFile) tailwindcss.exe" Condition="'$(OS)' == 'Windows_NT'" />
+
+		<!-- Rename a file for Linux -->
+		<Exec Command="mv $(TailwindFile) tailwindcss" Condition="'$(OS)' != 'Windows_NT'" />
+		<Exec Command="chmod +x tailwindcss" Condition="'$(OS)' != 'Windows_NT'" />
 	</Target>
 
-	<!-- Run the 'build' script on every build in Debug mode -->
-	<Target Name="NpmBuild" AfterTargets="Npm" Condition="'$(Configuration)' == 'Debug'">
-		<Message Text="LumexUI.Docs: running npm build..." Importance="high" />
-		<Exec Command="npm run build" />
+	<Target Name="TailwindCSS" AfterTargets="InstallTailwindCSS">
+		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs-tw4.css" Condition="'$(OS)' == 'Windows_NT'" />
+		<Exec Command="./tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs-tw4.css" Condition="'$(OS)' != 'Windows_NT'" />
 	</Target>
-
-	<!-- Run the 'build:prod' script on every build in Release mode -->
-	<Target Name="NpmBuildProd" AfterTargets="Npm" Condition="'$(Configuration)' == 'Release'">
-		<Message Text="LumexUI.Docs: running npm build:prod..." Importance="high" />
-		<Exec Command="npm run build:prod" />
-	</Target>
-
-	<!-- Remove these files from the build output -->
-	<ItemGroup>
-		<Content Remove="package.json" />
-		<Content Remove="package-lock.json" />
-	</ItemGroup>
 
 </Project>

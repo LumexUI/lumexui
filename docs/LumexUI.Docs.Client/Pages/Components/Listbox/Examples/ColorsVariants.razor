@@ -10,35 +10,27 @@
     </LumexListbox>
 </div>
 
-<fieldset>
-    <legend class="text-small text-default-500">Color</legend>
-    <div class="flex flex-wrap gap-2">
-        <InputRadioGroup @bind-Value="@_color">
-            @foreach (var color in Enum.GetValues<ThemeColor>())
-            {
-                <label>
-                    <InputRadio Value="@color" />
-                    @color
-                </label>
-            }
-        </InputRadioGroup>
-    </div>
-</fieldset>
+<LumexRadioGroup Label="Color"
+                 Orientation="@Orientation.Horizontal"
+                 @bind-Value="@_color">
+    @foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
+    {
+        <LumexRadio Value="@color" Color="@color">
+            @color.ToString()
+        </LumexRadio>
+    }
+</LumexRadioGroup>
 
-<fieldset>
-    <legend class="text-small text-default-500">Variant</legend>
-    <div class="flex flex-wrap gap-2">
-        <InputRadioGroup @bind-Value="@_variant">
-            @foreach (var variant in Enum.GetValues<ListboxVariant>())
-            {
-                <label>
-                    <InputRadio Value="@variant" />
-                    @variant
-                </label>
-            }
-        </InputRadioGroup>
-    </div>
-</fieldset>
+<LumexRadioGroup Label="Variant"
+                 Orientation="@Orientation.Horizontal"
+                 @bind-Value="@_variant">
+    @foreach( var variant in Enum.GetValues<ListboxVariant>() )
+    {
+        <LumexRadio Value="@variant">
+            @variant.ToString()
+        </LumexRadio>
+    }
+</LumexRadioGroup>
 
 @code {
     private ThemeColor _color = ThemeColor.Default;

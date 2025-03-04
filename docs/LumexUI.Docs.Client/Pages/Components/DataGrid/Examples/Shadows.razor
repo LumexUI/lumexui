@@ -4,22 +4,15 @@
     <PropertyColumn Property="@(p => p.Status)" />
 </LumexDataGrid>
 
-<fieldset class="flex gap-4">
-    @foreach( var shadow in _shadows )
+<LumexRadioGroup Orientation="@Orientation.Horizontal"
+                 @bind-Value="@_shadow">
+    @foreach( var shadow in Enum.GetValues<Shadow>() )
     {
-        var value = shadow.ToString();
-
-        <div class="flex gap-1">
-            <input type="radio"
-                   id="@($"shadow-{value.ToLower()}")" 
-                   name="shadow"
-                   @bind:event="onchange"
-                   @bind:get="@shadow"
-                   @bind:set="@OnShadowSelect" />
-            <label for="@($"shadow-{value.ToLower()}")">@value</label>
-        </div>
+        <LumexRadio Value="@shadow">
+            @shadow.ToString()
+        </LumexRadio>
     }
-</fieldset>
+</LumexRadioGroup>
 
 @code {
     private readonly IQueryable<User> _users = new List<User>
@@ -30,19 +23,7 @@
         new( "Diana Lee", "Moderator", "Active" )
     }.AsQueryable();
 
-    private readonly Shadow[] _shadows = [
-        Shadow.None,
-        Shadow.Small,
-        Shadow.Medium,
-        Shadow.Large
-    ];
-
     private Shadow _shadow = Shadow.Small;
-
-    private void OnShadowSelect( Shadow value )
-    {
-        _shadow = value;
-    }
 
     private record User( string Name, string Role, string Status );
 }

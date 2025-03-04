@@ -1,4 +1,6 @@
-﻿<LumexDataGrid Data="@_users">
+﻿<LumexDataGrid Data="@_users"
+               Layout="@Layout.Fixed"
+               Classes="@(new() { Table = "w-full" })">
     <EditColumn Property="@(p => p.Name)" />
     <EditColumn Property="@(p => p.Role)" />
     <EditColumn Property="@(p => p.Status)" />

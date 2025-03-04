@@ -19,7 +19,7 @@ internal readonly record struct Switch
         .Add( "inline-flex" )
         .Add( "items-center" )
         .Add( "justify-start" )
-        .Add( "outline-none" )
+        .Add( "outline-hidden" )
         .Add( "cursor-pointer" )
         .Add( "touch-none" )
         .ToString();
@@ -67,7 +67,7 @@ internal readonly record struct Switch
         // transition
         .Add( "opacity-0" )
         .Add( "scale-50" )
-        .Add( "transition-[transform,opacity]" )
+        .Add( "transition-transform-opacity" )
         .Add( "group-data-[checked=true]:scale-100" )
         .Add( "group-data-[checked=true]:opacity-100" )
         .ToString();
@@ -79,7 +79,7 @@ internal readonly record struct Switch
         .Add( "text-default-600" )
         // transition
         .Add( "opacity-100" )
-        .Add( "transition-[transform,opacity]" )
+        .Add( "transition-transform-opacity" )
         .Add( "group-data-[checked=true]:translate-x-3" )
         .Add( "group-data-[checked=true]:opacity-0" )
         .ToString();

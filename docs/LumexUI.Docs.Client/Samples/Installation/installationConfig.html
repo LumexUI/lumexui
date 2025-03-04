@@ -1,14 +1,5 @@
-<pre data-line="1,7,12"><code class="language-js">const lumexui = require(&quot;{PATH_TO_NUGET}/theme/plugin&quot;);
+<pre data-line="2,4"><code class="language-css">@import &quot;tailwindcss&quot;;
+@import &quot;../bin/lumexui/theme&quot;; /* theme file */
 
-/** @type {import(&quot;tailwindcss&quot;).Config} */
-module.exports = {
-    content: [
-        // ...
-        &quot;{PATH_TO_NUGET}/theme/components/*.cs&quot;
-    ],
-    theme: {
-        extend: {},
-    },
-    plugins: [lumexui],
-};
+@source &quot;../bin/lumexui/*.cs&quot;; /* components styles */
 </code></pre>
