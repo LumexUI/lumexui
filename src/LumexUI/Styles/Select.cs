@@ -64,8 +64,8 @@ internal class Select
 
     private readonly static string _selectorIcon = ElementClass.Empty()
         .Add( "absolute" )
-        .Add( "w-4" )
-        .Add( "h-4" )
+        .Add( "w-5" )
+        .Add( "h-5" )
         .Add( "end-3" )
         .Add( "data-[open=true]:rotate-180" )
         // transition

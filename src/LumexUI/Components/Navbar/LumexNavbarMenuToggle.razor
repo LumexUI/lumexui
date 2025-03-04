@@ -5,9 +5,9 @@
                 Class="@RootClass"
                 Style="@RootStyle"
                 type="button"
-                data-slot="toggle-icon"
+                data-slot="toggle"
                 data-expanded="@Context.Menu?.Expanded"
                 @attributes="@AdditionalAttributes"
                 @onclick="@Toggle">
-    <span class="@ToggleIconClass" />
+    <span class="@ToggleIconClass" data-slot="toggle-icon" />
 </LumexComponent>
