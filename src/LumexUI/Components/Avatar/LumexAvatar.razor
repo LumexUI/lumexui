@@ -10,7 +10,12 @@
                 @attributes="@AdditionalAttributes">
     @if( !string.IsNullOrEmpty( Src ) )
     {
-        <img src="@Src" class="@GetStyles(nameof(S.Img))" alt="@Alt" data-slot="img" />
+        <img src="@Src"
+             alt="@Alt"
+             class="@GetStyles(nameof(S.Img))"
+             data-slot="img"
+             data-loaded="@_imageLoaded.ToAttributeValue()"
+             @ref="@_ref" />
     }
 
     @_renderFallback

@@ -53,3 +53,11 @@ export function createOutsideClickHandler(element) {
         document.body.removeEventListener('click', clickHandler)
     };
 }
+
+export function isImageLoaded(img) {
+    if (!img) {
+        console.error('Invalid ElementReference provided.');
+    }
+
+    return img.complete && img.naturalWidth !== 0;
+}

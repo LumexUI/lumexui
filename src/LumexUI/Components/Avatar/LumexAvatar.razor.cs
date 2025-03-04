@@ -6,6 +6,7 @@ using LumexUI.Common;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace LumexUI;
 
@@ -14,6 +15,8 @@ namespace LumexUI;
 /// </summary>
 public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlots>
 {
+	private const string JavaScriptFile = "./_content/LumexUI/js/utils/dom.js";
+
 	/// <summary>
 	/// Gets or sets the content to render when the avatar image is unavailable.
 	/// </summary>
@@ -90,9 +93,16 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	/// </summary>
 	[Parameter] public AvatarSlots? Classes { get; set; }
 
+	[Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+
 	private readonly RenderFragment _renderFallback;
 
 	private Dictionary<string, ComponentSlot> _slots = [];
+
+	private IJSObjectReference _jsModule = default!;
+	private ElementReference _ref;
+
+	private bool _imageLoaded;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexAvatar"/>.
@@ -122,6 +132,21 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 			[nameof( Bordered )] = Bordered.ToString(),
 			[nameof( Disabled )] = Disabled.ToString()
 		} );
+	}
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync( bool firstRender )
+	{
+		if( firstRender )
+		{
+			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
+
+			if( !string.IsNullOrEmpty( Src ) )
+			{
+				_imageLoaded = await _jsModule.InvokeAsync<bool>( "isImageLoaded", _ref );
+				StateHasChanged();
+			}
+		}
 	}
 
 	private string ExtractInitials( string name )

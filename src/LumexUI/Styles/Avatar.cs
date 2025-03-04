@@ -43,8 +43,8 @@ internal static class Avatar
 					.Add( "w-full" )
 					.Add( "h-full" )
 					.Add( "opacity-0" )
+					.Add( "duration-500" )
 					.Add( "transition-opacity" )
-					.Add( "!duration-500" )
 					.Add( "data-[loaded=true]:opacity-100" )
 					.ToString(),
 
@@ -76,12 +76,12 @@ internal static class Avatar
 					.Add( "left-1/2" )
 					.Add( "-translate-x-1/2" )
 					.Add( "-translate-y-1/2" )
+					.Add( "w-full" )
+					.Add( "h-full" )
 					.Add( "flex" )
 					.Add( "items-center" )
 					.Add( "justify-center" )
 					.Add( "text-inherit" )
-					.Add( "w-full" )
-					.Add( "h-full" )
 					.ToString()
 			},
 
