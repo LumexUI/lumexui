@@ -6,7 +6,7 @@
         <LumexButton As="a"
                      Size="@Size.Small"
                      StartContent="@BlazorIcon"
-                     Class="bg-default-100 text-default-700"
+                     Class="bg-default-100 text-default-700 text-small"
                      href="https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/?view=aspnetcore-8.0#client-and-server-rendering-concepts"
                      target="_blank"
                      rel="noopener noreferrer">
@@ -17,7 +17,7 @@
     <LumexButton As="a"
                  Size="@Size.Small"
                  StartContent="@GithubIcon"
-                 Class="bg-default-100 text-default-700"
+                 Class="bg-default-100 text-default-700 text-small"
                  href="@($"{Constants.GitHub.ComponentPath}/{ComponentName}")"
                  target="_blank"
                  rel="noopener noreferrer">
@@ -27,7 +27,7 @@
     <LumexButton As="a"
                  Size="@Size.Small"
                  StartContent="@GithubIcon"
-                 Class="bg-default-100 text-default-700"
+                 Class="bg-default-100 text-default-700 text-small"
                  href="@($"{Constants.GitHub.ComponentStylesPath}/{ComponentName}.cs")"
                  target="_blank"
                  rel="noopener noreferrer">
@@ -39,17 +39,13 @@
     [Parameter, EditorRequired] public string ComponentName { get; set; } = default!;
     [Parameter] public bool IsServer { get; set; }
 
-    private RenderFragment BlazorIcon =>
-    @<text>
-        <LumexIcon Icon="@Icons.Brands.Blazor"
-                   Size="@new("20")"
-                   viewBox="-10 -38 340 340" />
-    </text>;
+    private static readonly RenderFragment BlazorIcon =
+        @<LumexIcon Icon="@Icons.Brands.Blazor"
+                    Size="@new("20")"
+                    viewBox="-10 -38 340 340" />;
 
-    private RenderFragment GithubIcon =>
-    @<text>
-        <LumexIcon Icon="@Icons.Brands.GitHub"
-                   Size="@new("20")"
-                   viewBox="0 0 24 24" />
-    </text>;
+    private static readonly RenderFragment GithubIcon =
+        @<LumexIcon Icon="@Icons.Brands.GitHub"
+                    Size="@new("20")"
+                    viewBox="0 0 24 24" />;
 }

@@ -7,22 +7,15 @@
     <PropertyColumn Property="@(p => p.Status)" />
 </LumexDataGrid>
 
-<fieldset class="flex gap-4">
-    @foreach( var color in _colors )
+<LumexRadioGroup Orientation="@Orientation.Horizontal"
+                 @bind-Value="@_color">
+    @foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
     {
-        var value = color.ToString();
-
-        <div class="flex gap-1">
-            <input type="radio"
-                   id="@($"multiple-sel-{value.ToLower()}")"
-                   name="color"
-                   @bind:event="onchange"
-                   @bind:get="@color"
-                   @bind:set="@OnColorSelect" />
-            <label for="@($"multiple-sel-{value.ToLower()}")">@value</label>
-        </div>
+        <LumexRadio Value="@color" Color="@color">
+            @color.ToString()
+        </LumexRadio>
     }
-</fieldset>
+</LumexRadioGroup>
 
 @if( _selectedUsers.Count > 0 )
 {
@@ -46,23 +39,8 @@
         new( "Diana Lee", "Moderator", "Active" )
     }.AsQueryable();
 
-    private readonly ThemeColor[] _colors = [
-        ThemeColor.Default,
-        ThemeColor.Primary,
-        ThemeColor.Secondary,
-        ThemeColor.Success,
-        ThemeColor.Warning,
-        ThemeColor.Danger,
-        ThemeColor.Info
-    ];
-
     private ThemeColor _color = ThemeColor.Default;
     private ICollection<User> _selectedUsers = [];
-
-    private void OnColorSelect( ThemeColor value )
-    {
-        _color = value;
-    }
 
     private record User( string Name, string Role, string Status );
 }

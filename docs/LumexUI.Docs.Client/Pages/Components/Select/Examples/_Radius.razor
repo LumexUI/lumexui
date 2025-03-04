@@ -1,12 +1,12 @@
 ﻿<div class="w-full grid grid-cols-1 gap-4 md:grid-cols-2">
-    @foreach (var radius in Enum.GetValues<Radius>())
+    @foreach( var radius in Enum.GetValues<Radius>() )
     {
         <div>
             <LumexSelect TValue="string"
                          Label="Favorite Animal"
                          Radius="@radius"
                          Class="max-w-xs">
-                @foreach (var animal in _animals)
+                @foreach( var animal in _animals )
                 {
                     <LumexSelectItem @key="@animal" Value="@animal.Key">
                         @animal.Value

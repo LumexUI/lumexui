@@ -28,8 +28,7 @@
     }
 </div>
 
-<LumexRadioGroup Label="Choose a dropdown color"
-                 Orientation="@Orientation.Horizontal"
+<LumexRadioGroup Orientation="@Orientation.Horizontal"
                  @bind-Value="@_color">
     @foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
     {
