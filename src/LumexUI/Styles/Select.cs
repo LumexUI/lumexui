@@ -241,7 +241,7 @@ internal class Select
                     .Add( "border-default-200" )
                     .Add( "data-[open=true]:border-default-foreground" )
                     .Add( "group-data-[focus=true]:border-default-foreground" )
-                    .Add( "group-data-[focus=false]hover:border-default-300" )
+                    .Add( "group-data-[focus=false]:hover:border-default-300" )
                     .Add( "transition-colors" )
                     .Add( "motion-reduce:transition-none" ), when: slot is nameof( _trigger ) )
                 .Add( "group-data-[has-value=true]:text-default-foreground", when: slot is nameof( _value ) ),
