@@ -141,15 +141,6 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
-		/*
-		 * Avatar fallback applies under 2 conditions:
-		 * - If `Src` was passed and the image has not loaded or failed to load
-		 * - If `Src` wasn't passed
-		 *
-		 * In this case, we'll show either the name avatar or default avatar
-		 */
-		_showFallback = ShowFallback && ( !_imageLoaded || string.IsNullOrWhiteSpace( Src ) );
-
 		var avatar = Styles.Avatar.Style( TwMerge );
 		_slots = avatar( new()
 		{
@@ -171,6 +162,16 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 			if( !string.IsNullOrEmpty( Src ) )
 			{
 				_imageLoaded = await _jsModule.InvokeAsync<bool>( "isImageLoaded", _ref );
+
+				/*
+				 * Avatar fallback applies under 2 conditions:
+				 * - If `Src` was passed and the image has not loaded or failed to load
+				 * - If `Src` wasn't passed
+				 *
+				 * In this case, we'll show either the name avatar or default avatar
+				 */
+				_showFallback = ShowFallback && ( !_imageLoaded || string.IsNullOrWhiteSpace( Src ) );
+
 				StateHasChanged();
 			}
 		}
@@ -180,7 +181,7 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	{
 		var names = name.Split( ' ', StringSplitOptions.RemoveEmptyEntries );
 		return names.Length > 1
-			? $"{names[0][0]} {names[^1][0]}".ToUpper()
+			? $"{names[0][0]}{names[^1][0]}".ToUpper()
 			: ShortenIfNeeded( names[0] );
 
 		static string ShortenIfNeeded( string text )
