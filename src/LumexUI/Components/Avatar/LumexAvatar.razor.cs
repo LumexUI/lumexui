@@ -84,6 +84,14 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	[Parameter] public bool Disabled { get; set; }
 
 	/// <summary>
+	/// Gets or sets a value indicating whether to show fallback content when the avatar image is unavailable.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see langword="true"/>.
+	/// </remarks>
+	[Parameter] public bool ShowFallback { get; set; } = true;
+
+	/// <summary>
 	/// Gets or sets the function that resolves initials from the provided name.
 	/// </summary>
 	[Parameter] public InitialsResolver Initials { get; set; }
@@ -103,6 +111,7 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	private ElementReference _ref;
 
 	private bool _imageLoaded;
+	private bool _showFallback;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexAvatar"/>.
@@ -116,12 +125,30 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	}
 
 	/// <inheritdoc />
+	public override Task SetParametersAsync( ParameterView parameters )
+	{
+		parameters.SetParameterProperties( this );
+
+		if( parameters.TryGetValue<string>( nameof( Name ), out var value ) &&
+			!string.IsNullOrWhiteSpace( value ) )
+		{
+			Alt = value;
+		}
+
+		return base.SetParametersAsync( ParameterView.Empty );
+	}
+
+	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
-		if( !string.IsNullOrWhiteSpace( Name ) )
-		{
-			Alt = Name;
-		}
+		/*
+		 * Avatar fallback applies under 2 conditions:
+		 * - If `Src` was passed and the image has not loaded or failed to load
+		 * - If `Src` wasn't passed
+		 *
+		 * In this case, we'll show either the name avatar or default avatar
+		 */
+		_showFallback = ShowFallback && ( !_imageLoaded || string.IsNullOrWhiteSpace( Src ) );
 
 		var avatar = Styles.Avatar.Style( TwMerge );
 		_slots = avatar( new()

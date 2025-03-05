@@ -24,7 +24,7 @@
 @code {
     private void RenderFallback( RenderTreeBuilder __builder )
     {
-        if( !string.IsNullOrEmpty( Src ) )
+        if( !_showFallback && !string.IsNullOrEmpty( Src ) )
         {
             return;
         }
@@ -37,6 +37,8 @@
                  aria-label="@Alt">
                 @FallbackContent
             </div>
+
+            return;
         }
 
         if( !string.IsNullOrEmpty( Name ) )
