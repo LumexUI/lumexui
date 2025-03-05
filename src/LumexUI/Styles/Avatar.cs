@@ -182,7 +182,7 @@ internal static class Avatar
 					Conditions = new()
 					{
 						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Default ),
-						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+						[nameof( LumexAvatar.Bordered )] = bool.TrueString
 					},
 					Classes = new SlotCollection
 					{
@@ -194,7 +194,7 @@ internal static class Avatar
 					Conditions = new()
 					{
 						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Primary ),
-						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+						[nameof( LumexAvatar.Bordered )] = bool.TrueString
 					},
 					Classes = new SlotCollection
 					{
@@ -206,7 +206,7 @@ internal static class Avatar
 					Conditions = new()
 					{
 						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Secondary ),
-						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+						[nameof( LumexAvatar.Bordered )] = bool.TrueString
 					},
 					Classes = new SlotCollection
 					{
@@ -218,7 +218,7 @@ internal static class Avatar
 					Conditions = new()
 					{
 						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Success ),
-						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+						[nameof( LumexAvatar.Bordered )] = bool.TrueString
 					},
 					Classes = new SlotCollection
 					{
@@ -230,7 +230,7 @@ internal static class Avatar
 					Conditions = new()
 					{
 						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Warning ),
-						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+						[nameof( LumexAvatar.Bordered )] = bool.TrueString
 					},
 					Classes = new SlotCollection
 					{
@@ -242,7 +242,7 @@ internal static class Avatar
 					Conditions = new()
 					{
 						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Danger ),
-						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+						[nameof( LumexAvatar.Bordered )] = bool.TrueString
 					},
 					Classes = new SlotCollection
 					{
@@ -254,7 +254,7 @@ internal static class Avatar
 					Conditions = new()
 					{
 						[nameof( LumexAvatar.Color )] = nameof( ThemeColor.Info ),
-						[nameof( LumexAvatar.Bordered )] = nameof( bool.TrueString )
+						[nameof( LumexAvatar.Bordered )] = bool.TrueString
 					},
 					Classes = new SlotCollection
 					{
