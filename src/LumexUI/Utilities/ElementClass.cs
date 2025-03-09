@@ -132,4 +132,7 @@ public record struct ElementClass
     /// <returns>A trimmed <see cref="string" /> representation of the CSS classes if the internal buffer is not empty; otherwise, an empty string.</returns>
     public readonly override string ToString()
         => !string.IsNullOrEmpty( _stringBuffer ) ? _stringBuffer.Trim() : string.Empty;
+
+	/// <inheritdoc />
+	public static implicit operator string( ElementClass el ) => el.ToString();
 }
