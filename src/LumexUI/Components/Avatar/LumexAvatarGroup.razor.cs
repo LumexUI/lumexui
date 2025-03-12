@@ -71,6 +71,11 @@ public partial class LumexAvatarGroup : LumexComponentBase, ISlotComponent<Avata
 	/// </summary>
 	[Parameter] public AvatarGroupSlots? Classes { get; set; }
 
+	/// <summary>
+	/// Gets or sets the CSS class names for the avatars slots.
+	/// </summary>
+	[Parameter] public AvatarSlots? AvatarClasses { get; set; }
+
 	private int RemainingCount => _context.Items.Count - Max;
 
 	private static readonly RenderFragment<int> _renderCount = count => builder =>

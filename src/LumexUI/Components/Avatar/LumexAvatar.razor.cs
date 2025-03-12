@@ -16,6 +16,7 @@ namespace LumexUI;
 /// <summary>
 /// A component that represents an avatar, typically displaying a user's profile image or initials.
 /// </summary>
+[CompositionComponent( typeof( LumexAvatarGroup ) )]
 public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlots>, IAsyncDisposable
 {
 	private const string JavaScriptFile = "./_content/LumexUI/js/utils/dom.js";
@@ -231,11 +232,11 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 
 		return slot switch
 		{
-			nameof( AvatarSlots.Base ) => styles( Classes?.Base, Class ),
-			nameof( AvatarSlots.Img ) => styles( Classes?.Img ),
-			nameof( AvatarSlots.Fallback ) => styles( Classes?.Fallback ),
-			nameof( AvatarSlots.Name ) => styles( Classes?.Name ),
-			nameof( AvatarSlots.Icon ) => styles( Classes?.Icon ),
+			nameof( AvatarSlots.Base ) => styles( Group?.AvatarClasses?.Base, Classes?.Base, Class ),
+			nameof( AvatarSlots.Img ) => styles( Group?.AvatarClasses?.Img, Classes?.Img ),
+			nameof( AvatarSlots.Fallback ) => styles( Group?.AvatarClasses?.Fallback, Classes?.Fallback ),
+			nameof( AvatarSlots.Name ) => styles( Group?.AvatarClasses?.Name, Classes?.Name ),
+			nameof( AvatarSlots.Icon ) => styles( Group?.AvatarClasses?.Icon, Classes?.Icon ),
 			_ => throw new NotImplementedException()
 		};
 	}
