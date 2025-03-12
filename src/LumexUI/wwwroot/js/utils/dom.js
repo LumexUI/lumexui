@@ -55,8 +55,8 @@ export function createOutsideClickHandler(element) {
 }
 
 export function isImageLoaded(img) {
-    if (!img) {
-        console.error('Invalid ElementReference provided.');
+    if (!(img instanceof HTMLElement)) {
+        return false;
     }
 
     return img.complete && img.naturalWidth !== 0;

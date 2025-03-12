@@ -2,7 +2,10 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+
 using LumexUI.Common;
+using LumexUI.Extensions;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
@@ -13,7 +16,7 @@ namespace LumexUI;
 /// <summary>
 /// A component that represents an avatar, typically displaying a user's profile image or initials.
 /// </summary>
-public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlots>
+public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlots>, IAsyncDisposable
 {
 	private const string JavaScriptFile = "./_content/LumexUI/js/utils/dom.js";
 
@@ -50,12 +53,17 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	[Parameter] public string Icon { get; set; } = Icons.Rounded.Person;
 
 	/// <summary>
-	/// Gets or sets the color of the avatar.
+	/// Gets or sets a value indicating whether to show fallback content when the avatar image is unavailable.
 	/// </summary>
 	/// <remarks>
-	/// The default value is <see cref="ThemeColor.Default"/>.
+	/// The default value is <see langword="true"/>.
 	/// </remarks>
-	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+	[Parameter] public bool ShowFallback { get; set; } = true;
+
+	/// <summary>
+	/// Gets or sets a value indicating whether the border should be added around the avatar.
+	/// </summary>
+	[Parameter] public bool Bordered { get; set; }
 
 	/// <summary>
 	/// Gets or sets the size of the avatar.
@@ -66,6 +74,14 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	[Parameter] public Size Size { get; set; } = Size.Medium;
 
 	/// <summary>
+	/// Gets or sets the color of the avatar.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="ThemeColor.Default"/>.
+	/// </remarks>
+	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+
+	/// <summary>
 	/// Gets or sets the border radius of the avatar.
 	/// </summary>
 	/// <remarks>
@@ -74,42 +90,30 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	[Parameter] public Radius Radius { get; set; } = Radius.Full;
 
 	/// <summary>
-	/// Gets or sets a value indicating whether the border should be added around the avatar.
-	/// </summary>
-	[Parameter] public bool Bordered { get; set; }
-
-	/// <summary>
-	/// Gets or sets a value indicating whether the avatar is disabled.
-	/// </summary>
-	[Parameter] public bool Disabled { get; set; }
-
-	/// <summary>
-	/// Gets or sets a value indicating whether to show fallback content when the avatar image is unavailable.
-	/// </summary>
-	/// <remarks>
-	/// The default value is <see langword="true"/>.
-	/// </remarks>
-	[Parameter] public bool ShowFallback { get; set; } = true;
-
-	/// <summary>
 	/// Gets or sets the function that resolves initials from the provided name.
 	/// </summary>
-	[Parameter] public InitialsResolver Initials { get; set; }
+	[Parameter] public InitialsResolver Initials { get; set; } = ExtractInitials;
 
 	/// <summary>
 	/// Gets or sets the CSS class names for the avatar slots.
 	/// </summary>
 	[Parameter] public AvatarSlots? Classes { get; set; }
 
+	[CascadingParameter] private AvatarGroupContext? Context { get; set; }
+
 	[Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
+	private LumexAvatarGroup? Group => Context?.Owner;
+
+	private readonly RenderFragment _render;
 	private readonly RenderFragment _renderFallback;
 
 	private Dictionary<string, ComponentSlot> _slots = [];
 
-	private IJSObjectReference _jsModule = default!;
 	private ElementReference _ref;
+	private IJSObjectReference _jsModule = default!;
 
+	private bool _isCounter;
 	private bool _imageLoaded;
 	private bool _showFallback;
 
@@ -118,10 +122,10 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	/// </summary>
 	public LumexAvatar()
 	{
+		_render = Render;
 		_renderFallback = RenderFallback;
 
 		As = "span";
-		Initials = ExtractInitials;
 	}
 
 	/// <inheritdoc />
@@ -135,7 +139,31 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 			Alt = value;
 		}
 
+		if( Group is not null )
+		{
+			// Respect own parameter values if provided; otherwise, use the group's
+			Size = parameters.GetParameterProperty( nameof( Size ), fallback: Group.Size );
+			Color = parameters.GetParameterProperty( nameof( Color ), fallback: Group.Color );
+			Radius = parameters.GetParameterProperty( nameof( Radius ), fallback: Group.Radius );
+			Bordered = parameters.GetParameterProperty( nameof( Bordered ), fallback: Group.Bordered );
+		}
+
 		return base.SetParametersAsync( ParameterView.Empty );
+	}
+
+	/// <inheritdoc />
+	protected override void OnInitialized()
+	{
+		if( Group is not null )
+		{
+			// A custom flag to mark an avatar as a group counter.
+			// We need this because it appears in the render tree during
+			// rendering when all children have already been collected.
+			if( AdditionalAttributes?.TryGetValue( "data-counter", out var _ ) ?? false )
+			{
+				_isCounter = true;
+			}
+		}
 	}
 
 	/// <inheritdoc />
@@ -148,36 +176,40 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 			[nameof( Color )] = Color.ToString(),
 			[nameof( Radius )] = Radius.ToString(),
 			[nameof( Bordered )] = Bordered.ToString(),
-			[nameof( Disabled )] = Disabled.ToString()
+			[nameof( Group )] = ( Group is not null ).ToString(),
+			[nameof( Group.Grid )] = ( Group?.Grid is true ).ToString()
 		} );
 	}
 
 	/// <inheritdoc />
 	protected override async Task OnAfterRenderAsync( bool firstRender )
 	{
-		if( firstRender )
+		if( firstRender && !string.IsNullOrEmpty( Src ) )
 		{
 			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
+			_imageLoaded = await _jsModule.InvokeAsync<bool>( "isImageLoaded", _ref );
 
-			if( !string.IsNullOrEmpty( Src ) )
+			/*
+			 * Avatar fallback applies under 2 conditions:
+			 * - If `Src` was passed and the image has not loaded or failed to load
+			 * - If `Src` wasn't passed
+			 *
+			 * In this case, we'll show either the name or default avatar
+			 */
+			_showFallback = ShowFallback && ( !_imageLoaded || string.IsNullOrWhiteSpace( Src ) );
+
+			if( Context is null )
 			{
-				_imageLoaded = await _jsModule.InvokeAsync<bool>( "isImageLoaded", _ref );
-
-				/*
-				 * Avatar fallback applies under 2 conditions:
-				 * - If `Src` was passed and the image has not loaded or failed to load
-				 * - If `Src` wasn't passed
-				 *
-				 * In this case, we'll show either the name avatar or default avatar
-				 */
-				_showFallback = ShowFallback && ( !_imageLoaded || string.IsNullOrWhiteSpace( Src ) );
-
 				StateHasChanged();
+			}
+			else
+			{
+				Context.Owner.Rerender();
 			}
 		}
 	}
 
-	private string ExtractInitials( string name )
+	private static string ExtractInitials( string name )
 	{
 		var names = name.Split( ' ', StringSplitOptions.RemoveEmptyEntries );
 		return names.Length > 1
@@ -206,5 +238,23 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 			nameof( AvatarSlots.Icon ) => styles( Classes?.Icon ),
 			_ => throw new NotImplementedException()
 		};
+	}
+
+	/// <inheritdoc />
+	[ExcludeFromCodeCoverage]
+	public async ValueTask DisposeAsync()
+	{
+		try
+		{
+			if( _jsModule is not null )
+			{
+				await _jsModule.DisposeAsync();
+			}
+		}
+		catch( JSDisconnectedException )
+		{
+			// The JS side may routinely be gone already if the reason we're disposing is that
+			// the client disconnected. This is not an error.
+		}
 	}
 }

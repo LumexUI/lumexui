@@ -34,8 +34,7 @@ internal static class Avatar
 					.Add( "align-middle" )
 					.Add( "text-white" )
 					// focus ring
-					.Add( Utils.FocusVisible )
-					.ToString(),
+					.Add( Utils.FocusVisible ),
 
 				[nameof( AvatarSlots.Img )] = new ElementClass()
 					.Add( "flex" )
@@ -45,8 +44,7 @@ internal static class Avatar
 					.Add( "opacity-0" )
 					.Add( "duration-500" )
 					.Add( "transition-opacity" )
-					.Add( "data-[loaded=true]:opacity-100" )
-					.ToString(),
+					.Add( "data-[loaded=true]:opacity-100" ),
 
 				[nameof( AvatarSlots.Fallback )] = new ElementClass()
 					.Add( "absolute" )
@@ -56,8 +54,7 @@ internal static class Avatar
 					.Add( "-translate-y-1/2" )
 					.Add( "flex" )
 					.Add( "items-center" )
-					.Add( "justify-center" )
-					.ToString(),
+					.Add( "justify-center" ),
 
 				[nameof( AvatarSlots.Name )] = new ElementClass()
 					.Add( "absolute" )
@@ -67,8 +64,7 @@ internal static class Avatar
 					.Add( "-translate-y-1/2" )
 					.Add( "flex" )
 					.Add( "items-center" )
-					.Add( "justify-center" )
-					.ToString(),
+					.Add( "justify-center" ),
 
 				[nameof( AvatarSlots.Icon )] = new ElementClass()
 					.Add( "absolute" )
@@ -82,7 +78,6 @@ internal static class Avatar
 					.Add( "items-center" )
 					.Add( "justify-center" )
 					.Add( "text-inherit" )
-					.ToString()
 			},
 
 			Variants = new VariantCollection
@@ -167,11 +162,19 @@ internal static class Avatar
 					}
 				},
 
-				[nameof( LumexAvatar.Disabled )] = new VariantValueCollection
+				["Group"] = new VariantValueCollection
 				{
 					[bool.TrueString] = new SlotCollection
 					{
-						[nameof( AvatarSlots.Base )] = "opacity-disabled"
+						[nameof( AvatarSlots.Base )] = "-ms-2 first:ms-0 transition-transform hover:-translate-x-3 last:hover:-translate-x-0"
+					}
+				},
+
+				[nameof( LumexAvatarGroup.Grid )] = new VariantValueCollection
+				{
+					[bool.TrueString] = new SlotCollection
+					{
+						[nameof( AvatarSlots.Base )] = "m-0 hover:translate-x-0"
 					}
 				}
 			},

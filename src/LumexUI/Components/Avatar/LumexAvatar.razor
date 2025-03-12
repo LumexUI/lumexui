@@ -3,25 +3,37 @@
 
 @using S = AvatarSlots;
 
-<LumexComponent As="@As"
-                Class="@GetStyles(nameof(S.Base))"
-                Style="@Style"
-                data-slot="base"
-                @attributes="@AdditionalAttributes">
-    @if( !string.IsNullOrEmpty( Src ) )
-    {
-        <img src="@Src"
-             alt="@Alt"
-             class="@GetStyles(nameof(S.Img))"
-             data-slot="img"
-             data-loaded="@_imageLoaded.ToAttributeValue()"
-             @ref="@_ref" />
-    }
-
-    @_renderFallback
-</LumexComponent>
+@if( Context is null || _isCounter )
+{
+    @_render
+}
+else
+{
+    Context.Register( this );
+}
 
 @code {
+    internal void Render( RenderTreeBuilder __builder )
+    {
+        <LumexComponent As="@As"
+                        Class="@GetStyles(nameof(S.Base))"
+                        Style="@Style"
+                        data-slot="base"
+                        @attributes="@AdditionalAttributes">
+            @if( !string.IsNullOrEmpty( Src ) )
+            {
+                <img src="@Src"
+                     alt="@Alt"
+                     class="@GetStyles(nameof(S.Img))"
+                     data-slot="img"
+                     data-loaded="@_imageLoaded.ToAttributeValue()"
+                     @ref="@_ref" />
+            }
+
+            @_renderFallback
+        </LumexComponent>
+    }
+
     private void RenderFallback( RenderTreeBuilder __builder )
     {
         if( !_showFallback && !string.IsNullOrEmpty( Src ) )
