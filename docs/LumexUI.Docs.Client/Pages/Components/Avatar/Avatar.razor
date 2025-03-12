@@ -1,32 +1,118 @@
 ﻿@page "/docs/components/avatar"
 @layout DocsContentLayout
-@inject NavigationManager NavigationManager
 
 @using LumexUI.Docs.Client.Pages.Components.Avatar.PreviewCodes
 
+<DocsCompositionSection Components="@_compositionComponents" />
+
 <DocsSection Title="Usage">
     <p>
+        The avatar component represents a user or entity 
+        with an image, initials, or a fallback icon.
     </p>
     <Usage />
+
+    <DocsSection Title="Bordered">
+        <p>Add a border around the avatar.</p>
+        <Bordered />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>Customize the size of the avatar.</p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>Adjust the border radius to create circular or squared avatars.</p>
+        <Radii />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>Set a background and border color for avatar.</p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Fallbacks">
+        <p>When an image fails to load, a default fallback is displayed. There are 2 types of fallbacks:</p>
+        <ul>
+            <li>If a <Code>Name</Code> is provided, it is used to generate initials.</li>
+            <li>If no <Code>Name</Code> is provided, a default avatar icon is displayed.</li>
+        </ul>
+        <p>If <Code>ShowFallback</Code> is set to <Code>false</Code>, fallbacks will not be displayed.</p>
+        <Fallbacks />
+    </DocsSection>
+
+    <DocsSection Title="Custom Fallback">
+        <p>Use a custom content as a fallback when an image is unavailable.</p>
+        <CustomFallback />
+    </DocsSection>
+
+    <DocsSection Title="Custom Initials">
+        <p>
+            You can customize the logic for generating initials by passing a function to the <Code>Initials</Code> parameter.
+            By default, the initials are created by combining the first characters of each word in the <Code>Name</Code> parameter.
+        </p>
+    </DocsSection>
 </DocsSection>
 
-<DocsSlotsSection Slots="@_slots">
-    <div>
-        <h4 class="font-semibold">Accordion</h4>
+<DocsSection Title="Avatar Group">
+    <p>The avatar group component displays multiple avatars together.</p>
+    <GroupUsage />
+
+    <DocsSection Title="Max Count">
+        <p>Limit the number of avatars displayed, grouping the rest into a counter.</p>
+        <GroupMaxCount />
+    </DocsSection>
+
+    <DocsSection Title="Custom Count">
+        <p>Customize how the remaining avatars count is represented.</p>
+        <GroupCustomCount />
+    </DocsSection>
+
+    <DocsSection Title="Grid">
+        <p>Display avatars in a structured grid layout.</p>
+        <GroupGrid />
+    </DocsSection>
+</DocsSection>
+
+<DocsSection Title="Custom Styles">
+    <p>
+        This component suppots named slots (represented as <code>data-*</code> attributes) that
+        allow you to apply custom CSS to specific parts of the component.
+    </p>
+    @foreach( var (componentName, slots) in _slots )
+    {
+        <h4>@componentName</h4>
         <ul>
-            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the accordion items.</li>
-            <li><Code>ItemClasses</Code>: The CSS class names for the accordion items slots style all the accordion items at once.</li>
+            @foreach( var slot in slots )
+            {
+                <li>
+                    <strong class="text-orange-500">@slot.Name:</strong> @slot.Description
+                </li>
+            }
         </ul>
-    </div>
+    }
+    <p>
+        You can customize the component(s) by passing
+        any Tailwind CSS classes to the following component parameters:
+    </p>
+
     <div>
-        <h4 class="font-semibold">Accordion Item</h4>
+        <h4 class="font-semibold">Avatar</h4>
         <ul>
-            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the accordion item.</li>
-            <li><Code>Classes</Code>: The CSS class names for the accordion item slots style the entire accordion item at once.</li>
+            <li><Code>Class</Code>: The CSS class names to style the avatar wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the avatar slots.</li>
+        </ul>
+
+        <h4 class="font-semibold">Avatar Group</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the avatar group wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the avatar group slots.</li>
+            <li><Code>AvatarClasses</Code>: The CSS class names to style the avatars slots.</li>
         </ul>
     </div>
     <CustomStyles />
-</DocsSlotsSection>
+</DocsSection>
 
 <DocsApiSection Components="@_apiComponents" />
 
@@ -35,23 +121,51 @@
 
     private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
     {
+        new(nameof(LumexAvatar), "A component that represents an avatar."),
+        new(nameof(LumexAvatarGroup), "A component that represents a group of avatars.")
     };
 
     private readonly Heading[] _headings = new Heading[]
     {
         new("Composition"),
         new("Usage", [
+            new("Bordered"),
+            new("Sizes"),
+            new("Radius"),
+            new("Colors"),
+            new("Fallbacks"),
+            new("Custom Fallback"),
+            new("Custom Initials"),
+        ]),
+        new("Avatar Group", [
+            new("Max Count"),
+            new("Custom Count"),
+            new("Grid")
         ]),
         new("Custom Styles"),
         new("API")
     };
 
-    private readonly Slot[] _slots = new Slot[]
+    private readonly Dictionary<string, Slot[]> _slots = new()
     {
+        [nameof(LumexAvatar)] = [
+            new(nameof(AvatarSlots.Base), "The main container for the avatar component."),
+            new(nameof(AvatarSlots.Img), "The slot that holds the avatar image."),
+            new(nameof(AvatarSlots.Fallback), "Displays when the image is unavailable, showing initials or an icon."),
+            new(nameof(AvatarSlots.Name), "Represents the text or initials displayed inside the avatar."),
+            new(nameof(AvatarSlots.Icon), "The slot for a custom fallback icon when no image is provided.")
+        ],
+        [nameof(LumexAvatarGroup)] = [
+            new(nameof(AvatarGroupSlots.Base), "The main container for the avatar group."),
+            new(nameof(AvatarGroupSlots.Count), "Displays the number of hidden avatars when the max limit is reached.")
+        ]
     };
 
     private readonly string[] _apiComponents = new string[]
     {
+        nameof(LumexAvatar),
+        nameof(LumexAvatarGroup),
+        nameof(LumexIcon)
     };
 
     protected override void OnInitialized()
@@ -59,9 +173,9 @@
         Layout.Initialize(
             title: "Avatar",
             category: "Components",
-            description: "Avatar.",
+            description: "Avatars represent a user or entity using an image, initials, or a fallback icon.",
             headings: _headings,
-            linksProps: new ComponentLinksProps( "Avatar", isServer: true )
+            linksProps: new ComponentLinksProps( "Avatar", isServer: false )
         );
     }
 }
