@@ -28,11 +28,11 @@
 	<Target Name="InstallTailwindCSS" AfterTargets="Build" Condition="!Exists('tailwindcss.exe')">
 		<PropertyGroup>
 			<!-- Tailwind standalone CLI for Windows -->
-			<TailwindURL Condition="'$(OS)' == 'Windows_NT'">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe</TailwindURL>
+			<TailwindURL Condition="'$(OS)' == 'Windows_NT'">https://github.com/tailwindlabs/tailwindcss/releases/download/v4.0.9/tailwindcss-windows-x64.exe</TailwindURL>
 			<TailwindFile Condition="'$(OS)' == 'Windows_NT'">tailwindcss-windows-x64.exe</TailwindFile>
 
 			<!-- Tailwind standalone CLI for Linux -->
-			<TailwindURL Condition="'$(OS)' != 'Windows_NT'">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64</TailwindURL>
+			<TailwindURL Condition="'$(OS)' != 'Windows_NT'">https://github.com/tailwindlabs/tailwindcss/releases/download/v4.0.9/tailwindcss-linux-x64</TailwindURL>
 			<TailwindFile Condition="'$(OS)' != 'Windows_NT'">tailwindcss-linux-x64</TailwindFile>
 		</PropertyGroup>
 
