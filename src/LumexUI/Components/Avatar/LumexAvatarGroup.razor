@@ -1,0 +1,53 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@using S = AvatarGroupSlots;
+
+@* 
+    Note that we must not set IsFixed="@true" on the CascadingValue, because the mutations to _context 
+    are what cause the descendant Avatar components to re-render themselves.
+*@
+<CascadingValue TValue="AvatarGroupContext" Value="@_context">
+    @{
+        _context.StartCollecting();
+    }
+    @ChildContent
+
+    <Defer>
+        @{
+            _context.StopCollecting();
+        }
+
+        <LumexComponent As="@As"
+                        Class="@GetStyles(nameof(S.Base))"
+                        Style="@Style"
+                        role="group"
+                        data-slot="base"
+                        @attributes="@AdditionalAttributes">
+            @_render
+        </LumexComponent>
+    </Defer>
+</CascadingValue>
+
+@code {
+    private void Render( RenderTreeBuilder __builder )
+    {
+        foreach( var item in _context.Items )
+        {
+            if( _context.IsWithinMaxLimit( item ) )
+            {
+                item.Render( __builder );
+            }
+            else
+            {
+                if( RemainingCount > 0 )
+                {
+                    @CountContent( RemainingCount )
+                }
+
+                // Stop rendering as we've reached the maximum number of avatars.
+                break;
+            }
+        }
+    }
+}

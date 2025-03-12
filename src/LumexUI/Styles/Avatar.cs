@@ -265,3 +265,44 @@ internal static class Avatar
 		} );
 	}
 }
+
+[ExcludeFromCodeCoverage]
+internal static class AvatarGroup
+{
+	private static ComponentVariant? _variant;
+
+	public static ComponentVariant Style( TwMerge twMerge )
+	{
+		var twVariants = new TwVariants( twMerge );
+
+		return _variant ??= twVariants.Create( new VariantConfig()
+		{
+			Slots = new SlotCollection
+			{
+				[nameof( AvatarGroupSlots.Base )] = new ElementClass()
+					.Add( "w-max" )
+					.Add( "h-auto" )
+					.Add( "flex" )
+					.Add( "items-center" )
+					.Add( "justify-center" )
+					// focus ring
+					.Add( Utils.FocusVisible ),
+
+				[nameof( AvatarGroupSlots.Count )] = new ElementClass()
+					.Add( "hover:-translate-x-0" )
+			},
+
+			Variants = new VariantCollection
+			{
+				[nameof( LumexAvatarGroup.Grid )] = new VariantValueCollection
+				{
+					[bool.TrueString] = new SlotCollection
+					{
+						[nameof( AvatarGroupSlots.Base )] = "inline-grid grid-cols-4 gap-3"
+					}
+				}
+			},
+
+		} );
+	}
+}
