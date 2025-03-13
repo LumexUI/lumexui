@@ -1,0 +1,118 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public AvatarGroupTests()
+    {
+        Services.AddSingleton<TwMerge>();
+
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/utils/dom.js" );
+        module.Setup<bool>( "isImageLoaded", _ => true );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexAvatarGroup />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderImages()
+    {
+        var jsRuntimeMock = new Mock<IJSRuntime>();
+        var jsObjectMock = new Mock<IJSObjectReference>();
+
+        jsRuntimeMock
+            .Setup( js => js.InvokeAsync<IJSObjectReference>( "import", It.IsAny<object[]>() ) )
+            .ReturnsAsync( jsObjectMock.Object );
+
+        jsObjectMock
+            .SetupSequence( js => js.InvokeAsync<bool>( "isImageLoaded", It.IsAny<object[]>() ) )
+            .ReturnsAsync( true )
+            .ReturnsAsync( true )
+            .ReturnsAsync( true )
+            .ReturnsAsync( true )
+            .ReturnsAsync( true );
+
+        Services.AddSingleton( jsRuntimeMock.Object );
+
+        var cut = Render(
+            @<LumexAvatarGroup>
+                <LumexAvatar Src="https://i.pravatar.cc/150?img=2" />
+                <LumexAvatar Src="https://i.pravatar.cc/150?img=6" />
+                <LumexAvatar Src="https://i.pravatar.cc/150?img=9" />
+                <LumexAvatar Src="https://i.pravatar.cc/150?img=11" />
+                <LumexAvatar Src="https://i.pravatar.cc/150?img=12" />
+            </LumexAvatarGroup>
+        );
+
+        var imgs = cut.FindAll( "[data-slot=img]" );
+
+        imgs.Should().HaveCount( 5 );
+        imgs.Should().OnlyContain( img => img.GetAttribute( "data-loaded" ) == "true" );
+    }
+
+    [Fact]
+    public void ShouldRenderRemainingCountIfMaxExceeded()
+    {
+        var cut = Render(
+            @<LumexAvatarGroup Max="2">
+                <LumexAvatar />
+                <LumexAvatar />
+                <LumexAvatar />
+                <LumexAvatar />
+                <LumexAvatar />
+            </LumexAvatarGroup>
+        );
+
+        var avatars = cut.FindComponents<LumexAvatar>();
+
+        avatars.Should().HaveCount( 6 );
+        avatars[^1].Instance.Name.Should().Be( "+3" );
+    }
+
+
+    [Fact]
+    public void ShouldNotRenderRemainingCountIfMaxNotExceeded()
+    {
+        var cut = Render(
+            @<LumexAvatarGroup Max="2">
+                <LumexAvatar />
+                <LumexAvatar />
+            </LumexAvatarGroup>
+        );
+
+        var avatars = cut.FindComponents<LumexAvatar>();
+
+        avatars.Should().HaveCount( 2 );
+    }
+
+    [Fact]
+    public void ShouldRenderCustomCount()
+    {
+        var cut = Render(
+            @<LumexAvatarGroup Max="2">
+                <CountContent Context="count">
+                    <span data-testid="count">@count</span>
+                </CountContent>
+                <ChildContent>
+                    <LumexAvatar />
+                    <LumexAvatar />
+                    <LumexAvatar />
+                    <LumexAvatar />
+                    <LumexAvatar />
+                </ChildContent>
+            </LumexAvatarGroup>
+        );
+
+        var avatars = cut.FindComponents<LumexAvatar>();
+        var count = cut.FindByTestId( "count" );
+
+        avatars.Should().HaveCount( 5 );
+        count!.TextContent.Should().Be( "3" );
+    }
+}

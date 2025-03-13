@@ -1,0 +1,136 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public AvatarTests()
+    {
+        Services.AddSingleton<TwMerge>();
+
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/utils/dom.js" );
+        module.Setup<bool>( "isImageLoaded", _ => true );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexAvatar />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderImage()
+    {
+        var jsRuntimeMock = new Mock<IJSRuntime>();
+        var jsObjectMock = new Mock<IJSObjectReference>();
+
+        jsRuntimeMock
+            .Setup( js => js.InvokeAsync<IJSObjectReference>( "import", It.IsAny<object[]>() ) )
+            .ReturnsAsync( jsObjectMock.Object );
+
+        jsObjectMock
+            .SetupSequence( js => js.InvokeAsync<bool>( "isImageLoaded", It.IsAny<object[]>() ) )
+            .ReturnsAsync( true );
+
+        Services.AddSingleton( jsRuntimeMock.Object );
+
+        var cut = Render(
+            @<LumexAvatar Src="https://i.pravatar.cc/150?img=2" />
+        );
+
+        var img = cut.FindBySlot( "img" );
+
+        img.Should().NotBeNull();
+        img.GetAttribute( "data-loaded" ).Should().Be( "true" );
+    }
+
+    [Fact]
+    public void ShouldRenderShortenedNameIfSingleWordName()
+    {
+        var cut = Render(
+            @<LumexAvatar Name="Daniel" />
+        );
+
+        var initials = cut.FindBySlot( "name" );
+
+        initials!.TextContent.Should().Be( "Dan" );
+    }
+
+    [Fact]
+    public void ShouldRenderInitialsIfMultipleWordName()
+    {
+        var cut = Render(
+            @<LumexAvatar Name="Daniel Smith" />
+        );
+
+        var initials = cut.FindBySlot( "name" );
+
+        initials!.TextContent.Should().Be( "DS" );
+    }
+
+    [Fact]
+    public void ShouldRenderCustomInitials()
+    {
+        var cut = Render(
+            @<LumexAvatar Name="Daniel" Initials="@((name) => name[0].ToString())" />
+        );
+
+        var initials = cut.FindBySlot( "name" );
+
+        initials!.TextContent.Should().Be( "D" );
+    }
+
+    [Fact]
+    public void ShouldRenderNameIfNoSrc()
+    {
+        var cut = Render(
+            @<LumexAvatar Name="Daniel" />
+        );
+
+        var initials = cut.FindBySlot( "name" );
+
+        initials!.TextContent.Should().Be( "Dan" );
+    }
+
+    [Fact]
+    public void ShouldRenderDefaultIconIfNoNameOrSrc()
+    {
+        var cut = Render(
+            @<LumexAvatar />
+        );
+
+        var icon = cut.FindBySlot( "icon" );
+
+        icon.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderCustomFallback()
+    {
+        var cut = Render(
+            @<LumexAvatar>
+                <FallbackContent>
+                    <span>FB</span>
+                </FallbackContent>
+            </LumexAvatar>
+        );
+
+        var fallback = cut.FindBySlot( "fallback" );
+
+        fallback?.TextContent.Should().Be( "FB" );
+    }
+
+    [Fact]
+    public void ShouldNotRenderFallbackIfNotShowfallback()
+    {
+        var cut = Render(
+            @<LumexAvatar ShowFallback="@false" />
+        );
+
+        var fallback = cut.FindBySlot( "fallback" );
+
+        fallback.Should().BeNull();
+    }
+}

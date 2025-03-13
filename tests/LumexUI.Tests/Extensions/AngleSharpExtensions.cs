@@ -20,8 +20,15 @@ internal static class AngleSharpExtensions
 		}
 	}
 
-	public static IElement FindBySlot( this IRenderedFragment fragment, string slot )
+	public static IElement? FindBySlot( this IRenderedFragment fragment, string slot )
 	{
-		return fragment.Find( $"[data-slot={slot}]" );
+		try
+		{
+			return fragment.Find( $"[data-slot={slot}]" );
+		}
+		catch
+		{
+			return null;
+		}
 	}
 }

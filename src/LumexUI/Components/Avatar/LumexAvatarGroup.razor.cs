@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+
 using LumexUI.Common;
 using LumexUI.Utilities;
 
@@ -113,6 +115,7 @@ public partial class LumexAvatarGroup : LumexComponentBase, ISlotComponent<Avata
 		} );
 	}
 
+	[ExcludeFromCodeCoverage]
 	private string? GetStyles( string slot )
 	{
 		if( !_slots.TryGetValue( slot, out var styles ) )

@@ -185,19 +185,22 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	/// <inheritdoc />
 	protected override async Task OnAfterRenderAsync( bool firstRender )
 	{
-		if( firstRender && !string.IsNullOrEmpty( Src ) )
+		if( firstRender )
 		{
-			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
-			_imageLoaded = await _jsModule.InvokeAsync<bool>( "isImageLoaded", _ref );
+			if( !string.IsNullOrEmpty( Src ) )
+			{
+				_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
+				_imageLoaded = await _jsModule.InvokeAsync<bool>( "isImageLoaded", _ref );
+			}
 
 			/*
 			 * Avatar fallback applies under 2 conditions:
-			 * - If `Src` was passed and the image has not loaded or failed to load
+			 * - If `Src` was passed and the image has failed to load
 			 * - If `Src` wasn't passed
 			 *
 			 * In this case, we'll show either the name or default avatar
 			 */
-			_showFallback = ShowFallback && ( !_imageLoaded || string.IsNullOrWhiteSpace( Src ) );
+			_showFallback = ShowFallback && ( !_imageLoaded || string.IsNullOrEmpty( Src ) );
 
 			if( Context is null )
 			{
@@ -223,6 +226,7 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 		}
 	}
 
+	[ExcludeFromCodeCoverage]
 	private string? GetStyles( string slot )
 	{
 		if( !_slots.TryGetValue( slot, out var styles ) )
