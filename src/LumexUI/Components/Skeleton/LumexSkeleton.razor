@@ -1,0 +1,12 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexComponent As="@As"
+                Class="@Class"
+                Style="@Style"
+                data-loaded="@Loading.ToAttributeValue()"
+                @attributes="@AdditionalAttributes">
+    <div>
+        @ChildContent
+    </div>
+</LumexComponent>
