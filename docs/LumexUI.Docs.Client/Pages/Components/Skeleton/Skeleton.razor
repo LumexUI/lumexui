@@ -1,0 +1,76 @@
+﻿@page "/docs/components/skeleton"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Skeleton.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+        The skeleton component wraps content, providing a
+        loading placeholder until the actual content is ready.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Standalone">
+        <p>
+            The skeleton can also be used as a standalone placeholder to simulate
+            loading states for specific UI elements like text, images, or buttons.
+        </p>
+        <Standalone />
+    </DocsSection>
+
+    <DocsSection Title="Loading">
+        <p>You can toggle the skeleton visibility dynamically based on a loading state.</p>
+        <Loading />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Skeleton</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the slots.</li>
+        </ul>
+    </div>
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Composition"),
+        new("Usage", [
+            new("Standalone"),
+            new("Loading")
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(SkeletonSlots.Base), "The main container for the skeleton component."),
+        new(nameof(SkeletonSlots.Content), "The inner container that holds the actual content."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexSkeleton),
+        nameof(LumexCard),
+        nameof(LumexButton)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Skeleton",
+            category: "Components",
+            description: "Skeletons are used as loading placeholders, indicating content is being loaded.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Skeleton", isServer: true )
+        );
+    }
+}

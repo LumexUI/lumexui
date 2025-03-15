@@ -1,0 +1,29 @@
+﻿<div class="flex flex-col gap-3">
+    <LumexCard Class="w-[200px] space-y-5 p-4" Radius="@Radius.Large">
+        <LumexSkeleton Class="rounded-lg" Loading="@_loading">
+            <div class="h-24 rounded-lg bg-secondary" />
+        </LumexSkeleton>
+
+        <div class="space-y-3">
+            <LumexSkeleton Class="w-3/5 rounded-lg" Loading="@_loading">
+                <div class="h-3 w-full rounded-lg bg-secondary" />
+            </LumexSkeleton>
+            <LumexSkeleton Class="w-4/5 rounded-lg" Loading="@_loading">
+                <div class="h-3 w-full rounded-lg bg-secondary-300" />
+            </LumexSkeleton>
+            <LumexSkeleton Class="w-2/5 rounded-lg" Loading="@_loading">
+                <div class="h-3 w-full rounded-lg bg-secondary-200" />
+            </LumexSkeleton>
+        </div>
+    </LumexCard>
+    <LumexButton Size="@Size.Small"
+                 Variant="@Variant.Flat"
+                 Color="@ThemeColor.Secondary"
+                 OnClick="@(() => _loading = !_loading)">
+        @(_loading ? "Show" : "Hide") Skeleton
+    </LumexButton>
+</div>
+
+@code {
+    private bool _loading = true;
+}
