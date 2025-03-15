@@ -85,6 +85,38 @@
     }
 
     [Fact]
+    public void ShouldNotOpenMenuOnNavigation()
+    {
+        var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
+        string[] menuItems = ["item1", "item2", "item3", "item4", "item5"];
+
+        var cut = Render(
+            @<LumexNavbar>
+                <LumexNavbarMenuToggle />
+                <LumexNavbarContent>
+                    <LumexNavbarItem>Dashboard</LumexNavbarItem>
+                    <LumexNavbarItem>Team</LumexNavbarItem>
+                    <LumexNavbarItem>Deployments</LumexNavbarItem>
+                    <LumexNavbarItem>Activity</LumexNavbarItem>
+                    <LumexNavbarItem>Settings</LumexNavbarItem>
+                </LumexNavbarContent>
+                <LumexNavbarMenu>
+                    @foreach( var item in menuItems )
+                    {
+                        <LumexNavbarMenuItem>@item</LumexNavbarMenuItem>
+                    }
+                </LumexNavbarMenu>
+            </LumexNavbar>
+        );
+
+        navigationManager.NavigateTo( "somewhere" );
+
+        var menu = cut.FindComponent<LumexNavbarMenu>();
+
+        menu.Instance.Expanded.Should().BeFalse();
+    }
+
+    [Fact]
     public void ShouldNotRenderContextualComponentsAlone()
     {
         var action1 = () => Render(@<LumexNavbarBrand />);
