@@ -1,0 +1,19 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public SkeletonTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexSkeleton />
+        );
+
+        action.Should().NotThrow();
+    }
+}
