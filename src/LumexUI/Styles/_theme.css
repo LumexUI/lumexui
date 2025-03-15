@@ -167,6 +167,7 @@
 
     /* Animations */
     --animate-enter: enter 200ms ease-out normal both;
+    --animate-shimmer: shimmer 2s infinite;
 
     @keyframes enter {
         0% {
@@ -177,6 +178,12 @@
         100% {
             opacity: 1;
             transform: translateZ(0) scale(1);
+        }
+    }
+
+    @keyframes shimmer {
+        100% {
+            translate: 100%;
         }
     }
 

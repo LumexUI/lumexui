@@ -1,12 +1,15 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
+@using S = SkeletonSlots;
+
 <LumexComponent As="@As"
-                Class="@Class"
+                Class="@GetStyles(nameof(S.Base))"
                 Style="@Style"
-                data-loaded="@Loading.ToAttributeValue()"
+                data-slot="base"
+                data-loading="@Loading.ToAttributeValue()"
                 @attributes="@AdditionalAttributes">
-    <div>
+    <div class="@GetStyles(nameof(S.Content))" data-slot="content">
         @ChildContent
     </div>
 </LumexComponent>
