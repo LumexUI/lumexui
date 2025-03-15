@@ -1,0 +1,30 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<div class="@Class"
+     style="@Style"
+     aria-label="@AriaLabel"
+     @attributes="@AdditionalAttributes">
+    <div>
+        <span />
+        <span />
+    </div>
+
+    @_renderContent
+</div>
+
+@code {
+    private void RenderContent( RenderTreeBuilder __builder )
+    {
+        <span>
+            @if( !string.IsNullOrEmpty( Label ) )
+            {
+                @Label
+            }
+            else if( ChildContent is not null )
+            {
+                @ChildContent
+            }
+        </span>
+    }
+}
