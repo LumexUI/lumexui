@@ -39,12 +39,19 @@ internal static class Skeleton
 					.Add( "before:via-default-300" )
 					.Add( "before:to-transparent" )
 					.Add( "before:animate-shimmer" )
+					  //after
+					.Add( "after:-z-10" )
+					.Add( "after:absolute" )
+					.Add( "after:inset-0" )
+					.Add( "after:opacity-100" )
+					.Add( "after:bg-surface3" )
 					// state
 					.Add( "data-[loading=false]:pointer-events-auto" )
 					.Add( "data-[loading=false]:overflow-visible" )
 					.Add( "data-[loading=false]:bg-transparent" )
-					.Add( "data-[loading=false]:before:opacity-0" )
 					.Add( "data-[loading=false]:before:animate-none" )
+					.Add( "data-[loading=false]:before:opacity-0" )
+					.Add( "data-[loading=false]:after:opacity-0" )
 					// transition
 					.Add( "duration-300" )
 					.Add( "transition-background" ),
