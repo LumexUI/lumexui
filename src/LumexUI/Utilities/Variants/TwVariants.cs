@@ -2,15 +2,18 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+
 using TailwindMerge;
 
 namespace LumexUI.Utilities;
 
-public delegate Dictionary<string, ComponentSlot> ComponentVariant( Dictionary<string, string>? overrides = null );
+internal delegate Dictionary<string, ComponentSlot> ComponentVariant( Dictionary<string, string>? overrides = null );
 
-public delegate string? ComponentSlot( params string?[] classNames );
+internal delegate string? ComponentSlot( params string?[] classNames );
 
-public class TwVariants( TwMerge twMerge )
+[ExcludeFromCodeCoverage]
+internal class TwVariants( TwMerge twMerge )
 {
 	public ComponentVariant Create( VariantConfig config )
 	{
@@ -108,10 +111,6 @@ public class TwVariants( TwMerge twMerge )
 
 	private ComponentSlot CreateComponentSlot( params string?[] classNames )
 	{
-		var joinedClassNames = string.Join( ' ', classNames );
-
-		return ( @classNames ) => @classNames.Length == 0
-			? joinedClassNames
-			: twMerge.Merge( [joinedClassNames, .. @classNames] );
+		return ( extraClassNames ) => twMerge.Merge( [.. classNames, .. extraClassNames] );
 	}
 }

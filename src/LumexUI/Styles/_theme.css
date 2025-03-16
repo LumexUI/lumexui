@@ -1,4 +1,10 @@
-﻿/* https://tailwindcss.com/docs/theme#theme-variable-namespaces */
+﻿@layer base {
+    body {
+        @apply text-foreground bg-background;
+    }
+}
+
+/* https://tailwindcss.com/docs/theme#theme-variable-namespaces */
 @theme static inline {
     /* Colors */
     --color-background: var(--lumex-background);
@@ -166,8 +172,11 @@
     --transition-property-transform-opacity: var(--transition-transforms), opacity;
 
     /* Animations */
-    --animate-enter: enter 200ms ease-out normal both;
+    --animate-enter: enter 200ms ease-in normal both;
     --animate-shimmer: shimmer 2s infinite;
+    --animate-sway: sway 0.75s infinite;
+    --animate-blink: blink 1.5s infinite both;
+    --animate-fade-out: fade-out 1.2s infinite;
 
     @keyframes enter {
         0% {
@@ -184,6 +193,36 @@
     @keyframes shimmer {
         100% {
             translate: 100%;
+        }
+    }
+
+    @keyframes sway {
+        0%, 100% {
+            translate: 0 0;
+        }
+
+        50% {
+            translate: 0 -150%;
+        }
+    }
+
+    @keyframes blink {
+        0%, 100% {
+            opacity: 0.2;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fade-out {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0.15;
         }
     }
 

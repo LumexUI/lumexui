@@ -1,30 +1,99 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-<div class="@Class"
-     style="@Style"
-     aria-label="@AriaLabel"
-     @attributes="@AdditionalAttributes">
-    <div>
-        <span />
-        <span />
-    </div>
+@using S = SpinnerSlots;
 
-    @_renderContent
-</div>
+@if( Variant is SpinnerVariant.DotsWave or SpinnerVariant.DotsFade )
+{
+    <div class="@GetStyles(nameof(S.Base))"
+         style="@Style"
+         data-slot="base"
+         aria-label="@AriaLabel"
+         @attributes="@AdditionalAttributes">
+        <div class="@GetStyles(nameof(S.Wrapper))" data-slot="wrapper">
+            @foreach( var index in Enumerable.Range( 0, 3 ) )
+            {
+                <span class="@GetStyles(nameof(S.Dots))"
+                      style="--index: @index"
+                      data-slot="dots" />
+            }
+        </div>
+
+        @_renderLabel
+    </div>
+}
+else if( Variant is SpinnerVariant.Ring )
+{
+    <div class="@GetStyles(nameof(S.Base))"
+         style="@Style"
+         data-slot="base"
+         aria-label="@AriaLabel"
+         @attributes="@AdditionalAttributes">
+        <svg class="@GetStyles(nameof(S.Wrapper))"
+             viewBox="0 0 24 24"
+             fill="none"
+             data-slot="wrapper">
+            <circle class="@GetStyles(nameof(S.Circle1))"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                    data-slot="circle1" />
+            <path class="@GetStyles(nameof(S.Circle2))"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  fill="currentColor"
+                  data-slot="circle2" />
+        </svg>
+
+        @_renderLabel
+    </div>
+}
+else if( Variant is SpinnerVariant.Classic )
+{
+    <div class="@GetStyles(nameof(S.Base))"
+         style="@Style"
+         data-slot="base"
+         aria-label="@AriaLabel"
+         @attributes="@AdditionalAttributes">
+        <div class="@GetStyles(nameof(S.Wrapper))" data-slot="wrapper">
+            @foreach( var index in Enumerable.Range( 0, 12 ) )
+            {
+                <span class="@GetStyles(nameof(S.Bars))"
+                      style="--index: @index"
+                      data-slot="bars" />
+            }
+        </div>
+
+        @_renderLabel
+    </div>
+}
+else
+{
+    <div class="@GetStyles(nameof(S.Base))"
+         style="@Style"
+         data-slot="base"
+         aria-label="@AriaLabel"
+         @attributes="@AdditionalAttributes">
+        <div class="@GetStyles(nameof(S.Wrapper))" data-slot="wrapper">
+            <span class="@GetStyles(nameof(S.Circle1))" data-slot="circle1" />
+            <span class="@GetStyles(nameof(S.Circle2))" data-slot="circle2" />
+        </div>
+
+        @_renderLabel
+    </div>
+}
 
 @code {
-    private void RenderContent( RenderTreeBuilder __builder )
+    private void RenderLabel( RenderTreeBuilder __builder )
     {
-        <span>
-            @if( !string.IsNullOrEmpty( Label ) )
-            {
-                @Label
-            }
-            else if( ChildContent is not null )
-            {
-                @ChildContent
-            }
+        if( string.IsNullOrEmpty( Label ) && ChildContent is null )
+        {
+            return;
+        }
+
+        <span class="@GetStyles(nameof(S.Label))" data-slot="label">
+            @(string.IsNullOrEmpty( Label ) ? ChildContent : Label)
         </span>
     }
 }
