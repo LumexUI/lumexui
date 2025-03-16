@@ -14,7 +14,7 @@ namespace LumexUI;
 /// <summary>
 /// A component that represents a spinner for indicating loading states.
 /// </summary>
-public partial class LumexSpinner : LumexComponentBase
+public partial class LumexSpinner : LumexComponentBase, ISlotComponent<SpinnerSlots>
 {
 	/// <summary>
 	/// Gets or sets the content to render inside the spinner.
@@ -58,6 +58,11 @@ public partial class LumexSpinner : LumexComponentBase
 	/// </remarks>
 	[Parameter] public SpinnerVariant Variant { get; set; } = SpinnerVariant.Arc;
 
+	/// <summary>
+	/// Gets or sets the CSS class names for the spinner slots.
+	/// </summary>
+	[Parameter] public SpinnerSlots? Classes { get; set; }
+
 	private string AriaLabel => Label ?? "Loading";
 
 	private readonly RenderFragment _renderLabel;
@@ -95,13 +100,13 @@ public partial class LumexSpinner : LumexComponentBase
 
 		return slot switch
 		{
-			nameof( SpinnerSlots.Base ) => styles( Class ),
-			nameof( SpinnerSlots.Wrapper ) => styles(),
-			nameof( SpinnerSlots.Label ) => styles(),
-			nameof( SpinnerSlots.Circle1 ) => styles(),
-			nameof( SpinnerSlots.Circle2 ) => styles(),
-			nameof( SpinnerSlots.Dots ) => styles(),
-			nameof( SpinnerSlots.Bars ) => styles(),
+			nameof( SpinnerSlots.Base ) => styles( Classes?.Base, Class ),
+			nameof( SpinnerSlots.Wrapper ) => styles( Classes?.Wrapper ),
+			nameof( SpinnerSlots.Label ) => styles( Classes?.Label ),
+			nameof( SpinnerSlots.Circle1 ) => styles( Classes?.Circle1 ),
+			nameof( SpinnerSlots.Circle2 ) => styles( Classes?.Circle2 ),
+			nameof( SpinnerSlots.Dots ) => styles( Classes?.Dots ),
+			nameof( SpinnerSlots.Bars ) => styles( Classes?.Bars ),
 			_ => throw new NotImplementedException()
 		};
 	}
