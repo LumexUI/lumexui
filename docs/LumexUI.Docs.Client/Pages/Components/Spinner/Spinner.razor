@@ -1,0 +1,87 @@
+﻿@page "/docs/components/spinner"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Spinner.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+        The spinner component provides a visual loading indicator,
+        commonly used to show ongoing processes.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Label">
+        <p>Add a label to the spinner to provide context about what is loading.</p>
+        <Label />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>Adjust the size of the spinner.</p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>Customize the spinner color.</p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Variants">
+        <p>Choose different spinner styles.</p>
+        <Variants />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Spinner</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the slots.</li>
+        </ul>
+    </div>
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Label"),
+            new("Sizes"),
+            new("Colors"),
+            new("Variants")
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(SpinnerSlots.Base), "The main container for the spinner component."),
+        new(nameof(SpinnerSlots.Wrapper), "The wrapper of the circles."),
+        new(nameof(SpinnerSlots.Label), "The label associated with the spinner."),
+        new(nameof(SpinnerSlots.Circle1), "The first animated circle in circular spinner variants."),
+        new(nameof(SpinnerSlots.Circle2), "The second animated circle in circular spinner variants."),
+        new(nameof(SpinnerSlots.Dots), "A set of animated dots used in dot-based spinner variants."),
+        new(nameof(SpinnerSlots.Bars), "A set of animated bars used in bar-based spinner variants."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexSpinner)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Spinner",
+            category: "Components",
+            description: "Spinners indicate loading states with a visual cue.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Spinner", isServer: true )
+        );
+    }
+}

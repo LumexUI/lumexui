@@ -41,6 +41,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexRadioGroup<T> ) ) )
 			.Add( new( nameof( LumexSelect<T> ) ) )
 			.Add( new( nameof( LumexSkeleton ), ComponentStatus.New ) )
+			.Add( new( nameof( LumexSpinner ), ComponentStatus.New ) )
 			.Add( new( nameof( LumexSwitch ) ) )
 			.Add( new( nameof( LumexTabs ) ) )
 			.Add( new( nameof( LumexTextbox ) ) );
@@ -87,6 +88,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexSelect<T> ) ) )
 			.Add( new( nameof( LumexSelectItem<T> ) ) )
 			.Add( new( nameof( LumexSkeleton ) ) )
+			.Add( new( nameof( LumexSpinner ) ) )
 			.Add( new( nameof( LumexSwitch ) ) )
 			.Add( new( nameof( LumexTab ) ) )
 			.Add( new( nameof( LumexTabs ) ) )
