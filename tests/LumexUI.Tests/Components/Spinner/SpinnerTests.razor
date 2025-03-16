@@ -1,0 +1,61 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public SpinnerTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Theory]
+    [InlineData( SpinnerVariant.Ring )]
+    [InlineData( SpinnerVariant.Arc )]
+    [InlineData( SpinnerVariant.ArcGradient )]
+    [InlineData( SpinnerVariant.DotsWave )]
+    [InlineData( SpinnerVariant.DotsFade )]
+    [InlineData( SpinnerVariant.Classic )]
+    public void ShouldRenderCorrectly( SpinnerVariant variant )
+    {
+        var action = () => Render(
+            @<LumexSpinner Variant="@variant" />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderWithDefaultAriaLabel()
+    {
+        var cut = Render(
+            @<LumexSpinner />
+        );
+
+        var spinner = cut.FindBySlot( "base" );
+
+        spinner!.GetAttribute( "aria-label" ).Should().Be( "Loading" );
+    }
+
+    [Fact]
+    public void ShouldReplaceDefaultAriaLabelWhenLabelPassed()
+    {
+        var cut = Render(
+            @<LumexSpinner Label="Custom" />
+        );
+
+        var spinner = cut.FindBySlot( "base" );
+
+        spinner!.GetAttribute( "aria-label" ).Should().Be( "Custom" );
+    }
+
+    [Fact]
+    public void ShouldReplaceDefaultAriaLabelWhenAriaLabelPassed()
+    {
+        var cut = Render(
+            @<LumexSpinner aria-label="Custom"/>
+        );
+
+        var spinner = cut.FindBySlot( "base" );
+
+        spinner!.GetAttribute( "aria-label" ).Should().Be( "Custom" );
+    }
+}
