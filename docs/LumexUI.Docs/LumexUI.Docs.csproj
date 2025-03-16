@@ -47,9 +47,14 @@
 		<Exec Command="chmod +x tailwindcss" Condition="'$(OS)' != 'Windows_NT'" />
 	</Target>
 
-	<Target Name="TailwindCSS" AfterTargets="InstallTailwindCSS">
-		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs-tw4.css" Condition="'$(OS)' == 'Windows_NT'" />
-		<Exec Command="./tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs-tw4.css" Condition="'$(OS)' != 'Windows_NT'" />
+	<Target Name="TailwindCSS-Dev" AfterTargets="InstallTailwindCSS" Condition="'$(Configuration)' == 'Debug'">
+		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="'$(OS)' == 'Windows_NT'" />
+		<Exec Command="./tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="'$(OS)' != 'Windows_NT'" />
+	</Target>
+
+	<Target Name="TailwindCSS-Prod" AfterTargets="InstallTailwindCSS" Condition="'$(Configuration)' == 'Release'">
+		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css --minify" Condition="'$(OS)' == 'Windows_NT'" />
+		<Exec Command="./tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css --minify" Condition="'$(OS)' != 'Windows_NT'" />
 	</Target>
 
 </Project>
