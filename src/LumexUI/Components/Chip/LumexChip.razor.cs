@@ -35,6 +35,43 @@ public partial class LumexChip : LumexComponentBase, ISlotComponent<ChipSlots>
 	/// <summary>
 	/// 
 	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="Size.Medium"/>.
+	/// </remarks>
+	[Parameter] public Size Size { get; set; } = Size.Medium;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="Radius.Full"/>.
+	/// </remarks>
+	[Parameter] public Radius Radius { get; set; } = Radius.Full;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="ThemeColor.Primary"/>.
+	/// </remarks>
+	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="ChipVariant.Solid"/>.
+	/// </remarks>
+	[Parameter] public ChipVariant Variant { get; set; } = ChipVariant.Solid;
+
+	/// <summary>
+	/// 
+	/// </summary>
+	[Parameter] public bool Disabled { get; set; }
+
+	/// <summary>
+	/// 
+	/// </summary>
 	[Parameter] public EventCallback<MouseEventArgs> OnClose { get; set; }
 
 	/// <summary>
@@ -48,7 +85,24 @@ public partial class LumexChip : LumexComponentBase, ISlotComponent<ChipSlots>
 	protected override void OnParametersSet()
 	{
 		var chip = Styles.Chip.Style( TwMerge );
-		_slots = chip( new() );
+		_slots = chip( new()
+		{
+			[nameof( Size )] = Size.ToString(),
+			[nameof( Color )] = Color.ToString(),
+			[nameof( Radius )] = Radius.ToString(),
+			[nameof( Variant )] = Variant.ToString(),
+			[nameof( Disabled )] = Disabled.ToString()
+		} );
+	}
+
+	private Task OnCloseAsync( MouseEventArgs args )
+	{
+		if( Disabled )
+		{
+			return Task.CompletedTask;
+		}
+
+		return OnClose.InvokeAsync( args );
 	}
 
 	[ExcludeFromCodeCoverage]

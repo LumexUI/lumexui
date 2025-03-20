@@ -9,7 +9,7 @@
                 data-slot="base"
                 @attributes="@AdditionalAttributes">
 
-    @if( StartContent is null )
+    @if( Variant is ChipVariant.Dot && StartContent is null )
     {
         <span class="@GetStyles(nameof(S.Dot))" data-slot="dot" />
     }
@@ -28,10 +28,11 @@
               class="@GetStyles(nameof(S.CloseButton))"
               tabindex="0"
               data-slot="close-button"
-              aria-label="Close chip">
+              aria-label="Close chip"
+              @onclick="@OnCloseAsync">
             @if( EndContent is null )
             {
-                <LumexIcon Icon="@Icons.Rounded.Close" />
+                <LumexIcon Icon="@Icons.Rounded.Cancel" Size="@new("1em")" />
             }
             else
             {
@@ -39,6 +40,8 @@
             }
         </span>
     }
-
-    @EndContent
+    else
+    {
+        @EndContent
+    }
 </LumexComponent>
