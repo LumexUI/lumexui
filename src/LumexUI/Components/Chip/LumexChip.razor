@@ -1,0 +1,44 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@using S = ChipSlots;
+
+<LumexComponent As="@As"
+                Class="@GetStyles(nameof(S.Base))"
+                Style="@Style"
+                data-slot="base"
+                @attributes="@AdditionalAttributes">
+
+    @if( StartContent is null )
+    {
+        <span class="@GetStyles(nameof(S.Dot))" data-slot="dot" />
+    }
+    else
+    {
+        @StartContent
+    }
+
+    <span class="@GetStyles(nameof(S.Content))" data-slot="content">
+        @ChildContent
+    </span>
+
+    @if( OnClose.HasDelegate )
+    {
+        <span role="button"
+              class="@GetStyles(nameof(S.CloseButton))"
+              tabindex="0"
+              data-slot="close-button"
+              aria-label="Close chip">
+            @if( EndContent is null )
+            {
+                <LumexIcon Icon="@Icons.Rounded.Close" />
+            }
+            else
+            {
+                @EndContent
+            }
+        </span>
+    }
+
+    @EndContent
+</LumexComponent>
