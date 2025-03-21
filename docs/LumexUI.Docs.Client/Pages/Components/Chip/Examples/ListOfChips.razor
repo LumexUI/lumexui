@@ -1,0 +1,29 @@
+﻿<div class="flex items-center gap-4">
+    @foreach( var fruit in _fruits )
+    {
+        <LumexChip Variant="@ChipVariant.Flat"
+                   OnClose="@((args) => OnClose(args, fruit))">
+            @fruit
+        </LumexChip>
+    }
+</div>
+
+@code {
+    private string[] _data = ["Apple", "Banana", "Cherry", "Watermelon", "Orange"];
+    private List<string> _fruits;
+
+    public ListOfChips()
+    {
+        _fruits = [.. _data];
+    }
+
+    private void OnClose( MouseEventArgs args, string fruit )
+    {
+        _fruits.RemoveAll( f => f == fruit );
+
+        if( _fruits.Count < 1 )
+        {
+            _fruits = [.. _data];
+        }
+    }
+}

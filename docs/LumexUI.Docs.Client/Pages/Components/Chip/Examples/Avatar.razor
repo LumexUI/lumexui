@@ -1,0 +1,19 @@
+﻿<div class="flex gap-4">
+    <LumexChip Variant="@ChipVariant.Flat">
+        <AvatarContent>
+            <LumexAvatar Src="https://i.pravatar.cc/150?img=2" Name="Daniel" />
+        </AvatarContent>
+        <ChildContent>
+            Avatar
+        </ChildContent>
+    </LumexChip>
+
+    <LumexChip Variant="@ChipVariant.Flat">
+        <AvatarContent>
+            <LumexAvatar Name="Daniel" Initials="@((name) => name[0].ToString())" />
+        </AvatarContent>
+        <ChildContent>
+            Avatar
+        </ChildContent>
+    </LumexChip>
+</div>

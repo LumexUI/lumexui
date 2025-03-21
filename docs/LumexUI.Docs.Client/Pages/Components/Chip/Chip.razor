@@ -1,0 +1,124 @@
+﻿@page "/docs/components/chip"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Chip.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+        The chip component represents small, interactive elements
+        used to display information, tags, or actions.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            Disable a chip to prevent user interaction,
+            making it non-clickable and visually muted.
+        </p>
+        <Disabled />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>Adjust the size for small to large chips.</p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>Control the border radius for rounded or squared chips.</p>
+        <Radii />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>Customize the chip’s theme color.</p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Variants">
+        <p>Choose between different visual styles such as solid, bordered, or flat.</p>
+        <Variants />
+    </DocsSection>
+
+    <DocsSection Title="Start & End Content">
+        <p>Add icons or elements to the beginning or end of a chip.</p>
+        <StartEndContent />
+    </DocsSection>
+
+    <DocsSection Title="Avatar">
+        <p>Embed an avatar in the chip to visually represent users or entities.</p>
+        <Avatar />
+    </DocsSection>
+
+    <DocsSection Title="Close Button">
+        <p>Add a close button to allow the user to dismiss the chip.</p>
+        <p>
+            If you pass the <Code>OnClose</Code> parameter, the close button will be visible.
+            You can override the close icon by passing the <Code>EndContent</Code> parameter.
+        </p>
+        <CloseButton />
+    </DocsSection>
+
+    <DocsSection Title="List of Chips">
+        <p>Display multiple chips as a group for tag-like or multi-value selection UI.</p>
+        <ListOfChips />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Chip</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the slots.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Composition"),
+        new("Usage", [
+            new("Disabled"),
+            new("Sizes"),
+            new("Radius"),
+            new("Colors"),
+            new("Variants"),
+            new("Start & End Content"),
+            new("Avatar"),
+            new("Close Button"),
+            new("List of Chips")
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(ChipSlots.Base), "The main container for the chip component."),
+        new(nameof(ChipSlots.Content), "The inner wrapper of the chip. It is visible when the variant is `Dot`."),
+        new(nameof(ChipSlots.Dot), "The small dot on the left side of the chip."),
+        new(nameof(ChipSlots.CloseButton), "The button that dismisses the chip."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexChip),
+        nameof(LumexIcon)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Chip",
+            category: "Components",
+            description: "Chips are used to display information, tags, or actions in a concise form.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Chip", isServer: false )
+        );
+    }
+}
