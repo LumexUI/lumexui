@@ -86,6 +86,9 @@ public partial class LumexChip : LumexComponentBase, ISlotComponent<ChipSlots>
 
 	private Dictionary<string, ComponentSlot> _slots = [];
 
+	internal bool HasStartContent => StartContent is not null;
+	internal bool HasEndContent => EndContent is not null || OnClose.HasDelegate;
+
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{

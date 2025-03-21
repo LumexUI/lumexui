@@ -7,6 +7,8 @@
                 Class="@GetStyles(nameof(S.Base))"
                 Style="@Style"
                 data-slot="base"
+                data-has-start-content="@HasStartContent.ToAttributeValue()"
+                data-has-end-content="@HasEndContent.ToAttributeValue()"
                 @attributes="@AdditionalAttributes">
     @if( AvatarContent is not null )
     {

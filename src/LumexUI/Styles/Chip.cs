@@ -26,6 +26,7 @@ internal static class Chip
 			{
 				[nameof( ChipSlots.Base )] = new ElementClass()
 					.Add( "relative" )
+					.Add( "group" )
 					.Add( "max-w-fit" )
 					.Add( "max-w-min" )
 					.Add( "inline-flex" )
@@ -115,19 +116,28 @@ internal static class Chip
 					[nameof( Size.Small )] = new SlotCollection
 					{
 						[nameof( ChipSlots.Base )] = "px-1 h-6 text-tiny *:data-[component=avatar]:size-4",
-						[nameof( ChipSlots.Content )] = "px-1",
+						[nameof( ChipSlots.Content )] = new ElementClass()
+							.Add( "px-1" )
+							.Add( "group-data-[has-start-content=true]:pl-0.5" )
+							.Add( "group-data-[has-end-content=true]:pr-0.5" ),
 						[nameof( ChipSlots.CloseButton )] = "text-medium"
 					},
 					[nameof( Size.Medium )] = new SlotCollection
 					{
 						[nameof( ChipSlots.Base )] = "px-1 h-7 text-small *:data-[component=avatar]:size-5",
-						[nameof( ChipSlots.Content )] = "px-2",
+						[nameof( ChipSlots.Content )] = new ElementClass()
+							.Add( "px-2" )
+							.Add( "group-data-[has-start-content=true]:pl-1" )
+							.Add( "group-data-[has-end-content=true]:pr-1" ),
 						[nameof( ChipSlots.CloseButton )] = "text-large"
 					},
 					[nameof( Size.Large )] = new SlotCollection
 					{
 						[nameof( ChipSlots.Base )] = "px-2 h-8 text-medium *:data-[component=avatar]:size-6",
-						[nameof( ChipSlots.Content )] = "px-2",
+						[nameof( ChipSlots.Content )] = new ElementClass()
+							.Add( "px-2" )
+							.Add( "group-data-[has-start-content=true]:pl-1" )
+							.Add( "group-data-[has-end-content=true]:pr-1" ),
 						[nameof( ChipSlots.CloseButton )] = "text-xl"
 					}
 				},
@@ -158,7 +168,7 @@ internal static class Chip
 
 				[nameof( LumexChip.Disabled )] = new VariantValueCollection
 				{
-					[nameof( bool.TrueString )] = new SlotCollection
+					[bool.TrueString] = new SlotCollection
 					{
 						[nameof( ChipSlots.Base )] = Utils.Disabled
 					}
