@@ -8,8 +8,11 @@
                 Style="@Style"
                 data-slot="base"
                 @attributes="@AdditionalAttributes">
-
-    @if( Variant is ChipVariant.Dot && StartContent is null )
+    @if( AvatarContent is not null )
+    {
+        @AvatarContent
+    }
+    else if( Variant is ChipVariant.Dot && StartContent is null )
     {
         <span class="@GetStyles(nameof(S.Dot))" data-slot="dot" />
     }

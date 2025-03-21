@@ -35,6 +35,11 @@ public partial class LumexChip : LumexComponentBase, ISlotComponent<ChipSlots>
 	/// <summary>
 	/// 
 	/// </summary>
+	[Parameter] public RenderFragment? AvatarContent { get; set; }
+
+	/// <summary>
+	/// 
+	/// </summary>
 	/// <remarks>
 	/// The default value is <see cref="Size.Medium"/>.
 	/// </remarks>

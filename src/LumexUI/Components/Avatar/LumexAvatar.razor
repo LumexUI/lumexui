@@ -18,6 +18,7 @@ else
         <LumexComponent As="@As"
                         Class="@GetStyles(nameof(S.Base))"
                         Style="@Style"
+                        data-component="avatar"
                         data-slot="base"
                         @attributes="@AdditionalAttributes">
             @if( !string.IsNullOrEmpty( Src ) )

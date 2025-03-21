@@ -114,19 +114,19 @@ internal static class Chip
 				{
 					[nameof( Size.Small )] = new SlotCollection
 					{
-						[nameof( ChipSlots.Base )] = "px-1 h-6 text-tiny",
+						[nameof( ChipSlots.Base )] = "px-1 h-6 text-tiny *:data-[component=avatar]:size-4",
 						[nameof( ChipSlots.Content )] = "px-1",
 						[nameof( ChipSlots.CloseButton )] = "text-medium"
 					},
 					[nameof( Size.Medium )] = new SlotCollection
 					{
-						[nameof( ChipSlots.Base )] = "px-1 h-7 text-small",
+						[nameof( ChipSlots.Base )] = "px-1 h-7 text-small *:data-[component=avatar]:size-5",
 						[nameof( ChipSlots.Content )] = "px-2",
 						[nameof( ChipSlots.CloseButton )] = "text-large"
 					},
 					[nameof( Size.Large )] = new SlotCollection
 					{
-						[nameof( ChipSlots.Base )] = "px-2 h-8 text-medium",
+						[nameof( ChipSlots.Base )] = "px-2 h-8 text-medium *:data-[component=avatar]:size-6",
 						[nameof( ChipSlots.Content )] = "px-2",
 						[nameof( ChipSlots.CloseButton )] = "text-xl"
 					}
