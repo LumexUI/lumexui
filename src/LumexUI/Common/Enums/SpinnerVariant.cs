@@ -9,15 +9,33 @@ namespace LumexUI.Common;
 /// </summary>
 public enum SpinnerVariant
 {
+	/// <summary>
+	/// A circular ring-shaped spinner.
+	/// </summary>
 	Ring,
 
+	/// <summary>
+	/// An arc-shaped spinner.
+	/// </summary>
 	Arc,
 
+	/// <summary>
+	/// An arc-shaped spinner with gradient coloring.
+	/// </summary>
 	ArcGradient,
 
+	/// <summary>
+	/// A spinner consisting of dots in a wave animation.
+	/// </summary>
 	DotsWave,
 
+	/// <summary>
+	/// A spinner consisting of dots with fade animation.
+	/// </summary>
 	DotsFade,
 
+	/// <summary>
+	/// A classic spinner style.
+	/// </summary>
 	Classic
 }
