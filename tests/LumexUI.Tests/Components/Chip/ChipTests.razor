@@ -1,0 +1,135 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public ChipTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexChip />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderDotWhenVariantIsDot()
+    {
+        var cut = Render(
+            @<LumexChip Variant="@ChipVariant.Dot" />
+        );
+
+        var dot = cut.FindBySlot( "dot" );
+
+        dot.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderAvatarIfProvided()
+    {
+        var cut = Render(
+            @<LumexChip>
+                <AvatarContent>
+                    <LumexAvatar data-testid="avatar" />
+                </AvatarContent>
+            </LumexChip>
+        );
+
+        var avatar = cut.FindByTestId( "avatar" );
+
+        avatar.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderStartContentIfProvided()
+    {
+        var cut = Render(
+            @<LumexChip>
+                <StartContent>
+                    <span data-testid="start-content" />
+                </StartContent>
+            </LumexChip>
+        );
+
+        var startContent = cut.FindByTestId( "start-content" );
+
+        startContent.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderEndContentIfProvided()
+    {
+        var cut = Render(
+            @<LumexChip>
+                <EndContent>
+                    <span data-testid="end-content" />
+                </EndContent>
+            </LumexChip>
+        );
+
+        var endContent = cut.FindByTestId( "end-content" );
+
+        endContent.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderCloseButtonIfOnCloseProvided()
+    {
+        var cut = Render(
+            @<LumexChip OnClose="@(() => {})" />
+        );
+
+        var closeButton = cut.FindBySlot( "close-button" );
+
+        closeButton.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldOverrideCloseButtonIfEndContentProvided()
+    {
+        var cut = Render(
+            @<LumexChip OnClose="@(() => {})">
+                <EndContent>
+                    <span data-testid="end-content" />
+                </EndContent>
+            </LumexChip>
+        );
+
+        var closeButton = cut.FindByTestId( "end-content" );
+
+        closeButton.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldTriggerOnCloseWhenCloseButtonClicked()
+    {
+        var clicked = false;
+        var cut = Render(
+            @<LumexChip OnClose="@((args) => clicked = !clicked)" />
+        );
+
+        var closeButton = cut.FindBySlot( "close-button" );
+        closeButton?.Click();
+
+        clicked.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldNotTriggerOnCloseIfDisabled()
+    {
+        var clicked = false;
+        var cut = Render(
+            @<LumexChip Disabled="@true" OnClose="@((args) => clicked = !clicked)" />
+        );
+
+        var closeButton = cut.FindBySlot( "close-button" );
+        closeButton?.Click();
+
+        clicked.Should().BeFalse();
+    }
+}
