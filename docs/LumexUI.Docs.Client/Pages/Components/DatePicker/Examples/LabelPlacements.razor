@@ -1,0 +1,26 @@
+﻿<div class="w-full grid grid-cols-1 gap-4">
+    @foreach (LabelPlacement placement in _labelPlacements)
+    {
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexDatePicker LabelPlacement="@placement"
+                                 Label="Date" />
+
+                <LumexDatePicker LabelPlacement="@placement"
+                                 Label="Date"
+                                 Placeholder="dd/MM/yyyy" />
+            </div>
+
+            <small class="text-default-400 mt-1">
+                @placement
+            </small>
+        </div>
+    }
+</div>
+
+@code {
+    private LabelPlacement[] _labelPlacements = [
+        LabelPlacement.Inside,
+        LabelPlacement.Outside
+    ];
+}
