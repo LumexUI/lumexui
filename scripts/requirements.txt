@@ -1,2 +1,2 @@
-requests==2.32.0
+requests==2.32.4
 joblib==1.2.0
