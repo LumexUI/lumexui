@@ -57,11 +57,5 @@ public enum InputType
 	/// An input field for selecting a color.
 	/// </summary>
 	[Description( "color" )]
-	Color,
-
-	/// <summary>
-	/// An input field for selecting a datetime.
-	/// </summary>
-	[Description( "date" )]
-	DateTime
+	Color
 }

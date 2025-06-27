@@ -1,0 +1,63 @@
+﻿@using FluentValidation
+@using FluentValidation.Results
+
+<LumexDateInput Variant="@InputVariant.Underlined"
+                Label="Date"
+                Required="@true"
+                ErrorMessage="@_userValidator.EmailErrorMessage"
+                Invalid="@(!string.IsNullOrEmpty(_userValidator.EmailErrorMessage))"
+                Color="@(!string.IsNullOrEmpty(_userValidator.EmailErrorMessage) ? ThemeColor.Danger : ThemeColor.Success)"
+                Value="@_user.Date"
+                ValueChanged="@OnDateChange"
+                Class="max-w-xs" />
+
+@code {
+    private User _user = new();
+    private UserValidator _userValidator = new();
+
+    protected override void OnInitialized()
+    {
+        _user.Date = DateTime.UtcNow;
+        Validate();
+    }
+
+    private void OnDateChange(DateTime? value)
+    {
+        _user.Date = value;
+        Validate();
+    }
+
+    private void Validate()
+    {
+        ValidationResult result = _userValidator.Validate(_user);
+
+        if (!result.IsValid)
+        {
+            _userValidator.EmailErrorMessage = result.Errors
+                .Where(failure => failure.PropertyName == nameof(User.Date))
+                .Select(failure => failure.ErrorMessage)
+                .FirstOrDefault();
+        }
+        else
+        {
+            _userValidator.EmailErrorMessage = null;
+        }
+    }
+
+    public class User
+    {
+        public DateTime? Date { get; set; }
+    }
+
+    public class UserValidator : AbstractValidator<User>
+    {
+        public string? EmailErrorMessage { get; set; }
+
+        public UserValidator()
+        {
+            RuleFor(user => user.Date)
+                .NotEmpty()
+                .WithMessage("Date is required");
+        }
+    }
+}

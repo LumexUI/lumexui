@@ -12,8 +12,5 @@
 </div>
 
 @code {
-    private LabelPlacement[] _labelPlacements = [
-        LabelPlacement.Inside,
-        LabelPlacement.Outside
-    ];
+    private LabelPlacement[] _labelPlacements = Enum.GetValues<LabelPlacement>();
 }
