@@ -28,8 +28,8 @@
     public void ShouldRenderMainWrapperWhenLabelOutside()
     {
         IRenderedFragment cut = Render(
-            @<LumexDateInput Label="Test" 
-                              LabelPlacement="@LabelPlacement.Outside" />
+            @<LumexDateInput Label="Test"
+                LabelPlacement="@LabelPlacement.Outside" />
         );
 
         cut.Find("[data-slot=main-wrapper]").Should().NotBeNull();
@@ -39,8 +39,8 @@
     public void ShouldRenderHelperWrapperWhenDescriptionProvided()
     {
         IRenderedFragment cut = Render(
-            @<LumexDateInput Label="Test" 
-                              Description="Test description" />
+            @<LumexDateInput Label="Test"
+                Description="Test description" />
         );
 
         cut.Find("[data-slot=helper-wrapper]").Should().NotBeNull();
@@ -51,8 +51,8 @@
     public void ShouldRenderHelperWrapperWhenErrorMessageProvided()
     {
         IRenderedFragment cut = Render(
-            @<LumexDateInput Label="Test" 
-                              ErrorMessage="Test error message" />
+            @<LumexDateInput Label="Test"
+                ErrorMessage="Test error message" />
         );
 
         Func<IElement> action = () => cut.Find("[data-slot=error-message]");
@@ -70,8 +70,8 @@
     {
         IRenderedFragment cut = Render(
             @<LumexDateInput Label="Test"
-                              ErrorMessage="Test error message"
-                              Invalid="@true" />
+                ErrorMessage="Test error message"
+                Invalid="@true" />
         );
 
         cut.Find("[data-slot=error-message]").Should().NotBeNull();
@@ -81,8 +81,8 @@
     public void ShouldHaveDisabledAttributeWhenDisabled()
     {
         IRenderedFragment cut = Render(
-            @<LumexDateInput Label="Test" 
-                              Disabled="@true" />
+            @<LumexDateInput Label="Test"
+                Disabled="@true" />
         );
 
         IElement input = cut.Find("input");
@@ -104,8 +104,8 @@
     {
         IRenderedFragment cut = Render(
             @<LumexDateInput Label="Test"
-                 Clearable="@true"
-                 Value="DateTime.UtcNow" />
+                Clearable="@true"
+                Value="@DateTime.UtcNow" />
         );
 
         IElement clearButton = cut.Find("[role=button]");
@@ -117,8 +117,8 @@
     {
         IRenderedComponent<LumexDateInput> cut = Render<LumexDateInput>(
             @<LumexDateInput Label="Test"
-                              Clearable="@true"
-                              Value="DateTime.UtcNow" />
+                Clearable="@true"
+                Value="@DateTime.UtcNow" />
         );
 
         IElement clearButton = cut.Find("[role=button]");
@@ -136,8 +136,8 @@
 
         IRenderedComponent<LumexDateInput> cut = Render<LumexDateInput>(
             @<LumexDateInput Label="Test"
-                              Clearable="@true"
-                              Value="now" />
+                Clearable="@true"
+                Value="@now" />
         );
 
         IElement clearButton = cut.Find("[role=button]");
@@ -157,9 +157,9 @@
 
         IRenderedComponent<LumexDateInput> cut = Render<LumexDateInput>(
             @<LumexDateInput Label="Test"
-                              Clearable="@true"
-                              OnCleared="@(() => isCleared = true)"
-                              Value="DateTime.UtcNow" />
+                Clearable="@true"
+                OnCleared="@(() => isCleared = true)"
+                Value="@DateTime.UtcNow" />
         );
 
         IElement clearButton = cut.Find("[role=button]");
@@ -188,8 +188,8 @@
     {
         IRenderedFragment cut = Render(
             @<LumexDateInput Label="Test"
-                              Disabled="@disabled"
-                              ReadOnly="@(@readonly)" />
+                Disabled="@disabled"
+                ReadOnly="@(@readonly)" />
         );
 
         IElement baseWrapper = cut.Find("[data-slot=base]");
@@ -203,7 +203,7 @@
     {
         IRenderedComponent<LumexDateInput> cut = Render<LumexDateInput>(
             @<LumexDateInput Label="Test"
-                              Behavior="@InputBehavior.OnInput" />
+                Behavior="@InputBehavior.OnInput" />
         );
 
         IElement input = cut.Find("input");
@@ -230,16 +230,16 @@
 
         IRenderedComponent<LumexDateInput> cut = Render<LumexDateInput>(
             @<LumexDateInput Label="Test"
-                              Behavior="@InputBehavior.OnChange" />
+                Behavior="@InputBehavior.OnChange" />
         );
 
         IElement input = cut.Find("input");
 
         input.Change(utcNow);
 
-        DateTime expectedUtwNow = new DateTime(utcNow.Ticks - (utcNow.Ticks % TimeSpan.TicksPerSecond), utcNow.Kind);
+        DateTime expectedUtcNow = new DateTime(utcNow.Ticks - (utcNow.Ticks % TimeSpan.TicksPerSecond), utcNow.Kind);
 
-        cut.Instance.Value.Should().Be(expectedUtwNow);
+        cut.Instance.Value.Should().Be(expectedUtcNow);
 
         DateTime expectedNow = new DateTime(now.ToUniversalTime().Ticks - (now.ToUniversalTime().Ticks % TimeSpan.TicksPerSecond), DateTimeKind.Utc);
 
@@ -255,7 +255,7 @@
 
         IRenderedComponent<LumexDateInput> cut = Render<LumexDateInput>(
             @<LumexDateInput Label="Test"
-                              Behavior="@InputBehavior.OnInput" />
+                Behavior="@InputBehavior.OnInput" />
         );
 
         IElement input = cut.Find("input");
@@ -271,8 +271,8 @@
     {
         IRenderedComponent<LumexDateInput> cut = Render<LumexDateInput>(
             @<LumexDateInput Label="Test"
-                              Behavior="@InputBehavior.OnInput"
-                              DebounceDelay="200" />
+                Behavior="@InputBehavior.OnInput"
+                DebounceDelay="200" />
         );
 
         IElement input = cut.Find("input");
@@ -298,8 +298,8 @@
     {
         Func<IRenderedFragment> action = () => Render(
             @<LumexDateInput Label="Test"
-                              Behavior="@InputBehavior.OnChange"
-                              DebounceDelay="200" />
+                Behavior="@InputBehavior.OnChange"
+                DebounceDelay="200" />
         );
 
         action.Should().Throw<InvalidOperationException>();

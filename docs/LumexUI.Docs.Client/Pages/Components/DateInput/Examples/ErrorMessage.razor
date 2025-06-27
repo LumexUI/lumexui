@@ -33,14 +33,14 @@
 
         if (!result.IsValid)
         {
-            _userValidator.EmailErrorMessage = result.Errors
+            _userValidator.DateErrorMessage = result.Errors
                 .Where(failure => failure.PropertyName == nameof(User.Date))
                 .Select(failure => failure.ErrorMessage)
                 .FirstOrDefault();
         }
         else
         {
-            _userValidator.EmailErrorMessage = null;
+            _userValidator.DateErrorMessage = null;
         }
     }
 
@@ -51,7 +51,7 @@
 
     public class UserValidator : AbstractValidator<User>
     {
-        public string? EmailErrorMessage { get; set; }
+        public string? DateErrorMessage { get; set; }
 
         public UserValidator()
         {

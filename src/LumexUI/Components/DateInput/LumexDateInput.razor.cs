@@ -39,7 +39,7 @@ public partial class LumexDateInput : LumexInputFieldBase<DateTime?>
 		if( DateInputType != InputDateType.Date )
 		{
 			throw new InvalidOperationException(
-				$"LumexDateInput does not currently support {DateInputType}. Only Date is emplemented." );
+				$"LumexDateInput does not currently support {DateInputType}. Only Date is implemented." );
 		}
 
 		SetInputType( "date" );
