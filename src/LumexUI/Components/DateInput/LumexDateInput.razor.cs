@@ -17,8 +17,11 @@ public partial class LumexDateInput : LumexInputFieldBase<DateTime?>
 	private const string DefaultParsingErrorMessage = "The {0} field must be a date.";
 
 	/// <summary>
-	/// 
+	/// Gets or sets the date input type of the.
 	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="InputDateType.Date"/>
+	/// </remarks>
 	[Parameter]
 	public InputDateType DateInputType { get; set; } = InputDateType.Date;
 
