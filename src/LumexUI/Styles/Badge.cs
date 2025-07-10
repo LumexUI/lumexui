@@ -67,6 +67,18 @@ internal static class Badge
 						[nameof( BadgeSlots.Badge )] = "px-1 text-small",
 					}
 				},
+
+				[nameof( LumexBadge.ShowOutline )] = new VariantValueCollection
+				{
+					[bool.TrueString] = new SlotCollection
+					{
+						[nameof( BadgeSlots.Badge )] = "border-2 border-background",
+					},
+					[bool.FalseString] = new SlotCollection
+					{
+						[nameof( BadgeSlots.Badge )] = "border-transparent border-0",
+					}
+				},
 			},
 
 			CompoundVariants = 

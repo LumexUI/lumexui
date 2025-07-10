@@ -59,6 +59,14 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 	[Parameter] public BadgePlacement Placement { get; set; } = BadgePlacement.TopEnd;
 
 	/// <summary>
+	/// Gets or sets a value indicating whether an outline is shown around the badge.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see langword="true"/>.
+	/// </remarks>
+	[Parameter] public bool ShowOutline { get; set; } = true;
+
+	/// <summary>
 	/// Gets or sets the CSS class names for the badge slots.
 	/// </summary>
 	[Parameter] public BadgeSlots? Classes { get; set; }
@@ -83,6 +91,7 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 			[nameof( Color )] = Color.ToString(),
 			[nameof( Variant )] = Variant.ToString(),
 			[nameof( Placement )] = Placement.ToString(),
+			[nameof( ShowOutline )] = ShowOutline.ToString(),
 		} );
 	}
 
