@@ -1,0 +1,380 @@
+﻿// Copyright (c) LumexUI 2024
+// LumexUI licenses this file to you under the MIT license
+// See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
+
+using System.Diagnostics.CodeAnalysis;
+
+using LumexUI.Common;
+using LumexUI.Utilities;
+
+using TailwindMerge;
+
+namespace LumexUI.Styles;
+
+[ExcludeFromCodeCoverage]
+internal static class Badge
+{
+	private static ComponentVariant? _variant;
+
+	public static ComponentVariant Style( TwMerge twMerge )
+	{
+		var twVariants = new TwVariants( twMerge );
+
+		return _variant ??= twVariants.Create( new VariantConfig()
+		{
+			Slots = new SlotCollection
+			{
+				[nameof( BadgeSlots.Base )] = new ElementClass()
+					.Add( "relative" )
+					.Add( "inline-flex" )
+					.Add( "shrink-0" ),
+
+				[nameof( BadgeSlots.Badge )] = new ElementClass()
+					.Add( "absolute" )
+					.Add( "z-10" )
+					.Add( "flex" )
+					.Add( "flex-wrap" )
+					.Add( "rounded-full" )
+					.Add( "whitespace-nowrap" )
+					.Add( "place-content-center" )
+					.Add( "origin-center" )
+					.Add( "items-center" )
+					.Add( "text-inherit" )
+					.Add( "select-none" )
+					.Add( "scale-100" )
+					.Add( "opacity-100" )
+					.Add( "data-[invisible=true]:scale-0" )
+					.Add( "data-[invisible=true]:opacity-0" )
+					// transition
+					.Add( "transition-transform-opacity" )
+					.Add( "duration-300" )
+			},
+
+			Variants = new VariantCollection
+			{
+				[nameof( LumexBadge.Size )] = new VariantValueCollection
+				{
+					[nameof( Size.Small )] = new SlotCollection
+					{
+						[nameof( BadgeSlots.Badge )] = "px-1 text-tiny",
+					},
+					[nameof( Size.Medium )] = new SlotCollection
+					{
+						[nameof( BadgeSlots.Badge )] = "px-1 text-small",
+					},
+					[nameof( Size.Large )] = new SlotCollection
+					{
+						[nameof( BadgeSlots.Badge )] = "px-1 text-small",
+					}
+				},
+			},
+
+			CompoundVariants = 
+			[
+				// solid & color
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Solid ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Default )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Solid[ThemeColor.Default]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Solid ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Primary )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Solid[ThemeColor.Primary]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Solid ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Secondary )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Solid[ThemeColor.Secondary]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Solid ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Success )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Solid[ThemeColor.Success]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Solid ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Warning )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Solid[ThemeColor.Warning]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Solid ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Danger )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Solid[ThemeColor.Danger]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Solid ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Info )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Solid[ThemeColor.Info]
+					}
+				},
+
+				// shadow & color
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Shadow ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Default )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Shadow[ThemeColor.Default]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Shadow ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Primary )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Shadow[ThemeColor.Primary]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Shadow ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Secondary )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Shadow[ThemeColor.Secondary]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Shadow ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Success )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Shadow[ThemeColor.Success]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Shadow ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Warning )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Shadow[ThemeColor.Warning]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Shadow ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Danger )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Shadow[ThemeColor.Danger]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Shadow ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Info )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Shadow[ThemeColor.Info]
+					}
+				},
+
+				// flat & color
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Flat ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Default )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Default]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Flat ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Primary )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Primary]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Flat ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Secondary )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Secondary]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Flat ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Success )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Success]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Flat ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Warning )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Warning]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Flat ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Danger )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Danger]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Variant )] = nameof( BadgeVariant.Flat ),
+						[nameof( LumexBadge.Color )] = nameof( ThemeColor.Info )
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Info]
+					}
+				},
+
+				// placement
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Placement )] = nameof( BadgePlacement.TopStart ),
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = "top-[10%] right-[10%] translate-x-1/2 -translate-y-1/2"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Placement )] = nameof( BadgePlacement.TopEnd ),
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = "top-[10%] left-[10%] -translate-x-1/2 -translate-y-1/2"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Placement )] = nameof( BadgePlacement.BottomStart ),
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = "bottom-[10%] right-[10%] translate-x-1/2 translate-y-1/2"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Placement )] = nameof( BadgePlacement.BottomEnd ),
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = "bottom-[10%] left-[10%] -translate-x-1/2 translate-y-1/2"
+					}
+				},
+			]
+		} );
+	}
+}
