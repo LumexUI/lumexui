@@ -100,7 +100,7 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
-		if( Content is not string or int or RenderFragment )
+		if( Content is not ( string or int or RenderFragment ) )
 		{
 			throw new InvalidOperationException(
 				$"{GetType()} requires the {nameof( Content )} parameter " +
