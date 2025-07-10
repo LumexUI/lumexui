@@ -26,6 +26,38 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 	[Parameter] public object? Content { get; set; }
 
 	/// <summary>
+	/// Gets or sets the visual variant of the badge.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="Variant.Solid"/>
+	/// </remarks>
+	[Parameter] public Variant Variant { get; set; }
+
+	/// <summary>
+	/// Gets or sets the color of the badge.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="ThemeColor.Default"/>.
+	/// </remarks>
+	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+
+	/// <summary>
+	/// Gets or sets the size of the badge.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="Size.Medium"/>.
+	/// </remarks>
+	[Parameter] public Size Size { get; set; } = Size.Medium;
+
+	/// <summary>
+	/// Gets or sets the placement of the badge relative to its anchor element.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="BadgePlacement.TopEnd"/>.
+	/// </remarks>
+	[Parameter] public BadgePlacement Placement { get; set; } = BadgePlacement.TopEnd;
+
+	/// <summary>
 	/// Gets or sets the CSS class names for the badge slots.
 	/// </summary>
 	[Parameter] public BadgeSlots? Classes { get; set; }
