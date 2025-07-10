@@ -16,6 +16,8 @@ namespace LumexUI;
 /// </summary>
 public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 {
+	internal const string Dot = "Dot";
+
 	/// <summary>
 	/// Gets or sets the content to render inside the badge.
 	/// </summary>
@@ -85,6 +87,7 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 	private Dictionary<string, ComponentSlot> _slots = [];
 
 	private bool _isOneChar;
+	private bool _isDot;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexBadge"/>.
@@ -112,6 +115,14 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 			_ => IsOneChar
 		};
 
+		_isDot = Content switch
+		{
+			string str => str.Length == 0,
+			int i => i.ToString().Length == 0,
+			null => true,
+			_ => false
+		};
+
 		var badge = Styles.Badge.Style( TwMerge );
 		_slots = badge( new()
 		{
@@ -121,6 +132,7 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 			[nameof( Placement )] = Placement.ToString(),
 			[nameof( ShowOutline )] = ShowOutline.ToString(),
 			[nameof( IsOneChar )] = _isOneChar.ToString(),
+			[nameof( Dot )] = _isDot.ToString(),
 		} );
 	}
 

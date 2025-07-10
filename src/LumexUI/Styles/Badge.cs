@@ -379,6 +379,44 @@ internal static class Badge
 					}
 				},
 
+				// isDot / size
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Dot )] = bool.TrueString,
+						[nameof( LumexBadge.Size )] = nameof( Size.Small ),
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = "w-3 h-3 min-w-3 min-h-3"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Dot )] = bool.TrueString,
+						[nameof( LumexBadge.Size )] = nameof( Size.Medium ),
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = "w-3.5 h-3.5 min-w-3.5 min-h-3.5"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.Dot )] = bool.TrueString,
+						[nameof( LumexBadge.Size )] = nameof( Size.Large ),
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = "w-4 h-4 min-w-4 min-h-4"
+					}
+				},
+
 				// placement
 				new CompoundVariant()
 				{
