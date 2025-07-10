@@ -67,6 +67,11 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 	[Parameter] public bool ShowOutline { get; set; } = true;
 
 	/// <summary>
+	/// Gets or sets a value indicating whether the badge is hidden.
+	/// </summary>
+	[Parameter] public bool Invisible { get; set; }
+
+	/// <summary>
 	/// Gets or sets the CSS class names for the badge slots.
 	/// </summary>
 	[Parameter] public BadgeSlots? Classes { get; set; }
