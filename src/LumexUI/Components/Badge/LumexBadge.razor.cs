@@ -146,8 +146,8 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 
 		return slot switch
 		{
-			nameof( BadgeSlots.Base ) => styles( Classes?.Base, Class ),
-			nameof( BadgeSlots.Badge ) => styles( Classes?.Badge ),
+			nameof( BadgeSlots.Base ) => styles( Classes?.Base ),
+			nameof( BadgeSlots.Badge ) => styles( Classes?.Badge, Class ),
 			_ => throw new NotImplementedException()
 		};
 	}
