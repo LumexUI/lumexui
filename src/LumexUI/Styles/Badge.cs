@@ -346,7 +346,7 @@ internal static class Badge
 				{
 					Conditions = new()
 					{
-						[nameof( LumexBadge.IsOneChar )] = bool.TrueString,
+						[nameof( LumexBadge.OneChar )] = bool.TrueString,
 						[nameof( LumexBadge.Size )] = nameof( Size.Small ),
 					},
 					Classes = new SlotCollection()
@@ -358,7 +358,7 @@ internal static class Badge
 				{
 					Conditions = new()
 					{
-						[nameof( LumexBadge.IsOneChar )] = bool.TrueString,
+						[nameof( LumexBadge.OneChar )] = bool.TrueString,
 						[nameof( LumexBadge.Size )] = nameof( Size.Medium ),
 					},
 					Classes = new SlotCollection()
@@ -370,7 +370,7 @@ internal static class Badge
 				{
 					Conditions = new()
 					{
-						[nameof( LumexBadge.IsOneChar )] = bool.TrueString,
+						[nameof( LumexBadge.OneChar )] = bool.TrueString,
 						[nameof( LumexBadge.Size )] = nameof( Size.Large ),
 					},
 					Classes = new SlotCollection()

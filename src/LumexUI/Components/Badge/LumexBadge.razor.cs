@@ -77,7 +77,7 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 	/// Gets or sets a value indicating whether the badge content is limited to a single character.
 	/// If true, the badge will have the same width and height.
 	/// </summary>
-	[Parameter] public bool IsOneChar { get; set; }
+	[Parameter] public bool OneChar { get; set; }
 
 	/// <summary>
 	/// Gets or sets the CSS class names for the badge slots.
@@ -112,7 +112,7 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 		{
 			string str => str.Length == 1,
 			int i => i.ToString().Length == 1,
-			_ => IsOneChar
+			_ => OneChar
 		};
 
 		_isDot = Content switch
@@ -131,7 +131,7 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 			[nameof( Variant )] = Variant.ToString(),
 			[nameof( Placement )] = Placement.ToString(),
 			[nameof( ShowOutline )] = ShowOutline.ToString(),
-			[nameof( IsOneChar )] = _isOneChar.ToString(),
+			[nameof( OneChar )] = _isOneChar.ToString(),
 			[nameof( Dot )] = _isDot.ToString(),
 		} );
 	}
