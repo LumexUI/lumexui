@@ -1,4 +1,16 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-<h3>LumexBadge</h3>
+@using S = BadgeSlots;
+
+<div class="@GetStyles(nameof(S.Base))" data-slot="base">
+    @ChildContent
+
+    <LumexComponent As="@As"
+                    Class="@GetStyles(nameof(S.Badge))"
+                    Style="@Style"
+                    data-slot="badge"
+                    @attributes="@AdditionalAttributes">
+        @Content
+    </LumexComponent>
+</div>
