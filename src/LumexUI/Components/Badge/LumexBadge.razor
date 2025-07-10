@@ -12,6 +12,13 @@
                     data-slot="badge"
                     data-invisible="@Invisible.ToAttributeValue()"
                     @attributes="@AdditionalAttributes">
-        @Content
+        @if( Content is RenderFragment renderFragment )
+        {
+            @renderFragment
+        }
+        else
+        {
+            @Content
+        }
     </LumexComponent>
 </div>
