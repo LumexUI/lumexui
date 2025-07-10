@@ -81,7 +81,7 @@ internal static class Badge
 				},
 			},
 
-			CompoundVariants = 
+			CompoundVariants =
 			[
 				// solid & color
 				new CompoundVariant()
@@ -338,6 +338,44 @@ internal static class Badge
 					Classes = new SlotCollection()
 					{
 						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Info]
+					}
+				},
+
+				// isOneChar / size
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.IsOneChar )] = bool.TrueString,
+						[nameof( LumexBadge.Size )] = nameof( Size.Small ),
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = "w-4 h-4 min-w-4 min-h-4"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.IsOneChar )] = bool.TrueString,
+						[nameof( LumexBadge.Size )] = nameof( Size.Medium ),
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = "w-5 h-5 min-w-5 min-h-5"
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexBadge.IsOneChar )] = bool.TrueString,
+						[nameof( LumexBadge.Size )] = nameof( Size.Large ),
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( BadgeSlots.Badge )] = "w-6 h-6 min-w-6 min-h-6"
 					}
 				},
 

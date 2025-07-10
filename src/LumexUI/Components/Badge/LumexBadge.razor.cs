@@ -72,11 +72,19 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 	[Parameter] public bool Invisible { get; set; }
 
 	/// <summary>
+	/// Gets or sets a value indicating whether the badge content is limited to a single character.
+	/// If true, the badge will have the same width and height.
+	/// </summary>
+	[Parameter] public bool IsOneChar { get; set; }
+
+	/// <summary>
 	/// Gets or sets the CSS class names for the badge slots.
 	/// </summary>
 	[Parameter] public BadgeSlots? Classes { get; set; }
 
 	private Dictionary<string, ComponentSlot> _slots = [];
+
+	private bool _isOneChar;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexBadge"/>.
@@ -89,6 +97,21 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
+		if( Content is not string or int or RenderFragment )
+		{
+			throw new InvalidOperationException(
+				$"{GetType()} requires the {nameof( Content )} parameter " +
+				$"to be of type {typeof( string )}, {typeof( int )}, or {typeof( RenderFragment )}."
+			);
+		}
+
+		_isOneChar = Content switch
+		{
+			string str => str.Length == 1,
+			int i => i.ToString().Length == 1,
+			_ => IsOneChar
+		};
+
 		var badge = Styles.Badge.Style( TwMerge );
 		_slots = badge( new()
 		{
@@ -97,6 +120,7 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 			[nameof( Variant )] = Variant.ToString(),
 			[nameof( Placement )] = Placement.ToString(),
 			[nameof( ShowOutline )] = ShowOutline.ToString(),
+			[nameof( IsOneChar )] = _isOneChar.ToString(),
 		} );
 	}
 
