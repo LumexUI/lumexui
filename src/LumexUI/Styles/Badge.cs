@@ -426,7 +426,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = "top-[10%] right-[10%] translate-x-1/2 -translate-y-1/2"
+						[nameof( BadgeSlots.Badge )] = "top-[10%] left-[10%] -translate-x-1/2 -translate-y-1/2"
 					}
 				},
 				new CompoundVariant()
@@ -437,7 +437,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = "top-[10%] left-[10%] -translate-x-1/2 -translate-y-1/2"
+						[nameof( BadgeSlots.Badge )] = "top-[10%] right-[10%] translate-x-1/2 -translate-y-1/2"
 					}
 				},
 				new CompoundVariant()
@@ -448,7 +448,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = "bottom-[10%] right-[10%] translate-x-1/2 translate-y-1/2"
+						[nameof( BadgeSlots.Badge )] = "bottom-[10%] left-[10%] -translate-x-1/2 translate-y-1/2"
 					}
 				},
 				new CompoundVariant()
@@ -459,7 +459,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = "bottom-[10%] left-[10%] -translate-x-1/2 translate-y-1/2"
+						[nameof( BadgeSlots.Badge )] = "bottom-[10%] right-[10%] translate-x-1/2 translate-y-1/2"
 					}
 				},
 			]
