@@ -40,9 +40,9 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 	/// Gets or sets the visual variant of the badge.
 	/// </summary>
 	/// <remarks>
-	/// The default value is <see cref="Variant.Solid"/>
+	/// The default value is <see cref="BadgeVariant.Solid"/>
 	/// </remarks>
-	[Parameter] public Variant Variant { get; set; }
+	[Parameter] public BadgeVariant Variant { get; set; }
 
 	/// <summary>
 	/// Gets or sets the color of the badge.
