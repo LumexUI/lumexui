@@ -112,7 +112,7 @@ public partial class LumexBadge : LumexComponentBase, ISlotComponent<BadgeSlots>
 		{
 			string str => str.Length == 1,
 			int i => i.ToString().Length == 1,
-			_ => throw new NotImplementedException()
+			_ => false
 		};
 
 		_isDot = Content switch
