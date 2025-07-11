@@ -1,0 +1,50 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public BadgeTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexBadge>New</LumexBadge>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderChildrenAndContent()
+    {
+        RenderFragment content = @<span data-testid="badge-content" />;
+
+        var cut = Render(
+            @<LumexBadge Content="@content">
+                <span data-testid="badge-children">new</span>
+            </LumexBadge>
+        );
+
+        cut.FindByTestId( "badge-content" ).Should().NotBeNull();
+        cut.FindByTestId( "badge-children" ).Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldBeInvisibleIfInvisibleIsTrue()
+    {
+        RenderFragment content = @<span data-testid="badge-content" />;
+
+        var cut = Render(
+            @<LumexBadge Content="@content" Invisible="@true" data-testid="badge-root">
+                <span data-testid="badge-children">new</span>
+            </LumexBadge>
+        );
+
+        var badgeRoot = cut.FindByTestId( "badge-root" );
+
+        badgeRoot?.GetAttribute( "data-invisible" ).Should().Be( "true" );
+    }
+}
