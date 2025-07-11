@@ -1,0 +1,104 @@
+﻿@page "/docs/components/badge"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Badge.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+        The badge component is used to display small indicators like status,
+        counts, or notifications, typically attached to another element.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Sizes">
+        <p>Use <Code>Size</Code> parameter to adjust the badge size.</p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>Use <Code>Color</Code> parameter to set the badge color.</p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Variants">
+        <p>Use <Code>Variant</Code> parameter to change the badge variant.</p>
+        <Variants />
+    </DocsSection>
+
+    <DocsSection Title="Placements">
+        <p>Use <Code>Placement</Code> parameter to control the badge position.</p>
+        <Placements />
+    </DocsSection>
+
+    <DocsSection Title="Visibility">
+        <p>Use <Code>Invisible</Code> parameter to show or hide the badge.</p>
+        <Visibility />
+    </DocsSection>
+
+    <DocsSection Title="Outline">
+        <p>
+            By default, the badge has an outline.
+            Use <Code>ShowOutline</Code> parameter to disable it.
+        </p>
+        <Outline />
+    </DocsSection>
+
+    <DocsSection Title="Content Examples">
+        <Examples />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Chip</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the badge.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the slots.</li>
+        </ul>
+    </div>
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Sizes"),
+            new("Colors"),
+            new("Variants"),
+            new("Placements"),
+            new("Visibility"),
+            new("Outline"),
+            new("Content Examples"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(BadgeSlots.Base), "The main container that wraps the badge and its anchor element."),
+        new(nameof(BadgeSlots.Badge), "The element representing the badge itself."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexBadge),
+        nameof(LumexAvatar),
+        nameof(LumexIcon),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Badge",
+            category: "Components",
+            description: "Badges are small indicators used to display status, counts, or contextual information attached to other UI elements.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Badge", isServer: true )
+        );
+    }
+}

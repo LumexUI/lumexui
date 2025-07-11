@@ -1,0 +1,30 @@
+﻿<div class="flex gap-6 items-center">
+    <LumexBadge Content="5" Color="@ThemeColor.Danger">
+        <LumexAvatar Radius="@Radius.Medium" Src="https://i.pravatar.cc/150?img=2" />
+    </LumexBadge>
+
+    <LumexBadge Color="@ThemeColor.Success" Placement="@BadgePlacement.BottomEnd">
+        <LumexAvatar Radius="@Radius.Full" Src="https://i.pravatar.cc/150?img=6" />
+    </LumexBadge>
+
+    <LumexBadge Content="@("new")" Color="@ThemeColor.Danger" Size="@Size.Small">
+        <LumexAvatar Bordered="@true"
+                     Radius="@Radius.Medium"
+                     Color="@ThemeColor.Danger"
+                     Src="https://i.pravatar.cc/150?img=9" />
+    </LumexBadge>
+
+    <LumexBadge Content="@_checkIcon"
+                OneChar="@true"
+                Color="@ThemeColor.Success"
+                Placement="@BadgePlacement.BottomEnd">
+        <LumexAvatar Bordered="@true"
+                     Color="@ThemeColor.Success"
+                     Radius="@Radius.Medium"
+                     Src="https://i.pravatar.cc/150?img=11" />
+    </LumexBadge>
+</div>
+
+@code {
+    private RenderFragment _checkIcon = @<LumexIcon Icon="@Icons.Rounded.Check" />;
+}

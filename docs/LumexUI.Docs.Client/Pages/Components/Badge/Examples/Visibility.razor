@@ -1,0 +1,22 @@
+﻿<div class="space-y-4">
+    <div class="flex items-center gap-4">
+        <LumexBadge Content="@("99+")"
+                    Color="@ThemeColor.Danger"
+                    Invisible="@(!_isVisible)">
+            <LumexIcon Icon="@Icons.Rounded.Notifications" Size="@new("32")" />
+        </LumexBadge>
+
+        <LumexBadge Content="5"
+                    Color="@ThemeColor.Danger"
+                    Invisible="@(!_isVisible)">
+            <LumexIcon Icon="@Icons.Rounded.ShoppingBag" Size="@new("32")" />
+        </LumexBadge>
+    </div>
+
+    <LumexSwitch @bind-Value="@_isVisible">Show badge</LumexSwitch>
+</div>
+
+
+@code {
+    private bool _isVisible;
+}
