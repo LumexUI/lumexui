@@ -47,4 +47,49 @@
 
         badgeRoot?.GetAttribute( "data-invisible" ).Should().Be( "true" );
     }
+
+    [Theory]
+    [InlineData( "5" )]
+    [InlineData( 5 )]
+    public void ShouldApplyCorrespondingStylesIfContentIsOneChar( object? content )
+    {
+        var cut = Render(
+            @<LumexBadge Content="@content" data-testid="badge-root">
+                <span data-testid="badge-children">new</span>
+            </LumexBadge>
+        );
+
+        var badgeRoot = cut.FindByTestId( "badge-root" );
+
+        badgeRoot?.ClassName.Should().Contain( "w-5 h-5 min-w-5 min-h-5" );
+    }
+
+
+    [Theory]
+    [InlineData( "" )]
+    [InlineData( null )]
+    public void ShouldApplyCorrespondingStylesIfContentIsNullOrEmpty( object? content )
+    {
+        var cut = Render(
+            @<LumexBadge Content="@content" data-testid="badge-root">
+                <span data-testid="badge-children">new</span>
+            </LumexBadge>
+        );
+
+        var badgeRoot = cut.FindByTestId( "badge-root" );
+
+        badgeRoot?.ClassName.Should().Contain( "w-3.5 h-3.5 min-w-3.5 min-h-3.5" );
+    }
+
+    [Fact]
+    public void ShouldThrowIfContentTypeIsNotAllowed()
+    {
+        List<string> content = [];
+
+        var action = () => Render(
+            @<LumexBadge Content="@content" />
+        );
+
+        action.Should().Throw<InvalidOperationException>();
+    }
 }
