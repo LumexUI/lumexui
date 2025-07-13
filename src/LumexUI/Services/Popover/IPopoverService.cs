@@ -10,11 +10,6 @@ namespace LumexUI.Services;
 public interface IPopoverService
 {
 	/// <summary>
-	/// Gets the last shown popover.
-	/// </summary>
-	LumexPopover? LastShown { get; }
-
-	/// <summary>
 	/// Registers a popover with the service.
 	/// </summary>
 	/// <param name="popover">The popover to register.</param>
@@ -25,12 +20,6 @@ public interface IPopoverService
 	/// </summary>
 	/// <param name="popover">The popover to unregister.</param>
 	void Unregister( LumexPopover popover );
-
-	/// <summary>
-	/// Sets the last shown popover.
-	/// </summary>
-	/// <param name="popover">The popover to set as the last shown instance.</param>
-	void SetLastShown( LumexPopover? popover );
 
 	/// <summary>
 	/// 

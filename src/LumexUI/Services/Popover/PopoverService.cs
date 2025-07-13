@@ -15,12 +15,6 @@ public class PopoverService : IPopoverService
 	public LumexPopover? LastShown { get; private set; }
 
 	/// <inheritdoc />
-	public void SetLastShown( LumexPopover? popover )
-	{
-		LastShown = popover;
-	}
-
-	/// <inheritdoc />
 	public void Register( LumexPopover popover )
 	{
 		if( !string.IsNullOrEmpty( popover.Id ) )
