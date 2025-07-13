@@ -1,4 +1,25 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
+<div data-popoverref="@_popoverId"
+     @onpointerenter="@OnPointerEnterAsync"
+     @onpointerleave="@OnPointerLeaveAsync">
+    @ChildContent
 
+    <LumexPopover Id="@_popoverId"
+                  Open="@_isOpen"
+                  Class="@Class"
+                  Style="@Style"
+                  @attributes="@AdditionalAttributes">
+        <LumexPopoverContent>
+            @if( Content is RenderFragment renderFragment )
+            {
+                @renderFragment
+            }
+            else
+            {
+                @Content
+            }
+        </LumexPopoverContent>
+    </LumexPopover>
+</div>
