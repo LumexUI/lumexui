@@ -2,8 +2,10 @@
 @inherits LumexComponentBase
 
 <div data-popoverref="@_popoverId"
-     @onpointerenter="@OnPointerEnterAsync"
-     @onpointerleave="@OnPointerLeaveAsync">
+     @onmouseenter="@OnMouseEnterAsync"
+     @onmouseleave="@OnMouseLeaveAsync"
+     @onfocusin="@OnFocusInAsync" 
+     @onfocusout="@OnFocusOutAsync">
     @ChildContent
 
     <LumexPopover Id="@_popoverId"
@@ -17,6 +19,7 @@
                   Placement="@GetPlacement()"
                   Class="@Class"
                   Style="@Style"
+                  role="tooltip"
                   @attributes="@AdditionalAttributes">
         <LumexPopoverContent>
             @if( Content is RenderFragment renderFragment )

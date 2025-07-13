@@ -94,16 +94,25 @@ public partial class LumexTooltip : LumexComponentBase, ISlotComponent<TooltipSl
 
 	private readonly string _popoverId = Identifier.New();
 
-	private Task OnPointerEnterAsync()
+	private Task OnMouseEnterAsync() => OpenAsync();
+	private Task OnMouseLeaveAsync() => CloseAsync();
+	private Task OnFocusInAsync() => OpenAsync();
+	private Task OnFocusOutAsync() => CloseAsync();
+
+	private Task OpenAsync()
 	{
-		Open = true;
-		return OpenChanged.InvokeAsync( true );
+		return SetOpenAsync( true );
 	}
 
-	private Task OnPointerLeaveAsync()
+	private Task CloseAsync()
 	{
-		Open = false;
-		return OpenChanged.InvokeAsync( false );
+		return SetOpenAsync( false );
+	}
+
+	private Task SetOpenAsync( bool value )
+	{
+		Open = value;
+		return OpenChanged.InvokeAsync( value );
 	}
 
 	private PopoverPlacement GetPlacement()
