@@ -35,7 +35,7 @@
                                 type="button"
                                 data-slot="trigger"
                                 data-popoverref="@_popoverRef?.Id"
-                                data-open="@Utils.GetDataAttributeValue( _isOpened )"
+                                data-open="@Utils.GetDataAttributeValue( _isOpen )"
                                 @onclick="@TriggerAsync"
                                 @onfocus="@OnFocusAsync"
                                 @onblur="@OnBlurAsync">
@@ -48,7 +48,7 @@
                     <LumexIcon Icon="@Icons.Rounded.KeyboardArrowDown"
                                Class="@_slots.SelectorIcon"
                                data-slot="selector-icon"
-                               data-open="@Utils.GetDataAttributeValue( _isOpened )">
+                               data-open="@Utils.GetDataAttributeValue( _isOpen )">
                     </LumexIcon>
                 </LumexComponent>
                 @_renderHelperWrapper
@@ -95,7 +95,7 @@
                       Classes="@_popoverSlots"
                       data-slot="popover"
                       @ref="@_popoverRef"
-                      @bind-Opened="@_isOpened">
+                      @bind-Open="@_isOpen">
             <LumexPopoverContent>
                 @if (_context.IsMultiSelect)
                 {

@@ -45,7 +45,7 @@ public partial class LumexDropdownItem : MenuItem, ISlotComponent<DropdownItemSl
 			return;
 		}
 
-		await Dropdown.HideAsync();
+		await Dropdown.CloseAsync();
 		await OnClick.InvokeAsync( args );
 
 		Dropdown.Rerender();

@@ -62,7 +62,7 @@ public partial class LumexPopoverTrigger : LumexButton
 			return;
 		}
 
-		await Context.TriggerAsync();
+		//await Context.ToggleAsync();
 		await OnClick.InvokeAsync( args );
 	}
 
