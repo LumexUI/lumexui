@@ -7,7 +7,14 @@
     @ChildContent
 
     <LumexPopover Id="@_popoverId"
-                  Open="@_isOpen"
+                  Open="@Open"
+                  Size="@Size"
+                  Color="@Color"
+                  Radius="@Radius"
+                  Shadow="@Shadow"
+                  Offset="@Offset"
+                  ShowArrow="@ShowArrow"
+                  Placement="@GetPlacement()"
                   Class="@Class"
                   Style="@Style"
                   @attributes="@AdditionalAttributes">
