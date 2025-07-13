@@ -40,10 +40,14 @@ export function portalTo(element, selector = undefined) {
     }
 }
 
-export function createOutsideClickHandler(element) {
+export function createOutsideClickHandler(elements) {
     const clickHandler = event => {
-        if (element && !element.contains(event.target)) {
-            element.dispatchEvent(new CustomEvent('clickoutside', { bubbles: true }));
+        const isInsideAny = elements.some(el => el && el.contains(event.target));
+
+        if (!isInsideAny) {
+            elements.forEach(el =>
+                el?.dispatchEvent(new CustomEvent('clickoutside', { bubbles: true }))
+            );
         }
     };
 

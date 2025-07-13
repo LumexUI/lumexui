@@ -26,19 +26,19 @@ async function initialize(id, options) {
         const arrowElement = popover.querySelector('[data-slot=arrow]');
 
         portalTo(popover);
-        destroyOutsideClickHandler = createOutsideClickHandler(popover);
+        destroyOutsideClickHandler = createOutsideClickHandler([ref, popover]);
 
         const {
+            offset: offsetVal,
             placement,
             showArrow,
-            offset: offsetVal,
-            matchRefWidth
+            matchRefWidth,
         } = options;
 
         const middlewares = [
+            offset(offsetVal),
             flip(),
             shift(),
-            offset(offsetVal)
         ];
 
         if (showArrow) {
@@ -59,7 +59,7 @@ async function initialize(id, options) {
 
         const data = await computePosition(ref, popover, {
             placement: placement,
-            middleware: middlewares
+            middleware: middlewares,
         });
 
         positionPopover(popover, data);
@@ -68,11 +68,11 @@ async function initialize(id, options) {
             positionArrow(arrowElement, data);
         }
     } catch (error) {
-        console.error('Error in popover.show:', error);
+        console.error('Error in popover.initialize:', error);
     }
 
-    function positionPopover(target, data) {
-        Object.assign(target.style, {
+    function positionPopover(popover, data) {
+        Object.assign(popover.style, {
             left: `${data.x}px`,
             top: `${data.y}px`,
         });
