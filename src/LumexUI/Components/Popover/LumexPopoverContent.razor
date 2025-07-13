@@ -3,13 +3,13 @@
 
 @if( Popover.Open )
 {
-    <PopoverWrapper>
-        <Motion Enter="@(new { Opacity = new float[] { 0, 1 } })">
+    <PopoverWrapper Class="@Popover.Slots["Wrapper"]()">
+        @* <Motion Enter="@_motionProps.Enter"> *@
             <div role="dialog"
-                    class="@Popover.Slots["Base"]( Popover.Classes?.Base, Popover.Class )"
-                    tabindex="-1"
-                    data-slot="base"
-                    @attributes="@Popover.AdditionalAttributes">
+                 class="@Popover.Slots["Base"]( Popover.Classes?.Base, Popover.Class )"
+                 tabindex="-1"
+                 data-slot="base"
+                 @attributes="@Popover.AdditionalAttributes">
                 <LumexComponent As="@As"
                                 Class="@Popover.Slots["Content"](Popover.Classes?.Content, Class)"
                                 Style="@RootStyle"
@@ -21,9 +21,9 @@
                 @if( Popover.ShowArrow )
                 {
                     <span class="@Popover.Slots["Arrow"]( Popover.Classes?.Arrow )"
-                            data-slot="arrow" />
+                          data-slot="arrow" />
                 }
             </div>
-        </Motion>
+        @* </Motion> *@
     </PopoverWrapper>
 }

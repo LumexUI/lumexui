@@ -30,6 +30,10 @@ internal static class Popover
 					.Add( "bg-transparent" )
 					.ToString(),
 
+				["Wrapper"] = new ElementClass()
+					.Add( "animate-enter" )
+					.ToString(),
+
 				[nameof( PopoverSlots.Content )] = new ElementClass()
 					.Add( "z-10" )
 					.Add( "py-1" )

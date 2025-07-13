@@ -36,34 +36,41 @@ public class PopoverWrapper : LumexComponentBase, IAsyncDisposable
 	private LumexPopover Popover => Context.Owner;
 
 	private IJSObjectReference _jsModule = default!;
-
-	/// <inheritdoc />
-	protected override async Task OnAfterRenderAsync( bool firstRender )
-	{
-		if( firstRender )
-		{
-			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
-			await _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id, Context.Owner.Options );
-		}
-	}
+	private bool _jsModuleLoaded;
 
 	/// <inheritdoc />
 	protected override void BuildRenderTree( RenderTreeBuilder builder )
 	{
-		builder.OpenElement( 0, As );
-		builder.AddAttribute( 1, "style", _style );
-		builder.AddAttribute( 2, "data-popover", Popover.Id );
-		builder.AddAttribute( 3, "onclickoutside", EventCallback.Factory.Create<EventArgs>( this, async e => await CloseAsync() ) );
-		builder.AddMultipleAttributes( 4, AdditionalAttributes );
-		builder.AddContent( 5, ChildContent );
-		builder.CloseElement();
+		if( _jsModuleLoaded )
+		{
+			builder.OpenElement( 0, As );
+			builder.AddAttribute( 1, "class", Class );
+			builder.AddAttribute( 2, "style", _style );
+			builder.AddAttribute( 3, "data-popover", Popover.Id );
+			builder.AddAttribute( 4, "onclickoutside", EventCallback.Factory.Create<EventArgs>( this, async e => await CloseAsync() ) );
+			builder.AddMultipleAttributes( 5, AdditionalAttributes );
+			builder.AddContent( 6, ChildContent );
+			builder.CloseElement();
+		}
+	}
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync( bool firstRender )
+	{
+		if( !_jsModuleLoaded )
+		{
+			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
+			_jsModuleLoaded = true;
+			StateHasChanged(); // Trigger a second render for initialization
+			return;
+		}
+
+		await _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id, Context.Owner.Options );
 	}
 
 	private async ValueTask CloseAsync()
 	{
 		await Popover.CloseAsync();
-		await _jsModule.InvokeVoidAsync( "popover.destroy" );
-
 		Popover.Rerender();
 	}
 
@@ -75,7 +82,7 @@ public class PopoverWrapper : LumexComponentBase, IAsyncDisposable
 		{
 			if( _jsModule is not null )
 			{
-				await CloseAsync();
+				await _jsModule.InvokeVoidAsync( "popover.destroy" );
 				await _jsModule.DisposeAsync();
 			}
 		}
