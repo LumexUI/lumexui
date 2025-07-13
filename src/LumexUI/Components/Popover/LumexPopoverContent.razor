@@ -5,25 +5,26 @@
 {
     <PopoverWrapper Class="@Popover.Slots["Wrapper"]()">
         @* <Motion Enter="@_motionProps.Enter"> *@
-            <div role="dialog"
-                 class="@Popover.Slots["Base"]( Popover.Classes?.Base, Popover.Class )"
-                 tabindex="-1"
-                 data-slot="base"
-                 @attributes="@Popover.AdditionalAttributes">
-                <LumexComponent As="@As"
-                                Class="@Popover.Slots["Content"](Popover.Classes?.Content, Class)"
-                                Style="@RootStyle"
-                                data-slot="content"
-                                @attributes="@AdditionalAttributes">
-                    @ChildContent
-                </LumexComponent>
+        <div role="dialog"
+             class="@Popover.Slots["Base"]( Popover.Classes?.Base, Popover.Class )"
+             tabindex="-1"
+             data-slot="base"
+             data-open="@Popover.Open.ToAttributeValue()"
+             @attributes="@Popover.AdditionalAttributes">
+            <LumexComponent As="@As"
+                            Class="@Popover.Slots["Content"](Popover.Classes?.Content, Class)"
+                            Style="@RootStyle"
+                            data-slot="content"
+                            @attributes="@AdditionalAttributes">
+                @ChildContent
+            </LumexComponent>
 
-                @if( Popover.ShowArrow )
-                {
-                    <span class="@Popover.Slots["Arrow"]( Popover.Classes?.Arrow )"
-                          data-slot="arrow" />
-                }
-            </div>
+            @if( Popover.ShowArrow )
+            {
+                <span class="@Popover.Slots["Arrow"]( Popover.Classes?.Arrow )"
+                      data-slot="arrow" />
+            }
+        </div>
         @* </Motion> *@
     </PopoverWrapper>
 }

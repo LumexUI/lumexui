@@ -21,147 +21,96 @@
     [Fact]
     public void ShouldRenderCorrectly()
     {
-        var action = () => Render<LumexPopover>(
-    @<LumexPopover>
-        <LumexPopoverTrigger>Show Popover</LumexPopoverTrigger>
-        <LumexPopoverContent>
-            <p>This is the content of the popover.</p>
-        </LumexPopoverContent>
-    </LumexPopover>
-    );
+        var id = "1";
+        var action = () => Render(
+            @<text>
+                <LumexButton OnClick="@(() => TriggerAsync( id ))" data-popoverref="@id">
+                    Trigger
+                </LumexButton>
+                <LumexPopover Id="@id">
+                    <LumexPopoverContent>
+                        <p>This is the content of the popover.</p>
+                    </LumexPopoverContent>
+                </LumexPopover>
+            </text>
+        );
 
         action.Should().NotThrow();
     }
 
     [Fact]
-    public void ShouldShowOnTrigger()
+    public void ShouldOpenOnTriggerClick()
     {
-        var cut = Render<LumexPopover>(
-    @<LumexPopover>
-        <LumexPopoverTrigger>Show Popover</LumexPopoverTrigger>
-        <LumexPopoverContent>
-            <p>This is the content of the popover.</p>
-        </LumexPopoverContent>
-    </LumexPopover>
+        var id = "2";
+        var cut = Render(
+            @<text>
+                <LumexButton OnClick="@(() => TriggerAsync( id ))" data-popoverref="@id">
+                    Trigger
+                </LumexButton>
+                <LumexPopover Id="@id">
+                    <LumexPopoverContent>
+                        <p>This is the content of the popover.</p>
+                    </LumexPopoverContent>
+                </LumexPopover>
+            </text>
         );
 
-        var popoverTrigger = cut.FindComponent<LumexPopoverTrigger>();
-        var triggerButton = popoverTrigger.Find( "button" );
+        var trigger = cut.Find( "[data-popoverref]" );
+        trigger.Click();
 
-        cut.Instance.Opened.Should().BeFalse( because: "An initial state" );
-
-        triggerButton.Click();
-
-        cut.Instance.Opened.Should().BeTrue( because: "The trigger is clicked" );
+        var popover = cut.FindBySlot( "base" );
+        popover?.GetAttribute("data-open").Should().Be( "true" );
     }
 
     [Fact]
-    public void ShouldHideOnOutsideClick()
+    public void ShouldCloseOnOutsideClick()
     {
-        var cut = Render<LumexPopover>(
-    @<LumexPopover>
-        <LumexPopoverTrigger>Show Popover</LumexPopoverTrigger>
-        <LumexPopoverContent>
-            <p>This is the content of the popover.</p>
-        </LumexPopoverContent>
-    </LumexPopover>
-    );
-
-        var popoverTrigger = cut.FindComponent<LumexPopoverTrigger>();
-        var triggerButton = popoverTrigger.Find( "button" );
-
-        cut.Instance.Opened.Should().BeFalse( because: "An initial state" );
-
-        triggerButton.Click();
-
-        cut.Instance.Opened.Should().BeTrue( because: "The trigger is clicked" );
+        var id = "3";
+        var cut = Render(
+            @<text>
+                <LumexButton OnClick="@(() => TriggerAsync( id ))" data-popoverref="@id">
+                    Trigger
+                </LumexButton>
+                <LumexPopover Id="@id" Open="@true">
+                    <LumexPopoverContent>
+                        <p>This is the content of the popover.</p>
+                    </LumexPopoverContent>
+                </LumexPopover>
+            </text>
+        );
 
         cut.Find( "[data-popover]" ).TriggerEvent( "onclickoutside", new EventArgs() );
 
-        cut.Instance.Opened.Should().BeFalse( because: "An outside click occured" );
-    }
-
-    // [Fact]
-    // public void ShouldNotShowOnTriggeringShownOne()
-    // {
-    //     var cut = Render<LumexPopover>(
-    // @<LumexPopover>
-    //     <LumexPopoverTrigger>Show Popover</LumexPopoverTrigger>
-    //     <LumexPopoverContent>
-    //         <p>This is the content of the popover.</p>
-    //     </LumexPopoverContent>
-    // </LumexPopover>
-    //     );
-
-    //     var popoverTrigger = cut.FindComponent<LumexPopoverTrigger>();
-    //     var triggerButton = popoverTrigger.Find( "button" );
-
-    //     cut.Instance.Opened.Should().BeFalse( because: "An initial state" );
-
-    //     triggerButton.Click();
-
-    //     cut.Instance.Opened.Should().BeTrue( because: "The trigger is clicked" );
-
-    //     // Triggering the opened popover also triggers the 'clickoutside' event first
-    //     cut.Find( "[data-popover]" ).TriggerEvent( "onclickoutside", new EventArgs() );
-    //     triggerButton.Click();
-
-    //     cut.Instance.Opened.Should().BeFalse( because: "An outside click occured" );
-    // }
-
-    [Fact]
-    public void ShouldHidePopoverWhenOpeningAnotherOne()
-    {
-        var cut = Render(
-    @<text>
-        <LumexPopover>
-            <LumexPopoverTrigger>Show Popover</LumexPopoverTrigger>
-            <LumexPopoverContent>
-                <p>This is the content of the popover.</p>
-            </LumexPopoverContent>
-        </LumexPopover>
-        <LumexPopover>
-            <LumexPopoverTrigger>Show Popover 2</LumexPopoverTrigger>
-            <LumexPopoverContent>
-                <p>This is the content of the popover.</p>
-            </LumexPopoverContent>
-        </LumexPopover>
-    </text>
-        );
-
-        var popovers = cut.FindComponents<LumexPopover>();
-        var popoverTriggers = cut.FindComponents<LumexPopoverTrigger>();
-
-        popoverTriggers[0].Find( "button" ).Click();
-
-        popovers[0].Instance.Opened.Should().BeTrue();
-        popovers[1].Instance.Opened.Should().BeFalse();
-
-        // Triggering the 2nd popover also triggers the 'clickoutside' event first
-        popovers[0].Find( "[data-popover]" ).TriggerEvent( "onclickoutside", new EventArgs() );
-        popoverTriggers[1].Find( "button" ).Click();
-
-        popovers[0].Instance.Opened.Should().BeFalse();
-        popovers[1].Instance.Opened.Should().BeTrue();
+        var popover = cut.FindBySlot( "base" );
+        popover?.GetAttribute( "data-open" ).Should().Be( "false" );
     }
 
     [Fact]
     public void ShouldShowArrow()
     {
-        var cut = Render<LumexPopover>(
-    @<LumexPopover ShowArrow="@true">
-        <LumexPopoverTrigger>Show Popover</LumexPopoverTrigger>
-        <LumexPopoverContent>
-            <p>This is the content of the popover.</p>
-        </LumexPopoverContent>
-    </LumexPopover>
-    );
+        var id = "4";
+        var cut = Render(
+            @<text>
+                <LumexButton OnClick="@(() => TriggerAsync( id ))" data-popoverref="@id">
+                    Trigger
+                </LumexButton>
+                <LumexPopover Id="@id" ShowArrow="@true">
+                    <LumexPopoverContent>
+                        <p>This is the content of the popover.</p>
+                    </LumexPopoverContent>
+                </LumexPopover>
+            </text>
+         );
 
-        var popoverTrigger = cut.FindComponent<LumexPopoverTrigger>();
-        var triggerButton = popoverTrigger.Find( "button" );
+        var trigger = cut.Find( "[data-popoverref]" );
+        trigger.Click();
 
-        triggerButton.Click();
+        cut.FindBySlot( "arrow" ).Should().NotBeNull();
+    }
 
-        cut.Find( "[data-slot=arrow]" ).Should().NotBeNull();
+    private Task TriggerAsync( string id )
+    {
+        var popoverService = Services.GetRequiredService<IPopoverService>();
+        return popoverService.TriggerAsync( id );
     }
 }
