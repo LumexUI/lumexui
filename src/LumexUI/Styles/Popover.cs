@@ -133,6 +133,10 @@ internal static class Popover
 					[nameof( Radius.Large )] = new SlotCollection()
 					{
 						[nameof( PopoverSlots.Content )] = "rounded-large"
+					},
+					[nameof( Radius.Full )] = new SlotCollection()
+					{
+						[nameof( PopoverSlots.Content )] = "rounded-full"
 					}
 				},
 
