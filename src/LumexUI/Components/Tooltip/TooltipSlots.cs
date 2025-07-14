@@ -13,21 +13,6 @@ namespace LumexUI;
 /// used to assign CSS classes to different parts of the component.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class TooltipSlots : ISlot
+public class TooltipSlots : PopoverSlots, ISlot
 {
-	/// <summary>
-	/// Gets or sets the CSS class for the root slot.
-	/// </summary>
-	[Obsolete( "Deprecated. This will be removed in the future releases. Use the 'Base' slot instead." )]
-	public string? Root { get; set; }
-
-	/// <summary>
-	/// Gets or sets the CSS class for the base slot.
-	/// </summary>
-	public string? Base { get; set; }
-
-	/// <summary>
-	/// Gets or sets the CSS class for the arrow slot.
-	/// </summary>
-	public string? Arrow { get; set; }
 }
