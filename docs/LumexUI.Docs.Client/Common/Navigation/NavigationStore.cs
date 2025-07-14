@@ -46,7 +46,8 @@ public class NavigationStore
 			.Add( new( nameof( LumexSpinner ), ComponentStatus.New ) )
 			.Add( new( nameof( LumexSwitch ) ) )
 			.Add( new( nameof( LumexTabs ) ) )
-			.Add( new( nameof( LumexTextbox ) ) );
+			.Add( new( nameof( LumexTextbox ) ) )
+			.Add( new( nameof( LumexTooltip ), ComponentStatus.New ) );
 
 	private static NavigationCategory ComponentsApiCategory =>
 		new NavigationCategory( "Components API", Icons.Rounded.Manufacturing )

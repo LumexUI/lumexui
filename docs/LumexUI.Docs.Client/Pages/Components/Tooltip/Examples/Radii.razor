@@ -1,0 +1,10 @@
+﻿@foreach( var radius in Enum.GetValues<Radius>() )
+{
+    var radiusText = radius.ToString();
+
+    <LumexTooltip Content="@radiusText" Radius="@radius">
+        <LumexButton Variant="@Variant.Flat" Color="@ThemeColor.Secondary">
+            @radiusText
+        </LumexButton>
+    </LumexTooltip>
+}

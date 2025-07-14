@@ -1,0 +1,17 @@
+﻿<LumexTooltip Content="@("I am a tooltip")"
+              Placement="@TooltipPlacement.Right"
+              ShowArrow="@true"
+              Classes="@_classes">
+    <LumexButton>Hover me</LumexButton>
+</LumexTooltip>
+
+@code {
+    private TooltipSlots _classes = new()
+    {
+        Content = ElementClass.Empty()
+            .Add( "py-2 px-4 shadow-xl" )
+            .Add( "text-black bg-gradient-to-br from-white to-default-400" )
+            .ToString(),
+        Arrow = "bg-default-400"
+    };
+}

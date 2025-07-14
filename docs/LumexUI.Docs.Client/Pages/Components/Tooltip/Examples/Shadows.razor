@@ -1,0 +1,10 @@
+﻿@foreach( var shadow in Enum.GetValues<Shadow>() )
+{
+    var shadowText = shadow.ToString();
+
+    <LumexTooltip Content="@shadowText" Shadow="@shadow">
+        <LumexButton Variant="@Variant.Flat" Color="@ThemeColor.Success">
+            @shadowText
+        </LumexButton>
+    </LumexTooltip>
+}

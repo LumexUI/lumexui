@@ -1,0 +1,12 @@
+﻿<div class="flex flex-wrap md:inline-grid md:grid-cols-3 gap-4">
+    @foreach( var placement in Enum.GetValues<TooltipPlacement>() )
+    {
+        var placementText = placement.ToString();
+
+        <LumexTooltip Content="@placementText" Placement="@placement">
+            <LumexButton Variant="@Variant.Flat" Color="@ThemeColor.Danger">
+                @placementText
+            </LumexButton>
+        </LumexTooltip>
+    }
+</div>

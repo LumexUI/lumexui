@@ -1,0 +1,10 @@
+﻿@foreach( var size in Enum.GetValues<Size>() )
+{
+    var sizeText = size.ToString();
+
+    <LumexTooltip Content="@sizeText" Size="@size">
+        <LumexButton Color="@ThemeColor.Primary" Variant="@Variant.Flat">
+            @sizeText
+        </LumexButton>
+    </LumexTooltip>
+}

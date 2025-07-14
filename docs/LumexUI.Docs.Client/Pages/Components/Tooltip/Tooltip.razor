@@ -1,0 +1,120 @@
+﻿@page "/docs/components/tooltip"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Tooltip.PreviewCodes
+
+<DocsSection Title="Usage">
+    <Usage />
+
+    <DocsSection Title="Colors">
+        <p>Use <Code>Color</Code> parameter to set the tooltip background color.</p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <p>Use <Code>Size</Code> parameter to adjust the font size of the tooltip.</p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <p>Use <Code>Radius</Code> parameter to control the border radius of the tooltip.</p>
+        <Radii />
+    </DocsSection>
+
+    <DocsSection Title="Shadows">
+        <p>Use <Code>Shadow</Code> parameter to apply a shadow to the tooltip.</p>
+        <Shadows />
+    </DocsSection>
+
+    <DocsSection Title="Placements">
+        <p>
+            Use <Code>Placement</Code> parameter to control
+            where the tooltip appears relative to the anchor element.
+        </p>
+        <Placements />
+    </DocsSection>
+
+    <DocsSection Title="Offset">
+        <p>
+            Use <Code>Offset</Code> parameter to set the distance
+            between the tooltip and the anchor.
+        </p>
+        <Offset />
+    </DocsSection>
+
+    <DocsSection Title="Arrow">
+        <p>Use <Code>Arrow</Code> parameter to toggle the display of the tooltip arrow.</p>
+        <Arrow />
+    </DocsSection>
+
+    <DocsSection Title="Custom Content">
+        <p>Use <Code>Content</Code> parameter to render custom markup content in the tooltip.</p>
+        <CustomContent />
+    </DocsSection>
+
+    <DocsSection Title="Two-way Data Binding">
+        <p>
+            Use <Code>@@bind-Value</Code> directive or <Code>Open</Code> and <Code>OpenChanged</Code>
+            parameters to manually control tooltip visibility.
+        </p>
+        <TwoWayDataBinding />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Tooltip</h4>
+        <ul>
+            <li><Code>Class</Code>: The CSS class names to style the tooltip wrapper.</li>
+            <li><Code>Classes</Code>: The CSS class names to style the tooltip slots.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Colors"),
+            new("Sizes"),
+            new("Radius"),
+            new("Shadows"),
+            new("Placements"),
+            new("Offset"),
+            new("Arrow"),
+            new("Custom Content"),
+            new("Two-way Data Binding"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(TooltipSlots.Base), "The overall container of the tooltip."),
+        new(nameof(TooltipSlots.Content), "The container of the tooltip content."),
+        new(nameof(TooltipSlots.Arrow), "The arrow element that connects the tooltip to its trigger element."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexTooltip),
+        nameof(LumexButton),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Tooltip",
+            category: "Components",
+            description: "Tooltips display a brief, informative message that appears when a user interacts with an element.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Tooltip", isServer: false )
+        );
+    }
+}

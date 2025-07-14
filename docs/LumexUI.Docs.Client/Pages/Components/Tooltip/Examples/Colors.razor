@@ -1,0 +1,8 @@
+﻿@foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
+{
+    var colorText = color.ToString();
+
+    <LumexTooltip Content="@colorText" Color="@color">
+        <LumexButton Color="@color">@colorText</LumexButton>
+    </LumexTooltip>
+}

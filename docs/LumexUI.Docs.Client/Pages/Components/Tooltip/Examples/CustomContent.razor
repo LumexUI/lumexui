@@ -1,0 +1,11 @@
+﻿<LumexTooltip Content="@_customContent" ShowArrow="@true">
+    <LumexButton>Hover me</LumexButton>
+</LumexTooltip>
+
+@code {
+    private RenderFragment _customContent =
+        @<div class="px-1 py-2">
+            <div class="text-small font-bold">Custom content</div>
+            <div class="text-tiny">This is a custom tooltip content</div>
+        </div>;
+}

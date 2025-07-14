@@ -1,0 +1,13 @@
+﻿<div class="flex flex-col gap-2">
+    <LumexTooltip Content="@("I am a tooltip")" @bind-Open="@_isOpen">
+        <LumexButton>Hover me</LumexButton>
+    </LumexTooltip>
+
+    <p class="text-small text-default-500">
+        Open: @(_isOpen ? "true" : "false")
+    </p>
+</div>
+
+@code {
+    private bool _isOpen;
+}
