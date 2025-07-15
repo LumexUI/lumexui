@@ -1,13 +1,13 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-<div data-popoverref="@_popoverId"
-     @onmouseenter="@OnMouseEnterAsync"
-     @onmouseleave="@OnMouseLeaveAsync"
-     @onfocusin="@OnFocusInAsync" 
-     @onfocusout="@OnFocusOutAsync">
+<span data-popoverref="@_popoverId"
+      @onmouseenter="@OnMouseEnterAsync"
+      @onmouseleave="@OnMouseLeaveAsync"
+      @onfocusin="@OnFocusInAsync"
+      @onfocusout="@OnFocusOutAsync">
     @ChildContent
-</div>
+</span>
 
 <LumexPopover Id="@_popoverId"
               Open="@Open"
