@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+
 using LumexUI.Common;
 using LumexUI.Utilities;
 
@@ -17,7 +19,7 @@ public partial class LumexTooltip : LumexComponentBase, ISlotComponent<TooltipSl
 	/// <summary>
 	/// Gets or sets the content around which the tooltip is rendered.
 	/// </summary>
-	[Parameter] public RenderFragment? ChildContent { get; set; }
+	[Parameter, EditorRequired] public RenderFragment ChildContent { get; set; } = default!;
 
 	/// <summary>
 	/// Gets or sets the content to display within the tooltip.
@@ -94,6 +96,12 @@ public partial class LumexTooltip : LumexComponentBase, ISlotComponent<TooltipSl
 
 	private readonly string _popoverId = Identifier.New();
 
+	/// <inheritdoc />
+	protected override void OnParametersSet()
+	{
+		ArgumentNullException.ThrowIfNull( ChildContent );
+	}
+
 	private Task OnMouseEnterAsync() => OpenAsync();
 	private Task OnMouseLeaveAsync() => CloseAsync();
 	private Task OnFocusInAsync() => OpenAsync();
@@ -115,6 +123,7 @@ public partial class LumexTooltip : LumexComponentBase, ISlotComponent<TooltipSl
 		return OpenChanged.InvokeAsync( value );
 	}
 
+	[ExcludeFromCodeCoverage]
 	private PopoverPlacement GetPlacement()
 	{
 		return Placement switch

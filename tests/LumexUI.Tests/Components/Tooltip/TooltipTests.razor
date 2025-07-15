@@ -1,0 +1,72 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public TooltipTests()
+    {
+        Services.AddSingleton<TwMerge>();
+        Services.AddSingleton<IPopoverService, PopoverService>();
+
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/popover.bundle.js" );
+        module.SetupVoid( "popover.initialize", _ => true );
+        module.SetupVoid( "popover.destroy", _ => true );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexTooltip>
+                <LumexButton>Hover me</LumexButton>
+            </LumexTooltip>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldThrowIfNoChildContentProvided()
+    {
+        var action = () => Render(
+            @<LumexTooltip Content="@("tooltip")" />
+        );
+
+        action.Should().Throw<ArgumentNullException>();
+    }
+
+    [Theory]
+    [InlineData( "onmouseenter" )]
+    [InlineData( "onfocusin" )]
+    public void ShouldOpenOnEnterEvent( string e )
+    {
+        var cut = Render<LumexTooltip>(
+            @<LumexTooltip Content="@("tooltip")">
+                <LumexButton>Hover me</LumexButton>
+            </LumexTooltip>
+        );
+
+        var trigger = cut.Find( "[data-popoverref]" );
+        trigger.TriggerEvent( e, new EventArgs() );
+
+        cut.Instance.Open.Should().BeTrue();
+    }
+
+    [Theory]
+    [InlineData( "onmouseleave" )]
+    [InlineData( "onfocusout" )]
+    public void ShouldCloseOnLeaveEvent( string e )
+    {
+        RenderFragment content = @<span>tooltip</span>;
+
+        var cut = Render<LumexTooltip>(
+            @<LumexTooltip Content="@content" Open="@true">
+                <LumexButton>Hover me</LumexButton>
+            </LumexTooltip>
+        );
+
+        var trigger = cut.Find( "[data-popoverref]" );
+        trigger.TriggerEvent( e, new EventArgs() );
+
+        cut.Instance.Open.Should().BeFalse();
+    }
+}
