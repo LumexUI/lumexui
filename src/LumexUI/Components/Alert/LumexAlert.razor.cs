@@ -101,9 +101,9 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	/// </summary>
 	[Parameter] public AlertSlots? Classes { get; set; }
 
+	private string AlertIcon => Icon ?? _icons[Color];
 	private bool HasTitle => TitleContent is not null || !string.IsNullOrEmpty( Title );
 	private bool HasDescription => DescriptionContent is not null || !string.IsNullOrEmpty( Description );
-	private string AlertIcon => Icon ?? _icons[Color];
 
 	private readonly Dictionary<ThemeColor, string> _icons = new()
 	{
@@ -121,6 +121,15 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
+		var alert = Styles.Alert.Style( TwMerge );
+		_slots = alert( new()
+		{
+			[nameof( Color )] = Color.ToString(),
+			[nameof( Radius )] = Radius.ToString(),
+			[nameof( Variant )] = Variant.ToString(),
+			[nameof( HideIcon )] = HideIcon.ToString(),
+		} );
+	}
 	}
 
 	[ExcludeFromCodeCoverage]
@@ -134,6 +143,12 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 		return slot switch
 		{
 			nameof( AlertSlots.Base ) => styles( Classes?.Base, Class ),
+			nameof( AlertSlots.MainWrapper ) => styles( Classes?.MainWrapper ),
+			nameof( AlertSlots.Title ) => styles( Classes?.Title ),
+			nameof( AlertSlots.Description ) => styles( Classes?.Description ),
+			nameof( AlertSlots.CloseButton ) => styles( Classes?.CloseButton ),
+			nameof( AlertSlots.IconWrapper ) => styles( Classes?.IconWrapper ),
+			nameof( AlertSlots.Icon ) => styles( Classes?.Icon ),
 			_ => throw new NotImplementedException()
 		};
 	}
