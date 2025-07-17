@@ -92,7 +92,20 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	[Parameter] public bool Closeable { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets a value indicating whether the alert is visible.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see langword="true"/>
+	/// </remarks>
+	[Parameter] public bool Visible { get; set; } = true;
+
+	/// <summary>
+	/// Gets or sets the callback invoked when the <see cref="Visible"/> property changes.
+	/// </summary>
+	[Parameter] public EventCallback<bool> VisibleChanged { get; set; }
+
+	/// <summary>
+	/// Gets or sets the callback invoked when the alert is closed.
 	/// </summary>
 	[Parameter] public EventCallback<MouseEventArgs> OnClose { get; set; }
 
@@ -130,6 +143,12 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 			[nameof( HideIcon )] = HideIcon.ToString(),
 		} );
 	}
+
+	private async Task OnCloseAsync()
+	{
+		Visible = false;
+		await VisibleChanged.InvokeAsync( false );
+		await OnClose.InvokeAsync();
 	}
 
 	[ExcludeFromCodeCoverage]

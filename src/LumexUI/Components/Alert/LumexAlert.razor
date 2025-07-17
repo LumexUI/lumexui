@@ -3,51 +3,53 @@
 
 @using S = AlertSlots;
 
-<div role="alert"
-     class="@Class"
+@if( Visible )
+{
     <LumexComponent As="@As"
                     Class="@GetStyles( nameof( S.Base ) )"
                     Style="@Style"
                     role="alert"
-     title="@Title"
-     data-slot="base"
-     @attributes="@AdditionalAttributes">
-    @StartContent
+                    title="@Title"
+                    data-slot="base"
+                    @attributes="@AdditionalAttributes">
+        @StartContent
 
         <div class="@GetStyles( nameof( S.IconWrapper ) )" data-slot="icon-wrapper">
             <LumexIcon Icon="@AlertIcon"
                        Class="@GetStyles( nameof( S.Icon ) )"
                        data-slot="alert-icon" />
-    </div>
+        </div>
 
         <div class="@GetStyles( nameof( S.MainWrapper ) )" data-slot="main-wrapper">
-        @if( HasTitle )
-        {
+            @if( HasTitle )
+            {
                 <div class="@GetStyles( nameof( S.Title ) )" data-slot="title">
                     @(!string.IsNullOrWhiteSpace( Title ) ? Title : TitleContent)
-            </div>
-        }
+                </div>
+            }
 
-        @if( HasDescription )
-        {
+            @if( HasDescription )
+            {
                 <div class="@GetStyles( nameof( S.Description ) )" data-slot="description">
                     @(!string.IsNullOrWhiteSpace( Description ) ? Description : DescriptionContent)
-            </div>
-        }
+                </div>
+            }
 
-        @ChildContent
-    </div>
+            @ChildContent
+        </div>
 
-    @EndContent
+        @EndContent
 
-    @if( Closeable || OnClose.HasDelegate )
-    {
+        @if( Closeable || OnClose.HasDelegate )
+        {
             <LumexButton Size="@Size.Small"
                          Radius="@Radius.Full"
-                     Variant="@Common.Variant.Light"
+                         Variant="@Common.Variant.Light"
                          Class="@GetStyles( nameof( S.CloseButton ) )"
-                     aria-label="Close">
+                         OnClick="@OnCloseAsync"
+                         aria-label="Close">
                 <LumexIcon Icon="@Icons.Rounded.Close" Size="@new( "20" )" />
-        </LumexButton>
-    }
+            </LumexButton>
+        }
     </LumexComponent>
+}
