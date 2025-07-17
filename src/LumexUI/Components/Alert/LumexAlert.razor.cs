@@ -13,52 +13,52 @@ using Microsoft.AspNetCore.Components.Web;
 namespace LumexUI;
 
 /// <summary>
-/// 
+/// A component that represents an alert used to display important messages or statuses.
 /// </summary>
 public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 {
 	/// <summary>
-	/// 
+	/// Gets or sets the content to render inside the alert.
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the content to render inside the alert title area.
 	/// </summary>
 	[Parameter] public RenderFragment? TitleContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the content to render inside the alert description area.
 	/// </summary>
 	[Parameter] public RenderFragment? DescriptionContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the content displayed at the start of the alert.
 	/// </summary>
 	[Parameter] public RenderFragment? StartContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the content displayed at the end of the alert.
 	/// </summary>
 	[Parameter] public RenderFragment? EndContent { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the title of the alert.
 	/// </summary>
 	[Parameter] public string? Title { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the description of the alert.
 	/// </summary>
 	[Parameter] public string? Description { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the icon to display in the alert.
 	/// </summary>
 	[Parameter] public string? Icon { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the border radius of the alert.
 	/// </summary>
 	/// <remarks>
 	/// The default value is <see cref="Radius.Medium"/>.
@@ -66,15 +66,15 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	[Parameter] public Radius Radius { get; set; } = Radius.Medium;
 
 	/// <summary>
-	/// 
+	/// Gets or sets the color of the alert.
 	/// </summary>
 	/// <remarks>
-	/// The default value is <see cref="ThemeColor.Primary"/>.
+	/// The default value is <see cref="ThemeColor.Default"/>.
 	/// </remarks>
 	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
 	/// <summary>
-	/// 
+	/// Gets or sets the visual variant of the alert.
 	/// </summary>
 	/// <remarks>
 	/// The default value is <see cref="AlertVariant.Flat"/>.
@@ -82,12 +82,12 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	[Parameter] public AlertVariant Variant { get; set; } = AlertVariant.Flat;
 
 	/// <summary>
-	/// 
+	/// Gets or sets a value indicating whether the icon is hidden.
 	/// </summary>
 	[Parameter] public bool HideIcon { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets a value indicating whether the alert can be closed.
 	/// </summary>
 	[Parameter] public bool Closeable { get; set; }
 
@@ -110,7 +110,7 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	[Parameter] public EventCallback<MouseEventArgs> OnClose { get; set; }
 
 	/// <summary>
-	/// 
+	/// Gets or sets the CSS class names for the alert slots.
 	/// </summary>
 	[Parameter] public AlertSlots? Classes { get; set; }
 
