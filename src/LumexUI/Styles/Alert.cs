@@ -35,11 +35,13 @@ internal static class Alert
 				[nameof( AlertSlots.MainWrapper )] = new ElementClass()
 					.Add( "h-full" )
 					.Add( "min-h-10" )
+					.Add( "ms-2" )
 					.Add( "flex" )
 					.Add( "flex-col" )
-					.Add( "ms-2" )
+					.Add( "grow" )
 					.Add( "items-start" )
-					.Add( "justify-center" ),
+					.Add( "justify-center" )
+					.Add( "text-small" ),
 
 				[nameof( AlertSlots.Title )] = new ElementClass()
 					.Add( "w-full" )
@@ -52,12 +54,22 @@ internal static class Alert
 
 				[nameof( AlertSlots.CloseButton )] = new ElementClass()
 					.Add( "relative" )
+					.Add( "h-8" )
+					.Add( "w-8" )
+					.Add( "min-w-8" )
+					.Add( "p-0" )
 					.Add( "translate-x-1" )
 					.Add( "-translate-y-1" ),
 
 				[nameof( AlertSlots.IconWrapper )] = new ElementClass()
-					.Add( "size-10" )
+					.Add( "size-9" )
+					.Add( "flex" )
+					.Add( "shrink-0" )
+					.Add( "items-center" )
+					.Add( "justify-center" )
 					.Add( "rounded-full" ),
+
+				[nameof( AlertSlots.Icon )] = new ElementClass()
 			},
 
 			Variants = new VariantCollection
@@ -234,7 +246,6 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Primary] )
 							.Add( "bg-primary-50 dark:bg-primary-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-primary-500 hover:bg-primary-200",
 						[nameof( AlertSlots.IconWrapper )] = "bg-primary-50 dark:bg-primary-100 border-primary-100",
 					}
 				},
@@ -250,7 +261,6 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Secondary] )
 							.Add( "bg-secondary-50 dark:bg-secondary-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-secondary-500 hover:bg-secondary-200",
 						[nameof( AlertSlots.IconWrapper )] = "bg-secondary-50 dark:bg-secondary-100 border-secondary-100",
 					}
 				},
@@ -266,7 +276,6 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Success] )
 							.Add( "bg-success-50 dark:bg-success-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-success-500 hover:bg-success-200",
 						[nameof( AlertSlots.IconWrapper )] = "bg-success-50 dark:bg-success-100 border-success-100",
 					}
 				},
@@ -282,8 +291,7 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Warning] )
 							.Add( "bg-warning-50 dark:bg-warning-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-warning-500 hover:bg-warning-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-warning-50 dark:bg-warning-100 border-warning-100",
+						[nameof( AlertSlots.IconWrapper )] = "bg-warning-50 dark:bg-warning-100 border-warning-200",
 					}
 				},
 				new CompoundVariant()
@@ -298,7 +306,6 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Danger] )
 							.Add( "bg-danger-50 dark:bg-danger-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-danger-500 hover:bg-danger-200",
 						[nameof( AlertSlots.IconWrapper )] = "bg-danger-50 dark:bg-danger-100 border-danger-100",
 					}
 				},
@@ -314,7 +321,6 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Info] )
 							.Add( "bg-info-50 dark:bg-info-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-info-500 hover:bg-info-200",
 						[nameof( AlertSlots.IconWrapper )] = "bg-info-50 dark:bg-info-100 border-info-100",
 					}
 				},
@@ -352,7 +358,6 @@ internal static class Alert
 							.Add( ColorVariants.Flat[ThemeColor.Primary] )
 							.Add( "bg-primary-50 dark:bg-primary-50/50" )
 							.Add( "border-primary-200 dark:border-primary-100" ),
-						[nameof( AlertSlots.CloseButton )] = "text-primary-500 hover:bg-primary-200",
 						[nameof( AlertSlots.IconWrapper )] = "bg-primary-50 dark:bg-primary-100 border-primary-100",
 					}
 				},
@@ -369,7 +374,6 @@ internal static class Alert
 							.Add( ColorVariants.Flat[ThemeColor.Secondary] )
 							.Add( "bg-secondary-50 dark:bg-secondary-50/50" )
 							.Add( "border-secondary-200 dark:border-secondary-100" ),
-						[nameof( AlertSlots.CloseButton )] = "text-secondary-500 hover:bg-secondary-200",
 						[nameof( AlertSlots.IconWrapper )] = "bg-secondary-50 dark:bg-secondary-100 border-secondary-100",
 					}
 				},
@@ -386,7 +390,6 @@ internal static class Alert
 							.Add( ColorVariants.Flat[ThemeColor.Success] )
 							.Add( "bg-success-50 dark:bg-success-50/50" )
 							.Add( "border-success-300 dark:border-success-100" ),
-						[nameof( AlertSlots.CloseButton )] = "text-success-500 hover:bg-success-200",
 						[nameof( AlertSlots.IconWrapper )] = "bg-success-50 dark:bg-success-100 border-success-100",
 					}
 				},
@@ -403,8 +406,7 @@ internal static class Alert
 							.Add( ColorVariants.Flat[ThemeColor.Warning] )
 							.Add( "bg-warning-50 dark:bg-warning-50/50" )
 							.Add( "border-warning-300 dark:border-warning-100" ),
-						[nameof( AlertSlots.CloseButton )] = "text-warning-500 hover:bg-warning-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-warning-50 dark:bg-warning-100 border-warning-100",
+						[nameof( AlertSlots.IconWrapper )] = "bg-warning-50 dark:bg-warning-100 border-warning-200",
 					}
 				},
 				new CompoundVariant()
@@ -420,7 +422,6 @@ internal static class Alert
 							.Add( ColorVariants.Flat[ThemeColor.Danger] )
 							.Add( "bg-danger-50 dark:bg-danger-50/50" )
 							.Add( "border-danger-200 dark:border-danger-100" ),
-						[nameof( AlertSlots.CloseButton )] = "text-danger-500 hover:bg-danger-200",
 						[nameof( AlertSlots.IconWrapper )] = "bg-danger-50 dark:bg-danger-100 border-danger-100",
 					}
 				},
@@ -437,7 +438,6 @@ internal static class Alert
 							.Add( ColorVariants.Flat[ThemeColor.Info] )
 							.Add( "bg-info-50 dark:bg-info-50/50" )
 							.Add( "border-info-200 dark:border-info-100" ),
-						[nameof( AlertSlots.CloseButton )] = "text-info-500 hover:bg-info-200",
 						[nameof( AlertSlots.IconWrapper )] = "bg-info-50 dark:bg-info-100 border-info-100",
 					}
 				},

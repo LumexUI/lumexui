@@ -16,6 +16,7 @@
 
         <div class="@GetStyles( nameof( S.IconWrapper ) )" data-slot="icon-wrapper">
             <LumexIcon Icon="@AlertIcon"
+                       Size="@new("20")"
                        Class="@GetStyles( nameof( S.Icon ) )"
                        data-slot="alert-icon" />
         </div>
@@ -45,6 +46,7 @@
             <LumexButton Size="@Size.Small"
                          Radius="@Radius.Full"
                          Variant="@Common.Variant.Light"
+                         Color="@Color"
                          Class="@GetStyles( nameof( S.CloseButton ) )"
                          OnClick="@OnCloseAsync"
                          aria-label="Close">

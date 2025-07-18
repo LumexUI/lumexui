@@ -61,7 +61,7 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	/// Gets or sets the border radius of the alert.
 	/// </summary>
 	/// <remarks>
-	/// The default value is <see cref="Radius.Medium"/>.
+	/// The default value is <see cref="Radius.Medium"/>
 	/// </remarks>
 	[Parameter] public Radius Radius { get; set; } = Radius.Medium;
 
@@ -69,7 +69,7 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	/// Gets or sets the color of the alert.
 	/// </summary>
 	/// <remarks>
-	/// The default value is <see cref="ThemeColor.Default"/>.
+	/// The default value is <see cref="ThemeColor.Default"/>
 	/// </remarks>
 	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
@@ -77,7 +77,7 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	/// Gets or sets the visual variant of the alert.
 	/// </summary>
 	/// <remarks>
-	/// The default value is <see cref="AlertVariant.Flat"/>.
+	/// The default value is <see cref="AlertVariant.Flat"/>
 	/// </remarks>
 	[Parameter] public AlertVariant Variant { get; set; } = AlertVariant.Flat;
 
@@ -120,6 +120,7 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 
 	private readonly Dictionary<ThemeColor, string> _icons = new()
 	{
+		[ThemeColor.None] = Icons.Rounded.Info,
 		[ThemeColor.Default] = Icons.Rounded.Info,
 		[ThemeColor.Primary] = Icons.Rounded.Info,
 		[ThemeColor.Secondary] = Icons.Rounded.Info,
