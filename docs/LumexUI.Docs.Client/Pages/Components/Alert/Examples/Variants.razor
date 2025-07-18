@@ -1,0 +1,7 @@
+﻿<div class="w-full flex flex-col gap-3">
+    @foreach( var variant in Enum.GetValues<AlertVariant>() )
+    {
+        var variantText = variant.ToString().ToLower();
+        <LumexAlert Title="@($"This is a `{variantText}` variant alert")" Variant="@variant" />
+    }
+</div>

@@ -1,0 +1,26 @@
+﻿<div class="w-full flex flex-col gap-2">
+    @if( _isVisible )
+    {
+        <LumexAlert Title="This is an alert"
+                    Description="Thanks for subscribing to our newsletter!"
+                    Color="@ThemeColor.Info"
+                    Closeable="@true"
+                    @bind-Visible="@_isVisible" />
+    }
+    else
+    {
+        <LumexButton Variant="@Variant.Outlined"
+                     OnClick="@(() => _isVisible = true)"
+                     Class="w-fit">
+            Show alert
+        </LumexButton>
+    }
+
+    <p class="text-small text-default-500">
+        Visible: @(_isVisible ? "true" : "false")
+    </p>
+</div>
+
+@code {
+    private bool _isVisible = true;
+}

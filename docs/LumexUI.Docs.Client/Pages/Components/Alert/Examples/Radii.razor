@@ -1,0 +1,7 @@
+﻿<div class="w-full flex flex-col gap-3">
+    @foreach( var radius in Enum.GetValues<Radius>() )
+    {
+        var radiusText = radius.ToString().ToLower();
+        <LumexAlert Title="@($"This is a `{radiusText}` radius alert")" Radius="@radius" />
+    }
+</div>
