@@ -1,4 +1,6 @@
-﻿@layer base {
+﻿@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
     body {
         @apply text-foreground bg-background;
     }
