@@ -1,0 +1,91 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    private readonly string _title = "Title";
+    private readonly string _description = "Description";
+
+    public AlertTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexAlert Title="@_title" Description="@_description" />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldDisplayTitleAndDescription()
+    {
+        var cut = Render(
+            @<LumexAlert Title="@_title" Description="@_description" />
+        );
+
+        cut.FindBySlot( "title" )?.TextContent.Should().Be( _title );
+        cut.FindBySlot( "description" )?.TextContent.Should().Be( _description );
+    }
+
+    [Fact]
+    public void ShouldShowCloseButtonIfCloseable()
+    {
+        var cut = Render(
+            @<LumexAlert Title="@_title" Description="@_description" Closeable="@true" />
+        );
+
+        cut.FindBySlot( "close-button" )?.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldShowCloseButtonIfOnClosePassed()
+    {
+        var cut = Render(
+            @<LumexAlert Title="@_title" Description="@_description" OnClose="@(() => {})" />
+        );
+
+        cut.FindBySlot( "close-button" )?.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldNowShowCloseButtonIfNotCloseableOrOnCloseNotPassed()
+    {
+        var cut = Render(
+            @<LumexAlert Title="@_title" Description="@_description" />
+        );
+
+        cut.FindBySlot( "close-button" )?.Should().BeNull();
+    }
+
+    [Fact]
+    public void ShouldCallOnCloseWhenCloseButtonClicked()
+    {
+        var closed = false;
+        var cut = Render(
+            @<LumexAlert Title="@_title" Description="@_description" OnClose="@(() => closed = !closed)" />
+        );
+
+        var closeButton = cut.FindBySlot( "close-button" );
+        closeButton.Click();
+
+        closed.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldCloseOnCloseButtonClick()
+    {
+        var closed = false;
+        var cut = Render(
+            @<LumexAlert Title="@_title" Description="@_description" Closeable="@true" />
+        );
+
+        var closeButton = cut.FindBySlot( "close-button" );
+        closeButton.Click();
+
+        cut.Markup.Trim().Should().BeEmpty();
+    }
+}
