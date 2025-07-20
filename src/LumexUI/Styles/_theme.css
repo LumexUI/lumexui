@@ -1,4 +1,8 @@
-﻿@custom-variant dark (&:where(.dark, .dark *));
+﻿@import "./_layout";
+@import "./_light";
+@import "./_dark";
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
     body {
@@ -10,7 +14,6 @@
 @theme static inline {
     /* Colors */
     --color-background: var(--lumex-background);
-
     --color-foreground-50: var(--lumex-foreground-50);
     --color-foreground-100: var(--lumex-foreground-100);
     --color-foreground-200: var(--lumex-foreground-200);
@@ -24,7 +27,6 @@
     --color-foreground: var(--lumex-foreground);
 
     --color-focus: var(--lumex-focus);
-    --color-overlay: var(--lumex-overlay);
     --color-divider: --alpha(var(--lumex-divider) / var(--lumex-opacity-divider));
     --color-surface1: var(--lumex-surface1);
     --color-surface1-foreground: var(--lumex-surface1-foreground);
@@ -125,27 +127,22 @@
     --color-info-foreground: var(--lumex-info-foreground);
 
     /* Typography */
-    --text-tiny: var(--lumex-font-size-tiny);
-    --text-small: var(--lumex-font-size-small);
-    --text-medium: var(--lumex-font-size-medium);
-    --text-large: var(--lumex-font-size-large);
+    --text-tiny: var(--lumex-text-tiny);
+    --text-small: var(--lumex-text-small);
+    --text-medium: var(--lumex-text-medium);
+    --text-large: var(--lumex-text-large);
 
-    --text-tiny--line-height: var(--lumex-line-height-tiny);
-    --text-small--line-height: var(--lumex-line-height-small);
-    --text-medium--line-height: var(--lumex-line-height-medium);
-    --text-large--line-height: var(--lumex-line-height-large);
+    --text-tiny--line-height: var(--lumex-text-tiny--line-height);
+    --text-small--line-height: var(--lumex-text-small--line-height);
+    --text-medium--line-height: var(--lumex-text-medium--line-height);
+    --text-large--line-height: var(--lumex-text-large--line-height);
 
-    --leading-tiny: var(--lumex-line-height-tiny);
-    --leading-small: var(--lumex-line-height-small);
-    --leading-medium: var(--lumex-line-height-medium);
-    --leading-large: var(--lumex-line-height-large);
-
-    /* Border Radii */
+    /* Border radius */
     --radius-small: var(--lumex-radius-small);
     --radius-medium: var(--lumex-radius-medium);
     --radius-large: var(--lumex-radius-large);
 
-    /* Box Shadows */
+    /* Box shadows */
     --shadow-small: var(--lumex-shadow-small);
     --shadow-medium: var(--lumex-shadow-medium);
     --shadow-large: var(--lumex-shadow-large);
