@@ -25,14 +25,14 @@
             @if( HasTitle )
             {
                 <div class="@GetStyles( nameof( S.Title ) )" data-slot="title">
-                    @(!string.IsNullOrWhiteSpace( Title ) ? Title : TitleContent)
+                    @(TitleContent is not null ? TitleContent : Title)
                 </div>
             }
 
             @if( HasDescription )
             {
                 <div class="@GetStyles( nameof( S.Description ) )" data-slot="description">
-                    @(!string.IsNullOrWhiteSpace( Description ) ? Description : DescriptionContent)
+                    @(DescriptionContent is not null ? DescriptionContent : Description)
                 </div>
             }
 
