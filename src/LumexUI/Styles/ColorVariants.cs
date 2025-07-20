@@ -35,7 +35,7 @@ internal class ColorVariants
         [ThemeColor.Primary] = "bg-primary-100 text-primary-700",
         [ThemeColor.Secondary] = "bg-secondary-100 text-secondary-700",
         [ThemeColor.Success] = "bg-success-100 text-success-700",
-        [ThemeColor.Warning] = "bg-warning-100 text-warning-700",
+        [ThemeColor.Warning] = "bg-warning-100 text-warning-800",
         [ThemeColor.Danger] = "bg-danger-100 text-danger-700",
         [ThemeColor.Info] = "bg-info-100 text-info-700"
     };

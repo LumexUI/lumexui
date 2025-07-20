@@ -1,0 +1,7 @@
+﻿<div class="w-full flex flex-col gap-3">
+    @foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
+    {
+        var colorText = color.ToString().ToLower();
+        <LumexAlert Title="@($"This is a `{colorText}` color alert")" Color="@color" />
+    }
+</div>

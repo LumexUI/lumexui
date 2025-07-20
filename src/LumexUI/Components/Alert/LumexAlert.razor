@@ -1,0 +1,58 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@using S = AlertSlots;
+
+@if( Visible )
+{
+    <LumexComponent As="@As"
+                    Class="@GetStyles( nameof( S.Base ) )"
+                    Style="@Style"
+                    role="alert"
+                    title="@Title"
+                    data-slot="base"
+                    @attributes="@AdditionalAttributes">
+        @StartContent
+
+        <div class="@GetStyles( nameof( S.IconWrapper ) )" data-slot="icon-wrapper">
+            <LumexIcon Icon="@AlertIcon"
+                       Size="@new("20")"
+                       Class="@GetStyles( nameof( S.Icon ) )"
+                       data-slot="alert-icon" />
+        </div>
+
+        <div class="@GetStyles( nameof( S.MainWrapper ) )" data-slot="main-wrapper">
+            @if( HasTitle )
+            {
+                <div class="@GetStyles( nameof( S.Title ) )" data-slot="title">
+                    @(TitleContent is not null ? TitleContent : Title)
+                </div>
+            }
+
+            @if( HasDescription )
+            {
+                <div class="@GetStyles( nameof( S.Description ) )" data-slot="description">
+                    @(DescriptionContent is not null ? DescriptionContent : Description)
+                </div>
+            }
+
+            @ChildContent
+        </div>
+
+        @EndContent
+
+        @if( Closeable || OnClose.HasDelegate )
+        {
+            <LumexButton Size="@Size.Small"
+                         Radius="@Radius.Full"
+                         Variant="@Common.Variant.Light"
+                         Color="@Color"
+                         Class="@GetStyles( nameof( S.CloseButton ) )"
+                         OnClick="@OnCloseAsync"
+                         data-slot="close-button"
+                         aria-label="Close">
+                <LumexIcon Icon="@Icons.Rounded.Close" Size="@new( "20" )" />
+            </LumexButton>
+        }
+    </LumexComponent>
+}

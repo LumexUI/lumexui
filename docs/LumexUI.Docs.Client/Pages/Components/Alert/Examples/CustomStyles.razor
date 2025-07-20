@@ -1,0 +1,30 @@
+﻿<LumexAlert Description="The documents you requested are ready to be viewed"
+            Color="@ThemeColor.Primary"
+            Variant="@AlertVariant.Flat"
+            Classes="@_classes">
+    <div class="flex items-center gap-2 mt-2">
+        <LumexButton Size="@Size.Small"
+                     Variant="@Variant.Outlined"
+                     Class="bg-background text-foreground-700 border shadow-xs">
+            View documents
+        </LumexButton>
+
+        <LumexButton Size="@Size.Small"
+                     Variant="@Variant.Light"
+                     Class="text-foreground-600">
+            Remind me later
+        </LumexButton>
+    </div>
+</LumexAlert>
+
+@code {
+    private AlertSlots _classes = new()
+    {
+        Base = new ElementClass()
+            .Add( "relative" )
+            .Add( "shadow-sm" )
+            .Add( "bg-default-50" )
+            .Add( "overflow-hidden" )
+            .Add( "before:absolute before:z-10 before:left-0 before:inset-y-0 before:w-1 before:bg-primary" )
+    };
+}
