@@ -1,5 +1,5 @@
 ﻿:root, .light {
-    /* Theme colors */
+    /* Colors */
     --lumex-background: var(--color-white);
     --lumex-foreground-50: var(--color-zinc-50);
     --lumex-foreground-100: var(--color-zinc-100);
@@ -74,8 +74,8 @@
     --lumex-success: var(--lumex-success-500);
     --lumex-success-foreground: var(--color-black);
 
-    --lumex-warning-50: var(--color-rose-50);
-    --lumex-warning-100: var(--color-rose-100);
+    --lumex-warning-50: var(--color-amber-50);
+    --lumex-warning-100: var(--color-amber-100);
     --lumex-warning-200: var(--color-amber-200);
     --lumex-warning-300: var(--color-amber-300);
     --lumex-warning-400: var(--color-amber-400);
@@ -84,7 +84,7 @@
     --lumex-warning-700: var(--color-amber-700);
     --lumex-warning-800: var(--color-amber-800);
     --lumex-warning-900: var(--color-amber-900);
-    --lumex-warning: var(--lumex-success-500);
+    --lumex-warning: var(--lumex-warning-500);
     --lumex-warning-foreground: var(--color-black);
 
     --lumex-danger-50: var(--color-rose-50);
@@ -113,7 +113,7 @@
     --lumex-info: var(--lumex-info-500);
     --lumex-info-foreground: var(--color-black);
 
-    /* Box shadow */
+    /* Shadows */
     --lumex-shadow-small: 0px 0px 5px 0px rgb(0 0 0 / .02), 0px 2px 10px 0px rgb(0 0 0 / .06), 0px 0px 1px 0px rgb(0 0 0 / .15);
     --lumex-shadow-medium: 0px 0px 15px 0px rgb(0 0 0 / .03), 0px 2px 30px 0px rgb(0 0 0 / .08), 0px 0px 1px 0px rgb(0 0 0 / .15);
     --lumex-shadow-large: 0px 0px 20px 0px rgb(0 0 0 / .04), 0px 2px 50px 0px rgb(0 0 0 / .1), 0px 0px 1px 0px rgb(0 0 0 / .15);

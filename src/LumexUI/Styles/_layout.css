@@ -14,6 +14,11 @@
     --lumex-radius-medium: .625rem;
     --lumex-radius-large: .875rem;
 
+    /* Shadows */
+    --lumex-shadow-small: ;
+    --lumex-shadow-medium: ;
+    --lumex-shadow-large: ;
+
     /* Opacities */
     --lumex-opacity-divider: 15%;
     --lumex-opacity-disabled: 60%;

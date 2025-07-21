@@ -1,5 +1,5 @@
 ﻿.dark {
-    /* Theme colors */
+    /* Colors */
     --lumex-background: var(--color-black);
     --lumex-foreground-50: var(--color-zinc-900);
     --lumex-foreground-100: var(--color-zinc-800);
@@ -22,16 +22,16 @@
     --lumex-surface3: var(--color-zinc-700);
     --lumex-surface3-foreground: var(--color-zinc-200);
 
-    --lumex-default-50: var(--color-zinc-50);
-    --lumex-default-100: var(--color-zinc-100);
-    --lumex-default-200: var(--color-zinc-200);
-    --lumex-default-300: var(--color-zinc-300);
-    --lumex-default-400: var(--color-zinc-400);
-    --lumex-default-500: var(--color-zinc-500);
-    --lumex-default-600: var(--color-zinc-600);
-    --lumex-default-700: var(--color-zinc-700);
-    --lumex-default-800: var(--color-zinc-800);
-    --lumex-default-900: var(--color-zinc-900);
+    --lumex-default-50: var(--color-zinc-900);
+    --lumex-default-100: var(--color-zinc-800);
+    --lumex-default-200: var(--color-zinc-700);
+    --lumex-default-300: var(--color-zinc-600);
+    --lumex-default-400: var(--color-zinc-500);
+    --lumex-default-500: var(--color-zinc-400);
+    --lumex-default-600: var(--color-zinc-300);
+    --lumex-default-700: var(--color-zinc-200);
+    --lumex-default-800: var(--color-zinc-100);
+    --lumex-default-900: var(--color-zinc-50);
     --lumex-default: var(--lumex-default-300);
     --lumex-default-foreground: var(--color-black);
 
@@ -74,8 +74,8 @@
     --lumex-success: var(--lumex-success-500);
     --lumex-success-foreground: var(--color-black);
 
-    --lumex-warning-50: var(--color-rose-900);
-    --lumex-warning-100: var(--color-rose-800);
+    --lumex-warning-50: var(--color-amber-900);
+    --lumex-warning-100: var(--color-amber-800);
     --lumex-warning-200: var(--color-amber-700);
     --lumex-warning-300: var(--color-amber-600);
     --lumex-warning-400: var(--color-amber-500);
@@ -113,7 +113,7 @@
     --lumex-info: var(--lumex-info-500);
     --lumex-info-foreground: var(--color-black);
 
-    /* Box shadow */
+    /* Shadows */
     --lumex-shadow-small: 0px 0px 5px 0px rgb(0 0 0 / .03), 0px 2px 10px 0px rgb(0 0 0 / .2), inset 0px 0px 1px 0px rgb(255 255 255 / .15);
     --lumex-shadow-medium: 0px 0px 15px 0px rgb(0 0 0 / .06), 0px 2px 30px 0px rgb(0 0 0 / .22), inset 0px 0px 1px 0px rgb(255 255 255 / .15);
     --lumex-shadow-large: 0px 0px 20px 0px rgb(0 0 0 / .07), 0px 2px 50px 0px rgb(0 0 0 / .24), inset 0px 0px 1px 0px rgb(255 255 255 / .15);

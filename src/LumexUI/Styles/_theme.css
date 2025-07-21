@@ -142,7 +142,7 @@
     --radius-medium: var(--lumex-radius-medium);
     --radius-large: var(--lumex-radius-large);
 
-    /* Box shadows */
+    /* Shadows */
     --shadow-small: var(--lumex-shadow-small);
     --shadow-medium: var(--lumex-shadow-medium);
     --shadow-large: var(--lumex-shadow-large);
