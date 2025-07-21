@@ -1,0 +1,27 @@
+﻿:root {
+    /* Typography */
+    --lumex-text-tiny: .75rem;
+    --lumex-text-small: .875rem;
+    --lumex-text-medium: 1rem;
+    --lumex-text-large: 1.125rem;
+    --lumex-text-tiny--line-height: 1rem;
+    --lumex-text-small--line-height: 1.25rem;
+    --lumex-text-medium--line-height: 1.5rem;
+    --lumex-text-large--line-height: 1.75rem;
+
+    /* Border radius */
+    --lumex-radius-small: .375rem;
+    --lumex-radius-medium: .625rem;
+    --lumex-radius-large: .875rem;
+
+    /* Shadows */
+    --lumex-shadow-small: ;
+    --lumex-shadow-medium: ;
+    --lumex-shadow-large: ;
+
+    /* Opacities */
+    --lumex-opacity-divider: 15%;
+    --lumex-opacity-disabled: 60%;
+    --lumex-opacity-focus: 70%;
+    --lumex-opacity-hover: 80%;
+}

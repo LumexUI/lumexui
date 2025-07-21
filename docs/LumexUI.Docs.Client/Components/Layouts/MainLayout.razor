@@ -1,7 +1,7 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 @inherits LayoutComponentBase
 
-<LumexThemeProvider Theme="@_theme" />
+<LumexThemeProvider />
 
 @Body
 
@@ -10,7 +10,3 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
-
-@code {
-    private readonly LumexTheme _theme = new DocsTheme();
-}

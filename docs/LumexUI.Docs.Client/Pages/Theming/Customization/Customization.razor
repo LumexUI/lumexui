@@ -1,0 +1,62 @@
+﻿@page "/docs/theming/customization"
+@layout DocsContentLayout
+
+<p>
+    LumexUI supports a flexible, CSS-first theming system that allows you to customize the look and feel of components using global CSS variables.
+    These variables can be overridden globally or scoped to specific themes using CSS selectors like class or data-attribute.
+</p>
+
+<DocsSection Title="Global theme">
+    <p>
+        To override the default design tokens globally, define your CSS variables inside the <code>:root</code> selector.
+        These values will apply to the entire application.
+    </p>
+    <p>CSS variables inside the <code>:root</code> selector represent the light theme.</p>
+
+    <CodeSnippet Code="@(new CodeBlock( name: "globals.css", snippet: "customizationGlobal" ))" />
+
+    <Preview>
+        <div class="w-full flex items-center justify-center gap-4">
+            <LumexButton Radius="@Radius.Medium" Disabled="@true">Default button</LumexButton>
+
+            <div class="theme-example-global">
+                <LumexButton Radius="@Radius.Medium" Disabled="@true">Custom button</LumexButton>
+            </div>
+        </div>
+    </Preview>
+</DocsSection>
+
+<DocsSection Title="Custom themes">
+    <p>
+        You can define custom themes using CSS selectors like class or data-attribute.
+        Components inside an element with a matching selector will use the overridden variables.
+    </p>
+    <p>For example, to create a custom theme named "orange", you can define the following CSS variables:</p>
+
+    <CodeSnippet Code="@(new CodeBlock( name: "orange.css", snippet: "customizationCustom" ))" />
+
+    <p>To apply a theme at runtime, toggle the class on a wrapper element such as <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code>.</p>
+
+    <CodeSnippet Code="@(new CodeBlock( name: "App.razor", snippet: "customizationToggle" ))" />
+    <ThemeTogglePreview />
+</DocsSection>
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Global theme"),
+        new("Custom themes")
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Customization",
+            category: "Theming",
+            description: "Customizing the default theme.",
+            _headings
+        );
+    }
+}

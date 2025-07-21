@@ -1,6 +1,5 @@
 ﻿.token.tag,
-.token.function,
-.token.property {
+.token.function {
     @apply text-orange-400;
 }
 
@@ -23,7 +22,8 @@
     @apply text-zinc-400;
 }
 
-.token.keyword {
+.token.keyword,
+.token.property {
     @apply text-teal-400;
 }
 
