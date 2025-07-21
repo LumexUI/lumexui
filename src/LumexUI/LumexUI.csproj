@@ -49,7 +49,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="LumexUI.Motion" Version="0.0.4" />
-		<PackageReference Include="TailwindMerge.NET" Version="0.3.0" />
+		<PackageReference Include="TailwindMerge.NET" Version="1.0.0" />
 	</ItemGroup>
 
 	<!-- Install npm dependencies if 'node_modules' is not present -->
