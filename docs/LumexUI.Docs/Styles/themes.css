@@ -1,0 +1,16 @@
+﻿.theme-example-global {
+    --lumex-radius-medium: .25rem;
+    --lumex-opacity-disabled: 0.5;
+}
+
+.theme-example-custom {
+    --lumex-primary: var(--color-orange-600);
+    --lumex-primary-foreground: var(--color-white);
+    --lumex-focus: var(--color-orange-600);
+}
+
+    .theme-example-custom:is(.dark *) {
+        --lumex-primary: var(--color-orange-500);
+        --lumex-primary-foreground: var(--color-white);
+        --lumex-focus: var(--color-orange-500);
+    }

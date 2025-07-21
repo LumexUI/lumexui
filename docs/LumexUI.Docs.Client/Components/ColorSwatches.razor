@@ -1,63 +1,57 @@
 ﻿@namespace LumexUI.Docs.Client.Components
-@rendermode InteractiveWebAssembly
 
-@foreach( var swatch in _swatches )
-{
-    <div class="@(swatch.Title == "Base" ? "order-last sm:order-none" : default)">
-        <div class="font-semibold text-sm text-foreground-900">@swatch.Title</div>
-        <div class="grid grid-cols-1 sm:grid-cols-11 mt-3 gap-2.5 sm:mt-2">
-            @foreach( var color in swatch.Scale )
+<div class="my-10 sm:my-16">
+    <div class="not-prose grid grid-cols-[auto_minmax(0,_1fr)] items-center gap-y-4 gap-x-8">
+        <div class="col-start-2 grid grid-cols-10 justify-items-center gap-1.5 py-1 bg-background font-medium text-small text-foreground-900 *:rotate-180 *:[writing-mode:vertical-lr] sm:gap-4 sm:*:rotate-325 sm:*:[writing-mode:horizontal-tb]">
+            @foreach( var (key, value) in BaseColors )
             {
-                @if( color.Key != "default" && color.Key != "foreground" )
-                {
-                    var isDivider = color.Key == "divider";
-
-                    <LumexButton Color="@ThemeColor.None"
-                                 Class="w-full min-w-fit h-auto p-0 justify-start gap-x-3 overflow-visible rounded-small sm:block sm:space-y-1">
-                        <div class="relative w-12 h-12 rounded-md ring ring-inset ring-foreground-900/15 sm:w-full"
-                             style="background-color: @(color.Value + (isDivider ? "26" : default))">
-
-                            <span class="absolute top-1 right-1.5 font-medium text-[0.625rem] leading-none"
-                                  style="color: @(isDivider ? "black" : ColorUtils.GetReadableColor(color.Value))">
-                                @color.Key
-                            </span>
-
-                            @if( swatch.Scale.TryGetValue( "default", out var defValue ) && color.Value == defValue )
-                            {
-                                <span class="absolute top-1 left-1.5 text-[0.625rem] leading-none"
-                                      style="color: @swatch.Scale["foreground"]">
-                                    ●
-                                </span>
-                            }
-                        </div>
-                    </LumexButton>
-                }
+                <div>@value</div>
             }
         </div>
+
+        <p class="mb-4 capitalize font-medium text-foreground-900 text-small">Base</p>
+        <div class="mb-4 grid grid-cols-10 gap-1.5 sm:gap-4">
+            @foreach( var (key, value) in BaseColors )
+            {
+                <div class="aspect-square w-full rounded-sm inset-ring inset-ring-default-900/10 sm:rounded-md"
+                     style="background-color: var(--color-@key)" />
+            }
+        </div>
+
+        <div class="sticky top-16 z-10 bg-background">&nbsp;</div>
+        <div class="sticky top-16 z-10 col-start-2 grid grid-cols-10 justify-items-center gap-1.5 py-1 bg-background font-medium text-small text-foreground-900 *:rotate-180 *:[writing-mode:vertical-lr] sm:gap-4 sm:*:rotate-0 sm:*:[writing-mode:horizontal-tb]">
+            @foreach( var shade in Shades )
+            {
+                <div>@shade</div>
+            }
+        </div>
+
+        @foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
+        {
+            var colorName = color.ToString().ToLower();
+
+            <p class="capitalize font-medium text-foreground-900 text-small">@colorName</p>
+            <div class="grid grid-cols-10 gap-1.5 sm:gap-4">
+                @foreach( var shade in Shades )
+                {
+                    <div class="aspect-square w-full rounded-sm inset-ring inset-ring-default-900/10 sm:rounded-md"
+                         style="background-color: var(--color-@colorName-@shade)" />
+                }
+            </div>
+        }
     </div>
-}
+</div>
 
 @code {
-    private readonly Swatch[] _swatches = new Swatch[]
+    private static readonly int[] Shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+    private static readonly Dictionary<string, string> BaseColors = new()
     {
-        new("Base", [
-            new( "bg", SemanticColors.Light.Background["default"] ),
-            new( "text", SemanticColors.Light.Foreground["default"] ),
-            new( "overlay", SemanticColors.Light.Overlay["default"] ),
-            new( "divider", SemanticColors.Light.Divider["default"] ),
-            new( "focus", SemanticColors.Light.Focus["default"] ),
-            new( "surface1", SemanticColors.Light.Surface1["default"] ),
-            new( "surface2", SemanticColors.Light.Surface2["default"] ),
-            new( "surface3", SemanticColors.Light.Surface3["default"] ),
-        ]),
-        new("Default", SemanticColors.Light.Default),
-        new("Primary", SemanticColors.Light.Primary),
-        new("Secondary", SemanticColors.Light.Secondary),
-        new("Success", SemanticColors.Light.Success),
-        new("Warning", SemanticColors.Light.Warning),
-        new("Danger", SemanticColors.Light.Danger),
-        new("Info", SemanticColors.Light.Info),
+        ["background"] = "bg",
+        ["foreground"] = "text",
+        ["focus"] = "focus",
+        ["divider"] = "divider",
+        ["surface1"] = "surface1",
+        ["surface2"] = "surface2",
+        ["surface3"] = "surface3"
     };
-
-    private record Swatch( string Title, ColorScale Scale );
 }

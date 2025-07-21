@@ -1,0 +1,262 @@
+<pre><code class="language-css">:root {
+    --lumex-text-tiny: .75rem;
+    --lumex-text-small: .875rem;
+    --lumex-text-medium: 1rem;
+    --lumex-text-large: 1.125rem;
+    --lumex-text-tiny--line-height: 1rem;
+    --lumex-text-small--line-height: 1.25rem;
+    --lumex-text-medium--line-height: 1.5rem;
+    --lumex-text-large--line-height: 1.75rem;
+
+    --lumex-radius-small: .375rem;
+    --lumex-radius-medium: .625rem;
+    --lumex-radius-large: .875rem;
+
+    --lumex-shadow-small: ; /* Overridden in light/dark themes */
+    --lumex-shadow-medium: ; /* Overridden in light/dark themes */
+    --lumex-shadow-large: ; /* Overridden in light/dark themes */
+
+    --lumex-opacity-divider: 15%;
+    --lumex-opacity-disabled: 60%;
+    --lumex-opacity-focus: 70%;
+    --lumex-opacity-hover: 80%;
+}
+
+:root, .light {
+    --lumex-background: var(--color-white);
+    --lumex-foreground-50: var(--color-zinc-50);
+    --lumex-foreground-100: var(--color-zinc-100);
+    --lumex-foreground-200: var(--color-zinc-200);
+    --lumex-foreground-300: var(--color-zinc-300);
+    --lumex-foreground-400: var(--color-zinc-400);
+    --lumex-foreground-500: var(--color-zinc-500);
+    --lumex-foreground-600: var(--color-zinc-600);
+    --lumex-foreground-700: var(--color-zinc-700);
+    --lumex-foreground-800: var(--color-zinc-800);
+    --lumex-foreground-900: var(--color-zinc-900);
+    --lumex-foreground: var(--lumex-foreground-700);
+
+    --lumex-focus: var(--color-blue-500);
+    --lumex-divider: var(--color-zinc-900);
+    --lumex-surface1: var(--color-white);
+    --lumex-surface1-foreground: var(--color-zinc-900);
+    --lumex-surface2: var(--color-zinc-100);
+    --lumex-surface2-foreground: var(--color-zinc-800);
+    --lumex-surface3: var(--color-zinc-200);
+    --lumex-surface3-foreground: var(--color-zinc-700);
+
+    --lumex-default-50: var(--color-zinc-50);
+    --lumex-default-100: var(--color-zinc-100);
+    --lumex-default-200: var(--color-zinc-200);
+    --lumex-default-300: var(--color-zinc-300);
+    --lumex-default-400: var(--color-zinc-400);
+    --lumex-default-500: var(--color-zinc-500);
+    --lumex-default-600: var(--color-zinc-600);
+    --lumex-default-700: var(--color-zinc-700);
+    --lumex-default-800: var(--color-zinc-800);
+    --lumex-default-900: var(--color-zinc-900);
+    --lumex-default: var(--lumex-default-300);
+    --lumex-default-foreground: var(--color-black);
+
+    --lumex-primary-50: var(--color-blue-50);
+    --lumex-primary-100: var(--color-blue-100);
+    --lumex-primary-200: var(--color-blue-200);
+    --lumex-primary-300: var(--color-blue-300);
+    --lumex-primary-400: var(--color-blue-400);
+    --lumex-primary-500: var(--color-blue-500);
+    --lumex-primary-600: var(--color-blue-600);
+    --lumex-primary-700: var(--color-blue-700);
+    --lumex-primary-800: var(--color-blue-800);
+    --lumex-primary-900: var(--color-blue-900);
+    --lumex-primary: var(--lumex-primary-500);
+    --lumex-primary-foreground: var(--color-white);
+
+    --lumex-secondary-50: var(--color-violet-50);
+    --lumex-secondary-100: var(--color-violet-100);
+    --lumex-secondary-200: var(--color-violet-200);
+    --lumex-secondary-300: var(--color-violet-300);
+    --lumex-secondary-400: var(--color-violet-400);
+    --lumex-secondary-500: var(--color-violet-500);
+    --lumex-secondary-600: var(--color-violet-600);
+    --lumex-secondary-700: var(--color-violet-700);
+    --lumex-secondary-800: var(--color-violet-800);
+    --lumex-secondary-900: var(--color-violet-900);
+    --lumex-secondary: var(--lumex-secondary-500);
+    --lumex-secondary-foreground: var(--color-white);
+
+    --lumex-success-50: var(--color-green-50);
+    --lumex-success-100: var(--color-green-100);
+    --lumex-success-200: var(--color-green-200);
+    --lumex-success-300: var(--color-green-300);
+    --lumex-success-400: var(--color-green-400);
+    --lumex-success-500: var(--color-green-500);
+    --lumex-success-600: var(--color-green-600);
+    --lumex-success-700: var(--color-green-700);
+    --lumex-success-800: var(--color-green-800);
+    --lumex-success-900: var(--color-green-900);
+    --lumex-success: var(--lumex-success-500);
+    --lumex-success-foreground: var(--color-black);
+
+    --lumex-warning-50: var(--color-amber-50);
+    --lumex-warning-100: var(--color-amber-100);
+    --lumex-warning-200: var(--color-amber-200);
+    --lumex-warning-300: var(--color-amber-300);
+    --lumex-warning-400: var(--color-amber-400);
+    --lumex-warning-500: var(--color-amber-500);
+    --lumex-warning-600: var(--color-amber-600);
+    --lumex-warning-700: var(--color-amber-700);
+    --lumex-warning-800: var(--color-amber-800);
+    --lumex-warning-900: var(--color-amber-900);
+    --lumex-warning: var(--lumex-warning-500);
+    --lumex-warning-foreground: var(--color-black);
+
+    --lumex-danger-50: var(--color-rose-50);
+    --lumex-danger-100: var(--color-rose-100);
+    --lumex-danger-200: var(--color-rose-200);
+    --lumex-danger-300: var(--color-rose-300);
+    --lumex-danger-400: var(--color-rose-400);
+    --lumex-danger-500: var(--color-rose-500);
+    --lumex-danger-600: var(--color-rose-600);
+    --lumex-danger-700: var(--color-rose-700);
+    --lumex-danger-800: var(--color-rose-800);
+    --lumex-danger-900: var(--color-rose-900);
+    --lumex-danger: var(--lumex-danger-500);
+    --lumex-danger-foreground: var(--color-white);
+
+    --lumex-info-50: var(--color-sky-50);
+    --lumex-info-100: var(--color-sky-100);
+    --lumex-info-200: var(--color-sky-200);
+    --lumex-info-300: var(--color-sky-300);
+    --lumex-info-400: var(--color-sky-400);
+    --lumex-info-500: var(--color-sky-500);
+    --lumex-info-600: var(--color-sky-600);
+    --lumex-info-700: var(--color-sky-700);
+    --lumex-info-800: var(--color-sky-800);
+    --lumex-info-900: var(--color-sky-900);
+    --lumex-info: var(--lumex-info-500);
+    --lumex-info-foreground: var(--color-black);
+
+    --lumex-shadow-small: 0px 0px 5px 0px rgb(0 0 0 / .02), 0px 2px 10px 0px rgb(0 0 0 / .06), 0px 0px 1px 0px rgb(0 0 0 / .15);
+    --lumex-shadow-medium: 0px 0px 15px 0px rgb(0 0 0 / .03), 0px 2px 30px 0px rgb(0 0 0 / .08), 0px 0px 1px 0px rgb(0 0 0 / .15);
+    --lumex-shadow-large: 0px 0px 20px 0px rgb(0 0 0 / .04), 0px 2px 50px 0px rgb(0 0 0 / .1), 0px 0px 1px 0px rgb(0 0 0 / .15);
+}
+
+.dark {
+    --lumex-background: var(--color-black);
+    --lumex-foreground-50: var(--color-zinc-900);
+    --lumex-foreground-100: var(--color-zinc-800);
+    --lumex-foreground-200: var(--color-zinc-700);
+    --lumex-foreground-300: var(--color-zinc-600);
+    --lumex-foreground-400: var(--color-zinc-500);
+    --lumex-foreground-500: var(--color-zinc-400);
+    --lumex-foreground-600: var(--color-zinc-300);
+    --lumex-foreground-700: var(--color-zinc-200);
+    --lumex-foreground-800: var(--color-zinc-100);
+    --lumex-foreground-900: var(--color-zinc-50);
+    --lumex-foreground: var(--lumex-foreground-200);
+
+    --lumex-focus: var(--color-blue-500);
+    --lumex-divider: var(--color-zinc-50);
+    --lumex-surface1: var(--color-zinc-900);
+    --lumex-surface1-foreground: var(--color-zinc-50);
+    --lumex-surface2: var(--color-zinc-800);
+    --lumex-surface2-foreground: var(--color-zinc-100);
+    --lumex-surface3: var(--color-zinc-700);
+    --lumex-surface3-foreground: var(--color-zinc-200);
+
+    --lumex-default-50: var(--color-zinc-900);
+    --lumex-default-100: var(--color-zinc-800);
+    --lumex-default-200: var(--color-zinc-700);
+    --lumex-default-300: var(--color-zinc-600);
+    --lumex-default-400: var(--color-zinc-500);
+    --lumex-default-500: var(--color-zinc-400);
+    --lumex-default-600: var(--color-zinc-300);
+    --lumex-default-700: var(--color-zinc-200);
+    --lumex-default-800: var(--color-zinc-100);
+    --lumex-default-900: var(--color-zinc-50);
+    --lumex-default: var(--lumex-default-300);
+    --lumex-default-foreground: var(--color-black);
+
+    --lumex-primary-50: var(--color-blue-900);
+    --lumex-primary-100: var(--color-blue-800);
+    --lumex-primary-200: var(--color-blue-700);
+    --lumex-primary-300: var(--color-blue-600);
+    --lumex-primary-400: var(--color-blue-500);
+    --lumex-primary-500: var(--color-blue-400);
+    --lumex-primary-600: var(--color-blue-300);
+    --lumex-primary-700: var(--color-blue-200);
+    --lumex-primary-800: var(--color-blue-100);
+    --lumex-primary-900: var(--color-blue-50);
+    --lumex-primary: var(--lumex-primary-500);
+    --lumex-primary-foreground: var(--color-white);
+
+    --lumex-secondary-50: var(--color-violet-900);
+    --lumex-secondary-100: var(--color-violet-800);
+    --lumex-secondary-200: var(--color-violet-700);
+    --lumex-secondary-300: var(--color-violet-600);
+    --lumex-secondary-400: var(--color-violet-500);
+    --lumex-secondary-500: var(--color-violet-400);
+    --lumex-secondary-600: var(--color-violet-300);
+    --lumex-secondary-700: var(--color-violet-200);
+    --lumex-secondary-800: var(--color-violet-100);
+    --lumex-secondary-900: var(--color-violet-50);
+    --lumex-secondary: var(--lumex-secondary-500);
+    --lumex-secondary-foreground: var(--color-white);
+
+    --lumex-success-50: var(--color-green-900);
+    --lumex-success-100: var(--color-green-800);
+    --lumex-success-200: var(--color-green-700);
+    --lumex-success-300: var(--color-green-600);
+    --lumex-success-400: var(--color-green-500);
+    --lumex-success-500: var(--color-green-400);
+    --lumex-success-600: var(--color-green-300);
+    --lumex-success-700: var(--color-green-200);
+    --lumex-success-800: var(--color-green-100);
+    --lumex-success-900: var(--color-green-50);
+    --lumex-success: var(--lumex-success-500);
+    --lumex-success-foreground: var(--color-black);
+
+    --lumex-warning-50: var(--color-amber-900);
+    --lumex-warning-100: var(--color-amber-800);
+    --lumex-warning-200: var(--color-amber-700);
+    --lumex-warning-300: var(--color-amber-600);
+    --lumex-warning-400: var(--color-amber-500);
+    --lumex-warning-500: var(--color-amber-400);
+    --lumex-warning-600: var(--color-amber-300);
+    --lumex-warning-700: var(--color-amber-200);
+    --lumex-warning-800: var(--color-amber-100);
+    --lumex-warning-900: var(--color-amber-50);
+    --lumex-warning: var(--lumex-warning-500);
+    --lumex-warning-foreground: var(--color-black);
+
+    --lumex-danger-50: var(--color-rose-900);
+    --lumex-danger-100: var(--color-rose-800);
+    --lumex-danger-200: var(--color-rose-700);
+    --lumex-danger-300: var(--color-rose-600);
+    --lumex-danger-400: var(--color-rose-500);
+    --lumex-danger-500: var(--color-rose-400);
+    --lumex-danger-600: var(--color-rose-300);
+    --lumex-danger-700: var(--color-rose-200);
+    --lumex-danger-800: var(--color-rose-100);
+    --lumex-danger-900: var(--color-rose-50);
+    --lumex-danger: var(--lumex-danger-500);
+    --lumex-danger-foreground: var(--color-white);
+
+    --lumex-info-50: var(--color-sky-900);
+    --lumex-info-100: var(--color-sky-800);
+    --lumex-info-200: var(--color-sky-700);
+    --lumex-info-300: var(--color-sky-600);
+    --lumex-info-400: var(--color-sky-500);
+    --lumex-info-500: var(--color-sky-400);
+    --lumex-info-600: var(--color-sky-300);
+    --lumex-info-700: var(--color-sky-200);
+    --lumex-info-800: var(--color-sky-100);
+    --lumex-info-900: var(--color-sky-50);
+    --lumex-info: var(--lumex-info-500);
+    --lumex-info-foreground: var(--color-black);
+
+    --lumex-shadow-small: 0px 0px 5px 0px rgb(0 0 0 / .03), 0px 2px 10px 0px rgb(0 0 0 / .2), inset 0px 0px 1px 0px rgb(255 255 255 / .15);
+    --lumex-shadow-medium: 0px 0px 15px 0px rgb(0 0 0 / .06), 0px 2px 30px 0px rgb(0 0 0 / .22), inset 0px 0px 1px 0px rgb(255 255 255 / .15);
+    --lumex-shadow-large: 0px 0px 20px 0px rgb(0 0 0 / .07), 0px 2px 50px 0px rgb(0 0 0 / .24), inset 0px 0px 1px 0px rgb(255 255 255 / .15);
+}
+</code></pre>

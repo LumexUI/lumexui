@@ -4,6 +4,7 @@
 @import "./blazor" layer(components);
 @import "./typography" layer(utilities);
 @import "./fonts";
+@import "./themes";
 
 @source "../../LumexUI.Docs.Client/{Pages,Components}/**/*.{razor,razor.cs}"; /* docs */
 @source "../bin/lumexui/*.cs"; /* components */

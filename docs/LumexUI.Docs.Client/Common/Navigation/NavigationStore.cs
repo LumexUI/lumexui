@@ -13,12 +13,10 @@ public class NavigationStore
 			.Add( new( "Overview" ) )
 			.Add( new( "Installation" ) );
 
-	private static NavigationCategory CustomizationCategory =>
-		new NavigationCategory( "Customization", Icons.Rounded.DesignServices )
-			.Add( new( "Theme" ) )
-			.Add( new( "Layout" ) )
-			.Add( new( "Colors" ) )
-			.Add( new( "Customize Theme" ) );
+	private static NavigationCategory ThemingCategory =>
+		new NavigationCategory( "Theming", Icons.Rounded.DesignServices )
+			.Add( new( "Design Tokens" ) )
+			.Add( new( "Customization" ) );
 
 	private static NavigationCategory ComponentsCategory =>
 		new NavigationCategory( "Components", Icons.Rounded.Joystick )
@@ -104,7 +102,7 @@ public class NavigationStore
 	{
 		_navigation ??= new Navigation()
 			.Add( GettingStartedCategory )
-			.Add( CustomizationCategory )
+			.Add( ThemingCategory )
 			.Add( ComponentsCategory )
 			.Add( ComponentsApiCategory );
 
