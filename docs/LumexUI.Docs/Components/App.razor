@@ -9,6 +9,14 @@
     <link rel="icon" type="image/png" href="favicon.png" />
     <PageTitle>LumexUI - A versatile Blazor UI library built using Tailwind CSS</PageTitle>
     <HeadOutlet />
+    <script>
+        const stored = localStorage.getItem("lumexui.theme") || "system";
+        const theme = stored === "system"
+            ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+            : stored;
+        document.documentElement.classList.add(theme);
+        document.documentElement.style.colorScheme = theme;
+    </script>
 </head>
 
 <body>
