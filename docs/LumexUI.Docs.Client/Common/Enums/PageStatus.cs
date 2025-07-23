@@ -1,10 +1,12 @@
 ﻿namespace LumexUI.Docs.Client.Common;
 
-public enum ComponentStatus
+public enum PageStatus
 {
     New,
 
     Soon,
 
-    Preview
+    Preview,
+
+	Updated
 }
