@@ -1,0 +1,68 @@
+﻿@page "/docs/theming/dark-mode"
+@layout DocsContentLayout
+
+<DocsSection Title="Global dark mode">
+    <p>
+        LumexUI supports both <code>light</code> and <code>dark</code> modes.
+        To enable dark mode globally, simply add the <code>dark</code> class
+        to a wrapper element such as <code>html</code> or <code>body</code>.
+    </p>
+
+    <CodeSnippet Code="@(new CodeBlock( name: "App.razor", snippet: "darkModeRoot" ))" />
+</DocsSection>
+
+<DocsSection Title="Mode toggling">
+    <p>LumexUI provides a simple mechanism for switching themes, which consists of two key parts:</p>
+
+    <ul>
+        <li><strong>A theme provider</strong> component that sets the initial theme on first load.</li>
+        <li><strong>A theme service</strong> that allows you to change the theme dynamically.</li>
+    </ul>
+
+    <DocsSection Title="Add the theme provider">
+        <p>Insert the <code>LumexThemeProvider</code> into your <code>MainLayout.razor</code> file:</p>
+
+        <CodeSnippet Code="@(new CodeBlock( name: "MainLayout.razor", snippet: "darkModeProvider" ))" />
+
+        <LumexAlert Radius="@Radius.Large">
+            <DescriptionContent>
+                <p class="mt-0 mb-3">
+                    The <code>LumexThemeProvider</code> component requires interactivity.
+                    If you're using the Blazor Web App template, make sure to apply the appropriate <code>@@rendermode</code>.
+                </p>
+                <LumexLink Href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-9.0"
+                           External="@true">
+                    Learn more about render modes
+                </LumexLink>
+            </DescriptionContent>
+        </LumexAlert>
+    </DocsSection>
+
+    <DocsSection Title="Add a mode toggle">
+        <p>Place a mode toggle on your site to toggle between light and dark mode.</p>
+        <ThemeTogglePreview />
+    </DocsSection>
+</DocsSection>
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Global dark mode"),
+        new("Mode toggling", [
+            new("Setup"),
+            new("Add a mode toggle"),
+        ]),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Dark Mode",
+            category: "Theming",
+            description: "Adding dark mode to your app.",
+            _headings
+        );
+    }
+}

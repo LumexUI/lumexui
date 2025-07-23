@@ -1,0 +1,32 @@
+﻿@inject ThemeService ThemeService
+@inject IPopoverService PopoverService
+
+<LumexButton Variant="@Variant.Outlined"
+             Class="min-w-10 w-10 h-10 p-0"
+             OnClick="@TriggerAsync"
+             data-popoverref="@_dropdownId">
+    <LumexIcon Icon="@Icons.Rounded.DarkMode" Size="@new( "20" )" Class="hidden dark:block" />
+    <LumexIcon Icon="@Icons.Rounded.LightMode" Size="@new( "20" )" Class="dark:hidden" />
+</LumexButton>
+
+<LumexDropdown Id="@_dropdownId"
+               Placement="@PopoverPlacement.BottomEnd"
+               Class="min-w-32">
+    <LumexDropdownMenu Variant="@MenuVariant.Flat">
+        <LumexDropdownItem OnClick="@(async () => await ThemeService.SetThemeAsync( Theme.Light ))">
+            Light
+        </LumexDropdownItem>
+        <LumexDropdownItem OnClick="@(async () => await ThemeService.SetThemeAsync( Theme.Dark ))">
+            Dark
+        </LumexDropdownItem>
+        <LumexDropdownItem OnClick="@(async () => await ThemeService.SetThemeAsync( Theme.System ))">
+            System
+        </LumexDropdownItem>
+    </LumexDropdownMenu>
+</LumexDropdown>
+
+@code {
+    private string _dropdownId = "theme-toggle";
+
+    private Task TriggerAsync() => PopoverService.TriggerAsync( _dropdownId );
+}

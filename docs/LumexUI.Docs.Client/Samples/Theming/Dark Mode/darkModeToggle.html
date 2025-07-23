@@ -1,0 +1,33 @@
+<pre><code class="language-razor">@inject ThemeService ThemeService
+@inject IPopoverService PopoverService
+
+&lt;LumexButton Variant=&quot;@Variant.Outlined&quot;
+             Class=&quot;min-w-10 w-10 h-10 p-0&quot;
+             OnClick=&quot;@TriggerAsync&quot;
+             data-popoverref=&quot;@_dropdownId&quot;&gt;
+    &lt;LumexIcon Icon=&quot;@Icons.Rounded.DarkMode&quot; Size=&quot;@new( &quot;20&quot; )&quot; Class=&quot;hidden dark:block&quot; /&gt;
+    &lt;LumexIcon Icon=&quot;@Icons.Rounded.LightMode&quot; Size=&quot;@new( &quot;20&quot; )&quot; Class=&quot;dark:hidden&quot; /&gt;
+&lt;/LumexButton&gt;
+
+&lt;LumexDropdown Id=&quot;@_dropdownId&quot;
+               Placement=&quot;@PopoverPlacement.BottomEnd&quot;
+               Class=&quot;min-w-32&quot;&gt;
+    &lt;LumexDropdownMenu Variant=&quot;@MenuVariant.Flat&quot;&gt;
+        &lt;LumexDropdownItem OnClick=&quot;@(async () =&gt; await ThemeService.SetThemeAsync( Theme.Light ))&quot;&gt;
+            Light
+        &lt;/LumexDropdownItem&gt;
+        &lt;LumexDropdownItem OnClick=&quot;@(async () =&gt; await ThemeService.SetThemeAsync( Theme.Dark ))&quot;&gt;
+            Dark
+        &lt;/LumexDropdownItem&gt;
+        &lt;LumexDropdownItem OnClick=&quot;@(async () =&gt; await ThemeService.SetThemeAsync( Theme.System ))&quot;&gt;
+            System
+        &lt;/LumexDropdownItem&gt;
+    &lt;/LumexDropdownMenu&gt;
+&lt;/LumexDropdown&gt;
+
+@code {
+    private string _dropdownId = &quot;theme-toggle&quot;;
+
+    private Task TriggerAsync() =&gt; PopoverService.TriggerAsync( _dropdownId );
+}
+</code></pre>

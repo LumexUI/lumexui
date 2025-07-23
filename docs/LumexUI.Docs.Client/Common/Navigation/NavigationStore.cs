@@ -15,20 +15,21 @@ public class NavigationStore
 
 	private static NavigationCategory ThemingCategory =>
 		new NavigationCategory( "Theming", Icons.Rounded.DesignServices )
-			.Add( new( "Design Tokens" ) )
-			.Add( new( "Customization" ) );
+			.Add( new( "Design Tokens", PageStatus.New ) )
+			.Add( new( "Customization", PageStatus.Updated ) )
+			.Add( new( "Dark Mode", PageStatus.New ) );
 
 	private static NavigationCategory ComponentsCategory =>
 		new NavigationCategory( "Components", Icons.Rounded.Joystick )
 			.Add( new( nameof( LumexAccordion ) ) )
-			.Add( new( nameof( LumexAlert ), ComponentStatus.New ) )
-			.Add( new( nameof( LumexAvatar ), ComponentStatus.New ) )
-			.Add( new( nameof( LumexBadge ), ComponentStatus.New ) )
+			.Add( new( nameof( LumexAlert ), PageStatus.New ) )
+			.Add( new( nameof( LumexAvatar ), PageStatus.New ) )
+			.Add( new( nameof( LumexBadge ), PageStatus.New ) )
 			.Add( new( nameof( LumexButton ) ) )
 			.Add( new( nameof( LumexCard ) ) )
 			.Add( new( nameof( LumexCheckbox ) ) )
 			.Add( new( nameof( LumexCheckboxGroup ) ) )
-			.Add( new( nameof( LumexChip ), ComponentStatus.New ) )
+			.Add( new( nameof( LumexChip ), PageStatus.New ) )
 			.Add( new( nameof( LumexCollapse ) ) )
 			.Add( new( nameof( LumexDataGrid<T> ) ) )
 			.Add( new( nameof( LumexDivider ) ) )
@@ -41,12 +42,12 @@ public class NavigationStore
 			.Add( new( nameof( LumexPopover ) ) )
 			.Add( new( nameof( LumexRadioGroup<T> ) ) )
 			.Add( new( nameof( LumexSelect<T> ) ) )
-			.Add( new( nameof( LumexSkeleton ), ComponentStatus.New ) )
-			.Add( new( nameof( LumexSpinner ), ComponentStatus.New ) )
+			.Add( new( nameof( LumexSkeleton ), PageStatus.New ) )
+			.Add( new( nameof( LumexSpinner ), PageStatus.New ) )
 			.Add( new( nameof( LumexSwitch ) ) )
 			.Add( new( nameof( LumexTabs ) ) )
 			.Add( new( nameof( LumexTextbox ) ) )
-			.Add( new( nameof( LumexTooltip ), ComponentStatus.New ) );
+			.Add( new( nameof( LumexTooltip ), PageStatus.New ) );
 
 	private static NavigationCategory ComponentsApiCategory =>
 		new NavigationCategory( "Components API", Icons.Rounded.Manufacturing )
