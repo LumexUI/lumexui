@@ -82,10 +82,15 @@ public partial class LumexButton : LumexComponentBase
 	/// </summary>
 	[Parameter] public bool FullWidth { get; set; }
 
-    /// <summary>
-    /// Gets or sets a callback that is fired whenever the button is clicked.
-    /// </summary>
-    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+	/// <summary>
+	/// Gets or sets a value indicating whether the button should have the same width and height.
+	/// </summary>
+	[Parameter] public bool IconOnly { get; set; }
+
+	/// <summary>
+	/// Gets or sets a callback that is fired whenever the button is clicked.
+	/// </summary>
+	[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 	private protected override string? RootClass => 
         TwMerge.Merge( Button.GetStyles( this ) );

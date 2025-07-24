@@ -105,6 +105,24 @@ internal class Button
 		};
 	}
 
+	private static ElementClass GetIconOnlyStyles( bool isIconOnly )
+	{
+		return ElementClass.Empty()
+			.Add( "px-0 !gap-0", when: isIconOnly is true )
+			.Add( "[&>svg]:max-w-8", when: isIconOnly is false );
+	}
+
+	private static ElementClass GetCompoundStyles( Size size )
+	{
+		return size switch
+		{
+			Size.Small => new ElementClass( "min-w-8 w-8 h-8" ),
+			Size.Medium => new ElementClass( "min-w-10 w-10 h-10" ),
+			Size.Large => new ElementClass( "min-w-12 w-12 h-12" ),
+			_ => ElementClass.Empty()
+		};
+	}
+
 	public static string GetStyles( LumexButton button )
 	{
 		return ElementClass.Empty()
@@ -114,8 +132,10 @@ internal class Button
 			.Add( GetSizeStyles( button.Size ) )
 			.Add( GetRadiusStyles( button.Radius ) )
 			.Add( GetVariantStyles( button.Variant ) )
+			.Add( GetIconOnlyStyles( button.IconOnly ) )
 			.Add( GetColorStyles( button.Variant, button.Color ) )
 			.Add( GetHoverStyles( button.Variant, button.Color ) )
+			.Add( GetCompoundStyles( button.Size ), when: button.IconOnly )
 			.Add( button.Class )
 			.ToString();
 	}
