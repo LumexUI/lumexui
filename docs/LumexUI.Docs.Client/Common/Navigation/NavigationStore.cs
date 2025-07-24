@@ -25,7 +25,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexAlert ), PageStatus.New ) )
 			.Add( new( nameof( LumexAvatar ), PageStatus.New ) )
 			.Add( new( nameof( LumexBadge ), PageStatus.New ) )
-			.Add( new( nameof( LumexButton ) ) )
+			.Add( new( nameof( LumexButton ), PageStatus.Updated ) )
 			.Add( new( nameof( LumexCard ) ) )
 			.Add( new( nameof( LumexCheckbox ) ) )
 			.Add( new( nameof( LumexCheckboxGroup ) ) )

@@ -1,13 +1,7 @@
-﻿@using LumexUI.Services
-
-@inject IPopoverService PopoverService
-
-<LumexButton OnClick="@TriggerAsync"
-             data-popoverref="@_popoverId">
-    Open Popover
-</LumexButton>
-
-<LumexPopover Id="@_popoverId">
+﻿<LumexPopover>
+    <LumexPopoverTrigger>
+        <LumexButton>Open Popover</LumexButton>
+    </LumexPopoverTrigger>
     <LumexPopoverContent>
         <div class="px-1 py-2">
             <div class="text-small font-bold">Oh, hi there!</div>
@@ -15,12 +9,3 @@
         </div>
     </LumexPopoverContent>
 </LumexPopover>
-
-@code {
-    private string _popoverId = "popover-usage";
-
-    private Task TriggerAsync()
-    {
-        return PopoverService.TriggerAsync(_popoverId);
-    }
-}

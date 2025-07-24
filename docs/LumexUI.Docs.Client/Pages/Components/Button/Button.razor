@@ -36,7 +36,7 @@
             Customize the appearance of the button by applying
             different colors that suit your application's theme and design.
         </p>
-        <LumexUI.Docs.Client.Pages.Components.Button.PreviewCodes.Colors />
+        <Colors />
     </DocsSection>
 
     <DocsSection Title="Variants">
@@ -53,6 +53,14 @@
             Icons can be positioned on the start or end of the button text for better visual context.
         </p>
         <WithIcons />
+    </DocsSection>
+
+    <DocsSection Title="Icon Only">
+        <p>
+            You can also display a button without text by passing the <Code>IconOnly</Code>
+            parameter and the desired icon as <Code>ChildContent</Code>.
+        </p>
+        <IconOnly />
     </DocsSection>
 </DocsSection>
 
@@ -78,6 +86,7 @@
             new("Colors"),
             new("Variants"),
             new("Icons"),
+            new("Icon Only"),
         ]),
         new("Custom Styles"),
         new("API")
