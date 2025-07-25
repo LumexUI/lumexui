@@ -4,6 +4,7 @@
 
 using LumexUI.Common;
 using LumexUI.Styles;
+using LumexUI.Shared.Icons;
 
 using Microsoft.AspNetCore.Components;
 
@@ -38,6 +39,11 @@ public partial class LumexAccordionItem : LumexComponentBase,
 	[Parameter] public RenderFragment? SubtitleContent { get; set; }
 
 	/// <summary>
+	/// Gets or sets the content to render as the indicator icon.
+	/// </summary>
+	[Parameter] public RenderFragment<bool> IndicatorContent { get; set; } = _renderIndicator;
+
+	/// <summary>
 	/// Gets or sets the unique identifier for the accordion item.
 	/// </summary>
 	[Parameter, EditorRequired] public string Id { get; set; } = default!;
@@ -51,11 +57,6 @@ public partial class LumexAccordionItem : LumexComponentBase,
 	/// Gets or sets the subtitle.
 	/// </summary>
 	[Parameter] public string? Subtitle { get; set; }
-
-	/// <summary>
-	/// Gets or sets the function that resolves the indicator icon.
-	/// </summary>
-	[Parameter] public IndicatorResolver Indicator { get; set; } = ( _ ) => Icons.Rounded.ChevronLeft;
 
 	/// <summary>
 	/// Gets or sets a value indicating whether the accordion item is disabled.
@@ -105,6 +106,14 @@ public partial class LumexAccordionItem : LumexComponentBase,
 
 	private string? ContentClass =>
 		TwMerge.Merge( AccordionItem.GetContentStyles( this ) );
+
+	private static readonly RenderFragment<bool> _renderIndicator = _ => builder =>
+	{
+		builder.OpenComponent<ChevronLeft>( 0 );
+		builder.AddComponentParameter( 1, nameof( ChevronLeft.Size ), "1em" );
+		builder.AddAttribute( 1, "stroke-width", "2" );
+		builder.CloseComponent();
+	};
 
 	private bool _disposed;
 	private bool _disabled;
