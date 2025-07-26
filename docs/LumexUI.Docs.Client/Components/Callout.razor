@@ -1,7 +1,9 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 
+@using LumexUI.Shared.Icons
+
 <div class="@BaseClass">
-    <LumexIcon Icon="@_icon" Class="@IconClass" />
+    <DynamicIcon Type="@_icon" class="@IconClass" />
     <p>@ChildContent</p>
 </div>
 
@@ -32,17 +34,17 @@
         .Add( Classes?.Icon )
         .ToString();
 
-    private string _icon = default!;
+    private Type _icon = default!;
 
     protected override void OnInitialized()
     {
         _icon = Variant switch
         {
-            CalloutVariant.Info => Icons.Rounded.Info,
-            CalloutVariant.Warning => Icons.Rounded.Warning,
-            CalloutVariant.Danger => Icons.Rounded.Dangerous,
-            CalloutVariant.Success => Icons.Rounded.CheckCircle,
-            CalloutVariant.Tip => Icons.Rounded.EmojiObjects,
+            CalloutVariant.Info => typeof(Info),
+            CalloutVariant.Warning => typeof( ShieldAlert ),
+            CalloutVariant.Danger => typeof( OctagonAlert ),
+            CalloutVariant.Success => typeof( CircleCheck ),
+            CalloutVariant.Tip => typeof( Info ),
             _ => throw new NotImplementedException()
         };
     }
