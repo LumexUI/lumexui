@@ -1,6 +1,8 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 @inject NavigationManager NavigationManager
 
+@using LumexUI.Shared.Icons
+
 <CascadingValue TValue="DocsSection" Value="@this" IsFixed="@true">
     <LumexComponent As="@(IsSubsection ? "h3" : "h2")"
                     id="@_id">
@@ -9,8 +11,7 @@
                    Class="border-none">
             @Title
             <span class="flex items-center justify-center size-6 ml-2 rounded-md text-foreground-400 shadow-xs ring ring-foreground-900/10 hover:ring-orange-200 hover:bg-orange-50 hover:text-orange-500">
-                <LumexIcon Icon="@Icons.Rounded.Link"
-                           Size="@new("16")" />
+                <Link2Icon Size="16" />
             </span>
         </LumexLink>
     </LumexComponent>

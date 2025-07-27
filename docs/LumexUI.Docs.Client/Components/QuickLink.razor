@@ -1,9 +1,11 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 
+@using LumexUI.Shared.Icons
+
 <li class="relative flex flex-col items-start p-1">
     <div class="peer flex items-end gap-3 mb-3">
         <div class="flex items-center justify-center size-8 rounded-xl bg-indigo-50/75 text-indigo-500 border border-indigo-300 ring-2 ring-indigo-100">
-            <LumexIcon Icon="@Icon" />
+            <DynamicIcon Type="@Icon" Size="20" />
         </div>
         <h3 class="font-semibold text-foreground-900">
             <LumexLink Href="@Link"
@@ -22,7 +24,7 @@
 </li>
 
 @code {
-    [Parameter] public string? Icon { get; set; }
+    [Parameter] public Type? Icon { get; set; }
     [Parameter] public string? Link { get; set; }
     [Parameter] public string? Title { get; set; }
     [Parameter] public string? Description { get; set; }

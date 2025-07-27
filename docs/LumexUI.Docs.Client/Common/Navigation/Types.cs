@@ -13,12 +13,12 @@ public class Navigation
     }
 }
 
-public class NavigationCategory( string name, string icon )
+public class NavigationCategory( string name, string? icon = null )
 {
     private readonly List<NavigationItem> _items = [];
 
     public string Name { get; } = name;
-    public string Icon { get; } = icon;
+    public string? Icon { get; } = icon;
     public IEnumerable<NavigationItem> Items => _items.AsEnumerable();
 
     public NavigationCategory Add( NavigationItem item )

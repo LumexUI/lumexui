@@ -11,16 +11,17 @@
         <div class="flex items-center justify-end">
             <LumexButton Size="@Size.Small"
                          OnClick="@Expand"
-                         Class="h-5 px-2 me-1 rounded-full bg-orange-50 border border-orange-300 text-orange-500 text-[0.625rem]">
+                         Class="h-6 px-2 me-1 rounded-full bg-orange-50 border border-orange-300 text-orange-500 text-[11px]">
                 @(_expanded ? "Collapse code" : "Expand code")
             </LumexButton>
-            <LumexButton Size="@Size.Small"
+            <LumexButton IconOnly="@true"
+                         Size="@Size.Small"
                          Variant="@Variant.Light"
-                         OnClick="@CopyToClipboard"
-                         Class="h-6 w-6 min-w-6 px-0">
-                <LumexIcon Icon="@(_copied ? Icons.Rounded.Check : Icons.Rounded.ContentCopy)"
-                           Size="@new("16")"
-                           Class="text-foreground-500" />
+                         OnClick="@CopyToClipboard">
+                @(_copied
+                    ? @<CheckIcon Size="16" class="text-foreground-500" />
+                    : @<CopyIcon Size="16" class="text-foreground-500" />
+                )
             </LumexButton>
         </div>
     </div>

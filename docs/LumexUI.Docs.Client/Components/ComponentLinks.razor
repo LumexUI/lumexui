@@ -5,7 +5,7 @@
     {
         <LumexButton As="a"
                      Size="@Size.Small"
-                     StartContent="@BlazorIcon"
+                     StartContent="@_blazorIcon"
                      Class="bg-default-100 text-default-700 text-small"
                      href="https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/?view=aspnetcore-8.0#client-and-server-rendering-concepts"
                      target="_blank"
@@ -16,7 +16,7 @@
 
     <LumexButton As="a"
                  Size="@Size.Small"
-                 StartContent="@GithubIcon"
+                 StartContent="@_githubIcon"
                  Class="bg-default-100 text-default-700 text-small"
                  href="@($"{Constants.GitHub.ComponentPath}/{ComponentName}")"
                  target="_blank"
@@ -26,7 +26,7 @@
 
     <LumexButton As="a"
                  Size="@Size.Small"
-                 StartContent="@GithubIcon"
+                 StartContent="@_githubIcon"
                  Class="bg-default-100 text-default-700 text-small"
                  href="@($"{Constants.GitHub.ComponentStylesPath}/{ComponentName}.cs")"
                  target="_blank"
@@ -39,13 +39,6 @@
     [Parameter, EditorRequired] public string ComponentName { get; set; } = default!;
     [Parameter] public bool IsServer { get; set; }
 
-    private static readonly RenderFragment BlazorIcon =
-        @<LumexIcon Icon="@Icons.Brands.Blazor"
-                    Size="@new("20")"
-                    viewBox="-10 -38 340 340" />;
-
-    private static readonly RenderFragment GithubIcon =
-        @<LumexIcon Icon="@Icons.Brands.GitHub"
-                    Size="@new("20")"
-                    viewBox="0 0 24 24" />;
+    private readonly RenderFragment _blazorIcon = @<BlazorIcon Size="18" />;
+    private readonly RenderFragment _githubIcon = @<GithubIcon Size="16" />;
 }

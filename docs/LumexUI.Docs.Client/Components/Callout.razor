@@ -40,11 +40,11 @@
     {
         _icon = Variant switch
         {
-            CalloutVariant.Info => typeof(Info),
-            CalloutVariant.Warning => typeof( ShieldAlert ),
-            CalloutVariant.Danger => typeof( OctagonAlert ),
-            CalloutVariant.Success => typeof( CircleCheck ),
-            CalloutVariant.Tip => typeof( Info ),
+            CalloutVariant.Info => typeof( InfoIcon ),
+            CalloutVariant.Warning => typeof( ShieldAlertIcon ),
+            CalloutVariant.Danger => typeof( OctagonAlertIcon ),
+            CalloutVariant.Success => typeof( CircleCheckIcon ),
+            CalloutVariant.Tip => typeof( InfoIcon ),
             _ => throw new NotImplementedException()
         };
     }
