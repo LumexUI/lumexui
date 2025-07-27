@@ -7,7 +7,7 @@ public class DynamicIcon : IComponent
 {
 	[Parameter, EditorRequired] public Type Type { get; set; } = default!;
 
-	[Parameter] public int Size { get; set; } = 24;
+	[Parameter] public string Size { get; set; } = "24";
 
 	[Parameter( CaptureUnmatchedValues = true )]
 	public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
@@ -37,7 +37,7 @@ public class DynamicIcon : IComponent
 			}
 			else if( entry.Name.Equals( nameof( Size ), StringComparison.OrdinalIgnoreCase ) )
 			{
-				Size = (int)entry.Value;
+				Size = (string)entry.Value;
 			}
 		}
 
@@ -54,7 +54,7 @@ public class DynamicIcon : IComponent
 	{
 		builder.OpenComponent( 0, Type );
 		builder.AddComponentParameter( 1, nameof( Size ), Size );
-		builder.AddMultipleAttributes( 3, AdditionalAttributes );
+		builder.AddMultipleAttributes( 2, AdditionalAttributes );
 		builder.CloseComponent();
 	}
 }
