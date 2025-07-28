@@ -80,15 +80,12 @@
 
     <DocsSection Title="Custom Indicator">
         <p>
-            Customize the default expand/collapse indicator icon (such as an arrow).
-            You can achieve this using the <Code>Indicator</Code> parameter.
+            Customize the default expand/collapse indicator icon.
+            You can achieve this using the <Code>IndicatorContent</Code> parameter.
         </p>
         <CustomIndicator />
 
-        <p>
-            Since the <Code>Indicator</Code> parameter is of a delegate type <Code>IndicatorResolver</Code>,
-            you can control the indicator icon based on the expanded state of the accordion item:
-        </p>
+        <p>You can control the indicator icon based on the expanded state of the accordion item:</p>
         <CustomIndicatorState />
     </DocsSection>
 
@@ -164,8 +161,7 @@
     private readonly string[] _apiComponents = new string[]
     {
         nameof(LumexAccordion),
-        nameof(LumexAccordionItem),
-        nameof(LumexIcon)
+        nameof(LumexAccordionItem)
     };
 
     protected override void OnInitialized()

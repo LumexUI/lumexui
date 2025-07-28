@@ -9,18 +9,18 @@ public class NavigationStore
 	private static Navigation? _navigation;
 
 	private static NavigationCategory GettingStartedCategory =>
-		new NavigationCategory( "Getting Started", Icons.Rounded.AutoStories )
+		new NavigationCategory( "Getting Started" )
 			.Add( new( "Overview" ) )
 			.Add( new( "Installation" ) );
 
 	private static NavigationCategory ThemingCategory =>
-		new NavigationCategory( "Theming", Icons.Rounded.DesignServices )
+		new NavigationCategory( "Theming" )
 			.Add( new( "Design Tokens", PageStatus.New ) )
 			.Add( new( "Customization", PageStatus.Updated ) )
 			.Add( new( "Dark Mode", PageStatus.New ) );
 
 	private static NavigationCategory ComponentsCategory =>
-		new NavigationCategory( "Components", Icons.Rounded.Joystick )
+		new NavigationCategory( "Components" )
 			.Add( new( nameof( LumexAccordion ) ) )
 			.Add( new( nameof( LumexAlert ), PageStatus.New ) )
 			.Add( new( nameof( LumexAvatar ), PageStatus.New ) )
@@ -34,7 +34,6 @@ public class NavigationStore
 			.Add( new( nameof( LumexDataGrid<T> ) ) )
 			.Add( new( nameof( LumexDivider ) ) )
 			.Add( new( nameof( LumexDropdown ) ) )
-			.Add( new( nameof( LumexIcon ) ) )
 			.Add( new( nameof( LumexLink ) ) )
 			.Add( new( nameof( LumexListbox<T> ) ) )
 			.Add( new( nameof( LumexNavbar ) ) )
@@ -50,7 +49,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexTooltip ), PageStatus.New ) );
 
 	private static NavigationCategory ComponentsApiCategory =>
-		new NavigationCategory( "Components API", Icons.Rounded.Manufacturing )
+		new NavigationCategory( "Components API" )
 			.Add( new( nameof( LumexAccordion ) ) )
 			.Add( new( nameof( LumexAccordionItem ) ) )
 			.Add( new( nameof( LumexAvatar ) ) )
@@ -74,7 +73,6 @@ public class NavigationStore
 			.Add( new( nameof( LumexDropdownMenu ) ) )
 			//.Add( nameof( LumexInputBase<T> ) )
 			//.Add( nameof( LumexInputFieldBase<T> ) )
-			.Add( new( nameof( LumexIcon ) ) )
 			.Add( new( nameof( LumexLink ) ) )
 			.Add( new( nameof( LumexListbox<T> ) ) )
 			.Add( new( nameof( LumexListboxItem<T> ) ) )

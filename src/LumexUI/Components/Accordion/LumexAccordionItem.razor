@@ -48,10 +48,10 @@
             </div>
             @if( Context.Owner.ShowIndicators )
             {
-                <span class="@IndicatorClass" 
-                      data-slot="indicator" 
+                <span class="@IndicatorClass"
+                      data-slot="indicator"
                       data-opened="@_expanded">
-                    <LumexIcon Icon="@Indicator(_expanded)" />
+                    @IndicatorContent( _expanded )
                 </span>
             }
         </button>

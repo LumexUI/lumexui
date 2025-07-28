@@ -1,22 +1,26 @@
-﻿<LumexAccordion>
-    <LumexAccordionItem Id="1"
-                        Title="Public"
-                        Indicator="@((expanded) => expanded ? Icons.Rounded.Public : Icons.Rounded.PublicOff)">
-        @_content
+﻿@using LumexUI.Shared.Icons
+
+<LumexAccordion>
+    <LumexAccordionItem Id="1" Title="Theme">
+        <ChildContent>@_content</ChildContent>
+        <IndicatorContent Context="expanded">
+            @(expanded ? @<SunIcon /> : @<MoonIcon />)
+        </IndicatorContent>
     </LumexAccordionItem>
-    <LumexAccordionItem Id="2"
-                        Title="Fullscreen"
-                        Indicator="@((expanded) => expanded ? Icons.Rounded.CloseFullscreen : Icons.Rounded.OpenInFull)">
-        @_content
+    <LumexAccordionItem Id="2" Title="Anchor">
+        <ChildContent>@_content</ChildContent>
+        <IndicatorContent>
+            <LinkIcon />
+        </IndicatorContent>
     </LumexAccordionItem>
-    <LumexAccordionItem Id="3"
-                        Title="Moon"
-                        Indicator="@((expanded) => expanded ? Icons.Rounded.Bedtime : Icons.Rounded.LightMode)">
-        @_content
+    <LumexAccordionItem Id="3" Title="Sun">
+        <ChildContent>@_content</ChildContent>
+        <IndicatorContent>
+            <SunIcon />
+        </IndicatorContent>
     </LumexAccordionItem>
 </LumexAccordion>
 
 @code {
-    private RenderFragment _content =>
-    @<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</text>;
+    private RenderFragment _content = @<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</text>;
 }

@@ -1,12 +1,14 @@
-﻿@inject ThemeService ThemeService
+﻿@using LumexUI.Shared.Icons
+
+@inject ThemeService ThemeService
 @inject IPopoverService PopoverService
 
 <LumexButton Variant="@Variant.Outlined"
              Class="min-w-10 w-10 h-10 p-0"
              OnClick="@TriggerAsync"
              data-popoverref="@_dropdownId">
-    <LumexIcon Icon="@Icons.Rounded.DarkMode" Size="@new( "20" )" Class="hidden dark:block" />
-    <LumexIcon Icon="@Icons.Rounded.LightMode" Size="@new( "20" )" Class="dark:hidden" />
+    <MoonIcon Size="20" class="hidden dark:block" />
+    <SunIcon Size="20" class="dark:hidden" />
 </LumexButton>
 
 <LumexDropdown Id="@_dropdownId"

@@ -1,17 +1,17 @@
-﻿<ul class="min-w-48">
+﻿@using LumexUI.Shared.Icons
+
+<ul class="min-w-48">
     <li>
         <div class="flex items-center gap-2 px-2 py-1 cursor-pointer rounded-lg hover:bg-indigo-50 hover:text-indigo-600"
-             @onclick="@ToggleExpansion">
-            <LumexIcon Icon="@FolderIcon" />
+             @onclick="@(() => _expanded = !_expanded)">
+            @(_expanded ? @<FolderOpenIcon /> : @<FolderIcon />)
             <span>src</span>
         </div>
-        <LumexCollapse As="ul"
-                       Expanded="@_expanded"
-                       Class="ml-4">
-            @foreach( var dir in _directories )
+        <LumexCollapse As="ul" Expanded="@_expanded" Class="ml-4">
+            @foreach( var dir in new[] { "app", "pages", "components" } )
             {
                 <li class="flex items-center gap-2 px-2 py-1 cursor-pointer rounded-lg hover:bg-indigo-50 hover:text-indigo-600">
-                    <LumexIcon Icon="@Icons.Rounded.Folder" />
+                    <FolderIcon />
                     <span>@dir</span>
                 </li>
             }
@@ -20,19 +20,5 @@
 </ul>
 
 @code {
-    private readonly string[] _directories = new string[]
-    {
-        "app", "pages", "components"
-    };
-
     private bool _expanded = true;
-
-    private string FolderIcon => _expanded
-        ? Icons.Rounded.FolderOpen
-        : Icons.Rounded.Folder;
-
-    private void ToggleExpansion()
-    {
-        _expanded = !_expanded;
-    }
 }

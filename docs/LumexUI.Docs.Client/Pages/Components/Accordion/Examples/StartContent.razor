@@ -1,46 +1,45 @@
 ﻿<LumexAccordion>
     <LumexAccordionItem Id="1"
-                        Title="General Settings"
-                        Subtitle="Custom display, sound, privacy, connectivity, updates">
+                        Title="Ross Geller"
+                        Subtitle="4 unread messages">
         <StartContent>
-            <span class="h-8 w-8 flex items-center justify-center bg-primary text-zinc-50 rounded-lg ring-3 ring-primary/30">
-                <LumexIcon Icon="@Icons.Rounded.Settings"
-                           Color="@ThemeColor.None" />
-            </span>
+            <LumexAvatar Bordered="@true"
+                         Radius="@Radius.Large"
+                         Color="@ThemeColor.Primary"
+                         Src="https://i.pravatar.cc/150?img=6" />
         </StartContent>
-        <ChildContent>
-            @_content
-        </ChildContent>
+        <ChildContent>@_content</ChildContent>
     </LumexAccordionItem>
+
     <LumexAccordionItem Id="2"
-                        Title="Advanced Settings"
-                        Subtitle="Detailed system, developer, security, network, diagnostics">
+                        Title="Sheldon Cooper"
+                        Subtitle="3 incompleted steps">
         <StartContent>
-            <span class="h-8 w-8 flex items-center justify-center bg-secondary text-zinc-50 rounded-lg ring-3 ring-secondary/30">
-                <LumexIcon Icon="@Icons.Rounded.Manufacturing"
-                           Color="@ThemeColor.None" />
-            </span>
+            <LumexAvatar Bordered="@true"
+                         Radius="@Radius.Large"
+                         Color="@ThemeColor.Success"
+                         Src="https://i.pravatar.cc/150?img=11" />
         </StartContent>
-        <ChildContent>
-            @_content
-        </ChildContent>
+        <ChildContent>@_content</ChildContent>
     </LumexAccordionItem>
+
     <LumexAccordionItem Id="3"
-                        Title="Personal Data"
-                        Subtitle="Contacts, messages, photos, account info, preferences">
+                        Title="Bruce Wayne">
+        <SubtitleContent>
+            <p class="flex">
+                2 issues to<span class="text-primary ml-1">fix now</span>
+            </p>
+        </SubtitleContent>
         <StartContent>
-            <span class="h-8 w-8 flex items-center justify-center bg-danger text-zinc-50 rounded-lg ring-3 ring-danger/30">
-                <LumexIcon Icon="@Icons.Rounded.ManageAccounts"
-                           Color="@ThemeColor.None" />
-            </span>
+            <LumexAvatar Bordered="@true"
+                         Radius="@Radius.Large"
+                         Color="@ThemeColor.Secondary"
+                         Src="https://i.pravatar.cc/150?img=12" />
         </StartContent>
-        <ChildContent>
-            @_content
-        </ChildContent>
+        <ChildContent>@_content</ChildContent>
     </LumexAccordionItem>
 </LumexAccordion>
 
 @code {
-    private RenderFragment _content =>
-    @<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</text>;
+    private RenderFragment _content = @<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</text>;
 }

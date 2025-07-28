@@ -1,4 +1,5 @@
-﻿@using LumexUI.Services
+﻿@using LumexUI.Shared.Icons
+@using LumexUI.Services
 
 @inject IPopoverService PopoverService
 
@@ -10,44 +11,37 @@
 
 <LumexDropdown Id="@_dropdownId">
     <LumexDropdownMenu>
-        <LumexDropdownItem StartContent="@_newFile">
-            New file
+        <LumexDropdownItem>
+            <StartContent>
+                <SquarePlusIcon Size="18" class="text-default-500 shrink-0" />
+            </StartContent>
+            <ChildContent>New file</ChildContent>
         </LumexDropdownItem>
-        <LumexDropdownItem StartContent="@_editFile">
-            Edit file
+
+        <LumexDropdownItem>
+            <StartContent>
+                <SquarePenIcon Size="18" class="text-default-500 shrink-0" />
+            </StartContent>
+            <ChildContent>Edit file</ChildContent>
         </LumexDropdownItem>
-        <LumexDropdownItem StartContent="@_shareFile">
-            Share file
+
+        <LumexDropdownItem>
+            <StartContent>
+                <ShareIcon Size="18" class="text-default-500 shrink-0" />
+            </StartContent>
+            <ChildContent>Share file</ChildContent>
         </LumexDropdownItem>
-        <LumexDropdownItem StartContent="@_deleteFile"
-                           Color="@ThemeColor.Danger"
-                           Class="text-danger">
-            Delete file
+
+        <LumexDropdownItem Color="@ThemeColor.Danger" Class="text-danger">
+            <StartContent>
+                <Trash2Icon Size="18" class="shrink-0" />
+            </StartContent>
+            <ChildContent>Delete file</ChildContent>
         </LumexDropdownItem>
     </LumexDropdownMenu>
 </LumexDropdown>
 
 @code {
-    private RenderFragment _newFile =
-        @<LumexIcon Icon="@Icons.Rounded.LibraryAdd"
-           Size="@new("20")"
-           Class="text-default-500 shrink-0" />;
-
-    private RenderFragment _editFile =
-        @<LumexIcon Icon="@Icons.Rounded.EditSquare"
-           Size="@new("20")"
-           Class="text-default-500 shrink-0" />;
-
-    private RenderFragment _shareFile =
-        @<LumexIcon Icon="@Icons.Rounded.Share"
-           Size="@new("20")"
-           Class="text-default-500 shrink-0" />;
-
-    private RenderFragment _deleteFile =
-        @<LumexIcon Icon="@Icons.Rounded.Delete"
-           Size="@new("20")"
-           Class="shrink-0" />;
-
     private string _dropdownId = "dropdown-start-end-content";
 
     private Task TriggerAsync()

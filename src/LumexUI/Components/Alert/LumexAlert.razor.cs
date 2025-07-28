@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Common;
+using LumexUI.Shared.Icons;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
@@ -23,24 +24,29 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
 	/// <summary>
-	/// Gets or sets the content to render inside the alert title area.
+	/// Gets or sets the content to render as the alert title.
 	/// </summary>
 	[Parameter] public RenderFragment? TitleContent { get; set; }
 
 	/// <summary>
-	/// Gets or sets the content to render inside the alert description area.
+	/// Gets or sets the content to render as the alert description.
 	/// </summary>
 	[Parameter] public RenderFragment? DescriptionContent { get; set; }
 
 	/// <summary>
-	/// Gets or sets the content displayed at the start of the alert.
+	/// Gets or sets the content to render at the start of the alert.
 	/// </summary>
 	[Parameter] public RenderFragment? StartContent { get; set; }
 
 	/// <summary>
-	/// Gets or sets the content displayed at the end of the alert.
+	/// Gets or sets the content to render at the end of the alert.
 	/// </summary>
 	[Parameter] public RenderFragment? EndContent { get; set; }
+
+	/// <summary>
+	/// Gets or sets the content to render as the alert icon.
+	/// </summary>
+	[Parameter] public RenderFragment? IconContent { get; set; }
 
 	/// <summary>
 	/// Gets or sets the title of the alert.
@@ -51,11 +57,6 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	/// Gets or sets the description of the alert.
 	/// </summary>
 	[Parameter] public string? Description { get; set; }
-
-	/// <summary>
-	/// Gets or sets the icon to display in the alert.
-	/// </summary>
-	[Parameter] public string? Icon { get; set; }
 
 	/// <summary>
 	/// Gets or sets the border radius of the alert.
@@ -114,20 +115,20 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	/// </summary>
 	[Parameter] public AlertSlots? Classes { get; set; }
 
-	private string AlertIcon => Icon ?? _icons[Color];
+	private Type Icon => _icons[Color];
 	private bool HasTitle => TitleContent is not null || !string.IsNullOrEmpty( Title );
 	private bool HasDescription => DescriptionContent is not null || !string.IsNullOrEmpty( Description );
 
-	private readonly Dictionary<ThemeColor, string> _icons = new()
+	private readonly Dictionary<ThemeColor, Type> _icons = new()
 	{
-		[ThemeColor.None] = Icons.Rounded.Info,
-		[ThemeColor.Default] = Icons.Rounded.Info,
-		[ThemeColor.Primary] = Icons.Rounded.Info,
-		[ThemeColor.Secondary] = Icons.Rounded.Info,
-		[ThemeColor.Success] = Icons.Rounded.CheckCircle,
-		[ThemeColor.Warning] = Icons.Rounded.GppMaybe,
-		[ThemeColor.Danger] = Icons.Rounded.Report,
-		[ThemeColor.Info] = Icons.Rounded.Info
+		[ThemeColor.None] = typeof( InfoFilledIcon ),
+		[ThemeColor.Default] = typeof( InfoFilledIcon ),
+		[ThemeColor.Primary] = typeof( InfoFilledIcon ),
+		[ThemeColor.Secondary] = typeof( InfoFilledIcon ),
+		[ThemeColor.Success] = typeof( CircleCheckFilledIcon ),
+		[ThemeColor.Warning] = typeof( ShieldAlertFilledIcon ),
+		[ThemeColor.Danger] = typeof( OctagonAlertFilledIcon ),
+		[ThemeColor.Info] = typeof( InfoFilledIcon )
 	};
 
 	private Dictionary<string, ComponentSlot> _slots = [];

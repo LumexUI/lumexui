@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Common;
 using LumexUI.Extensions;
+using LumexUI.Shared.Icons;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
@@ -27,6 +28,11 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	[Parameter] public RenderFragment? FallbackContent { get; set; }
 
 	/// <summary>
+	/// Gets or sets the content to render as the icon when no image or initials are available.
+	/// </summary>
+	[Parameter] public RenderFragment IconContent { get; set; } = _renderDefaultIcon;
+
+	/// <summary>
 	/// Gets or sets the URL of the avatar image.
 	/// </summary>
 	[Parameter] public string? Src { get; set; }
@@ -44,14 +50,6 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	/// used to generate initials if no image is provided.
 	/// </summary>
 	[Parameter] public string? Name { get; set; }
-
-	/// <summary>
-	/// Gets or sets the icon displayed when no image or initials are available.
-	/// </summary>
-	/// <remarks>
-	/// The default value is <see cref="Icons.Rounded.Person"/>.
-	/// </remarks>
-	[Parameter] public string Icon { get; set; } = Icons.Rounded.Person;
 
 	/// <summary>
 	/// Gets or sets a value indicating whether to show fallback content when the avatar image is unavailable.
@@ -105,6 +103,12 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	[Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
 	private LumexAvatarGroup? Group => Context?.Owner;
+
+	private static readonly RenderFragment _renderDefaultIcon = builder =>
+	{
+		builder.OpenComponent<UserIcon>( 0 );
+		builder.CloseComponent();
+	};
 
 	private readonly RenderFragment _render;
 	private readonly RenderFragment _renderFallback;

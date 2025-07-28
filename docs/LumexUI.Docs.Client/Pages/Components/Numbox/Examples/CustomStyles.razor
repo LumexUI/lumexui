@@ -1,19 +1,18 @@
-﻿<LumexNumbox TValue="double?"
+﻿@using LumexUI.Shared.Icons
+
+<LumexNumbox TValue="double?"
              Label="Temperature °C"
              Placeholder="Enter the temperature"
              Radius="@Radius.Large"
              Clearable="@true"
-             StartContent="@_thermometer"
              Value="25"
-             Classes="@_classes" />
+             Classes="@_classes">
+    <StartContent>
+        <ThermometerIcon Size="20" class="text-secondary-400 shrink-0" />
+    </StartContent>
+</LumexNumbox>
 
 @code {
-    private RenderFragment _thermometer =
-        @<LumexIcon Icon="@Icons.Rounded.Thermometer"
-                    Size="@new("20")"
-                    Class="text-secondary-400 shrink-0">
-        </LumexIcon>;
-
     private InputFieldSlots _classes = new()
     {
         Label = "text-default-700",

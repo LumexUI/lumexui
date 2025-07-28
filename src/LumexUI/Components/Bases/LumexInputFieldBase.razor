@@ -78,9 +78,7 @@
                           data-slot="clear-button"
                           @onclick="@ClearAsync"
                           @onkeyup="@ClearAsync">
-                        <LumexIcon Icon="@Icons.Rounded.Cancel"
-                                   Size="@new("1em")"
-                                   Color="@ThemeColor.None" />
+                        <CircleXFilledIcon Size="1em" />
                     </span>
                 }
             </div>
@@ -95,7 +93,7 @@
         }
 
         <div class="@HelperWrapperClass" data-slot="helper-wrapper">
-            @if( Invalid && ( !string.IsNullOrEmpty( ErrorMessage ) || !string.IsNullOrEmpty( ValidationMessage ) ) )
+            @if( Invalid && (!string.IsNullOrEmpty( ErrorMessage ) || !string.IsNullOrEmpty( ValidationMessage )) )
             {
                 <div class="@ErrorMessageClass" data-slot="error-message">
                     @if( !string.IsNullOrEmpty( ErrorMessage ) )

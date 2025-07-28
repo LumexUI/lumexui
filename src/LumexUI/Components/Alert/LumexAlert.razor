@@ -15,10 +15,16 @@
         @StartContent
 
         <div class="@GetStyles( nameof( S.IconWrapper ) )" data-slot="icon-wrapper">
-            <LumexIcon Icon="@AlertIcon"
-                       Size="@new("20")"
-                       Class="@GetStyles( nameof( S.Icon ) )"
-                       data-slot="alert-icon" />
+            @if( IconContent is not null )
+            {
+                @IconContent
+            }
+            else
+            {
+                <DynamicIcon Type="@Icon"
+                             class="@GetStyles( nameof( S.Icon ) )"
+                             data-slot="alert-icon" />
+            }
         </div>
 
         <div class="@GetStyles( nameof( S.MainWrapper ) )" data-slot="main-wrapper">
@@ -65,7 +71,7 @@
                          OnClick="@OnCloseAsync"
                          data-slot="close-button"
                          aria-label="Close">
-                <LumexIcon Icon="@Icons.Rounded.Close" Size="@new( "20" )" />
+                <XIcon Size="20" />
             </LumexButton>
         }
     </LumexComponent>

@@ -23,13 +23,11 @@
             if( Sortable ?? false )
             {
                 @Title
-                <LumexIcon Size="@new("16")"
-                           Icon="@Icons.Rounded.ChevronLeft"
-                           Color="@ThemeColor.None"
-                           Class="@DataGrid.Slots.SortIcon"
-                           aria-hidden="true"
-                           data-slot="sort-icon"
-                           data-visible="@Utils.GetDataAttributeValue(State.Sort.Column == this)" />
+                <ChevronLeftIcon Size="16"
+                                 class="@DataGrid.Slots.SortIcon"
+                                 aria-hidden="true"
+                                 data-slot="sort-icon"
+                                 data-visible="@Utils.GetDataAttributeValue( State.Sort.Column == this )" />
             }
             else
             {

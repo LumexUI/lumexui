@@ -1,4 +1,6 @@
-﻿<div class="grid gap-4">
+﻿@using LumexUI.Shared.Icons
+
+<div class="grid gap-4">
     <div class="w-full grid grid-cols-1 gap-4">
         <div>
             <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
@@ -9,16 +11,16 @@
                              StartContent="@_thermometerIcon" />
 
                 <LumexNumbox TValue="double?"
-                             Label="Distance"
+                             Label="Speed"
                              Placeholder="100"
                              LabelPlacement="@LabelPlacement.Outside"
-                             StartContent="@_distanceIcon" />
+                             StartContent="@_circleGaugeIcon" />
 
                 <LumexNumbox TValue="decimal?"
                              Label="Price"
                              Placeholder="0.00"
                              LabelPlacement="@LabelPlacement.Outside"
-                             StartContent="@_euroSymbolIcon" />
+                             StartContent="@_dollarSignIcon" />
             </div>
             <small class="text-default-500 mt-1">Start</small>
         </div>
@@ -34,16 +36,16 @@
                              EndContent="@_thermometerIcon" />
 
                 <LumexNumbox TValue="double?"
-                             Label="Distance"
+                             Label="Speed"
                              Placeholder="100"
                              LabelPlacement="@LabelPlacement.Outside"
-                             EndContent="@_distanceIcon" />
+                             EndContent="@_circleGaugeIcon" />
 
                 <LumexNumbox TValue="decimal?"
                              Label="Price"
                              Placeholder="0.00"
                              LabelPlacement="@LabelPlacement.Outside"
-                             EndContent="@_euroSymbolIcon" />
+                             EndContent="@_dollarSignIcon" />
             </div>
             <small class="text-default-500 mt-1">End</small>
         </div>
@@ -60,17 +62,17 @@
                              EndContent="@_tempCelsiusContent" />
 
                 <LumexNumbox TValue="double?"
-                             Label="Distance"
+                             Label="Speed"
                              Placeholder="100"
                              LabelPlacement="@LabelPlacement.Outside"
-                             StartContent="@_distanceIcon"
-                             EndContent="@_kmContent" />
+                             StartContent="@_circleGaugeIcon"
+                             EndContent="@_speedContent" />
 
                 <LumexNumbox TValue="decimal?"
                              Label="Price"
                              Placeholder="0.00"
                              LabelPlacement="@LabelPlacement.Outside"
-                             StartContent="@_euroSymbolIcon"
+                             StartContent="@_dollarSignIcon"
                              EndContent="@_currenciesContent" />
             </div>
             <small class="text-default-500 mt-1">Both</small>
@@ -79,32 +81,18 @@
 </div>
 
 @code {
-    private RenderFragment _thermometerIcon =
-    @<LumexIcon Icon="@Icons.Rounded.Thermometer"
-                Size="@new("20")"
-                Class="text-default-400 shrink-0">
-    </LumexIcon>;
-
-    private RenderFragment _distanceIcon =
-    @<LumexIcon Icon="@Icons.Rounded.Distance"
-                Size="@new("20")"
-                Class="text-default-400 shrink-0">
-    </LumexIcon>;
-
-    private RenderFragment _euroSymbolIcon =
-    @<LumexIcon Icon="@Icons.Rounded.EuroSymbol"
-                Size="@new("16")"
-                Class="text-default-400 shrink-0">
-    </LumexIcon>;
+    private RenderFragment _thermometerIcon = @<ThermometerIcon Size="20" class="text-default-400 shrink-0" />;
+    private RenderFragment _circleGaugeIcon = @<CircleGaugeIcon Size="20" class="text-default-400 shrink-0" />;
+    private RenderFragment _dollarSignIcon = @<DollarSignIcon Size="20" class="text-default-400 shrink-0" />;
 
     private RenderFragment _tempCelsiusContent =
     @<div class="pointer-events-none flex items-center">
         <span class="text-default-400 text-small">°C</span>
     </div>;
 
-    private RenderFragment _kmContent =
+    private RenderFragment _speedContent =
     @<div class="pointer-events-none flex items-center">
-        <span class="text-default-400 text-small">km</span>
+        <span class="text-default-400 text-small">km/h</span>
     </div>;
 
     private RenderFragment _currenciesContent =
@@ -115,8 +103,8 @@
                 name="currency"
                 @onclick:stopPropagation="@true">
             <option>USD</option>
-            <option>ARS</option>
             <option>EUR</option>
+            <option>SEK</option>
         </select>
     </div>;
 }

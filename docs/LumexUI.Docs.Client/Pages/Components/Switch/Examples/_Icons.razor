@@ -1,7 +1,15 @@
-﻿<LumexSwitch StartIcon="@Icons.Rounded.LightMode"
-             EndIcon="@Icons.Rounded.DarkMode"
-             Color="@ThemeColor.Danger"
+﻿@using LumexUI.Shared.Icons
+
+<LumexSwitch Color="@ThemeColor.Danger"
              Size="@Size.Large"
              Value="@true">
-    Dark Mode
+    <StartContent>
+        <SunIcon />
+    </StartContent>
+    <ChildContent>
+        Dark Mode
+    </ChildContent>
+    <EndContent>
+        <MoonIcon />
+    </EndContent>
 </LumexSwitch>

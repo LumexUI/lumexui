@@ -1,47 +1,40 @@
-﻿<LumexAccordion Variant="@AccordionVariant.Shadow"
+﻿@using LumexUI.Shared.Icons
+
+<LumexAccordion Variant="@AccordionVariant.Shadow"
                 ShowDividers="@false"
                 Class="p-2 flex flex-col gap-1 max-w-sm"
                 ItemClasses="@_itemClasses">
     <LumexAccordionItem Id="1"
                         Title="Connected Devices">
         <StartContent>
-            <LumexIcon Icon="@Icons.Rounded.DesktopWindows"
-                       Color="@ThemeColor.Primary" />
+            <MonitorSmartphoneIcon class="text-primary" />
         </StartContent>
         <SubtitleContent>
             2 issues to <span class="text-primary">fix now</span>
         </SubtitleContent>
-        <ChildContent>
-            @_content
-        </ChildContent>
+        <ChildContent>@_content</ChildContent>
     </LumexAccordionItem>
     <LumexAccordionItem Id="2"
                         Title="Apps Permissions"
                         Subtitle="3 apps have read permissions">
         <StartContent>
-            <LumexIcon Icon="@Icons.Rounded.Encrypted" />
+            <ShieldAlertIcon />
         </StartContent>
-        <ChildContent>
-            @_content
-        </ChildContent>
+        <ChildContent>@_content</ChildContent>
     </LumexAccordionItem>
     <LumexAccordionItem Id="3"
                         Title="Pending tasks"
                         Subtitle="Complete your profile"
-                        Classes="@(new() {Subtitle = "text-warning"})">
+                        Classes="@(new() { Subtitle = "text-warning" })">
         <StartContent>
-            <LumexIcon Icon="@Icons.Rounded.Error"
-                       Color="@ThemeColor.Warning" />
+            <InfoIcon class="text-warning" />
         </StartContent>
-        <ChildContent>
-            @_content
-        </ChildContent>
+        <ChildContent>@_content</ChildContent>
     </LumexAccordionItem>
 </LumexAccordion>
 
 @code {
-    private RenderFragment _content =>
-    @<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</text>;
+    private RenderFragment _content = @<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</text>;
 
     private AccordionItemSlots _itemClasses = new()
     {

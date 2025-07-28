@@ -1,9 +1,11 @@
-﻿<LumexCard Class="max-w-sm">
+﻿@using LumexUI.Shared.Icons
+
+<LumexCard Class="max-w-sm">
     <LumexCardHeader Class="gap-3">
-        <span class="h-8 w-8 rounded-lg bg-gradient-to-tr from-indigo-100 to-indigo-300" />
+        <span class="size-10 rounded-lg bg-gradient-to-tr from-indigo-100 to-indigo-300" />
         <div class="flex flex-col">
             <p class="font-semibold">LumexUI</p>
-            <p class="text-sm text-default-500">lumexui.com</p>
+            <p class="text-sm text-default-500">lumexui.org</p>
         </div>
     </LumexCardHeader>
     <LumexDivider />
@@ -16,9 +18,7 @@
                    External="@true"
                    Class="text-indigo-500">
             Visit source code on GitHub
-            <LumexIcon Icon="@Icons.Rounded.OpenInNew"
-                       Size="@new("16")"
-                       Class="ml-1" />
+            <ExternalLinkIcon Size="16" class="ml-1" />
         </LumexLink>
     </LumexCardFooter>
 </LumexCard>

@@ -45,11 +45,9 @@
                         <span class="@_slots.Value" data-slot="value">@_renderValue</span>
                         @EndContent
                     </div>
-                    <LumexIcon Icon="@Icons.Rounded.KeyboardArrowDown"
-                               Class="@_slots.SelectorIcon"
-                               data-slot="selector-icon"
-                               data-open="@Utils.GetDataAttributeValue( _isOpen )">
-                    </LumexIcon>
+                    <ChevronDownIcon class="@_slots.SelectorIcon"
+                                     data-slot="selector-icon"
+                                     data-open="@Utils.GetDataAttributeValue( _isOpen )" />
                 </LumexComponent>
                 @_renderHelperWrapper
             </div>
@@ -59,35 +57,35 @@
 </CascadingValue>
 
 @code {
-    private void RenderValue(RenderTreeBuilder __builder)
+    private void RenderValue( RenderTreeBuilder __builder )
     {
-        if (!HasValue)
+        if( !HasValue )
         {
             @Placeholder
             return;
         }
 
-        if (ValueContent is not null)
+        if( ValueContent is not null )
         {
-            foreach (var item in _context.SelectedItems)
+            foreach( var item in _context.SelectedItems )
             {
-                @ValueContent(item.Value)
+                @ValueContent( item.Value )
             }
             return;
         }
 
-        @string.Join(", ", _context.SelectedItems.Select(item => item.TextValue))
+        @string.Join( ", ", _context.SelectedItems.Select( item => item.TextValue ) )
     }
 
-    private void RenderLabel(RenderTreeBuilder __builder)
+    private void RenderLabel( RenderTreeBuilder __builder )
     {
-        if (!string.IsNullOrEmpty(Label))
+        if( !string.IsNullOrEmpty( Label ) )
         {
             <label class="@_slots.Label" data-slot="label">@Label</label>
         }
     }
 
-    private void RenderMenu(RenderTreeBuilder __builder)
+    private void RenderMenu( RenderTreeBuilder __builder )
     {
         <LumexPopover Offset="5"
                       MatchRefWidth="@true"
@@ -97,7 +95,7 @@
                       @ref="@_popoverRef"
                       @bind-Open="@_isOpen">
             <LumexPopoverContent>
-                @if (_context.IsMultiSelect)
+                @if( _context.IsMultiSelect )
                 {
                     <LumexListbox TValue="TValue"
                                   Values="@CurrentValues"
@@ -106,7 +104,7 @@
                                   Classes="@_listboxSlots"
                                   Style="@ListboxStyles"
                                   data-slot="listbox">
-                        @foreach (var item in _context.Items)
+                        @foreach( var item in _context.Items )
                         {
                             <LumexListboxItem As="@item.As"
                                               Class="@item.Class"
@@ -134,7 +132,7 @@
                                   Classes="@_listboxSlots"
                                   Style="@ListboxStyles"
                                   data-slot="listbox">
-                        @foreach (var item in _context.Items)
+                        @foreach( var item in _context.Items )
                         {
                             <LumexListboxItem As="@item.As"
                                               Class="@item.Class"
@@ -157,18 +155,18 @@
         </LumexPopover>
     }
 
-    private void RenderHelperWrapper(RenderTreeBuilder __builder)
+    private void RenderHelperWrapper( RenderTreeBuilder __builder )
     {
-        var shouldShowError = Invalid && !string.IsNullOrEmpty(ErrorMessage);
-        var hasContent = shouldShowError || !string.IsNullOrEmpty(Description);
+        var shouldShowError = Invalid && !string.IsNullOrEmpty( ErrorMessage );
+        var hasContent = shouldShowError || !string.IsNullOrEmpty( Description );
 
-        if (!HasHelper || !hasContent)
+        if( !HasHelper || !hasContent )
         {
             return;
         }
 
         <div class="@_slots.HelperWrapper" data-slot="helper-wrapper">
-            @if (shouldShowError)
+            @if( shouldShowError )
             {
                 <div class="@_slots.ErrorMessage" data-slot="error-message">@ErrorMessage</div>
             }

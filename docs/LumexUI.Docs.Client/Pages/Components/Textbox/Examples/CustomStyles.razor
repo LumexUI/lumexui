@@ -1,17 +1,16 @@
-﻿<LumexTextbox Label="Search"
-                Placeholder="Type to search..."
-                Radius="@Radius.Large"
-                Clearable="@true"
-                StartContent="@_searchIcon"
-                Classes="@_classes" />
+﻿@using LumexUI.Shared.Icons
+
+<LumexTextbox Label="Search"
+              Placeholder="Type to search..."
+              Radius="@Radius.Large"
+              Clearable="@true"
+              Classes="@_classes">
+    <StartContent>
+        <SearchIcon Size="18" class="text-secondary-400 shrink-0" />
+    </StartContent>
+</LumexTextbox>
 
 @code {
-    private RenderFragment _searchIcon =
-        @<LumexIcon Icon="@Icons.Rounded.Search"
-                    Size="@new("20")"
-                    Class="text-secondary-400 shrink-0">
-        </LumexIcon>;
-
     private InputFieldSlots _classes = new()
     {
         Label = "text-default-700",

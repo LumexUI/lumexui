@@ -15,6 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\src\LumexUI.Shared.Icons\LumexUI.Shared.Icons.csproj" />
 	  <ProjectReference Include="..\..\src\LumexUI\LumexUI.csproj" />
 	</ItemGroup>
 

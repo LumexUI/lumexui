@@ -1,8 +1,9 @@
-﻿<LumexCheckboxGroup>
+﻿@using LumexUI.Shared.Icons
+
+<LumexCheckboxGroup>
     <LumexCheckbox Value="@true" Classes="@_classes">
         <div class="flex items-center gap-4">
-            <LumexIcon Icon="@Icons.Rounded.HealthAndSafety"
-                       Size="@new("32")" />
+            <ShieldPlusIcon Size="32" />
             <div>
                 <div class="font-semibold">Mobile Anti-Virus</div>
                 <p class="text-sm text-primary">5,07 €/month</p>

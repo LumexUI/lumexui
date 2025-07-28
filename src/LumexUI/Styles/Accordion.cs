@@ -68,7 +68,6 @@ internal readonly record struct AccordionItem
 
     private readonly static string _title = ElementClass.Empty()
         .Add( "text-foreground" )
-        .Add( "text-large" )
         .ToString();
 
     private readonly static string _subtitle = ElementClass.Empty()

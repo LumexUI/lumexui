@@ -1,9 +1,11 @@
-﻿<div class="w-full flex flex-col">
+﻿@using LumexUI.Shared.Icons
+
+<div class="w-full flex flex-col">
     <LumexTabs Color="@ThemeColor.Primary">
         <LumexTab>
             <TitleContent>
                 <div class="flex items-center space-x-2">
-                    <LumexIcon Icon="@Icons.Rounded.PhotoLibrary" />
+                    <ImagesIcon Size="20" />
                     <span>Photos</span>
                 </div>
             </TitleContent>
@@ -11,7 +13,7 @@
         <LumexTab>
             <TitleContent>
                 <div class="flex items-center space-x-2">
-                    <LumexIcon Icon="@Icons.Rounded.LibraryMusic" />
+                    <MusicIcon Size="20" />
                     <span>Music</span>
                 </div>
             </TitleContent>
@@ -19,7 +21,7 @@
         <LumexTab>
             <TitleContent>
                 <div class="flex items-center space-x-2">
-                    <LumexIcon Icon="@Icons.Rounded.VideoLibrary" />
+                    <ClapperboardIcon Size="20" />
                     <span>Videos</span>
                 </div>
             </TitleContent>

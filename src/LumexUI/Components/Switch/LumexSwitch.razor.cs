@@ -15,20 +15,19 @@ namespace LumexUI;
 public partial class LumexSwitch : LumexBooleanInputBase, ISlotComponent<SwitchSlots>
 {
 	/// <summary>
-	/// Gets or sets the delegate that resolves the 
-	/// indicator icon based on the switch state.
+	/// Gets or sets the content to render within the thumb of the switch.
 	/// </summary>
-	[Parameter] public IndicatorResolver? ThumbIcon { get; set; }
+	[Parameter] public RenderFragment<bool>? ThumbContent { get; set; }
 
 	/// <summary>
-	/// Gets or sets the icon to be rendered before the switch.
+	/// Gets or sets the content to render at the start of the switch.
 	/// </summary>
-	[Parameter] public string? StartIcon { get; set; }
+	[Parameter] public RenderFragment? StartContent { get; set; }
 
 	/// <summary>
-	/// Gets or sets the icon to be rendered after the switch.
+	/// Gets or sets the content to render at the end of the switch.
 	/// </summary>
-	[Parameter] public string? EndIcon { get; set; }
+	[Parameter] public RenderFragment? EndContent { get; set; }
 
 	/// <summary>
 	/// Gets or sets the CSS class names for the switch slots.

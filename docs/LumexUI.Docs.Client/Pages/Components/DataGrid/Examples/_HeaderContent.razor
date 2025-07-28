@@ -1,4 +1,6 @@
-﻿<LumexDataGrid Data="@FilteredUsers"
+﻿@using LumexUI.Shared.Icons
+
+<LumexDataGrid Data="@FilteredUsers"
                Layout="@Layout.Fixed"
                Classes="@(new() { Table = "w-full" })">
     <PropertyColumn Property="@(p => p.Name)" />
@@ -16,10 +18,7 @@
             <LumexPopoverTrigger Size="@Size.Small"
                                  Variant="@Variant.Light"
                                  Class="min-w-8 w-8 h-8 px-0 hover:bg-none">
-                <LumexIcon Icon="@Icons.Rounded.Tune"
-                           Size="@new("20")"
-                           Color="@ThemeColor.None"
-                           Class="text-default-500" />
+                <Settings2Icon Size="16" class="text-default-400" />
             </LumexPopoverTrigger>
             <LumexPopoverContent>
                 <LumexTextbox Autofocus="@true"

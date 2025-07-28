@@ -1,4 +1,6 @@
-﻿<div class="flex w-full flex-wrap md:flex-nowrap gap-4">
+﻿@using LumexUI.Shared.Icons
+
+<div class="flex w-full flex-wrap md:flex-nowrap gap-4">
     <LumexSelect TValue="string"
                  Label="Favorite Animal"
                  StartContent="@_petsIcon"
@@ -26,7 +28,7 @@
 </div>
 
 @code {
-    private RenderFragment _petsIcon = @<LumexIcon Icon="@Icons.Rounded.Pets" Size="@new("16")" />;
+    private RenderFragment _petsIcon = @<PawPrintFilledIcon Size="@new( "18" )" />;
 
     private Dictionary<string, string> _animals = new()
     {

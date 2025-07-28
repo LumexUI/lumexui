@@ -27,6 +27,12 @@
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<TargetsForTfmSpecificContentInPackage>
+			$(TargetsForTfmSpecificContentInPackage);AddIconsToOutput
+		</TargetsForTfmSpecificContentInPackage>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
@@ -52,6 +58,16 @@
 		<PackageReference Include="LumexUI.Motion" Version="0.0.4" />
 		<PackageReference Include="TailwindMerge.NET" Version="1.0.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\LumexUI.Shared.Icons\LumexUI.Shared.Icons.csproj" PrivateAssets="all" />
+	</ItemGroup>
+
+	<Target Name="AddIconsToOutput">
+		<ItemGroup>
+			<TfmSpecificPackageFile Include="$(OutputPath)\$(AssemblyName).Shared.Icons.dll" PackagePath="lib\$(TargetFramework)" />
+		</ItemGroup>
+	</Target>
 	
 	<!-- Install npm dependencies if 'node_modules' is not present -->
 	<Target Name="Npm" AfterTargets="Build" Condition="!Exists('node_modules')">
