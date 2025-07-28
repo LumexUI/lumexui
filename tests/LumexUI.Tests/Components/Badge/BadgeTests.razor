@@ -23,8 +23,11 @@
         RenderFragment content = @<span data-testid="badge-content" />;
 
         var cut = Render(
-            @<LumexBadge Content="@content">
-                <span data-testid="badge-children">new</span>
+            @<LumexBadge>
+                <Content>@content</Content>
+                <ChildContent>
+                    <span data-testid="badge-children">new</span>
+                </ChildContent>
             </LumexBadge>
         );
 
@@ -35,10 +38,8 @@
     [Fact]
     public void ShouldBeInvisibleIfInvisibleIsTrue()
     {
-        RenderFragment content = @<span data-testid="badge-content" />;
-
         var cut = Render(
-            @<LumexBadge Content="@content" Invisible="@true" data-testid="badge-root">
+            @<LumexBadge Text="@("new")" Invisible="@true" data-testid="badge-root">
                 <span data-testid="badge-children">new</span>
             </LumexBadge>
         );
@@ -54,7 +55,7 @@
     public void ShouldApplyCorrespondingStylesIfContentIsOneChar( object? content )
     {
         var cut = Render(
-            @<LumexBadge Content="@content" data-testid="badge-root">
+            @<LumexBadge Text="@content" data-testid="badge-root">
                 <span data-testid="badge-children">new</span>
             </LumexBadge>
         );
@@ -71,7 +72,7 @@
     public void ShouldApplyCorrespondingStylesIfContentIsNullOrEmpty( object? content )
     {
         var cut = Render(
-            @<LumexBadge Content="@content" data-testid="badge-root">
+            @<LumexBadge Text="@content" data-testid="badge-root">
                 <span data-testid="badge-children">new</span>
             </LumexBadge>
         );
@@ -87,7 +88,7 @@
         List<string> content = [];
 
         var action = () => Render(
-            @<LumexBadge Content="@content" />
+            @<LumexBadge Text="@content" />
         );
 
         action.Should().Throw<InvalidOperationException>();

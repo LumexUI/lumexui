@@ -3,6 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.Tests.Extensions;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -43,10 +44,10 @@ public class CheckboxTests : TestContext
 	{
 		var cut = RenderComponent<LumexCheckbox>( p => p
 			.Add( p => p.ValueExpression, () => true )
-			.Add( p => p.CheckIcon, Icons.Rounded.Headphones )
+			.Add( p => p.IconContent, "check-icon" )
 		);
 
-		cut.FindComponent<LumexIcon>().Should().NotBeNull();
+		cut.FindBySlot( "icon" ).Should().NotBeNull();
 	}
 
 	[Fact]
