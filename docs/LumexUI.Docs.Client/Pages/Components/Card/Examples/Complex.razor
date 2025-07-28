@@ -1,18 +1,16 @@
-﻿<LumexCard Class="max-w-sm">
-    <LumexCardHeader Class="justify-between">
+﻿@using LumexUI.Shared.Icons
+
+<LumexCard Class="max-w-sm">
+    <LumexCardHeader Class="justify-between pb-0">
         <div class="flex items-center">
-            <LumexIcon Icon="@Icons.Rounded.Event"
-                       Size="@new("16")"
-                       Class="text-primary" />
-            <p class="ml-1 text-sm text-foreground-500">
-                16:15, 3 Dec
-            </p>
+            <CalendarClockIcon Size="20" class="text-primary mr-1" />
+            <p class="text-sm text-foreground-500">16:15, 3 Dec</p>
         </div>
-        <LumexButton Size="@Size.Small"
-                     Variant="@Variant.Light"
-                     Class="h-6 w-6 min-w-6 px-0">
-            <LumexIcon Icon="@Icons.Rounded.MoreVert"
-                       Size="@new("20")" />
+        <LumexButton IconOnly="@true"
+                     Size="@Size.Small"
+                     Radius="@Radius.Full"
+                     Variant="@Variant.Light">
+            <EllipsisVerticalIcon Size="20" />
         </LumexButton>
     </LumexCardHeader>
     <LumexCardBody>
@@ -24,30 +22,26 @@
                 <p class="font-semibold">London, England</p>
                 <p class="text-sm">06.09.2024 - 13.09.2024</p>
             </div>
-            <div class="col-span-2 flex justify-end font-bold">
-                <div class="w-10 h-10 flex items-center justify-center rounded-full border border-danger bg-danger-200 text-danger-foreground">
-                    <span>AS</span>
-                </div>
-                <div class="w-10 h-10 -ml-2 flex items-center justify-center rounded-full border border-secondary bg-secondary-200 text-secondary-foreground">
-                    <span>DN</span>
-                </div>
-                <div class="w-10 h-10 -ml-2 flex items-center justify-center rounded-full border border-primary bg-primary text-primary-foreground">
-                    <span>+4</span>
-                </div>
-            </div>
+            <LumexAvatarGroup Max="2" Class="col-span-2">
+                <LumexAvatar Name="A S" Src="https://i.pravatar.cc/150?img=11" />
+                <LumexAvatar Name="D N" Src="https://i.pravatar.cc/150?img=12" />
+                <LumexAvatar Name="S P" Src="https://i.pravatar.cc/150?img=9" />
+                <LumexAvatar Name="J D" Src="https://i.pravatar.cc/150?img=6" />
+                <LumexAvatar Name="A N" Src="https://i.pravatar.cc/150?img=2" />
+            </LumexAvatarGroup>
         </div>
     </LumexCardBody>
     <LumexCardFooter Class="gap-2">
-        <LumexButton Color="@ThemeColor.Default"
-                     Radius="@Radius.Large"
+        <LumexButton FullWidth="@true"
                      Size="@Size.Small"
-                     FullWidth="@true">
+                     Radius="@Radius.Full"
+                     Color="@ThemeColor.Default">
             Reject
         </LumexButton>
-        <LumexButton Color="@ThemeColor.Primary"
-                     Radius="@Radius.Large"
+        <LumexButton FullWidth="@true"
                      Size="@Size.Small"
-                     FullWidth="@true">
+                     Radius="@Radius.Full"
+                     Color="@ThemeColor.Primary">
             Accept
         </LumexButton>
     </LumexCardFooter>

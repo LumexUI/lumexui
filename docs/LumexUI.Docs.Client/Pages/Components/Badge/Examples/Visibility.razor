@@ -1,15 +1,17 @@
-﻿<div class="space-y-4">
+﻿@using LumexUI.Shared.Icons
+
+<div class="space-y-4">
     <div class="flex items-center gap-4">
-        <LumexBadge Content="@("99+")"
+        <LumexBadge Text="@("99+")"
                     Color="@ThemeColor.Danger"
                     Invisible="@(!_isVisible)">
-            <LumexIcon Icon="@Icons.Rounded.Notifications" Size="@new("32")" />
+            <BellFilledIcon Size="32" />
         </LumexBadge>
 
-        <LumexBadge Content="5"
+        <LumexBadge Text="5"
                     Color="@ThemeColor.Danger"
                     Invisible="@(!_isVisible)">
-            <LumexIcon Icon="@Icons.Rounded.ShoppingBag" Size="@new("32")" />
+            <ShoppingCartIcon Size="32" />
         </LumexBadge>
     </div>
 

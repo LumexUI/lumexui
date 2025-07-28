@@ -1,17 +1,15 @@
-﻿<LumexDataGrid Data="@FilteredUsers">
+﻿@using LumexUI.Shared.Icons
+
+<LumexDataGrid Data="@FilteredUsers">
     <ToolbarContent>
-        <div>
-            <LumexTextbox Placeholder="Search by name..."
-                          Behavior="@InputBehavior.OnInput"
-                          Class="max-w-xs"
-                          @bind-Value="@_nameFilter">
-                <StartContent>
-                    <LumexIcon Icon="@Icons.Rounded.Search"
-                               Size="@new("20")"
-                               Color="@ThemeColor.Default" />
-                </StartContent>
-            </LumexTextbox>
-        </div>
+        <LumexTextbox Placeholder="Search by name..."
+                      Behavior="@InputBehavior.OnInput"
+                      Class="max-w-xs"
+                      @bind-Value="@_nameFilter">
+            <StartContent>
+                <SearchIcon Size="20" />
+            </StartContent>
+        </LumexTextbox>
     </ToolbarContent>
     <ChildContent>
         <PropertyColumn Property="@(p => p.Name)" />

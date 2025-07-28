@@ -1,4 +1,6 @@
-﻿<LumexNavbar Bordered="@true"
+﻿@using LumexUI.Shared.Icons
+
+<LumexNavbar Bordered="@true"
              Sticky="@true"
              Classes="@_navbarClasses">
     <LumexNavbarBrand>
@@ -30,7 +32,7 @@
                       Placeholder="Type to search..."
                       Classes="@_inputClasses">
             <StartContent>
-                <LumexIcon Icon="@Icons.Rounded.Search" />
+                <SearchIcon Size="20" />
             </StartContent>
         </LumexTextbox>
     </LumexNavbarContent>
@@ -38,16 +40,16 @@
 
 @code {
     private NavbarSlots _navbarClasses = new()
-        {
-            Root = "border-b-2 border-sky-100",
-            Brand = "bg-clip-text bg-gradient-to-r from-sky-900 to-sky-600 text-transparent",
-            Content = "gap-3",
-            Item = "px-4 py-1.5 rounded-lg text-sky-600 bg-sky-50 font-medium"
-        };
+    {
+        Root = "border-b-2 border-sky-100",
+        Brand = "bg-clip-text bg-gradient-to-r from-sky-900 to-sky-600 text-transparent",
+        Content = "gap-3",
+        Item = "px-4 py-1.5 rounded-lg text-sky-600 bg-sky-50 font-medium"
+    };
 
     private InputFieldSlots _inputClasses = new()
-        {
-            Root = "max-w-full sm:max-w-[10rem] h-8",
-            Input = "text-tiny"
-        };
+    {
+        Root = "max-w-full sm:max-w-[10rem] h-8",
+        Input = "text-tiny"
+    };
 }

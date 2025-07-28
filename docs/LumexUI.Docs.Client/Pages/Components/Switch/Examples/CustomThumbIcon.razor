@@ -1,5 +1,8 @@
-﻿<LumexSwitch ThumbIcon="@((toggled) => toggled ? Icons.Rounded.VolumeUp : Icons.Rounded.VolumeOff)"
-             Size="@Size.Large"
-             Value="@true">
-    Sound
+﻿@using LumexUI.Shared.Icons
+
+<LumexSwitch Size="@Size.Large" Value="@true">
+    <ThumbContent Context="toggled">
+        @(toggled ? @<Volume2Icon /> : @<VolumeOffIcon />)
+    </ThumbContent>
+    <ChildContent>Volume</ChildContent>
 </LumexSwitch>

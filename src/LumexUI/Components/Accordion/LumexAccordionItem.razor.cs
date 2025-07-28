@@ -41,7 +41,7 @@ public partial class LumexAccordionItem : LumexComponentBase,
 	/// <summary>
 	/// Gets or sets the content to render as the indicator icon.
 	/// </summary>
-	[Parameter] public RenderFragment<bool> IndicatorContent { get; set; } = _renderIndicator;
+	[Parameter] public RenderFragment<bool> IndicatorContent { get; set; } = _renderDefaultIndicator;
 
 	/// <summary>
 	/// Gets or sets the unique identifier for the accordion item.
@@ -107,11 +107,10 @@ public partial class LumexAccordionItem : LumexComponentBase,
 	private string? ContentClass =>
 		TwMerge.Merge( AccordionItem.GetContentStyles( this ) );
 
-	private static readonly RenderFragment<bool> _renderIndicator = _ => builder =>
+	private static readonly RenderFragment<bool> _renderDefaultIndicator = _ => builder =>
 	{
-		builder.OpenComponent<ChevronLeft>( 0 );
-		builder.AddComponentParameter( 1, nameof( ChevronLeft.Size ), "1em" );
-		builder.AddAttribute( 1, "stroke-width", "2" );
+		builder.OpenComponent<ChevronLeftIcon>( 0 );
+		builder.AddComponentParameter( 1, nameof( ChevronLeftIcon.Size ), "1em" );
 		builder.CloseComponent();
 	};
 

@@ -1,12 +1,14 @@
-<pre><code class="language-razor">@inject ThemeService ThemeService
+<pre><code class="language-razor">@using LumexUI.Shared.Icons
+
+@inject ThemeService ThemeService
 @inject IPopoverService PopoverService
 
 &lt;LumexButton Variant=&quot;@Variant.Outlined&quot;
              Class=&quot;min-w-10 w-10 h-10 p-0&quot;
              OnClick=&quot;@TriggerAsync&quot;
              data-popoverref=&quot;@_dropdownId&quot;&gt;
-    &lt;LumexIcon Icon=&quot;@Icons.Rounded.DarkMode&quot; Size=&quot;@new( &quot;20&quot; )&quot; Class=&quot;hidden dark:block&quot; /&gt;
-    &lt;LumexIcon Icon=&quot;@Icons.Rounded.LightMode&quot; Size=&quot;@new( &quot;20&quot; )&quot; Class=&quot;dark:hidden&quot; /&gt;
+    &lt;MoonIcon Size=&quot;20&quot; class=&quot;hidden dark:block&quot; /&gt;
+    &lt;SunIcon Size=&quot;20&quot; class=&quot;dark:hidden&quot; /&gt;
 &lt;/LumexButton&gt;
 
 &lt;LumexDropdown Id=&quot;@_dropdownId&quot;

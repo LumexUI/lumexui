@@ -25,7 +25,7 @@ else
             {
                 <img src="@Src"
                      alt="@Alt"
-                     class="@GetStyles(nameof(S.Img))"
+                     class="@GetStyles( nameof( S.Img ) )"
                      data-slot="img"
                      data-loaded="@_imageLoaded.ToAttributeValue()"
                      @ref="@_ref" />
@@ -45,7 +45,7 @@ else
         if( FallbackContent is not null )
         {
             <div role="img"
-                 class="@GetStyles(nameof(S.Fallback))"
+                 class="@GetStyles( nameof( S.Fallback ) )"
                  data-slot="fallback"
                  aria-label="@Alt">
                 @FallbackContent
@@ -57,7 +57,7 @@ else
         if( !string.IsNullOrEmpty( Name ) )
         {
             <span role="img"
-                  class="@GetStyles(nameof(S.Name))"
+                  class="@GetStyles( nameof( S.Name ) )"
                   data-slot="name"
                   aria-label="@Alt">
                 @Initials( Name )
@@ -66,10 +66,10 @@ else
         else
         {
             <span role="img"
-                  class="@GetStyles(nameof(S.Icon))"
+                  class="@GetStyles( nameof( S.Icon ) )"
                   data-slot="icon"
                   aria-label="@Alt">
-                <LumexIcon Icon="@Icon" />
+                @IconContent
             </span>
         }
     }

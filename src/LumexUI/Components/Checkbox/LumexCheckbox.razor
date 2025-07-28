@@ -20,16 +20,17 @@
                    @onchange="@OnChangeAsync" />
         </span>
 
-        @if( !string.IsNullOrEmpty( CheckIcon ) )
-        {
-            <LumexIcon Icon="@CheckIcon" 
-                       Class="@IconClass" 
-                       data-slot="icon" />
-        }
-        else
-        {
-            @_renderCheckIcon
-        }
+        <span class="@IconClass" data-slot="icon">
+            @if( IconContent is not null )
+            {
+                @IconContent
+            }
+            else
+            {
+                @_renderCheckIcon
+            }
+        </span>
+
     </span>
 
     @if( ChildContent is not null )
@@ -47,18 +48,16 @@
             .Add( "transition", "stroke-dashoffset 0.2s linear 0.15s", when: CurrentValue )
             .ToString();
 
-        <svg class="@IconClass" 
-             viewBox="0 0 17 18" 
-             data-slot="icon">
-            <polyline fill="none"
-                      points="1 9 7 14 15 4"
-                      stroke="currentColor"
-                      stroke-dasharray="22"
-                      stroke-dashoffset="@(CurrentValue ? 44 : 66)"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      style="@style" />
+        <svg viewBox="0 0 17 18" 
+             fill="none" 
+             stroke="currentColor" 
+             stroke-dasharray="22" 
+             stroke-dashoffset="@(CurrentValue ? 44 : 66)" 
+             stroke-linecap="round" 
+             stroke-linejoin="round" 
+             stroke-width="2"
+             style="@style">
+            <polyline points="1 9 7 14 15 4"/>
         </svg>
     }
 }

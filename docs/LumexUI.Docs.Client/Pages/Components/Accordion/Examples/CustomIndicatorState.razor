@@ -4,19 +4,19 @@
     <LumexAccordionItem Id="1" Title="Theme">
         <ChildContent>@_content</ChildContent>
         <IndicatorContent Context="expanded">
-            @(expanded ? @<Sun /> : @<Moon />)
+            @(expanded ? @<SunIcon /> : @<MoonIcon />)
         </IndicatorContent>
     </LumexAccordionItem>
     <LumexAccordionItem Id="2" Title="Anchor">
         <ChildContent>@_content</ChildContent>
         <IndicatorContent>
-            <Link />
+            <LinkIcon />
         </IndicatorContent>
     </LumexAccordionItem>
     <LumexAccordionItem Id="3" Title="Sun">
         <ChildContent>@_content</ChildContent>
         <IndicatorContent>
-            <Sun />
+            <SunIcon />
         </IndicatorContent>
     </LumexAccordionItem>
 </LumexAccordion>

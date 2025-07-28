@@ -59,11 +59,12 @@ internal readonly record struct Checkbox
         .ToString();
 
     private readonly static string _icon = ElementClass.Empty()
-        .Add( "z-10" )
-        .Add( "opacity-0" )
-        .Add( "transition-opacity" )
-        .Add( "motion-reduce:transition-none" )
-        .Add( "group-data-[checked=true]:opacity-100" )
+        .Add( "contents" )
+        .Add( "*:z-10" )
+        .Add( "*:opacity-0" )
+        .Add( "*:transition-opacity" )
+        .Add( "*:motion-reduce:transition-none" )
+        .Add( "*:group-data-[checked=true]:opacity-100" )
         .ToString();
 
     private readonly static string _label = ElementClass.Empty()
@@ -129,9 +130,9 @@ internal readonly record struct Checkbox
         else if( slot == "icon" )
         {
             return ElementClass.Empty()
-                .Add( "w-3 h-2", when: size is Size.Small )
-                .Add( "w-4 h-3", when: size is Size.Medium )
-                .Add( "w-5 h-4", when: size is Size.Large );
+                .Add( "*:w-3 *:h-2", when: size is Size.Small )
+                .Add( "*:w-4 *:h-3", when: size is Size.Medium )
+                .Add( "*:w-5 *:h-4", when: size is Size.Large );
         }
         else // part == "label"
         {

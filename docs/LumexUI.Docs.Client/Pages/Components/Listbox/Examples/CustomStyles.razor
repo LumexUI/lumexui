@@ -1,31 +1,31 @@
-﻿<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+﻿@using LumexUI.Shared.Icons
 
 <LumexListbox TValue="string"
               Variant="@ListboxVariant.Flat"
               Classes="@_classes"
               ItemClasses="@_itemClasses">
-    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("bug"), "bg-success/15 text-success-600"))"
-                      EndContent="@_counter(7)">
+    <LumexListboxItem StartContent="@_iconWrapper( new( _icon( typeof( BugIcon ) ), "bg-success/15 text-success-600" ) )"
+                      EndContent="@_counter( 7 )">
         Issues
     </LumexListboxItem>
-    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("git-pull-request"), "bg-primary/15 text-primary"))"
-                      EndContent="@_counter(6)">
+    <LumexListboxItem StartContent="@_iconWrapper( new( _icon( typeof( GitPullRequestArrowIcon ) ), "bg-primary/15 text-primary" ) )"
+                      EndContent="@_counter( 6 )">
         Pull Requests
     </LumexListboxItem>
-    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("conversation"), "bg-secondary/15 text-secondary"))"
-                      EndContent="@_counter(3)">
+    <LumexListboxItem StartContent="@_iconWrapper( new( _icon( typeof( MessagesSquareIcon ) ), "bg-secondary/15 text-secondary" ) )"
+                      EndContent="@_counter( 3 )">
         Discussions
     </LumexListboxItem>
-    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("play-circle"), "bg-warning/15 text-warning"))"
-                      EndContent="@_counter(2)">
+    <LumexListboxItem StartContent="@_iconWrapper( new( _icon( typeof( CirclePlayIcon ) ), "bg-warning/15 text-warning" ) )"
+                      EndContent="@_counter( 2 )">
         Actions
     </LumexListboxItem>
-    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("layout"), "bg-default/30 text-foreground"))"
-                      EndContent="@_counter(1)">
+    <LumexListboxItem StartContent="@_iconWrapper( new( _icon( typeof( PanelsTopLeftIcon ) ), "bg-default/30 text-foreground" ) )"
+                      EndContent="@_counter( 1 )">
         Projects
     </LumexListboxItem>
-    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("purchase-tag"), "bg-primary/15 text-primary"))"
-                      EndContent="@_counter(12)"
+    <LumexListboxItem StartContent="@_iconWrapper( new( _icon( typeof( TagIcon ) ), "bg-primary/15 text-primary" ) )"
+                      EndContent="@_counter( 12 )"
                       Class="h-auto">
         <ChildContent>
             <div class="flex flex-col gap-1">
@@ -39,15 +39,15 @@
             </div>
         </ChildContent>
     </LumexListboxItem>
-    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("group"), "bg-orange-500/15 text-orange-500"))"
-                      EndContent="@_counter(2)">
+    <LumexListboxItem StartContent="@_iconWrapper( new( _icon( typeof( UsersIcon ) ), "bg-orange-500/15 text-orange-500" ) )"
+                      EndContent="@_counter( 2 )">
         Contributors
     </LumexListboxItem>
-    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("show"), "bg-warning/15 text-warning"))"
-                      EndContent="@_counter(3)">
+    <LumexListboxItem StartContent="@_iconWrapper( new( _icon( typeof( EyeIcon ) ), "bg-warning/15 text-warning" ) )"
+                      EndContent="@_counter( 3 )">
         Watchers
     </LumexListboxItem>
-    <LumexListboxItem StartContent="@_iconWrapper(new(_icon("certification"), "bg-danger/15 text-danger"))">
+    <LumexListboxItem StartContent="@_iconWrapper( new( _icon( typeof( ScaleIcon ) ), "bg-danger/15 text-danger" ) )">
         <ChildContent>License</ChildContent>
         <EndContent>
             <span class="text-small text-default-400">MIT</span>
@@ -61,13 +61,13 @@
             @props.ChildContent
         </div>;
 
-    private RenderFragment<string> _icon = icon =>
-        @<LumexIcon Icon="@($"bx bx-{icon}")" Size="@new("18")" />;
+    private RenderFragment<Type> _icon = icon =>
+        @<DynamicIcon Type="@icon" Size="18" />;
 
     private RenderFragment<int> _counter = counter =>
         @<div class="flex items-center gap-1 text-default-400">
             <span class="text-small">@counter</span>
-            <LumexIcon Icon="@Icons.Rounded.ChevronRight" Size="@new("20")" />
+            <ChevronRightIcon Size="16" />
         </div>;
 
     private ListboxSlots _classes = new()

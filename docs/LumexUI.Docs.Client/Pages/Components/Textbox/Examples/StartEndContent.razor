@@ -1,4 +1,6 @@
-﻿<div class="grid gap-4">
+﻿@using LumexUI.Shared.Icons
+
+<div class="grid gap-4">
     <div class="w-full grid grid-cols-1 gap-4">
         <div>
             <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
@@ -79,23 +81,9 @@
 </div>
 
 @code {
-    private RenderFragment _mailIcon =
-        @<LumexIcon Icon="@Icons.Rounded.Mail"
-                    Size="@new("20")"
-                    Class="text-default-400 shrink-0">
-        </LumexIcon>;
-
-    private RenderFragment _searchIcon =
-        @<LumexIcon Icon="@Icons.Rounded.Search"
-                    Size="@new("20")"
-                    Class="text-default-400 shrink-0">
-        </LumexIcon>;
-
-    private RenderFragment _micIcon =
-        @<LumexIcon Icon="@Icons.Rounded.Mic"
-                    Size="@new("20")"
-                    Class="text-primary-300 shrink-0">
-        </LumexIcon>;
+    private RenderFragment _mailIcon = @<MailIcon Size="20" class="text-default-400 shrink-0" />;
+    private RenderFragment _searchIcon = @<SearchIcon Size="20" class="text-default-400 shrink-0" />;
+    private RenderFragment _micIcon = @<MicIcon Size="20" class="text-default-400 shrink-0" />;
 
     private RenderFragment _protocolContent =
         @<div class="pointer-events-none flex items-center">

@@ -1,14 +1,16 @@
-﻿<LumexButton Color="@ThemeColor.Primary"
-             StartContent="@StartContent">
-    Share
-</LumexButton>
-<LumexButton Color="@ThemeColor.Danger"
-             Variant="@Variant.Ghost"
-             EndContent="@EndContent">
-    Cancel
+﻿@using LumexUI.Shared.Icons
+
+<LumexButton Color="@ThemeColor.Success">
+    <ChildContent>Take a photo</ChildContent>
+    <EndContent>
+        <CameraIcon />
+    </EndContent>
 </LumexButton>
 
-@code {
-    private RenderFragment StartContent => @<LumexIcon Icon="@Icons.Rounded.Share" />;
-    private RenderFragment EndContent => @<LumexIcon Icon="@Icons.Rounded.Cancel" />;
-}
+<LumexButton Color="@ThemeColor.Danger"
+             Variant="@Variant.Flat">
+    <StartContent>
+        <UserIcon />
+    </StartContent>
+    <ChildContent>Delete user</ChildContent>
+</LumexButton>

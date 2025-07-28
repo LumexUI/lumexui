@@ -1,14 +1,14 @@
-﻿<LumexDataGrid Data="@_users">
+﻿@using LumexUI.Shared.Icons
+
+<LumexDataGrid Data="@_users">
     <PropertyColumn Property="@(p => p.Name)" />
     <PropertyColumn Property="@(p => p.Role)" />
     <PropertyColumn Property="@(p => p.Status)" />
     <TemplateColumn Title="Actions" Align="@Align.Center">
-        <LumexButton Size="@Size.Small"
-                     Variant="@Variant.Light"
-                     Class="min-w-8 w-8 h-8 px-0">
-            <LumexIcon Icon="@Icons.Rounded.MoreVert"
-                       Color="@ThemeColor.None"
-                       Class="text-default-500" />
+        <LumexButton IconOnly="@true"
+                     Size="@Size.Small"
+                     Variant="@Variant.Light">
+            <EllipsisVerticalIcon class="text-default-400" />
         </LumexButton>
     </TemplateColumn>
 </LumexDataGrid>

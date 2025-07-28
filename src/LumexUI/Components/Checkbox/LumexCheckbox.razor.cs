@@ -15,17 +15,17 @@ namespace LumexUI;
 public partial class LumexCheckbox : LumexBooleanInputBase, ISlotComponent<CheckboxSlots>
 {
 	/// <summary>
+	/// Gets or sets the content to render as icon when the checkbox is checked.
+	/// </summary>
+	[Parameter] public RenderFragment? IconContent { get; set; }
+
+	/// <summary>
 	/// Gets or sets the border radius of the checkbox.
 	/// </summary>
 	/// <remarks>
 	/// The default is <see cref="Radius.Medium"/>
 	/// </remarks>
 	[Parameter] public Radius Radius { get; set; } = Radius.Medium;
-
-	/// <summary>
-	/// Gets or sets the icon to be used for indicating a checked state of the checkbox.
-	/// </summary>
-	[Parameter] public string? CheckIcon { get; set; }
 
 	/// <summary>
 	/// Gets or sets the CSS class names for the checkbox slots.

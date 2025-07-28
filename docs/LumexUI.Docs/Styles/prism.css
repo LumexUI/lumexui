@@ -28,7 +28,7 @@
 }
 
 .token.block {
-    display: initial;
+    display: initial !important;
 }
 
 .line-highlight {

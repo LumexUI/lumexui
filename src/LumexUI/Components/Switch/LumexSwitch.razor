@@ -19,33 +19,27 @@
     </span>
 
     <span class="@WrapperClass" data-slot="wrapper">
-        @if( !string.IsNullOrEmpty( StartIcon ) )
+        @if( StartContent is not null )
         {
-            <LumexIcon Icon="@StartIcon" 
-                       Size="@(new("1em"))" 
-                       Class="@StartIconClass" 
-                       data-slot="start-icon" />
+            <span class="@StartIconClass" data-slot="start-icon">
+                @StartContent
+            </span>
         }
 
         <span class="@ThumbClass" data-slot="thumb">
-            @{
-                var thumbIcon = ThumbIcon?.Invoke( CurrentValue );
-                if( !string.IsNullOrEmpty( thumbIcon ) )
-                {
-                    <LumexIcon Icon="@thumbIcon" 
-                               Size="@(new("100%"))" 
-                               Class="@ThumbIconClass"
-                               data-slot="thumb-icon" />
-                }
+            @if( ThumbContent is not null )
+            {
+                <span class="@ThumbIconClass" data-slot="thumb-icon">
+                    @ThumbContent( CurrentValue )
+                </span>
             }
         </span>
 
-        @if( !string.IsNullOrEmpty( EndIcon ) )
+        @if( EndContent is not null )
         {
-            <LumexIcon Icon="@EndIcon" 
-                       Size="@(new("1em"))" 
-                       Class="@EndIconClass" 
-                       data-slot="end-icon" />
+            <span class="@EndIconClass" data-slot="end-icon">
+                @EndContent
+            </span>
         }
     </span>
 

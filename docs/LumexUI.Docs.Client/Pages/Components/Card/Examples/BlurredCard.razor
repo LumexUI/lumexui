@@ -1,79 +1,32 @@
-﻿<LumexCard Blurred="@true"
+﻿@using LumexUI.Shared.Icons
+
+<LumexCard Blurred="@true"
            Shadow="@Shadow.Large"
            Class="bg-background/20 rounded-2xl">
     <LumexCardHeader Class="justify-between">
-        <LumexButton Size="@Size.Small"
+        <LumexButton IconOnly="@true"
+                     Size="@Size.Small"
+                     Radius="@Radius.Full"
                      Variant="@Variant.Flat"
-                     Class="h-8 w-8 min-w-8 px-0 bg-background/40 rounded-full">
-            <LumexIcon Icon="@Icons.Rounded.Timer"
-                       Class="text-foreground" />
+                     Class="bg-background/40">
+            <TimerIcon Size="20" class="text-foreground" />
         </LumexButton>
-        <LumexButton Size="@Size.Small"
+        <LumexButton IconOnly="@true"
+                     Size="@Size.Small"
+                     Radius="@Radius.Full"
                      Variant="@Variant.Flat"
-                     Class="h-8 w-8 min-w-8 px-0 bg-background/40 rounded-full">
-            <LumexIcon Icon="@Icons.Rounded.DirectionsRun"
-                       Class="text-foreground" />
+                     Class="bg-background/40">
+            <ActivityIcon Size="20" class="text-foreground" />
         </LumexButton>
     </LumexCardHeader>
     <LumexCardBody>
         <div class="grid grid-cols-4">
             <div class="col-span-3">
                 <div class="relative w-40 h-40">
-                    <div class="absolute w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-950">
-                        <svg class="absolute w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                            <linearGradient id="progress-1" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stop-color="#ec4899" />
-                                <stop offset="100%" stop-color="#9d174d" />
-                            </linearGradient>
-                            <circle class="rotate-[270deg] origin-center"
-                                    stroke-width="16"
-                                    stroke-linecap="round"
-                                    stroke="url(#progress-1)"
-                                    fill="transparent"
-                                    r="72"
-                                    cx="80"
-                                    cy="80"
-                                    style="stroke-dashoffset: 65.942; stroke-dasharray: 451.658, 451.658;">
-                            </circle>
-                        </svg>
-                    </div>
-                    <div class="absolute w-32 h-32 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-lime-950">
-                        <svg class="absolute w-32 h-32 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                            <linearGradient id="progress-2" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stop-color="#cff542" />
-                                <stop offset="100%" stop-color="#6ad847" />
-                            </linearGradient>
-                            <circle class="rotate-[270deg] origin-center"
-                                    stroke-width="16"
-                                    stroke-linecap="round"
-                                    stroke="url(#progress-2)"
-                                    fill="transparent"
-                                    r="56"
-                                    cx="64"
-                                    cy="64"
-                                    style="stroke-dashoffset: 31.224; stroke-dasharray: 351.289, 351.289;">
-                            </circle>
-                        </svg>
-                    </div>
-                    <div class="absolute w-24 h-24 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-950">
-                        <svg class="absolute w-24 h-24 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                            <linearGradient id="progress-3" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stop-color="#6ee7b7" />
-                                <stop offset="100%" stop-color="#22d3ee" />
-                            </linearGradient>
-                            <circle class="rotate-[270deg] origin-center"
-                                    stroke-width="16"
-                                    stroke-linecap="round"
-                                    stroke="url(#progress-3)"
-                                    fill="transparent"
-                                    r="40"
-                                    cx="48"
-                                    cy="48"
-                                    style="stroke-dashoffset: 62.73; stroke-dasharray: 250.921, 250.921;">
-                            </circle>
-                        </svg>
-                    </div>
-                    <div class="absolute w-16 h-16 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black"></div>
+                    @_moveRing
+                    @_exerciseRing
+                    @_standRing
+                    <div class="absolute w-16 h-16 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black" />
                 </div>
             </div>
             <div class="col-span-1 font-bold text-right text-xl drop-shadow-lg">
@@ -85,11 +38,71 @@
         </div>
     </LumexCardBody>
     <LumexCardFooter Class="justify-center">
-        <LumexIcon Icon="@Icons.Rounded.Favorite"
-                   Size="@new("16")"
-                   Class="text-foreground" />
+        <HeartIcon Size="14" class="mr-1 text-foreground" />
         <p class="font-medium text-sm text-foreground">
             82 BPM, 4min ago
         </p>
     </LumexCardFooter>
 </LumexCard>
+
+@code {
+    private RenderFragment _moveRing =
+    @<div class="absolute w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-950">
+        <svg class="absolute w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <linearGradient id="progress-1" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ec4899" />
+                <stop offset="100%" stop-color="#9d174d" />
+            </linearGradient>
+            <circle class="rotate-[270deg] origin-center"
+                    stroke-width="16"
+                    stroke-linecap="round"
+                    stroke="url(#progress-1)"
+                    fill="transparent"
+                    r="72"
+                    cx="80"
+                    cy="80"
+                    style="stroke-dashoffset: 65.942; stroke-dasharray: 451.658, 451.658;">
+            </circle>
+        </svg>
+    </div>;
+
+    private RenderFragment _exerciseRing =
+    @<div class="absolute w-32 h-32 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-lime-950">
+        <svg class="absolute w-32 h-32 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <linearGradient id="progress-2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#cff542" />
+                <stop offset="100%" stop-color="#6ad847" />
+            </linearGradient>
+            <circle class="rotate-[270deg] origin-center"
+                    stroke-width="16"
+                    stroke-linecap="round"
+                    stroke="url(#progress-2)"
+                    fill="transparent"
+                    r="56"
+                    cx="64"
+                    cy="64"
+                    style="stroke-dashoffset: 31.224; stroke-dasharray: 351.289, 351.289;">
+            </circle>
+        </svg>
+    </div>;
+
+    private RenderFragment _standRing =
+    @<div class="absolute w-24 h-24 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-950">
+        <svg class="absolute w-24 h-24 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <linearGradient id="progress-3" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#6ee7b7" />
+                <stop offset="100%" stop-color="#22d3ee" />
+            </linearGradient>
+            <circle class="rotate-[270deg] origin-center"
+                    stroke-width="16"
+                    stroke-linecap="round"
+                    stroke="url(#progress-3)"
+                    fill="transparent"
+                    r="40"
+                    cx="48"
+                    cy="48"
+                    style="stroke-dashoffset: 62.73; stroke-dasharray: 250.921, 250.921;">
+            </circle>
+        </svg>
+    </div>;
+}
