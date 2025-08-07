@@ -32,13 +32,13 @@ internal class ColorVariants
     {
         [ThemeColor.None] = "",
         [ThemeColor.Default] = "bg-default/40 text-default-700",
-        [ThemeColor.Primary] = "bg-primary-100 text-primary-700",
-        [ThemeColor.Secondary] = "bg-secondary-100 text-secondary-700",
-        [ThemeColor.Success] = "bg-success-100 text-success-700",
-        [ThemeColor.Warning] = "bg-warning-100 text-warning-800",
-        [ThemeColor.Danger] = "bg-danger-100 text-danger-700",
-        [ThemeColor.Info] = "bg-info-100 text-info-700"
-    };
+        [ThemeColor.Primary] = "bg-primary/20 text-primary-600",
+        [ThemeColor.Secondary] = "bg-secondary/20 text-secondary-600",
+        [ThemeColor.Success] = "bg-success/20 text-success-700 dark:text-success-600",
+        [ThemeColor.Warning] = "bg-warning/20 text-warning-800 dark:text-warning-700",
+        [ThemeColor.Danger] = "bg-danger/20 text-danger-600",
+        [ThemeColor.Info] = "bg-info/20 text-info-600"
+	};
 
     public readonly static Dictionary<ThemeColor, string> Shadow = new()
     {

@@ -258,27 +258,27 @@ internal class ListboxItem
 
             (ListboxVariant.Flat, ThemeColor.Primary ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:bg-primary-100 hover:text-primary-700" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:bg-primary/20 hover:text-primary-600" ), when: slot is nameof( _base ) ),
 
             (ListboxVariant.Flat, ThemeColor.Secondary ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:bg-secondary-100 hover:text-secondary-700" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:bg-secondary/20 hover:text-secondary-600" ), when: slot is nameof( _base ) ),
 
             (ListboxVariant.Flat, ThemeColor.Success ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:bg-success-100 hover:text-success-700" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:bg-success/20 hover:text-success-800 dark:hover:text-success-600" ), when: slot is nameof( _base ) ),
 
             (ListboxVariant.Flat, ThemeColor.Warning ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:bg-warning-100 hover:text-warning-700" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:bg-warning/20 hover:text-warning-800 dark:hover:text-warning-700" ), when: slot is nameof( _base ) ),
 
             (ListboxVariant.Flat, ThemeColor.Danger ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:bg-danger-100 hover:text-danger-700" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:bg-danger/20 hover:text-danger-600" ), when: slot is nameof( _base ) ),
 
             (ListboxVariant.Flat, ThemeColor.Info ) => ElementClass.Empty()
                 .Add( ElementClass.Empty()
-                    .Add( "hover:bg-info-100 hover:text-info-700" ), when: slot is nameof( _base ) ),
+                    .Add( "hover:bg-info/20 hover:text-info-600" ), when: slot is nameof( _base ) ),
 
             // shadow / color
 

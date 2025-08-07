@@ -454,7 +454,7 @@ internal static class MenuItem
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof(DropdownItemSlots.Base)] = "hover:bg-primary-100 hover:text-primary-700"
+						[nameof(DropdownItemSlots.Base)] = "hover:bg-primary/20 hover:text-primary-600"
 					}
 				},
 				new CompoundVariant()
@@ -466,7 +466,7 @@ internal static class MenuItem
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof(DropdownItemSlots.Base)] = "hover:bg-secondary-100 hover:text-secondary-700"
+						[nameof(DropdownItemSlots.Base)] = "hover:bg-secondary/20 hover:text-secondary-600"
 					}
 				},
 				new CompoundVariant()
@@ -478,7 +478,7 @@ internal static class MenuItem
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof(DropdownItemSlots.Base)] = "hover:bg-success-100 hover:text-success-700"
+						[nameof(DropdownItemSlots.Base)] = "hover:bg-success/20 hover:text-success-800 dark:hover:text-success-600"
 					}
 				},
 				new CompoundVariant()
@@ -490,7 +490,7 @@ internal static class MenuItem
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof(DropdownItemSlots.Base)] = "hover:bg-warning-100 hover:text-warning-700"
+						[nameof(DropdownItemSlots.Base)] = "hover:bg-warning/20 hover:text-warning-800 dark:hover:text-warning-700"
 					}
 				},
 				new CompoundVariant()
@@ -502,7 +502,7 @@ internal static class MenuItem
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof(DropdownItemSlots.Base)] = "hover:bg-danger-100 hover:text-danger-700"
+						[nameof(DropdownItemSlots.Base)] = "hover:bg-danger/20 hover:text-danger-600"
 					}
 				},
 				new CompoundVariant()
@@ -514,7 +514,7 @@ internal static class MenuItem
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof(DropdownItemSlots.Base)] = "hover:bg-info-100 hover:text-info-700"
+						[nameof(DropdownItemSlots.Base)] = "hover:bg-info/20 hover:text-info-600"
 					}
 				},
 
