@@ -265,7 +265,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Default]
+						[nameof( BadgeSlots.Badge )] = "bg-default-300/80 text-default-700 dark:bg-default/40"
 					}
 				},
 				new CompoundVariant()
@@ -277,7 +277,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Primary]
+						[nameof( BadgeSlots.Badge )] = "bg-primary-200/80 text-primary-600 dark:bg-primary/20"
 					}
 				},
 				new CompoundVariant()
@@ -289,7 +289,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Secondary]
+						[nameof( BadgeSlots.Badge )] = "bg-secondary-200/80 text-secondary-600 dark:bg-secondary/20"
 					}
 				},
 				new CompoundVariant()
@@ -301,7 +301,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Success]
+						[nameof( BadgeSlots.Badge )] = "bg-success-200/80 text-success-700 dark:bg-success/20 dark:text-success-600"
 					}
 				},
 				new CompoundVariant()
@@ -313,7 +313,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Warning]
+						[nameof( BadgeSlots.Badge )] = "bg-warning-200/80 text-warning-800 dark:bg-warning/20 dark:text-warning-700"
 					}
 				},
 				new CompoundVariant()
@@ -325,7 +325,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Danger]
+						[nameof( BadgeSlots.Badge )] = "bg-danger-200/80 text-danger-600 dark:bg-danger/20"
 					}
 				},
 				new CompoundVariant()
@@ -337,7 +337,7 @@ internal static class Badge
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( BadgeSlots.Badge )] = ColorVariants.Flat[ThemeColor.Info]
+						[nameof( BadgeSlots.Badge )] = "bg-info-200/80 text-info-600 dark:bg-info/20"
 					}
 				},
 
