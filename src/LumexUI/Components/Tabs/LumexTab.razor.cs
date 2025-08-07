@@ -29,7 +29,7 @@ public partial class LumexTab : LumexComponentBase
 	/// <summary>
 	/// Gets or sets the unique identifier for the tab.
 	/// </summary>
-	[Parameter, EditorRequired] public string Id { get; set; } = Identifier.New();
+	[Parameter] public string Id { get; set; } = Identifier.New();
 
 	/// <summary>
 	/// Gets or sets the title text of the tab.
