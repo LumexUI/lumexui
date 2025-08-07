@@ -200,6 +200,11 @@ internal class Tabs
 				.Add( "rounded-medium", when: slot is nameof( _tab ) )
 				.Add( "rounded-medium", when: slot is nameof( _cursor ) ),
 
+			Radius.Full => ElementClass.Empty()
+				.Add( "rounded-full", when: slot is nameof( _tabList ) )
+				.Add( "rounded-full", when: slot is nameof( _tab ) )
+				.Add( "rounded-full", when: slot is nameof( _cursor ) ),
+
 			_ => ElementClass.Empty()
 		};
 	}
@@ -234,7 +239,7 @@ internal class Tabs
 			// solid / outlined / light && color
 
 			(TabVariant.Solid or TabVariant.Outlined or TabVariant.Light, ThemeColor.Default ) => ElementClass.Empty()
-				.Add( "bg-background shadow-small", when: slot is nameof( _cursor ) )
+				.Add( "bg-background dark:bg-default shadow-small", when: slot is nameof( _cursor ) )
 				.Add( "group-data-[selected=true]:text-default-foreground", when: slot is nameof( _tabContent ) ),
 
 			(TabVariant.Solid or TabVariant.Outlined or TabVariant.Light, ThemeColor.Primary ) => ElementClass.Empty()
