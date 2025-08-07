@@ -25,7 +25,6 @@ public partial class PreviewCode
     private string ToolbarClass => ElementClass.Empty()
         .Add( "p-2" )
         .Add( "bg-default-50/50" )
-        .Add( "border-t" )
         .Add( "border-default-900/10" )
         .Add( "border-b", when: _expanded )
         .Add( "rounded-b-xl", when: !_expanded )
