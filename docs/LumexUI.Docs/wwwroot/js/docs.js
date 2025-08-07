@@ -10,7 +10,10 @@
         currentUrl = newUrl;
 
         let currentTheme = localStorage.getItem('lumexui.theme');
-        document.documentElement.classList.add(currentTheme);
+        if (currentTheme) {
+            document.documentElement.classList.remove('light', 'dark');
+            document.documentElement.classList.add(currentTheme);
+        }
     });
 };
 
