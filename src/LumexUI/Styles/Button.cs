@@ -83,13 +83,13 @@ internal class Button
 		return variant switch
 		{
 			Variant.Light => ElementClass.Empty()
-				.Add( "hover:bg-default-200", when: color is ThemeColor.Default )
-				.Add( "hover:bg-primary-100", when: color is ThemeColor.Primary )
-				.Add( "hover:bg-secondary-100", when: color is ThemeColor.Secondary )
-				.Add( "hover:bg-success-100", when: color is ThemeColor.Success )
-				.Add( "hover:bg-warning-100", when: color is ThemeColor.Warning )
-				.Add( "hover:bg-danger-100", when: color is ThemeColor.Danger )
-				.Add( "hover:bg-info-100", when: color is ThemeColor.Info ),
+				.Add( "hover:bg-default/40", when: color is ThemeColor.Default )
+				.Add( "hover:bg-primary/20", when: color is ThemeColor.Primary )
+				.Add( "hover:bg-secondary/20", when: color is ThemeColor.Secondary )
+				.Add( "hover:bg-success/20", when: color is ThemeColor.Success )
+				.Add( "hover:bg-warning/20", when: color is ThemeColor.Warning )
+				.Add( "hover:bg-danger/20", when: color is ThemeColor.Danger )
+				.Add( "hover:bg-info/20", when: color is ThemeColor.Info ),
 
 			Variant.Ghost => ElementClass.Empty()
 				.Add( "hover:!bg-default hover:!text-default-foreground", when: color is ThemeColor.Default )
