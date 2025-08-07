@@ -2,9 +2,8 @@
 
 <div class="w-full flex flex-col">
     <LumexTabs Variant="@TabVariant.Underlined"
-               Color="@ThemeColor.Primary"
                Classes="@_classes">
-        <LumexTab>
+        <LumexTab Id="photos">
             <TitleContent>
                 <div class="flex items-center space-x-2">
                     <ImagesIcon Size="20" />
@@ -15,7 +14,7 @@
                 </div>
             </TitleContent>
         </LumexTab>
-        <LumexTab>
+        <LumexTab Id="music">
             <TitleContent>
                 <div class="flex items-center space-x-2">
                     <MusicIcon Size="20" />
@@ -26,7 +25,7 @@
                 </div>
             </TitleContent>
         </LumexTab>
-        <LumexTab>
+        <LumexTab Id="videos">
             <TitleContent>
                 <div class="flex items-center space-x-2">
                     <ClapperboardIcon Size="20" />
@@ -45,7 +44,7 @@
     {
         TabList = "gap-6 w-full rounded-none p-0 border-b border-divider",
         Tab = "max-w-fit px-0 h-12",
-        TabContent = "group-data-[selected=true]:text-secondary",
-        Cursor = "w-full bg-secondary"
+        TabContent = "group-data-[selected=true]:text-secondary-500",
+        Cursor = "w-full bg-secondary-500"
     };
 }

@@ -1,7 +1,11 @@
 ﻿@rendermode InteractiveWebAssembly
 
 <PreviewCode Code="@new(name: null, snippet: "Navbar.Code.Menu")"
-             PreviewClasses="@(new() { Preview = "bg-background h-96 ring ring-black/5 shadow-md" })"
+             PreviewClasses="@(new()
+             {
+                 PreviewWrapper = "p-8",
+                 Preview = "bg-background h-96 p-0 ring ring-default-900/10 rounded-small shadow-md",
+             })"
              Class="max-w-sm">
-    <iframe class="max-w-sm w-full h-full overflow-scroll" src="/examples/navbar/menu" />
+    <iframe class="max-w-sm w-full h-full rounded-small overflow-scroll" src="/examples/navbar/menu" />
 </PreviewCode>

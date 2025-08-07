@@ -2,26 +2,24 @@
 
 @using LumexUI.Shared.Icons
 
-<li class="relative flex flex-col items-start p-1">
-    <div class="peer flex items-end gap-3 mb-3">
-        <div class="flex items-center justify-center size-8 rounded-xl bg-indigo-50/75 text-indigo-500 border border-indigo-300 ring-2 ring-indigo-100">
+<LumexCard As="li" Shadow="@Shadow.None" Class="bg-slate-50 border border-default-900/5 transition-colors hover:border-default-900/15 dark:bg-default-50">
+    <LumexCardHeader Class="gap-3 p-5 pb-0 overflow-visible">
+        <span class="flex items-center justify-center size-9 rounded-xl bg-indigo-50 text-indigo-500 border border-indigo-300 ring-2 ring-indigo-100 dark:bg-indigo-900/15 dark:text-indigo-400 dark:border-indigo-300/25 dark:ring-indigo-400/10">
             <DynamicIcon Type="@Icon" Size="20" />
-        </div>
+        </span>
         <h3 class="font-semibold text-foreground-900">
             <LumexLink Href="@Link"
                        Color="@ThemeColor.None"
-                       Class="before:absolute before:-inset-3 before:rounded-2xl">
+                       Class="before:absolute before:inset-0">
                 @Title
             </LumexLink>
         </h3>
-    </div>
-    <div>
-        <p class="text-sm text-foreground-500 leading-6">
-            @Description
-        </p>
-    </div>
-    <div class="absolute -z-10 -inset-3 rounded-2xl bg-gray-50 peer-hover:ring peer-hover:ring-foreground-900/10"></div>
-</li>
+    </LumexCardHeader>
+
+    <LumexCardBody Class="p-5 pt-4">
+        <p class="text-small/6 text-foreground">@Description</p>
+    </LumexCardBody>
+</LumexCard>
 
 @code {
     [Parameter] public Type? Icon { get; set; }

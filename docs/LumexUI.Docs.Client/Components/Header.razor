@@ -4,7 +4,7 @@
 <LumexNavbar Sticky="@true"
              Bordered="@true"
              MaxWidth="@MaxWidth.XLarge"
-             Classes="@_navbarClasses">
+             Classes="@(new() { Wrapper = "gap-6" })">
     <LumexNavbarBrand>
         <LumexLink Href="/"
                    Class="font-bold text-xl text-foreground-900">
@@ -18,13 +18,13 @@
             <LumexNavbarItem>
                 <LumexLink Href="@item.Link"
                            Color="@ThemeColor.None"
-                           Class="hover:text-orange-500 data-[active=true]:text-orange-500">
+                           Class="data-[active=true]:text-orange-500 dark:text-foreground-700 dark:data-[active=true]:text-orange-400">
                     @item.Name
                 </LumexLink>
             </LumexNavbarItem>
         }
 
-        <LumexNavbarItem Class="h-full">
+        <LumexNavbarItem Class="h-6">
             <LumexDivider Orientation="@Orientation.Vertical" />
         </LumexNavbarItem>
         @_headerActions
@@ -41,21 +41,19 @@
 </LumexNavbar>
 
 @code {
-    private static RenderFragment _headerActions =
+    private readonly RenderFragment _headerActions =
     @<text>
         <LumexNavbarItem Class="flex">
             <LumexLink Href="https://github.com/LumexUI/lumexui"
                        External="@true"
-                       Class="text-foreground-400 hover:text-foreground-600">
+                       Class="text-foreground-500 hover:text-foreground-600 hover:opacity-100">
                 <GithubIcon Size="20" />
             </LumexLink>
         </LumexNavbarItem>
+        <LumexNavbarItem Class="flex">
+            <ThemeToggle />
+        </LumexNavbarItem>
     </text>;
-
-    private readonly NavbarSlots _navbarClasses = new()
-        {
-            Wrapper = "py-5 gap-6"
-        };
 
     private readonly NavItem[] _navItems = new NavItem[]
     {

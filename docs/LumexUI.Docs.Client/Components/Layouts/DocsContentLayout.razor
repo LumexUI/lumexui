@@ -11,14 +11,14 @@
                     Description="@_description"
                     LinksProps="@_linksProps" />
 
-        <main class="mt-8 prose prose-zinc">
+        <main class="mt-8 prose prose-zinc dark:prose-invert">
             <LumexDivider />
 
             @Body
         </main>
 
         <DocsFooter />
-        <div class="scrollbar hidden fixed z-20 overflow-y-auto top-[4.0625rem] right-[max(0px,calc(50%-40rem))] bottom-0 w-[13rem] pb-10 xl:block">
+        <div class="hidden fixed z-20 overflow-y-auto top-[4.0625rem] right-[max(0px,calc(50%-40rem))] bottom-0 w-[13rem] pb-10 xl:block">
             @TableOfContents
         </div>
     </div>

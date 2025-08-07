@@ -1,25 +1,31 @@
 ﻿<LumexCard Classes="@_classes">
     <LumexCardHeader>
-        <h4 class="text-large font-extrabold">
+        <h4 class="text-large text-foreground-900 font-bold">
             The Ultimate Cyberpunk Experience
         </h4>
     </LumexCardHeader>
     <LumexCardBody>
-        <blockquote class="italic text-foreground-500">
+        <blockquote class="italic text-foreground-600 text-small md:text-medium">
             "Neon Shadows" blends noir and cyberpunk in a gripping tale of intrigue,
             set in a decaying futuristic city. A must-read for fans of the genre.
         </blockquote>
     </LumexCardBody>
     <LumexCardFooter>
-        <p class="text-small text-foreground-600">A. Carter</p>
-        <p class="text-indigo-400">★★★★★</p>
+        <p class="text-small text-foreground-500">A. Carter</p>
+        <p class="text-indigo-300">★★★★★</p>
     </LumexCardFooter>
 </LumexCard>
 
 @code {
     private CardSlots _classes = new()
     {
-        Root = "max-w-md py-4 rounded-3xl bg-zinc-100 shadow-[5px_5px_10px_var(--color-zinc-200),-5px_-5px_10px_var(--color-zinc-50)]",
+        Root = new ElementClass()
+            .Add( "max-w-md" )
+            .Add( "py-4" )
+            .Add( "rounded-3xl" )
+            .Add( "bg-default-50" )
+            .Add( "shadow-[2px_2px_4px_var(--lumex-default-200),-2px_-2px_4px_var(--lumex-background)]" )
+            .Add( "dark:shadow-[2px_2px_4px_var(--lumex-background),-2px_-2px_4px_var(--lumex-default-200)]" ),
         Header = "justify-center text-center",
         Body = "py-0 justify-center text-center",
         Footer = "justify-center gap-2"

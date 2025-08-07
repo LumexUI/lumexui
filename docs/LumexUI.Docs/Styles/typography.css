@@ -4,6 +4,10 @@
     max-width: none;
 }
 
+.prose-zinc {
+    --tw-prose-invert-pre-bg: var(--color-zinc-900);
+}
+
     .prose :is(h2, h3, h4):where(:not(.not-prose, .not-prose *)) {
         scroll-margin-top: var(--scroll-mt);
     }
@@ -29,6 +33,15 @@
         display: flex;
         padding: --spacing(5);
         color: var(--color-zinc-100);
+    }
+
+    .prose pre:where(:is(.line-numbers)) {
+        padding-block: 1.5em;
+        padding-inline: 3.8em 1.5em;
+    }
+
+    .prose :where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+        border-radius: 0;
     }
 
     .prose :where(code[class]):not(:where([class~=not-prose],[class~=not-prose] *)):before,

@@ -59,13 +59,13 @@
     </p>
 
     <ColorSwatches />
-    <CodeSnippetCollapsible Code="@(new CodeBlock( name: "globals.css", snippet: "designTokensColors" ))" />
+    <CodeSnippet Code="@(new CodeBlock( name: "globals.css", snippet: "designTokensColors" ))" Expandable="@true" />
 </DocsSection>
 
 <DocsSection Title="Themes reference">
     <p>Here's the full list of variables available for customization:</p>
 
-    <CodeSnippetCollapsible Code="@(new CodeBlock( name: "globals.css", snippet: "designTokensThemesRef" ))" />
+    <CodeSnippet Code="@(new CodeBlock( name: "globals.css", snippet: "designTokensThemesRef" ))" Expandable="@true" />
 </DocsSection>
 
 @code {

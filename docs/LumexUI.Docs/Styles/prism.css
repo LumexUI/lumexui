@@ -17,6 +17,10 @@
     @apply text-zinc-500;
 }
 
+.token.named-parameter {
+    @apply text-zinc-400;
+}
+
 .token.comment,
 .token.operator {
     @apply text-zinc-400;
@@ -45,4 +49,59 @@ pre[class^='language-diff-'] {
 
     pre[class^='language-diff-'] > code {
         @apply flex-none min-w-full;
+    }
+
+.line-numbers .line-highlight:after, 
+.line-numbers .line-highlight:before {
+    content: none
+}
+
+pre[id].linkable-line-numbers span.line-numbers-rows {
+    pointer-events: all
+}
+
+    pre[id].linkable-line-numbers span.line-numbers-rows > span:before {
+        cursor: pointer
+    }
+
+    pre[id].linkable-line-numbers span.line-numbers-rows > span:hover:before {
+        background-color: rgba(128,128,128,.2)
+    }
+
+pre[class*=language-].line-numbers {
+    position: relative;
+    padding-left: 3.8em;
+    counter-reset: linenumber
+}
+
+    pre[class*=language-].line-numbers > code {
+        position: relative;
+        white-space: inherit
+    }
+
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    font-size: 100%;
+    left: -3.8em;
+    width: 3em;
+    letter-spacing: -1px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.line-numbers-rows > span {
+    display: block;
+    counter-increment: linenumber
+}
+
+    .line-numbers-rows > span:before {
+        content: counter(linenumber);
+        color: var(--color-zinc-500);
+        display: block;
+        padding-right: .8em;
+        text-align: right
     }

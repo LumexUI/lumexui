@@ -17,12 +17,18 @@
                        ItemClasses="@_itemClasses">
         <LumexDropdownItem Disabled="@true"
                            Class="h-14 gap-2 opacity-100">
-            <div class="inline-flex flex-col items-start">
-                <span class="text-small text-default-600">John Doe</span>
-                <span class="text-tiny text-default-500">@@johndoe</span>
+            <div class="flex items-center gap-2">
+                <LumexAvatar Size="@Size.Small"
+                             Name="John Doe"
+                             Src="https://i.pravatar.cc/150?img=2" />
+                <div class="inline-flex flex-col items-start">
+                    <span class="text-small text-default-600">John Doe</span>
+                    <span class="text-tiny text-default-500">@@johndoe</span>
+                </div>
             </div>
         </LumexDropdownItem>
         <LumexDropdownItem>Dashboard</LumexDropdownItem>
+        <LumexDropdownItem>Notifications</LumexDropdownItem>
         <LumexDropdownItem ShowDivider="@true">
             Settings
         </LumexDropdownItem>
@@ -56,7 +62,7 @@
 @code {
     private PopoverSlots _classes = new()
     {
-        Content = "p-0 border-small border-divider bg-background",
+        Content = "p-0 border border-divider bg-background",
         Arrow = "bg-default-200"
     };
 

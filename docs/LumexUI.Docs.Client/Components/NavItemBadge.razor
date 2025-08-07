@@ -2,31 +2,35 @@
 
 @if( Status.HasValue )
 {
-    <span class="@RootClasses">
+    <LumexChip Size="@Size.Small"
+               Radius="@Radius.Full"
+               Variant="@ChipVariant.Flat"
+               Classes="@Classes">
         @Status.ToString()
-    </span>
+    </LumexChip>
 }
 
 @code {
     [Parameter] public PageStatus? Status { get; set; }
 
-    private string? RootClasses => ElementClass.Empty()
-        .Add( "px-1.5" )
-        .Add( "py-[3px]" )
-        .Add( "rounded-full" )
-        .Add( "ring" )
-        .Add( "font-semibold" )
-        .Add( "text-[9px]" )
-        .Add( "uppercase" )
-        .Add( "leading-none" )
-        .Add( _variants[Status!.Value], when: Status.HasValue )
-        .ToString();
+    private ChipSlots Classes => new()
+    {
+        Base = new ElementClass()
+            .Add( "h-4" )
+            .Add( "ring" )
+            .Add( _variants[Status!.Value] ),
+        Content = new ElementClass()
+            .Add( "uppercase" )
+            .Add( "text-[10px]" )
+            .Add( "font-medium" )
+            .Add( "leading-none" )
+    };
 
     private static readonly Dictionary<PageStatus, string> _variants = new()
     {
-        [PageStatus.New] = "bg-orange-100 ring-orange-300 text-orange-600",
-        [PageStatus.Soon] = "bg-foreground-100 ring-foreground-300 text-foreground-600",
-        [PageStatus.Preview] = "bg-indigo-50 ring-indigo-200 text-indigo-600",
-        [PageStatus.Updated] = "bg-teal-50 ring-teal-200 text-teal-600",
+        [PageStatus.New] = "bg-orange-400/15 ring-orange-300 text-orange-600 dark:ring-orange-300/60 dark:text-orange-200",
+        [PageStatus.Soon] = "bg-teal-400/15 ring-teal-300 text-teal-600 dark:ring-teal-300/60 dark:text-teal-200",
+        [PageStatus.Preview] = "bg-indigo-400/15 ring-indigo-200 text-indigo-600 dark:ring-indigo-300/60 dark:text-indigo-200",
+        [PageStatus.Updated] = "bg-zinc-400/15 ring-zinc-300 text-zinc-500 dark:ring-zinc-300/60 dark:text-zinc-300",
     };
 }

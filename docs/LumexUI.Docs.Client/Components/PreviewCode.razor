@@ -8,25 +8,25 @@
     </Preview>
 
     <div class="@ToolbarClass">
-        <div class="flex items-center justify-end">
+        <div class="flex items-center justify-end gap-2">
             <LumexButton Size="@Size.Small"
+                         Radius="@Radius.Full"
                          OnClick="@Expand"
-                         Class="h-6 px-2 me-1 rounded-full bg-orange-50 border border-orange-300 text-orange-500 text-[11px]">
+                         Class="h-6 px-2 bg-orange-400/10 border border-orange-300 text-orange-500 text-[11px] dark:text-orange-200 dark:border-orange-300/60">
                 @(_expanded ? "Collapse code" : "Expand code")
             </LumexButton>
             <LumexButton IconOnly="@true"
                          Size="@Size.Small"
                          Variant="@Variant.Light"
                          OnClick="@CopyToClipboard">
-                @(_copied
-                    ? @<CheckIcon Size="16" class="text-foreground-500" />
-                    : @<CopyIcon Size="16" class="text-foreground-500" />
-                )
+                <DynamicIcon Type="@(_copied ? typeof( CheckIcon ) : typeof( CopyIcon ))"
+                             Size="16"
+                             class="text-foreground-500" />
             </LumexButton>
         </div>
     </div>
 
-    <LumexCollapse Expanded="@_expanded" Class="*:rounded-t-none">
+    <LumexCollapse Expanded="@_expanded" Class="**:rounded-t-none">
         <CodeSnippet Id="@_id" Code="@Code" />
     </LumexCollapse>
 </div>
