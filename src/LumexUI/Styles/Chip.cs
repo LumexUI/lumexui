@@ -83,7 +83,7 @@ internal static class Chip
 				{
 					[nameof( ThemeColor.Default )] = new SlotCollection
 					{
-						[nameof( ChipSlots.Dot )] = "bg-default"
+						[nameof( ChipSlots.Dot )] = "bg-default-400"
 					},
 					[nameof( ThemeColor.Primary )] = new SlotCollection
 					{
