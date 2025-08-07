@@ -263,25 +263,25 @@ internal class DataGrid
         return color switch
         {
             ThemeColor.Default => ElementClass.Empty()
-                .Add( "data-[selected=true]:bg-default-100 data-[selected=true]:text-default-foreground", when: slot is nameof( _td ) ),
+                .Add( "data-[selected=true]:bg-default/60 data-[selected=true]:text-default-foreground", when: slot is nameof( _td ) ),
 
             ThemeColor.Primary => ElementClass.Empty()
-                .Add( "data-[selected=true]:bg-primary-100 data-[selected=true]:text-primary-700", when: slot is nameof( _td ) ),
+                .Add( "data-[selected=true]:bg-primary/20 data-[selected=true]:text-primary-600", when: slot is nameof( _td ) ),
 
             ThemeColor.Secondary => ElementClass.Empty()
-                .Add( "data-[selected=true]:bg-secondary-100 data-[selected=true]:text-secondary-700", when: slot is nameof( _td ) ),
+                .Add( "data-[selected=true]:bg-secondary/20 data-[selected=true]:text-secondary-600", when: slot is nameof( _td ) ),
 
             ThemeColor.Success => ElementClass.Empty()
-                .Add( "data-[selected=true]:bg-success-100 data-[selected=true]:text-success-700", when: slot is nameof( _td ) ),
+                .Add( "data-[selected=true]:bg-success/20 data-[selected=true]:text-success-800 dark:data-[selected=true]:text-success-600", when: slot is nameof( _td ) ),
 
             ThemeColor.Warning => ElementClass.Empty()
-                .Add( "data-[selected=true]:bg-warning-100 data-[selected=true]:text-warning-700", when: slot is nameof( _td ) ),
+                .Add( "data-[selected=true]:bg-warning/20 data-[selected=true]:text-warning-800 dark:data-[selected=true]:text-warning-700", when: slot is nameof( _td ) ),
 
             ThemeColor.Danger => ElementClass.Empty()
-                .Add( "data-[selected=true]:bg-danger-100 data-[selected=true]:text-danger-700", when: slot is nameof( _td ) ),
+                .Add( "data-[selected=true]:bg-danger/20 data-[selected=true]:text-danger-600", when: slot is nameof( _td ) ),
 
             ThemeColor.Info => ElementClass.Empty()
-                .Add( "data-[selected=true]:bg-info-100 data-[selected=true]:text-info-700", when: slot is nameof( _td ) ),
+                .Add( "data-[selected=true]:bg-info/20 data-[selected=true]:text-info-600", when: slot is nameof( _td ) ),
 
             _ => ElementClass.Empty()
         };
