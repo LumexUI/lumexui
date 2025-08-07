@@ -1,4 +1,6 @@
 ﻿:root, .light {
+    color-scheme: light;
+
     /* Colors */
     --lumex-background: var(--color-white);
     --lumex-foreground-50: var(--color-zinc-50);
