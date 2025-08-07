@@ -2,15 +2,14 @@
 
 <ul class="min-w-48">
     <li>
-        <div class="flex items-center gap-2 px-2 py-1 cursor-pointer rounded-lg hover:bg-indigo-50 hover:text-indigo-600"
-             @onclick="@(() => _expanded = !_expanded)">
+        <div class="@_directoryStyles" @onclick="@(() => _expanded = !_expanded)">
             @(_expanded ? @<FolderOpenIcon /> : @<FolderIcon />)
             <span>src</span>
         </div>
         <LumexCollapse As="ul" Expanded="@_expanded" Class="ml-4">
             @foreach( var dir in new[] { "app", "pages", "components" } )
             {
-                <li class="flex items-center gap-2 px-2 py-1 cursor-pointer rounded-lg hover:bg-indigo-50 hover:text-indigo-600">
+                <li class="@_directoryStyles">
                     <FolderIcon />
                     <span>@dir</span>
                 </li>
@@ -21,4 +20,18 @@
 
 @code {
     private bool _expanded = true;
+
+    private string _directoryStyles = new ElementClass()
+        .Add( "flex" )
+        .Add( "items-center" )
+        .Add( "gap-2" )
+        .Add( "px-2" )
+        .Add( "py-1" )
+        .Add( "py-1" )
+        .Add( "rounded-medium" )
+        .Add( "cursor-pointer" )
+        .Add( "hover:bg-indigo-50" )
+        .Add( "hover:text-indigo-600" )
+        .Add( "dark:hover:bg-indigo-500/15" )
+        .Add( "dark:hover:text-indigo-200" );
 }

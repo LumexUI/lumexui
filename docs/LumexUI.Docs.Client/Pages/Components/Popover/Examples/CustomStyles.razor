@@ -8,9 +8,9 @@
 </LumexButton>
 
 <LumexPopover Id="@_popoverId"
-              Placement="@PopoverPlacement.Right"
-              ShowArrow="@true"
               Offset="16"
+              ShowArrow="@true"
+              Placement="@PopoverPlacement.Right"       
               Classes="@_classes">
     <LumexPopoverContent>
         <div class="px-1 py-2">
@@ -25,7 +25,8 @@
     {
         Content = ElementClass.Empty()
             .Add( "py-3 px-4 border border-default-200" )
-            .Add( "bg-gradient-to-br from-white to-default-200" )
+            .Add( "bg-linear-to-br from-white to-default-200" )
+            .Add( "dark:from-default-100 dark:to-default-50" )
             .ToString(),
         Arrow = "bg-default-200"
     };

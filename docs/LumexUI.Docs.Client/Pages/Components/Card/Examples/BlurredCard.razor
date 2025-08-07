@@ -2,20 +2,20 @@
 
 <LumexCard Blurred="@true"
            Shadow="@Shadow.Large"
-           Class="bg-background/20 rounded-2xl">
+           Class="bg-background/20">
     <LumexCardHeader Class="justify-between">
         <LumexButton IconOnly="@true"
                      Size="@Size.Small"
                      Radius="@Radius.Full"
                      Variant="@Variant.Flat"
-                     Class="bg-background/40">
+                     Class="bg-background/40 dark:bg-background/20">
             <TimerIcon Size="20" class="text-foreground" />
         </LumexButton>
         <LumexButton IconOnly="@true"
                      Size="@Size.Small"
                      Radius="@Radius.Full"
                      Variant="@Variant.Flat"
-                     Class="bg-background/40">
+                     Class="bg-background/40 dark:bg-background/20">
             <ActivityIcon Size="20" class="text-foreground" />
         </LumexButton>
     </LumexCardHeader>
@@ -29,11 +29,11 @@
                     <div class="absolute w-16 h-16 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black" />
                 </div>
             </div>
-            <div class="col-span-1 font-bold text-right text-xl drop-shadow-lg">
-                <p class="text-foreground">7:26</p>
-                <p class="text-pink-800">427</p>
-                <p class="text-lime-400">41</p>
-                <p class="text-cyan-400">9</p>
+            <div class="col-span-1 font-bold text-right text-xl">
+                <p class="text-foreground text-shadow-lg">7:26</p>
+                <p class="text-pink-800 text-shadow-lg">427</p>
+                <p class="text-lime-400 text-shadow-lg">41</p>
+                <p class="text-cyan-400 text-shadow-lg">9</p>
             </div>
         </div>
     </LumexCardBody>

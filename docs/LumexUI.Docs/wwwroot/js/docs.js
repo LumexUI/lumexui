@@ -8,6 +8,9 @@
         }
 
         currentUrl = newUrl;
+
+        let currentTheme = localStorage.getItem('lumexui.theme');
+        document.documentElement.classList.add(currentTheme);
     });
 };
 

@@ -7,10 +7,9 @@
     <LumexComponent As="@(IsSubsection ? "h3" : "h2")"
                     id="@_id">
         <LumexLink Href="@($"{RelativePath}#{_id}")"
-                   Color="@ThemeColor.None"
-                   Class="border-none">
+                   Color="@ThemeColor.None">
             @Title
-            <span class="flex items-center justify-center size-6 ml-2 rounded-md text-foreground-400 shadow-xs ring ring-foreground-900/10 hover:ring-orange-200 hover:bg-orange-50 hover:text-orange-500">
+            <span class="flex items-center justify-center size-6 ml-2 rounded-md text-foreground-400 shadow-xs ring ring-default-900/10 hover:ring-orange-300 hover:bg-orange-400/10 hover:text-orange-500 dark:text-foreground-500 dark:hover:ring-orange-300/60 dark:hover:text-orange-200">
                 <Link2Icon Size="16" />
             </span>
         </LumexLink>

@@ -5,9 +5,12 @@
         <Content>
             @{
                 var status = context.Status;
-                <span class="px-1.5 py-0.5 text-tiny rounded-full @(_statusVariants[status])">
+                <LumexChip Size="@Size.Small"
+                           Variant="@ChipVariant.Dot"
+                           Color="@_statusColors[status]"
+                           Class="@_statusStyles[status]">
                     @status
-                </span>
+                </LumexChip>
             }
         </Content>
     </PropertyColumn>
@@ -22,11 +25,18 @@
         new( "Diana Lee", "Moderator", "Active" )
     }.AsQueryable();
 
-    private readonly Dictionary<string, string> _statusVariants = new()
+    private readonly Dictionary<string, string> _statusStyles = new()
     {
-        ["Pending"] = "border border-primary-300 bg-primary-50 text-primary",
-        ["Active"] = "border border-danger-300 bg-danger-50 text-danger",
-        ["Inactive"] = "border border-default-300 bg-default-100 text-default-500"
+        ["Active"] = "border-primary-300 bg-primary-50 text-primary dark:bg-primary/15 dark:text-primary-500",
+        ["Inactive"] = "border-danger-300 bg-danger-50 text-danger dark:bg-danger/15 dark:text-danger-500",
+        ["Pending"] = "border-default-300 bg-default-50 text-foreground dark:bg-default-100"
+    };
+
+    private readonly Dictionary<string, ThemeColor> _statusColors = new()
+    {
+        ["Active"] = ThemeColor.Primary,
+        ["Inactive"] = ThemeColor.Danger,
+        ["Pending"] = ThemeColor.Default
     };
 
     private record User( string Name, string Role, string Status );

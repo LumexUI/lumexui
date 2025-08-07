@@ -1,6 +1,33 @@
 ﻿@inherits LayoutComponentBase
 @layout MainLayout
 
+<script>
+    function syncThemeWithParent() {
+      const parentHtml = window.parent.document.documentElement;
+      const iframeHtml = document.documentElement;
+
+      const applyTheme = () => {
+        const isDark = parentHtml.classList.contains('dark');
+        iframeHtml.classList.toggle('dark', isDark);
+      };
+
+      // Initial sync
+      applyTheme();
+
+      // Observe for class changes
+      const observer = new MutationObserver(() => {
+        applyTheme();
+      });
+
+      observer.observe(parentHtml, {
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', syncThemeWithParent);
+</script>
+
 @Body
 
 <article class="p-6 space-y-4">

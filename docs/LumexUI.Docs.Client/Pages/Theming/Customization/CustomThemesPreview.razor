@@ -3,12 +3,12 @@
 <Preview>
     <div class="absolute top-0 right-0 flex gap-2">
         <button type="button"
-                class="size-6 rounded-full bg-primary ring-offset-2 data-[selected=true]:ring-2 data-[selected=true]:ring-primary"
+                class="size-6 rounded-full bg-primary ring-offset-2 ring-offset-background data-[selected=true]:ring-2 data-[selected=true]:ring-primary"
                 data-selected="@(_isCustomSelected is false ? "true" : "false")"
                 @onclick="@(() => _isCustomSelected = false)">
         </button>
         <button type="button"
-                class="size-6 rounded-full bg-orange-500 ring-offset-2 data-[selected=true]:ring-2 data-[selected=true]:ring-orange-500"
+                class="size-6 rounded-full bg-orange-500 ring-offset-2 ring-offset-background data-[selected=true]:ring-2 data-[selected=true]:ring-orange-500"
                 data-selected="@(_isCustomSelected is true ? "true" : "false")"
                 @onclick="@(() => _isCustomSelected = true)">
         </button>

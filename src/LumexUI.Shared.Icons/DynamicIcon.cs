@@ -9,11 +9,9 @@ public class DynamicIcon : IComponent
 
 	[Parameter] public string Size { get; set; } = "24";
 
-	[Parameter( CaptureUnmatchedValues = true )]
-	public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
-
 	private RenderHandle _renderHandle;
 	private readonly RenderFragment _render;
+	private readonly Dictionary<string, object> _attributes = [];
 
 	public DynamicIcon()
 	{
@@ -39,6 +37,10 @@ public class DynamicIcon : IComponent
 			{
 				Size = (string)entry.Value;
 			}
+			else
+			{
+				_attributes.TryAdd( entry.Name, entry.Value );
+			}
 		}
 
 		if( Type is null )
@@ -54,7 +56,7 @@ public class DynamicIcon : IComponent
 	{
 		builder.OpenComponent( 0, Type );
 		builder.AddComponentParameter( 1, nameof( Size ), Size );
-		builder.AddMultipleAttributes( 2, AdditionalAttributes );
+		builder.AddMultipleAttributes( 2, _attributes );
 		builder.CloseComponent();
 	}
 }

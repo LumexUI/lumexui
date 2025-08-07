@@ -39,7 +39,7 @@
             <li>
                 <LumexLink Href="@($"docs/api/{formattedName.ToKebabCase()}")"
                            Match="@NavLinkMatch.Prefix"
-                           Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
+                           Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current/80 dark:data-[active=true]:text-orange-400">
                     @item.Name.Replace( "Lumex", "" )
                 </LumexLink>
             </li>
@@ -55,7 +55,7 @@
             <li class="@styles">
                 <LumexLink Href="@($"docs/{categoryName.ToKebabCase()}/{formattedName.ToKebabCase()}")"
                            Match="@NavLinkMatch.Prefix"
-                           Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
+                           Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current/80 dark:data-[active=true]:text-orange-400">
                     @formattedName
                 </LumexLink>
                 <NavItemBadge Status="@item.Status" />

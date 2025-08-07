@@ -63,8 +63,9 @@ internal static class CodeSnippets
 
         var markdownContent = ConvertRazorToMarkdown( file );
         var htmlContent = Markdown.ToHtml( markdownContent, _pipeline );
+		htmlContent = htmlContent.Replace( "<pre>", "<pre class=\"line-numbers\">" );
 
-        await using var streamWriter = new StreamWriter( markdownPath );
+		await using var streamWriter = new StreamWriter( markdownPath );
         await streamWriter.WriteAsync( htmlContent );
     }
 

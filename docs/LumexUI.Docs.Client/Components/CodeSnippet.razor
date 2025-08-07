@@ -1,18 +1,30 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 @rendermode InteractiveWebAssembly
 
-<div class="relative my-6 first:mt-0 last:mb-0 rounded-large overflow-hidden" @ref="@_ref">
-    <div class="prose prose-zinc bg-zinc-800">
-        @if( !string.IsNullOrEmpty( Code.Name ) )
-        {
-            <div class="flex items-center px-3 py-2 text-xs leading-6 border-b border-zinc-600/50">
-                <div class="flex items-center px-2 py-0.5 text-orange-400 bg-zinc-700/40 rounded-lg">
+<div class="group relative my-6 first:mt-0 last:mb-0"
+     data-expanded="@(Expandable ? _isExpanded.ToAttributeValue() : null)">
+    <div class="rounded-large overflow-hidden group-data-[expanded=false]:max-h-72">
+        <div class="prose prose-zinc dark:prose-invert">
+            @if( !string.IsNullOrEmpty( Code.Name ) )
+            {
+                <div class="flex items-center px-4 py-2.5 gap-2 border-b border-zinc-700 text-small text-foreground-400 bg-zinc-800 dark:text-foreground-500 dark:bg-zinc-900">
+                    <CodeXmlIcon Size="16" />
                     @Code.Name
                 </div>
+            }
+
+            <div id="@Id" class="*:my-0" @ref="@_ref">
+                @_renderCodeSnippet
             </div>
-        }
-        <div id="@Id" class="*:my-0">
-            @_renderCodeSnippet
         </div>
     </div>
+
+    @if( Expandable )
+    {
+        <button type="button"
+                class="absolute inset-x-0 bottom-0 flex h-20 items-center justify-center rounded-b-large bg-linear-to-b from-default-800/70 to-default-800 text-foreground-200 text-small group-data-[expanded=true]:hidden dark:from-default-50/70 dark:to-default-50 dark:text-foreground-700"
+                @onclick="@(() => _isExpanded = true)">
+            Expand
+        </button>
+    }
 </div>

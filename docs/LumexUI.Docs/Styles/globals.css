@@ -22,21 +22,7 @@
 @custom-variant scrollbar-thumb (&::-webkit-scrollbar-thumb);
 
 .dark {
-    color-scheme: dark;
-}
-
-.light {
-    color-scheme: light;
-}
-
-.scrollbar {
-    @apply 
-        scrollbar:h-2 
-        scrollbar:w-2 
-        scrollbar-thumb:rounded-sm
-        scrollbar-thumb:bg-foreground-200 
-        scrollbar-track:rounded-sm
-        scrollbar-track:bg-foreground-100;
+    --lumex-background: var(--color-zinc-950);
 }
 
 .bordered-link {
@@ -47,4 +33,8 @@
         border-b 
         border-current 
         hover:border-b-2;
+}
+
+@utility highlight-* {
+    box-shadow: inset 0 1px 0 0 --alpha(--value(--color- *, [color]) / --modifier(integer)%);
 }
