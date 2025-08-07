@@ -5,7 +5,7 @@
 import { createOutsideClickHandler } from '../utils/dom.js';
 
 function initialize(element) {
-    const destroyOutsideClickHandler = createOutsideClickHandler(element);
+    const destroyOutsideClickHandler = createOutsideClickHandler([element]);
 
     return {
         destroy: () => destroyOutsideClickHandler()
