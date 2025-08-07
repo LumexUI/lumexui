@@ -91,7 +91,7 @@ public partial class LumexAvatar : LumexComponentBase, ISlotComponent<AvatarSlot
 	/// <summary>
 	/// Gets or sets the function that resolves initials from the provided name.
 	/// </summary>
-	[Parameter] public InitialsResolver Initials { get; set; } = ExtractInitials;
+	[Parameter] public Func<string, string> Initials { get; set; } = ExtractInitials;
 
 	/// <summary>
 	/// Gets or sets the CSS class names for the avatar slots.
