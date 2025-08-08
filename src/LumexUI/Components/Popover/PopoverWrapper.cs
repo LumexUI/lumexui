@@ -2,6 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Utilities;
@@ -13,9 +14,11 @@ using Microsoft.JSInterop;
 namespace LumexUI.Internal;
 
 /// <summary>
-/// 
+/// For internal use only.
 /// </summary>
-public class PopoverWrapper : LumexComponentBase, IAsyncDisposable
+[EditorBrowsable( EditorBrowsableState.Never )]
+[SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "For internal use only." )]
+public sealed class PopoverWrapper : LumexComponentBase, IAsyncDisposable
 {
 	private const string JavaScriptFile = "./_content/LumexUI/js/components/popover.bundle.js";
 

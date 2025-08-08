@@ -1,18 +1,11 @@
 ﻿@using LumexUI.Services
 
-@inject IPopoverService PopoverService
-
 @foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
 {
-    var id = $"popover-color-{color.ToString()}";
-
-    <LumexButton Color="@color"
-                 OnClick="@(() => TriggerAsync(id))"
-                 data-popoverref="@id">
-        @color.ToString()
-    </LumexButton>
-
-    <LumexPopover Id="@id" Color="@color">
+    <LumexPopover Color="@color">
+        <LumexPopoverTrigger>
+            <LumexButton>@color.ToString()</LumexButton>
+        </LumexPopoverTrigger>
         <LumexPopoverContent>
             <div class="px-1 py-2">
                 <div class="text-small font-bold">Oh, hi there!</div>
@@ -20,11 +13,4 @@
             </div>
         </LumexPopoverContent>
     </LumexPopover>
-}
-
-@code {
-    private Task TriggerAsync( string id )
-    {
-        return PopoverService.TriggerAsync( id );
-    }
 }

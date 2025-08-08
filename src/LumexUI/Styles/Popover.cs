@@ -46,7 +46,12 @@ internal static class Popover
 					.ToString(),
 
 				[nameof( PopoverSlots.Trigger )] = new ElementClass()
-					.Add( "z-10" )
+					.Add( "contents" )
+					.Add( "*:z-10" )
+					.Add( "*:cursor-pointer" )
+					.Add( "*:subpixel-antialiased" )
+					.Add( "aria-expanded:*:scale-[0.97]" )
+					.Add( "aria-expanded:*:opacity-focus" )
 					.ToString(),
 
 				[nameof( PopoverSlots.Arrow )] = new ElementClass()

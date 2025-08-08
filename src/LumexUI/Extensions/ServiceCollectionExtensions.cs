@@ -30,7 +30,6 @@ public static class ServiceCollectionExtensions
 		services.AddTwMerge();
 		services.AddLumexMotion();
 		services.AddThemeService();
-		services.AddPopoverService();
 	}
 
 	/// <summary>
@@ -43,7 +42,6 @@ public static class ServiceCollectionExtensions
 		services.AddTwMerge( options );
 		services.AddLumexMotion();
 		services.AddThemeService();
-		services.AddPopoverService();
 	}
 
 	private static void AddTwMerge( this IServiceCollection services )
@@ -68,11 +66,6 @@ public static class ServiceCollectionExtensions
 	{
 		services.AddTwMerge();
 		services.Configure( options );
-	}
-
-	private static void AddPopoverService( this IServiceCollection services )
-	{
-		services.AddScoped<IPopoverService, PopoverService>();
 	}
 
 	private static void AddThemeService( this IServiceCollection services )

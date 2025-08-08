@@ -29,7 +29,6 @@ public class PopoverSlots : ISlot
 	/// <summary>
 	/// Gets or sets the CSS class for the trigger slot.
 	/// </summary>
-	[Obsolete( "Deprecated. This will be removed in the future releases. Use the 'Base' slot instead." )]
 	public string? Trigger { get; set; }
 
 	/// <summary>

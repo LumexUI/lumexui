@@ -5,7 +5,6 @@
     public TooltipTests()
     {
         Services.AddSingleton<TwMerge>();
-        Services.AddSingleton<IPopoverService, PopoverService>();
 
         var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/popover.bundle.js" );
         module.SetupVoid( "popover.initialize", _ => true );
@@ -45,7 +44,7 @@
             </LumexTooltip>
         );
 
-        var trigger = cut.Find( "[data-popoverref]" );
+        var trigger = cut.Find( "[data-popovertarget]" );
         trigger.TriggerEvent( e, new EventArgs() );
 
         cut.Instance.Open.Should().BeTrue();
@@ -64,7 +63,7 @@
             </LumexTooltip>
         );
 
-        var trigger = cut.Find( "[data-popoverref]" );
+        var trigger = cut.Find( "[data-popovertarget]" );
         trigger.TriggerEvent( e, new EventArgs() );
 
         cut.Instance.Open.Should().BeFalse();

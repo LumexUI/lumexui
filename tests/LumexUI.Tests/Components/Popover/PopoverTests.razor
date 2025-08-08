@@ -1,17 +1,10 @@
 ﻿@namespace LumexUI.Tests.Components
 @inherits TestContext
 
-@using LumexUI.Common
-@using LumexUI.Services
-@using Microsoft.AspNetCore.Components.Web
-@using Microsoft.Extensions.DependencyInjection
-@using TailwindMerge
-
 @code {
     public PopoverTests()
     {
         Services.AddSingleton<TwMerge>();
-        Services.AddSingleton<IPopoverService, PopoverService>();
 
         var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/popover.bundle.js" );
         module.SetupVoid( "popover.initialize", _ => true );
@@ -21,13 +14,12 @@
     [Fact]
     public void ShouldRenderCorrectly()
     {
-        var id = "1";
         var action = () => Render(
             @<text>
-                <LumexButton OnClick="@(() => TriggerAsync( id ))" data-popoverref="@id">
-                    Trigger
-                </LumexButton>
-                <LumexPopover Id="@id">
+                <LumexPopover>
+                    <LumexPopoverTrigger>
+                        <LumexButton>Open Popover</LumexButton>
+                    </LumexPopoverTrigger>
                     <LumexPopoverContent>
                         <p>This is the content of the popover.</p>
                     </LumexPopoverContent>
@@ -39,15 +31,12 @@
     }
 
     [Fact]
-    public void ShouldOpenOnTriggerClick()
+    public void ShouldThrowIfTriggerDoesNotHaveChildContent()
     {
-        var id = "2";
-        var cut = Render(
+        var action = () => Render(
             @<text>
-                <LumexButton OnClick="@(() => TriggerAsync( id ))" data-popoverref="@id">
-                    Trigger
-                </LumexButton>
-                <LumexPopover Id="@id">
+                <LumexPopover>
+                    <LumexPopoverTrigger></LumexPopoverTrigger>
                     <LumexPopoverContent>
                         <p>This is the content of the popover.</p>
                     </LumexPopoverContent>
@@ -55,7 +44,26 @@
             </text>
         );
 
-        var trigger = cut.Find( "[data-popoverref]" );
+        action.Should().Throw<InvalidOperationException>();
+    }
+
+    [Fact]
+    public void ShouldOpenOnTriggerClick()
+    {
+        var cut = Render(
+            @<text>
+                <LumexPopover>
+                    <LumexPopoverTrigger>
+                        <LumexButton>Open Popover</LumexButton>
+                    </LumexPopoverTrigger>
+                    <LumexPopoverContent>
+                        <p>This is the content of the popover.</p>
+                    </LumexPopoverContent>
+                </LumexPopover>
+            </text>
+        );
+
+        var trigger = cut.Find( "[data-popovertarget]" );
         trigger.Click();
 
         var popover = cut.FindBySlot( "base" );
@@ -65,13 +73,12 @@
     [Fact]
     public void ShouldCloseOnOutsideClick()
     {
-        var id = "3";
         var cut = Render(
             @<text>
-                <LumexButton OnClick="@(() => TriggerAsync( id ))" data-popoverref="@id">
-                    Trigger
-                </LumexButton>
-                <LumexPopover Id="@id" Open="@true">
+                <LumexPopover Open="@true">
+                    <LumexPopoverTrigger>
+                        <LumexButton>Open Popover</LumexButton>
+                    </LumexPopoverTrigger>
                     <LumexPopoverContent>
                         <p>This is the content of the popover.</p>
                     </LumexPopoverContent>
@@ -79,22 +86,21 @@
             </text>
         );
 
-        cut.Find( "[data-popover]" ).TriggerEvent( "onclickoutside", new EventArgs() );
+        var popover = cut.Find( "[data-popover]" );
+        popover?.TriggerEvent( "onclickoutside", new EventArgs() );
 
-        var popover = cut.FindBySlot( "base" );
-        popover?.GetAttribute( "data-open" ).Should().Be( "false" );
+        cut.FindBySlot( "base" )?.GetAttribute( "data-open" ).Should().Be( "false" );
     }
 
     [Fact]
     public void ShouldShowArrow()
     {
-        var id = "4";
         var cut = Render(
             @<text>
-                <LumexButton OnClick="@(() => TriggerAsync( id ))" data-popoverref="@id">
-                    Trigger
-                </LumexButton>
-                <LumexPopover Id="@id" ShowArrow="@true">
+                <LumexPopover ShowArrow="@true">
+                    <LumexPopoverTrigger>
+                        <LumexButton>Open Popover</LumexButton>
+                    </LumexPopoverTrigger>
                     <LumexPopoverContent>
                         <p>This is the content of the popover.</p>
                     </LumexPopoverContent>
@@ -102,15 +108,9 @@
             </text>
          );
 
-        var trigger = cut.Find( "[data-popoverref]" );
+        var trigger = cut.Find( "[data-popovertarget]" );
         trigger.Click();
 
         cut.FindBySlot( "arrow" ).Should().NotBeNull();
-    }
-
-    private Task TriggerAsync( string id )
-    {
-        var popoverService = Services.GetRequiredService<IPopoverService>();
-        return popoverService.TriggerAsync( id );
     }
 }

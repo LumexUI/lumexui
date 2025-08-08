@@ -94,8 +94,6 @@ public partial class LumexTooltip : LumexComponentBase, ISlotComponent<TooltipSl
 	/// </summary>
 	[Parameter] public TooltipSlots? Classes { get; set; }
 
-	private readonly string _popoverId = Identifier.New();
-
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
@@ -106,6 +104,7 @@ public partial class LumexTooltip : LumexComponentBase, ISlotComponent<TooltipSl
 	private Task OnMouseLeaveAsync() => CloseAsync();
 	private Task OnFocusInAsync() => OpenAsync();
 	private Task OnFocusOutAsync() => CloseAsync();
+	private Task OnClickAsync() => CloseAsync();
 
 	private Task OpenAsync()
 	{

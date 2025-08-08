@@ -1,19 +1,14 @@
 ﻿@using LumexUI.Services
 
-@inject IPopoverService PopoverService
-
 @foreach( var size in Enum.GetValues<Size>() )
 {
-    var id = $"popover-size-{size.ToString()}";
-
-    <LumexButton Color="@ThemeColor.Primary"
-                 Variant="@Variant.Flat"
-                 OnClick="@(() => TriggerAsync(id))"
-                 data-popoverref="@id">
-        @size.ToString()
-    </LumexButton>
-
-    <LumexPopover Id="@id" Size="@size">
+    <LumexPopover Size="@size">
+        <LumexPopoverTrigger>
+            <LumexButton Color="@ThemeColor.Primary"
+                         Variant="@Variant.Flat">
+                @size.ToString()
+            </LumexButton>
+        </LumexPopoverTrigger>
         <LumexPopoverContent>
             <div class="px-1 py-2">
                 <div class="text-small font-bold">Oh, hi there!</div>
@@ -21,11 +16,4 @@
             </div>
         </LumexPopoverContent>
     </LumexPopover>
-}
-
-@code {
-    private Task TriggerAsync( string id )
-    {
-        return PopoverService.TriggerAsync( id );
-    }
 }

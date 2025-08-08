@@ -3,7 +3,6 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
-using LumexUI.Motion.Types;
 
 using Microsoft.AspNetCore.Components;
 
@@ -23,22 +22,6 @@ public partial class LumexPopoverContent : LumexComponentBase
 	[CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
 	private LumexPopover Popover => Context.Owner;
-
-	private readonly MotionProps _motionProps; 
-
-	/// <summary>
-	/// 
-	/// </summary>
-	public LumexPopoverContent()
-	{
-		_motionProps = new MotionProps
-		{
-			Enter = new
-			{
-				Opacity = new float[] { 0, 1 } // Animate opacity from 0 to 1.
-			}
-		};
-	}
 
 	/// <inheritdoc />
 	protected override void OnInitialized()

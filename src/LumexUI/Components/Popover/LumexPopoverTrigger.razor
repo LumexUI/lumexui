@@ -1,6 +1,11 @@
 ﻿@namespace LumexUI
-@inherits LumexButton
+@inherits LumexComponentBase
 
-@{
-    base.BuildRenderTree( __builder );
-}
+<span class="@Class"
+      data-slot="trigger"
+      data-popovertarget="@Popover.Id"
+      aria-expanded="@Popover.Open.ToAttributeValue()"
+      @onclick="@Popover.TriggerAsync"
+      @attributes="@AdditionalAttributes">
+    @ChildContent
+</span>

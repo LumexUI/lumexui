@@ -4,7 +4,6 @@
 @if( Popover.Open )
 {
     <PopoverWrapper Class="@Popover.Slots["Wrapper"]()">
-        @* <Motion Enter="@_motionProps.Enter"> *@
         <div role="dialog"
              class="@Popover.Slots["Base"]( Popover.Classes?.Base, Popover.Class )"
              tabindex="-1"
@@ -25,6 +24,5 @@
                       data-slot="arrow" />
             }
         </div>
-        @* </Motion> *@
     </PopoverWrapper>
 }

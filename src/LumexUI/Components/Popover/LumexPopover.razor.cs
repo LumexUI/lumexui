@@ -4,7 +4,6 @@
 
 using LumexUI.Common;
 using LumexUI.Extensions;
-using LumexUI.Services;
 using LumexUI.Styles;
 using LumexUI.Utilities;
 
@@ -13,10 +12,9 @@ using Microsoft.AspNetCore.Components;
 namespace LumexUI;
 
 /// <summary>
-/// A component representing a popover that displays 
-/// additional content within a floating container.
+/// A component representing a popover that displays additional content within a floating container.
 /// </summary>
-public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSlots>, IDisposable
+public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSlots>
 {
 	/// <summary>
 	/// Gets or sets content to be rendered inside the popover.
@@ -26,7 +24,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	/// <summary>
 	/// Gets or sets the unique identifier for the popover.
 	/// </summary>
-	[Parameter, EditorRequired] public string Id { get; set; } = Identifier.New();
+	[Parameter] public string Id { get; set; } = Identifier.New();
 
 	/// <summary>
 	/// Gets or sets a color of the popover.
@@ -48,15 +46,15 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	/// Gets or sets a border radius of the popover.
 	/// </summary>
 	/// <remarks>
-	/// The default value is <see cref="Radius.Large"/>
+	/// The default value is <see cref="Radius.Medium"/>
 	/// </remarks>
-	[Parameter] public Radius Radius { get; set; } = Radius.Large;
+	[Parameter] public Radius Radius { get; set; } = Radius.Medium;
 
 	/// <summary>
 	/// Gets or sets a shadow of the popover.
 	/// </summary>
 	/// <remarks>
-	/// Default value is <see cref="Shadow.Medium"/>
+	/// The default value is <see cref="Shadow.Medium"/>
 	/// </remarks>
 	[Parameter] public Shadow Shadow { get; set; } = Shadow.Medium;
 
@@ -101,14 +99,10 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	/// </summary>
 	[Parameter] public PopoverSlots? Classes { get; set; }
 
-	[Inject] private IPopoverService PopoverService { get; set; } = default!;
-
 	internal PopoverOptions Options { get; private set; }
 	internal Dictionary<string, ComponentSlot> Slots { get; private set; } = [];
 
 	private readonly PopoverContext _context;
-
-	private bool _disposed;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexPopover"/>.
@@ -116,32 +110,6 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	public LumexPopover()
 	{
 		_context = new PopoverContext( this );
-	}
-
-	/// <summary>
-	/// Asynchronously triggers the popover.
-	/// </summary>
-	/// <returns>A <see cref="Task"/> representing the asynchronous trigger operation.</returns>
-	public async Task TriggerAsync()
-	{
-		Open = !Open;
-
-		if( Open )
-		{
-			await OpenAsync();
-		}
-		else
-		{
-			await CloseAsync();
-		}
-
-		StateHasChanged();
-	}
-
-	/// <inheritdoc />
-	protected override void OnInitialized()
-	{
-		PopoverService.Register( this );
 	}
 
 	/// <inheritdoc />
@@ -164,6 +132,22 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 		} );
 	}
 
+	internal async Task TriggerAsync()
+	{
+		Open = !Open;
+
+		if( Open )
+		{
+			await OpenAsync();
+		}
+		else
+		{
+			await CloseAsync();
+		}
+
+		StateHasChanged();
+	}
+
 	internal Task OpenAsync()
 	{
 		Open = true;
@@ -174,27 +158,6 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	{
 		Open = false;
 		return OpenChanged.InvokeAsync( false );
-	}
-
-	/// <inheritdoc />
-	public void Dispose()
-	{
-		Dispose( disposing: true );
-		GC.SuppressFinalize( this );
-	}
-
-	/// <inheritdoc cref="IDisposable.Dispose" />
-	protected virtual void Dispose( bool disposing )
-	{
-		if( !_disposed )
-		{
-			if( disposing )
-			{
-				PopoverService.Unregister( this );
-			}
-
-			_disposed = true;
-		}
 	}
 
 	/// <summary>
