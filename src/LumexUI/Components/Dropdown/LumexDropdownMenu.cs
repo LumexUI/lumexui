@@ -3,7 +3,6 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
-using LumexUI.Internal;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -14,6 +13,7 @@ namespace LumexUI;
 /// A component that represents a menu within a <see cref="LumexDropdown"/>,
 /// containing one or more <see cref="LumexDropdownItem"/>.
 /// </summary>
+[CompositionComponent( typeof( LumexDropdown ) )]
 public partial class LumexDropdownMenu : Menu, ISlotComponent<DropdownMenuSlots>
 {
 	/// <summary>

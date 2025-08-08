@@ -9,10 +9,10 @@ using LumexUI.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
-namespace LumexUI.Internal;
+namespace LumexUI;
 
 /// <summary>
-/// A component that represents an item within a <see cref="Internal.Menu"/>.
+/// A component that represents an item within a <see cref="Menu"/>.
 /// </summary>
 public abstract partial class MenuItem : LumexComponentBase
 {

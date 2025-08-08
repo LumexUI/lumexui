@@ -6,7 +6,7 @@ using LumexUI.Common;
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace LumexUI.Internal;
+namespace LumexUI;
 
 /// <summary>
 /// Represents the slot names for the <see cref="Menu"/>, 

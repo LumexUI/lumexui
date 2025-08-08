@@ -123,6 +123,7 @@
     private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
     {
         new(nameof(LumexDropdown), "A component that represents a dropdown, extending Popover."),
+        new(nameof(LumexDropdownTrigger), "A component that represents a dropdown trigger."),
         new(nameof(LumexDropdownMenu), "A component that represents a dropdown menu."),
         new(nameof(LumexDropdownItem), "A component that represents a dropdown item.")
     };
@@ -158,6 +159,7 @@
     private readonly string[] _apiComponents = new string[]
     {
         nameof(LumexDropdown),
+        nameof(LumexDropdownTrigger),
         nameof(LumexDropdownMenu),
         nameof(LumexDropdownItem),
         nameof(LumexButton)

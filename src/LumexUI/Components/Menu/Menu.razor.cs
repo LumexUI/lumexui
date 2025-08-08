@@ -7,7 +7,7 @@ using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
-namespace LumexUI.Internal;
+namespace LumexUI;
 
 /// <summary>
 /// A component that represents a menu, containing one or more <see cref="MenuItem"/>.

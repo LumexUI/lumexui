@@ -5,12 +5,11 @@
 using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Common;
-using LumexUI.Internal;
 using LumexUI.Utilities;
 
 using TailwindMerge;
 
-using MenuItemComp = LumexUI.Internal.MenuItem;
+using MenuItemComp = LumexUI.MenuItem;
 
 namespace LumexUI.Styles;
 

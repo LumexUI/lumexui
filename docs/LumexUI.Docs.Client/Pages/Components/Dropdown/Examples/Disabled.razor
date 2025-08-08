@@ -1,14 +1,9 @@
-﻿@using LumexUI.Services
-
-@inject IPopoverService PopoverService
-
-<LumexButton Variant="@Variant.Outlined"
-             OnClick="@TriggerAsync"
-             data-popoverref="@_dropdownId">
-    Open Dropdown
-</LumexButton>
-
-<LumexDropdown Id="@_dropdownId">
+﻿<LumexDropdown>
+    <LumexDropdownTrigger>
+        <LumexButton Variant="@Variant.Outlined">
+            Open Dropdown
+        </LumexButton>
+    </LumexDropdownTrigger>
     <LumexDropdownMenu>
         <LumexDropdownItem>New file</LumexDropdownItem>
         <LumexDropdownItem>Edit file</LumexDropdownItem>
@@ -20,12 +15,3 @@
         </LumexDropdownItem>
     </LumexDropdownMenu>
 </LumexDropdown>
-
-@code {
-    private string _dropdownId = "dropdown-disabled";
-
-    private Task TriggerAsync()
-    {
-        return PopoverService.TriggerAsync( _dropdownId );
-    }
-}

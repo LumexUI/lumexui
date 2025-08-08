@@ -1,20 +1,13 @@
-﻿@using LumexUI.Services
-
-@inject IPopoverService PopoverService
-
-<div class="flex flex-wrap gap-4">
+﻿<div class="flex flex-wrap gap-4">
     @foreach( var variant in Enum.GetValues<MenuVariant>() )
     {
-        var id = $"dropdown-{variant.ToString()}";
-
-        <LumexButton Color="@_color"
-                     Variant="@GetTriggerVariant(variant)"
-                     OnClick="@(() => TriggerAsync(id))"
-                     data-popoverref="@id">
-            @variant.ToString()
-        </LumexButton>
-
-        <LumexDropdown Id="@id">
+        <LumexDropdown>
+            <LumexDropdownTrigger>
+                <LumexButton Color="@_color"
+                             Variant="@GetTriggerVariant(variant)">
+                    @variant.ToString()
+                </LumexButton>
+            </LumexDropdownTrigger>
             <LumexDropdownMenu Color="@_color" Variant="@variant">
                 <LumexDropdownItem>New file</LumexDropdownItem>
                 <LumexDropdownItem>Edit file</LumexDropdownItem>
@@ -28,8 +21,7 @@
     }
 </div>
 
-<LumexRadioGroup Orientation="@Orientation.Horizontal"
-                 @bind-Value="@_color">
+<LumexRadioGroup Orientation="@Orientation.Horizontal" @bind-Value="@_color">
     @foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
     {
         <LumexRadio Value="@color" Color="@color">
@@ -40,11 +32,6 @@
 
 @code {
     private ThemeColor _color = ThemeColor.Default;
-
-    private Task TriggerAsync( string id )
-    {
-        return PopoverService.TriggerAsync( id );
-    }
 
     private Variant GetTriggerVariant( MenuVariant variant )
     {

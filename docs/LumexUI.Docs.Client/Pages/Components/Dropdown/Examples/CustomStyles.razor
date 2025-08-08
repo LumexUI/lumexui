@@ -1,18 +1,13 @@
 ﻿@using LumexUI.Shared.Icons
-@using LumexUI.Services
 
-@inject IPopoverService PopoverService
-
-<LumexButton Variant="@Variant.Outlined"
-             OnClick="@TriggerAsync"
-             data-popoverref="@_dropdownId">
-    Open Dropdown
-</LumexButton>
-
-<LumexDropdown Id="@_dropdownId"
-               ShowArrow="@true"
+<LumexDropdown ShowArrow="@true"
                Radius="@Radius.Small"
                Classes="@_classes">
+    <LumexDropdownTrigger>
+        <LumexButton Variant="@Variant.Outlined">
+            Open Dropdown
+        </LumexButton>
+    </LumexDropdownTrigger>
     <LumexDropdownMenu Class="p-3"
                        ItemClasses="@_itemClasses">
         <LumexDropdownItem Disabled="@true"
@@ -77,11 +72,4 @@
             .Add( "active:opacity-focus" )
             .ToString()
     };
-
-    private string _dropdownId = "dropdown-custom-styles";
-
-    private Task TriggerAsync()
-    {
-        return PopoverService.TriggerAsync( _dropdownId );
-    }
 }
