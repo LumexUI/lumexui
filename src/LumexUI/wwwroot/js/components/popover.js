@@ -8,7 +8,8 @@ import {
     shift,
     offset,
     arrow,
-    size
+    size,
+    autoUpdate
 } from '@floating-ui/dom';
 
 import {
@@ -18,12 +19,14 @@ import {
 } from '../utils/dom.js';
 
 let destroyOutsideClickHandler;
+let cleanupAutoUpdate;
 
 async function initialize(id, options) {
     try {
         const popover = await waitForElement(`[data-popover=${id}]`);
-        const ref = document.querySelector(`[data-popoverref=${id}]`);
+        const target = document.querySelector(`[data-popovertarget=${id}]`);
         const arrowElement = popover.querySelector('[data-slot=arrow]');
+        const ref = target.children.length === 1 ? target.firstElementChild : target;
 
         portalTo(popover);
         destroyOutsideClickHandler = createOutsideClickHandler([ref, popover]);
@@ -57,16 +60,22 @@ async function initialize(id, options) {
             );
         }
 
-        const data = await computePosition(ref, popover, {
-            placement: placement,
-            middleware: middlewares,
-        });
+        const update = async () => {
+            const data = await computePosition(ref, popover, {
+                placement,
+                middleware: middlewares,
+            });
 
-        positionPopover(popover, data);
+            positionPopover(popover, data);
 
-        if (showArrow) {
-            positionArrow(arrowElement, data);
-        }
+            if (showArrow) {
+                positionArrow(arrowElement, data);
+            }
+        };
+
+        await update();
+
+        cleanupAutoUpdate = autoUpdate(ref, popover, update);
     } catch (error) {
         console.error('Error in popover.initialize:', error);
     }
@@ -103,6 +112,11 @@ function destroy() {
     if (destroyOutsideClickHandler) {
         destroyOutsideClickHandler();
         destroyOutsideClickHandler = null;
+    }
+
+    if (cleanupAutoUpdate) {
+        cleanupAutoUpdate();
+        cleanupAutoUpdate = null;
     }
 }
 
