@@ -1,19 +1,16 @@
 ﻿@using LumexUI.Shared.Icons
 
 @inject ThemeService ThemeService
-@inject IPopoverService PopoverService
 
-<LumexButton Variant="@Variant.Outlined"
-             Class="min-w-10 w-10 h-10 p-0"
-             OnClick="@TriggerAsync"
-             data-popoverref="@_dropdownId">
-    <MoonIcon Size="20" class="hidden dark:block" />
-    <SunIcon Size="20" class="dark:hidden" />
-</LumexButton>
-
-<LumexDropdown Id="@_dropdownId"
-               Placement="@PopoverPlacement.BottomEnd"
+<LumexDropdown Placement="@PopoverPlacement.BottomEnd"
                Class="min-w-32">
+    <LumexDropdownTrigger>
+        <LumexButton Variant="@Variant.Outlined"
+                     Class="min-w-10 w-10 h-10 p-0">
+            <MoonIcon Size="20" class="hidden dark:block" />
+            <SunIcon Size="20" class="dark:hidden" />
+        </LumexButton>
+    </LumexDropdownTrigger>
     <LumexDropdownMenu Variant="@MenuVariant.Flat">
         <LumexDropdownItem OnClick="@(async () => await ThemeService.SetThemeAsync( Theme.Light ))">
             Light
@@ -26,9 +23,3 @@
         </LumexDropdownItem>
     </LumexDropdownMenu>
 </LumexDropdown>
-
-@code {
-    private string _dropdownId = "theme-toggle";
-
-    private Task TriggerAsync() => PopoverService.TriggerAsync( _dropdownId );
-}
