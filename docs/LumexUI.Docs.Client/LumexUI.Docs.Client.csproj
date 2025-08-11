@@ -19,6 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+  	<PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.8" />
 		<EmbeddedResource Include="Pages/**/*.html" />
 		<EmbeddedResource Include="Samples/**/*.html" />
 	</ItemGroup>
