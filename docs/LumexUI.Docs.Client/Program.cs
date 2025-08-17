@@ -1,3 +1,4 @@
+using LumexUI.Docs.Client.Services;
 using LumexUI.Extensions;
 
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -17,5 +18,7 @@ builder.Services.AddLumexServices( options =>
         }
     } );
 } );
+
+builder.Services.AddScoped<DocsThemeService>();
 
 await builder.Build().RunAsync();
