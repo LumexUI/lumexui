@@ -174,8 +174,8 @@ internal static class InputField
 	private static ElementClass GetInvalidStyles( string slot )
 	{
 		return ElementClass.Empty()
-            .Add( "text-danger placeholder:text-danger", when: slot is nameof( _input ) )
-            .Add( "text-danger", when: slot is nameof( _label ) );
+			.Add( "text-danger! placeholder:text-danger!", when: slot is nameof( _input ) )
+			.Add( "text-danger!", when: slot is nameof( _label ) );
 	}
 
 	private static ElementClass GetRequiredStyles( string slot )
@@ -503,6 +503,7 @@ internal static class InputField
 			.Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Inside )
 			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Outside )
 			.Add( GetInvalidStyles( slot: nameof( _label ) ), when: input.Invalid )
+			.Add( GetVariantInvalidStyles( input.Variant, slot: nameof( _label ) ), when: input.Invalid )
 			.Add( GetRequiredStyles( slot: nameof( _label ) ), when: input.Required )
 			// LabelPlacement & ThemeColor.Default
 			.Add( ElementClass.Empty()
@@ -563,6 +564,7 @@ internal static class InputField
 			.Add( GetVariantUnderlinedByColorStyles( input.Color, slot: nameof( _input ) ), when: input.Variant is InputVariant.Underlined )
 			.Add( GetClearableStyles( slot: nameof( _input ) ) )
 			.Add( GetInvalidStyles( slot: nameof( _input ) ), when: input.Invalid )
+			.Add( GetVariantInvalidStyles( input.Variant, slot: nameof( _input ) ), when: input.Invalid )
 			.Add( input.Classes?.Input )
 			.ToString();
 	}
