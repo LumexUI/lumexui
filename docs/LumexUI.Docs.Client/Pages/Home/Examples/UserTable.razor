@@ -1,0 +1,145 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "flex-col items-start p-6 pb-0 gap-1",
+               Body = "p-6 gap-4",
+               Footer = "p-6 pt-0"
+           })">
+    <LumexCardHeader>
+        <div class="font-semibold text-foreground-900">Users</div>
+        <p class="text-small text-foreground-500">A list of all the users in the project.</p>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        <LumexDataGrid Data="@FilteredUsers"
+                       Color="@ThemeColor"
+                       SelectionMode="@SelectionMode.Multiple"
+                       Classes="@(new()
+                       {
+                           Wrapper = "border border-default-100"
+                       })"
+                       @bind-SelectedItems="@_selectedUsers">
+            <ToolbarContent>
+                <div class="flex items-center justify-between gap-4">
+                    <LumexTextbox Size="@Size.Small"
+                                  Behavior="@InputBehavior.OnInput"
+                                  Placeholder="Search by name..."
+                                  Class="max-w-xs"
+                                  @bind-Value="@_nameFilter">
+                        <StartContent>
+                            <SearchIcon Size="16" />
+                        </StartContent>
+                    </LumexTextbox>
+
+                    <LumexSelect Placeholder="Columns"
+                                 Size="@Size.Small"
+                                 Class="max-w-30"
+                                 @bind-Values="@_selectedColumns">
+                        @foreach( var column in _columns )
+                        {
+                            <LumexSelectItem @key="@column" Value="@column">
+                                @column
+                            </LumexSelectItem>
+                        }
+                    </LumexSelect>
+                </div>
+            </ToolbarContent>
+
+            <ChildContent>
+                <PropertyColumn Property="@(p => p.Id)" />
+                <PropertyColumn Property="@(p => p.Name)">
+                    <Content Context="user">
+                        <div class="inline-flex flex-col items-start">
+                            <span class="text-small font-medium">@user.Name</span>
+                            <span class="text-tiny opacity-70">@user.Email</span>
+                        </div>
+                    </Content>
+                </PropertyColumn>
+                <PropertyColumn Property="@(p => p.Title)" />
+                <PropertyColumn Property="@(p => p.Role)" Sortable="@true" />
+                <PropertyColumn Property="@(p => p.Status)" Sortable="@true">
+                    <Content Context="user">
+                        <LumexChip Size="@Size.Small"
+                                   Color="@_statusMap[user.Status]"
+                                   Variant="@ChipVariant.Dot"
+                                   Class="border-none">
+                            @user.Status
+                        </LumexChip>
+                    </Content>
+                </PropertyColumn>
+                <TemplateColumn>
+                    <LumexButton IconOnly="@true"
+                                 Size="@Size.Small"
+                                 Radius="@Radius.Full"
+                                 Variant="@Variant.Light"
+                                 @onclick:stopPropagation>
+                        <EllipsisVerticalIcon Size="20" />
+                    </LumexButton>
+                </TemplateColumn>
+            </ChildContent>
+        </LumexDataGrid>
+
+        <p class="ml-4 text-small text-foreground-500">
+            @(_selectedUsers.Count) of @(_users.Count()) row(s) selected.
+        </p>
+    </LumexCardBody>
+</LumexCard>
+
+@code {
+    private IQueryable<User> FilteredUsers
+    {
+        get
+        {
+            var result = _users;
+
+            if( !string.IsNullOrEmpty( _nameFilter ) )
+            {
+                result = result.Where( u => u.Name.Contains( _nameFilter, StringComparison.CurrentCultureIgnoreCase ) );
+            }
+
+            return result;
+        }
+    }
+
+    private readonly IQueryable<User> _users = new List<User>()
+    {
+        new User(1, "Pepper Potts", "Head of Product", "pepper.potts@example.com", "Owner", "Active"),
+        new User(2, "Peter Parker", "Front-end Developer", "peter.parker@example.com", "Member", "Paused"),
+        new User(3, "Hope van Dyne", "Designer", "hope.van.dyne@example.com", "Member", "Inactive"),
+        new User(4, "Stephen Strange", "Principal Designer", "stephen.strange@example.com", "Admin", "Active"),
+        new User(5, "Tony Stark", "Director", "tony.stark@example.com", "Owner", "Vacation")
+    }.AsQueryable();
+
+    private readonly Dictionary<string, ThemeColor> _statusMap = new()
+    {
+        ["Active"] = ThemeColor.Success,
+        ["Paused"] = ThemeColor.Warning,
+        ["Vacation"] = ThemeColor.Secondary,
+        ["Inactive"] = ThemeColor.Danger
+    };
+
+    private readonly string[] _columns =
+    [
+        nameof( User.Id ),
+        nameof( User.Name ),
+        nameof( User.Title ),
+        nameof( User.Role ),
+        nameof( User.Status )
+    ];
+
+    private ICollection<User> _selectedUsers = [];
+    private ICollection<string> _selectedColumns =
+    [
+        nameof( User.Name ),
+        nameof( User.Role ),
+        nameof( User.Status )
+    ];
+
+    private string? _nameFilter;
+
+    private bool IsColumnVisible( string column ) => _selectedColumns.Contains( column );
+
+    private record User( int Id, string Name, string Title, string Email, string Role, string Status );
+}

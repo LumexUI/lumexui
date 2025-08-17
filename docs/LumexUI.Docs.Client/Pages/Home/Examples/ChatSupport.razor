@@ -1,0 +1,114 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "p-6 pb-0 gap-3 justify-between overflow-visible",
+               Body = "flex-col p-6 gap-4",
+               Footer = "p-6 pt-0"
+           })">
+    <LumexCardHeader>
+        <div class="inline-flex items-center justify-center gap-3">
+            <LumexAvatar Name="Pepper Potts"
+                         Bordered="@true"
+                         Color="@ThemeColor"
+                         Src="https://d2u8k2ocievbld.cloudfront.net/memojis/female/4.png" />
+
+            <div class="inline-flex flex-col items-start">
+                <span class="text-small font-medium">Pepper Potts</span>
+                <span class="text-tiny text-foreground-500">pepper.potts@example.com</span>
+            </div>
+        </div>
+
+        <div class="inline-flex items-center justify-center">
+            <LumexButton Size="@Size.Small"
+                         Radius="@Radius.Full"
+                         Variant="@Variant.Light"
+                         IconOnly="@true">
+                <PhoneFilledIcon Size="20" />
+            </LumexButton>
+
+            <LumexDropdown Placement="@PopoverPlacement.BottomEnd" Class="min-w-max">
+                <LumexDropdownTrigger Class="aria-expanded:*:bg-default/40">
+                    <LumexButton Size="@Size.Small"
+                                 Radius="@Radius.Full"
+                                 Variant="@Variant.Light"
+                                 IconOnly="@true">
+                        <EllipsisVerticalIcon Size="20" />
+                    </LumexButton>
+                </LumexDropdownTrigger>
+                <LumexDropdownMenu Variant="@MenuVariant.Flat">
+                    <LumexDropdownItem>
+                        <StartContent>
+                            <VolumeOffIcon Size="20" />
+                        </StartContent>
+                        <ChildContent>Mute notifications</ChildContent>
+                    </LumexDropdownItem>
+                    <LumexDropdownItem>
+                        <StartContent>
+                            <UserIcon Size="20" />
+                        </StartContent>
+                        <ChildContent>View profile</ChildContent>
+                    </LumexDropdownItem>
+                    <LumexDropdownItem>
+                        <StartContent>
+                            <EraserIcon Size="20" />
+                        </StartContent>
+                        <ChildContent>Clear history</ChildContent>
+                    </LumexDropdownItem>
+                    <LumexDropdownItem Color="@ThemeColor.Danger" Class="text-danger">
+                        <StartContent>
+                            <Trash2Icon Size="20" />
+                        </StartContent>
+                        <ChildContent>Delete chat</ChildContent>
+                    </LumexDropdownItem>
+                </LumexDropdownMenu>
+            </LumexDropdown>
+        </div>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        @_renderMessages
+    </LumexCardBody>
+
+    <LumexCardFooter>
+        <EditForm Model="@MessageToSend"
+                  OnSubmit="@SendMessage"
+                  FormName="chat"
+                  class="relative w-full">
+            <InputText type="hidden" @bind-Value="@MessageToSend.SenderId" />
+            <LumexTextbox Behavior="@InputBehavior.OnInput"
+                          LabelPlacement="@LabelPlacement.Outside"
+                          Placeholder="Write a message..."
+                          @bind-Value="@MessageToSend.Content" />
+
+            <LumexButton IconOnly="@true"
+                         Size="@Size.Small"
+                         Type="@ButtonType.Submit"
+                         Radius="@Radius.Full"
+                         Color="@ThemeColor"
+                         Disabled="@(MessageToSend.Content?.Length == 0)"
+                         Class="size-7 min-w-7 absolute right-1 top-1/2 -translate-y-1/2">
+                <SendAltIcon Size="18" />
+            </LumexButton>
+        </EditForm>
+    </LumexCardFooter>
+</LumexCard>
+
+@code {
+    private void RenderMessages( RenderTreeBuilder __builder )
+    {
+        foreach( var message in _messages )
+        {
+            var isMe = message.SenderId == "Me";
+            var styles = new ElementClass()
+                .Add( "items-start bg-surface2 text-surface2-foreground", when: !isMe )
+                .Add( $"ml-auto items-end {_colorMap[ThemeColor]}", when: isMe );
+
+            <div @key="@message.Id" class="flex flex-col w-max max-w-3/4 rounded-medium px-3 py-1 @styles">
+                <span class="text-small">@message.Content</span>
+                <span class="mt-1 text-[11px] opacity-70">@message.Timestamp.ToString( "hh:mm tt" )</span>
+            </div>
+        }
+    }
+}

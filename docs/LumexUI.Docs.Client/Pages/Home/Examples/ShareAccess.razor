@@ -1,0 +1,87 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "flex-col items-start p-6 pb-0 gap-1",
+               Body = "p-6 gap-4",
+               Footer = "p-6 pt-0"
+           })">
+    <LumexCardHeader>
+        <div class="text-foreground-900 font-semibold">Share this document</div>
+        <p class="text-small text-foreground-500">Anyone with the link can view this document.</p>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        <div class="flex items-center gap-2">
+            <LumexTextbox Size="@Size.Small"
+                          Color="@ThemeColor"
+                          Radius="@Radius.Medium"
+                          Variant="@InputVariant.Outlined"
+                          ReadOnly="@true"
+                          Value="https://example.com/link/to/document" />
+
+            <LumexButton Size="@Size.Small"
+                         Radius="@Radius.Medium"
+                         Variant="@Variant.Ghost"
+                         Class="min-w-20 shrink-0"
+                         OnClick="@HandleCopyAsync">
+                @if( _isCopied )
+                {
+                    <CheckIcon Size="16" />
+                }
+                else
+                {
+                    <text>Copy link</text>
+                }
+            </LumexButton>
+        </div>
+
+        <LumexDivider />
+
+        <div class="flex flex-col gap-4">
+            <div class="text-small text-foreground-900 font-medium">
+                People with access
+            </div>
+            <div class="grid gap-6">
+                @_renderPeopleWithAccess
+            </div>
+        </div>
+
+    </LumexCardBody>
+</LumexCard>
+
+@code {
+    private void RenderPeopleWithAccess( RenderTreeBuilder __builder )
+    {
+        foreach( var person in _peopleWithAccess )
+        {
+            <div class="flex items-center justify-between gap-4">
+                <div class="inline-flex items-center justify-center gap-3">
+                    <LumexAvatar Name="Pepper Potts"
+                                 Size="@Size.Small"
+                                 Color="@ThemeColor"
+                                 Bordered="@true"
+                                 Src="@person.Avatar" />
+
+                    <div class="inline-flex flex-col items-start">
+                        <span class="text-small font-medium">@person.Name</span>
+                        <span class="text-tiny text-foreground-500">@person.Email</span>
+                    </div>
+                </div>
+
+                <LumexSelect TValue="string"
+                             Size="@Size.Small"
+                             Color="@ThemeColor"
+                             Radius="@Radius.Medium"
+                             Variant="@InputVariant.Outlined"
+                             LabelPlacement="@LabelPlacement.Outside"
+                             Value="@("Can edit")"
+                             Class="max-w-32">
+                    <LumexSelectItem Value="@("Can edit")">Can edit</LumexSelectItem>
+                    <LumexSelectItem Value="@("Can view")">Can view</LumexSelectItem>
+                </LumexSelect>
+            </div>
+        }
+    }
+}

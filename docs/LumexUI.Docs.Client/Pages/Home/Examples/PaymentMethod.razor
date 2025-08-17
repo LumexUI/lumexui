@@ -1,0 +1,52 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "flex-col items-start p-6 pb-0 gap-1",
+               Body = "p-6 gap-6",
+               Footer = "p-6 pt-0"
+           })">
+    <LumexCardHeader>
+        <div class="text-foreground-900 font-semibold">Payment method</div>
+        <p class="text-small text-foreground-500">Add a new payment method to your account.</p>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        <LumexRadioGroup TValue="string"
+                         Size="@Size.Small"
+                         Orientation="@Orientation.Horizontal"
+                         RadioClasses="@RadioClasses">
+            <LumexRadio Value="@("card")">
+                <div class="flex flex-col items-center justify-center gap-1">
+                    <CreditCardFilledIcon Size="28" />
+                    Card
+                </div>
+            </LumexRadio>
+            <LumexRadio Value="@("paypal")">
+                <div class="flex flex-col items-center justify-center gap-1">
+                    <PaypalIcon Size="28" />
+                    PayPal
+                </div>
+            </LumexRadio>
+            <LumexRadio Value="@("apple")">
+                <div class="flex flex-col items-center justify-center gap-1">
+                    <AppleIcon Size="28" />
+                    Apple
+                </div>
+            </LumexRadio>
+        </LumexRadioGroup>
+
+        <LumexTextbox Label="Name" Placeholder="John Doe" LabelPlacement="@LabelPlacement.Outside" />
+        <LumexTextbox Label="Card number" Placeholder="1234 5678 9012 3456" LabelPlacement="@LabelPlacement.Outside" />
+
+        <div class="grid grid-cols-2 gap-4">
+            <LumexTextbox Label="Expires" Placeholder="MM/YY" LabelPlacement="@LabelPlacement.Outside" />
+            <LumexTextbox Label="CVC" Placeholder="CVC" LabelPlacement="@LabelPlacement.Outside" />
+        </div>
+    </LumexCardBody>
+
+    <LumexCardFooter>
+        <LumexButton FullWidth="@true" Color="@ThemeColor">Continue</LumexButton>
+    </LumexCardFooter>
+</LumexCard>
