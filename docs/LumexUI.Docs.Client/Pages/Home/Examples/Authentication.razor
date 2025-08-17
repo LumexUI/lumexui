@@ -68,17 +68,3 @@
         </p>
     </LumexCardFooter>
 </LumexCard>
-
-@code {
-    [SupplyParameterFromForm]
-    private Login LoginModel { get; set; } = new();
-
-    private bool _isEmailLogin;
-
-    private void Submit() { }
-
-    public sealed record Login
-    {
-        public string? Email { get; set; }
-    }
-}
