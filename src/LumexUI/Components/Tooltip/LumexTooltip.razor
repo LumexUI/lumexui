@@ -14,7 +14,8 @@
               Style="@Style"
               role="tooltip"
               @attributes="@AdditionalAttributes">
-    <LumexPopoverTrigger @onclick="@OnClickAsync"
+    <LumexPopoverTrigger aria-expanded="@null"
+                         @onclick="@OnClickAsync"
                          @onmouseenter="@OnMouseEnterAsync"
                          @onmouseleave="@OnMouseLeaveAsync"
                          @onfocusin="@OnFocusInAsync"
