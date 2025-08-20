@@ -133,6 +133,9 @@ window.charts['usage'] = {
             tooltip: { enabled: false },
             dataLabels: { enabled: false },
             legend: {
+                labels: {
+                    colors: 'var(--lumex-foreground)',
+                },
                 markers: {
                     size: 5,
                     offsetX: -5,
