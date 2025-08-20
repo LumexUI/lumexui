@@ -35,7 +35,7 @@
 
                     <LumexSelect Placeholder="Columns"
                                  Size="@Size.Small"
-                                 Class="max-w-30"
+                                 Class="max-w-40"
                                  @bind-Values="@_selectedColumns">
                         @foreach( var column in _columns )
                         {
@@ -48,8 +48,8 @@
             </ToolbarContent>
 
             <ChildContent>
-                <PropertyColumn Property="@(p => p.Id)" />
-                <PropertyColumn Property="@(p => p.Name)">
+                <PropertyColumn Property="@(p => p.Id)" Visible="@IsColumnVisible( nameof( User.Id ) )" />
+                <PropertyColumn Property="@(p => p.Name)" Visible="@IsColumnVisible( nameof( User.Name ) )">
                     <Content Context="user">
                         <div class="inline-flex flex-col items-start">
                             <span class="text-small font-medium">@user.Name</span>
@@ -57,9 +57,9 @@
                         </div>
                     </Content>
                 </PropertyColumn>
-                <PropertyColumn Property="@(p => p.Title)" />
-                <PropertyColumn Property="@(p => p.Role)" Sortable="@true" />
-                <PropertyColumn Property="@(p => p.Status)" Sortable="@true">
+                <PropertyColumn Property="@(p => p.Title)" Visible="@IsColumnVisible( nameof( User.Title ) )" />
+                <PropertyColumn Property="@(p => p.Role)" Sortable="@true" Visible="@IsColumnVisible( nameof( User.Role ) )" />
+                <PropertyColumn Property="@(p => p.Status)" Sortable="@true" Visible="@IsColumnVisible( nameof( User.Status ) )">
                     <Content Context="user">
                         <LumexChip Size="@Size.Small"
                                    Color="@_statusMap[user.Status]"
