@@ -86,8 +86,8 @@
             </text>
         );
 
-        var popover = cut.Find( "[data-popover]" );
-        popover?.TriggerEvent( "onclickoutside", new EventArgs() );
+        var overlay = cut.Find( "[data-popover-overlay]" );
+        overlay?.Click();
 
         cut.FindBySlot( "base" )?.GetAttribute( "data-open" ).Should().Be( "false" );
     }
