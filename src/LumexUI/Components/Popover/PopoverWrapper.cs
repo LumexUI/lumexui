@@ -50,9 +50,8 @@ public sealed class PopoverWrapper : LumexComponentBase, IAsyncDisposable
 			builder.AddAttribute( 1, "class", Class );
 			builder.AddAttribute( 2, "style", _style );
 			builder.AddAttribute( 3, "data-popover", Popover.Id );
-			builder.AddAttribute( 4, "onclickoutside", EventCallback.Factory.Create<EventArgs>( this, async e => await CloseAsync() ) );
-			builder.AddMultipleAttributes( 5, AdditionalAttributes );
-			builder.AddContent( 6, ChildContent );
+			builder.AddMultipleAttributes( 4, AdditionalAttributes );
+			builder.AddContent( 5, ChildContent );
 			builder.CloseElement();
 		}
 	}
@@ -69,12 +68,6 @@ public sealed class PopoverWrapper : LumexComponentBase, IAsyncDisposable
 		}
 
 		await _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id, Context.Owner.Options );
-	}
-
-	private async ValueTask CloseAsync()
-	{
-		await Popover.CloseAsync();
-		Popover.Rerender();
 	}
 
 	/// <inheritdoc />

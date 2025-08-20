@@ -13,23 +13,25 @@ import {
 } from '@floating-ui/dom';
 
 import {
-    portalTo,
-    waitForElement,
-    createOutsideClickHandler
+    portal,
+    waitForElement
 } from '../utils/dom.js';
 
-let destroyOutsideClickHandler;
 let cleanupAutoUpdate;
 
 async function initialize(id, options) {
     try {
         const popover = await waitForElement(`[data-popover=${id}]`);
+        const overlay = document.querySelector(`[data-popover-overlay=${id}]`);
         const target = document.querySelector(`[data-popovertarget=${id}]`);
         const arrowElement = popover.querySelector('[data-slot=arrow]');
         const ref = target.children.length === 1 ? target.firstElementChild : target;
 
-        portalTo(popover);
-        destroyOutsideClickHandler = createOutsideClickHandler([ref, popover]);
+        portal(popover);
+
+        if (overlay) {
+            portal(overlay);
+        }
 
         const {
             offset: offsetVal,
@@ -109,11 +111,6 @@ async function initialize(id, options) {
 }
 
 function destroy() {
-    if (destroyOutsideClickHandler) {
-        destroyOutsideClickHandler();
-        destroyOutsideClickHandler = null;
-    }
-
     if (cleanupAutoUpdate) {
         cleanupAutoUpdate();
         cleanupAutoUpdate = null;

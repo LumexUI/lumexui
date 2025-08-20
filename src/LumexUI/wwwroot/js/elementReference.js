@@ -2,7 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-import { portalTo } from './utils/dom.js';
+import { portal } from './utils/dom.js';
 
 function getScrollHeight(element) {
     if (!(element instanceof HTMLElement)) {
@@ -14,5 +14,5 @@ function getScrollHeight(element) {
 
 export const elementReference = {
     getScrollHeight,
-    portalTo
+    portal
 }

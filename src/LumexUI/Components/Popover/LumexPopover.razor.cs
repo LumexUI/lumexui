@@ -99,6 +99,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	/// </summary>
 	[Parameter] public PopoverSlots? Classes { get; set; }
 
+	internal bool IsTooltip { get; private set; }
 	internal PopoverOptions Options { get; private set; }
 	internal Dictionary<string, ComponentSlot> Slots { get; private set; } = [];
 
@@ -118,6 +119,11 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 		if( string.IsNullOrEmpty( Id ) )
 		{
 			throw new InvalidOperationException( $"{GetType()} requires a value for the {nameof( Id )} parameter." );
+		}
+
+		if( AdditionalAttributes?.TryGetValue( "role", out var value ) ?? false )
+		{
+			IsTooltip = value is "tooltip";
 		}
 
 		Options = new PopoverOptions( this );
