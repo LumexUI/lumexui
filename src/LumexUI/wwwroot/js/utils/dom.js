@@ -22,7 +22,7 @@ export function waitForElement(selector) {
     });
 }
 
-export function portalTo(element, selector = undefined) {
+export function portal(element, selector = undefined) {
     if (!(element instanceof HTMLElement)) {
         throw new Error('The provided element is not a valid HTMLElement.');
     }

@@ -6,6 +6,7 @@
 const min = Math.min;
 const max = Math.max;
 const round = Math.round;
+const floor = Math.floor;
 const createCoords = v => ({
   x: v,
   y: v
@@ -1376,6 +1377,162 @@ const platform = {
   isRTL
 };
 
+// https://samthor.au/2021/observing-dom/
+function observeMove(element, onMove) {
+  let io = null;
+  let timeoutId;
+  const root = getDocumentElement(element);
+  function cleanup() {
+    var _io;
+    clearTimeout(timeoutId);
+    (_io = io) == null || _io.disconnect();
+    io = null;
+  }
+  function refresh(skip, threshold) {
+    if (skip === void 0) {
+      skip = false;
+    }
+    if (threshold === void 0) {
+      threshold = 1;
+    }
+    cleanup();
+    const {
+      left,
+      top,
+      width,
+      height
+    } = element.getBoundingClientRect();
+    if (!skip) {
+      onMove();
+    }
+    if (!width || !height) {
+      return;
+    }
+    const insetTop = floor(top);
+    const insetRight = floor(root.clientWidth - (left + width));
+    const insetBottom = floor(root.clientHeight - (top + height));
+    const insetLeft = floor(left);
+    const rootMargin = -insetTop + "px " + -insetRight + "px " + -insetBottom + "px " + -insetLeft + "px";
+    const options = {
+      rootMargin,
+      threshold: max(0, min(1, threshold)) || 1
+    };
+    let isFirstUpdate = true;
+    function handleObserve(entries) {
+      const ratio = entries[0].intersectionRatio;
+      if (ratio !== threshold) {
+        if (!isFirstUpdate) {
+          return refresh();
+        }
+        if (!ratio) {
+          // If the reference is clipped, the ratio is 0. Throttle the refresh
+          // to prevent an infinite loop of updates.
+          timeoutId = setTimeout(() => {
+            refresh(false, 1e-7);
+          }, 1000);
+        } else {
+          refresh(false, ratio);
+        }
+      }
+      isFirstUpdate = false;
+    }
+
+    // Older browsers don't support a `document` as the root and will throw an
+    // error.
+    try {
+      io = new IntersectionObserver(handleObserve, {
+        ...options,
+        // Handle <iframe>s
+        root: root.ownerDocument
+      });
+    } catch (e) {
+      io = new IntersectionObserver(handleObserve, options);
+    }
+    io.observe(element);
+  }
+  refresh(true);
+  return cleanup;
+}
+
+/**
+ * Automatically updates the position of the floating element when necessary.
+ * Should only be called when the floating element is mounted on the DOM or
+ * visible on the screen.
+ * @returns cleanup function that should be invoked when the floating element is
+ * removed from the DOM or hidden from the screen.
+ * @see https://floating-ui.com/docs/autoUpdate
+ */
+function autoUpdate(reference, floating, update, options) {
+  if (options === void 0) {
+    options = {};
+  }
+  const {
+    ancestorScroll = true,
+    ancestorResize = true,
+    elementResize = typeof ResizeObserver === 'function',
+    layoutShift = typeof IntersectionObserver === 'function',
+    animationFrame = false
+  } = options;
+  const referenceEl = unwrapElement(reference);
+  const ancestors = ancestorScroll || ancestorResize ? [...(referenceEl ? getOverflowAncestors(referenceEl) : []), ...getOverflowAncestors(floating)] : [];
+  ancestors.forEach(ancestor => {
+    ancestorScroll && ancestor.addEventListener('scroll', update, {
+      passive: true
+    });
+    ancestorResize && ancestor.addEventListener('resize', update);
+  });
+  const cleanupIo = referenceEl && layoutShift ? observeMove(referenceEl, update) : null;
+  let reobserveFrame = -1;
+  let resizeObserver = null;
+  if (elementResize) {
+    resizeObserver = new ResizeObserver(_ref => {
+      let [firstEntry] = _ref;
+      if (firstEntry && firstEntry.target === referenceEl && resizeObserver) {
+        // Prevent update loops when using the `size` middleware.
+        // https://github.com/floating-ui/floating-ui/issues/1740
+        resizeObserver.unobserve(floating);
+        cancelAnimationFrame(reobserveFrame);
+        reobserveFrame = requestAnimationFrame(() => {
+          var _resizeObserver;
+          (_resizeObserver = resizeObserver) == null || _resizeObserver.observe(floating);
+        });
+      }
+      update();
+    });
+    if (referenceEl && !animationFrame) {
+      resizeObserver.observe(referenceEl);
+    }
+    resizeObserver.observe(floating);
+  }
+  let frameId;
+  let prevRefRect = animationFrame ? getBoundingClientRect(reference) : null;
+  if (animationFrame) {
+    frameLoop();
+  }
+  function frameLoop() {
+    const nextRefRect = getBoundingClientRect(reference);
+    if (prevRefRect && (nextRefRect.x !== prevRefRect.x || nextRefRect.y !== prevRefRect.y || nextRefRect.width !== prevRefRect.width || nextRefRect.height !== prevRefRect.height)) {
+      update();
+    }
+    prevRefRect = nextRefRect;
+    frameId = requestAnimationFrame(frameLoop);
+  }
+  update();
+  return () => {
+    var _resizeObserver2;
+    ancestors.forEach(ancestor => {
+      ancestorScroll && ancestor.removeEventListener('scroll', update);
+      ancestorResize && ancestor.removeEventListener('resize', update);
+    });
+    cleanupIo == null || cleanupIo();
+    (_resizeObserver2 = resizeObserver) == null || _resizeObserver2.disconnect();
+    resizeObserver = null;
+    if (animationFrame) {
+      cancelAnimationFrame(frameId);
+    }
+  };
+}
+
 /**
  * Modifies the placement by translating the floating element along the
  * specified axes.
@@ -1484,7 +1641,9 @@ function createOutsideClickHandler(elements) {
     const clickHandler = event => {
         const isInsideAny = elements.some(el => el && el.contains(event.target));
 
+        console.log('hi');
         if (!isInsideAny) {
+            console.log('hi 2');
             elements.forEach(el =>
                 el?.dispatchEvent(new CustomEvent('clickoutside', { bubbles: true }))
             );
@@ -1494,6 +1653,7 @@ function createOutsideClickHandler(elements) {
     document.body.addEventListener('click', clickHandler);
 
     return () => {
+        console.log('destroy');
         document.body.removeEventListener('click', clickHandler);
     };
 }
@@ -1504,12 +1664,14 @@ function createOutsideClickHandler(elements) {
 
 
 let destroyOutsideClickHandler;
+let cleanupAutoUpdate;
 
 async function initialize(id, options) {
     try {
         const popover = await waitForElement(`[data-popover=${id}]`);
-        const ref = document.querySelector(`[data-popoverref=${id}]`);
+        const target = document.querySelector(`[data-popovertarget=${id}]`);
         const arrowElement = popover.querySelector('[data-slot=arrow]');
+        const ref = target.children.length === 1 ? target.firstElementChild : target;
 
         portalTo(popover);
         destroyOutsideClickHandler = createOutsideClickHandler([ref, popover]);
@@ -1543,16 +1705,22 @@ async function initialize(id, options) {
             );
         }
 
-        const data = await computePosition(ref, popover, {
-            placement: placement,
-            middleware: middlewares,
-        });
+        const update = async () => {
+            const data = await computePosition(ref, popover, {
+                placement,
+                middleware: middlewares,
+            });
 
-        positionPopover(popover, data);
+            positionPopover(popover, data);
 
-        if (showArrow) {
-            positionArrow(arrowElement, data);
-        }
+            if (showArrow) {
+                positionArrow(arrowElement, data);
+            }
+        };
+
+        await update();
+
+        cleanupAutoUpdate = autoUpdate(ref, popover, update);
     } catch (error) {
         console.error('Error in popover.initialize:', error);
     }
@@ -1589,6 +1757,11 @@ function destroy() {
     if (destroyOutsideClickHandler) {
         destroyOutsideClickHandler();
         destroyOutsideClickHandler = null;
+    }
+
+    if (cleanupAutoUpdate) {
+        cleanupAutoUpdate();
+        cleanupAutoUpdate = null;
     }
 }
 

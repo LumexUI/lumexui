@@ -1,0 +1,33 @@
+﻿@namespace LumexUI.Docs.Client.Components
+@inherits LayoutComponentBase
+@layout MainLayout
+
+<Header Bordered="@false"
+        MaxWidth="@MaxWidth.XXLarge"
+        Class="before:backdrop-saturate-100" />
+
+@Body
+
+<footer class="mt-12 text-small/6">
+    <div class="py-10 flex flex-col justify-center items-center gap-3">
+        <p class="text-default-500">
+            &copy; @(DateTimeOffset.UtcNow.ToString( "yyyy" )) LumexUI. All rights reserved.
+        </p>
+
+        <div class="flex items-center gap-1">
+            <LumexLink Href="https://github.com/LumexUI/lumexui"
+                       External="@true"
+                       Class="p-1 text-default-600">
+                <GithubIcon Size="20" />
+                <span class="sr-only">GitHub</span>
+            </LumexLink>
+
+            <LumexLink Href="https://discord.gg/jjgMz3apcb"
+                       External="@true"
+                       Class="p-1 text-default-600">
+                <DiscordIcon Size="20" />
+                <span class="sr-only">Discord</span>
+            </LumexLink>
+        </div>
+    </div>
+</footer>

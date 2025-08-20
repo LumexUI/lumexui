@@ -1,0 +1,54 @@
+﻿@namespace LumexUI.Docs.Client.Components
+@rendermode InteractiveWebAssembly
+
+<LumexSelect TValue="ThemeColor"
+             LabelPlacement="@LabelPlacement.Outside"
+             Value="@_themeColor"
+             ValueChanged="@HandleThemeChange"
+             Class="max-w-40">
+    <ChildContent>
+        @foreach( var color in Enum.GetValues<ThemeColor>()[1..] )
+        {
+            <LumexSelectItem @key="@color" Value="@color">
+                <div class="flex gap-2 items-center">
+                    <span class="w-4 h-4 border border-default-900/10 rounded-full shrink-0 @_themeColorMap[color]" />
+                    @color.ToString()
+                </div>
+            </LumexSelectItem>
+        }
+    </ChildContent>
+    <ValueContent Context="color">
+        <div class="flex gap-2 items-center">
+            <span class="w-4 h-4 border border-default-900/10 rounded-full shrink-0 @_themeColorMap[color]" />
+            @color.ToString()
+        </div>
+    </ValueContent>
+</LumexSelect>
+
+@code {
+    [Inject] private DocsThemeService ThemeService { get; set; } = default!;
+
+    private readonly Dictionary<ThemeColor, string> _themeColorMap = new()
+    {
+        [ThemeColor.Default] = "bg-default",
+        [ThemeColor.Primary] = "bg-primary",
+        [ThemeColor.Secondary] = "bg-secondary",
+        [ThemeColor.Success] = "bg-success",
+        [ThemeColor.Warning] = "bg-warning",
+        [ThemeColor.Danger] = "bg-danger",
+        [ThemeColor.Info] = "bg-info"
+    };
+
+    private ThemeColor _themeColor = ThemeColor.Default;
+
+    private void HandleThemeChange( ThemeColor color )
+    {
+        if( color is ThemeColor.None )
+        {
+            return;
+        }
+
+        _themeColor = color;
+        ThemeService.SetThemeColor( color );
+    }
+}

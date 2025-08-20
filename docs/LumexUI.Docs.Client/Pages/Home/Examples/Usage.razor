@@ -1,0 +1,45 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "p-6 pb-0 justify-between",
+               Body = "p-6",
+           })">
+    <LumexCardHeader>
+        <div class="flex-1 font-semibold text-foreground-900">Device Usage</div>
+        <div class="flex flex-1 items-center gap-1">
+            <LumexSelect Value="@("Per day")"
+                         Size="@LumexUI.Common.Size.Small"
+                         LabelPlacement="@LabelPlacement.Outside"
+                         PopoverClasses="@(new() { Content = "min-w-fit" })">
+                <LumexSelectItem Value="@("Per day")">Per day</LumexSelectItem>
+                <LumexSelectItem Value="@("Per week")">Per week</LumexSelectItem>
+                <LumexSelectItem Value="@("Per month")">Per month</LumexSelectItem>
+            </LumexSelect>
+
+            <LumexDropdown Placement="@PopoverPlacement.BottomEnd"
+                           Classes="@(new() { Content = "min-w-fit" })">
+                <LumexDropdownTrigger Class="aria-expanded:*:bg-default/40">
+                    <LumexButton IconOnly="@true"
+                                 Size="@LumexUI.Common.Size.Small"
+                                 Radius="@Radius.Full"
+                                 Variant="@Variant.Light">
+                        <EllipsisVerticalIcon Size="16" />
+                    </LumexButton>
+                </LumexDropdownTrigger>
+                <LumexDropdownMenu Variant="@MenuVariant.Flat">
+                    <LumexDropdownItem>View details</LumexDropdownItem>
+                    <LumexDropdownItem>Export data</LumexDropdownItem>
+                    <LumexDropdownItem>Set alert</LumexDropdownItem>
+                </LumexDropdownMenu>
+            </LumexDropdown>
+        </div>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        <div class="h-40 @_chartCssVariables[ThemeColor]">
+            <div id="chart-usage" />
+        </div>
+    </LumexCardBody>
+</LumexCard>

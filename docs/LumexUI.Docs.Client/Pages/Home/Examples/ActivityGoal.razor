@@ -1,0 +1,51 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "flex-col items-start p-6 pb-0 gap-1",
+               Body = "px-6 py-5 gap-4",
+               Footer = "p-6 pt-0"
+           })">
+    <LumexCardHeader>
+        <div class="font-semibold text-foreground-900">Move Goal</div>
+        <p class="text-small text-foreground-500">Set your daily activity goal.</p>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        <div class="flex items-center justify-center gap-4">
+            <LumexButton IconOnly="@true"
+                         Disabled="@(_caloriesDay <= _minCalories)"
+                         Size="@LumexUI.Common.Size.Small"
+                         Radius="@Radius.Full"
+                         Variant="@Variant.Light"
+                         OnClick="@DecrementCalories"
+                         Class="size-7 min-w-7 border border-default-900/10">
+                <MinusIcon Size="16" />
+            </LumexButton>
+
+            <div class="text-center">
+                <div class="text-foreground-900 text-4xl font-bold tracking-tighter tabular-nums">@_caloriesDay</div>
+                <div class="text-foreground text-tiny uppercase">Calories/day</div>
+            </div>
+
+            <LumexButton IconOnly="@true"
+                         Disabled="@(_caloriesDay >= _maxCalories)"
+                         Size="@LumexUI.Common.Size.Small"
+                         Radius="@Radius.Full"
+                         Variant="@Variant.Light"
+                         OnClick="@IncrementCalories"
+                         Class="size-7 min-w-7 border border-default-900/10">
+                <PlusIcon Size="16" />
+            </LumexButton>
+        </div>
+
+        <div class="h-20 @_chartCssVariables[ThemeColor]">
+            <div id="chart-activity" />
+        </div>
+    </LumexCardBody>
+
+    <LumexCardFooter>
+        <LumexButton FullWidth="@true" Variant="@Variant.Flat">Set goal</LumexButton>
+    </LumexCardFooter>
+</LumexCard>

@@ -1,0 +1,70 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "p-6 pb-0",
+               Body = "flex-col p-6 gap-4",
+               Footer = "p-6 pt-0 justify-center"
+           })">
+    <LumexCardHeader>
+        <div class="text-xl text-foreground-900 font-medium">
+            Sign in to your account
+        </div>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        @if( !_isEmailLogin )
+        {
+            <LumexButton Color="@ThemeColor"
+                         OnClick="@(() => _isEmailLogin = true)">
+                <StartContent>
+                    <EnvelopeFilledIcon Size="20" />
+                </StartContent>
+                <ChildContent>Continue with email</ChildContent>
+            </LumexButton>
+        }
+        else
+        {
+            <EditForm Model="@LoginModel" FormName="login" class="flex flex-col gap-4">
+                <LumexTextbox Type="@InputType.Email"
+                              Label="Email"
+                              @bind-Value="@LoginModel.Email" />
+                <LumexButton Type="@ButtonType.Submit"
+                             Color="@ThemeColor">
+                    Continue
+                </LumexButton>
+            </EditForm>
+        }
+
+        <div class="flex items-center gap-4 py-2">
+            <LumexDivider />
+            <p class="shrink-0 text-tiny text-default-500">OR</p>
+            <LumexDivider />
+        </div>
+
+        <LumexButton Variant="@Variant.Flat">
+            <StartContent>
+                <GoogleIcon Size="20" />
+            </StartContent>
+            <ChildContent>Continue with Google</ChildContent>
+        </LumexButton>
+
+        <LumexButton Variant="@Variant.Flat">
+            <StartContent>
+                <GithubIcon Size="20" />
+            </StartContent>
+            <ChildContent>Continue with Github</ChildContent>
+        </LumexButton>
+    </LumexCardBody>
+
+    <LumexCardFooter>
+        <p class="text-small text-foreground-500">
+            Need to create an account?
+            <LumexLink Color="@ThemeColor"
+                       Class="@($"font-medium {(ThemeColor is ThemeColor.Default ? "text-foreground" : default)}")">
+                Sign Up
+            </LumexLink>
+        </p>
+    </LumexCardFooter>
+</LumexCard>

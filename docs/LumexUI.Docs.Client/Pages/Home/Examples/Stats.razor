@@ -1,0 +1,29 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "p-6 items-start",
+               Body = "p-0",
+           })">
+    <LumexCardHeader>
+        <div class="flex flex-auto flex-col gap-1.5">
+            <div class="text-small text-foreground-500">Subscriptions</div>
+            <div class="text-3xl text-foreground-900 font-semibold">+2,350</div>
+            <div class="text-small text-foreground-500">+180.1% from last month</div>
+        </div>
+        <div>
+            <LumexButton Size="@Size.Small"
+                         Variant="@Variant.Light"
+                         Class="text-small">
+                View more
+            </LumexButton>
+        </div>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        <div class="h-30 @_chartCssVariables[ThemeColor]">
+            <div id="chart-stats" />
+        </div>
+    </LumexCardBody>
+</LumexCard>

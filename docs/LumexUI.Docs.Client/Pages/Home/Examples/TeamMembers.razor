@@ -1,0 +1,60 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "flex-col items-start p-6 pb-0 gap-1",
+               Body = "p-6 gap-4",
+               Footer = "p-6 pt-0"
+           })">
+    <LumexCardHeader>
+        <div class="font-semibold text-foreground-900">Team Members</div>
+        <p class="text-small text-foreground-500">Invite your team members to collaborate.</p>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        @foreach( var member in _members )
+        {
+            <div class="flex items-center justify-between gap-4">
+                <div class="min-w-0 inline-flex items-center justify-center gap-3">
+                    <LumexAvatar Name="@member.Name"
+                                 Size="@Size.Small"
+                                 Bordered="@true"
+                                 Src="@member.Avatar"
+                                 Class="shrink-0" />
+
+                    <div class="min-w-0 inline-flex flex-col items-start">
+                        <span class="w-full truncate text-small font-medium">@member.Name</span>
+                        <span class="w-full truncate text-tiny text-foreground-500" title="@member.Email">
+                            @member.Email
+                        </span>
+                    </div>
+                </div>
+
+                <LumexDropdown Placement="@PopoverPlacement.BottomEnd">
+                    <LumexDropdownTrigger>
+                        <LumexButton Size="@Size.Small"
+                                     Variant="@Variant.Outlined"
+                                     Class="shrink-0">
+                            <ChildContent>@member.Role</ChildContent>
+                            <EndContent>
+                                <ChevronDownIcon Size="16" />
+                            </EndContent>
+                        </LumexButton>
+                    </LumexDropdownTrigger>
+                    <LumexDropdownMenu Variant="@MenuVariant.Flat">
+                        @foreach( var (title, description) in _roles )
+                        {
+                            <LumexDropdownItem>
+                                <div class="flex flex-col">
+                                    <span class="text-small">@title</span>
+                                    <span class="text-tiny text-foreground-500">@description</span>
+                                </div>
+                            </LumexDropdownItem>
+                        }
+                    </LumexDropdownMenu>
+                </LumexDropdown>
+            </div>
+        }
+    </LumexCardBody>
+</LumexCard>

@@ -1,0 +1,70 @@
+﻿@page "/"
+@layout HomeLayout
+@inject NavigationManager NavigationManager
+
+@using LumexUI.Docs.Client.Pages.Home.Examples
+
+<main class="container max-w-[96rem] mx-auto px-6">
+    <section class="flex flex-col items-center py-8 text-center md:py-16 lg:py-20">
+        <LumexLink Href="/docs/components" Color="@ThemeColor.None">
+            <LumexChip Size="@Size.Small"
+                       Variant="@ChipVariant.Flat"
+                       Class="border border-default-900/10">
+                <ChildContent>Explore New Components</ChildContent>
+                <EndContent>
+                    <SparklesIcon Size="16" />
+                </EndContent>
+            </LumexChip>
+        </LumexLink>
+
+        <h1 class="max-w-4xl mt-6 font-semibold tracking-tight text-foreground-900 text-4xl text-balance xl:text-5xl">
+            Build beautiful websites effortlessly, no design skills required.
+        </h1>
+
+        <p class="max-w-3xl mt-6 text-foreground text-balance sm:text-large">
+            A set of beautifully designed Blazor components that you can customize and build on. <br />
+            Perfect for creating modern, responsive, and polished user interfaces.
+        </p>
+
+        <div class="w-full mt-8 flex items-center justify-center gap-2">
+            <LumexButton As="a"
+                         Radius="@Radius.Full"
+                         href="/docs/getting-started/installation">
+                Get started
+            </LumexButton>
+            <LumexButton As="a"
+                         Radius="@Radius.Full"
+                         Variant="@Variant.Flat"
+                         href="/docs/getting-started/overview">
+                Learn more
+            </LumexButton>
+        </div>
+    </section>
+
+    <section class="flex flex-col">
+        <div class="flex justify-end py-4">
+            <ThemeSelector />
+        </div>
+
+        <div class="grid grid-rows-1 gap-4 lg:grid-flow-col lg:grid-cols-4">
+            <div class="space-y-4 sm:col-span-2 lg:col-start-3 lg:row-end-1">
+                <div class="grid grid-rows-1 gap-4 lg:grid-flow-col lg:grid-cols-2">
+                    <Usage />
+                    <TeamMembers />
+                </div>
+                <ShareAccess />
+                <UserTable />
+            </div>
+            <div class="space-y-4 lg:row-span-2">
+                <ActivityGoal />
+                <CookieSettings />
+                <ChatSupport />
+            </div>
+            <div class="space-y-4 lg:row-span-2">
+                <Stats />
+                <Authentication />
+                <PaymentMethod />
+            </div>
+        </div>
+    </section>
+</main>

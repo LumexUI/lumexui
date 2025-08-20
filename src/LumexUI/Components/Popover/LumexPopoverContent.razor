@@ -25,4 +25,11 @@
             }
         </div>
     </PopoverWrapper>
+
+    @if( !Popover.IsTooltip )
+    {
+        <div style="z-index: 9999; position: fixed; inset: 0; background-color: transparent;"
+             data-popover-overlay="@Popover.Id"
+             @onclick="@Popover.CloseAsync" />
+    }
 }

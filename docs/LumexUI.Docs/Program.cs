@@ -1,3 +1,4 @@
+using LumexUI.Docs.Client.Services;
 using LumexUI.Docs.Components;
 using LumexUI.Extensions;
 
@@ -20,6 +21,8 @@ builder.Services.AddLumexServices( options =>
         }
     } );
 } );
+
+builder.Services.AddScoped<DocsThemeService>();
 
 var app = builder.Build();
 

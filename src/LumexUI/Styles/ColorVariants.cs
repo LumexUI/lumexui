@@ -55,7 +55,7 @@ internal class ColorVariants
     public readonly static Dictionary<ThemeColor, string> Ghost = new()
     {
         [ThemeColor.None] = "",
-        [ThemeColor.Default] = "borde-default text-default-foreground",
+        [ThemeColor.Default] = "border-default text-default-foreground",
         [ThemeColor.Primary] = "border-primary text-primary",
         [ThemeColor.Secondary] = "border-secondary text-secondary",
         [ThemeColor.Success] = "border-success text-success",

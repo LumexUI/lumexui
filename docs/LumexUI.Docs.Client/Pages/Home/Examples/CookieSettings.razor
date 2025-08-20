@@ -1,0 +1,44 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "flex-col items-start p-6 pb-0 gap-1",
+               Body = "p-6 gap-4",
+               Footer = "p-6 pt-0"
+           })">
+    <LumexCardHeader>
+        <div class="font-semibold text-foreground-900">Cookie Settings</div>
+        <p class="text-small text-foreground-500">Manage your cookie settings here.</p>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        <LumexSwitch Value="@true"
+                     Color="@ThemeColor"
+                     Classes="@_classes">
+            <div class="flex flex-col gap-2">
+                <p class="text-small text-foreground-900 font-medium">Strictly Necessary</p>
+                <p class="text-small text-foreground-500">
+                    These cookies are essential in order to use the website and use its features.
+                </p>
+            </div>
+        </LumexSwitch>
+
+        <LumexSwitch Color="@ThemeColor"
+                     Classes="@_classes">
+            <div class="flex flex-col gap-2">
+                <p class="text-small text-foreground-900 font-medium">Functional Cookies</p>
+                <p class="text-small text-foreground-500">
+                    These cookies allow the website to provide personalized functionality.
+                </p>
+            </div>
+        </LumexSwitch>
+    </LumexCardBody>
+
+    <LumexCardFooter>
+        <LumexButton FullWidth="@true"
+                     Color="@ThemeColor">
+            Save preferences
+        </LumexButton>
+    </LumexCardFooter>
+</LumexCard>

@@ -1,0 +1,88 @@
+﻿@rendermode InteractiveWebAssembly
+@inherits ExampleComponentBase
+
+<LumexCard Classes="@(new()
+           {
+               Header = "flex-col items-start p-6 pb-0 gap-1",
+               Body = "p-6 gap-4",
+               Footer = "p-6 pt-0"
+           })">
+    <LumexCardHeader>
+        <div class="font-semibold text-foreground-900">Users</div>
+        <p class="text-small text-foreground-500">A list of all the users in the project.</p>
+    </LumexCardHeader>
+
+    <LumexCardBody>
+        <LumexDataGrid Data="@FilteredUsers"
+                       Color="@ThemeColor"
+                       SelectionMode="@SelectionMode.Multiple"
+                       Classes="@(new()
+                       {
+                           Wrapper = "border border-default-100"
+                       })"
+                       @bind-SelectedItems="@_selectedUsers">
+            <ToolbarContent>
+                <div class="flex items-center justify-between gap-4">
+                    <LumexTextbox Size="@Size.Small"
+                                  Behavior="@InputBehavior.OnInput"
+                                  Placeholder="Search by name..."
+                                  Class="max-w-xs"
+                                  @bind-Value="@_nameFilter">
+                        <StartContent>
+                            <SearchIcon Size="16" />
+                        </StartContent>
+                    </LumexTextbox>
+
+                    <LumexSelect Placeholder="Columns"
+                                 Size="@Size.Small"
+                                 Class="max-w-40"
+                                 @bind-Values="@_selectedColumns">
+                        @foreach( var column in _columns )
+                        {
+                            <LumexSelectItem @key="@column" Value="@column">
+                                @column
+                            </LumexSelectItem>
+                        }
+                    </LumexSelect>
+                </div>
+            </ToolbarContent>
+
+            <ChildContent>
+                <PropertyColumn Property="@(p => p.Id)" Visible="@IsColumnVisible( nameof( User.Id ) )" />
+                <PropertyColumn Property="@(p => p.Name)" Visible="@IsColumnVisible( nameof( User.Name ) )">
+                    <Content Context="user">
+                        <div class="inline-flex flex-col items-start">
+                            <span class="text-small font-medium">@user.Name</span>
+                            <span class="text-tiny opacity-70">@user.Email</span>
+                        </div>
+                    </Content>
+                </PropertyColumn>
+                <PropertyColumn Property="@(p => p.Title)" Visible="@IsColumnVisible( nameof( User.Title ) )" />
+                <PropertyColumn Property="@(p => p.Role)" Sortable="@true" Visible="@IsColumnVisible( nameof( User.Role ) )" />
+                <PropertyColumn Property="@(p => p.Status)" Sortable="@true" Visible="@IsColumnVisible( nameof( User.Status ) )">
+                    <Content Context="user">
+                        <LumexChip Size="@Size.Small"
+                                   Color="@_statusMap[user.Status]"
+                                   Variant="@ChipVariant.Dot"
+                                   Class="border-none">
+                            @user.Status
+                        </LumexChip>
+                    </Content>
+                </PropertyColumn>
+                <TemplateColumn>
+                    <LumexButton IconOnly="@true"
+                                 Size="@Size.Small"
+                                 Radius="@Radius.Full"
+                                 Variant="@Variant.Light"
+                                 @onclick:stopPropagation>
+                        <EllipsisVerticalIcon Size="20" />
+                    </LumexButton>
+                </TemplateColumn>
+            </ChildContent>
+        </LumexDataGrid>
+
+        <p class="ml-4 text-small text-foreground-500">
+            @(_selectedUsers.Count) of @(_users.Count()) row(s) selected.
+        </p>
+    </LumexCardBody>
+</LumexCard>
