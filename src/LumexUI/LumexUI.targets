@@ -2,13 +2,12 @@
 <Project>
 	<!-- Allow overriding the destination folder via a property -->
 	<PropertyGroup>
-		<!-- If consumer sets LumexUIDir, use it; otherwise default to bin\lumexui in the project -->
 		<LumexUIDir Condition="'$(LumexUIDir)' == ''">
 			$(MSBuildProjectDirectory)\bin\lumexui
 		</LumexUIDir>
 	</PropertyGroup>
 
-	<Target Name="CopyContents" AfterTargets="Build">
+	<Target Name="CopyContents" BeforeTargets="Build">
 		<!-- Include the files from the package `theme` folder -->
 		<ItemGroup>
 			<Files Include="$(MSBuildThisFileDirectory)..\theme\**\*" />
