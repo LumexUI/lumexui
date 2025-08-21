@@ -1,5 +1,4 @@
-﻿@page "/docs/components"
-@page "/docs/components/accordion"
+﻿@page "/docs/components/accordion"
 @layout DocsContentLayout
 @inject NavigationManager NavigationManager
 
@@ -166,11 +165,6 @@
 
     protected override void OnInitialized()
     {
-        if( !NavigationManager!.Uri.Contains( "/docs/components/accordion" ) )
-        {
-            NavigationManager.NavigateTo( "/docs/components/accordion" );
-        }
-
         Layout.Initialize(
             title: "Accordion",
             category: "Components",

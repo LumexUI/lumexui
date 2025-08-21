@@ -82,11 +82,6 @@ public partial class Overview
 
 	protected override void OnInitialized()
 	{
-		if( !NavigationManager!.Uri.Contains( "/docs/getting-started/overview" ) )
-		{
-			NavigationManager.NavigateTo( "/docs/getting-started/overview" );
-		}
-
 		Layout.Initialize(
 			title: "Get Started with LumexUI",
 			category: "Getting started",
