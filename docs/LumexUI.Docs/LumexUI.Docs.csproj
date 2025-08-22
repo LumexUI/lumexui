@@ -31,7 +31,7 @@
 		
 		<PropertyGroup>
 			<TailwindVersion>v4.1.11</TailwindVersion>
-			<TailwindExe Condition="$(IsLinux)">tailwindcss-linux-x64.exe</TailwindExe>
+			<TailwindExe Condition="$(IsLinux)">tailwindcss-linux-x64</TailwindExe>
 			<TailwindExe Condition="$(IsWindows)">tailwindcss-windows-x64.exe</TailwindExe>
 			<TailwindUrl>https://github.com/tailwindlabs/tailwindcss/releases/download/$(TailwindVersion)/$(TailwindExe)</TailwindUrl>
 		</PropertyGroup>
