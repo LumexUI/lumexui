@@ -1,10 +1,10 @@
 ﻿@import "tailwindcss" theme(static);
+@import "../bin/lumexui/_theme";
 @import "./fonts";
 @import "./prism";
 @import "./blazor";
 @import "./themes";
-@import "./typography" layer(components);
-@import "../bin/lumexui/_theme";
+@import "./typography" layer(utilities);
 
 @source "../bin/lumexui/*.cs"; /* components */
 @source "../../LumexUI.Docs.Client/{Pages,Components}/**/*.{razor,razor.cs}"; /* docs */
@@ -25,16 +25,10 @@
     --lumex-background: var(--color-zinc-950);
 }
 
-.bordered-link {
-    @apply 
-        font-semibold 
-        leading-tight 
-        text-current 
-        border-b 
-        border-current 
-        hover:border-b-2;
-}
-
 @utility highlight-* {
     box-shadow: inset 0 1px 0 0 --alpha(--value(--color- *, [color]) / --modifier(integer)%);
+}
+
+@utility bordered-link {
+    @apply font-semibold leading-tight text-current border-b border-current hover:border-b-2;
 }
