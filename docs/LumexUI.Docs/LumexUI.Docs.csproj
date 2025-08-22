@@ -19,37 +19,47 @@
 		<ProjectReference Include="../LumexUI.Docs.Generator/LumexUI.Docs.Generator.csproj" />
 	</ItemGroup>
 
-	<!-- Run the docs content generation command -->
-	<Target Name="DocsGenerator" BeforeTargets="BeforeBuild">
+	<Target Name="RunDocsGenerator" BeforeTargets="BeforeBuild">
 		<Exec Command="$(DocsGeneratorProject)" />
 	</Target>
 
-	<!-- Run the docs content generation command -->
-	<Target Name="InstallTailwindCSS" AfterTargets="Build" Condition="!Exists('tailwindcss.exe')">
+	<Target Name="InstallTailwind" AfterTargets="Build" Condition="!Exists('tailwindcss.exe')">
 		<PropertyGroup>
-			<!-- Tailwind standalone CLI for Windows -->
-			<TailwindURL Condition="'$(OS)' == 'Windows_NT'">https://github.com/tailwindlabs/tailwindcss/releases/download/v4.1.11/tailwindcss-windows-x64.exe</TailwindURL>
-			<TailwindFile Condition="'$(OS)' == 'Windows_NT'">tailwindcss-windows-x64.exe</TailwindFile>
-
-			<!-- Tailwind standalone CLI for Linux -->
-			<TailwindURL Condition="'$(OS)' != 'Windows_NT'">https://github.com/tailwindlabs/tailwindcss/releases/download/v4.1.11/tailwindcss-linux-x64</TailwindURL>
-			<TailwindFile Condition="'$(OS)' != 'Windows_NT'">tailwindcss-linux-x64</TailwindFile>
+			<IsLinux>$([MSBuild]::IsOSPlatform('Linux'))</IsLinux>
+			<IsWindows>$([MSBuild]::IsOSPlatform('Windows'))</IsWindows>
+		</PropertyGroup>
+		
+		<PropertyGroup>
+			<TailwindVersion>v4.1.11</TailwindVersion>
+			<TailwindExe Condition="$(IsLinux)">tailwindcss-linux-x64.exe</TailwindExe>
+			<TailwindExe Condition="$(IsWindows)">tailwindcss-windows-x64.exe</TailwindExe>
+			<TailwindUrl>https://github.com/tailwindlabs/tailwindcss/releases/download/$(TailwindVersion)/$(TailwindExe)</TailwindUrl>
 		</PropertyGroup>
 
-		<!-- Download Tailwind standalone CLI -->
-		<Exec Command="curl -LO $(TailwindURL)" />
-		
-		<!-- Rename a file for Windows -->
-		<Exec Command="ren $(TailwindFile) tailwindcss.exe" Condition="'$(OS)' == 'Windows_NT'" />
+		<!-- Download Tailwind CLI -->
+		<Exec Command="curl -LO $(TailwindUrl)" />
 
-		<!-- Rename a file for Linux -->
-		<Exec Command="mv $(TailwindFile) tailwindcss" Condition="'$(OS)' != 'Windows_NT'" />
-		<Exec Command="chmod +x tailwindcss" Condition="'$(OS)' != 'Windows_NT'" />
+		<!-- Rename the file (Windows) -->
+		<Exec Command="ren $(TailwindExe) tailwindcss.exe" Condition="$(IsWindows)" />
+
+		<!-- Rename the file (Linux) -->
+		<Exec Command="mv $(TailwindExe) tailwindcss" Condition="$(IsLinux)" />
+		<Exec Command="chmod +x tailwindcss" Condition="$(IsLinux)" />
 	</Target>
 
-	<Target Name="TailwindCSS" AfterTargets="InstallTailwindCSS">
-		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="'$(OS)' == 'Windows_NT'" />
-		<Exec Command="./tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="'$(OS)' != 'Windows_NT'" />
+	<Target Name="RunTailwind" AfterTargets="InstallTailwind">
+		<PropertyGroup>
+			<IsLinux>$([MSBuild]::IsOSPlatform('Linux'))</IsLinux>
+			<IsWindows>$([MSBuild]::IsOSPlatform('Windows'))</IsWindows>
+		</PropertyGroup>
+
+		<PropertyGroup>
+			<TailwindCmd Condition="$(IsLinux)">./tailwindcss</TailwindCmd>
+			<TailwindCmd Condition="$(IsWindows)">tailwindcss</TailwindCmd>
+		</PropertyGroup>
+
+		<Exec Command="$(TailwindCmd) -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="'$(Configuration)' == 'Debug'" />	
+		<Exec Command="$(TailwindCmd) -i ./Styles/globals.css -o ./wwwroot/css/docs.css --minify" Condition="'$(Configuration)' == 'Release'" />
 	</Target>
 
 </Project>
