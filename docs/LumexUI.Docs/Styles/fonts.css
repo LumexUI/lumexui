@@ -1,17 +1,15 @@
 ﻿@font-face {
-    font-family: 'Inter var';
+    font-family: InterVariable;
     font-weight: 300 900;
-    font-display: block;
+    font-display: swap;
     font-style: normal;
-    src: url(/assets/fonts/Inter-VariableFont_slnt,wght.ttf) format("truetype") tech(variations), 
-        url(/assets/fonts/Inter-VariableFont_slnt,wght.ttf) format("truetype-variations");
+    src: url(/assets/fonts/InterVariable.woff2) format("woff2");
 }
 
 @font-face {
-    font-family: 'Fira Code var';
+    font-family: FiraCodeVariable;
     font-weight: 300 700;
-    font-display: block;
+    font-display: swap;
     font-style: normal;
-    src: url(/assets/fonts/FiraCode-VariableFont_wght.ttf) format("truetype") tech(variations), 
-        url(/assets/fonts/FiraCode-VariableFont_wght.ttf) format("truetype-variations");
+    src: url(/assets/fonts/FiraCodeVariable.woff2) format("woff2");
 }
