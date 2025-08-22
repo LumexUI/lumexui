@@ -1,12 +1,12 @@
 ﻿@page "/"
 @layout HomeLayout
-@inject NavigationManager NavigationManager
+@attribute [StreamRendering]
 
 @using LumexUI.Docs.Client.Pages.Home.Examples
 
 <main class="container max-w-[96rem] mx-auto px-6">
     <section class="flex flex-col items-center py-8 text-center md:py-16 lg:py-20">
-        <LumexLink Href="/docs/components" Color="@ThemeColor.None">
+        <LumexLink Href="/docs/components/accordion" Color="@ThemeColor.None">
             <LumexChip Size="@Size.Small"
                        Variant="@ChipVariant.Flat"
                        Class="border border-default-900/10">
