@@ -41,6 +41,11 @@
 
     private ThemeColor _themeColor = ThemeColor.Default;
 
+    protected override void OnInitialized()
+    {
+        _themeColor = ThemeService.GetThemeColor();
+    }
+
     private void HandleThemeChange( ThemeColor color )
     {
         if( color is ThemeColor.None )
