@@ -1,8 +1,13 @@
 ﻿.theme-example-global {
-    --lumex-default: var(--color-black);
+    --lumex-default: var(--color-zinc-950);
     --lumex-default-foreground: var(--color-white);
     --lumex-radius-medium: .25rem;
 }
+
+    .theme-example-global:is(.dark *) {
+        --lumex-default: var(--color-zinc-200);
+        --lumex-default-foreground: var(--color-black);
+    }
 
 .theme-example-custom {
     --lumex-primary: var(--color-orange-600);
