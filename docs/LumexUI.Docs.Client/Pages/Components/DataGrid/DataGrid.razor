@@ -12,7 +12,7 @@
 
     <DocsSection Title="Base">
         <p>
-            The <Code>ColumnBase</Code> is the foundational class for all column components in the data grid.
+            The <code>ColumnBase</code> is the foundational class for all column components in the data grid.
             It provides common properties and functionality that other column types inherit,
             serving as the base for custom column implementations.
         </p>
@@ -20,7 +20,7 @@
 
     <DocsSection Title="Template">
         <p>
-            The <Code>TemplateColumn</Code> is a flexible column type not bound to any specific model property.
+            The <code>TemplateColumn</code> is a flexible column type not bound to any specific model property.
             It uses arbitrary Razor fragments to supply contents for its cells.
             It can't infer the column's title or sort order automatically.
         </p>
@@ -28,7 +28,7 @@
 
     <DocsSection Title="Property">
         <p>
-            The <Code>PropertyColumn</Code>  is used to bind to a specific property of your data model.
+            The <code>PropertyColumn</code>  is used to bind to a specific property of your data model.
             It automatically displays the value of the bound property for each row.
             This column infers sorting rules automatically,
             and uses the property's name as its title if not otherwise set.
@@ -37,7 +37,7 @@
 
     <DocsSection Title="Edit">
         <p>
-            The <Code>EditColumn</Code> extends the functionality of <Code>PropertyColumn</Code> by enabling incell editing.
+            The <code>EditColumn</code> extends the functionality of <code>PropertyColumn</code> by enabling incell editing.
             This column type is ideal for editable grids where users need to update data directly.
         </p>
     </DocsSection>
@@ -86,7 +86,7 @@
     <DocsSection Title="Table Layout">
         <p>
             Choose between different table layouts,
-            such as <Code>Fixed</Code> or <Code>Auto</Code>.
+            such as <code>Fixed</code> or <code>Auto</code>.
         </p>
         <Layout />
     </DocsSection>
@@ -122,7 +122,7 @@
     <DocsSection Title="Editing">
         <p>
             Allow incell editing for easy data updates
-            directly within the grid using <Code>EditColumn</Code>.
+            directly within the grid using <code>EditColumn</code>.
         </p>
         <Editing />
     </DocsSection>
@@ -154,13 +154,13 @@
     <DocsSection Title="Custom Cells">
         <p>
             Customize individual column cells to display specific
-            content or styles using the <Code>Content</Code> parameter.
+            content or styles using the <code>Content</code> parameter.
         </p>
         <CustomCells />
 
         <p>
             Alternatively, you can provide an arbitrary content to
-            the <Code>TemplateColumn</Code>, such as action buttons.
+            the <code>TemplateColumn</code>, such as action buttons.
         </p>
         <CustomCellsTemplateColumn />
 
@@ -229,7 +229,7 @@
 
     <DocsSection Title="Row Click">
         <p>
-            The data grid exposes an <Code>OnRowClick</Code> event,
+            The data grid exposes an <code>OnRowClick</code> event,
             triggered whenever a row is clicked.
         </p>
         <OnRowClick />
@@ -240,8 +240,8 @@
     <div>
         <h4 class="font-semibold">DataGrid</h4>
         <ul>
-            <li><Code>Class</Code>: The CSS class names for the base container of the data grid.</li>
-            <li><Code>Classes</Code>: The CSS class names for the data grid slots.</li>
+            <li><code>Class</code>: The CSS class names for the base container of the data grid.</li>
+            <li><code>Classes</code>: The CSS class names for the data grid slots.</li>
         </ul>
     </div>
     @* <CustomStyles /> *@
