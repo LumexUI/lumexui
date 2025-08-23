@@ -1,7 +1,24 @@
 ﻿@page "/docs/getting-started/installation"
 @layout InstallationLayout
 
-<InstallationSteps Steps="@_steps" />
+<ol class="mt-12 mb-16 space-y-2" style="counter-reset: step;">
+    @foreach( var step in _steps )
+    {
+        <li class="relative pl-10 pb-8 xl:grid xl:grid-cols-5 xl:gap-10 before:absolute before:content-[counter(step)] before:left-0 before:flex before:items-center before:justify-center before:size-6 before:text-[0.625rem] before:font-bold before:text-foreground before:rounded-md before:shadow-xs before:ring before:ring-default-900/5 after:absolute after:top-8 after:bottom-0 after:left-3 after:w-px after:bg-divider last:after:w-0 dark:before:bg-default-200 dark:before:highlight-white/15" style="counter-increment: step;">
+            <div class="mb-6 xl:mb-0 xl:col-span-2">
+                <h4 class="mb-2 text-foreground-900 text-small/6 font-semibold">
+                    @step.Title
+                </h4>
+                <div class="prose prose-zinc prose-sm dark:prose-invert">
+                    @step.Body
+                </div>
+            </div>
+            <div class="relative z-10 -ml-10 rounded-large shadow-lg xl:col-span-3 xl:ml-0">
+                <CodeSnippet Code="@step.Code" />
+            </div>
+        </li>
+    }
+</ol>
 
 @code {
     private Step[] _steps = new Step[]
@@ -10,7 +27,7 @@
         {
             Title = "Install LumexUI",
             Code = new CodeBlock("Terminal", "installationPackage"),
-            Body = @<p>Install LumexUI via terminal using .NET CLI or NuGet Package Manager.</p>
+            Body = @<p>Install LumexUI using the .NET CLI or NuGet Package Manager.</p>
         },
         new Step()
         {
@@ -18,30 +35,30 @@
             Code = new CodeBlock("app.css", "installationConfig"),
             Body = @<text>
                 <p>
-                    LumexUI is built on top of Tailwind CSS. To install it, follow the official <LumexLink Href="https://tailwindcss.com/docs/installation/tailwind-cli" External="@true">installation guide</LumexLink>. Then, modify your app CSS file.
+                    LumexUI is built on top of Tailwind CSS. Start by following the official <LumexLink Href="https://tailwindcss.com/docs/installation/tailwind-cli" External="@true">installation guide</LumexLink>, then update the app’s CSS file.
                 </p>
                 <p>
-                    Note: Using <LumexLink Href="https://tailwindcss.com/blog/standalone-cli" External="@true">Tailwind standalone CLI</LumexLink> is recommended if you don't need Node.js or npm.
+                    <em>Note: The <LumexLink Href="https://tailwindcss.com/blog/standalone-cli" External="@true">Tailwind standalone CLI</LumexLink> is recommended if Node.js or npm are not required.</em>
                 </p>
-                </text>
+            </text>
         },
         new Step()
         {
             Title = "Configure startup file",
             Code = new CodeBlock("Program.cs", "installationServices"),
-            Body = @<p>Inject the vital LumexUI services in the <code>Program.cs</code>.</p>
+            Body = @<p>Add the necessary LumexUI services to <code>Program.cs</code> file.</p>
         },
         new Step()
         {
             Title = "Include CSS and JS",
             Code = new CodeBlock("App.razor", "installationFiles"),
-            Body = @<p>Include the mandatory static files into the <code>@("<head>")</code> and the <code>@("<body>")</code>.</p>
+            Body = @<p>Add the static files to the <code>@("<head>")</code> and <code>@("<body>")</code> sections of the page.</p>
         },
         new Step()
         {
-            Title = "Setup theme provider",
-            Code = new CodeBlock("MainLayout.razor", "installationThemeProvider"),
-            Body = @<p>Add the <code>LumexThemeProvider</code> into your <code>MainLayout.razor</code> file to enable theming.</p>
+            Title = "Start using LumexUI",
+            Code = new CodeBlock("Component.razor", "installationUsage"),
+            Body = @<p>All set! Begin integrating and using LumexUI components throughout the project.</p>
         }
     };
 }
