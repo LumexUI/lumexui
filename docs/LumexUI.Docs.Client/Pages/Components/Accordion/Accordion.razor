@@ -1,98 +1,77 @@
 ﻿@page "/docs/components/accordion"
 @layout DocsContentLayout
-@inject NavigationManager NavigationManager
 
 @using LumexUI.Docs.Client.Pages.Components.Accordion.PreviewCodes
 
 <DocsCompositionSection Components="@_compositionComponents" />
 
 <DocsSection Title="Usage">
-    <p>
-        The basic accordion component helps organize content in a collapsible format.
-        Each item can expand or collapse to show or hide its content.
-    </p>
     <Usage />
 
     <DocsSection Title="Disabled">
-        <p>
-            Prevent user interaction by disabling the entire accordion,
-            which makes all accordion items unclickable and visually faded.
-            You can achieve this using the <Code>Disabled</Code> parameter.
-        </p>
+        <p>Use the <code>Disabled</code> parameter to disable the accordion.</p>
         <Disabled />
 
-        <p>
-            Alternatively, you can prevent user interaction by disabling specific accordion items.
-            You can achieve this using the <Code>DisabledItems</Code> parameter.
-        </p>
+        <p>Alternatively, use the <code>DisabledItems</code> parameter to disable specific accordion items.</p>
         <DisabledItems />
     </DocsSection>
 
     <DocsSection Title="Expanded">
-        <p>
-            You can set the entire accordion to be expanded by default when the page is first loaded.
-            You can achieve this using the <Code>Expanded</Code> parameter.
-        </p>
+        <p>Use the <code>Expanded</code> parameter to make the accordion expanded.</p>
         <Expanded />
 
-        <p>
-            Alternatively, you can set specific accordion items to be expanded by default.
-            You can achieve this using the <Code>ExpandedItems</Code> parameter.
-        </p>
+        <p>Alternatively, use <code>ExpandedItems</code> parameter to expand specific accordion items.</p>
         <ExpandedItems />
     </DocsSection>
 
     <DocsSection Title="Multiple">
         <p>
             By default, only one accordion item can be expanded at a time.
-            You can enable multiple expansion to allow more than one item to be open simultaneously.
-            You can achieve this using the <Code>SelectionMode</Code> parameter.
+            Use the <code>SelectionMode</code> parameter to control the selection behaviour of the accordion.
         </p>
         <Multiple />
     </DocsSection>
 
     <DocsSection Title="Variants">
         <p>
-            The accordion component supports different visual variants to match your application's style,
-            such as <Code>Light</Code>, <Code>Shadow</Code>, <Code>Bordered</Code> or <Code>Splitted</Code>.
-            You can achieve this using the <Code>Variant</Code> parameter.
+            Use the <code>Variant</code> parameter to set different visual styles of the accordion,
+            such as <code>Light</code>, <code>Shadow</code>, <code>Bordered</code> or <code>Splitted</code>.
         </p>
         <Variants />
     </DocsSection>
 
     <DocsSection Title="Subtitle">
         <p>
-            You can add a subtitle to provide additional context to
-            the accordion item, enhancing clarity for the user.
-            You can achieve this using the <Code>Subtitle</Code> or <Code>SubtitleContent</Code> parameters.
+            Use the <code>Subtitle</code> or <code>SubtitleContent</code> parameters to
+            provide additional context for accordion items.
         </p>
         <Subtitle />
     </DocsSection>
 
-    <DocsSection Title="Start Content">
+    <DocsSection Title="Start content">
         <p>
-            You can add additional content at the very beginning of an accordion item,
-            such as icons, labels, or other elements. You can achieve this using the <Code>StartContent</Code> parameter.
+            Use the <code>StartContent</code> parameter to
+            insert additional content at the beginning of accordion items.
         </p>
         <StartContent />
     </DocsSection>
 
-    <DocsSection Title="Custom Indicator">
+    <DocsSection Title="Custom indicator">
         <p>
-            Customize the default expand/collapse indicator icon.
-            You can achieve this using the <Code>IndicatorContent</Code> parameter.
+            Use the <code>IndicatorContent</code> parameter to
+            customize the default indicator icon of accordion items.
         </p>
         <CustomIndicator />
 
-        <p>You can control the indicator icon based on the expanded state of the accordion item:</p>
+        <p>The indicator icon can be controlled based on the expanded state of the accordion item:</p>
         <CustomIndicatorState />
     </DocsSection>
 
-    <DocsSection Title="Two-way Data Binding">
+    <DocsSection Title="Two-way data binding">
         <p>
-            The accordion component supports two-way data binding, allowing you to
-            programmatically control which items are expanded and respond to user interactions in real-time.
-            You can achieve this using the <Code>@@bind-Expanded</Code> directive, or the <Code>Expanded</Code> and <Code>ExpandedChanged</Code> parameters.
+            Use the <code>@@bind-Expanded</code> directive,
+            or the <code>Expanded</code> and <code>ExpandedChanged</code> parameters,
+            to control the accordion’s expanded state.
         </p>
         <TwoWayDataBinding />
     </DocsSection>
@@ -102,15 +81,15 @@
     <div>
         <h4 class="font-semibold">Accordion</h4>
         <ul>
-            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the accordion items.</li>
-            <li><Code>ItemClasses</Code>: The CSS class names for the accordion items slots style all the accordion items at once.</li>
+            <li><code>Class</code>: The basic CSS class name styles the wrapper of the accordion items.</li>
+            <li><code>ItemClasses</code>: The CSS class names for the accordion items slots style all the accordion items at once.</li>
         </ul>
     </div>
     <div>
         <h4 class="font-semibold">Accordion Item</h4>
         <ul>
-            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the accordion item.</li>
-            <li><Code>Classes</Code>: The CSS class names for the accordion item slots style the entire accordion item at once.</li>
+            <li><code>Class</code>: The basic CSS class name styles the wrapper of the accordion item.</li>
+            <li><code>Classes</code>: The CSS class names for the accordion item slots style the entire accordion item at once.</li>
         </ul>
     </div>
     <CustomStyles />
@@ -136,25 +115,25 @@
             new("Multiple"),
             new("Variants"),
             new("Subtitle"),
-            new("Start Content"),
-            new("Custom Indicator"),
-            new("Two-way Data Binding"),
+            new("Start content"),
+            new("Custom indicator"),
+            new("Two-way data binding"),
         ]),
-        new("Custom Styles"),
+        new("Custom styles"),
         new("API")
     };
 
     private readonly Slot[] _slots = new Slot[]
     {
-        new("base", "The overall container of the accordion item."),
-        new("heading", "The wrappper of the header section that includes the trigger."),
-        new("trigger", "The element that toggles the accordion open or closed."),
-        new("titleWrapper", "The wrappper of both the title and subtitle of the accordion item."),
-        new("title", "The main title of the accordion item."),
-        new("subtitle", "The secondary text beneath the title."),
-        new("startContent", "The content, such as icons, placed at the start of the accordion item."),
-        new("indicator", "The icon that indicates the accordion item’s expanded or collapsed state."),
-        new("content", "The wrappper of the body content of the accordion item.")
+        new(nameof(AccordionItemSlots.Root), "The overall container of the accordion item."),
+        new(nameof(AccordionItemSlots.Heading), "The wrappper of the header section that includes the trigger."),
+        new(nameof(AccordionItemSlots.Trigger), "The element that toggles the accordion open or closed."),
+        new(nameof(AccordionItemSlots.TitleWrapper), "The wrappper of both the title and subtitle of the accordion item."),
+        new(nameof(AccordionItemSlots.Title), "The main title of the accordion item."),
+        new(nameof(AccordionItemSlots.Subtitle), "The secondary text beneath the title."),
+        new(nameof(AccordionItemSlots.StartContent), "The content, such as icons, placed at the start of the accordion item."),
+        new(nameof(AccordionItemSlots.Indicator), "The icon that indicates the accordion item’s expanded or collapsed state."),
+        new(nameof(AccordionItemSlots.Content), "The wrappper of the body content of the accordion item.")
     };
 
     private readonly string[] _apiComponents = new string[]

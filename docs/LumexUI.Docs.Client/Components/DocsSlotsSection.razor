@@ -2,8 +2,8 @@
 
 <DocsSection Title="@Title">
     <p>
-        This component supports named slots that
-        allow you to apply custom CSS to specific parts of the component.
+        This component supports named slots, which allow custom 
+        styles to be applied to specific parts of the component:
     </p>
     <ul>
         @foreach( var slot in Slots )
@@ -23,6 +23,6 @@
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public string Title { get; set; } = "Custom Styles";
+    [Parameter] public string Title { get; set; } = "Custom styles";
     [Parameter, EditorRequired] public Slot[] Slots { get; set; } = default!;
 }
