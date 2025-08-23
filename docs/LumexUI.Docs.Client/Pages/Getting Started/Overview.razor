@@ -5,27 +5,18 @@
 
 <DocsSection Title="Introduction">
     <p>
-        LumexUI is an open-source project that offers a diverse collection of Blazor UI components,
+        LumexUI is an open-source project that offers a diverse set of beautifully designed Blazor components,
         all fully built with Tailwind CSS for streamlined and modern web development.
     </p>
     <p>
         These components are designed to be not only aesthetically pleasing but also highly customizable,
         allowing you to tailor them to meet your specific needs.
-        The library is optimized for performance,
-        ensuring that your applications remain fast and responsive.
+        The library is optimized for performance, ensuring that your applications remain fast and responsive.
     </p>
     <p>
-        We drew inspiration from
-        <LumexLink Href="https://heroui.org/"
-                   Color="@ThemeColor.None"
-                   External="@true">
-            HeroUI
-        </LumexLink>, a React component library,
-        in shaping the foundational ideas behind LumexUI.
-        HeroUI’s approach to using Tailwind CSS, its elegant design,
-        and robust customization system greatly influenced us.
-        Our goal is to bring these same principles to the Blazor ecosystem,
-        making them accessible to developers who prefer Blazor for their projects.
+        LumexUI’s foundations were influenced by modern React component libraries like HeroUI,
+        particularly in how they approach Tailwind CSS, design, and customization.
+        Our aim is to bring these principles into the Blazor ecosystem for developers who prefer working with Blazor.
     </p>
 </DocsSection>
 
@@ -40,11 +31,10 @@
     </ul>
 </DocsSection>
 
-<DocsSection Title="Pick Your Learning Path">
-    <p class="max-w-screen-sm">
+<DocsSection Title="What to read next">
+    <p>
         <strong>Ready to dive in?</strong>
-        Feel free to pick a learning path that suits your preference &ndash;
-        although we do recommend going over all of the content, if possible!
+        Choose a starting point that fits your needs – though we recommend exploring all sections if possible!
     </p>
 
     <ul class="not-prose grid grid-cols-1 gap-8 mt-8 md:grid-cols-2">
@@ -58,10 +48,37 @@
     </ul>
 </DocsSection>
 
-<DocsSection Title="Get involved">
+<DocsSection Title="Community">
     <p>
-        As we continue to develop and expand this project,
-        we invite you to contribute and help shape the future of LumexUI.
-        Together, we can build a powerful and flexible UI toolkit for the Blazor community.
+        We're excited to see the community adopt LumexUI, raise issues, and provide feedback.
+        Whether it's a feature request, bug report, or a project to showcase, please get involved!
     </p>
+
+    <div class="not-prose mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <LumexCard Shadow="@Shadow.None"
+                   Class="bg-slate-50 border border-default-900/5 transition-[border-color] hover:border-default-900/10 dark:bg-default-50">
+            <LumexCardBody Class="p-4">
+                <LumexLink External="@true"
+                           Href="@Constants.GitHub.Path"
+                           Color="@ThemeColor.None"
+                           Class="font-medium text-foreground-900 before:absolute before:inset-0">
+                    <GithubIcon Size="28" class="mr-3" />
+                    Github repository
+                </LumexLink>
+            </LumexCardBody>
+        </LumexCard>
+
+        <LumexCard Shadow="@Shadow.None"
+                   Class="bg-slate-50 border border-default-900/5 transition-[border-color] hover:border-default-900/10 dark:bg-default-50">
+            <LumexCardBody Class="p-4">
+                <LumexLink External="@true"
+                           Href="@Constants.Discord.Path"
+                           Color="@ThemeColor.None"
+                           Class="font-medium text-foreground-900 before:absolute before:inset-0">
+                    <DiscordIcon Size="28" class="mr-3 text-[#5865f2]" />
+                    Discord community
+                </LumexLink>
+            </LumexCardBody>
+        </LumexCard>
+    </div>
 </DocsSection>
