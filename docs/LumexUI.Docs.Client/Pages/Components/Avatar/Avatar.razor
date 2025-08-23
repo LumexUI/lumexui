@@ -6,76 +6,71 @@
 <DocsCompositionSection Components="@_compositionComponents" />
 
 <DocsSection Title="Usage">
-    <p>
-        The avatar component represents a user or entity 
-        with an image, initials, or a fallback icon.
-    </p>
     <Usage />
 
     <DocsSection Title="Bordered">
-        <p>Add a border around the avatar.</p>
+        <p>Use the <code>Bordered</code> parameter to add the border around the avatar.</p>
         <Bordered />
     </DocsSection>
 
     <DocsSection Title="Sizes">
-        <p>Customize the size of the avatar.</p>
+        <p>Use the <code>Size</code> parameter to set the size of the avatar.</p>
         <Sizes />
     </DocsSection>
 
     <DocsSection Title="Radius">
-        <p>Adjust the border radius to create circular or squared avatars.</p>
+        <p>Use the <code>Radius</code> parameter to set the border radius of the avatar.</p>
         <Radii />
     </DocsSection>
 
     <DocsSection Title="Colors">
-        <p>Set a background and border color for avatar.</p>
+        <p>Use the <code>Color</code> parameter to set the color of the avatar.</p>
         <Colors />
     </DocsSection>
 
     <DocsSection Title="Fallbacks">
         <p>When an image fails to load, a default fallback is displayed. There are 2 types of fallbacks:</p>
         <ul>
-            <li>If a <Code>Name</Code> is provided, it is used to generate initials.</li>
-            <li>If no <Code>Name</Code> is provided, a default avatar icon is displayed.</li>
+            <li>If a <code>Name</code> is provided, it is used to generate initials.</li>
+            <li>If no <code>Name</code> is provided, a default avatar icon is displayed.</li>
         </ul>
-        <p>If <Code>ShowFallback</Code> is set to <Code>false</Code>, fallbacks will not be displayed.</p>
+        <p>If the <code>ShowFallback</code> parameter is set to <code>false</code>, fallbacks will not be displayed.</p>
         <Fallbacks />
     </DocsSection>
 
-    <DocsSection Title="Custom Fallback">
-        <p>Use a custom content as a fallback when an image is unavailable.</p>
+    <DocsSection Title="Custom fallback">
+        <p>Use the <code>FallbackContent</code> parameter to set a custom fallback for the avatar.</p>
         <CustomFallback />
     </DocsSection>
 
-    <DocsSection Title="Custom Initials">
+    <DocsSection Title="Custom initials">
         <p>
-            You can customize the logic for generating initials by passing a function to the <Code>Initials</Code> parameter.
-            By default, the initials are created by combining the first characters of each word in the <Code>Name</Code> parameter.
+            By default, initials are created by combining the first characters of each word in the <code>Name</code> parameter.
+            This logic can be customized by passing a function to the <code>Initials</code> parameter.
         </p>
     </DocsSection>
 </DocsSection>
 
-<DocsSection Title="Avatar Group">
-    <p>The avatar group component displays multiple avatars together.</p>
+<DocsSection Title="Avatar group">
     <GroupUsage />
 
-    <DocsSection Title="Max Count">
-        <p>Limit the number of avatars displayed, grouping the rest into a counter.</p>
+    <DocsSection Title="Max count">
+        <p>Use the <code>Max</code> parameter to limit the number of avatars of the avatar group.</p>
         <GroupMaxCount />
     </DocsSection>
 
-    <DocsSection Title="Custom Count">
-        <p>Customize how the remaining avatars count is represented.</p>
+    <DocsSection Title="Custom count">
+        <p>Use the <code>CountContent</code> parameter to customize the counter of the avatar group.</p>
         <GroupCustomCount />
     </DocsSection>
 
     <DocsSection Title="Grid">
-        <p>Display avatars in a structured grid layout.</p>
+        <p>Use the <code>Grid</code> parameter to display the avatar group in a grid layout.</p>
         <GroupGrid />
     </DocsSection>
 </DocsSection>
 
-<DocsSection Title="Custom Styles">
+<DocsSection Title="Custom styles">
     <p>
         This component suppots named slots (represented as <code>data-*</code> attributes) that
         allow you to apply custom CSS to specific parts of the component.
@@ -87,7 +82,7 @@
             @foreach( var slot in slots )
             {
                 <li>
-                    <strong class="text-orange-500">@slot.Name:</strong> @slot.Description
+                    <strong class="text-orange-500 dark:text-orange-400">@slot.Name:</strong> @slot.Description
                 </li>
             }
         </ul>
@@ -100,15 +95,15 @@
     <div>
         <h4 class="font-semibold">Avatar</h4>
         <ul>
-            <li><Code>Class</Code>: The CSS class names to style the avatar wrapper.</li>
-            <li><Code>Classes</Code>: The CSS class names to style the avatar slots.</li>
+            <li><code>Class</code>: The CSS class names to style the avatar wrapper.</li>
+            <li><code>Classes</code>: The CSS class names to style the avatar slots.</li>
         </ul>
 
         <h4 class="font-semibold">Avatar Group</h4>
         <ul>
-            <li><Code>Class</Code>: The CSS class names to style the avatar group wrapper.</li>
-            <li><Code>Classes</Code>: The CSS class names to style the avatar group slots.</li>
-            <li><Code>AvatarClasses</Code>: The CSS class names to style the avatars slots.</li>
+            <li><code>Class</code>: The CSS class names to style the avatar group wrapper.</li>
+            <li><code>Classes</code>: The CSS class names to style the avatar group slots.</li>
+            <li><code>AvatarClasses</code>: The CSS class names to style the avatars slots.</li>
         </ul>
     </div>
     <CustomStyles />
@@ -134,15 +129,15 @@
             new("Radius"),
             new("Colors"),
             new("Fallbacks"),
-            new("Custom Fallback"),
-            new("Custom Initials"),
+            new("Custom fallback"),
+            new("Custom initials"),
         ]),
-        new("Avatar Group", [
-            new("Max Count"),
-            new("Custom Count"),
+        new("Avatar group", [
+            new("Max count"),
+            new("Custom count"),
             new("Grid")
         ]),
-        new("Custom Styles"),
+        new("Custom styles"),
         new("API")
     };
 
