@@ -17,7 +17,7 @@
             </LumexChip>
         </LumexLink>
 
-        <h1 class="max-w-4xl mt-6 font-semibold tracking-tight text-foreground-900 text-4xl text-balance xl:text-5xl">
+        <h1 class="max-w-4xl mt-6 font-semibold tracking-tight text-foreground-900 text-4xl sm:text-balance xl:text-5xl">
             Build beautiful websites effortlessly, no design skills required.
         </h1>
 
@@ -46,15 +46,7 @@
             <ThemeSelector />
         </div>
 
-        <div class="grid grid-rows-1 gap-4 lg:grid-flow-col lg:grid-cols-4">
-            <div class="space-y-4 sm:col-span-2 lg:col-start-3 lg:row-end-1">
-                <div class="grid grid-rows-1 gap-4 lg:grid-flow-col lg:grid-cols-2">
-                    <Usage />
-                    <TeamMembers />
-                </div>
-                <ShareAccess />
-                <UserTable />
-            </div>
+        <div class="flex flex-col gap-4 sm:grid sm:grid-rows-1 sm:grid-cols-2 lg:grid-flow-col lg:grid-cols-3 xl:grid-cols-4">       
             <div class="space-y-4 lg:row-span-2">
                 <ActivityGoal />
                 <CookieSettings />
@@ -64,6 +56,14 @@
                 <Stats />
                 <Authentication />
                 <PaymentMethod />
+            </div>
+            <div class="space-y-4 sm:col-span-2 lg:col-start-3 lg:row-end-1">
+                <div class="flex *:flex-1 flex-col gap-4 sm:flex-row lg:flex-col xl:flex-row">
+                    <Usage />
+                    <TeamMembers />
+                </div>
+                <ShareAccess />
+                <UserTable />
             </div>
         </div>
     </section>

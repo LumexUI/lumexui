@@ -43,7 +43,7 @@
             <div class="text-small text-foreground-900 font-medium">
                 People with access
             </div>
-            <div class="grid gap-6">
+            <div class="flex flex-col gap-6">
                 @_renderPeopleWithAccess
             </div>
         </div>
@@ -57,16 +57,17 @@
         foreach( var person in _peopleWithAccess )
         {
             <div class="flex items-center justify-between gap-4">
-                <div class="inline-flex items-center justify-center gap-3">
-                    <LumexAvatar Name="@person.Name"
+                <div class="min-w-0 inline-flex items-center justify-center gap-3">
+                    <LumexAvatar Bordered="@true"
+                                 Src="@person.Avatar"
+                                 Name="@person.Name"
                                  Size="@Size.Small"
                                  Color="@ThemeColor"
-                                 Bordered="@true"
-                                 Src="@person.Avatar" />
+                                 Class="shrink-0" />
 
-                    <div class="inline-flex flex-col items-start">
-                        <span class="text-small font-medium">@person.Name</span>
-                        <span class="text-tiny text-foreground-500">@person.Email</span>
+                    <div class="min-w-0 inline-flex flex-col items-start">
+                        <span class="w-full truncate text-small font-medium">@person.Name</span>
+                        <span class="w-full truncate text-tiny text-foreground-500">@person.Email</span>
                     </div>
                 </div>
 
