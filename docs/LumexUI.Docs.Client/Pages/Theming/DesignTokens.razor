@@ -1,15 +1,14 @@
-﻿@page "/docs/theming"
-@page "/docs/theming/design-tokens"
+﻿@page "/docs/theming/design-tokens"
 @layout DocsContentLayout
 
 <p>
-    LumexUI uses CSS variables as design tokens to enable easy, consistent customization of your UI.
+    LumexUI uses CSS variables as design tokens to enable easy, consistent customization of the UI.
     These variables are applied globally and consumed by all components for layout, color, and typography styling.
 </p>
 
 <DocsSection Title="Convention">
     <p>
-        We use a simple <code>background</code> and <code>foreground</code> convention for <LumexLink Href="/docs/theming/design-tokens#colors">colors</LumexLink>.
+        We use a simple <code>background</code> and <code>foreground</code> convention for colors.
         The <code>background</code> variable is used for the background color of the component
         and the <code>foreground</code> variable is used for the text color.
     </p>
@@ -32,8 +31,8 @@
     <CodeSnippet Code="@(new CodeBlock( name: null, snippet: "designTokensConventionHtml" ))" />
 
     <p>
-        For <LumexLink Href="/docs/theming/design-tokens#layout">layout</LumexLink> CSS variables, we follow the
-        <LumexLink Href="https://tailwindcss.com/docs/theme" External="@true">Tailwind CSS convention</LumexLink>
+        For layout CSS variables, we follow the
+        <LumexLink Href="https://tailwindcss.com/docs/theme#default-theme-variable-reference" External="@true">Tailwind CSS convention</LumexLink>
         but add a <code>lumex-</code> prefix.
     </p>
 </DocsSection>
@@ -82,9 +81,9 @@
     protected override void OnInitialized()
     {
         Layout.Initialize(
-            title: "Design Tokens",
+            title: "Design tokens",
             category: "Theming",
-            description: "Using CSS Variables and color utilities for theming.",
+            description: "Using CSS variables and color utilities for theming.",
             _headings
         );
     }

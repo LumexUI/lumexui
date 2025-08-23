@@ -9,13 +9,13 @@ public class NavigationStore
 	private static Navigation? _navigation;
 
 	private static NavigationCategory GettingStartedCategory =>
-		new NavigationCategory( "Getting Started" )
+		new NavigationCategory( "Getting started" )
 			.Add( new( "Overview" ) )
 			.Add( new( "Installation" ) );
 
 	private static NavigationCategory ThemingCategory =>
 		new NavigationCategory( "Theming" )
-			.Add( new( "Design Tokens", PageStatus.New ) )
+			.Add( new( "Design tokens", PageStatus.New ) )
 			.Add( new( "Customization", PageStatus.Updated ) )
 			.Add( new( "Dark Mode", PageStatus.New ) );
 
