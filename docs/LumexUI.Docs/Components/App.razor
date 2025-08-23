@@ -14,10 +14,11 @@
     <script>
         const stored = localStorage.getItem("lumexui.theme") || "system";
         const theme = stored === "system"
-            ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+            ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
             : stored;
         document.documentElement.classList.add(theme);
         document.documentElement.style.colorScheme = theme;
+        localStorage.setItem("lumexui.theme", theme);
     </script>
 </head>
 
