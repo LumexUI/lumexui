@@ -10,15 +10,17 @@
 {
     var aggregatorComponentName = GetAggregatorComponentName( _component ).Replace( "Lumex", "" );
 
-    <DocsSection Title="Examples">
-        <Callout Variant="@CalloutVariant.Tip">
-            For examples and details on the usage of this component, visit the component demo page:
-            <LumexLink Href="@($"docs/components/{aggregatorComponentName.SplitPascalCase().ToKebabCase()}")"
-                       Color="@ThemeColor.None"
-                       Class="font-semibold">
-                @aggregatorComponentName
-            </LumexLink>
-        </Callout>
+    <DocsSection Title="Demos">
+        <LumexAlert Radius="@Radius.Large" Color="@ThemeColor.Secondary">
+            <DescriptionContent>
+                For examples and details on the usage of this component, visit the component demo page:
+                <LumexLink Href="@($"docs/components/{aggregatorComponentName.SplitPascalCase().ToKebabCase()}")"
+                           Color="@ThemeColor.None"
+                           Class="font-medium">
+                    @aggregatorComponentName
+                </LumexLink>
+            </DescriptionContent>
+        </LumexAlert>
     </DocsSection>
 }
 
@@ -39,7 +41,7 @@
                     @foreach( var property in _properties )
                     {
                         <tr>
-                            <td class="text-orange-500">@property.Name</td>
+                            <td class="text-orange-500 dark:text-orange-400">@property.Name</td>
                             <td class="max-w-44 overflow-x-auto scrollbar:h-1 scrollbar:w-1 scrollbar-thumb:rounded-sm scrollbar-thumb:bg-foreground-200 scrollbar-track:rounded-sm scrollbar-track:bg-foreground-100">
                                 <Code>@GetTypeName( property.PropertyType )</Code>
                             </td>

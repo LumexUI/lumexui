@@ -21,10 +21,13 @@
 
         <p>Alternatively, you can prevent user interaction by disabling specific tabs.</p>
         <DisabledItems />
-        <Callout Variant="@CalloutVariant.Warning">
-            It's important to set a unique <Code>Id</Code> for each tab,
-            otherwise the disabled items will not work.
-        </Callout>
+
+        <LumexAlert Radius="@LumexUI.Common.Radius.Large" Color="@ThemeColor.Warning" Class="my-6 [&_code]:text-current">
+            <DescriptionContent>
+                It's important to set a unique <code>Id</code> for each tab,
+                otherwise the disabled items will not work.
+            </DescriptionContent>
+        </LumexAlert>
     </DocsSection>
 
     <DocsSection Title="Sizes">
