@@ -17,7 +17,7 @@ public class NavigationStore
 		new NavigationCategory( "Theming" )
 			.Add( new( "Design tokens", PageStatus.New ) )
 			.Add( new( "Customization", PageStatus.Updated ) )
-			.Add( new( "Dark Mode", PageStatus.New ) );
+			.Add( new( "Dark mode", PageStatus.New ) );
 
 	private static NavigationCategory ComponentsCategory =>
 		new NavigationCategory( "Components" )

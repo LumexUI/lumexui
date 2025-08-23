@@ -11,12 +11,12 @@
     <CodeSnippet Code="@(new CodeBlock( name: "App.razor", snippet: "darkModeRoot" ))" />
 </DocsSection>
 
-<DocsSection Title="Mode toggling">
-    <p>LumexUI provides a simple mechanism for switching themes, which consists of two key parts:</p>
+<DocsSection Title="Theme toggling">
+    <p>LumexUI offers a simple theme-switching mechanism made up of two key parts:</p>
 
     <ul>
         <li><strong>A theme provider</strong> component that sets the initial theme on first load.</li>
-        <li><strong>A theme service</strong> that allows you to change the theme dynamically.</li>
+        <li><strong>A theme service</strong> that enables dynamic theme changes at runtime.</li>
     </ul>
 
     <DocsSection Title="Add the theme provider">
@@ -26,20 +26,16 @@
 
         <LumexAlert Radius="@Radius.Large">
             <DescriptionContent>
-                <p class="mt-0 mb-3">
+                <p class="my-0!">
                     The <code>LumexThemeProvider</code> component requires interactivity.
                     If you're using the Blazor Web App template, make sure to apply the appropriate <code>@@rendermode</code>.
                 </p>
-                <LumexLink Href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/render-modes?view=aspnetcore-9.0"
-                           External="@true">
-                    Learn more about render modes
-                </LumexLink>
             </DescriptionContent>
         </LumexAlert>
     </DocsSection>
 
     <DocsSection Title="Add a mode toggle">
-        <p>Place a mode toggle on your site to toggle between light and dark mode.</p>
+        <p>Add a mode toggle to the UI for switching between light and dark modes.</p>
         <ThemeTogglePreview />
     </DocsSection>
 </DocsSection>
@@ -51,7 +47,7 @@
     {
         new("Global dark mode"),
         new("Mode toggling", [
-            new("Setup"),
+            new("Add the theme provider"),
             new("Add a mode toggle"),
         ]),
     };
@@ -59,9 +55,9 @@
     protected override void OnInitialized()
     {
         Layout.Initialize(
-            title: "Dark Mode",
+            title: "Dark mode",
             category: "Theming",
-            description: "Adding dark mode to your app.",
+            description: "Adding dark mode support to the application.",
             _headings
         );
     }
