@@ -2,8 +2,8 @@
 @layout DocsContentLayout
 
 <p>
-    LumexUI supports a flexible, CSS-first theming system that allows you to customize the look and feel of components using global CSS variables.
-    These variables can be overridden globally or scoped to specific themes using CSS selectors like class or data-attribute.
+    LumexUI provides a flexible, CSS-first theming system that lets you customize component styling through global CSS variables. 
+    These variables can be overridden globally or scoped to specific themes using selectors such as classes or data attributes.
 </p>
 
 <DocsSection Title="Global theme">
@@ -17,10 +17,10 @@
 
     <Preview>
         <div class="w-full flex items-center justify-center gap-4">
-            <LumexButton Radius="@Radius.Medium" Disabled="@true">Default button</LumexButton>
+            <LumexButton>Default button</LumexButton>
 
             <div class="theme-example-global">
-                <LumexButton Radius="@Radius.Medium" Disabled="@true">Custom button</LumexButton>
+                <LumexButton>Custom button</LumexButton>
             </div>
         </div>
     </Preview>
@@ -28,14 +28,14 @@
 
 <DocsSection Title="Custom themes">
     <p>
-        You can define custom themes using CSS selectors like class or data-attribute.
-        Components inside an element with a matching selector will use the overridden variables.
+        Custom themes can be defined using CSS selectors such as classes or data attributes. 
+        Components within elements that match these selectors will automatically use the overridden variables.
     </p>
-    <p>For example, to create a custom theme named "orange", you can define the following CSS variables:</p>
+    <p>As an example, a custom theme named <i>orange</i> can be created by defining these CSS variables:</p>
 
     <CodeSnippet Code="@(new CodeBlock( name: "orange.css", snippet: "customizationCustom" ))" />
 
-    <p>To apply a theme at runtime, toggle the class on a wrapper element such as <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code>.</p>
+    <p>Applying a theme at runtime can be done by toggling the class on a wrapper element like <code>@("<html>")</code> or <code>@("<body>")</code>.</p>
 
     <CodeSnippet Code="@(new CodeBlock( name: "App.razor", snippet: "customizationToggle" ))" />
     <CustomThemesPreview />
@@ -55,7 +55,7 @@
         Layout.Initialize(
             title: "Customization",
             category: "Theming",
-            description: "Customizing the default theme.",
+            description: "Customizing the default theme using CSS variables.",
             _headings
         );
     }

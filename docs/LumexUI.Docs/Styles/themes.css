@@ -1,6 +1,7 @@
 ﻿.theme-example-global {
+    --lumex-default: var(--color-black);
+    --lumex-default-foreground: var(--color-white);
     --lumex-radius-medium: .25rem;
-    --lumex-opacity-disabled: 0.5;
 }
 
 .theme-example-custom {
