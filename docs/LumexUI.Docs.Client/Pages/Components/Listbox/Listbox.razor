@@ -168,12 +168,12 @@
     private readonly Dictionary<string, Slot[]> _slots = new()
     {
         [nameof(LumexListbox<T>)] = [
-            new(nameof(ListboxSlots.Root), "The main container for the entire listbox component."),
+            new(nameof(ListboxSlots.Base), "The main container for the entire listbox component."),
             new(nameof(ListboxSlots.List), "The wrapper for the list items, containing all listbox items."),
             new(nameof(ListboxSlots.EmptyContent), "The area displayed when the list is empty."),
         ],
         [nameof(LumexListboxItem<T>)] = [
-            new(nameof(ListboxItemSlots.Root), "The main container for the listbox item."),
+            new(nameof(ListboxItemSlots.Base), "The main container for the listbox item."),
             new(nameof(ListboxItemSlots.Wrapper), "The wrapper for the title, description, and icons."),
             new(nameof(ListboxItemSlots.Title), "The title of the listbox item."),
             new(nameof(ListboxItemSlots.Description), "The description of the listbox item."),

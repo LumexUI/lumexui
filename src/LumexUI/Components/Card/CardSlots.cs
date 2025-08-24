@@ -9,17 +9,11 @@ using LumexUI.Common;
 namespace LumexUI;
 
 /// <summary>
-/// Represents the slot names for the <see cref="LumexCard"/>, 
-/// used to assign CSS classes to different parts of the component.
+/// Represents the set of customizable slots for the <see cref="LumexCard"/> component.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class CardSlots : ISlot
+public class CardSlots : SlotBase
 {
-	/// <summary>
-	/// Gets or sets the CSS class for the root slot.
-	/// </summary>
-	public string? Root { get; set; }
-
 	/// <summary>
 	/// Gets or sets the CSS class for the header slot.
 	/// </summary>

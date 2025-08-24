@@ -39,10 +39,10 @@ internal class Listbox
     {
         return new ListboxSlots()
         {
-            Root = twMerge.Merge(
+            Base = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _base )
-                    .Add( listbox.Classes?.Root )
+                    .Add( listbox.Classes?.Base )
                     .Add( listbox.Class )
                     .ToString() ),
 
@@ -122,14 +122,14 @@ internal class ListboxItem
 
         return new ListboxItemSlots()
         {
-            Root = twMerge.Merge(
+			Base = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _base )
                     .Add( _disabled, when: listboxItem.GetDisabledState() )
                     .Add( GetVariantStyles( listboxItem.Variant, slot: nameof( _base ) ) )
                     .Add( GetCompoundStyles( listboxItem.Variant, listboxItem.Color, slot: nameof( _base ) ) )
-                    .Add( listbox?.ItemClasses?.Root )
-                    .Add( listboxItem.Classes?.Root )
+                    .Add( listbox?.ItemClasses?.Base )
+                    .Add( listboxItem.Classes?.Base )
                     .Add( listboxItem.Class )
                     .ToString() ),
 

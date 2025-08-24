@@ -133,11 +133,11 @@ internal class DataGrid
     {
         return new DataGridSlots()
         {
-            Root = twMerge.Merge(
+            Base = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _base )
                     .Add( dataGrid.Class )
-                    .Add( dataGrid.Classes?.Root )
+                    .Add( dataGrid.Classes?.Base )
                     .ToString() ),
 
             Wrapper = twMerge.Merge(

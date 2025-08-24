@@ -173,7 +173,7 @@ internal readonly record struct Navbar
             .Add( _sticky, when: navbar.Sticky )
             .Add( _bordered, when: navbar.Bordered )
             .Add( GetBlurredStyles( navbar.Blurred, slot: nameof( _base ) ) )
-            .Add( navbar.Classes?.Root )
+            .Add( navbar.Classes?.Base )
             .Add( navbar.Class )
             .ToString();
     }

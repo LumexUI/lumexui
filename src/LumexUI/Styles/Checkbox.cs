@@ -150,8 +150,8 @@ internal readonly record struct Checkbox
         return ElementClass.Empty()
             .Add( _base )
             .Add( _disabled, when: checkbox.GetDisabledState() )
-            .Add( checkboxGroup?.CheckboxClasses?.Root )
-            .Add( checkbox.Classes?.Root )
+            .Add( checkboxGroup?.CheckboxClasses?.Base )
+            .Add( checkbox.Classes?.Base )
             .Add( checkbox.Class )
             .ToString();
     }
@@ -225,7 +225,7 @@ internal readonly record struct CheckboxGroup
     {
         return ElementClass.Empty()
             .Add( _base )
-            .Add( checkboxGroup.Classes?.Root )
+            .Add( checkboxGroup.Classes?.Base )
             .Add( checkboxGroup.Class )
             .ToString();
     }

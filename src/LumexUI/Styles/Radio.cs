@@ -169,8 +169,8 @@ internal static class Radio
         return ElementClass.Empty()
             .Add( _base )
             .Add( _disabled, when: radio.GetDisabledState() )
-            .Add( radioGroup.RadioClasses?.Root )
-            .Add( radio.Classes?.Root )
+            .Add( radioGroup.RadioClasses?.Base )
+            .Add( radio.Classes?.Base )
             .Add( radio.Class )
             .ToString();
     }
@@ -270,7 +270,7 @@ internal static class RadioGroup
     {
         return ElementClass.Empty()
             .Add( _base )
-            .Add( radioGroup.Classes?.Root )
+            .Add( radioGroup.Classes?.Base )
             .Add( radioGroup.Class )
             .ToString();
     }

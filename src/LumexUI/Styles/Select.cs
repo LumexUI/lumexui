@@ -122,14 +122,14 @@ internal class Select
     {
         return new SelectSlots()
         {
-            Root = twMerge.Merge(
+			Base = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _base )
                     .Add( _fullWidth, when: select.FullWidth )
                     .Add( GetDisabledStyles( slot: nameof( _base ) ), when: select.Disabled )
                     .Add( GetLabelPlacementStyles( select.LabelPlacement, slot: nameof( _base ) ) )
                     .Add( GetCompoundStyles( select.LabelPlacement, select.Size, slot: nameof( _base ) ) )
-                    .Add( select.Classes?.Root )
+                    .Add( select.Classes?.Base )
                     .Add( select.Class )
                     .ToString() ),
 

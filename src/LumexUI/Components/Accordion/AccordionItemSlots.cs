@@ -13,13 +13,8 @@ namespace LumexUI;
 /// used to assign CSS classes to different parts of the component.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class AccordionItemSlots : ISlot
+public class AccordionItemSlots : SlotBase
 {
-	/// <summary>
-	/// Gets or sets the CSS class for the root slot.
-	/// </summary>
-	public string? Root { get; set; }
-
 	/// <summary>
 	/// Gets or sets the CSS class for the heading slot.
 	/// </summary>

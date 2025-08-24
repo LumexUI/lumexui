@@ -4,15 +4,12 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-using LumexUI.Common;
-
 namespace LumexUI;
 
 /// <summary>
-/// Represents the slot names for the <see cref="LumexTooltip"/>, 
-/// used to assign CSS classes to different parts of the component.
+/// Represents the set of customizable slots for the <see cref="LumexTooltip"/> component.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class TooltipSlots : PopoverSlots, ISlot
+public class TooltipSlots : PopoverSlots
 {
 }

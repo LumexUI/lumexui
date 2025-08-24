@@ -149,7 +149,7 @@ internal readonly record struct Switch
         return ElementClass.Empty()
             .Add( _base )
             .Add( _disabled, when: @switch.Disabled )
-            .Add( @switch.Classes?.Root )
+            .Add( @switch.Classes?.Base )
             .Add( @switch.Class )
             .ToString();
     }

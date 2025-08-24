@@ -78,11 +78,11 @@ internal class Tabs
 	{
 		return new TabsSlots()
 		{
-			Root = twMerge.Merge(
+			Base = twMerge.Merge(
 				ElementClass.Empty()
 					.Add( _base )
 					.Add( GetFullWidthStyles( tabs.FullWidth, slot: nameof( _base ) ) )
-					.Add( tabs.Classes?.Root )
+					.Add( tabs.Classes?.Base )
 					.Add( tabs.Class )
 					.ToString() ),
 

@@ -9,23 +9,11 @@ using LumexUI.Common;
 namespace LumexUI;
 
 /// <summary>
-/// Represents the slot names for the <see cref="LumexAlert"/>, 
-/// used to assign CSS classes to different parts of the component.
+/// Represents the set of customizable slots for the <see cref="LumexAlert"/> component.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class AlertSlots : ISlot
+public class AlertSlots : SlotBase
 {
-	/// <summary>
-	/// Gets or sets the CSS class for the root slot.
-	/// </summary>
-	[Obsolete( "Deprecated. This will be removed in the future releases. Use the 'Base' slot instead." )]
-	public string? Root { get; }
-
-	/// <summary>
-	/// Gets or sets the CSS class for the base slot.
-	/// </summary>
-	public string? Base { get; set; }
-
 	/// <summary>
 	/// Gets or sets the CSS class for the main wrapper slot.
 	/// </summary>

@@ -1619,7 +1619,7 @@ function waitForElement(selector) {
     });
 }
 
-function portalTo(element, selector = undefined) {
+function portal(element, selector = undefined) {
     if (!(element instanceof HTMLElement)) {
         throw new Error('The provided element is not a valid HTMLElement.');
     }
@@ -1637,44 +1637,26 @@ function portalTo(element, selector = undefined) {
     }
 }
 
-function createOutsideClickHandler(elements) {
-    const clickHandler = event => {
-        const isInsideAny = elements.some(el => el && el.contains(event.target));
-
-        console.log('hi');
-        if (!isInsideAny) {
-            console.log('hi 2');
-            elements.forEach(el =>
-                el?.dispatchEvent(new CustomEvent('clickoutside', { bubbles: true }))
-            );
-        }
-    };
-
-    document.body.addEventListener('click', clickHandler);
-
-    return () => {
-        console.log('destroy');
-        document.body.removeEventListener('click', clickHandler);
-    };
-}
-
 // Copyright (c) LumexUI 2024
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 
-let destroyOutsideClickHandler;
 let cleanupAutoUpdate;
 
 async function initialize(id, options) {
     try {
         const popover = await waitForElement(`[data-popover=${id}]`);
+        const overlay = document.querySelector(`[data-popover-overlay=${id}]`);
         const target = document.querySelector(`[data-popovertarget=${id}]`);
         const arrowElement = popover.querySelector('[data-slot=arrow]');
         const ref = target.children.length === 1 ? target.firstElementChild : target;
 
-        portalTo(popover);
-        destroyOutsideClickHandler = createOutsideClickHandler([ref, popover]);
+        portal(popover);
+
+        if (overlay) {
+            portal(overlay);
+        }
 
         const {
             offset: offsetVal,
@@ -1754,11 +1736,6 @@ async function initialize(id, options) {
 }
 
 function destroy() {
-    if (destroyOutsideClickHandler) {
-        destroyOutsideClickHandler();
-        destroyOutsideClickHandler = null;
-    }
-
     if (cleanupAutoUpdate) {
         cleanupAutoUpdate();
         cleanupAutoUpdate = null;

@@ -7,15 +7,10 @@ using LumexUI.Common;
 namespace LumexUI;
 
 /// <summary>
-/// Represents a collection of customizable slots for styling <see cref="LumexTabs"/>.
+/// Represents the set of customizable slots for the <see cref="LumexTabs"/> component.
 /// </summary>
-public class TabsSlots : ISlot
+public class TabsSlots : SlotBase
 {
-	/// <summary>
-	/// Gets or sets the CSS class for the root container of the tabs component.
-	/// </summary>
-	public string? Root { get; set; }
-
 	/// <summary>
 	/// Gets or sets the CSS class for the tab list container that holds all tabs.
 	/// </summary>

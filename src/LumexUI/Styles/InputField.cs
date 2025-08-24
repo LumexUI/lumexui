@@ -487,7 +487,7 @@ internal static class InputField
 			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _base ) ) )
 			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _base ) ), when: input.LabelPlacement is LabelPlacement.Outside )
 			.Add( input.Class )
-			.Add( input.Classes?.Root )
+			.Add( input.Classes?.Base )
 			.ToString();
 	}
 

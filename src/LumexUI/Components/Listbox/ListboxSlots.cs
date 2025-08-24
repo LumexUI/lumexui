@@ -5,17 +5,11 @@ using LumexUI.Common;
 namespace LumexUI;
 
 /// <summary>
-/// Represents a collection of customizable slots for styling various 
-/// elements within the <see cref="LumexListbox{TValue}"/>.
+/// Represents the set of customizable slots for the <see cref="LumexListbox{TValue}"/> component.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class ListboxSlots : ISlot
+public class ListboxSlots : SlotBase
 {
-    /// <summary>
-    /// Gets or sets the CSS class for the root slot.
-    /// </summary>
-    public string? Root { get; set; }
-
     /// <summary>
     /// Gets or sets the CSS class for the list slot.
     /// </summary>

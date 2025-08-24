@@ -9,17 +9,11 @@ using LumexUI.Common;
 namespace LumexUI;
 
 /// <summary>
-/// Represents the slot names for the <see cref="LumexCheckbox"/>, 
-/// used to assign CSS classes to different parts of the component.
+/// Represents the set of customizable slots for the <see cref="LumexCheckbox"/> component.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class CheckboxSlots : ISlot
+public class CheckboxSlots : SlotBase
 {
-	/// <summary>
-	/// Gets or sets the CSS class for the root slot.
-	/// </summary>
-	public string? Root { get; set; }
-
 	/// <summary>
 	/// Gets or sets the CSS class for the wrapper slot.
 	/// </summary>

@@ -5,16 +5,11 @@ using LumexUI.Common;
 namespace LumexUI;
 
 /// <summary>
-/// Style slots for <see cref="LumexRadio{TValue}"/>
+/// Represents the set of customizable slots for the <see cref="LumexRadio{TValue}"/> component.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class RadioSlots : ISlot
-{
-    /// <summary>
-    /// Radio root wrapper, it wraps all elements.
-    /// </summary>
-    public string? Root { get; set; }
-    
+public class RadioSlots : SlotBase
+{   
     /// <summary>
     /// Radio wrapper, it wraps the control element.
     /// </summary>

@@ -7,7 +7,7 @@ public partial class PaymentMethod : ExampleComponentBase
 {
 	private RadioSlots RadioClasses => new()
 	{
-		Root = ElementClass.Empty()
+		Base = ElementClass.Empty()
 			.Add( "flex-1 max-w-none p-4 m-0 justify-center" )
 			.Add( "rounded-medium border-2" )
 			.Add( "transition-colors" )

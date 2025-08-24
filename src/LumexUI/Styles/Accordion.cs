@@ -98,8 +98,8 @@ internal readonly record struct AccordionItem
         return ElementClass.Empty()
             .Add( _base )
             .Add( _disabled, when: accordionItem.GetDisabledState() )
-            .Add( accordion.ItemClasses?.Root )
-            .Add( accordionItem.Classes?.Root )
+            .Add( accordion.ItemClasses?.Base )
+            .Add( accordionItem.Classes?.Base )
             .Add( accordionItem.Class )
             .ToString();
     }

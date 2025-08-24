@@ -5,12 +5,12 @@
 namespace LumexUI.Common;
 
 /// <summary>
-/// Defines a contract for a slot that provides styling customization through CSS class properties.
+/// Represents the base class for defining a slot with customizable CSS styling.
 /// </summary>
-public interface ISlot
+public abstract class SlotBase
 {
 	/// <summary>
-	/// Gets the CSS class for the root element of the slot.
+	/// Gets or sets the CSS class applied to the base slot.
 	/// </summary>
-	string? Root { get; }
+	public string? Base { get; set; }
 }

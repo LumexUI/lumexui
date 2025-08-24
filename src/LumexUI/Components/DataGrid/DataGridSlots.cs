@@ -5,16 +5,11 @@ using LumexUI.Common;
 namespace LumexUI;
 
 /// <summary>
-/// Represents a collection of customizable slots for styling various elements within the data grid.
+/// Represents the set of customizable slots for the <see cref="LumexDataGrid{T}"/> component.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class DataGridSlots : ISlot
+public class DataGridSlots : SlotBase
 {
-    /// <summary>
-    /// Gets or sets the CSS class names for the base container of the data grid.
-    /// </summary>
-    public string? Root { get; set; }
-
     /// <summary>
     /// Gets or sets the CSS class names for the wrapper 
     /// element that surrounds the data grid.

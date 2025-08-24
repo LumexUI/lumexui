@@ -297,8 +297,8 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     {
         return new PopoverSlots
         {
-            Root = ElementClass.Empty()
-                .Add( PopoverClasses?.Root )
+            Base = ElementClass.Empty()
+                .Add( PopoverClasses?.Base )
                 .ToString(),
 
             Content = ElementClass.Empty()
@@ -321,10 +321,10 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
     {
         return new ListboxSlots
         {
-            Root = ElementClass.Empty()
+            Base = ElementClass.Empty()
                 .Add( _slots.Listbox )
                 .Add( Classes?.Listbox )
-                .Add( ListboxClasses?.Root )
+                .Add( ListboxClasses?.Base )
                 .ToString(),
 
             List = ElementClass.Empty()
