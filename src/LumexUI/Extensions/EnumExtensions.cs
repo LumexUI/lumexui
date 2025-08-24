@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace LumexUI.Extensions;
 
-public static class EnumExtensions
+internal static class EnumExtensions
 {
 	public static string ToDescription( this Enum value )
 	{
