@@ -14,7 +14,7 @@
 
     <DocsSection Title="Dividers">
         <p>
-            You can add <code>LumexDivider</code> component between different 
+            You can add <code>LumexDivider</code> component between different
             sections of the card for a clearer separation of content.
         </p>
         <Dividers />
@@ -96,10 +96,10 @@
 
     private readonly Slot[] _slots = new Slot[]
     {
-        new("base", "The overall container of the card."),
-        new("header", "The wrapper of the top section of the card, where you can place titles."),
-        new("body", "The wrapper of the main content of the card."),
-        new("footer", "The wrapper of the bottom section of the card, where you can place actions."),
+        new(nameof(CardSlots.Base), "The overall container of the card."),
+        new(nameof(CardSlots.Header), "The wrapper of the top section of the card, where you can place titles."),
+        new(nameof(CardSlots.Body), "The wrapper of the main content of the card."),
+        new(nameof(CardSlots.Footer), "The wrapper of the bottom section of the card, where you can place actions."),
     };
 
     private readonly string[] _apiComponents = new string[]
