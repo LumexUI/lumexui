@@ -1,18 +1,14 @@
 ﻿@namespace LumexUI.Tests.Components
 @inherits TestContext
 
-@using Microsoft.Extensions.DependencyInjection
-@using LumexUI.Services
-@using TailwindMerge
-
 @code {
     public SelectTests()
     {
         Services.AddSingleton<TwMerge>();
 
-        var module = JSInterop.SetupModule("./_content/LumexUI/js/components/popover.bundle.js");
-        module.SetupVoid("popover.initialize", _ => true);
-        module.SetupVoid("popover.destroy", _ => true);
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/popover.bundle.js" );
+        module.SetupVoid( "popover.initialize", _ => true );
+        module.SetupVoid( "popover.destroy", _ => true );
     }
 
     [Fact]
@@ -37,7 +33,7 @@
         var cut = Render<LumexSelect<string>>(
             @<LumexSelect TValue="string">
                 <ChildContent>
-                    @foreach(var animal in animals)
+                    @foreach( var animal in animals )
                     {
                         <LumexSelectItem Value="@animal">@animal</LumexSelectItem>
                     }
@@ -48,10 +44,10 @@
             </LumexSelect>
         );
 
-        cut.Find("[data-slot=trigger]").Click();
-        cut.Find("li").Click();
+        cut.Find( "[data-slot=trigger]" ).Click();
+        cut.Find( "li" ).Click();
 
-        cut.Find("[data-slot=value]").TextContent.Should().Be("next penguin");
+        cut.Find( "[data-slot=value]" ).TextContent.Should().Be( "next penguin" );
     }
 
     [Fact]
@@ -65,16 +61,16 @@
             </LumexSelect>
         );
 
-        cut.Find("[data-slot=description]").Should().NotBeNull();
+        cut.Find( "[data-slot=description]" ).Should().NotBeNull();
     }
 
     [Fact]
     public void ShouldRenderErrorMessageWhenInvalid()
     {
         var cut = Render<LumexSelect<string>>(
-            @<LumexSelect TValue="string" 
+            @<LumexSelect TValue="string"
                           Label="Favorite Animal"
-                          ErrorMessage="You should select a zebra" 
+                          ErrorMessage="You should select a zebra"
                           Invalid="@true">
                 <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
                 <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
@@ -82,7 +78,7 @@
             </LumexSelect>
         );
 
-        cut.Find("[data-slot=error-message]").Should().NotBeNull();
+        cut.Find( "[data-slot=error-message]" ).Should().NotBeNull();
     }
 
     [Fact]
@@ -96,7 +92,7 @@
             </LumexSelect>
         );
 
-        cut.Instance.LabelPlacement.Should().Be(LabelPlacement.Outside);
+        cut.Instance.LabelPlacement.Should().Be( LabelPlacement.Outside );
     }
 
     [Fact]
@@ -111,13 +107,13 @@
             </LumexSelect>
         );
 
-        cut.Find("[data-slot=trigger]").Click();
+        cut.Find( "[data-slot=trigger]" ).Click();
 
-        var items = cut.FindAll("li");
+        var items = cut.FindAll( "li" );
         items[0].Click();
 
-        selectedValue.Should().Be("penguin");
-        cut.Instance.Value.Should().Be("penguin");
+        selectedValue.Should().Be( "penguin" );
+        cut.Instance.Value.Should().Be( "penguin" );
     }
 
     [Fact]
@@ -132,16 +128,56 @@
             </LumexSelect>
         );
 
-        cut.Find("[data-slot=trigger]").Click();
+        cut.Find( "[data-slot=trigger]" ).Click();
 
-        var items = cut.FindAll("li");
+        var items = cut.FindAll( "li" );
         items[0].Click();
         items[1].Click();
 
-        selectedValues.Should().HaveCount(2);
-        selectedValues.Should().Contain("penguin").And.Contain("zebra");
-        cut.Instance.Values.Should().HaveCount(2);
-        cut.Instance.Values.Should().Contain("penguin").And.Contain("zebra");
+        selectedValues.Should().HaveCount( 2 );
+        selectedValues.Should().Contain( "penguin" ).And.Contain( "zebra" );
+        cut.Instance.Values.Should().HaveCount( 2 );
+        cut.Instance.Values.Should().Contain( "penguin" ).And.Contain( "zebra" );
+    }
+
+    [Fact]
+    public void ShouldSelectItemAfterAsyncInitialization()
+    {
+        var selectedValue = default(string);
+        var cut = Render(
+            @<OnInitializedAsyncWrapper Action="@(() => selectedValue = "penguin")">
+                <LumexSelect Label="Favorite Animal" @bind-Value="@selectedValue">
+                    <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
+                    <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
+                    <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
+                </LumexSelect>
+            </OnInitializedAsyncWrapper>
+        );
+
+        cut.WaitForAssertion( () =>
+        {
+            cut.FindBySlot( "value" )?.TextContent.Should().Be( "penguin" );
+        } );
+    }
+
+    [Fact]
+    public void ShouldSelectItemsAfterAsyncInitialization()
+    {
+        ICollection<string> selectedValues = [];
+        var cut = Render(
+            @<OnInitializedAsyncWrapper Action="@(() => selectedValues = ["penguin"])">
+                <LumexSelect Label="Favorite Animal" @bind-Values="@selectedValues">
+                    <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
+                    <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
+                    <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
+                </LumexSelect>
+            </OnInitializedAsyncWrapper>
+        );
+
+        cut.WaitForAssertion( () =>
+        {
+            cut.FindBySlot( "value" )?.TextContent.Should().Be( "penguin" );
+        } );
     }
 
     [Fact]
@@ -154,9 +190,9 @@
                 <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
             </LumexSelect>
         );
-        var action = () => cut.Find("[data-slot=listbox]");
+        var action = () => cut.Find( "[data-slot=listbox]" );
 
-        cut.Find("[data-slot=trigger]").Click();
+        cut.Find( "[data-slot=trigger]" ).Click();
 
         action.Should().Throw<ElementNotFoundException>();
     }
@@ -184,10 +220,10 @@
 
         var action = () => Render(
             @<LumexSelect TValue="string" Label="Favorite Animal">
-                @foreach( var animal in animals )
-                {
-                    <LumexSelectItem Value="@animal">@animal</LumexSelectItem>
-                }
+                    @foreach( var animal in animals )
+                    {
+                            <LumexSelectItem Value="@animal">@animal</LumexSelectItem>
+                    }
             </LumexSelect>
         );
 
