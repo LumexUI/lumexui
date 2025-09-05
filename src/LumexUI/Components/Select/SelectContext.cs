@@ -9,7 +9,7 @@ internal class SelectContext<TValue>( LumexSelect<TValue> owner ) : IComponentCo
     public LumexSelect<TValue> Owner { get; } = owner;
     public List<LumexSelectItem<TValue>> Items { get; } = [];
     public HashSet<LumexSelectItem<TValue>> SelectedItems { get; } = [];
-    public bool IsMultiSelect { get; set; }
+    public bool IsMultipleSelect { get; set; }
 
     // Just for a component context API consistency.
     // Chore: make it prettier, more robust.

@@ -95,7 +95,7 @@
                       @ref="@_popoverRef"
                       @bind-Open="@_isOpen">
             <LumexPopoverContent>
-                @if( _context.IsMultiSelect )
+                @if( _context.IsMultipleSelect )
                 {
                     <LumexListbox TValue="TValue"
                                   Values="@CurrentValues"

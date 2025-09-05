@@ -138,7 +138,7 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
 
     private bool ShouldLabelBeOutside => LabelPlacement is LabelPlacement.Outside;
 
-    private bool HasValue => _context.IsMultiSelect
+	private bool HasValue => _context.IsMultipleSelect
         ? CurrentValues is { Count: > 0 }
         : CurrentValue is not null;
 
@@ -203,7 +203,7 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
             }
 
             // Set the selection mode depending on the 2-way bindable parameter.
-            _context.IsMultiSelect = parameters.TryGetValue<ICollection<TValue>>( nameof( Values ), out _ );
+		_context.IsMultipleSelect = parameters.TryGetValue<ICollection<TValue>>( nameof( Values ), out _ );
 
             // Set the LabelPlacement to 'Outside' by default if both Label and LabelPlacement are not specified.
             if( !parameters.TryGetValue<string>( nameof( Label ), out var _ ) &&
