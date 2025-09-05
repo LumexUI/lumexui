@@ -16,10 +16,10 @@
     {
         var action = () => Render(
             @<LumexSelect TValue="string" Label="Favorite Animal">
-    <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
-    <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
-    <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
-</LumexSelect>
+                <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
+                <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
+                <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
+            </LumexSelect>
         );
 
         action.Should().NotThrow();
@@ -32,16 +32,16 @@
 
         var cut = Render<LumexSelect<string>>(
             @<LumexSelect TValue="string">
-            <ChildContent>
-                @foreach( var animal in animals )
-                {
-                    <LumexSelectItem Value="@animal">@animal</LumexSelectItem>
-                }
-    </ChildContent>
-    <ValueContent Context="animal">
-        @($"next {animal}")
-    </ValueContent>
-</LumexSelect>
+                <ChildContent>
+                    @foreach( var animal in animals )
+                    {
+                        <LumexSelectItem Value="@animal">@animal</LumexSelectItem>
+                    }
+                </ChildContent>
+                <ValueContent Context="animal">
+                    @($"next {animal}")
+                </ValueContent>
+            </LumexSelect>
         );
 
         cut.Find( "[data-slot=trigger]" ).Click();
@@ -55,10 +55,10 @@
     {
         var cut = Render(
             @<LumexSelect TValue="string" Label="Favorite Animal" Description="Select your favorite animal">
-    <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
-    <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
-    <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
-</LumexSelect>
+                <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
+                <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
+                <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
+            </LumexSelect>
         );
 
         cut.Find( "[data-slot=description]" ).Should().NotBeNull();
@@ -72,10 +72,10 @@
                           Label="Favorite Animal"
                           ErrorMessage="You should select a zebra"
                           Invalid="@true">
-    <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
-    <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
-    <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
-</LumexSelect>
+                <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
+                <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
+                <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
+            </LumexSelect>
         );
 
         cut.Find( "[data-slot=error-message]" ).Should().NotBeNull();
@@ -86,10 +86,10 @@
     {
         var cut = Render<LumexSelect<string>>(
             @<LumexSelect TValue="string">
-    <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
-    <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
-    <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
-</LumexSelect>
+                <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
+                <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
+                <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
+            </LumexSelect>
         );
 
         cut.Instance.LabelPlacement.Should().Be( LabelPlacement.Outside );
@@ -101,10 +101,10 @@
         var selectedValue = "";
         var cut = Render<LumexSelect<string>>(
             @<LumexSelect Label="Favorite Animal" @bind-Value="@selectedValue">
-    <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
-    <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
-    <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
-</LumexSelect>
+                <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
+                <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
+                <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
+            </LumexSelect>
         );
 
         cut.Find( "[data-slot=trigger]" ).Click();
@@ -122,10 +122,10 @@
         ICollection<string> selectedValues = [];
         var cut = Render<LumexSelect<string>>(
             @<LumexSelect Label="Favorite Animal" @bind-Values="@selectedValues">
-    <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
-    <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
-    <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
-</LumexSelect>
+                <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
+                <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
+                <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
+            </LumexSelect>
         );
 
         cut.Find( "[data-slot=trigger]" ).Click();
@@ -141,7 +141,7 @@
     }
 
     [Fact]
-    public void ShouldDisplaySelectedItemAfterAsyncInitialization()
+    public void ShouldSelectItemAfterAsyncInitialization()
     {
         var selectedValue = default(string);
         var cut = Render(
@@ -161,7 +161,7 @@
     }
 
     [Fact]
-    public void ShouldDisplaySelectedItemsAfterAsyncInitialization()
+    public void ShouldSelectItemsAfterAsyncInitialization()
     {
         ICollection<string> selectedValues = [];
         var cut = Render(
@@ -185,10 +185,10 @@
     {
         var cut = Render(
             @<LumexSelect TValue="string" Label="Favorite Animal" ReadOnly="@true">
-    <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
-    <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
-    <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
-</LumexSelect>
+                <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
+                <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
+                <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
+            </LumexSelect>
         );
         var action = () => cut.Find( "[data-slot=listbox]" );
 
@@ -204,10 +204,10 @@
         ICollection<string> selectedValues = [];
         var action = () => Render(
             @<LumexSelect Label="Favorite Animal" @bind-Value="@selectedValue" @bind-Values="@selectedValues">
-    <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
-    <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
-    <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
-</LumexSelect>
+                <LumexSelectItem Value="@("penguin")">Penguin</LumexSelectItem>
+                <LumexSelectItem Value="@("zebra")">Zebra</LumexSelectItem>
+                <LumexSelectItem Value="@("shark")">Shark</LumexSelectItem>
+            </LumexSelect>
         );
 
         action.Should().Throw<InvalidOperationException>();
@@ -220,11 +220,11 @@
 
         var action = () => Render(
             @<LumexSelect TValue="string" Label="Favorite Animal">
-        @foreach( var animal in animals )
-        {
-                <LumexSelectItem Value="@animal">@animal</LumexSelectItem>
-        }
-</LumexSelect>
+                    @foreach( var animal in animals )
+                    {
+                            <LumexSelectItem Value="@animal">@animal</LumexSelectItem>
+                    }
+            </LumexSelect>
         );
 
         action.Should().Throw<InvalidOperationException>();
