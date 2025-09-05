@@ -1,0 +1,15 @@
+﻿@namespace LumexUI.Tests.Wrappers
+
+@ChildContent
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public Action? Action { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay( 500 );
+
+        Action?.Invoke();
+    }
+}
