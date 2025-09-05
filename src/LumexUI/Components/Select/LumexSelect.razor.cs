@@ -219,13 +219,16 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
-		if( Value is not null && _context.Items.Count > 0 )
+		if( _context.Items.Count > 0 )
 		{
-			_context.UpdateSelectedItem( Value );
-		}
-		else if( Values is not null )
-		{
-			_context.UpdateSelectedItems( Values );
+			if( !_context.IsMultipleSelect )
+			{
+				_context.UpdateSelectedItem( Value );
+			}
+			else
+			{
+				_context.UpdateSelectedItems( Values );
+			}
 		}
 
 		// Perform a re-building only if the dependencies have changed
