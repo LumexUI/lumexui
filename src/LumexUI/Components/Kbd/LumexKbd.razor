@@ -6,7 +6,7 @@
 <LumexComponent As="@As" Class="@GetStyles( nameof( S.Base ) )">
 	@foreach (var key in Keys)
 	{
-		<abbr class="@GetStyles( nameof( S.Abbr ) )">@key</abbr>
+		<abbr class="@GetStyles( nameof( S.Abbr ) )" title="@key">@GetKeySymbol(key)</abbr>
 	}
 
 	<span class="@GetStyles( nameof( S.Content ) )">@ChildContent</span>

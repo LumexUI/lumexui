@@ -3,7 +3,6 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 
 using LumexUI.Common;
 using LumexUI.Utilities;
@@ -30,7 +29,7 @@ public partial class LumexKbd : LumexComponentBase, ISlotComponent<KbdSlots>
 	/// <summary>
 	/// Gets or sets the collection of keys to be used as input for the component.
 	/// </summary>
-	[Parameter] public IEnumerable<string> Keys { get; set; } = [];
+	[Parameter] public IEnumerable<KeyboardKey> Keys { get; set; } = [];
 
 	private Dictionary<string, ComponentSlot> _slots = [];
 
@@ -44,6 +43,34 @@ public partial class LumexKbd : LumexComponentBase, ISlotComponent<KbdSlots>
 	{
 		var kbd = Styles.Kbd.Style( TwMerge );
 		_slots = kbd();
+	}
+
+	private static string? GetKeySymbol( KeyboardKey key )
+	{
+		// It's better a dictionary?
+		return key switch
+		{
+			KeyboardKey.Command => "⌘",
+			KeyboardKey.Shift => "⇧",
+			KeyboardKey.Control => "⌃",
+			KeyboardKey.Option => "⌥",
+			KeyboardKey.Enter => "↵",
+			KeyboardKey.Delete => "⌫",
+			KeyboardKey.Escape => "⎋",
+			KeyboardKey.Tab => "⇥",
+			KeyboardKey.CapsLock => "⇪",
+			KeyboardKey.Up => "↑",
+			KeyboardKey.Right => "→",
+			KeyboardKey.Down => "↓",
+			KeyboardKey.Left => "←",
+			KeyboardKey.PageUp => "⇞",
+			KeyboardKey.PageDown => "⇟",
+			KeyboardKey.Home => "↖",
+			KeyboardKey.End => "↘",
+			KeyboardKey.Help => "?",
+			KeyboardKey.Space => "␣",
+			_ => null
+		};
 	}
 
 	[ExcludeFromCodeCoverage]
