@@ -40,6 +40,8 @@ internal static class Kbd
 					.Add( "rounded-small" ),
 
 				[nameof( KbdSlots.Abbr )] = "no-underline",
+
+				[nameof( KbdSlots.Content )] = "",
 			}
 		} );
 	}
