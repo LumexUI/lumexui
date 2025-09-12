@@ -8,6 +8,9 @@ using LumexUI.Common;
 
 namespace LumexUI;
 
+/// <summary>
+/// Represents the set of customizable slots for the <see cref="LumexCode"/> component.
+/// </summary>
 [ExcludeFromCodeCoverage]
 public class CodeSlots : SlotBase
 {
