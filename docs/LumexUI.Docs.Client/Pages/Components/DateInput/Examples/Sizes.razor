@@ -1,0 +1,25 @@
+﻿<div class="w-full grid grid-cols-1 gap-4">
+    @foreach (Size size in _sizes)
+    {
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexDateInput Size="@size"
+                                 Label="Date" />
+
+                <LumexDateInput Size="@size"
+                                 Label="Date"
+                                 Placeholder="dd/MM/yyyy" />
+            </div>
+
+            <small class="text-default-400 mt-1">@size</small>
+        </div>
+    }
+</div>
+
+@code {
+    private Size[] _sizes = [
+        Size.Small,
+        Size.Medium,
+        Size.Large
+    ];
+}
