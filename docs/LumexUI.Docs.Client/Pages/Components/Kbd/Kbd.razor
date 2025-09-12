@@ -11,12 +11,15 @@
     </DocsSection>
 </DocsSection>
 
-<DocsSection Title="Custom Styles">
-    <p>
-        You can customize the Kbd component by passing any Tailwind CSS
-        classes to the component's <code>Class</code> parameter.
-    </p>
-</DocsSection>
+<DocsSlotsSection Slots="@_slots" >
+    <div>
+        <h4 class="font-semibold">Kbd</h4>
+        <ul>
+            <li><code>Class</code>: The basic CSS class name styles the wrapper of the kbd contents.</li>
+            <li><code>Classes</code>: The CSS class names for the kbd slots style the entire kbd at once.</li>
+        </ul>
+    </div>
+</DocsSlotsSection>
 
 <DocsApiSection Components="@_apiComponents" />
 
@@ -33,9 +36,9 @@
 
     private readonly Slot[] _slots = new Slot[]
     {
-        new("Base", "Kbd wrapper, it handles alignment, placement, and general appearance."),
-        new("Abbr", "The keys wrapper that handles the appearance of the keys."),
-        new("Content", "The children wrapper that handles the appearance of the content."),
+        new(nameof( KbdSlots.Base ), "Kbd wrapper, it handles alignment, placement, and general appearance."),
+        new(nameof( KbdSlots.Abbr ), "The keys wrapper that handles the appearance of the keys."),
+        new(nameof( KbdSlots.Content ), "The children wrapper that handles the appearance of the content."),
     };
 
     private readonly string[] _apiComponents = new string[]
