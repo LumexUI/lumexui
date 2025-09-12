@@ -1,0 +1,56 @@
+﻿@page "/docs/components/kbd"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Kbd.PreviewCodes
+
+<DocsSection Title="Usage">
+    <Usage />
+
+    <DocsSection Title="Keys">
+        <Keys />
+    </DocsSection>
+</DocsSection>
+
+<DocsSection Title="Custom Styles">
+    <p>
+        You can customize the Kbd component by passing any Tailwind CSS
+        classes to the component's <code>Class</code> parameter.
+    </p>
+</DocsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Keys")
+        ]),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new("Base", "Kbd wrapper, it handles alignment, placement, and general appearance."),
+        new("Abbr", "The keys wrapper that handles the appearance of the keys."),
+        new("Content", "The children wrapper that handles the appearance of the content."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexKbd)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Kbd",
+            category: "Components",
+            description: "Keyboard key component for displaying keyboard shortcuts and input combinations.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps("Kbd", isServer: true)
+        );
+    }
+}

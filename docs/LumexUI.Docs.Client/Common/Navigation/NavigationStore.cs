@@ -34,6 +34,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexDataGrid<T> ) ) )
 			.Add( new( nameof( LumexDivider ) ) )
 			.Add( new( nameof( LumexDropdown ) ) )
+			.Add( new( nameof( LumexKbd ), PageStatus.New ) )
 			.Add( new( nameof( LumexLink ) ) )
 			.Add( new( nameof( LumexListbox<T> ) ) )
 			.Add( new( nameof( LumexNavbar ) ) )
