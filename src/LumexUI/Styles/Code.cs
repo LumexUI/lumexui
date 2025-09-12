@@ -67,15 +67,15 @@ internal static class Code
 				{
 					[nameof( Size.Small )] = new SlotCollection
 					{
-						[nameof( CodeSlots.Base )] = "text-small",
+						[nameof( CodeSlots.Base )] = "text-tiny",
 					},
 					[nameof( Size.Medium )] = new SlotCollection
 					{
-						[nameof( CodeSlots.Base )] = "text-medium",
+						[nameof( CodeSlots.Base )] = "text-small",
 					},
 					[nameof( Size.Large )] = new SlotCollection
 					{
-						[nameof( CodeSlots.Base )] = "text-large",
+						[nameof( CodeSlots.Base )] = "text-medium",
 					}
 				},
 				[nameof( LumexCode.Radius )] = new VariantValueCollection
