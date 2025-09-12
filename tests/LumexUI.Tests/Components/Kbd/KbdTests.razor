@@ -1,0 +1,58 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@using LumexUI.Styles
+
+@code {
+    public KbdTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexKbd Keys="@([KeyboardKey.Command])">K</LumexKbd>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderChildrenAndContent()
+    {
+        RenderFragment content = @<span data-testid="kbd-children" />;
+
+        var cut = Render(
+            @<LumexKbd Keys="@([KeyboardKey.Command])" data-testid="kbd-root">
+                <span data-testid="kbd-children">
+                    K
+                </span>
+            </LumexKbd>
+        );
+
+        cut.FindByTestId("kbd-root").Should().NotBeNull();
+        cut.FindByTestId("kbd-children").Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderMultipleKeys()
+    {
+        // Arrange: render LumexKbd with multiple keys
+        var cut = Render(
+            @<LumexKbd Keys="@([KeyboardKey.Command, KeyboardKey.Shift])" data-testid="kbd-multikeys">
+                K
+            </LumexKbd>
+        );
+
+        // Act: find the root element
+        var root = cut.FindByTestId("kbd-multikeys");
+        root.Should().NotBeNull();
+
+        // Assert: check that all key symbols are rendered
+        root.InnerHtml.Should().Contain("⌘");
+        root.InnerHtml.Should().Contain("⇧");
+        root.InnerHtml.Should().Contain("K");
+    }
+}
