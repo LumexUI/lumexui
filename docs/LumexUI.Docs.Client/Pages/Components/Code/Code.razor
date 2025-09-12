@@ -1,0 +1,68 @@
+﻿@page "/docs/components/code"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Code.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+        The <code>Code</code> component is used to display inline code tokens and short snippets
+        inside text. It's ideal for highlighting identifiers, commands, or short fragments of code
+        without breaking the surrounding paragraph flow.
+    </p>
+
+    <Usage />
+
+    <DocsSection Title="Sizes">
+        <p>Use the <code>Size</code> parameter to choose between small, medium, and large inline styles.</p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>Use the <code>Color</code> parameter to set the semantic color for the code token.</p>
+        <Colors />
+    </DocsSection>
+</DocsSection>
+
+<DocsSection Title="Custom Styles">
+    <p>
+        You can customize the collapse component by passing any Tailwind CSS
+        classes to the component's <code>Class</code> parameter.
+    </p>
+</DocsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Sizes"),
+            new("Colors"),
+            new("Radius")
+        ]),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new("Base", "The main wrapper element for the inline code token."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexCode)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Code",
+            category: "Components",
+            description: "Inline code tokens and short snippets used to highlight identifiers, commands, and short fragments of code.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps("Code", isServer: true)
+        );
+    }
+}
