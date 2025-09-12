@@ -17,12 +17,15 @@
     </DocsSection>
 </DocsSection>
 
-<DocsSection Title="Custom Styles">
-    <p>
-        You can customize the code component by passing any Tailwind CSS
-        classes to the component's <code>Class</code> parameter.
-    </p>
-</DocsSection>
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Code</h4>
+        <ul>
+            <li><code>Class</code>: The basic CSS class name styles the wrapper of the code contents.</li>
+            <li><code>Classes</code>: The CSS class names for the code slots style the entire code at once.</li>
+        </ul>
+    </div>
+</DocsSlotsSection>
 
 <DocsApiSection Components="@_apiComponents" />
 
@@ -42,7 +45,7 @@
 
     private readonly Slot[] _slots = new Slot[]
     {
-        new("Base", "The main wrapper element for the inline code token."),
+        new(nameof( CodeSlots.Base ), "The main wrapper element for the inline code token."),
     };
 
     private readonly string[] _apiComponents = new string[]
