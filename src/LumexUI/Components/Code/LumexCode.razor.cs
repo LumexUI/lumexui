@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
+/// <summary>
+/// Represents a code block component that displays formatted code.
+/// </summary>
 public partial class LumexCode : LumexComponentBase, ISlotComponent<CodeSlots>
 {
 	/// <summary>
@@ -19,12 +22,12 @@ public partial class LumexCode : LumexComponentBase, ISlotComponent<CodeSlots>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
 	/// <summary>
-	/// Gets or sets the CSS class names for the code slots.
+	/// Gets or sets the CSS class names for the <see cref="LumexCode"/> slots.
 	/// </summary>
 	[Parameter] public CodeSlots? Classes { get; set; }
 
 	/// <summary>
-	/// Gets or sets the color of the code.
+	/// Gets or sets the color of the <see cref="LumexCode"/>.
 	/// </summary>
 	/// <remarks>
 	/// The default value is <see cref="ThemeColor.Default"/>.
@@ -32,7 +35,7 @@ public partial class LumexCode : LumexComponentBase, ISlotComponent<CodeSlots>
 	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
 	/// <summary>
-	/// Gets or sets the radius of the code.
+	/// Gets or sets the radius of the <see cref="LumexCode"/>.
 	/// </summary>
 	/// <remarks>
 	/// The default value is <see cref="Radius.Small"/>.
@@ -40,7 +43,7 @@ public partial class LumexCode : LumexComponentBase, ISlotComponent<CodeSlots>
 	[Parameter] public Radius Radius { get; set; } = Radius.Small;
 
 	/// <summary>
-	/// Gets or sets the size of the code.
+	/// Gets or sets the size of the <see cref="LumexCode"/>.
 	/// </summary>
 	/// <remarks>
 	/// The default value is <see cref="Size.Small"/>.
