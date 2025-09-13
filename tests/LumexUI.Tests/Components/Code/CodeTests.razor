@@ -1,0 +1,38 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@using LumexUI.Styles
+
+@code {
+    public CodeTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexCode>dotnet add package LumexUI</LumexCode>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderChildrenAndContent()
+    {
+        RenderFragment content = @<span data-testid="code-children" />;
+
+        var cut = Render(
+            @<LumexCode data-testid="code-root">
+                <span data-testid="code-children">
+                    dotnet add package LumexUI
+                </span>
+            </LumexCode>
+        );
+
+        cut.FindByTestId("code-root").Should().NotBeNull();
+        cut.FindByTestId("code-children").Should().NotBeNull();
+    }
+}

@@ -1,0 +1,10 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexComponent As="@As"
+                Style="@RootStyle"
+                Class="@GetStyles( "Base" )"
+                data-slot="base"
+                @attributes="AdditionalAttributes">
+    @ChildContent
+</LumexComponent>
