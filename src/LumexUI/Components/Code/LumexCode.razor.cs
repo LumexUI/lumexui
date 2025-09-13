@@ -2,10 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using System.Diagnostics.CodeAnalysis;
-
 using LumexUI.Common;
-using LumexUI.Utilities;
+using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
 
@@ -14,17 +12,12 @@ namespace LumexUI;
 /// <summary>
 /// Represents a code block component that displays formatted code.
 /// </summary>
-public partial class LumexCode : LumexComponentBase, ISlotComponent<CodeSlots>
+public partial class LumexCode : LumexComponentBase
 {
 	/// <summary>
 	/// Get or sets the content to be rendered inside the <see cref="LumexCode"/>.
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
-
-	/// <summary>
-	/// Gets or sets the CSS class names for the <see cref="LumexCode"/> slots.
-	/// </summary>
-	[Parameter] public CodeSlots? Classes { get; set; }
 
 	/// <summary>
 	/// Gets or sets the color of the <see cref="LumexCode"/>.
@@ -50,7 +43,8 @@ public partial class LumexCode : LumexComponentBase, ISlotComponent<CodeSlots>
 	/// </remarks>
 	[Parameter] public Size Size { get; set; } = Size.Small;
 
-	private Dictionary<string, ComponentSlot> _slots = [];
+	private protected override string? RootClass =>
+		TwMerge.Merge( Code.GetStyles( this ) );
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexCode"/>.
@@ -58,32 +52,5 @@ public partial class LumexCode : LumexComponentBase, ISlotComponent<CodeSlots>
 	public LumexCode()
 	{
 		As = "code";
-	}
-
-	/// <inheritdoc />
-	protected override void OnParametersSet()
-	{
-		var code = Styles.Code.Style( TwMerge );
-		_slots = code( new()
-		{
-			[nameof( Color )] = Color.ToString(),
-			[nameof( Radius )] = Radius.ToString(),
-			[nameof( Size )] = Size.ToString(),
-		} );
-	}
-
-	[ExcludeFromCodeCoverage]
-	private string? GetStyles( string slot )
-	{
-		if( !_slots.TryGetValue( slot, out var styles ) )
-		{
-			throw new NotImplementedException();
-		}
-
-		return slot switch
-		{
-			nameof( CodeSlots.Base ) => styles( Classes?.Base ),
-			_ => throw new NotImplementedException()
-		};
 	}
 }

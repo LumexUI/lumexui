@@ -1,11 +1,9 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-@using S = CodeSlots;
-
 <LumexComponent As="@As"
-                Class="@GetStyles(nameof(S.Base))"
-                Style="@Style"
+                Style="@RootStyle"
+                Class="@RootClass"
                 data-slot="base"
                 @attributes="AdditionalAttributes">
     @ChildContent

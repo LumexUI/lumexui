@@ -14,94 +14,53 @@ namespace LumexUI.Styles;
 [ExcludeFromCodeCoverage]
 internal static class Code
 {
-	private static ComponentVariant? _variant;
+	private readonly static string _base = ElementClass.Empty()
+		.Add( "inline-block" )
+		.Add( "whitespace-nowrap" )
+		.Add( "font-mono" )
+		.Add( "font-normal" )
+		.Add( "h-fit" )
+		.Add( "px-2" )
+		.Add( "py-1" )
+		.ToString();
 
-	public static ComponentVariant Style( TwMerge twMerge )
+	private static ElementClass GetSizeStyles( Size size )
 	{
-		var twVariants = new TwVariants( twMerge );
+		return ElementClass.Empty()
+			.Add( "text-tiny", when: size is Size.Small )
+			.Add( "text-small", when: size is Size.Medium )
+			.Add( "text-medium", when: size is Size.Large );
+	}
 
-		return _variant ??= twVariants.Create( new VariantConfig()
-		{
-			Slots = new SlotCollection
-			{
-				[nameof( CodeSlots.Base )] = new ElementClass()
-					.Add( "px-2" )
-					.Add( "py-1" )
-					.Add( "h-fit" )
-					.Add( "font-mono" )
-					.Add( "font-normal" )
-					.Add( "inline-block" )
-					.Add( "whitespace-nowrap" )
-			},
+	private static ElementClass GetRadiusStyles( Radius radius )
+	{
+		return ElementClass.Empty()
+			.Add( "rounded-none", when: radius is Radius.None )
+			.Add( "rounded-small", when: radius is Radius.Small )
+			.Add( "rounded-medium", when: radius is Radius.Medium )
+			.Add( "rounded-large", when: radius is Radius.Large )
+			.Add( "rounded-full", when: radius is Radius.Full );
+	}
 
-			Variants = new VariantCollection
-			{
-				[nameof( LumexCode.Color )] = new VariantValueCollection
-				{
-					[nameof( ThemeColor.Default )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = ColorVariants.Flat[ThemeColor.Default]
-					},
-					[nameof( ThemeColor.Primary )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = ColorVariants.Flat[ThemeColor.Primary]
-					},
-					[nameof( ThemeColor.Secondary )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = ColorVariants.Flat[ThemeColor.Secondary]
-					},
-					[nameof( ThemeColor.Success )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = ColorVariants.Flat[ThemeColor.Success]
-					},
-					[nameof( ThemeColor.Warning )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = ColorVariants.Flat[ThemeColor.Warning]
-					},
-					[nameof( ThemeColor.Danger )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = ColorVariants.Flat[ThemeColor.Danger]
-					},
-				},
-				[nameof( LumexCode.Size )] = new VariantValueCollection
-				{
-					[nameof( Size.Small )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = "text-tiny",
-					},
-					[nameof( Size.Medium )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = "text-small",
-					},
-					[nameof( Size.Large )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = "text-medium",
-					}
-				},
-				[nameof( LumexCode.Radius )] = new VariantValueCollection
-				{
-					[nameof( Radius.None )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = "rounded-none",
-					},
-					[nameof( Radius.Small )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = "rounded-small",
-					},
-					[nameof( Radius.Medium )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = "rounded-medium",
-					},
-					[nameof( Radius.Large )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = "rounded-large",
-					},
-					[nameof( Radius.Full )] = new SlotCollection
-					{
-						[nameof( CodeSlots.Base )] = "rounded-full",
-					}
-				}
-			},
-		} );
+	private static ElementClass GetColorStyles( ThemeColor color )
+	{
+		return ElementClass.Empty()
+			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Default )
+			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Primary )
+			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Secondary )
+			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Success )
+			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Warning )
+			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Danger );
+	}
+
+	public static string GetStyles( LumexCode code )
+	{
+		return ElementClass.Empty()
+			.Add( _base )
+			.Add( GetColorStyles( code.Color ) )
+			.Add( GetSizeStyles( code.Size ) )
+			.Add( GetRadiusStyles( code.Radius ) )
+			.Add( code.Class )
+			.ToString();
 	}
 }
