@@ -1,0 +1,27 @@
+﻿<div class="w-full grid grid-cols-1 gap-4 md:grid-cols-2">
+    @foreach (ThemeColor color in _colors)
+    {
+        <div>
+            <LumexDatebox Color="@color"
+                          Label="Date"
+                          Placeholder="dd/MM/yyyy"
+                          Value="@DateTime.UtcNow" />
+
+            <small class="text-default-400 mt-1">
+                @color
+            </small>
+        </div>
+    }
+</div>
+
+@code {
+    private ThemeColor[] _colors = [
+        ThemeColor.Default,
+        ThemeColor.Primary,
+        ThemeColor.Secondary,
+        ThemeColor.Success,
+        ThemeColor.Warning,
+        ThemeColor.Danger,
+        ThemeColor.Info
+    ];
+}
