@@ -45,12 +45,7 @@ internal static class Code
 	private static ElementClass GetColorStyles( ThemeColor color )
 	{
 		return ElementClass.Empty()
-			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Default )
-			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Primary )
-			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Secondary )
-			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Success )
-			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Warning )
-			.Add( ColorVariants.Flat[color], when: color is ThemeColor.Danger );
+			.Add( ColorVariants.Flat[color]);
 	}
 
 	public static string GetStyles( LumexCode code )
