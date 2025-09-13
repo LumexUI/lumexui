@@ -14,48 +14,97 @@ namespace LumexUI.Styles;
 [ExcludeFromCodeCoverage]
 internal static class Code
 {
-	private readonly static string _base = ElementClass.Empty()
-		.Add( "inline-block" )
-		.Add( "whitespace-nowrap" )
-		.Add( "font-mono" )
-		.Add( "font-normal" )
-		.Add( "h-fit" )
-		.Add( "px-2" )
-		.Add( "py-1" )
-		.ToString();
+	private static ComponentVariant? _variant;
 
-	private static ElementClass GetSizeStyles( Size size )
+	public static ComponentVariant Style( TwMerge twMerge )
 	{
-		return ElementClass.Empty()
-			.Add( "text-tiny", when: size is Size.Small )
-			.Add( "text-small", when: size is Size.Medium )
-			.Add( "text-medium", when: size is Size.Large );
-	}
+		var twVariants = new TwVariants( twMerge );
 
-	private static ElementClass GetRadiusStyles( Radius radius )
-	{
-		return ElementClass.Empty()
-			.Add( "rounded-none", when: radius is Radius.None )
-			.Add( "rounded-small", when: radius is Radius.Small )
-			.Add( "rounded-medium", when: radius is Radius.Medium )
-			.Add( "rounded-large", when: radius is Radius.Large )
-			.Add( "rounded-full", when: radius is Radius.Full );
-	}
+		return _variant ??= twVariants.Create( new VariantConfig()
+		{
+			Base = new ElementClass()
+				.Add( "px-2" )
+				.Add( "py-1" )
+				.Add( "h-fit" )
+				.Add( "font-mono" )
+				.Add( "font-normal" )
+				.Add( "inline-block" )
+				.Add( "whitespace-nowrap" ),
 
-	private static ElementClass GetColorStyles( ThemeColor color )
-	{
-		return ElementClass.Empty()
-			.Add( ColorVariants.Flat[color]);
-	}
+			Variants = new VariantCollection
+			{
+				[nameof( LumexCode.Color )] = new VariantValueCollection
+				{
+					[nameof( ThemeColor.Default )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = ColorVariants.Flat[ThemeColor.Default]
+					},
+					[nameof( ThemeColor.Primary )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = ColorVariants.Flat[ThemeColor.Primary]
+					},
+					[nameof( ThemeColor.Secondary )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = ColorVariants.Flat[ThemeColor.Secondary]
+					},
+					[nameof( ThemeColor.Success )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = ColorVariants.Flat[ThemeColor.Success]
+					},
+					[nameof( ThemeColor.Warning )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = ColorVariants.Flat[ThemeColor.Warning]
+					},
+					[nameof( ThemeColor.Danger )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = ColorVariants.Flat[ThemeColor.Danger]
+					},
+					[nameof( ThemeColor.Info )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = ColorVariants.Flat[ThemeColor.Info]
+					},
+				},
 
-	public static string GetStyles( LumexCode code )
-	{
-		return ElementClass.Empty()
-			.Add( _base )
-			.Add( GetColorStyles( code.Color ) )
-			.Add( GetSizeStyles( code.Size ) )
-			.Add( GetRadiusStyles( code.Radius ) )
-			.Add( code.Class )
-			.ToString();
+				[nameof( LumexCode.Size )] = new VariantValueCollection
+				{
+					[nameof( Size.Small )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = "text-tiny",
+					},
+					[nameof( Size.Medium )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = "text-small",
+					},
+					[nameof( Size.Large )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = "text-medium",
+					}
+				},
+
+				[nameof( LumexCode.Radius )] = new VariantValueCollection
+				{
+					[nameof( Radius.None )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = "rounded-none",
+					},
+					[nameof( Radius.Small )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = "rounded-small",
+					},
+					[nameof( Radius.Medium )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = "rounded-medium",
+					},
+					[nameof( Radius.Large )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = "rounded-large",
+					},
+					[nameof( Radius.Full )] = new SlotCollection
+					{
+						[nameof( SlotBase.Base )] = "rounded-full",
+					}
+				}
+			},
+		} );
 	}
 }

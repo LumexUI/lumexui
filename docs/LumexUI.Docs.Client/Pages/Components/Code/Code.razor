@@ -7,19 +7,24 @@
     <Usage />
 
     <DocsSection Title="Sizes">
-        <p>Use the <code>Size</code> parameter to choose between small, medium, and large inline styles.</p>
+        <p>Use the <code>Size</code> parameter to set the size of the code snippet.</p>
         <Sizes />
     </DocsSection>
 
+    <DocsSection Title="Radius">
+        <p>Use the <code>Radius</code> parameter to set the border radius of the code snippet.</p>
+        <Radius />
+    </DocsSection>
+
     <DocsSection Title="Colors">
-        <p>Use the <code>Color</code> parameter to set the semantic color for the code token.</p>
+        <p>Use the <code>Color</code> parameter to set the semantic color of the code snippet.</p>
         <Colors />
     </DocsSection>
 </DocsSection>
 
 <DocsSection Title="Custom Styles">
     <p>
-        You can customize the button component by passing any Tailwind CSS
+        You can customize the code component by passing any Tailwind CSS
         classes to the component's <code>Class</code> parameter.
     </p>
     <CustomStyles />
@@ -51,7 +56,7 @@
         Layout.Initialize(
             title: "Code",
             category: "Components",
-            description: "Inline code tokens and short snippets used to highlight identifiers, commands, and short fragments of code.",
+            description: "Codes are used to display short inline code snippets.",
             headings: _headings,
             linksProps: new ComponentLinksProps("Code", isServer: true)
         );
