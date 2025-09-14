@@ -33,6 +33,9 @@ public partial class LumexKbd : LumexComponentBase, ISlotComponent<KbdSlots>
 
 	private Dictionary<string, ComponentSlot> _slots = [];
 
+	/// <summary>
+	/// Initializes a new instance of the <see cref="LumexKbd"/> class, representing a keyboard element.
+	/// </summary>
 	public LumexKbd()
 	{
 		As = "kbd";

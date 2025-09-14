@@ -3,7 +3,10 @@
 
 @using S = KbdSlots;
 
-<LumexComponent As="@As" Class="@GetStyles( nameof( S.Base ) )">
+<LumexComponent As="@As" 
+				Class="@GetStyles( nameof( S.Base ) )"
+				Style="@RootStyle"
+				@attributes="AdditionalAttributes">
 	@foreach (var key in Keys)
 	{
 		<abbr class="@GetStyles( nameof( S.Abbr ) )" title="@key">@GetKeySymbol(key)</abbr>
