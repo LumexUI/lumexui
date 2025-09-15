@@ -9,8 +9,7 @@ using LumexUI.Common;
 namespace LumexUI;
 
 /// <summary>
-/// Represents the slot names for the <see cref="LumexKbd"/>, 
-/// used to assign CSS classes to different parts of the component.
+/// Represents the set of customizable slots for the <see cref="LumexKbd"/> component.
 /// </summary>
 [ExcludeFromCodeCoverage]
 public class KbdSlots : SlotBase

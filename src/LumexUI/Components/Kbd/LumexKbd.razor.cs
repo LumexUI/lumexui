@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Components;
 namespace LumexUI;
 
 /// <summary>
-/// <see cref="LumexKbd"/> is a component to display which key or combination of keys performs a given action.
+/// A component that represents a keyboard key or combination of keys used to perform a specific action.
 /// </summary>
 public partial class LumexKbd : LumexComponentBase, ISlotComponent<KbdSlots>
 {
