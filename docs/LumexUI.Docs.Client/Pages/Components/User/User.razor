@@ -5,6 +5,11 @@
 
 <DocsSection Title="Usage">
 	<Usage />
+
+	<DocsSection Title="Link Description">
+		<LinkDescription />
+    </DocsSection>
+
 </DocsSection>
 
 <DocsSlotsSection Slots="@_slots">
@@ -24,16 +29,18 @@
 
 	private readonly Heading[] _headings = new Heading[]
 	{
-		new("Usage"),
+		new("Usage", [
+			new("Link Description")
+		]),
 		new("API")
 	};
 
 	private readonly Slot[] _slots = new Slot[]
 	{
-		new(nameof( UserSlots.Base ), ""),
-		new(nameof( UserSlots.Wrapper ), ""),
-		new(nameof( UserSlots.Name ), ""),
-		new(nameof( UserSlots.Description ), ""),
+		new(nameof( UserSlots.Base ), "The base slot of the user, it is the main container."),
+		new(nameof( UserSlots.Wrapper ), "The name and description wrapper."),
+		new(nameof( UserSlots.Name ), "The name of the user."),
+		new(nameof( UserSlots.Description ), "The description of the user."),
 	};
 
 	private readonly string[] _apiComponents = new string[]
