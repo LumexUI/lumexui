@@ -11,12 +11,39 @@
 				data-focus-visible=""
 				@attributes="AdditionalAttributes">
 	<LumexAvatar />
-	<div class="@GetStyles( nameof( S.Wrapper ) )">
-		<span class="@GetStyles( nameof( S.Name ) )">
-			@Name
-		</span>
-		<span class="@GetStyles( nameof( S.Description ))">
-			@Description
-		</span>
+	<div class="@GetStyles( nameof( S.Wrapper ) )" data-slot="wrapper">
+		@_renderName
+		@_renderDescription
 	</div>
 </LumexComponent>
+
+@code
+{
+	internal void RenderName( RenderTreeBuilder __builder )
+	{
+		<span class="@GetStyles( nameof( S.Name ) )" data-slot="name">
+			@if( NameContent is not null )
+			{
+				@NameContent
+			}
+			else
+			{
+				@Name
+			}
+		</span>
+	}
+
+	internal void RenderDescription( RenderTreeBuilder __builder )
+	{
+		<span class="@GetStyles( nameof( S.Description ))" data-slot="description">
+			@if( DescriptionContent is not null )
+			{
+				@DescriptionContent
+			}
+			else
+			{
+				@Description
+			}
+		</span>
+	}
+}

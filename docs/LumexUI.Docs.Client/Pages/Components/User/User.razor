@@ -1,0 +1,54 @@
+﻿@page "/docs/components/user"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.User.PreviewCodes
+
+<DocsSection Title="Usage">
+	<Usage />
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+	<div>
+		<h4 class="font-semibold">User</h4>
+		<ul>
+			<li><code>Class</code>: The basic CSS class name styles the wrapper of the user contents.</li>
+			<li><code>Classes</code>: The CSS class names for the user slots style the entire user at once.</li>
+		</ul>
+	</div>
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+	[CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+	private readonly Heading[] _headings = new Heading[]
+	{
+		new("Usage"),
+		new("API")
+	};
+
+	private readonly Slot[] _slots = new Slot[]
+	{
+		new(nameof( UserSlots.Base ), ""),
+		new(nameof( UserSlots.Wrapper ), ""),
+		new(nameof( UserSlots.Name ), ""),
+		new(nameof( UserSlots.Description ), ""),
+	};
+
+	private readonly string[] _apiComponents = new string[]
+	{
+		nameof(LumexUser)
+	};
+
+	protected override void OnInitialized()
+	{
+		Layout.Initialize(
+			title: "User",
+			category: "Components",
+			description: "Display user information with avatar and name.",
+			headings: _headings,
+			linksProps: new ComponentLinksProps("Usr", isServer: true)
+		);
+	}
+}

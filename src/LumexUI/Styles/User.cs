@@ -4,7 +4,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-using LumexUI.Components.User;
 using LumexUI.Utilities;
 
 using TailwindMerge;
@@ -22,20 +21,18 @@ internal static class User
 
 		return _variant ?? twVariants.Create( new VariantConfig()
 		{
-			Base = new ElementClass()
-				.Add( "inline-flex" )
-				.Add( "items-center" )
-				.Add( "justify-center" )
-				.Add( "gap-2" )
-				.Add( "rounded-small" )
-				.Add( "outline-solid" )
-				.Add( "outline-transparent" )
-				.Add( "outline-solid" )
-				.Add( "outline-transparent" )
-				.ToString(),
-
 			Slots = new SlotCollection
 			{
+				[nameof(UserSlots.Base)] = new ElementClass()
+					.Add( "inline-flex" )
+					.Add( "items-center" )
+					.Add( "justify-center" )
+					.Add( "gap-2" )
+					.Add( "rounded-small" )
+					.Add( "outline-solid" )
+					.Add( "outline-transparent" )
+					.Add( Utils.FocusVisible ),
+
 				[nameof(UserSlots.Wrapper)] = "inline-flex flex-col items-start",
 
 				[nameof(UserSlots.Name)] = "text-small text-inherit",
