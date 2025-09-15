@@ -15,7 +15,7 @@
 		<abbr class="@GetStyles( nameof( S.Abbr ) )"
 			  title="@key"
 			  data-slot="abbr">
-			@C.KeyboardKeys[key]
+			@( C.KeyboardKeys.TryGetValue( key, out var symbol ) ? symbol : null )
 		</abbr>
 	}
 
