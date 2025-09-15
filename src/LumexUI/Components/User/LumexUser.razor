@@ -12,14 +12,7 @@
 	<div class="@GetStyles( nameof( S.Wrapper ) )" data-slot="wrapper">
 
 		<span class="@GetStyles( nameof( S.Name ) )" data-slot="name">
-			@if ( NameContent is not null )
-			{
-				@NameContent
-			}
-			else
-			{
-				@Name
-			}
+			@Name
 		</span>
 
 		<span class="@GetStyles( nameof( S.Description ) )" data-slot="description">

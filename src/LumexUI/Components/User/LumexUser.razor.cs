@@ -17,11 +17,6 @@ namespace LumexUI;
 public partial class LumexUser : LumexComponentBase, ISlotComponent<UserSlots>
 {
 	/// <summary>
-	/// Gets or sets the content to render when using a custom name element.
-	/// </summary>
-	[Parameter] public RenderFragment? NameContent { get; set; }
-
-	/// <summary>
 	/// Gets or sets the content to render when using a custom description element.
 	/// </summary>
 	[Parameter] public RenderFragment? DescriptionContent { get; set; }
@@ -51,11 +46,6 @@ public partial class LumexUser : LumexComponentBase, ISlotComponent<UserSlots>
 	/// <inheritdoc/>
 	protected override void OnParametersSet()
 	{
-		if( ( Name is not null ) && ( NameContent is not null ) )
-		{
-			throw new ArgumentException( $"Only one of '{nameof( Name )}' or '{nameof( NameContent )}' parameters can be set." );
-		}
-
 		if( ( Description is not null ) && ( DescriptionContent is not null ) )
 		{
 			throw new ArgumentException( $"Only one of '{nameof( Description )}' or '{nameof( DescriptionContent )}' parameters can be set." );
