@@ -46,11 +46,6 @@ public partial class LumexUser : LumexComponentBase, ISlotComponent<UserSlots>
 	/// <inheritdoc/>
 	protected override void OnParametersSet()
 	{
-		if( ( Description is not null ) && ( DescriptionContent is not null ) )
-		{
-			throw new ArgumentException( $"Only one of '{nameof( Description )}' or '{nameof( DescriptionContent )}' parameters can be set." );
-		}
-
 		var user = Styles.User.Style( TwMerge );
 		_slots = user();
 	}
