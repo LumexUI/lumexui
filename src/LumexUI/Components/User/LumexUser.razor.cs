@@ -22,6 +22,11 @@ public partial class LumexUser : LumexComponentBase, ISlotComponent<UserSlots>
 	[Parameter] public RenderFragment? DescriptionContent { get; set; }
 
 	/// <summary>
+	/// Gets or sets the content to render for the avatar element.
+	/// </summary>
+	[Parameter] public RenderFragment? AvatarContent { get; set; }
+
+	/// <summary>
 	/// Gets or sets the name of the user.
 	/// </summary>
 	[Parameter] public string? Name { get; set; }
