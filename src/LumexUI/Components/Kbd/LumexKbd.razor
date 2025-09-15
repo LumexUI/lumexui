@@ -2,15 +2,18 @@
 @inherits LumexComponentBase
 
 @using S = KbdSlots;
+@using C = KbdConstants;
 
-<LumexComponent As="@As" 
+<LumexComponent As="@As"
 				Class="@GetStyles( nameof( S.Base ) )"
 				Style="@RootStyle"
 				@attributes="AdditionalAttributes">
 	@foreach (var key in Keys)
 	{
-		<abbr class="@GetStyles( nameof( S.Abbr ) )" title="@key">@GetKeySymbol(key)</abbr>
+		<abbr class="@GetStyles(nameof(S.Abbr))" title="@key">
+			@C.KeyboardKeys[key]
+		</abbr>
 	}
 
-	<span class="@GetStyles( nameof( S.Content ) )">@ChildContent</span>
+	<span class="@GetStyles(nameof(S.Content))">@ChildContent</span>
 </LumexComponent>

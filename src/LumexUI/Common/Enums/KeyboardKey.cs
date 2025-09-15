@@ -30,6 +30,21 @@ public enum KeyboardKey
 	Option,
 
 	/// <summary>
+	/// The Alt key (⎇), commonly found on Windows and Linux keyboards.
+	/// </summary>
+	Alt,
+
+	/// <summary>
+	/// The Windows key (⊞).
+	/// </summary>
+	Win,
+
+	/// <summary>
+	/// The Function (fn) key, often found on laptops.
+	/// </summary>
+	Fn,
+
+	/// <summary>
 	/// The Enter key.
 	/// </summary>
 	Enter,

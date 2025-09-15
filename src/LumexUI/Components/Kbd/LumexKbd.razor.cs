@@ -48,34 +48,6 @@ public partial class LumexKbd : LumexComponentBase, ISlotComponent<KbdSlots>
 		_slots = kbd();
 	}
 
-	private static string? GetKeySymbol( KeyboardKey key )
-	{
-		// It's better a dictionary?
-		return key switch
-		{
-			KeyboardKey.Command => "⌘",
-			KeyboardKey.Shift => "⇧",
-			KeyboardKey.Control => "⌃",
-			KeyboardKey.Option => "⌥",
-			KeyboardKey.Enter => "↵",
-			KeyboardKey.Delete => "⌫",
-			KeyboardKey.Escape => "⎋",
-			KeyboardKey.Tab => "⇥",
-			KeyboardKey.CapsLock => "⇪",
-			KeyboardKey.Up => "↑",
-			KeyboardKey.Right => "→",
-			KeyboardKey.Down => "↓",
-			KeyboardKey.Left => "←",
-			KeyboardKey.PageUp => "⇞",
-			KeyboardKey.PageDown => "⇟",
-			KeyboardKey.Home => "↖",
-			KeyboardKey.End => "↘",
-			KeyboardKey.Help => "?",
-			KeyboardKey.Space => "␣",
-			_ => null
-		};
-	}
-
 	[ExcludeFromCodeCoverage]
 	private string? GetStyles( string slot )
 	{
