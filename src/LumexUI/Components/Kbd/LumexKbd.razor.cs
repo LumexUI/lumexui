@@ -22,19 +22,19 @@ public partial class LumexKbd : LumexComponentBase, ISlotComponent<KbdSlots>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
 	/// <summary>
-	/// Gets or sets the CSS class names for the kbd slots.
-	/// </summary>
-	[Parameter] public KbdSlots? Classes { get; set; }
-
-	/// <summary>
 	/// Gets or sets the collection of keys to be used as input for the component.
 	/// </summary>
 	[Parameter] public IEnumerable<KeyboardKey> Keys { get; set; } = [];
 
+	/// <summary>
+	/// Gets or sets the CSS class names for the kbd slots.
+	/// </summary>
+	[Parameter] public KbdSlots? Classes { get; set; }
+
 	private Dictionary<string, ComponentSlot> _slots = [];
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="LumexKbd"/> class, representing a keyboard element.
+	/// Initializes a new instance of the <see cref="LumexKbd"/>.
 	/// </summary>
 	public LumexKbd()
 	{

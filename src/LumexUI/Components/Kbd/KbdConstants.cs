@@ -6,15 +6,8 @@ using LumexUI.Common;
 
 namespace LumexUI;
 
-/// <summary>
-/// Provides a collection of constants for mapping keyboard keys to their corresponding display symbols.
-/// </summary>
-public static class KbdConstants
+internal static class KbdConstants
 {
-	/// <summary>
-	/// Provides a mapping of keyboard keys to their corresponding display symbols for use in user interfaces or
-	/// documentation.
-	/// </summary>
 	public static readonly Dictionary<KeyboardKey, string> KeyboardKeys = new()
 	{
 		[KeyboardKey.Command] = "⌘",

@@ -5,23 +5,18 @@
 @using C = KbdConstants;
 
 <LumexComponent As="@As"
-				Class="@GetStyles( nameof( S.Base ) )"
-				Style="@RootStyle"
-				data-slot="kbd"
-				@attributes="AdditionalAttributes">
+                Class="@GetStyles( nameof( S.Base ) )"
+                Style="@RootStyle"
+                data-slot="base"
+                @attributes="@AdditionalAttributes">
+    @foreach( var key in Keys )
+    {
+        <abbr class="@GetStyles( nameof( S.Abbr ) )" title="@key" data-slot="abbr">
+            @( C.KeyboardKeys.TryGetValue( key, out var symbol ) ? symbol : null )
+        </abbr>
+    }
 
-	@foreach ( var key in Keys )
-	{
-		<abbr class="@GetStyles( nameof( S.Abbr ) )"
-			  title="@key"
-			  data-slot="abbr">
-			@( C.KeyboardKeys.TryGetValue( key, out var symbol ) ? symbol : null )
-		</abbr>
-	}
-
-	<span class="@GetStyles( nameof( S.Content ) )"
-		  data-slot="content">
-		@ChildContent
-	</span>
-
+    <span class="@GetStyles( nameof( S.Content ) )" data-slot="content">
+        @ChildContent
+    </span>
 </LumexComponent>
