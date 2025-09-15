@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+
 using LumexUI.Common;
 
 namespace LumexUI;
@@ -9,6 +11,7 @@ namespace LumexUI;
 /// <summary>
 /// Represents the set of customizable slots for the <see cref="LumexUser"/> component.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class UserSlots : SlotBase
 {
 	/// <summary>
