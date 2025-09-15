@@ -1,3 +1,22 @@
 @namespace LumexUI
 @inherits LumexComponentBase
 
+@using S = UserSlots;
+
+<LumexComponent As="@As"
+				Class="@GetStyles( nameof(S.Base) )"
+				Style="@RootStyle"
+				data-slot="base"
+				data-focus=""
+				data-focus-visible=""
+				@attributes="AdditionalAttributes">
+	<LumexAvatar />
+	<div class="@GetStyles( nameof( S.Wrapper ) )">
+		<span class="@GetStyles( nameof( S.Name ) )">
+			@Name
+		</span>
+		<span class="@GetStyles( nameof( S.Description ))">
+			@Description
+		</span>
+	</div>
+</LumexComponent>
