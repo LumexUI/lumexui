@@ -1,0 +1,19 @@
+@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public UserTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexUser Name="John Doe" />
+        );
+
+        action.Should().NotThrow();
+    }
+}
