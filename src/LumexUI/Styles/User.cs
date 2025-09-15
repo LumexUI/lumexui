@@ -31,6 +31,7 @@ internal static class User
 					.Add( "rounded-small" )
 					.Add( "outline-solid" )
 					.Add( "outline-transparent" )
+					// focus ring
 					.Add( Utils.FocusVisible ),
 
 				[nameof(UserSlots.Wrapper)] = "inline-flex flex-col items-start",

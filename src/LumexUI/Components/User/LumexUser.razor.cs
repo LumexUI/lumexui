@@ -46,19 +46,7 @@ public partial class LumexUser : LumexComponentBase, ISlotComponent<UserSlots>
 	/// </summary>
 	[Parameter] public UserSlots? Classes { get; set; }
 
-	private readonly RenderFragment _renderName;
-	private readonly RenderFragment _renderDescription;
-
 	private Dictionary<string, ComponentSlot> _slots = [];
-
-	/// <summary>
-	/// Initializes a new instance of the <see cref="LumexUser"/>.
-	/// </summary>
-	public LumexUser()
-	{
-		_renderName = RenderName;
-		_renderDescription = RenderDescription;
-	}
 
 	/// <inheritdoc/>
 	protected override void OnParametersSet()
@@ -74,10 +62,7 @@ public partial class LumexUser : LumexComponentBase, ISlotComponent<UserSlots>
 		}
 
 		var user = Styles.User.Style( TwMerge );
-		_slots = user( new()
-		{
-
-		} );
+		_slots = user();
 	}
 
 	[ExcludeFromCodeCoverage]

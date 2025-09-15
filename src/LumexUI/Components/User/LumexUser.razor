@@ -7,22 +7,12 @@
 				Class="@GetStyles( nameof(S.Base) )"
 				Style="@RootStyle"
 				data-slot="base"
-				data-focus=""
-				data-focus-visible=""
 				@attributes="AdditionalAttributes">
 	<LumexAvatar />
 	<div class="@GetStyles( nameof( S.Wrapper ) )" data-slot="wrapper">
-		@_renderName
-		@_renderDescription
-	</div>
-</LumexComponent>
 
-@code
-{
-	internal void RenderName( RenderTreeBuilder __builder )
-	{
 		<span class="@GetStyles( nameof( S.Name ) )" data-slot="name">
-			@if( NameContent is not null )
+			@if ( NameContent is not null )
 			{
 				@NameContent
 			}
@@ -31,12 +21,9 @@
 				@Name
 			}
 		</span>
-	}
 
-	internal void RenderDescription( RenderTreeBuilder __builder )
-	{
-		<span class="@GetStyles( nameof( S.Description ))" data-slot="description">
-			@if( DescriptionContent is not null )
+		<span class="@GetStyles( nameof( S.Description ) )" data-slot="description">
+			@if ( DescriptionContent is not null )
 			{
 				@DescriptionContent
 			}
@@ -45,5 +32,6 @@
 				@Description
 			}
 		</span>
-	}
-}
+
+	</div>
+</LumexComponent>
