@@ -47,7 +47,10 @@ public partial class LumexUser : LumexComponentBase, ISlotComponent<UserSlots>
 	protected override void OnParametersSet()
 	{
 		var user = Styles.User.Style( TwMerge );
-		_slots = user();
+		_slots = user( new()
+		{
+			[nameof( IsFocusable )] = IsFocusable.ToString(),
+		} );
 	}
 
 	[ExcludeFromCodeCoverage]

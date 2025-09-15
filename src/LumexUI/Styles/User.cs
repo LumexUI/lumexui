@@ -30,15 +30,24 @@ internal static class User
 					.Add( "gap-2" )
 					.Add( "rounded-small" )
 					.Add( "outline-solid" )
-					.Add( "outline-transparent" )
-					// focus ring
-					.Add( Utils.FocusVisible ),
+					.Add( "outline-transparent" ),
 
 				[nameof(UserSlots.Wrapper)] = "inline-flex flex-col items-start",
 
 				[nameof(UserSlots.Name)] = "text-small text-inherit",
 
 				[nameof(UserSlots.Description)] = "text-tiny text-foreground-400",
+			},
+
+			Variants = new VariantCollection
+			{
+				[nameof(LumexUser.IsFocusable)] = new VariantValueCollection
+				{
+					[bool.TrueString] = new SlotCollection
+					{
+						[nameof(UserSlots.Base)] = Utils.FocusVisible,
+					}
+				}
 			}
 		} );
 	}
