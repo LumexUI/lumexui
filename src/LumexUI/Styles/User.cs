@@ -19,7 +19,7 @@ internal static class User
 	{
 		var twVariants = new TwVariants( twMerge );
 
-		return _variant ?? twVariants.Create( new VariantConfig()
+		return _variant ??= twVariants.Create( new VariantConfig()
 		{
 			Slots = new SlotCollection
 			{
