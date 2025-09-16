@@ -16,4 +16,31 @@
 
         action.Should().NotThrow();
     }
+
+    [Fact]
+    public void ShouldRenderCorrectlyWithDescription()
+    {
+        var action = () => Render(
+            @<LumexUser Name="John Doe" Description="Software Engeneer" />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderDescriptionContent()
+    {
+        var cut = Render(
+            @<LumexUser Name="John Doe" data-testid="user-root">
+                <DescriptionContent>
+                    <LumexLink External Href="https://github.com/desmondinho" data-testid="user-link">
+                        @@desmondinho
+                    </LumexLink>
+                </DescriptionContent>
+            </LumexUser>
+    );
+
+        cut.FindByTestId("user-root").Should().NotBeNull();
+        cut.FindByTestId("user-link").Should().NotBeNull();
+    }
 }
