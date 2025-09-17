@@ -107,7 +107,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexTabs ) ) )
 			.Add( new( nameof( LumexTextbox ) ) )
 			.Add( new( nameof( LumexThemeProvider ) ) )
-      .Add( new( nameof( LumexTooltip ) ) )
+			.Add( new( nameof( LumexTooltip ) ) )
 			.Add( new( nameof( LumexUser ) ) );
 
 	public static Navigation GetNavigation()

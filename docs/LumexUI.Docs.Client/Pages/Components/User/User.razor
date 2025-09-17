@@ -4,64 +4,67 @@
 @using LumexUI.Docs.Client.Pages.Components.User.PreviewCodes
 
 <DocsSection Title="Usage">
-	<Usage />
+    <Usage />
 
-	<DocsSection Title="Link Description">
-		<LinkDescription />
+    <DocsSection Title="Custom Description">
+        <p>Use the <code>DescriptionContent</code> parameter to provide custom content for the user description.</p>
+        <CustomDescription />
     </DocsSection>
 
-	<LumexAlert Radius="@Radius.Large" Class="my-6">
-		<DescriptionContent>
-			When both <code>Description</code> and <code>DescriptionContent</code> are provided, <code>DescriptionContent</code> takes precedence.
-		</DescriptionContent>
-	</LumexAlert>
-
+    <LumexAlert Radius="@Radius.Large" Class="my-6">
+        <DescriptionContent>
+            When both <code>Description</code> and <code>DescriptionContent</code> are provided, <code>DescriptionContent</code> takes precedence.
+        </DescriptionContent>
+    </LumexAlert>
 </DocsSection>
 
 <DocsSlotsSection Slots="@_slots">
-	<div>
-		<h4 class="font-semibold">User</h4>
-		<ul>
-			<li><code>Class</code>: The basic CSS class name styles the wrapper of the user contents.</li>
-			<li><code>Classes</code>: The CSS class names for the user slots style the entire user at once.</li>
-		</ul>
-	</div>
+    <div>
+        <h4 class="font-semibold">User</h4>
+        <ul>
+            <li><code>Class</code>: The basic CSS class name styles the wrapper of the user contents.</li>
+            <li><code>Classes</code>: The CSS class names for the user slots style the entire user at once.</li>
+        </ul>
+    </div>
 </DocsSlotsSection>
 
 <DocsApiSection Components="@_apiComponents" />
 
 @code {
-	[CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
 
-	private readonly Heading[] _headings = new Heading[]
-	{
-		new("Usage", [
-			new("Link Description")
-		]),
-		new("API")
-	};
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Link Description")
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
 
-	private readonly Slot[] _slots = new Slot[]
-	{
-		new(nameof( UserSlots.Base ), "The base slot of the user, it is the main container."),
-		new(nameof( UserSlots.Wrapper ), "The name and description wrapper."),
-		new(nameof( UserSlots.Name ), "The name of the user."),
-		new(nameof( UserSlots.Description ), "The description of the user."),
-	};
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof( UserSlots.Base ), "The base slot of the user, it is the main container."),
+        new(nameof( UserSlots.Wrapper ), "The name and description wrapper."),
+        new(nameof( UserSlots.Name ), "The name of the user."),
+        new(nameof( UserSlots.Description ), "The description of the user."),
+    };
 
-	private readonly string[] _apiComponents = new string[]
-	{
-		nameof(LumexUser)
-	};
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexUser),
+        nameof(LumexAvatar),
+        nameof(LumexLink)
+    };
 
-	protected override void OnInitialized()
-	{
-		Layout.Initialize(
-			title: "User",
-			category: "Components",
-			description: "Display user information with avatar and name.",
-			headings: _headings,
-			linksProps: new ComponentLinksProps("Usr", isServer: true)
-		);
-	}
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "User",
+            category: "Components",
+            description: "Display user information with avatar and name.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "User", isServer: false )
+        );
+    }
 }

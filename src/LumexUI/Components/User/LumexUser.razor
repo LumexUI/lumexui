@@ -7,7 +7,7 @@
 				Class="@GetStyles( nameof(S.Base) )"
 				Style="@RootStyle"
 				data-slot="base"
-				@attributes="AdditionalAttributes">
+				@attributes="@AdditionalAttributes">
 	@AvatarContent
 	<div class="@GetStyles( nameof( S.Wrapper ) )" data-slot="wrapper">
 
@@ -25,6 +25,5 @@
 				@Description
 			}
 		</span>
-
 	</div>
 </LumexComponent>
