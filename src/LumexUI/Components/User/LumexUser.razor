@@ -1,0 +1,29 @@
+@namespace LumexUI
+@inherits LumexComponentBase
+
+@using S = UserSlots;
+
+<LumexComponent As="@As"
+				Class="@GetStyles( nameof(S.Base) )"
+				Style="@RootStyle"
+				data-slot="base"
+				@attributes="@AdditionalAttributes">
+	@AvatarContent
+	<div class="@GetStyles( nameof( S.Wrapper ) )" data-slot="wrapper">
+
+		<span class="@GetStyles( nameof( S.Name ) )" data-slot="name">
+			@Name
+		</span>
+
+		<span class="@GetStyles( nameof( S.Description ) )" data-slot="description">
+			@if ( DescriptionContent is not null )
+			{
+				@DescriptionContent
+			}
+			else
+			{
+				@Description
+			}
+		</span>
+	</div>
+</LumexComponent>
