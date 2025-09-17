@@ -172,6 +172,7 @@
 
     /* Animations */
     --animate-enter: enter 150ms ease-out normal both;
+    --animate-exit: exit 150ms ease-out normal both;
     --animate-shimmer: shimmer 2s infinite;
     --animate-sway: sway 0.75s infinite;
     --animate-blink: blink 1.5s infinite both;
@@ -186,6 +187,18 @@
         100% {
             opacity: 1;
             transform: translateZ(0) scale(1);
+        }
+    }
+
+    @keyframes exit {
+        0% {
+            opacity: 1;
+            transform: translateZ(0) scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateZ(0)  scale(0.85);
         }
     }
 
