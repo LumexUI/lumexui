@@ -9,3 +9,14 @@ export const Lumex = {
 };
 
 window['Lumex'] = Lumex
+
+Blazor.registerCustomEventType('animationend', {
+    browserEventName: 'animationend',
+    createEventArgs: event => {
+        return {
+            AnimationName: event.animationName,
+            ElapsedTime: event.elapsedTime,
+            PseudoElement: event.pseudoElement
+        };
+    }
+})
