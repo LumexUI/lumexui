@@ -1,0 +1,48 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public KbdTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexKbd Keys="@([KeyboardKey.Command])">K</LumexKbd>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderChildrenAndContent()
+    {
+        var cut = Render(
+            @<LumexKbd Keys="@([KeyboardKey.Command])" data-testid="kbd-root">
+                <span data-testid="kbd-children">
+                    K
+                </span>
+            </LumexKbd>
+        );
+
+        cut.FindByTestId( "kbd-root" ).Should().NotBeNull();
+        cut.FindByTestId( "kbd-children" ).Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderMultipleKeys()
+    {
+        var cut = Render(
+            @<LumexKbd Keys="@([KeyboardKey.Command, KeyboardKey.Shift])">
+                K
+            </LumexKbd>
+        );
+
+        var kbd = cut.FindBySlot( "base" );
+
+        kbd!.TextContent.Should().ContainAll( "⌘", "⇧", "K" );
+    }
+}
