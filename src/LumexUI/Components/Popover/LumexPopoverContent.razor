@@ -1,9 +1,11 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-@if( Popover.Open )
+@if( Popover.IsVisible )
 {
-    <PopoverWrapper Class="@Popover.Slots["Wrapper"]()">
+    <PopoverWrapper Class="@Popover.Slots["Wrapper"]()"
+                    data-popover-open="@Popover.Open.ToAttributeValue()"
+                    @onanimationend="HandleAnimationEnd">
         <div role="dialog"
              class="@Popover.Slots["Base"]( Popover.Classes?.Base, Popover.Class )"
              tabindex="-1"
@@ -11,7 +13,7 @@
              data-open="@Popover.Open.ToAttributeValue()"
              @attributes="@Popover.AdditionalAttributes">
             <LumexComponent As="@As"
-                            Class="@Popover.Slots["Content"](Popover.Classes?.Content, Class)"
+                            Class="@Popover.Slots["Content"]( Popover.Classes?.Content, Class )"
                             Style="@RootStyle"
                             data-slot="content"
                             @attributes="@AdditionalAttributes">

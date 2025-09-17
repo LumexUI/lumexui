@@ -99,6 +99,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	/// </summary>
 	[Parameter] public PopoverSlots? Classes { get; set; }
 
+	internal bool IsVisible { get; set; }
 	internal bool IsTooltip { get; private set; }
 	internal PopoverOptions Options { get; private set; }
 	internal Dictionary<string, ComponentSlot> Slots { get; private set; } = [];
@@ -124,6 +125,11 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 		if( AdditionalAttributes?.TryGetValue( "role", out var value ) ?? false )
 		{
 			IsTooltip = value is "tooltip";
+		}
+
+		if( Open && !IsVisible )
+		{
+			IsVisible = true;
 		}
 
 		Options = new PopoverOptions( this );
@@ -157,6 +163,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	internal Task OpenAsync()
 	{
 		Open = true;
+		IsVisible = true;
 		return OpenChanged.InvokeAsync( true );
 	}
 

@@ -133,7 +133,7 @@
         var menuItems = cut.FindAll( "li" );
         menuItems[0].Click();
 
-        var menu = cut.FindByTestId( "menu-test" );
+        var menu = cut.FindByTestId("menu-test");
         menu.Should().BeNull();
     }
 

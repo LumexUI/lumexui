@@ -3,6 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.Infrastructure;
 
 using Microsoft.AspNetCore.Components;
 
@@ -27,5 +28,14 @@ public partial class LumexPopoverContent : LumexComponentBase
 	protected override void OnInitialized()
 	{
 		ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverContent ) );
+	}
+
+	private async Task HandleAnimationEnd( AnimationEventArgs e )
+	{
+		if( !Popover.Open && e.AnimationName.Contains( "exit", StringComparison.OrdinalIgnoreCase ) )
+		{
+			Popover.IsVisible = false;
+			await InvokeAsync( StateHasChanged );
+		}
 	}
 }
