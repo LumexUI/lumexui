@@ -31,7 +31,8 @@ internal static class Popover
 					.ToString(),
 
 				["Wrapper"] = new ElementClass()
-					.Add( "animate-enter" )
+					.Add( "data-[popover-open=true]:animate-enter" )
+					.Add( "data-[popover-open=false]:animate-exit" )
 					.ToString(),
 
 				[nameof( PopoverSlots.Content )] = new ElementClass()

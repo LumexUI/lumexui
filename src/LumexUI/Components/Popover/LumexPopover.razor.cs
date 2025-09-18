@@ -4,7 +4,6 @@
 
 using LumexUI.Common;
 using LumexUI.Extensions;
-using LumexUI.Styles;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
@@ -99,6 +98,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	/// </summary>
 	[Parameter] public PopoverSlots? Classes { get; set; }
 
+	internal bool IsVisible { get; set; }
 	internal bool IsTooltip { get; private set; }
 	internal PopoverOptions Options { get; private set; }
 	internal Dictionary<string, ComponentSlot> Slots { get; private set; } = [];
@@ -126,9 +126,14 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 			IsTooltip = value is "tooltip";
 		}
 
+		if( Open && !IsVisible )
+		{
+			IsVisible = true;
+		}
+
 		Options = new PopoverOptions( this );
 
-		var popover = Popover.Style( TwMerge );
+		var popover = Styles.Popover.Style( TwMerge );
 		Slots = popover( new()
 		{
 			[nameof( Size )] = Size.ToString(),
@@ -156,6 +161,8 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 
 	internal Task OpenAsync()
 	{
+		IsVisible = true;
+
 		Open = true;
 		return OpenChanged.InvokeAsync( true );
 	}
