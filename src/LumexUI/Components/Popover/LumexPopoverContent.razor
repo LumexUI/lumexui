@@ -5,6 +5,7 @@
 {
     <PopoverWrapper Class="@Popover.Slots["Wrapper"]()"
                     data-popover-open="@Popover.Open.ToAttributeValue()"
+                    data-popover-wrapper
                     @onanimationend="HandleAnimationEnd">
         <div role="dialog"
              class="@Popover.Slots["Base"]( Popover.Classes?.Base, Popover.Class )"

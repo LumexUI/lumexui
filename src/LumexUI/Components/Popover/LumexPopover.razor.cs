@@ -4,7 +4,6 @@
 
 using LumexUI.Common;
 using LumexUI.Extensions;
-using LumexUI.Styles;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
@@ -134,7 +133,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 
 		Options = new PopoverOptions( this );
 
-		var popover = Popover.Style( TwMerge );
+		var popover = Styles.Popover.Style( TwMerge );
 		Slots = popover( new()
 		{
 			[nameof( Size )] = Size.ToString(),
@@ -162,8 +161,9 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 
 	internal Task OpenAsync()
 	{
-		Open = true;
 		IsVisible = true;
+
+		Open = true;
 		return OpenChanged.InvokeAsync( true );
 	}
 
