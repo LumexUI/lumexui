@@ -20,6 +20,8 @@ public partial class LumexPopoverContent : LumexComponentBase
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
+	[Parameter] public EventCallback<AnimationEventArgs> OnAnimationEnd { get; set; }
+
 	[CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
 	private LumexPopover Popover => Context.Owner;
@@ -32,10 +34,7 @@ public partial class LumexPopoverContent : LumexComponentBase
 
 	private async Task HandleAnimationEnd( AnimationEventArgs e )
 	{
-		if( !Popover.Open && e.AnimationName.Contains( "exit", StringComparison.OrdinalIgnoreCase ) )
-		{
-			Popover.IsVisible = false;
-			await InvokeAsync( StateHasChanged );
-		}
+		Popover.SetAnimationState();
+		await OnAnimationEnd.InvokeAsync( e );
 	}
 }

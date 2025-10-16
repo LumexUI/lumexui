@@ -4,9 +4,12 @@
 
 using LumexUI.Common;
 using LumexUI.Extensions;
+using LumexUI.Styles;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
+
+using static LumexUI.LumexPopoverContent;
 
 namespace LumexUI;
 
@@ -101,6 +104,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	internal bool IsVisible { get; set; }
 	internal bool IsTooltip { get; private set; }
 	internal PopoverOptions Options { get; private set; }
+	internal PopoverState State { get; private set; }
 	internal Dictionary<string, ComponentSlot> Slots { get; private set; } = [];
 
 	private readonly PopoverContext _context;
@@ -161,7 +165,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 
 	internal Task OpenAsync()
 	{
-		IsVisible = true;
+		State = PopoverState.Opening;
 
 		Open = true;
 		return OpenChanged.InvokeAsync( true );
@@ -169,8 +173,23 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 
 	internal Task CloseAsync()
 	{
+		State = PopoverState.Dismissing;
+	
 		Open = false;
 		return OpenChanged.InvokeAsync( false );
+	}
+
+	internal void SetAnimationState()
+	{
+		if( State is PopoverState.Opening )
+		{
+			State = PopoverState.Opened;
+		}
+
+		if( State is PopoverState.Dismissing )
+		{
+			State = PopoverState.Dismissed;
+		}
 	}
 
 	/// <summary>
@@ -183,5 +202,10 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 		public bool ShowArrow { get; } = popover.ShowArrow;
 		public bool MatchRefWidth { get; } = popover.MatchRefWidth;
 		public string Placement { get; } = popover.Placement.ToDescription();
+	}
+
+	internal enum PopoverState
+	{
+		Dismissed, Opening, Opened, Dismissing
 	}
 }

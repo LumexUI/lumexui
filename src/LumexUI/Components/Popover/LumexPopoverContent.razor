@@ -1,7 +1,9 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-@if( Popover.IsVisible )
+@using PopoverState = LumexPopover.PopoverState;
+
+@if( Popover.State is not PopoverState.Dismissed )
 {
     <PopoverWrapper Class="@Popover.Slots["Wrapper"]()"
                     data-popover-open="@Popover.Open.ToAttributeValue()"
