@@ -3,12 +3,12 @@
 
 @using PopoverState = LumexPopover.PopoverState;
 
-@if( Popover.State is not PopoverState.Dismissed )
+@if( Popover.State is not PopoverState.Closed )
 {
     <PopoverWrapper Class="@Popover.Slots["Wrapper"]()"
                     data-popover-open="@Popover.Open.ToAttributeValue()"
                     data-popover-wrapper
-                    @onanimationend="HandleAnimationEnd">
+                    @ontransitionend="HandleTransitionEnd">
         <div role="dialog"
              class="@Popover.Slots["Base"]( Popover.Classes?.Base, Popover.Class )"
              tabindex="-1"

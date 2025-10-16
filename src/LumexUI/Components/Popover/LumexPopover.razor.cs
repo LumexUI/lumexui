@@ -2,14 +2,14 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Threading.Tasks;
+
 using LumexUI.Common;
 using LumexUI.Extensions;
 using LumexUI.Styles;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
-
-using static LumexUI.LumexPopoverContent;
 
 namespace LumexUI;
 
@@ -101,10 +101,10 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 	/// </summary>
 	[Parameter] public PopoverSlots? Classes { get; set; }
 
-	internal bool IsVisible { get; set; }
+	internal bool IsVisible { get; private set; }
 	internal bool IsTooltip { get; private set; }
 	internal PopoverOptions Options { get; private set; }
-	internal PopoverState State { get; private set; }
+	internal PopoverState State { get; private set; } = PopoverState.Closed;
 	internal Dictionary<string, ComponentSlot> Slots { get; private set; } = [];
 
 	private readonly PopoverContext _context;
@@ -130,20 +130,21 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 			IsTooltip = value is "tooltip";
 		}
 
-		if( Open && !IsVisible )
+		if (Open && State is PopoverState.Closing or PopoverState.Closed )
 		{
-			IsVisible = true;
+			State = PopoverState.Opening;
 		}
 
 		Options = new PopoverOptions( this );
 
-		var popover = Styles.Popover.Style( TwMerge );
+		var popover = Popover.Style( TwMerge );
 		Slots = popover( new()
 		{
 			[nameof( Size )] = Size.ToString(),
 			[nameof( Color )] = Color.ToString(),
 			[nameof( Radius )] = Radius.ToString(),
 			[nameof( Shadow )] = Shadow.ToString(),
+			[nameof( State )] = State.ToString(),
 		} );
 	}
 
@@ -160,35 +161,37 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 			await CloseAsync();
 		}
 
-		StateHasChanged();
+		await InvokeAsync( StateHasChanged );
 	}
 
-	internal Task OpenAsync()
+	internal async Task OpenAsync()
 	{
 		State = PopoverState.Opening;
+		await InvokeAsync( StateHasChanged );
+
+		await Task.Delay( 100 ); // <-- I don't know how to avoid this. The animation works from the second time forward
 
 		Open = true;
-		return OpenChanged.InvokeAsync( true );
+		await OpenChanged.InvokeAsync( true );
 	}
 
 	internal Task CloseAsync()
 	{
-		State = PopoverState.Dismissing;
-	
+		State = PopoverState.Closing;
+
 		Open = false;
 		return OpenChanged.InvokeAsync( false );
 	}
 
-	internal void SetAnimationState()
+	internal void SetTransitionState()
 	{
 		if( State is PopoverState.Opening )
 		{
 			State = PopoverState.Opened;
 		}
-
-		if( State is PopoverState.Dismissing )
+		else if( State is PopoverState.Closing )
 		{
-			State = PopoverState.Dismissed;
+			State = PopoverState.Closed;
 		}
 	}
 
@@ -206,6 +209,6 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 
 	internal enum PopoverState
 	{
-		Dismissed, Opening, Opened, Dismissing
+		Closed, Opening, Opened, Closing
 	}
 }

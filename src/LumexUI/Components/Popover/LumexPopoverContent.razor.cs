@@ -3,7 +3,6 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
-using LumexUI.Infrastructure;
 
 using Microsoft.AspNetCore.Components;
 
@@ -20,7 +19,7 @@ public partial class LumexPopoverContent : LumexComponentBase
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
-	[Parameter] public EventCallback OnAnimationEnd { get; set; }
+	[Parameter] public EventCallback OnTransitionEnd { get; set; }
 
 	[CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
@@ -32,9 +31,11 @@ public partial class LumexPopoverContent : LumexComponentBase
 		ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverContent ) );
 	}
 
-	private async Task HandleAnimationEnd( EventArgs e )
+	private async Task HandleTransitionEnd( EventArgs e )
 	{
-		Popover.SetAnimationState();
-		await OnAnimationEnd.InvokeAsync();
+		Console.WriteLine("Transition end: {0}", Popover.State);
+
+		Popover.SetTransitionState();
+		await OnTransitionEnd.InvokeAsync();
 	}
 }
