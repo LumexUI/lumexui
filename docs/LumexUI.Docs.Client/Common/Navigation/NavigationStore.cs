@@ -15,21 +15,21 @@ public class NavigationStore
 
 	private static NavigationCategory ThemingCategory =>
 		new NavigationCategory( "Theming" )
-			.Add( new( "Design tokens", PageStatus.New ) )
-			.Add( new( "Customization", PageStatus.Updated ) )
-			.Add( new( "Dark mode", PageStatus.New ) );
+			.Add( new( "Design tokens" ) )
+			.Add( new( "Customization" ) )
+			.Add( new( "Dark mode" ) );
 
 	private static NavigationCategory ComponentsCategory =>
 		new NavigationCategory( "Components" )
 			.Add( new( nameof( LumexAccordion ) ) )
-			.Add( new( nameof( LumexAlert ), PageStatus.New ) )
-			.Add( new( nameof( LumexAvatar ), PageStatus.New ) )
-			.Add( new( nameof( LumexBadge ), PageStatus.New ) )
-			.Add( new( nameof( LumexButton ), PageStatus.Updated ) )
+			.Add( new( nameof( LumexAlert ) ) )
+			.Add( new( nameof( LumexAvatar ) ) )
+			.Add( new( nameof( LumexBadge ) ) )
+			.Add( new( nameof( LumexButton ) ) )
 			.Add( new( nameof( LumexCard ) ) )
 			.Add( new( nameof( LumexCheckbox ) ) )
 			.Add( new( nameof( LumexCheckboxGroup ) ) )
-			.Add( new( nameof( LumexChip ), PageStatus.New ) )
+			.Add( new( nameof( LumexChip ) ) )
 			.Add( new( nameof( LumexCode ), PageStatus.New ) )
 			.Add( new( nameof( LumexCollapse ) ) )
 			.Add( new( nameof( LumexDataGrid<T> ) ) )
@@ -43,12 +43,12 @@ public class NavigationStore
 			.Add( new( nameof( LumexPopover ) ) )
 			.Add( new( nameof( LumexRadioGroup<T> ) ) )
 			.Add( new( nameof( LumexSelect<T> ) ) )
-			.Add( new( nameof( LumexSkeleton ), PageStatus.New ) )
-			.Add( new( nameof( LumexSpinner ), PageStatus.New ) )
+			.Add( new( nameof( LumexSkeleton ) ) )
+			.Add( new( nameof( LumexSpinner ) ) )
 			.Add( new( nameof( LumexSwitch ) ) )
 			.Add( new( nameof( LumexTabs ) ) )
 			.Add( new( nameof( LumexTextbox ) ) )
-			.Add( new( nameof( LumexTooltip ), PageStatus.New ) )
+			.Add( new( nameof( LumexTooltip ) ) )
 			.Add( new( nameof( LumexUser ), PageStatus.New ) );
 
 	private static NavigationCategory ComponentsApiCategory =>
