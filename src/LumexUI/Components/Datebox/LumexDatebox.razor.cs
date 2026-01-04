@@ -16,8 +16,17 @@ using InputDateType = LumexUI.Common.InputDateType;
 namespace LumexUI;
 
 /// <summary>
-/// A component that represents an input field for entering <see cref="DateTime"/> values.
+/// A component that represents an input field for entering date values.
 /// </summary>
+/// <remarks>
+/// The supported types for the date value are:
+///		<list type="bullet">
+///		<item><description><see cref="DateTime"/></description></item>
+///		<item><description><see cref="DateTimeOffset"/></description></item>
+///		<item><description><see cref="DateOnly"/></description></item>
+///		<item><description><see cref="TimeOnly"/></description></item>
+///		</list>
+/// </remarks>
 public partial class LumexDatebox<TValue> : LumexInputFieldBase<TValue>
 {
 	private const string DateFormat = "yyyy-MM-dd";                     // Compatible with HTML 'date' inputs
@@ -70,10 +79,10 @@ public partial class LumexDatebox<TValue> : LumexInputFieldBase<TValue>
 		};		
 	}
 
-	// Datebox should always look 'focused'.
 	/// <inheritdoc />
 	protected override async Task OnBlurAsync( FocusEventArgs args )
 	{
+		// Datebox should always look 'focused'.
 		await OnBlur.InvokeAsync( args );
 	}
 

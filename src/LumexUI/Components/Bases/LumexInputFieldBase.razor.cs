@@ -116,7 +116,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	[Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
 	/// <summary>
-	/// Gets or sets the validation error mesage of the input.
+	/// Gets or sets the validation error message of the input.
 	/// </summary>
 	protected string? ValidationMessage { get; private set; }
 
@@ -203,11 +203,11 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 		if( firstRender )
 		{
 			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
-		}
 
-		if( Autofocus )
-		{
-			await FocusAsync();
+			if( Autofocus )
+			{
+				await FocusAsync();
+			}
 		}
 	}
 
