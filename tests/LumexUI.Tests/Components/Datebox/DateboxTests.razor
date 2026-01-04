@@ -1,35 +1,58 @@
 ﻿@namespace LumexUI.Tests.Components
 @inherits TestContext
 
-@using AngleSharp.Dom
-@using LumexUI.Common
 @using Microsoft.AspNetCore.Components.Web
-@using Microsoft.Extensions.DependencyInjection
-@using TailwindMerge
 
 @code {
     public DateboxTests()
     {
         Services.AddSingleton<TwMerge>();
 
-        BunitJSModuleInterop module = JSInterop.SetupModule("./_content/LumexUI/js/components/input.js");
+        var module = JSInterop.SetupModule("./_content/LumexUI/js/components/input.js");
         module.Setup<string>("input.getValidationMessage", _ => true);
     }
 
     [Fact]
     public void ShouldRenderCorrectly()
     {
-        Func<IRenderedFragment> action = () => Render(@<LumexDatebox Label="Test" />);
+        var action = () => Render(
+            @<LumexDatebox TValue="DateTime?" Label="Test" />
+        );
 
         action.Should().NotThrow();
     }
 
     [Fact]
+    public void ShouldThrowIfNotDateType()
+    {
+        var action = () => Render(
+            @<LumexDatebox TValue="int" Label="Test" />
+        );
+
+        action.Should().Throw<InvalidOperationException>();
+    }
+
+    [Theory]
+    [InlineData(InputDateType.Date, "date")]
+    [InlineData(InputDateType.DateTimeLocal, "datetime-local")]
+    [InlineData(InputDateType.Month, "month")]
+    [InlineData(InputDateType.Time, "time")]
+    public void ShouldHaveCorrectTypeAttribute(InputDateType type, string actual)
+    {
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" Type="@type" />
+        );
+
+        var input = cut.Find("input");
+
+        input.GetAttribute("type").Should().Be(actual);
+    }
+
+    [Fact]
     public void ShouldRenderMainWrapperWhenLabelOutside()
     {
-        IRenderedFragment cut = Render(
-            @<LumexDatebox Label="Test"
-              LabelPlacement="@LabelPlacement.Outside" />
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" LabelPlacement="@LabelPlacement.Outside" />
         );
 
         cut.Find("[data-slot=main-wrapper]").Should().NotBeNull();
@@ -38,9 +61,8 @@
     [Fact]
     public void ShouldRenderHelperWrapperWhenDescriptionProvided()
     {
-        IRenderedFragment cut = Render(
-            @<LumexDatebox Label="Test"
-              Description="Test description" />
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" Description="Test description" />
         );
 
         cut.Find("[data-slot=helper-wrapper]").Should().NotBeNull();
@@ -50,28 +72,21 @@
     [Fact]
     public void ShouldRenderHelperWrapperWhenErrorMessageProvided()
     {
-        IRenderedFragment cut = Render(
-            @<LumexDatebox Label="Test"
-              ErrorMessage="Test error message" />
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" ErrorMessage="Test error message" />
         );
-
-        Func<IElement> action = () => cut.Find("[data-slot=error-message]");
+        var action = () => cut.Find("[data-slot=error-message]");
 
         cut.Find("[data-slot=helper-wrapper]").Should().NotBeNull();
 
-        action.Should().Throw<ElementNotFoundException>
-        (
-            because: "Error message should be rendered when state is invalid."
-        );
+        action.Should().Throw<ElementNotFoundException>(because: "Error message should be rendered when state is invalid.");
     }
 
     [Fact]
     public void ShouldRenderErrorMessageWhenInvalid()
     {
-        IRenderedFragment cut = Render(
-            @<LumexDatebox Label="Test"
-              ErrorMessage="Test error message"
-              Invalid="@true" />
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" ErrorMessage="Test error message" Invalid="@true" />
         );
 
         cut.Find("[data-slot=error-message]").Should().NotBeNull();
@@ -80,48 +95,36 @@
     [Fact]
     public void ShouldHaveDisabledAttributeWhenDisabled()
     {
-        IRenderedFragment cut = Render(
-            @<LumexDatebox Label="Test"
-              Disabled="@true" />
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" Disabled="@true" />
         );
 
-        IElement input = cut.Find("input");
+        var input = cut.Find("input");
+
         input.HasAttribute("disabled").Should().BeTrue();
-    }
-
-    [Fact]
-    public void ShouldHaveCorrectTypeAttribute()
-    {
-        IRenderedFragment cut = Render(@<LumexDatebox Label="Test" />);
-
-        IElement input = cut.Find("input");
-        input.HasAttribute("type").Should().BeTrue();
-        input.GetAttribute("type").Should().Be("date");
     }
 
     [Fact]
     public void ShouldRenderClearButtonWhenClearableAndHasValue()
     {
-        IRenderedFragment cut = Render(
-            @<LumexDatebox Label="Test"
-              Clearable="@true"
-              Value="@DateTime.UtcNow" />
+        var cut = Render(
+            @<LumexDatebox Label="Test" Clearable="@true" Value="@DateTime.Today" />
         );
 
-        IElement clearButton = cut.Find("[role=button]");
+        var clearButton = cut.Find("[role=button]");
+
         clearButton.Should().NotBeNull();
     }
 
     [Fact]
     public void ShouldClearValueOnClickWhenClearable()
     {
-        IRenderedComponent<LumexDatebox> cut = Render<LumexDatebox>(
-            @<LumexDatebox Label="Test"
-              Clearable="@true"
-              Value="@DateTime.UtcNow" />
+        DateTime? value = DateTime.Today;
+        var cut = Render<LumexDatebox<DateTime?>>(
+            @<LumexDatebox Clearable="@true" Value="@value" />
         );
 
-        IElement clearButton = cut.Find("[role=button]");
+        var clearButton = cut.Find("[role=button]");
         clearButton.Click();
 
         cut.Instance.Value.Should().BeNull();
@@ -132,21 +135,17 @@
     [InlineData("Space")]
     public void ShouldClearValueOnlyWithEnterOrSpaceWhenClearable(string code)
     {
-        DateTime now = DateTime.UtcNow;
-
-        IRenderedComponent<LumexDatebox> cut = Render<LumexDatebox>(
-            @<LumexDatebox Label="Test"
-              Clearable="@true"
-              Value="@now" />
+        DateTime? value = DateTime.Today;
+        var cut = Render<LumexDatebox<DateTime?>>(
+            @<LumexDatebox Clearable="@true" Value="@value" />
         );
 
-        IElement clearButton = cut.Find("[role=button]");
-        clearButton.KeyUp(new KeyboardEventArgs() { Code = "Esc" });
+        var clearButton = cut.Find("[role=button]");
 
-        cut.Instance.Value.Should().Be(now);
+        clearButton.KeyUp(new KeyboardEventArgs() { Code = "Esc" });
+        cut.Instance.Value.Should().Be(value);
 
         clearButton.KeyUp(new KeyboardEventArgs() { Code = code });
-
         cut.Instance.Value.Should().BeNull();
     }
 
@@ -154,30 +153,27 @@
     public void ShouldTriggerOnClearedCallbackOnClear()
     {
         bool isCleared = false;
-
-        IRenderedComponent<LumexDatebox> cut = Render<LumexDatebox>(
-            @<LumexDatebox Label="Test"
-              Clearable="@true"
-              OnCleared="@(() => isCleared = true)"
-              Value="@DateTime.UtcNow" />
+        var cut = Render<LumexDatebox<DateTime>>(
+            @<LumexDatebox OnCleared="@(() => isCleared = true)" Value="@DateTime.Today" />
         );
 
-        IElement clearButton = cut.Find("[role=button]");
+        var clearButton = cut.Find("[role=button]");
         clearButton.Click();
 
         isCleared.Should().BeTrue();
-
-        cut.Instance.Value.Should().BeNull();
     }
 
     [Fact]
     public void ShouldFocusInputOnInputWrapperClick()
     {
-        IRenderedFragment cut = Render(@<LumexDatebox Label="Test" />);
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" Label="Test" />
+        );
 
-        IElement baseWrapper = cut.Find("[data-slot=base]");
-        IElement inputWrapper = cut.Find("[data-slot=input-wrapper]");
+        var baseWrapper = cut.Find("[data-slot=base]");
+        var inputWrapper = cut.Find("[data-slot=input-wrapper]");
         inputWrapper.Click();
+
         baseWrapper.GetAttribute("data-focus").Should().Be("true", because: "Internal `Focused` flag is true.");
     }
 
@@ -186,122 +182,42 @@
     [InlineData(false, true)]
     public void ShouldNotFocusInputWhenDisabledOrReadonly(bool disabled, bool @readonly)
     {
-        IRenderedFragment cut = Render(
-            @<LumexDatebox Label="Test"
-              Disabled="@disabled"
-              ReadOnly="@(@readonly)" />
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" Disabled="@disabled" ReadOnly="@(@readonly)" />
         );
 
-        IElement baseWrapper = cut.Find("[data-slot=base]");
-        IElement inputWrapper = cut.Find("[data-slot=input-wrapper]");
+        var baseWrapper = cut.Find("[data-slot=base]");
+        var inputWrapper = cut.Find("[data-slot=input-wrapper]");
         inputWrapper.Click();
+
         baseWrapper.GetAttribute("data-focus").Should().Be("false", because: "Internal `Focused` flag is false.");
     }
 
     [Fact]
-    public void ShouldChangeValueUsingInputEventWhenBehaviorOnInput()
+    public void ShouldChangeValueUsingChangeEvent()
     {
-        IRenderedComponent<LumexDatebox> cut = Render<LumexDatebox>(
-            @<LumexDatebox Label="Test"
-              Behavior="@InputBehavior.OnInput" />
+        var value = DateTime.Today;
+        var cut = Render<LumexDatebox<DateTime?>>(
+            @<LumexDatebox TValue="DateTime?" Label="Test" />
         );
 
-        IElement input = cut.Find("input");
+        var input = cut.Find("input");
+        input.Change(value.ToString("yyyy-MM-dd"));
 
-        DateTime utcNow = DateTime.UtcNow;
-        DateTime expectedUtcNow = new DateTime(utcNow.Ticks - (utcNow.Ticks % TimeSpan.TicksPerSecond), utcNow.Kind);
-
-        input.Input(utcNow);
-        cut.Instance.Value.Should().Be(expectedUtcNow);
-
-        DateTime now = DateTime.Now;
-        DateTime expectedNow = new DateTime(now.ToUniversalTime().Ticks - (now.ToUniversalTime().Ticks % TimeSpan.TicksPerSecond), DateTimeKind.Utc);
-
-        input.Change(now);
-
-        cut.Instance.Value.Should().Be(expectedNow);
+        cut.Instance.Value.Should().Be(value.Date);
     }
 
     [Fact]
-    public void ShouldChangeValueUsingChangeEventWhenBehaviorOnChange()
+    public void ShouldNotChangeValueUsingInputEvent()
     {
-        DateTime utcNow = DateTime.UtcNow;
-        DateTime now = DateTime.Now;
-
-        IRenderedComponent<LumexDatebox> cut = Render<LumexDatebox>(
-            @<LumexDatebox Label="Test"
-              Behavior="@InputBehavior.OnChange" />
+        var value = DateTime.Today;
+        var cut = Render<LumexDatebox<DateTime?>>(
+            @<LumexDatebox TValue="DateTime?" Label="Test" />
         );
 
-        IElement input = cut.Find("input");
+        var input = cut.Find("input");
+        input.Input(value.ToString("yyyy-MM-dd"));
 
-        input.Change(utcNow);
-
-        DateTime expectedUtcNow = new DateTime(utcNow.Ticks - (utcNow.Ticks % TimeSpan.TicksPerSecond), utcNow.Kind);
-
-        cut.Instance.Value.Should().Be(expectedUtcNow);
-
-        DateTime expectedNow = new DateTime(now.ToUniversalTime().Ticks - (now.ToUniversalTime().Ticks % TimeSpan.TicksPerSecond), DateTimeKind.Utc);
-
-        input.Input(now);
-
-        cut.Instance.Value.Should().Be(expectedNow);
-    }
-
-    [Fact]
-    public void ShouldChangeValueImmediatelyWhenBehaviorOnInput()
-    {
-        DateTime date = DateTime.UtcNow;
-
-        IRenderedComponent<LumexDatebox> cut = Render<LumexDatebox>(
-            @<LumexDatebox Label="Test"
-              Behavior="@InputBehavior.OnInput" />
-        );
-
-        IElement input = cut.Find("input");
-        input.Input(date);
-
-        DateTime expectedDate = new DateTime(date.Ticks - (date.Ticks % TimeSpan.TicksPerSecond), date.Kind);
-
-        cut.Instance.Value.Should().Be(expectedDate, "Debounce delay is 0ms.");
-    }
-
-    [Fact]
-    public async Task ShouldChangeValueAfterDebounceDelayWhenBehaviorOnInput()
-    {
-        IRenderedComponent<LumexDatebox> cut = Render<LumexDatebox>(
-            @<LumexDatebox Label="Test"
-              Behavior="@InputBehavior.OnInput"
-              DebounceDelay="200" />
-        );
-
-        IElement input = cut.Find("input");
-
-        DateTime now = DateTime.Now;
-        DateTime expectedNow = new DateTime(now.Ticks - (now.Ticks % TimeSpan.TicksPerSecond), now.Kind);
-
-        input.Input(now);
-
-        cut.Instance.Value.Should().BeNull(because: "Elapsed time (0ms) < 200ms.");
-
-        await Task.Delay(100);
-
-        cut.Instance.Value.Should().BeNull(because: "Elapsed time (100ms) < 200ms.");
-
-        await Task.Delay(150);
-
-        cut.WaitForAssertion(() => cut.Instance.Value.Should().Be(expectedNow, because: "Elapsed time (250ms) > 200ms."));
-    }
-
-    [Fact]
-    public void ShouldThrowWithDebounceDelayAndOnChangeBehavior()
-    {
-        Func<IRenderedFragment> action = () => Render(
-            @<LumexDatebox Label="Test"
-              Behavior="@InputBehavior.OnChange"
-              DebounceDelay="200" />
-        );
-
-        action.Should().Throw<InvalidOperationException>();
+        cut.Instance.Value.Should().BeNull(because: "No-op");
     }
 }

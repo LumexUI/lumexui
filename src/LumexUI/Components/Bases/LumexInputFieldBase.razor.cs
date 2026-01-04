@@ -155,7 +155,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 		!string.IsNullOrEmpty( ErrorMessage ) ||
 		!string.IsNullOrEmpty( ValidationMessage );
 	private bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
-	private bool ClearButtonVisible => Clearable && HasValue;
+	private bool ClearButtonVisible => ( Clearable || OnCleared.HasDelegate ) && HasValue;
 
 	private readonly RenderFragment _renderMainWrapper;
 	private readonly RenderFragment _renderInputWrapper;
