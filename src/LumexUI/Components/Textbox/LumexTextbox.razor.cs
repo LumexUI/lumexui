@@ -12,7 +12,7 @@ namespace LumexUI;
 /// <summary>
 /// A component that represents an input field for entering <see cref="string"/> values.
 /// </summary>
-public partial class LumexTextbox : LumexInputFieldBase<string?>
+public partial class LumexTextbox : LumexDebouncedInputBase<string?>
 {
 	/// <summary>
 	/// Gets or sets the input type of the textbox.

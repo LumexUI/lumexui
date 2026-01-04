@@ -1,0 +1,223 @@
+﻿@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@using Microsoft.AspNetCore.Components.Web
+
+@code {
+    public DateboxTests()
+    {
+        Services.AddSingleton<TwMerge>();
+
+        var module = JSInterop.SetupModule("./_content/LumexUI/js/components/input.js");
+        module.Setup<string>("input.getValidationMessage", _ => true);
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexDatebox TValue="DateTime?" Label="Test" />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldThrowIfNotDateType()
+    {
+        var action = () => Render(
+            @<LumexDatebox TValue="int" Label="Test" />
+        );
+
+        action.Should().Throw<InvalidOperationException>();
+    }
+
+    [Theory]
+    [InlineData(InputDateType.Date, "date")]
+    [InlineData(InputDateType.DateTimeLocal, "datetime-local")]
+    [InlineData(InputDateType.Month, "month")]
+    [InlineData(InputDateType.Time, "time")]
+    public void ShouldHaveCorrectTypeAttribute(InputDateType type, string actual)
+    {
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" Type="@type" />
+        );
+
+        var input = cut.Find("input");
+
+        input.GetAttribute("type").Should().Be(actual);
+    }
+
+    [Fact]
+    public void ShouldRenderMainWrapperWhenLabelOutside()
+    {
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" LabelPlacement="@LabelPlacement.Outside" />
+        );
+
+        cut.Find("[data-slot=main-wrapper]").Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderHelperWrapperWhenDescriptionProvided()
+    {
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" Description="Test description" />
+        );
+
+        cut.Find("[data-slot=helper-wrapper]").Should().NotBeNull();
+        cut.Find("[data-slot=description]").Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderHelperWrapperWhenErrorMessageProvided()
+    {
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" ErrorMessage="Test error message" />
+        );
+        var action = () => cut.Find("[data-slot=error-message]");
+
+        cut.Find("[data-slot=helper-wrapper]").Should().NotBeNull();
+
+        action.Should().Throw<ElementNotFoundException>(because: "Error message should be rendered when state is invalid.");
+    }
+
+    [Fact]
+    public void ShouldRenderErrorMessageWhenInvalid()
+    {
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" ErrorMessage="Test error message" Invalid="@true" />
+        );
+
+        cut.Find("[data-slot=error-message]").Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldHaveDisabledAttributeWhenDisabled()
+    {
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" Disabled="@true" />
+        );
+
+        var input = cut.Find("input");
+
+        input.HasAttribute("disabled").Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldRenderClearButtonWhenClearableAndHasValue()
+    {
+        var cut = Render(
+            @<LumexDatebox Label="Test" Clearable="@true" Value="@DateTime.Today" />
+        );
+
+        var clearButton = cut.Find("[role=button]");
+
+        clearButton.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldClearValueOnClickWhenClearable()
+    {
+        DateTime? value = DateTime.Today;
+        var cut = Render<LumexDatebox<DateTime?>>(
+            @<LumexDatebox Clearable="@true" Value="@value" />
+        );
+
+        var clearButton = cut.Find("[role=button]");
+        clearButton.Click();
+
+        cut.Instance.Value.Should().BeNull();
+    }
+
+    [Theory]
+    [InlineData("Enter")]
+    [InlineData("Space")]
+    public void ShouldClearValueOnlyWithEnterOrSpaceWhenClearable(string code)
+    {
+        DateTime? value = DateTime.Today;
+        var cut = Render<LumexDatebox<DateTime?>>(
+            @<LumexDatebox Clearable="@true" Value="@value" />
+        );
+
+        var clearButton = cut.Find("[role=button]");
+
+        clearButton.KeyUp(new KeyboardEventArgs() { Code = "Esc" });
+        cut.Instance.Value.Should().Be(value);
+
+        clearButton.KeyUp(new KeyboardEventArgs() { Code = code });
+        cut.Instance.Value.Should().BeNull();
+    }
+
+    [Fact]
+    public void ShouldTriggerOnClearedCallbackOnClear()
+    {
+        bool isCleared = false;
+        var cut = Render<LumexDatebox<DateTime>>(
+            @<LumexDatebox OnCleared="@(() => isCleared = true)" Value="@DateTime.Today" />
+        );
+
+        var clearButton = cut.Find("[role=button]");
+        clearButton.Click();
+
+        isCleared.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldFocusInputOnInputWrapperClick()
+    {
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" Label="Test" />
+        );
+
+        var baseWrapper = cut.Find("[data-slot=base]");
+        var inputWrapper = cut.Find("[data-slot=input-wrapper]");
+        inputWrapper.Click();
+
+        baseWrapper.GetAttribute("data-focus").Should().Be("true", because: "Internal `Focused` flag is true.");
+    }
+
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    public void ShouldNotFocusInputWhenDisabledOrReadonly(bool disabled, bool @readonly)
+    {
+        var cut = Render(
+            @<LumexDatebox TValue="DateTime?" Disabled="@disabled" ReadOnly="@(@readonly)" />
+        );
+
+        var baseWrapper = cut.Find("[data-slot=base]");
+        var inputWrapper = cut.Find("[data-slot=input-wrapper]");
+        inputWrapper.Click();
+
+        baseWrapper.GetAttribute("data-focus").Should().Be("false", because: "Internal `Focused` flag is false.");
+    }
+
+    [Fact]
+    public void ShouldChangeValueUsingChangeEvent()
+    {
+        var value = DateTime.Today;
+        var cut = Render<LumexDatebox<DateTime?>>(
+            @<LumexDatebox TValue="DateTime?" Label="Test" />
+        );
+
+        var input = cut.Find("input");
+        input.Change(value.ToString("yyyy-MM-dd"));
+
+        cut.Instance.Value.Should().Be(value.Date);
+    }
+
+    [Fact]
+    public void ShouldNotChangeValueUsingInputEvent()
+    {
+        var value = DateTime.Today;
+        var cut = Render<LumexDatebox<DateTime?>>(
+            @<LumexDatebox TValue="DateTime?" Label="Test" />
+        );
+
+        var input = cut.Find("input");
+        input.Input(value.ToString("yyyy-MM-dd"));
+
+        cut.Instance.Value.Should().BeNull(because: "No-op");
+    }
+}

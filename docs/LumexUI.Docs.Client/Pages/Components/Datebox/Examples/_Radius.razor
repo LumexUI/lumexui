@@ -1,0 +1,24 @@
+﻿<div class="w-full grid grid-cols-1 gap-4 md:grid-cols-2">
+    @foreach (Radius radius in _radii)
+    {
+        <div>
+            <LumexDatebox TValue="DateTime?"
+                          Radius="@radius"
+                          Label="Birth date"
+                          Class="max-w-xs" />
+
+            <small class="text-default-400 mt-1">
+                @radius
+            </small>
+        </div>
+    }
+</div>
+
+@code {
+    private Radius[] _radii = [
+        Radius.None, 
+        Radius.Small, 
+        Radius.Medium, 
+        Radius.Large
+    ];
+}

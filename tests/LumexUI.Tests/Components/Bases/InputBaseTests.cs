@@ -1,4 +1,4 @@
-// Copyright (c) LumexUI 2024
+﻿// Copyright (c) LumexUI 2024
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
@@ -81,7 +81,7 @@ public class InputBaseTests : TestContext
 	public void InputBase_WithValue_ShouldSupplyCurrentValueAsStringWithFormatting()
 	{
 		var model = new TestModel();
-		var cut = RenderComponent<TestDateInputComponent>( p => p
+		var cut = RenderComponent<TestDateboxComponent>( p => p
 			.Add( p => p.Value, new DateTime( 1915, 3, 2 ) )
 			.Add( p => p.ValueExpression, () => model.DateProperty )
 		);
@@ -93,7 +93,7 @@ public class InputBaseTests : TestContext
 	public async Task InputBase_WhenChangedValid_ShouldParseCurrentValueAsString()
 	{
 		var model = new TestModel();
-		var cut = RenderComponent<TestDateInputComponent>( p => p
+		var cut = RenderComponent<TestDateboxComponent>( p => p
 			.Add( p => p.Value, new DateTime( 1915, 3, 2 ) )
 			.Add( p => p.ValueExpression, () => model.DateProperty )
 		);
@@ -110,7 +110,7 @@ public class InputBaseTests : TestContext
 	public async Task InputBase_WhenChangedInvalid_ShouldNotParseCurrentValueAsString()
 	{
 		var model = new TestModel();
-		var cut = RenderComponent<TestDateInputComponent>( p => p
+		var cut = RenderComponent<TestDateboxComponent>( p => p
 			.Add( p => p.Value, new DateTime( 1915, 3, 2 ) )
 			.Add( p => p.ValueExpression, () => model.DateProperty )
 		);
@@ -197,7 +197,7 @@ public class InputBaseTests : TestContext
 		}
 	}
 
-	private class TestDateInputComponent : TestInputComponent<DateTime>
+	private class TestDateboxComponent : TestInputComponent<DateTime>
 	{
 		protected override string FormatValueAsString( DateTime value )
 			=> value.ToString( "yyyy/MM/dd", CultureInfo.InvariantCulture );

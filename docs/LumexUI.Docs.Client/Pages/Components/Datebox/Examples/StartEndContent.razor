@@ -1,0 +1,28 @@
+﻿<div class="w-full grid grid-cols-1 gap-4">
+    <div>
+        <LumexDatebox TValue="DateTime?"
+                      Label="Birth date"
+                      StartContent="@_calendarClockIcon"
+                      Class="max-w-xs" />
+
+        <small class="text-default-500 mt-1">
+            Start
+        </small>
+    </div>
+
+    <div>
+        <LumexDatebox TValue="DateTime?"
+                      Label="Birth date"
+                      EndContent="@_calendarClockIcon"
+                      Class="max-w-xs" />
+
+        <small class="text-default-500 mt-1">
+            End
+        </small>
+    </div>
+</div>
+
+@code {
+    private RenderFragment _calendarClockIcon = 
+        @<CalendarClockIcon Size="20" class="text-default-400 shrink-0" />;
+}

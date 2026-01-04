@@ -51,11 +51,5 @@ public enum InputType
 	/// An input field for entering a URL.
 	/// </summary>
 	[Description( "url" )]
-	Url,
-
-	/// <summary>
-	/// An input field for selecting a color.
-	/// </summary>
-	[Description( "color" )]
-	Color
+	Url
 }

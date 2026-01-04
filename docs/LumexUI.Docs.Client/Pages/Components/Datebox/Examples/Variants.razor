@@ -1,0 +1,23 @@
+﻿<div class="w-full grid grid-cols-1 gap-4">
+    @foreach (InputVariant variant in _variants)
+    {
+        <div>
+            <LumexDatebox TValue="DateTime?"
+                          Variant="@variant"
+                          Label="Birth date"
+                          Class="max-w-xs" />
+
+            <small class="text-default-400 mt-1">
+                @variant
+            </small>
+        </div>
+    }
+</div>
+
+@code {
+    private InputVariant[] _variants = [
+        InputVariant.Flat,
+        InputVariant.Outlined,
+        InputVariant.Underlined
+    ];
+}

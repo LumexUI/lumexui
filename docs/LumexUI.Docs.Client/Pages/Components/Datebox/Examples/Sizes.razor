@@ -1,0 +1,21 @@
+﻿<div class="w-full grid grid-cols-1 gap-4">
+    @foreach (Size size in _sizes)
+    {
+        <div>
+            <LumexDatebox TValue="DateTime?"
+                          Size="@size"
+                          Label="Birth date"
+                          Class="max-w-xs" />
+
+            <small class="text-default-400 mt-1">@size</small>
+        </div>
+    }
+</div>
+
+@code {
+    private Size[] _sizes = [
+        Size.Small,
+        Size.Medium,
+        Size.Large
+    ];
+}

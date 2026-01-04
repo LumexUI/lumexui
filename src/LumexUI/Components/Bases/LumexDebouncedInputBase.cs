@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Common;
+
 using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
@@ -10,116 +12,127 @@ namespace LumexUI;
 /// Represents a base class for input components with debounced value updates.
 /// </summary>
 /// <typeparam name="TValue">The type of the input value.</typeparam>
-public abstract class LumexDebouncedInputBase<TValue> : LumexInputBase<TValue>, IDisposable
+public abstract class LumexDebouncedInputBase<TValue> : LumexInputFieldBase<TValue>
 {
-    /// <summary>
-    /// Gets or sets the delay, in milliseconds, for debouncing input events.
-    /// </summary>
-    [Parameter] public int DebounceDelay { get; set; }
+	/// <summary>
+	/// Gets or sets the delay, in milliseconds, for debouncing input events.
+	/// </summary>
+	[Parameter] public int DebounceDelay { get; set; }
 
-    private readonly Debouncer _debouncer;
+	/// <summary>
+	/// Gets or sets the input behavior, specifying when the textbox
+	/// updates its value and triggers validation.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="InputBehavior.OnChange"/>
+	/// </remarks>
+	[Parameter] public InputBehavior Behavior { get; set; } = InputBehavior.OnChange;
 
-    private bool _disposed;
+	private readonly Debouncer _debouncer;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="LumexDebouncedInputBase{TValue}"/>.
-    /// </summary>
-    public LumexDebouncedInputBase()
-    {
-        _debouncer = new Debouncer();
-    }
+	/// <summary>
+	/// Initializes a new instance of the <see cref="LumexDebouncedInputBase{TValue}"/>.
+	/// </summary>
+	public LumexDebouncedInputBase()
+	{
+		_debouncer = new Debouncer();
+	}
 
-    /// <summary>
-    /// Handles the input event asynchronously, applying a debounce delay if provided.
-    /// </summary>
-    /// <param name="args">The change event arguments.</param>
-    /// <returns>A <see cref="Task"/> representing the asynchronous value input operation.</returns>
-    protected virtual Task OnInputAsync( ChangeEventArgs args )
-    {
-        if( DebounceDelay > 0 )
-        {
-            return _debouncer.DebounceAsync( SetCurrentValueAsStringAsync, (string?)args.Value, DebounceDelay );
-        }
+	/// <inheritdoc />
+	protected override void OnParametersSet()
+	{
+		if( DebounceDelay > 0 && Behavior is not InputBehavior.OnInput )
+		{
+			throw new InvalidOperationException(
+				$"{GetType()} requires '{nameof( InputBehavior.OnInput )}' behavior" +
+				$" to be used when '{nameof( DebounceDelay )}' is not zero." );
+		}
+	}
 
-        return SetCurrentValueAsStringAsync( (string?)args.Value );
-    }
+	/// <inheritdoc />
+	protected override Task OnInputAsync( ChangeEventArgs args )
+	{
+		if( Behavior is not InputBehavior.OnInput )
+		{
+			return Task.CompletedTask;
+		}
 
-    /// <summary>
-    /// Handles the change event asynchronously.
-    /// </summary>
-    /// <param name="args">The change event arguments.</param>
-    /// <returns>A <see cref="Task"/> representing the asynchronous value change operation.</returns>
-    protected virtual Task OnChangeAsync( ChangeEventArgs args )
-    {
-        return SetCurrentValueAsStringAsync( (string?)args.Value );
-    }
+		if( DebounceDelay > 0 )
+		{
+			return _debouncer.DebounceAsync( SetCurrentValueAsStringAsync, (string?)args.Value, DebounceDelay );
+		}
 
-    /// <inheritdoc />
-    public void Dispose()
-    {
-        Dispose( disposing: true );
-        GC.SuppressFinalize( this );
-    }
+		return SetCurrentValueAsStringAsync( (string?)args.Value );
+	}
 
-    /// <inheritdoc cref="IDisposable.Dispose" />
-    protected virtual void Dispose( bool disposing )
-    {
-        if( !_disposed )
-        {
-            if( disposing )
-            {
-                _debouncer.Dispose();
-            }
+	/// <inheritdoc />
+	protected override Task OnChangeAsync( ChangeEventArgs args )
+	{
+		if( Behavior is not InputBehavior.OnChange )
+		{
+			return Task.CompletedTask;
+		}
 
-            _disposed = true;
-        }
-    }
+		return SetCurrentValueAsStringAsync( (string?)args.Value );
+	}
 
-    /// <summary>
-    /// Represents a debouncer for handling debounced input events.
-    /// </summary>
-    private sealed class Debouncer : IDisposable
-    {
-        private bool _disposed;
-        private CancellationTokenSource? _cts;
+	/// <inheritdoc />
+	public override async ValueTask DisposeAsync()
+	{
+		_debouncer.Dispose();
+		await base.DisposeAsync();
+	}
 
-        public async Task DebounceAsync( Func<string?, Task> workItem, string? arg, int milliseconds )
-        {
-            ArgumentNullException.ThrowIfNull( workItem );
+	/// <summary>
+	/// Represents a debouncer for handling debounced input events.
+	/// </summary>
+	private sealed class Debouncer : IDisposable
+	{
+		private bool _disposed;
+		private CancellationTokenSource? _cts;
 
-            _cts?.Cancel();
-            _cts?.Dispose();
+		public async Task DebounceAsync( Func<string?, Task> workItem, string? arg, int milliseconds )
+		{
+			ObjectDisposedException.ThrowIf( _disposed, this );
+			ArgumentNullException.ThrowIfNull( workItem );
 
-            var cts = _cts = new CancellationTokenSource();
-            using var timer = new PeriodicTimer( TimeSpan.FromMilliseconds( milliseconds ) );
+			// Cancel/dispose any pending debounce.
+			_cts?.Cancel();
+			_cts?.Dispose();
 
-            while( await timer.WaitForNextTickAsync( cts.Token ) )
-            {
-                // Debounce time has passed without further input; trigger the debounced event
-                await workItem( arg );
-                break;
-            }
-        }
+			var cts = _cts = new CancellationTokenSource();
 
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            Dispose( disposing: true );
-            GC.SuppressFinalize( this );
-        }
+			if( milliseconds <= 0 )
+			{
+				await workItem( arg );
+				return;
+			}
 
-        private void Dispose( bool disposing )
-        {
-            if( !_disposed )
-            {
-                if( disposing )
-                {
-                    _cts?.Cancel();
-                    _cts?.Dispose();
-                }
+			try
+			{
+				await Task.Delay( milliseconds, cts.Token );
 
-                _disposed = true;
-            }
-        }
-    }
+				// Debounce time has passed without further input; trigger the debounced event.
+				await workItem( arg );
+			}
+			catch( OperationCanceledException ) when( cts.IsCancellationRequested )
+			{
+				// Expected: new input or disposal cancelled the pending debounce.
+			}
+		}
+
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			if( _disposed )
+			{
+				return;
+			}
+
+			_disposed = true;
+
+			_cts?.Cancel();
+			_cts?.Dispose();
+		}
+	}
 }

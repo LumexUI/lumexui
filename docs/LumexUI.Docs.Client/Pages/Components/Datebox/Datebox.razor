@@ -1,0 +1,166 @@
+﻿@page "/docs/components/datebox"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Datebox.PreviewCodes
+
+<DocsSection Title="Types">
+    <p>
+        The datebox component is almost identical to the
+        <LumexLink Href="/docs/components/textbox">textbox</LumexLink>
+        but includes additional features specific to date input.
+    </p>
+    <p>
+        It supports various date types, including
+        <code>DateTime</code>, <code>DateTimeOffset</code>, <code>DateOnly</code>,
+        <code>TimeOnly</code>. Additionally, their nullable counterparts are also supported.
+    </p>
+</DocsSection>
+
+<DocsSection Title="Usage">
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <Disabled />
+    </DocsSection>
+
+    <DocsSection Title="Read-Only">
+        <ReadOnly />
+    </DocsSection>
+
+    <DocsSection Title="Required">
+        <Required />
+    </DocsSection>
+
+    <DocsSection Title="Sizes">
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Radius">
+        <Radius />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Variants">
+        <Variants />
+    </DocsSection>
+
+    <DocsSection Title="Label Placements">
+        <LabelPlacements />
+    </DocsSection>
+
+    <LumexAlert Radius="@LumexUI.Common.Radius.Large" Class="my-6 [&_code]:text-current">
+        <DescriptionContent>
+            If the <code>Label</code> parameter is not set, the <code>LabelPlacement</code>
+            parameter will default to <code>Outside</code>.
+        </DescriptionContent>
+    </LumexAlert>
+
+    <DocsSection Title="Clear Button">
+        <ClearButton />
+    </DocsSection>
+
+    <DocsSection Title="Start & End Content">
+        <StartEndContent />
+    </DocsSection>
+
+    <DocsSection Title="Description">
+        <Description />
+    </DocsSection>
+
+    <DocsSection Title="Error Message">
+        <p>
+            Display an error message below the datebox to indicate validation issues.
+            You can combine the <code>Invalid</code> and <code>ErrorMessage</code> parameters to show an invalid input.
+            An error message is shown only when the <code>Invalid</code> parameter is set to <code>true</code>.
+        </p>
+
+        <ErrorMessage />
+    </DocsSection>
+
+    <DocsSection Title="Two-way Data Binding">
+        <p>
+            Use <code>@@bind-Value</code> directive or <code>Value</code> and <code>ValueChanged</code>
+            parameters to manually control datebox value.
+        </p>
+        <TwoWayDataBinding />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Datebox</h4>
+
+        <ul>
+            <li>
+                <code>Class</code>: The CSS class names to style the datebox wrapper.
+            </li>
+
+            <li>
+                <code>Classes</code>: The CSS class names to style the datebox slots.
+            </li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter]
+    private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Types"),
+        new("Usage", [
+            new("Disabled"),
+            new("Read-Only"),
+            new("Required"),
+            new("Sizes"),
+            new("Radius"),
+            new("Colors"),
+            new("Variants"),
+            new("Label Placements"),
+            new("Clear Button"),
+            new("Start & End Content"),
+            new("Description"),
+            new("Error message"),
+            new("Two-way Data Binding"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(InputFieldSlots.Base), "The overall wrapper."),
+        new(nameof(InputFieldSlots.Label), "The label element."),
+        new(nameof(InputFieldSlots.MainWrapper), "The wrapper of the input wrapper (when the label is outside)."),
+        new(nameof(InputFieldSlots.InputWrapper), "The wrapper of the label and the inner wrapper (when the label is inside)."),
+        new(nameof(InputFieldSlots.InnerWrapper), "The wrapper of the input, start/end content."),
+        new(nameof(InputFieldSlots.Input), "The input element."),
+        new(nameof(InputFieldSlots.ClearButton), "The clear button element."),
+        new(nameof(InputFieldSlots.HelperWrapper), "The wrapper of a description and an error message."),
+        new(nameof(InputFieldSlots.Description), "The description of the input field."),
+        new(nameof(InputFieldSlots.ErrorMessage), "The error message of the input field.")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexDatebox<T>)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Datebox",
+            category: "Components",
+            description: "Datebox allows users to enter and edit date values.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps("Datebox", isServer: false)
+        );
+    }
+}
