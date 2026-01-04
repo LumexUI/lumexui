@@ -19,6 +19,15 @@ public abstract class LumexDebouncedInputBase<TValue> : LumexInputFieldBase<TVal
 	/// </summary>
 	[Parameter] public int DebounceDelay { get; set; }
 
+	/// <summary>
+	/// Gets or sets the input behavior, specifying when the textbox
+	/// updates its value and triggers validation.
+	/// </summary>
+	/// <remarks>
+	/// The default value is <see cref="InputBehavior.OnChange"/>
+	/// </remarks>
+	[Parameter] public InputBehavior Behavior { get; set; } = InputBehavior.OnChange;
+
 	private readonly Debouncer _debouncer;
 
 	/// <summary>
@@ -41,8 +50,13 @@ public abstract class LumexDebouncedInputBase<TValue> : LumexInputFieldBase<TVal
 	}
 
 	/// <inheritdoc />
-	protected override Task OnInputCoreAsync( ChangeEventArgs args )
+	protected override Task OnInputAsync( ChangeEventArgs args )
 	{
+		if( Behavior is not InputBehavior.OnInput )
+		{
+			return Task.CompletedTask;
+		}
+
 		if( DebounceDelay > 0 )
 		{
 			return _debouncer.DebounceAsync( SetCurrentValueAsStringAsync, (string?)args.Value, DebounceDelay );
@@ -52,8 +66,13 @@ public abstract class LumexDebouncedInputBase<TValue> : LumexInputFieldBase<TVal
 	}
 
 	/// <inheritdoc />
-	protected override Task OnChangeCoreAsync( ChangeEventArgs args )
+	protected override Task OnChangeAsync( ChangeEventArgs args )
 	{
+		if( Behavior is not InputBehavior.OnChange )
+		{
+			return Task.CompletedTask;
+		}
+
 		return SetCurrentValueAsStringAsync( (string?)args.Value );
 	}
 

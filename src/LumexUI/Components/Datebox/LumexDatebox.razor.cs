@@ -9,7 +9,6 @@ using System.Globalization;
 using LumexUI.Extensions;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 using InputDateType = LumexUI.Common.InputDateType;
 
@@ -76,7 +75,19 @@ public partial class LumexDatebox<TValue> : LumexInputFieldBase<TValue>
 			InputDateType.Month => MonthFormat,
 			InputDateType.Time => TimeFormat,
 			_ => throw new InvalidOperationException( $"Unsupported {nameof( InputDateType )} '{Type}'." )
-		};		
+		};
+	}
+
+	/// <inheritdoc />
+	protected override Task OnInputAsync( ChangeEventArgs args )
+	{
+		return Task.CompletedTask;
+	}
+
+	/// <inheritdoc />
+	protected override Task OnChangeAsync( ChangeEventArgs args )
+	{
+		return SetCurrentValueAsStringAsync( (string?)args.Value );
 	}
 
 	/// <inheritdoc />

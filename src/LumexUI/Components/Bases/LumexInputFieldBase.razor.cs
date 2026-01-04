@@ -64,15 +64,6 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	[Parameter] public InputVariant Variant { get; set; }
 
 	/// <summary>
-	/// Gets or sets the input behavior, specifying when the textbox
-	/// updates its value and triggers validation.
-	/// </summary>
-	/// <remarks>
-	/// The default value is <see cref="InputBehavior.OnChange"/>
-	/// </remarks>
-	[Parameter] public InputBehavior Behavior { get; set; } = InputBehavior.OnChange;
-
-	/// <summary>
 	/// Gets or sets the border radius of the textbox.
 	/// </summary>
 	[Parameter] public Radius? Radius { get; set; }
@@ -216,37 +207,6 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	}
 
 	/// <summary>
-	/// Handles the input event asynchronously, applying a debounce delay if provided.
-	/// </summary>
-	/// <param name="args">The change event arguments.</param>
-	/// <returns>A <see cref="Task"/> representing the asynchronous value input operation.</returns>
-	protected Task OnInputAsync( ChangeEventArgs args )
-	{
-		if( Behavior is not InputBehavior.OnInput )
-		{
-			return Task.CompletedTask;
-		}
-
-		return OnInputCoreAsync( args );
-	}
-
-	/// <summary>
-	/// Handles the change event asynchronously.
-	/// </summary>
-	/// <param name="args">The change event arguments.</param>
-	/// <returns>A <see cref="Task"/> representing the asynchronous value change operation.</returns>
-	protected Task OnChangeAsync( ChangeEventArgs args )
-	{
-		if( Behavior is not InputBehavior.OnChange )
-		{
-			return Task.CompletedTask;
-		}
-
-		return OnChangeCoreAsync( args );
-
-	}
-
-	/// <summary>
 	/// Handles input events asynchronously.
 	/// </summary>
 	/// <remarks>
@@ -254,7 +214,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	/// </remarks>
 	/// <param name="args">The change event arguments.</param>
 	/// <returns>A <see cref="Task"/> representing the asynchronous value input operation.</returns>
-	protected virtual Task OnInputCoreAsync( ChangeEventArgs args ) => Task.CompletedTask;
+	protected abstract Task OnInputAsync( ChangeEventArgs args );
 
 	/// <summary>
 	/// Handles change events asynchronously.
@@ -264,7 +224,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	/// </remarks>
 	/// <param name="args">The change event arguments.</param>
 	/// <returns>A <see cref="Task"/> representing the asynchronous value change operation.</returns>
-	protected virtual Task OnChangeCoreAsync( ChangeEventArgs args ) => Task.CompletedTask;
+	protected abstract Task OnChangeAsync( ChangeEventArgs args );
 
 	/// <inheritdoc />
 	protected override bool TryParseValueFromString( string? value, [MaybeNullWhen( false )] out TValue result )
