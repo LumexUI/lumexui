@@ -1,11 +1,11 @@
 ﻿<div class="w-full grid grid-cols-1 gap-4 md:grid-cols-2">
-    @foreach (Radius radius in _radiuses)
+    @foreach (Radius radius in _radii)
     {
         <div>
             <LumexDatebox TValue="DateTime?"
                           Radius="@radius"
-                          Label="Date"
-                          Placeholder="@radius.ToString()" />
+                          Label="Birth date"
+                          Class="max-w-xs" />
 
             <small class="text-default-400 mt-1">
                 @radius
@@ -15,10 +15,10 @@
 </div>
 
 @code {
-    private Radius[] _radiuses = [
-        Radius.None,
-        Radius.Small,
-        Radius.Medium,
+    private Radius[] _radii = [
+        Radius.None, 
+        Radius.Small, 
+        Radius.Medium, 
         Radius.Large
     ];
 }

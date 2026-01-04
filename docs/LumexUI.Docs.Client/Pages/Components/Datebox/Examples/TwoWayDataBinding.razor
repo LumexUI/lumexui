@@ -1,9 +1,8 @@
 ﻿<div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
     <div class="w-full flex flex-col gap-2">
         <LumexDatebox Label="Value"
-                      Placeholder="Enter any date"
-                      Clearable="@true"
                       @bind-Value="@_valueOne" />
+
         <p class="text-sm text-default-500">
             Value: @_valueOne
         </p>
@@ -12,10 +11,9 @@
     <div class="w-full flex flex-col gap-2">
         <LumexDatebox TValue="DateTime?"
                       Label="Value"
-                      Placeholder="Enter any date"
-                      Clearable="@true"
                       Value="@_valueTwo"
                       ValueChanged="@OnValueChanged" />
+
         <p class="text-sm text-default-500">
             Value: @_valueTwo
         </p>
@@ -26,7 +24,7 @@
     private DateTime? _valueOne;
     private DateTime? _valueTwo = DateTime.UtcNow;
 
-    private void OnValueChanged(DateTime? value)
+    private void OnValueChanged( DateTime? value )
     {
         _valueTwo = value;
     }

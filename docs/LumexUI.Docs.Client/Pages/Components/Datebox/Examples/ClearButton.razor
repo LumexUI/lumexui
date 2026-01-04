@@ -1,28 +1,9 @@
-﻿<div class="w-full">
-    <LumexDatebox Clearable="@true"
-                  Label="Date"
-                  Placeholder="dd/MM/yyyy"
-                  Value="@_value"
-                  Variant="@InputVariant.Outlined"
-                  OnCleared="@Notify"
-                  Class="max-w-xs" />
-</div>
-
-<p class="text-sm text-default-500">
-    @_text
-</p>
+﻿<LumexDatebox Clearable="@true"
+              Label="Birth date"
+              Variant="@InputVariant.Outlined"
+              Value="@_value"
+              Class="max-w-xs" />
 
 @code {
-    private string? _text;
-    private DateTime? _value;
-
-    private void Notify()
-    {
-        _value = null;
-
-        if (_value is null)
-        {
-            _text = "Input is cleared!";
-        }
-    }
+    private DateTime? _value = DateTime.Now;
 }

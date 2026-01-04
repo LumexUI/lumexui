@@ -3,76 +3,51 @@
 
 @using LumexUI.Docs.Client.Pages.Components.Datebox.PreviewCodes
 
-<DocsSection Title="Usage">
-    <p>The date box component provides a simple way to input and edit dates.</p>
+<DocsSection Title="Types">
+    <p>
+        The datebox component is almost identical to the
+        <LumexLink Href="/docs/components/textbox">textbox</LumexLink>
+        but includes additional features specific to date input.
+    </p>
+    <p>
+        It supports various date types, including
+        <code>DateTime</code>, <code>DateTimeOffset</code>, <code>DateOnly</code>,
+        <code>TimeOnly</code>. Additionally, their nullable counterparts are also supported.
+    </p>
+</DocsSection>
 
+<DocsSection Title="Usage">
     <Usage />
 
     <DocsSection Title="Disabled">
-        <p>
-            You can disable a date box to prevent user interaction.
-            A disabled date box is faded and does not respond to user clicks.
-        </p>
-
         <Disabled />
     </DocsSection>
 
     <DocsSection Title="Read-Only">
-        <p>
-            Set the date box component to read-only to display the
-            current state without allowing changes.
-        </p>
-
         <ReadOnly />
     </DocsSection>
 
     <DocsSection Title="Required">
-        <p>
-            Mark the date box as required to indicate that it
-            must be filled out before form submission.
-            An asterisk will appear at the end of the label.
-        </p>
-
         <Required />
     </DocsSection>
 
     <DocsSection Title="Sizes">
-        <p>
-            The date box component supports multiple sizes to
-            fit different layouts and design needs.
-        </p>
-
         <Sizes />
     </DocsSection>
 
     <DocsSection Title="Radius">
-        <p>Adjust the border radius of the date box for rounded or squared corners.</p>
-
         <Radius />
     </DocsSection>
 
     <DocsSection Title="Colors">
-        <p>Customize the date box color to match your theme or emphasize certain fields.</p>
-
         <Colors />
     </DocsSection>
 
     <DocsSection Title="Variants">
-        <p>
-            Choose from different date box variants,
-            such as <code>Flat</code>, <code>Underlined</code>,
-            or <code>Outlined</code>, for various visual styles.
-        </p>
-
         <Variants />
     </DocsSection>
 
     <DocsSection Title="Label Placements">
-        <p>
-            Position the label either inside or outside the date box
-            for flexibility in layout and design.
-        </p>
-
         <LabelPlacements />
     </DocsSection>
 
@@ -84,32 +59,20 @@
     </LumexAlert>
 
     <DocsSection Title="Clear Button">
-        <p>Enable the button to clear the input with a single click.</p>
-
         <ClearButton />
     </DocsSection>
 
     <DocsSection Title="Start & End Content">
-        <p>
-            Add custom content, such as icons or labels, to the
-            start or end of the date box for added functionality.
-        </p>
-
         <StartEndContent />
     </DocsSection>
 
     <DocsSection Title="Description">
-        <p>
-            Provide a brief description below the date box to
-            offer guidance or additional context.
-        </p>
-
         <Description />
     </DocsSection>
 
     <DocsSection Title="Error Message">
         <p>
-            Display an error message below the date box to indicate validation issues.
+            Display an error message below the datebox to indicate validation issues.
             You can combine the <code>Invalid</code> and <code>ErrorMessage</code> parameters to show an invalid input.
             An error message is shown only when the <code>Invalid</code> parameter is set to <code>true</code>.
         </p>
@@ -117,40 +80,26 @@
         <ErrorMessage />
     </DocsSection>
 
-    <DocsSection Title="Debounce Delay">
-        <p>
-            Enable debounced input to delay updates to the date box value,
-            reducing the frequency of changes and improving performance.
-            You can achieve this by setting the <code>DebounceDelay</code> value and
-            <code>Behavior</code> to <code>OnInput</code>.
-        </p>
-
-        <DebounceDelay />
-    </DocsSection>
-
     <DocsSection Title="Two-way Data Binding">
         <p>
-            The date box component supports two-way data binding,
-            allowing you to programmatically control the value.
-            You can achieve this using the <code>@@bind-Value</code> directive,
-            or the <code>Value</code> and <code>ValueChanged</code> parameters.
+            Use <code>@@bind-Value</code> directive or <code>Value</code> and <code>ValueChanged</code>
+            parameters to manually control datebox value.
         </p>
-
         <TwoWayDataBinding />
     </DocsSection>
 </DocsSection>
 
 <DocsSlotsSection Slots="@_slots">
     <div>
-        <h4 class="font-semibold">Date box</h4>
+        <h4 class="font-semibold">Datebox</h4>
 
         <ul>
             <li>
-                <code>Class</code>: The CSS class name that styles the wrapper of the date box.
+                <code>Class</code>: The CSS class names to style the datebox wrapper.
             </li>
 
             <li>
-                <code>Classes</code>: The CSS class names for the date box slots that style the entire component.
+                <code>Classes</code>: The CSS class names to style the datebox slots.
             </li>
         </ul>
     </div>
@@ -165,6 +114,7 @@
 
     private readonly Heading[] _headings = new Heading[]
     {
+        new("Types"),
         new("Usage", [
             new("Disabled"),
             new("Read-Only"),
@@ -178,7 +128,6 @@
             new("Start & End Content"),
             new("Description"),
             new("Error message"),
-            new("Debounce Delay"),
             new("Two-way Data Binding"),
         ]),
         new("Custom Styles"),
@@ -207,9 +156,9 @@
     protected override void OnInitialized()
     {
         Layout.Initialize(
-            title: "Date box",
+            title: "Datebox",
             category: "Components",
-            description: "Date box allows users to input a specific date.",
+            description: "Datebox allows users to enter and edit date values.",
             headings: _headings,
             linksProps: new ComponentLinksProps("Datebox", isServer: false)
         );

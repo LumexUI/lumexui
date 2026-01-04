@@ -3,7 +3,7 @@
 
 <LumexDatebox TValue="DateTime?"
               Variant="@InputVariant.Underlined"
-              Label="Date"
+              Label="Birth date"
               Required="@true"
               ErrorMessage="@_userValidator.DateErrorMessage"
               Invalid="@(!string.IsNullOrEmpty(_userValidator.DateErrorMessage))"
@@ -58,7 +58,7 @@
         {
             RuleFor(user => user.Date)
                 .NotEmpty()
-                .WithMessage("Date is required");
+                .WithMessage("Birth date is required");
         }
     }
 }

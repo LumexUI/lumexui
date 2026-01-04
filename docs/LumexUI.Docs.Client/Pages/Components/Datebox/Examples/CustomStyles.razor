@@ -1,11 +1,10 @@
 ﻿<LumexDatebox TValue="DateTime?"
-              Label="Search"
-              Placeholder="Type to search..."
+              Label="Birth date"
               Radius="@Radius.Large"
               Clearable="@true"
               Classes="@_classes">
     <StartContent>
-        <SearchIcon Size="18" class="text-secondary-400 shrink-0" />
+        <CalendarClockIcon Size="18" class="text-secondary-400 shrink-0" />
     </StartContent>
 </LumexDatebox>
 
@@ -15,17 +14,17 @@
         Label = "text-default-700",
         InnerWrapper = "bg-transparent",
         InputWrapper = ElementClass.Empty()
-                .Add("shadow-xl")
-                .Add("bg-default-200/50")
-                .Add("backdrop-blur-xl")
-                .Add("backdrop-saturate-200")
-                .Add("hover:bg-default-200/70")
-                .Add("group-data-[focus=true]:bg-default-200/85")
-                .ToString(),
+            .Add("shadow-xl")
+            .Add("bg-default-200/50")
+            .Add("backdrop-blur-xl")
+            .Add("backdrop-saturate-200")
+            .Add("hover:bg-default-200/70")
+            .Add("group-data-[focus=true]:bg-default-200/85")
+            .ToString(),
         Input = ElementClass.Empty()
-                .Add("bg-transparent")
-                .Add("text-default-900")
-                .Add("placeholder:text-default-500")
-                .ToString()
+            .Add("bg-transparent")
+            .Add("text-default-900")
+            .Add("placeholder:text-default-500")
+            .ToString()
     };
 }
