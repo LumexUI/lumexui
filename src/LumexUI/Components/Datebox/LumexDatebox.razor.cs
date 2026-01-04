@@ -43,6 +43,9 @@ public partial class LumexDatebox<TValue> : LumexInputFieldBase<TValue>
 	[Parameter]
 	public InputDateType Type { get; set; } = InputDateType.Date;
 
+	/// <inheritdoc/>
+	protected override bool FilledOrFocused => true;
+
 	private string _format = default!;
 
 	/// <summary>
@@ -59,9 +62,6 @@ public partial class LumexDatebox<TValue> : LumexInputFieldBase<TValue>
 		{
 			throw new InvalidOperationException( $"Unsupported {GetType()} type param '{type}'." );
 		}
-
-		// Datebox should always look 'focused'.
-		Focused = true;
 	}
 
 	/// <inheritdoc />
@@ -77,13 +77,6 @@ public partial class LumexDatebox<TValue> : LumexInputFieldBase<TValue>
 			InputDateType.Time => TimeFormat,
 			_ => throw new InvalidOperationException( $"Unsupported {nameof( InputDateType )} '{Type}'." )
 		};		
-	}
-
-	/// <inheritdoc />
-	protected override async Task OnBlurAsync( FocusEventArgs args )
-	{
-		// Datebox should always look 'focused'.
-		await OnBlur.InvokeAsync( args );
 	}
 
 	/// <inheritdoc />

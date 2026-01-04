@@ -120,6 +120,15 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	/// </summary>
 	protected string? ValidationMessage { get; private set; }
 
+	/// <summary>
+	/// Gets or sets a value indicating whether the input is filled or focused.
+	/// </summary>
+	protected virtual bool FilledOrFocused =>
+		Focused ||
+		HasValue ||
+		StartContent is not null ||
+		!string.IsNullOrEmpty( Placeholder );
+
 	private protected override string? RootClass =>
 		TwMerge.Merge( InputField.GetStyles( this ) );
 
@@ -156,11 +165,6 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 		!string.IsNullOrEmpty( ValidationMessage );
 	private bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
 	private bool ClearButtonVisible => Clearable && HasValue;
-	private bool FilledOrFocused =>
-		Focused ||
-		HasValue ||
-		StartContent is not null ||
-		!string.IsNullOrEmpty( Placeholder );
 
 	private readonly RenderFragment _renderMainWrapper;
 	private readonly RenderFragment _renderInputWrapper;
