@@ -1,9 +1,5 @@
 ﻿<LumexDatebox Clearable="@true"
               Label="Birth date"
               Variant="@InputVariant.Outlined"
-              Value="@_value"
+              Value="@DateTime.Today"
               Class="max-w-xs" />
-
-@code {
-    private DateTime? _value = DateTime.Now;
-}
