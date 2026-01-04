@@ -221,7 +221,6 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// <returns>A string representation of the input value.</returns>
     protected virtual string? FormatValueAsString( TValue? value ) => value?.ToString();
 
-
     /// <summary>
     /// Asynchronously sets the validation message if any.
     /// </summary>

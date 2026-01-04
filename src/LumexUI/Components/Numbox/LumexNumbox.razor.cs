@@ -15,7 +15,7 @@ namespace LumexUI;
 /// <summary>
 /// A component representing an input field for entering/editing numeric types.
 /// </summary>
-public partial class LumexNumbox<TValue> : LumexInputFieldBase<TValue>
+public partial class LumexNumbox<TValue> : LumexDebouncedInputBase<TValue>
 {
     private static readonly string _stepAttributeValue = GetStepAttributeValue();
 

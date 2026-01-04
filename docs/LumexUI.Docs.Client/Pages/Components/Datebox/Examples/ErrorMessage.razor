@@ -1,7 +1,8 @@
 ﻿@using FluentValidation
 @using FluentValidation.Results
 
-<LumexDatebox Variant="@InputVariant.Underlined"
+<LumexDatebox TValue="DateTime?"
+              Variant="@InputVariant.Underlined"
               Label="Date"
               Required="@true"
               ErrorMessage="@_userValidator.DateErrorMessage"

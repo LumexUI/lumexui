@@ -2,7 +2,8 @@
     @foreach (Radius radius in _radiuses)
     {
         <div>
-            <LumexDatebox Radius="@radius"
+            <LumexDatebox TValue="DateTime?"
+                          Radius="@radius"
                           Label="Date"
                           Placeholder="@radius.ToString()" />
 
