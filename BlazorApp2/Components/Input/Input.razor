@@ -1,0 +1,69 @@
+﻿@namespace BlazorApp2.Components
+@inherits CompBase
+
+@using System.Linq.Expressions
+
+<InputText class="@TwMerge.Merge( ClassName, Class )"
+           data-slot="input"
+           DisplayName="@DisplayName"
+           Value="@Value"
+           ValueChanged="@ValueChanged"
+           ValueExpression="@ValueExpression"
+           @attributes="@AdditionalAttributes" />
+
+@code {
+    [Parameter] public string? DisplayName { get; set; }
+    [Parameter] public string? Value { get; set; }
+    [Parameter] public EventCallback<string?> ValueChanged { get; set; }
+    [Parameter] public Expression<Func<string?>>? ValueExpression { get; set; }
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Input Styles
+     * ----------------------------------------------------------------------------------
+     */
+
+    private string? ClassName => new ElementClass()
+        // base
+        .Add( "w-full" )
+        .Add( "min-w-0" )
+        .Add( "h-8" )
+        .Add( "px-3" )
+        .Add( "py-1" )
+        .Add( "text-base" )
+        .Add( "md:text-sm" )
+        .Add( "bg-transparent" )
+        .Add( "border" )
+        .Add( "border-field" )
+        .Add( "rounded-lg" )
+        .Add( "outline-none" )
+        .Add( "transition-colors" )
+        //placeholder
+        .Add( "placeholder:text-muted-foreground" )
+        // dark
+        .Add( "dark:bg-field/30" )
+        .Add( "dark:disabled:bg-input/80" )
+        .Add( "dark:aria-invalid:border-destructive/50" )
+        .Add( "dark:aria-invalid:ring-destructive/40" )
+        // focus
+        .Add( "focus-visible:border-ring" )
+        .Add( "focus-visible:ring-2" )
+        .Add( "focus-visible:ring-ring/50" )
+        // disabled
+        .Add( "disabled:opacity-60" )
+        .Add( "disabled:bg-field/50" )
+        .Add( "disabled:cursor-not-allowed" )
+        .Add( "disabled:pointer-events-none" )
+        // invalid
+        .Add( "aria-invalid:border-destructive" )
+        .Add( "aria-invalid:ring-2" )
+        .Add( "aria-invalid:ring-destructive/20" )
+        // file input
+        .Add( "file:h-6" )
+        .Add( "file:inline-flex" )
+        .Add( "file:font-medium" )
+        .Add( "file:text-sm" )
+        .Add( "file:text-foreground" )
+        .Add( "file:border-0" )
+        .Add( "file:bg-transparent" );
+}

@@ -1,0 +1,41 @@
+﻿@namespace BlazorApp2.Components
+@inherits CompBase
+
+<label class="@TwMerge.Merge( ClassName, Class )"
+       data-slot="field-label"
+       @attributes="@AdditionalAttributes">
+    @ChildContent
+</label>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Field Label Styles
+     * ----------------------------------------------------------------------------------
+     */
+
+    private string? ClassName => new ElementClass()
+        // Base
+        .Add( "group/field-label" )
+        .Add( "peer/field-label" )
+        .Add( "w-fit" )
+        .Add( "flex" )
+        .Add( "gap-2" )
+        .Add( "font-medium" )
+        .Add( "text-sm" )
+        .Add( "leading-snug" )
+        .Add( "has-data-checked:bg-primary/5" )
+        .Add( "has-data-checked:border-primary/30" )
+        .Add( "[&>*]:data-[slot=field]:p-3" )
+        .Add( "has-[>[data-slot=field]]:w-full" )
+        .Add( "has-[>[data-slot=field]]:flex-col" )
+        .Add( "has-[>[data-slot=field]]:border" )
+        .Add( "has-[>[data-slot=field]]:rounded-lg" )
+        // Dark
+        .Add( "dark:has-data-checked:bg-primary/10" )
+        .Add( "dark:has-data-checked:border-primary/20" )
+        // Disabled
+        .Add( "group-data-[disabled=true]/field:opacity-60" );
+}

@@ -1,0 +1,25 @@
+﻿@namespace BlazorApp2.Components
+@inherits CompBase
+
+<div role="alert"
+     class="@TwMerge.Merge( ClassName, Class )"
+     data-slot="field-error"
+     @attributes="@AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Field Error Styles
+     * ----------------------------------------------------------------------------------
+     */
+
+    private string? ClassName => new ElementClass()
+        // Base
+        .Add( "font-normal" )
+        .Add( "text-sm" )
+        .Add( "text-destructive" );
+}

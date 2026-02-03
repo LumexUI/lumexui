@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32526.322
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LumexUI", "src\LumexUI\LumexUI.csproj", "{F5DCF265-756B-4B25-AECA-15B9FF2DCB66}"
 EndProject
@@ -27,6 +27,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LumexUI.Docs.Client", "docs\LumexUI.Docs.Client\LumexUI.Docs.Client.csproj", "{6CE81AB3-399F-44CB-9DBE-9A8D62B07C8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LumexUI.Shared.Icons", "src\LumexUI.Shared.Icons\LumexUI.Shared.Icons.csproj", "{9C883692-7F43-4E72-8610-AB1996BED8BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp2", "BlazorApp2\BlazorApp2.csproj", "{08E6BB69-050B-466B-9327-35D5D651DD1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{9C883692-7F43-4E72-8610-AB1996BED8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C883692-7F43-4E72-8610-AB1996BED8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C883692-7F43-4E72-8610-AB1996BED8BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08E6BB69-050B-466B-9327-35D5D651DD1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08E6BB69-050B-466B-9327-35D5D651DD1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08E6BB69-050B-466B-9327-35D5D651DD1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08E6BB69-050B-466B-9327-35D5D651DD1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{2A341376-2409-422C-A7A9-1AE6E86F91D9} = {3F4DE3FA-2636-440C-ACCC-137BAD95BAC4}
 		{6CE81AB3-399F-44CB-9DBE-9A8D62B07C8A} = {3F4DE3FA-2636-440C-ACCC-137BAD95BAC4}
 		{9C883692-7F43-4E72-8610-AB1996BED8BC} = {5DBC44B8-5B92-4504-8B8F-91A1672251E6}
+		{08E6BB69-050B-466B-9327-35D5D651DD1A} = {3F4DE3FA-2636-440C-ACCC-137BAD95BAC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1B8CD55B-BEF0-42D1-936A-BC1FB5D02CE2}

@@ -1,0 +1,27 @@
+﻿@namespace BlazorApp2.Components
+@inherits CompBase
+
+<div class="@TwMerge.Merge( ClassName, Class )"
+     data-slot="field-content"
+     @attributes="@AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Field Content Styles
+     * ----------------------------------------------------------------------------------
+     */
+
+    private string? ClassName => new ElementClass()
+        // Base
+        .Add( "group/field-content" )
+        .Add( "flex" )
+        .Add( "flex-1" )
+        .Add( "flex-col" )
+        .Add( "gap-0.5" )
+        .Add( "leading-snug" );
+}

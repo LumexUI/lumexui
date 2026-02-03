@@ -1,0 +1,59 @@
+﻿@namespace BlazorApp2.Components
+@inherits CompBase
+
+<Comp As="@As"
+      Class="@TwMerge.Merge(ClassName, Class)"
+      data-slot="button"
+      @attributes="@AdditionalAttributes">
+    @ChildContent
+</Comp>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public string As { get; set; } = "button";
+
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Primary;
+
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Medium;
+
+    [Parameter] public bool IconOnly { get; set; }
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Button Styles
+     * ----------------------------------------------------------------------------------
+     */
+
+    private string? ClassName => ElementClass.Default( "inline-flex items-center justify-center gap-1 whitespace-nowrap border border-transparent text-sm font-medium transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-60 active:scale-97 focus-visible:ring-2 focus-visible:ring-ring" )
+        // Variant
+        .Add( "bg-brand text-brand-foreground hover:bg-brand/80", when: Variant is ButtonVariant.Primary )
+        .Add( "bg-neutral text-neutral-foreground hover:bg-neutral/80", when: Variant is ButtonVariant.Secondary )
+        .Add( "bg-destructive text-destructive-foreground hover:bg-destructive/80", when: Variant is ButtonVariant.Destructive )
+
+        // Size
+        .Add( "h-7 px-2.5 text-xs rounded-md", when: Size is ButtonSize.Small )
+        .Add( "h-8 px-3 rounded-lg", when: Size is ButtonSize.Medium )
+        .Add( "h-9 px-3 rounded-lg", when: Size is ButtonSize.Large )
+        
+        // Icon Only
+        .Add( "size-7 px-0", when: IconOnly && Size is ButtonSize.Small )
+        .Add( "size-8 px-0", when: IconOnly && Size is ButtonSize.Medium )
+        .Add( "size-9 px-0", when: IconOnly && Size is ButtonSize.Large );
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Button Types
+     * ----------------------------------------------------------------------------------
+     */
+
+    public enum ButtonVariant
+    {
+        Primary, Secondary, Destructive
+    }
+
+    public enum ButtonSize
+    {
+        Small, Medium, Large
+    }
+}

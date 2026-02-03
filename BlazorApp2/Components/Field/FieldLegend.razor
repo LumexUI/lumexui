@@ -1,0 +1,25 @@
+﻿@namespace BlazorApp2.Components
+@inherits CompBase
+
+<legend class="@TwMerge.Merge( ClassName, Class )"
+        data-slot="field-legend"
+        @attributes="@AdditionalAttributes">
+    @ChildContent
+</legend>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Field Legend Styles
+     * ----------------------------------------------------------------------------------
+     */
+
+    private string? ClassName => new ElementClass()
+        // Base
+        .Add( "mb-1.5" )
+        .Add( "font-medium" )
+        .Add( "text-base" )
+        .Add( "has-[+[data-slot=field-description]]:mb-0" );
+}

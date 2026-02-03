@@ -1,0 +1,76 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<div class="m-10 space-y-8">
+    <div class="flex gap-2">
+        <Button Size="@Button.ButtonSize.Small">Small</Button>
+        <Button Size="@Button.ButtonSize.Medium">Medium</Button>
+        <Button Size="@Button.ButtonSize.Large">Large</Button>
+    </div>
+
+    <div class="flex gap-2">
+        <Button Variant="@Button.ButtonVariant.Primary">Primary</Button>
+        <Button Variant="@Button.ButtonVariant.Secondary">Secondary</Button>
+        <Button Variant="@Button.ButtonVariant.Destructive">Destructive</Button>
+    </div>
+
+    <div class="flex gap-2">
+        <Button IconOnly Variant="@Button.ButtonVariant.Primary">❤️</Button>
+        <Button IconOnly Variant="@Button.ButtonVariant.Secondary">❤️</Button>
+        <Button IconOnly Variant="@Button.ButtonVariant.Destructive">❤️</Button>
+    </div>
+</div>
+
+<div class="m-10 space-y-8">
+    <FieldSet Class="w-full max-w-xs">
+        <FieldGroup>
+            <Field>
+                <FieldLabel for="username">Username</FieldLabel>
+                <Input @bind-Value="@username" id="username" type="text" placeholder="Max Leiter" />
+                <FieldDescription>
+                    Choose a unique username for your account.
+                </FieldDescription>
+            </Field>
+            <Field>
+                <FieldLabel for="password">Password</FieldLabel>
+                <FieldDescription>
+                    Must be at least 8 characters long.
+                </FieldDescription>
+                <Input @bind-Value="@password" id="password" type="password" placeholder="••••••••" />
+            </Field>
+        </FieldGroup>
+    </FieldSet>
+
+    <FieldSet Class="w-full max-w-sm">
+        <FieldLegend>Address Information</FieldLegend>
+        <FieldDescription>
+            We need your address to deliver your order.
+        </FieldDescription>
+        <FieldGroup>
+            <Field>
+                <FieldLabel for="street">Street Address</FieldLabel>
+                <Input @bind-Value="@password" id="street" type="text" placeholder="123 Main St" />
+            </Field>
+            <FieldGroup Class="grid grid-cols-2">
+                <Field>
+                    <FieldLabel for="city">City</FieldLabel>
+                    <Input @bind-Value="@password" id="city" type="text" placeholder="New York" />
+                </Field>
+                <Field>
+                    <FieldLabel for="zip">Postal Code</FieldLabel>
+                    <Input @bind-Value="@password" id="zip" type="text" placeholder="90502" />
+                </Field>
+            </FieldGroup>
+        </FieldGroup>
+    </FieldSet>
+</div>
+
+@code {
+    private string? username;
+    private string? password;
+}

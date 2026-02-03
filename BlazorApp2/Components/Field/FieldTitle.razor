@@ -1,0 +1,30 @@
+﻿@namespace BlazorApp2.Components
+@inherits CompBase
+
+<div class="@TwMerge.Merge( ClassName, Class )"
+     data-slot="field-title"
+     @attributes="@AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Field Title Styles
+     * ----------------------------------------------------------------------------------
+     */
+
+    private string? ClassName => new ElementClass()
+        // Base
+        .Add( "w-fit" )
+        .Add( "flex" )
+        .Add( "items-center" )
+        .Add( "gap-2" )
+        .Add( "font-medium" )
+        .Add( "text-sm" )
+        .Add( "leading-snug" )
+        // Disabled
+        .Add( "group-data-[disabled=true]/field:opacity-60" );
+}

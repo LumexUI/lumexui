@@ -1,0 +1,27 @@
+﻿@namespace BlazorApp2.Components
+@inherits CompBase
+
+<p class="@TwMerge.Merge( ClassName, Class )"
+   data-slot="field-description"
+   @attributes="@AdditionalAttributes">
+    @ChildContent
+</p>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Field Description Styles
+     * ----------------------------------------------------------------------------------
+     */
+
+    private string? ClassName => new ElementClass()
+        // Base
+        .Add( "font-normal" )
+        .Add( "text-sm" )
+        .Add( "text-left" )
+        .Add( "text-muted-foreground" )
+        .Add( "leading-normal" )
+        .Add( "group-has-[[data-orientation=horizontal]]/field:text-balance" );
+}

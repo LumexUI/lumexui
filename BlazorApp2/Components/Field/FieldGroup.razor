@@ -1,0 +1,29 @@
+﻿@namespace BlazorApp2.Components
+@inherits CompBase
+
+<div class="@TwMerge.Merge( ClassName, Class )"
+     data-slot="field-group"
+     @attributes="@AdditionalAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Field Group Styles
+     * ----------------------------------------------------------------------------------
+     */
+
+    private string? ClassName => new ElementClass()
+        // Base
+        .Add( "group/field-group" )
+        .Add( "@container/field-group" )
+        .Add( "w-full" )
+        .Add( "flex" )
+        .Add( "flex-col" )
+        .Add( "gap-5" )
+        .Add( "data-[slot=checkbox-group]:gap-3" )
+        .Add( "[&>[data-slot=field-group]]:gap-4" );
+}

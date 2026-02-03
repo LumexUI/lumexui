@@ -1,0 +1,24 @@
+﻿@namespace BlazorApp2.Components
+@inherits CompBase
+
+<fieldset class="@TwMerge.Merge( ClassName, Class )"
+          data-slot="field-set"
+          @attributes="@AdditionalAttributes">
+    @ChildContent
+</fieldset>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /*
+     * ----------------------------------------------------------------------------------
+     * Field Set Styles
+     * ----------------------------------------------------------------------------------
+     */
+
+    private string? ClassName => new ElementClass()
+        // Base
+        .Add( "flex" )
+        .Add( "flex-col" )
+        .Add( "gap-4" );
+}
