@@ -58,6 +58,22 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     [Parameter] public Size Size { get; set; } = Size.Medium;
 
     /// <summary>
+    /// Gets or sets the label for the input.
+    /// </summary>
+    [Parameter] public string? Label { get; set; }
+
+    /// <summary>
+    /// Gets or sets the description for the input.
+    /// </summary>
+    [Parameter] public string? Description { get; set; }
+
+    /// <summary>
+    /// Gets or sets the error message for the input.
+    /// This message is displayed only when the input is invalid.
+    /// </summary>
+    [Parameter] public string? ErrorMessage { get; set; }
+
+    /// <summary>
     /// Gets or sets the value of the input. This should be used with two-way binding.
     /// </summary>
     [Parameter] public TValue? Value { get; set; }
