@@ -1,0 +1,31 @@
+﻿@using Blazor.Sonner.Services
+
+@inject ToastService Toast
+
+<div class="fixed z-100">
+    <LumexToastProvider Id="toaster-close-button" CloseButton="@_closeButtonEnabled" />
+</div>
+
+<div class="flex flex-wrap gap-2">
+    <LumexButton Variant="@Variant.Flat" OnClick="@(() => ShowToast( enabled: false ))">
+        Default
+    </LumexButton>
+    <LumexButton Variant="@Variant.Flat" OnClick="@(() => ShowToast( enabled: true ))">
+        Close Button
+    </LumexButton>
+</div>
+
+@code {
+    private bool _closeButtonEnabled;
+
+    private void ShowToast( bool enabled )
+    {
+        _closeButtonEnabled = enabled;
+
+        Toast.Show( "Event has been created", t =>
+        {
+            t.ToasterId = "toaster-close-button";
+            t.Description = "Monday, January 3rd at 6:00pm";
+        } );
+    }
+}

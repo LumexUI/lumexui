@@ -1,0 +1,17 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<Toaster Id="@Id"
+         Position="@Position"
+         Offset="@Offset"
+         MobileOffset="@MobileOffset"
+         VisibleToasts="@VisibleToasts"
+         Gap="@Gap"
+         Duration="@Duration"
+         Expand="@Expand"
+         CloseButton="@CloseButton"
+         RichColors="@RichColors"
+         Dir="@Dir"
+         class="@ClassNames"
+         data-sonner-theme="@(ThemeService.IsDarkMode ? "dark" : "light" )"
+         @attributes="@AdditionalAttributes" />

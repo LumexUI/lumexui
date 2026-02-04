@@ -49,6 +49,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexSwitch ) ) )
 			.Add( new( nameof( LumexTabs ) ) )
 			.Add( new( nameof( LumexTextbox ) ) )
+			.Add( new( nameof( LumexToastProvider ), PageStatus.New ) )
 			.Add( new( nameof( LumexTooltip ) ) )
 			.Add( new( nameof( LumexUser ), PageStatus.New ) );
 
@@ -108,6 +109,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexTab ) ) )
 			.Add( new( nameof( LumexTabs ) ) )
 			.Add( new( nameof( LumexTextbox ) ) )
+			.Add( new( nameof( LumexToastProvider ) ) )
 			.Add( new( nameof( LumexThemeProvider ) ) )
 			.Add( new( nameof( LumexTooltip ) ) )
 			.Add( new( nameof( LumexUser ) ) );

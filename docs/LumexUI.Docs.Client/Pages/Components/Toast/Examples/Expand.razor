@@ -1,0 +1,31 @@
+﻿@using Blazor.Sonner.Services
+
+@inject ToastService Toast
+
+<div class="fixed z-100">
+    <LumexToastProvider Id="toaster-expanded" Expand="@_toasterExpanded" />
+</div>
+
+<div class="flex flex-wrap gap-2">
+    <LumexButton Variant="@Variant.Flat" OnClick="@(() => ShowToast( expanded: false ))">
+        Default
+    </LumexButton>
+    <LumexButton Variant="@Variant.Flat" OnClick="@(() => ShowToast( expanded: true ))">
+        Expanded
+    </LumexButton>
+</div>
+
+@code {
+    private bool _toasterExpanded;
+
+    private void ShowToast( bool expanded )
+    {
+        _toasterExpanded = expanded;
+
+        Toast.Show( "Event has been created", t =>
+        {
+            t.ToasterId = "toaster-expanded";
+            t.Description = "Monday, January 3rd at 6:00pm";
+        } );
+    }
+}

@@ -1,0 +1,44 @@
+﻿@using Blazor.Sonner.Services
+
+@inject ToastService Toast
+
+<div class="flex flex-wrap gap-2">
+    <LumexButton Variant="@Variant.Flat" OnClick="@ShowDefaultToast">Default</LumexButton>
+    <LumexButton Variant="@Variant.Flat" OnClick="@ShowDescriptionToast">Description</LumexButton>
+    <LumexButton Variant="@Variant.Flat" OnClick="@ShowInfoToast">Info</LumexButton>
+    <LumexButton Variant="@Variant.Flat" OnClick="@ShowSuccessToast">Success</LumexButton>
+    <LumexButton Variant="@Variant.Flat" OnClick="@ShowWarningToast">Warning</LumexButton>
+    <LumexButton Variant="@Variant.Flat" OnClick="@ShowErrorToast">Error</LumexButton>
+    <LumexButton Variant="@Variant.Flat" OnClick="@ShowAsyncToast">Async</LumexButton>
+</div>
+
+@code {
+    private void ShowDefaultToast() => Toast.Show( "Event has been created" );
+    private void ShowDescriptionToast()
+    {
+        Toast.Show( "Event has been created", t =>
+        {
+            t.Description = "Monday, January 3rd at 6:00pm";
+        } );
+    }
+    private void ShowInfoToast() => Toast.Info( "Be at the area 10 minutes before the event time" );
+    private void ShowSuccessToast() => Toast.Success( "Event has been created" );
+    private void ShowWarningToast() => Toast.Warning( "Event start time cannot be earlier than 8am" );
+    private void ShowErrorToast() => Toast.Error( "Event has not been created" );
+    private void ShowAsyncToast()
+    {
+        Toast.Async( DoAsync(), t =>
+        {
+            t.Loading = "Loading...";
+            t.Success = ( data ) => $"{data} toast has been added";
+            t.Error = ( ex ) => ex.Message;
+        } );
+
+        async Task<string> DoAsync()
+        {
+            // Simulate an async operation
+            await Task.Delay( 2000 );
+            return "Blazor Sonner";
+        }
+    }
+}

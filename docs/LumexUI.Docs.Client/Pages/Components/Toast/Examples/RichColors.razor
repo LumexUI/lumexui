@@ -1,0 +1,37 @@
+﻿@using Blazor.Sonner.Services
+
+@inject ToastService Toast
+
+<div class="fixed z-100">
+    <LumexToastProvider Id="toaster-rich-colors" RichColors="@true" />
+</div>
+
+<div class="flex flex-wrap gap-2">
+    <LumexButton Variant="@Variant.Flat"
+                 Color="@ThemeColor.Info"
+                 OnClick="@(() => Toast.Info( "Be at the area 10 minutes before the event time", _toasterId ))">
+        Info
+    </LumexButton>
+
+    <LumexButton Variant="@Variant.Flat"
+                 Color="@ThemeColor.Success"
+                 OnClick="@(() => Toast.Success( "Event has been created", _toasterId ))">
+        Success
+    </LumexButton>
+
+    <LumexButton Variant="@Variant.Flat"
+                 Color="@ThemeColor.Warning"
+                 OnClick="@(() => Toast.Warning( "Event start time cannot be earlier than 8am", _toasterId ))">
+        Warning
+    </LumexButton>
+
+    <LumexButton Variant="@Variant.Flat"
+                 Color="@ThemeColor.Danger"
+                 OnClick="@(() => Toast.Error( "Event has not been created", _toasterId ))">
+        Error
+    </LumexButton>
+</div>
+
+@code {
+    private Action<ToastModel> _toasterId = t => t.ToasterId = "toaster-rich-colors";
+}

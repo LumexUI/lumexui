@@ -38,7 +38,7 @@
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
 		<None Include="LumexUI.targets" Pack="true" PackagePath="buildTransitive\LumexUI.targets" />
 		<None Include="Styles\*.cs" Pack="true" PackagePath="theme\components\%(Filename)%(Extension)" />
-		<None Include="Styles\_dark.css;Styles\_light.css;Styles\_layout.css" Pack="true" PackagePath="theme" />
+		<None Include="Styles\_dark.css;Styles\_light.css;Styles\_layout.css;Styles\_sonner.css" Pack="true" PackagePath="theme" />
 		<None Include="Styles\_theme.css" Pack="true" PackagePath="theme\theme.css" />
 	</ItemGroup>
 
@@ -47,14 +47,15 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.19" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.8" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Blazor.Sonner" Version="0.0.5" />
 		<PackageReference Include="LumexUI.Motion" Version="0.0.4" />
 		<PackageReference Include="TailwindMerge.NET" Version="1.0.0" />
 	</ItemGroup>
