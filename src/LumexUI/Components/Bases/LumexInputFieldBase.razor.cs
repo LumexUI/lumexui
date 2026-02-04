@@ -35,25 +35,9 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	[Parameter] public RenderFragment? EndContent { get; set; }
 
 	/// <summary>
-	/// Gets or sets the label for the textbox.
-	/// </summary>
-	[Parameter] public string? Label { get; set; }
-
-	/// <summary>
 	/// Gets or sets the placeholder for the textbox.
 	/// </summary>
 	[Parameter] public string? Placeholder { get; set; }
-
-	/// <summary>
-	/// Gets or sets the description for the textbox.
-	/// </summary>
-	[Parameter] public string? Description { get; set; }
-
-	/// <summary>
-	/// Gets or sets the error message for the textbox.
-	/// This message is displayed only when the textbox is invalid.
-	/// </summary>
-	[Parameter] public string? ErrorMessage { get; set; }
 
 	/// <summary>
 	/// Gets or sets the variant for the textbox.
