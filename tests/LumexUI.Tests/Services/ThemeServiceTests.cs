@@ -40,76 +40,6 @@ public class ThemeServiceTests : TestContext
 	}
 
 	[Fact]
-	public async Task GetThemeAsync_ShouldReturnCorrectTheme_AndUpdateIsDarkMode()
-	{
-		// Arrange
-		var mockJsRuntime = new Mock<IJSRuntime>();
-		var mockModule = new Mock<IJSObjectReference>();
-
-		mockModule
-			.Setup( m => m.InvokeAsync<string>( "theme.get", It.IsAny<object[]>() ) )
-			.ReturnsAsync( "system" );
-
-		mockModule
-			.Setup( m => m.InvokeAsync<bool>( "theme.prefersDark", It.IsAny<object[]>() ) )
-			.ReturnsAsync( false ); // simulate system == light
-
-		var service = new ThemeService( mockJsRuntime.Object );
-		InjectModule( Task.FromResult( mockModule.Object ), service );
-
-		// Act
-		var theme = await service.GetThemeAsync();
-
-		// Assert
-		Assert.Equal( Theme.System, theme );
-		Assert.False( service.IsDarkMode );
-	}
-
-	[Fact]
-	public async Task GetThemeAsync_ShouldReturnLight_AndSetIsDarkModeTrue()
-	{
-		// Arrange
-		var mockJsRuntime = new Mock<IJSRuntime>();
-		var mockModule = new Mock<IJSObjectReference>();
-
-		mockModule
-			.Setup( m => m.InvokeAsync<string>( "theme.get", It.IsAny<object[]>() ) )
-			.ReturnsAsync( "dark" );
-
-		var service = new ThemeService( mockJsRuntime.Object );
-		InjectModule( Task.FromResult( mockModule.Object ), service );
-
-		// Act
-		var theme = await service.GetThemeAsync();
-
-		// Assert
-		Assert.Equal( Theme.Dark, theme );
-		Assert.True( service.IsDarkMode );
-	}
-
-	[Fact]
-	public async Task GetThemeAsync_ShouldReturnLight_AndSetIsDarkModeFalse()
-	{
-		// Arrange
-		var mockJsRuntime = new Mock<IJSRuntime>();
-		var mockModule = new Mock<IJSObjectReference>();
-
-		mockModule
-			.Setup( m => m.InvokeAsync<string>( "theme.get", It.IsAny<object[]>() ) )
-			.ReturnsAsync( "light" );
-
-		var service = new ThemeService( mockJsRuntime.Object );
-		InjectModule( Task.FromResult( mockModule.Object ), service );
-
-		// Act
-		var theme = await service.GetThemeAsync();
-
-		// Assert
-		Assert.Equal( Theme.Light, theme );
-		Assert.False( service.IsDarkMode );
-	}
-
-	[Fact]
 	public async Task SetThemeAsync_ShouldCallSet_AndUpdateDarkMode()
 	{
 		// Arrange
@@ -162,6 +92,56 @@ public class ThemeServiceTests : TestContext
 	}
 
 	[Fact]
+	public async Task SetThemeAsync_ShouldRaiseThemeChanged()
+	{
+		// Arrange
+		var mockJsRuntime = new Mock<IJSRuntime>();
+		var mockModule = new Mock<IJSObjectReference>();
+
+		mockModule
+			.Setup( m => m.InvokeAsync<IJSVoidResult>( "theme.set", CancellationToken.None, It.IsAny<object[]>() ) )
+			.Returns( new ValueTask<IJSVoidResult>() );
+
+		var service = new ThemeService( mockJsRuntime.Object );
+		InjectModule( Task.FromResult( mockModule.Object ), service );
+
+		Theme? raisedTheme = null;
+		service.ThemeChanged += theme => raisedTheme = theme;
+
+		// Act
+		await service.SetThemeAsync( Theme.Dark );
+
+		// Assert
+		Assert.Equal( Theme.Dark, raisedTheme );
+	}
+
+	[Fact]
+	public async Task SetThemeAsync_ShouldNotRaiseThemeChanged_WhenSameTheme()
+	{
+		// Arrange
+		var mockJsRuntime = new Mock<IJSRuntime>();
+		var mockModule = new Mock<IJSObjectReference>();
+
+		mockModule
+			.Setup( m => m.InvokeAsync<IJSVoidResult>( "theme.set", CancellationToken.None, It.IsAny<object[]>() ) )
+			.Returns( new ValueTask<IJSVoidResult>() );
+
+		var service = new ThemeService( mockJsRuntime.Object );
+		InjectModule( Task.FromResult( mockModule.Object ), service );
+
+		await service.SetThemeAsync( Theme.Dark );
+
+		var eventRaised = false;
+		service.ThemeChanged += _ => eventRaised = true;
+
+		// Act
+		await service.SetThemeAsync( Theme.Dark );
+
+		// Assert
+		Assert.False( eventRaised );
+	}
+
+	[Fact]
 	public async Task ToggleThemeAsync_ShouldUpdateThemeAndDarkMode()
 	{
 		// Arrange
@@ -172,14 +152,44 @@ public class ThemeServiceTests : TestContext
 			.Setup( m => m.InvokeAsync<string>( "theme.toggle", It.IsAny<object[]>() ) )
 			.ReturnsAsync( "light" );
 
+		mockModule
+			.Setup( m => m.InvokeAsync<bool>( "theme.prefersDark", It.IsAny<object[]>() ) )
+			.ReturnsAsync( false );
+
 		var service = new ThemeService( mockJsRuntime.Object );
 		InjectModule( Task.FromResult( mockModule.Object ), service );
+
+		// Act
+		var result = await service.ToggleThemeAsync();
+
+		// Assert
+		Assert.Equal( Theme.Light, result );
+		Assert.Equal( Theme.Light, service.CurrentTheme );
+		Assert.False( service.IsDarkMode );
+	}
+
+	[Fact]
+	public async Task ToggleThemeAsync_ShouldRaiseThemeChanged()
+	{
+		// Arrange
+		var mockJsRuntime = new Mock<IJSRuntime>();
+		var mockModule = new Mock<IJSObjectReference>();
+
+		mockModule
+			.Setup( m => m.InvokeAsync<string>( "theme.toggle", It.IsAny<object[]>() ) )
+			.ReturnsAsync( "dark" );
+
+		var service = new ThemeService( mockJsRuntime.Object );
+		InjectModule( Task.FromResult( mockModule.Object ), service );
+
+		Theme? raisedTheme = null;
+		service.ThemeChanged += theme => raisedTheme = theme;
 
 		// Act
 		await service.ToggleThemeAsync();
 
 		// Assert
-		Assert.False( service.IsDarkMode );
+		Assert.Equal( Theme.Dark, raisedTheme );
 	}
 
 	[Fact]

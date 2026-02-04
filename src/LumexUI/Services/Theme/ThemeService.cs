@@ -18,7 +18,15 @@ public sealed class ThemeService : IAsyncDisposable
 
 	private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
 
-	private Theme _currentTheme = Theme.System;
+	/// <summary>
+	/// Occurs when the theme has changed.
+	/// </summary>
+	public event Action<Theme>? ThemeChanged;
+
+	/// <summary>
+	/// Gets the current theme.
+	/// </summary>
+	public Theme CurrentTheme { get; private set; } = Theme.System;
 
 	/// <summary>
 	/// Gets a value indicating whether dark mode is currently active.
@@ -44,24 +52,9 @@ public sealed class ThemeService : IAsyncDisposable
 		var module = await _moduleTask.Value;
 		var theme = await module.InvokeAsync<string>( $"{JavaScriptPrefix}.initialize" );
 
-		_currentTheme = TryParseTheme( theme );
-
-		await UpdateIsDarkModeAsync( _currentTheme );
-	}
-
-	/// <summary>
-	/// Retrieves the current theme asynchronously.
-	/// </summary>
-	/// <returns>The <see cref="Theme"/> representing the current theme.</returns>
-	public async ValueTask<Theme> GetThemeAsync()
-	{
-		var module = await _moduleTask.Value;
-		var theme = await module.InvokeAsync<string>( $"{JavaScriptPrefix}.get" );
-
-		_currentTheme = TryParseTheme( theme );
-
-		await UpdateIsDarkModeAsync( _currentTheme );
-		return _currentTheme;
+		CurrentTheme = TryParseTheme( theme );
+		await UpdateIsDarkModeAsync( CurrentTheme );
+		ThemeChanged?.Invoke( CurrentTheme );
 	}
 
 	/// <summary>
@@ -71,7 +64,7 @@ public sealed class ThemeService : IAsyncDisposable
 	/// <returns>The <see cref="ValueTask"/> representing the asynchronous theme set operation.</returns>
 	public async ValueTask SetThemeAsync( Theme theme )
 	{
-		if( _currentTheme == theme )
+		if( CurrentTheme == theme )
 		{
 			return;
 		}
@@ -79,24 +72,28 @@ public sealed class ThemeService : IAsyncDisposable
 		var module = await _moduleTask.Value;
 		await module.InvokeVoidAsync( $"{JavaScriptPrefix}.set", theme.ToDescription() );
 
-		_currentTheme = theme;
+		CurrentTheme = theme;
 		await UpdateIsDarkModeAsync( theme );
+		ThemeChanged?.Invoke( theme );
 	}
 
 	/// <summary>
 	/// Asynchronously toggles between light and dark themes.
 	/// </summary>
 	/// <returns>The <see cref="Theme"/> representing the updated theme after toggling.</returns>
-	public async ValueTask ToggleThemeAsync()
+	public async ValueTask<Theme> ToggleThemeAsync()
 	{
 		var module = await _moduleTask.Value;
 		var value = await module.InvokeAsync<string>( $"{JavaScriptPrefix}.toggle" );
 
 		if( Enum.TryParse<Theme>( value, ignoreCase: true, out var theme ) )
 		{
-			_currentTheme = theme;
-			IsDarkMode = theme is Theme.Dark;
+			CurrentTheme = theme;
+			await UpdateIsDarkModeAsync( theme );
+			ThemeChanged?.Invoke( theme );
 		}
+
+		return CurrentTheme;
 	}
 
 	private async ValueTask UpdateIsDarkModeAsync( Theme theme )
