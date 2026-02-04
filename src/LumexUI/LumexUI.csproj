@@ -38,7 +38,7 @@
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
 		<None Include="LumexUI.targets" Pack="true" PackagePath="buildTransitive\LumexUI.targets" />
 		<None Include="Styles\*.cs" Pack="true" PackagePath="theme\components\%(Filename)%(Extension)" />
-		<None Include="Styles\_dark.css;Styles\_light.css;Styles\_layout.css" Pack="true" PackagePath="theme" />
+		<None Include="Styles\_dark.css;Styles\_light.css;Styles\_layout.css;Styles\_sonner.css" Pack="true" PackagePath="theme" />
 		<None Include="Styles\_theme.css" Pack="true" PackagePath="theme\theme.css" />
 	</ItemGroup>
 

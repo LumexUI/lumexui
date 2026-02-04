@@ -4,6 +4,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+using Blazor.Sonner.Extensions;
+
 using LumexUI.Motion.Extensions;
 using LumexUI.Services;
 
@@ -27,6 +29,7 @@ public static class ServiceCollectionExtensions
 	/// <param name="services">The <see cref="IServiceCollection"/>.</param>
 	public static void AddLumexServices( this IServiceCollection services )
 	{
+		services.AddSonner();
 		services.AddTwMerge();
 		services.AddLumexMotion();
 		services.AddThemeService();
@@ -39,6 +42,7 @@ public static class ServiceCollectionExtensions
 	/// <param name="options">An action to configure the <see cref="TwMergeConfig"/>.</param>
 	public static void AddLumexServices( this IServiceCollection services, Action<TwMergeConfig> options )
 	{
+		services.AddSonner();
 		services.AddTwMerge( options );
 		services.AddLumexMotion();
 		services.AddThemeService();
