@@ -1,12 +1,15 @@
 @namespace LumexUI
 @inherits LumexComponentBase
 
-<div class="@RootClass"
-     data-slot="field"
-     data-orientation="@Orientation.ToString().ToLowerInvariant()"
-     data-invalid="@Utils.GetDataAttributeValue( Invalid )"
-     data-disabled="@Utils.GetDataAttributeValue( Disabled )"
-     data-required="@Utils.GetDataAttributeValue( Required )">
+<LumexComponent As="@As"
+                Class="@RootClass"
+                Style="@RootStyle"
+                data-slot="field"
+                data-orientation="@Orientation.ToString().ToLowerInvariant()"
+                data-invalid="@Utils.GetDataAttributeValue( Invalid )"
+                data-disabled="@Utils.GetDataAttributeValue( Disabled )"
+                data-required="@Utils.GetDataAttributeValue( Required )"
+                @attributes="@AdditionalAttributes">
 
     @if( Orientation is Orientation.Vertical )
     {
@@ -16,7 +19,7 @@
     {
         @_renderHorizontalLayout
     }
-</div>
+</LumexComponent>
 
 @code {
     private void RenderVerticalLayout( RenderTreeBuilder __builder )

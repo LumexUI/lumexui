@@ -93,5 +93,7 @@ public partial class LumexField : LumexComponentBase, ISlotComponent<FieldSlots>
 		_renderVerticalLayout = RenderVerticalLayout;
 		_renderHorizontalLayout = RenderHorizontalLayout;
 		_renderHelper = RenderHelper;
+
+		As = "div";
 	}
 }
