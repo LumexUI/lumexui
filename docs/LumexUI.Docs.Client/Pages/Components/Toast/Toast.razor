@@ -1,0 +1,100 @@
+﻿@page "/docs/components/toast-provider"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Toast.PreviewCodes
+
+<p>
+    This component is a wrapper around 
+    <LumexLink Href="https://sonner.lumexui.org/"
+               External="@true">
+        Blazor Sonner
+    </LumexLink>.
+</p>
+
+<DocsSection Title="Prerequisite">
+    <p>
+        The <code>LumexToastProvider</code> must be added to the application before using the toast service.
+        This is required to initialize the context for managing toasts.
+    </p>
+    <CodeSnippet Code="@(new CodeBlock( name: "MainLayout.razor", snippet: "toastProvider" ))" />
+</DocsSection>
+
+<DocsSection Title="Usage">
+    <p>Customize the type of toast to render, and pass options as the second argument.</p>
+    <Usage />
+
+    <DocsSection Title="Position">
+        <p>
+            Use <code>Position</code> parameter on <code>LumexToastProvider</code> to define where toasts appear.
+            Toast position can also be set individually via options.
+        </p>
+        <Position />
+    </DocsSection>
+
+    <DocsSection Title="Expand">
+        <p>
+            Use <code>Expand</code> parameter on <code>LumexToastProvider</code>
+            to make toasts expanded by default.
+        </p>
+        <Expand />
+    </DocsSection>
+
+    <DocsSection Title="Close button">
+        <p>
+            Use <code>CloseButton</code> parameter on <code>LumexToastProvider</code>
+            to show a close button in a toast.
+        </p>
+        <CloseButton />
+    </DocsSection>
+
+    <DocsSection Title="Rich colors">
+        <p>
+            Use <code>RichColors</code> parameter on <code>LumexToastProvider</code>
+            to colorize toasts by semantic intent.
+        </p>
+        <RichColors />
+    </DocsSection>
+
+    <DocsSection Title="Other">
+        <p>
+            Use <code>Gap</code>, <code>Duration</code>, <code>VisibleToasts</code>,
+            and other parameters on <code>LumexToastProvider</code> to further customize toasts.
+        </p>
+        <Other />
+    </DocsSection>
+</DocsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Prerequisite"),
+        new("Usage", [
+            new("Position"),
+            new("Expand"),
+            new("Close button"),
+            new("Rich colors"),
+            new("Other")
+        ]),
+        new("API")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexToastProvider),
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Toast Provider",
+            category: "Components",
+            description: "Toasts are brief notifications that give feedback about an action or event.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "ToastProvider", isServer: false )
+        );
+    }
+}

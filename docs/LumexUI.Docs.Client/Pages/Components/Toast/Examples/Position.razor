@@ -1,0 +1,41 @@
+﻿@using Blazor.Sonner.Services
+@using System.Text.RegularExpressions
+
+@inject ToastService Toast
+
+<div class="fixed z-100">
+    <LumexToastProvider Id="toaster-position" Position="@_selectedPosition" />
+</div>
+
+<div class="flex flex-wrap gap-2">
+    @foreach( var position in _positions )
+    {
+        <LumexButton Variant="@Variant.Flat" OnClick="@(() => ShowToast( position ))">
+            @Regex.Replace( position.ToString(), "(?<!^)(?=[A-Z])", " " )
+        </LumexButton>
+    }
+</div>
+
+@code {
+    private ToastPosition _selectedPosition = ToastPosition.BottomRight;
+
+    private ToastPosition[] _positions = [
+        ToastPosition.TopLeft,
+        ToastPosition.TopCenter,
+        ToastPosition.TopRight,
+        ToastPosition.BottomLeft,
+        ToastPosition.BottomCenter,
+        ToastPosition.BottomRight
+    ];
+
+    private void ShowToast( ToastPosition position )
+    {
+        _selectedPosition = position;
+
+        Toast.Show( "Event has been created", t =>
+        {
+            t.ToasterId = "toaster-position";
+            t.Description = "Monday, January 3rd at 6:00pm";
+        } );
+    }
+}

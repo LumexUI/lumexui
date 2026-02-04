@@ -1,0 +1,33 @@
+﻿@using Blazor.Sonner.Services
+
+@inject ToastService Toast
+
+<div class="fixed z-100">
+    <LumexToastProvider Id="toaster-other"
+                        Gap="@_gap"
+                        Duration="@TimeSpan.FromMilliseconds( _duration )"
+                        VisibleToasts="@_visibleToasts" />
+</div>
+
+<div class="w-full grid items-center justify-items-center gap-4 md:grid-cols-2">
+    <div>
+        <LumexButton Variant="@Variant.Flat"
+                     OnClick="@(() => Toast.Show( "Event has been created", _toasterId ))">
+            Show toast
+        </LumexButton>
+    </div>
+
+    <div class="flex flex-col gap-4">
+        <LumexNumbox Label="Gap" LabelPlacement="@LabelPlacement.Outside" step="2" @bind-Value="@_gap" />
+        <LumexNumbox Label="Duration" LabelPlacement="@LabelPlacement.Outside" step="500" @bind-Value="@_duration" />
+        <LumexNumbox Label="Visible toasts" LabelPlacement="@LabelPlacement.Outside" @bind-Value="@_visibleToasts" />
+    </div>
+</div>
+
+@code {
+    private Action<ToastModel> _toasterId = t => t.ToasterId = "toaster-other";
+
+    private int _gap = 14;
+    private int _visibleToasts = 3;
+    private double _duration = 4000;
+}
