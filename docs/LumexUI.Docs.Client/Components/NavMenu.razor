@@ -52,11 +52,15 @@
                     .Add( "pointer-events-none" ), when: item.Status.HasValue && item.Status.Value is PageStatus.Soon )
                 .ToString();
 
+            var isLLMS = formattedName == "llms.txt";
+            var href = isLLMS ? "llms.txt" : $"docs/{categoryName.ToKebabCase()}/{formattedName.ToKebabCase()}";
+            var name = isLLMS ? "llms.txt" : formattedName;
+
             <li class="@styles">
-                <LumexLink Href="@($"docs/{categoryName.ToKebabCase()}/{formattedName.ToKebabCase()}")"
+                <LumexLink Href="@href"
                            Match="@NavLinkMatch.Prefix"
                            Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current/80 dark:data-[active=true]:text-orange-400">
-                    @formattedName
+                    @name
                 </LumexLink>
                 <NavItemBadge Status="@item.Status" />
             </li>

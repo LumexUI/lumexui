@@ -11,7 +11,8 @@ public class NavigationStore
 	private static NavigationCategory GettingStartedCategory =>
 		new NavigationCategory( "Getting started" )
 			.Add( new( "Overview" ) )
-			.Add( new( "Installation" ) );
+			.Add( new( "Installation" ) )
+			.Add( new( "llms.txt", PageStatus.New ) );
 
 	private static NavigationCategory ThemingCategory =>
 		new NavigationCategory( "Theming" )

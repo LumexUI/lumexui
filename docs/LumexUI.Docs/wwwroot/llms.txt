@@ -1,0 +1,60 @@
+# LumexUI Documentation
+
+> Documentation for LumexUI Blazor component library.
+
+LumexUI is a Blazor component library built using [Tailwind CSS v4](https://tailwindcss.com/).
+
+**Key Features:**
+
+- Tailwind CSS–based — Built entirely with utility-first Tailwind CSS
+- Clean by default — Professional design out of the box
+- Highly customizable — Easy to adapt to any brand or style
+- Performance-focused — Optimized for speed and scalability
+- Conflict-free styling — Automatic Tailwind class conflict resolution via [TailwindMerge.NET](https://github.com/desmondinho/tailwind-merge-dotnet)
+
+## Documentation Index
+
+### Components
+
+- [Accordion](https://lumexui.org/docs/components/accordion): Present a list of top-level options that can expand or collapse to display additional details.
+- [Alert](https://lumexui.org/docs/components/alert): Display concise feedback about an action or event for the user.
+- [Avatar](https://lumexui.org/docs/components/avatar): Represent a user or entity using an image, initials, or a fallback icon.
+- [Badge](https://lumexui.org/docs/components/badge): Small indicators to display status, counts, or contextual information attached to other UI elements.
+- [Button](https://lumexui.org/docs/components/button): Allow to take actions, and make choices, with a single tap.
+- [Card](https://lumexui.org/docs/components/card): A flexible container for grouping related content and actions in a structured, organized layout.
+- [Checkbox](https://lumexui.org/docs/components/checkbox): Allow to select or deselect options, typically in forms or lists.
+- [Checkbox Group](https://lumexui.org/docs/components/checkbox-group): Allow to select or deselect options from a set.
+- [Chip](https://lumexui.org/docs/components/chip): Display information, tags, or actions in a concise form.
+- [Code](https://lumexui.org/docs/components/code): Display short inline code snippets.
+- [Collapse](https://lumexui.org/docs/components/collapse): Toggle content visibility, perfect for compact organization.
+- [Data Grid](https://lumexui.org/docs/components/data-grid): Allow to quickly scan, sort, compare, and take action on large amounts of data.
+- [Datebox](https://lumexui.org/docs/components/datebox): Allow to enter and edit date values.
+- [Divider](https://lumexui.org/docs/components/divider): Visual separator to structure content in your layout.
+- [Dropdown](https://lumexui.org/docs/components/dropdown): Display a list of actions in a popover that users can select.
+- [Keyboard Key or Kbd](https://lumexui.org/docs/components/kbd): Display keyboard shortcuts and input combinations.
+- [Link](https://lumexui.org/docs/components/link): Allow to click the way from page to page.
+- [Listbox](https://lumexui.org/docs/components/listbox): Display a list of options and allow users to select one or more of them.
+- [Navbar](https://lumexui.org/docs/components/navbar): The top bar of the page that includes support for branding, links, navigation, collapse menu and more.
+- [Numbox](https://lumexui.org/docs/components/numbox): Allow to input numeric data, making it essential for forms and data collection.
+- [Popover](https://lumexui.org/docs/components/popover): Display additional content that floats near its trigger element.
+- [Radio Group](https://lumexui.org/docs/components/radio-group): Allow to select one option from a set.
+- [Select](https://lumexui.org/docs/components/select): Display a collapsible list of options and allow users to select them.
+- [Skeleton](https://lumexui.org/docs/components/skeleton): Display loading placeholders, indicating content is being loaded.
+- [Spinner](https://lumexui.org/docs/components/spinner): Indicate loading states with a visual cue.
+- [Switch](https://lumexui.org/docs/components/switch): Allow to toggle between two states, typically used for enabling or disabling settings.
+- [Tabs](https://lumexui.org/docs/components/tabs): Explore and switch between different views.
+- [Textbox](https://lumexui.org/docs/components/textbox): Allow to input text data, making it essential for forms and data collection.
+- [Toast Provider](https://lumexui.org/docs/components/toast-provider): Display brief notifications that give feedback about an action or event.
+- [Tooltip](https://lumexui.org/docs/components/tooltip): Display a brief, informative message that appears when a user interacts with an element.
+- [User](https://lumexui.org/docs/components/user): Display user information with avatar and name.
+
+### Getting Started
+
+- [Overview](https://lumexui.org/docs/getting-started/overview): An open-source project that offers a diverse set of beautifully designed Blazor components, all fully built with Tailwind CSS for streamlined and modern web development.
+- [Installation](https://lumexui.org/docs/getting-started/installation): Follow the steps below to get started with LumexUI quickly!
+
+### Theming
+
+- [Design tokens](https://lumexui.org/docs/theming/design-tokens): Using CSS variables and color utilities for theming.
+- [Customization](https://lumexui.org/docs/theming/customization): Customizing the default theme using CSS variables.
+- [Dark mode](https://lumexui.org/docs/theming/dark-mode): Adding dark mode support to the application.
