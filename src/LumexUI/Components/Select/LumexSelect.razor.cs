@@ -40,24 +40,9 @@ public partial class LumexSelect<TValue> : LumexInputBase<TValue>, ISlotComponen
 	[Parameter] public RenderFragment<TValue?>? ValueContent { get; set; }
 
 	/// <summary>
-	/// Gets or sets the label for the select input.
-	/// </summary>
-	[Parameter] public string? Label { get; set; }
-
-	/// <summary>
 	/// Gets or sets the placeholder text to display when no value is selected.
 	/// </summary>
 	[Parameter] public string? Placeholder { get; set; }
-
-	/// <summary>
-	/// Gets or sets the description text to display below the select input.
-	/// </summary>
-	[Parameter] public string? Description { get; set; }
-
-	/// <summary>
-	/// Gets or sets the error message to display when the select input is in an invalid state.
-	/// </summary>
-	[Parameter] public string? ErrorMessage { get; set; }
 
 	/// <summary>
 	/// Gets or sets the placement of the label of the select input.

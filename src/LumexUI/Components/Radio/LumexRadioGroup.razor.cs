@@ -32,16 +32,6 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>,
 	[Parameter] public string? Name { get; set; }
 
 	/// <summary>
-	/// Gets or sets the label for the radio group.
-	/// </summary>
-	[Parameter] public string? Label { get; set; }
-
-	/// <summary>
-	/// Gets or sets the description for the radio group.
-	/// </summary>
-	[Parameter] public string? Description { get; set; }
-
-	/// <summary>
 	/// Gets or sets the orientation of the radio group.
 	/// </summary>
 	/// <remarks>
