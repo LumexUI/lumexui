@@ -1,0 +1,86 @@
+@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexComponent As="@As"
+                Class="@RootClass"
+                Style="@RootStyle"
+                data-slot="field"
+                data-orientation="@Orientation.ToString().ToLowerInvariant()"
+                data-invalid="@Utils.GetDataAttributeValue( Invalid )"
+                data-disabled="@Utils.GetDataAttributeValue( Disabled )"
+                data-required="@Utils.GetDataAttributeValue( Required )"
+                @attributes="@AdditionalAttributes">
+
+    @if( Orientation is Orientation.Vertical )
+    {
+        @_renderVerticalLayout
+    }
+    else
+    {
+        @_renderHorizontalLayout
+    }
+</LumexComponent>
+
+@code {
+    private void RenderVerticalLayout( RenderTreeBuilder __builder )
+    {
+        @if( !string.IsNullOrEmpty( Label ) )
+        {
+            <label class="@LabelClass" data-slot="label">@Label</label>
+        }
+
+        @if( ChildContent is not null )
+        {
+            <div class="@ContentClass" data-slot="content">
+                @ChildContent
+            </div>
+        }
+
+        @_renderHelper
+    }
+
+    private void RenderHorizontalLayout( RenderTreeBuilder __builder )
+    {
+        @if( ChildContent is not null )
+        {
+            <div class="@ContentClass" data-slot="content">
+                @ChildContent
+            </div>
+        }
+
+        @if( HasLabelOrHelper )
+        {
+            <div class="@LabelWrapperClass" data-slot="label-wrapper">
+                @if( !string.IsNullOrEmpty( Label ) )
+                {
+                    <label class="@LabelClass" data-slot="label">@Label</label>
+                }
+
+                @_renderHelper
+            </div>
+        }
+    }
+
+    private void RenderHelper( RenderTreeBuilder __builder )
+    {
+        if( !HasHelper )
+        {
+            return;
+        }
+
+        <div class="@HelperClass" data-slot="helper">
+            @if( Invalid && !string.IsNullOrEmpty( ResolvedErrorMessage ) )
+            {
+                <span class="@ErrorMessageClass" data-slot="error-message">
+                    @ResolvedErrorMessage
+                </span>
+            }
+            else if( !string.IsNullOrEmpty( Description ) )
+            {
+                <span class="@DescriptionClass" data-slot="description">
+                    @Description
+                </span>
+            }
+        </div>
+    }
+}
