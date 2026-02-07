@@ -9,7 +9,9 @@
             <LumexSelectItem @key="@character" Value="@character">
                 <div class="flex gap-2 items-center">
                     <span class="w-8 h-8 flex rounded-full overflow-hidden shrink-0">
-                        <img src="@character.Avatar" alt="@character.Name" class="object-cover" />
+                        <LumexImage Src="@character.Avatar"
+                                    Alt="@character.Name"
+                                    Fit="@ObjectFit.Cover" />
                     </span>
                     <div class="flex flex-col">
                         <span class="text-small">@character.Name</span>
@@ -22,7 +24,9 @@
     <ValueContent>
         <div class="flex items-center gap-2">
             <span class="w-8 h-8 flex rounded-full overflow-hidden shrink-0">
-                <img src="@context.Avatar" alt="@context.Name" class="object-cover" />
+                <LumexImage Src="@context.Avatar"
+                            Alt="@context.Name"
+                            Fit="@ObjectFit.Cover" />
             </span>
             <div class="flex flex-col">
                 <span>@context.Name</span>
