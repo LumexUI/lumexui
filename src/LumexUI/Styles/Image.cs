@@ -42,13 +42,13 @@ internal class Image
 			.Add( "drop-shadow-lg", when: shadow is Shadow.Large );
 	}
 
-	private static ElementClass GetBlurStyles( Blur shadow )
+	private static ElementClass GetBlurStyles( Blur blur )
 	{
 		return ElementClass.Empty()
-			.Add( "blur-none", when: shadow is Blur.None )
-			.Add( "blur-sm", when: shadow is Blur.Small )
-			.Add( "blur-lg", when: shadow is Blur.Medium )
-			.Add( "blur-2xl", when: shadow is Blur.Large );
+			.Add( "blur-none", when: blur is Blur.None )
+			.Add( "blur-sm", when: blur is Blur.Small )
+			.Add( "blur-lg", when: blur is Blur.Medium )
+			.Add( "blur-2xl", when: blur is Blur.Large );
 	}
 
 	private static ElementClass GetObjectFitStyles( ObjectFit fit )

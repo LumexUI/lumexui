@@ -15,7 +15,7 @@ public class ImageTests : TestContext
 	}
 
 	[Fact]
-	public void Button_ShouldRenderCorrectly()
+	public void Image_ShouldRenderCorrectly()
 	{
 		var action = () => RenderComponent<LumexImage>();
 

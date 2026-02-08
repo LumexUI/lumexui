@@ -13,7 +13,7 @@ using TailwindMerge;
 namespace LumexUI;
 
 /// <summary>
-/// A component representing a button.
+/// A component representing a image.
 /// </summary>
 public partial class LumexImage : LumexComponentBase
 {
@@ -71,7 +71,7 @@ public partial class LumexImage : LumexComponentBase
 	[Parameter] public Blur Blur { get; set; } = Blur.None;
 
 	/// <summary>
-	/// Gets or sets the radius of the button.
+	/// Gets or sets the radius of the image.
 	/// </summary>
 	/// <remarks>
 	/// Default value is <see cref="Radius.Medium"/>
@@ -79,7 +79,7 @@ public partial class LumexImage : LumexComponentBase
 	[Parameter] public Radius Radius { get; set; } = Radius.Medium;
 
 	/// <summary>
-	/// Gets or sets a callback that is fired whenever the button is clicked.
+	/// Gets or sets a callback that is fired whenever the image is clicked.
 	/// </summary>
 	[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
@@ -87,7 +87,7 @@ public partial class LumexImage : LumexComponentBase
 		TwMerge.Merge( Image.GetStyles( this ) );
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="LumexButton"/>.
+	/// Initializes a new instance of the <see cref="LumexImage"/>.
 	/// </summary>
 	public LumexImage()
 	{
