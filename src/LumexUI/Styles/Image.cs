@@ -61,6 +61,20 @@ internal class Image
 			.Add( "object-scale-down", when: fit is ObjectFit.ScaleDown );
 	}
 
+	private static ElementClass GetGrayScaleStyles()
+	{
+		return ElementClass.Empty()
+			.Add( "grayscale" );
+	}
+
+	private static ElementClass GetOnClickStyles()
+	{
+		return ElementClass.Empty()
+			.Add( "cursor-pointer" )
+			.Add( "transition" )
+			.Add( "hover:opacity-80" );
+	}
+
 	public static string GetStyles( LumexImage image )
 	{
 		return ElementClass.Empty()
@@ -71,6 +85,8 @@ internal class Image
 			.Add( GetRadiusStyles( image.Radius ) )
 			.Add( GetShadowStyles( image.Shadow ) )
 			.Add( GetObjectFitStyles( image.Fit ) )
+			.Add( GetGrayScaleStyles(), when: image.GrayScale )
+			.Add( GetOnClickStyles(), when: image.OnClick.HasDelegate )
 			.Add( image.Class )
 			.ToString();
 	}

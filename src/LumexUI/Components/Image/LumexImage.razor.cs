@@ -53,6 +53,11 @@ public partial class LumexImage : LumexComponentBase
 	[Parameter] public bool FullHeight { get; set; }
 
 	/// <summary>
+	/// Gets or sets a value indicating whether the image is gray scaled.
+	/// </summary>
+	[Parameter] public bool GrayScale { get; set; }
+
+	/// <summary>
 	/// Gets or sets the shadow of the image.
 	/// </summary>
 	/// <remarks>
