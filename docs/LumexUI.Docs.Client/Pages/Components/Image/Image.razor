@@ -1,0 +1,131 @@
+﻿@page "/docs/components/image"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Image.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+        The image component renders visual content and provides flexible control
+        over sizing, object-fit behavior, and visual styling options.
+    </p>
+
+    <Usage />
+</DocsSection>
+
+<DocsSection Title="Width & Height">
+    <p>
+        You can optionally define <code>Width</code> and <code>Height</code>.
+        These attributes are only applied if their values are greater than zero.
+        This allows responsive images without forcing dimensions.
+    </p>
+
+    <ImageWidthHeight />
+</DocsSection>
+
+<DocsSection Title="Object Fit">
+    <p>
+        Control how the image should scale within its bounding box using the
+        <code>Fit</code> parameter. This maps directly to CSS
+        <code>object-fit</code> values.
+    </p>
+
+    <p>Supported values:</p>
+    <ul>
+        <li><code>ObjectFit.None</code> — no scaling, original size</li>
+        <li><code>ObjectFit.Cover</code> — covers its container</li>
+        <li><code>ObjectFit.Contain</code> — fits entirely inside container</li>
+        <li><code>ObjectFit.Fill</code> — stretches to fill container</li>
+        <li><code>ObjectFit.ScaleDown</code> — scales down if too large</li>
+    </ul>
+
+    <ImageObjectFit />
+</DocsSection>
+
+<DocsSection Title="Radius">
+    <p>
+        Customize the border radius of the image using the
+        <code>Radius</code> parameter.
+        This affects how rounded the corners of the image are.
+    </p>
+
+    <ImageRadius />
+</DocsSection>
+
+<DocsSection Title="Shadow">
+    <p>
+        Add depth to the image using the <code>Shadow</code> parameter.
+        You can choose from predefined shadow intensities.
+    </p>
+
+    <ImageShadow />
+</DocsSection>
+
+<DocsSection Title="Blur">
+    <p>
+        Apply visual blur effects to the image using the
+        <code>Blur</code> parameter.
+    </p>
+
+    <ImageBlur />
+</DocsSection>
+
+<DocsSection Title="GrayScale">
+    <p>
+        Apply a grayscale filter to the image using the <code>GrayScale</code> parameter.
+    </p>
+
+    <ImageGrayscale />
+</DocsSection>
+
+<DocsSection Title="Click Handling">
+    <p>
+        The component supports click interactions via
+        <code>OnClick</code>, allowing images to be used as interactive UI elements.
+    </p>
+
+    <ImageClick />
+</DocsSection>
+
+<DocsSection Title="Custom Styles">
+    <p>
+        You can customize the button component by passing any Tailwind CSS classes to the component's Class parameter.
+    </p>
+    <CustomStyles />
+</DocsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Width & Height"),
+            new("Object Fit"),
+            new("Radius"),
+            new("Shadow"),
+            new("Blur"),
+            new("GrayScale"),
+            new("Click Handling"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexImage)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Image",
+            category: "Components",
+            description: "Images display visual content with configurable sizing, fit behavior, and styling options.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps("Image", isServer: false)
+        );
+    }
+}

@@ -1,0 +1,25 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@{
+    // Add width and height only if bigger than zero
+    var attrs = AdditionalAttributes != null
+        ? new Dictionary<string, object>(AdditionalAttributes)
+        : new Dictionary<string, object>();
+
+    if (Width > 0)
+        attrs["width"] = Width;
+
+    if (Height > 0)
+        attrs["height"] = Height;
+}
+
+<LumexComponent As="@As"
+                Class="@RootClass"
+                Style="@RootStyle"
+                src="@Src"
+                alt="@Alt"
+                @attributes="@attrs"
+                @onclick="@OnClickAsync">
+</LumexComponent>
+
