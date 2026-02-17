@@ -1,0 +1,5 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <style>@media (prefers-color-scheme: dark) { .a { fill: white; } }</style>
+    <path d="M18 18H26C27.1046 18 28 18.8954 28 20V28H18V18Z" fill="black" class="a" />
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M16 11.2V14V28C10.4771 28 6 22.9856 6 16.8V14V0C11.5228 0 16 5.0144 16 11.2Z" fill="black" class="a" />
+</svg>
