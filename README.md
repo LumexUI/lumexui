@@ -1,29 +1,8 @@
-<h1 align="center">LumexUI</h1>
+# LumexUI
 
-<p align="center">
-  <a href="https://github.com/LumexUI/lumexui/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/LumexUI/lumexui" alt="License">
-  </a>
-  <a href="https://codecov.io/gh/LumexUI/lumexui"> 
-   <img src="https://codecov.io/gh/LumexUI/lumexui/graph/badge.svg?token=B2QPPNLZYJ" alt="Codecov">
-  </a>
-  <a href="https://github.com/LumexUI/lumexui/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/LumexUI/lumexui/build-test.yml" alt="Build Status">
-  </a>
-</p>
+An open-source UI component library that offers a set of beautifully designed Blazor UI components, all fully built with Tailwind CSS.
 
-<p align="center">
-  🚀 A versatile Blazor UI library built using Tailwind CSS.
-</p>
-
-## Introduction
-
-LumexUI is an open-source project that offers a diverse collection of Blazor UI components, 
-all fully built with Tailwind CSS for streamlined and modern web development.
-
-These components are designed to be not only aesthetically pleasing, but also highly customizable, 
-allowing you to tailor them to meet your specific needs. The library is optimized for performance, 
-ensuring that your applications remain fast and responsive.
+These components are designed to be not only aesthetically pleasing, but also highly customizable, allowing you to tailor them to meet your specific needs.
 
 ## Documentation
 
