@@ -14,6 +14,7 @@ internal static class ToastProvider
 	public static string Style()
 	{
 		return new ElementClass()
+			.Add( "font-sans!" )
 			.Add( "[--normal-bg:var(--lumex-surface1)]!" )
 			.Add( "[--normal-text:var(--lumex-surface1-foreground)]!" )
 			.Add( "[--normal-border:var(--lumex-default-200)]!" )
