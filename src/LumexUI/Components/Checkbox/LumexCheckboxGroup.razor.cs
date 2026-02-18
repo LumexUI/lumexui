@@ -30,6 +30,22 @@ public partial class LumexCheckboxGroup : LumexComponentBase, ISlotComponent<Che
 	[Parameter] public string? Description { get; set; }
 
 	/// <summary>
+	/// Gets or sets the error message for the checkbox group.
+	/// This message is displayed only when the group is invalid.
+	/// </summary>
+	[Parameter] public string? ErrorMessage { get; set; }
+
+	/// <summary>
+	/// Gets or sets a value indicating whether the checkbox group is invalid.
+	/// </summary>
+	[Parameter] public bool Invalid { get; set; }
+
+	/// <summary>
+	/// Gets or sets a value indicating whether the checkbox group is required.
+	/// </summary>
+	[Parameter] public bool Required { get; set; }
+
+	/// <summary>
 	/// Gets or sets a value indicating whether the checkbox group is disabled.
 	/// </summary>
 	[Parameter] public bool Disabled { get; set; }
@@ -76,14 +92,14 @@ public partial class LumexCheckboxGroup : LumexComponentBase, ISlotComponent<Che
 	private protected override string? RootClass =>
 		TwMerge.Merge( CheckboxGroup.GetStyles( this ) );
 
-	private string? LabelClass =>
-		TwMerge.Merge( CheckboxGroup.GetLabelStyles( this ) );
-
 	private string? WrapperClass =>
 		TwMerge.Merge( CheckboxGroup.GetWrapperStyles( this ) );
 
-	private string? DescriptionClass =>
-		TwMerge.Merge( CheckboxGroup.GetDescriptionStyles( this ) );
+	private FieldSlots FieldClasses => new()
+	{
+		Label = TwMerge.Merge( CheckboxGroup.GetLabelStyles( this ) ),
+		Description = TwMerge.Merge( CheckboxGroup.GetDescriptionStyles( this ) )
+	};
 
 	private readonly CheckboxGroupContext _context;
 
