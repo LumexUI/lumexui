@@ -177,6 +177,7 @@
     --animate-sway: sway 0.75s infinite;
     --animate-blink: blink 1.5s infinite both;
     --animate-fade-out: fade-out 1.2s infinite;
+    --animate-progress-loading: progress-loading 1.5s ease-in-out infinite;
 
     @keyframes enter {
         0% {
@@ -223,6 +224,16 @@
 
         100% {
             opacity: 0.15;
+        }
+    }
+
+    @keyframes progress-loading {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(400%);
         }
     }
 

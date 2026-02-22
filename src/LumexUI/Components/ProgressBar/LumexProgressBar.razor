@@ -1,0 +1,53 @@
+@namespace LumexUI
+@inherits LumexComponentBase
+
+@using S = ProgressBarSlots;
+
+<div class="@GetStyles( nameof( S.Track ) )"
+     data-slot="track"
+     role="progressbar"
+     aria-valuenow="@(IsLoadingBar ? null : NormalizedValue)"
+     aria-valuemin="0"
+     aria-valuemax="@MaxValue"
+     aria-label="@(IsLoadingBar ? "Loading" : $"Progress: {Percentage:F0}%")"
+     @attributes="@AdditionalAttributes">
+    <div class="@GetStyles( nameof( S.Fill ) )"
+         data-slot="fill"
+         style="width: @FillWidth">
+        @if( IsLoadingBar )
+        {
+            <div class="absolute inset-0 bg-white/30 animate-shimmer"
+                 style="animation-duration: 1.5s;"></div>
+        }
+    </div>
+
+    @if( ShouldShowLabel && IsLabelInline )
+    {
+        <div class="@GetStyles( nameof( S.Label ) )"
+             data-slot="label">
+            @if( LabelContent is not null )
+            {
+                @LabelContent( Context )
+            }
+            else
+            {
+                @($"{Percentage:F0}%")
+            }
+        </div>
+    }
+</div>
+
+@if( ShouldShowLabel && !IsLabelInline )
+{
+    <div class="@GetStyles( nameof( S.Label ) )"
+         data-slot="label">
+        @if( LabelContent is not null )
+        {
+            @LabelContent( Context )
+        }
+        else
+        {
+            @($"{NormalizedValue:F0}%")
+        }
+    </div>
+}
