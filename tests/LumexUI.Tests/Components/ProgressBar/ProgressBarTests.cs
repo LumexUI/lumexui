@@ -124,6 +124,18 @@ public class ProgressBarTests : TestContext
 	}
 
 	[Fact]
+	public void ProgressBar_IsLoadingBar_FillShouldHaveAnimateProgressLoading()
+	{
+		var cut = RenderComponent<LumexProgressBar>( p => p
+			.Add( p => p.IsLoadingBar, true )
+		);
+
+		var fill = cut.FindBySlot( "fill" );
+
+		fill.ClassList.Should().Contain( "animate-progress-loading" );
+	}
+
+	[Fact]
 	public void ProgressBar_ShowLabel_ShouldRenderLabel()
 	{
 		var cut = RenderComponent<LumexProgressBar>( p => p
@@ -244,7 +256,7 @@ public class ProgressBarTests : TestContext
 			.Add( p => p.LabelContent, context =>
 			{
 				context.Percentage.Should().Be( 30.0 );
-				context.NormalizedValue.Should().Be( 60.0 );
+				context.ClampedValue.Should().Be( 60.0 );
 				context.Value.Should().Be( 60.0 );
 				context.MaxValue.Should().Be( 200.0 );
 				return "Test";

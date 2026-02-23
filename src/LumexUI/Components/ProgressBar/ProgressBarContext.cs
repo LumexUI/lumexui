@@ -17,7 +17,7 @@ public readonly record struct ProgressBarContext
 	/// <summary>
 	/// Gets the normalized value (clamped between 0 and <see cref="MaxValue"/>).
 	/// </summary>
-	public double NormalizedValue { get; }
+	public double ClampedValue { get; }
 
 	/// <summary>
 	/// Gets the raw value of the progress bar.
@@ -33,13 +33,13 @@ public readonly record struct ProgressBarContext
 	/// Initializes a new instance of the <see cref="ProgressBarContext"/> struct.
 	/// </summary>
 	/// <param name="percentage">The percentage value (0-100).</param>
-	/// <param name="normalizedValue">The normalized value.</param>
+	/// <param name="clampedValue">The clamped value.</param>
 	/// <param name="value">The raw value.</param>
 	/// <param name="maxValue">The maximum value.</param>
-	public ProgressBarContext( double percentage, double normalizedValue, double value, double maxValue )
+	public ProgressBarContext( double percentage, double clampedValue, double value, double maxValue )
 	{
 		Percentage = percentage;
-		NormalizedValue = normalizedValue;
+		ClampedValue = clampedValue;
 		Value = value;
 		MaxValue = maxValue;
 	}

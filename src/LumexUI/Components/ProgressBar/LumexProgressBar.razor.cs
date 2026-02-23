@@ -104,11 +104,11 @@ public partial class LumexProgressBar : LumexComponentBase, ISlotComponent<Progr
 	/// </summary>
 	[Parameter] public ProgressBarSlots? Classes { get; set; }
 
-	private double NormalizedValue => Math.Clamp( Value, 0, MaxValue );
-	private double Percentage => MaxValue > 0 ? ( NormalizedValue / MaxValue ) * 100 : 0;
+	private double ClampedValue => MaxValue > 0 ? Math.Clamp( Value, 0, MaxValue ) : 0;
+	private double Percentage => MaxValue > 0 ? ( ClampedValue / MaxValue ) * 100 : 0;
 	private string FillWidth => IsLoadingBar ? "100%" : $"{Percentage.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)}%";
-	private bool ShouldShowLabel => ShowLabel && !IsLoadingBar && ( LabelContent is not null || NormalizedValue > 0 );
-	private ProgressBarContext Context => new( Percentage, NormalizedValue, Value, MaxValue );
+	private bool ShouldShowLabel => ShowLabel && !IsLoadingBar;
+	private ProgressBarContext Context => new( Percentage, ClampedValue, Value, MaxValue );
 
 	private Dictionary<string, ComponentSlot> _slots = [];
 

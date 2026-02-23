@@ -6,7 +6,7 @@
 <div class="@GetStyles( nameof( S.Track ) )"
      data-slot="track"
      role="progressbar"
-     aria-valuenow="@(IsLoadingBar ? null : NormalizedValue)"
+     aria-valuenow="@(IsLoadingBar ? null : ClampedValue)"
      aria-valuemin="0"
      aria-valuemax="@MaxValue"
      aria-label="@(IsLoadingBar ? "Loading" : $"Progress: {Percentage:F0}%")"
@@ -47,7 +47,7 @@
         }
         else
         {
-            @($"{NormalizedValue:F0}%")
+            @($"{Percentage:F0}%")
         }
     </div>
 }
