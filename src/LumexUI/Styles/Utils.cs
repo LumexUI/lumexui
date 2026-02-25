@@ -12,14 +12,16 @@ internal class Utils
 		.Add( "pointer-events-none" );
 
 	public readonly static string FocusVisible = new ElementClass()
-		.Add( "outline-hidden" )
+		.Add( "outline-solid" )
+		.Add( "outline-transparent" )
 		.Add( "focus-visible:z-10" )
 		.Add( "focus-visible:outline-2" )
 		.Add( "focus-visible:outline-focus" )
 		.Add( "focus-visible:outline-offset-2" );
 
 	public readonly static string GroupFocusVisible = new ElementClass()
-		.Add( "outline-hidden" )
+		.Add( "outline-solid" )
+		.Add( "outline-transparent" )
 		.Add( "group-focus-visible:z-10" )
 		.Add( "group-focus-visible:ring-2" )
 		.Add( "group-focus-visible:ring-focus" )
