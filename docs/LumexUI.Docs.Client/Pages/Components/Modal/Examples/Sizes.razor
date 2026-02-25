@@ -1,0 +1,44 @@
+<div class="flex flex-wrap gap-3">
+    @foreach( var size in Enum.GetValues<ModalSize>() )
+    {
+        <LumexModal Size="@size">
+            <LumexModalTrigger Variant="@Variant.Flat">@size</LumexModalTrigger>
+            <LumexModalContent>
+                <LumexModalHeader Class="flex-col gap-3">
+                    <div class="size-10 flex items-center justify-center bg-default-100 rounded-full">
+                        <RocketIcon Size="20" />
+                    </div>
+                    Size: @size.ToString()
+                </LumexModalHeader>
+                <LumexModalBody>
+                    @if( size is ModalSize.Full )
+                    {
+                        <p>
+                            This modal uses the <code>Full</code> size variant. It occupies the entire
+                            viewport without any margins, rounded corners, or shadows, creating a true
+                            fullscreen experience. Ideal for immersive content or full-page
+                            interactions.
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            This modal uses the <code>@size</code> size variant. On mobile devices, all
+                            sizes adapt to near full-width for optimal viewing. On desktop, each size
+                            provides a different maximum width to suit various content needs.
+                        </p>
+                    }
+                </LumexModalBody>
+                <LumexModalFooter>
+                    <LumexButton FullWidth="@true"
+                                 Color="@ThemeColor.Primary"
+                                 Radius="@Radius.Full"
+                                 command="close"
+                                 commandfor="@context.Id">
+                        Continue
+                    </LumexButton>
+                </LumexModalFooter>
+            </LumexModalContent>
+        </LumexModal>
+    }
+</div>

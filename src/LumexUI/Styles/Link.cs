@@ -18,6 +18,7 @@ internal class Link
         .Add( "hover:opacity-hover" )
         .Add( "active:opacity-60" )
         .Add( "transition-opacity" )
+        .Add( Utils.FocusVisible )
         .ToString();
 
     private readonly static string _disabled = ElementClass.Empty()

@@ -1,0 +1,25 @@
+﻿@namespace LumexUI
+@inherits LumexButton
+
+@using S = ModalSlots;
+
+<LumexButton As="@As"
+             Class="@Modal.GetStyles( nameof( S.Trigger ), Class )"
+             Style="@Style"
+             Color="@Color"
+             Type="@Type"
+             Size="@Size"
+             Radius="@Radius"
+             Variant="@Variant"
+             IconOnly="@IconOnly"
+             Disabled="@Disabled"
+             FullWidth="@FullWidth"
+             StartContent="@StartContent"
+             EndContent="@EndContent"
+             OnClick="@HandleClickAsync"
+             command="show-modal"
+             commandfor="@Modal.Id"
+             data-slot="trigger"
+             @attributes="@AdditionalAttributes">
+    @ChildContent
+</LumexButton>

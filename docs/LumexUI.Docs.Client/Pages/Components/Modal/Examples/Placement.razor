@@ -1,0 +1,31 @@
+<div class="flex flex-wrap gap-3">
+    @foreach( var placement in Enum.GetValues<ModalPlacement>() )
+    {
+        <LumexModal Placement="@placement">
+            <LumexModalTrigger Variant="@Variant.Flat">@placement</LumexModalTrigger>
+            <LumexModalContent>
+                <LumexModalHeader Class="flex-col gap-3">
+                    <div class="size-10 flex items-center justify-center bg-default-100 rounded-full">
+                        <RocketIcon Size="20" />
+                    </div>
+                    Placement: @placement.ToString()
+                </LumexModalHeader>
+                <LumexModalBody>
+                    <p>
+                        This modal uses the <code>@placement</code> placement option. Try different
+                        placements to see how the modal positions itself on the screen.
+                    </p>
+                </LumexModalBody>
+                <LumexModalFooter>
+                    <LumexButton FullWidth="@true"
+                                 Color="@ThemeColor.Primary"
+                                 Radius="@Radius.Full"
+                                 command="close"
+                                 commandfor="@context.Id">
+                        Continue
+                    </LumexButton>
+                </LumexModalFooter>
+            </LumexModalContent>
+        </LumexModal>
+    }
+</div>

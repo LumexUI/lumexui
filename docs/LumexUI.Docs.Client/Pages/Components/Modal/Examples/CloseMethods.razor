@@ -1,0 +1,72 @@
+<div class="flex max-w-2xl flex-col gap-8">
+    <div class="space-y-2">
+        <h3 class="text-large font-semibold">Using command/commandfor</h3>
+        <p class="text-small text-default-500">
+            The simplest way to close a modal. Add the native <code>command="close"</code> and
+            <code>commandfor</code> attributes to any Button component within the modal. 
+            When clicked, it will automatically close the modal.
+        </p>
+
+        <LumexModal>
+            <LumexModalTrigger Variant="@Variant.Flat">Open Modal</LumexModalTrigger>
+            <LumexModalContent>
+                <LumexModalHeader Class="flex-col gap-3">
+                    <div class="size-10 flex items-center justify-center bg-default-100 rounded-full">
+                        <RocketIcon Size="20" />
+                    </div>
+                    Using command/commandfor
+                </LumexModalHeader>
+                <LumexModalBody>
+                    <p>
+                        This modal is closed using the native <code>command="close"</code> and
+                        <code>commandfor</code> attributes on a button element.
+                    </p>
+                </LumexModalBody>
+                <LumexModalFooter>
+                    <LumexButton FullWidth="@true"
+                                 Color="@ThemeColor.Primary"
+                                 Radius="@Radius.Full"
+                                 command="close"
+                                 commandfor="@context.Id">
+                        Close
+                    </LumexButton>
+                </LumexModalFooter>
+            </LumexModalContent>
+        </LumexModal>
+    </div>
+    
+    <div class="space-y-2">
+        <h3 class="text-large font-semibold">Using CloseAsync</h3>
+        <p class="text-small text-default-500">
+            Access the <code>CloseAsync</code> method from the Modal's context. This gives you full
+            control over when and how to close the modal, allowing you to add custom logic before
+            closing.
+        </p>
+
+        <LumexModal>
+            <LumexModalTrigger Variant="@Variant.Flat">Open Modal</LumexModalTrigger>
+            <LumexModalContent>
+                <LumexModalHeader Class="flex-col gap-3">
+                    <div class="size-10 flex items-center justify-center bg-default-100 rounded-full">
+                        <RocketIcon Size="20" />
+                    </div>
+                    Using CloseAsync
+                </LumexModalHeader>
+                <LumexModalBody>
+                    <p>
+                        This modal is closed programmatically by calling
+                        <code>CloseAsync()</code> on the modal context.
+                    </p>
+                </LumexModalBody>
+                <LumexModalFooter>
+                    <LumexButton FullWidth="@true"
+                                 Color="@ThemeColor.Primary"
+                                 Radius="@Radius.Full"
+                                 OnClick="@context.CloseAsync">
+                        Close
+                    </LumexButton>
+                </LumexModalFooter>
+            </LumexModalContent>
+        </LumexModal>
+    </div>
+</div>

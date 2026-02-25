@@ -72,7 +72,7 @@ internal class ColorVariants
         [ThemeColor.Secondary] = "bg-transparent text-secondary",
         [ThemeColor.Success] = "bg-transparent text-success",
         [ThemeColor.Warning] = "bg-transparent text-warning",
-        [ThemeColor.Danger] = "bg-transparenttext-danger",
+        [ThemeColor.Danger] = "bg-transparent text-danger",
         [ThemeColor.Info] = "bg-transparent text-info"
     };
 }

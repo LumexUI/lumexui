@@ -1,0 +1,32 @@
+<div class="flex flex-wrap gap-3">
+    @foreach( var shadow in Enum.GetValues<Shadow>() )
+    {
+        <LumexModal Shadow="@shadow">
+            <LumexModalTrigger Variant="@Variant.Flat">@shadow</LumexModalTrigger>
+            <LumexModalContent>
+                <LumexModalHeader Class="flex-col gap-3">
+                    <div class="size-10 flex items-center justify-center bg-default-100 rounded-full">
+                        <RocketIcon Size="20" />
+                    </div>
+                    Shadow: @shadow.ToString()
+                </LumexModalHeader>
+                <LumexModalBody>
+                    <p>
+                        This modal uses the <code>@shadow</code> shadow variant. The shadow controls
+                        the depth and elevation of the modal, from no shadow to a large pronounced
+                        drop shadow.
+                    </p>
+                </LumexModalBody>
+                <LumexModalFooter>
+                    <LumexButton FullWidth="@true"
+                                 Color="@ThemeColor.Primary"
+                                 Radius="@Radius.Full"
+                                 command="close"
+                                 commandfor="@context.Id">
+                        Continue
+                    </LumexButton>
+                </LumexModalFooter>
+            </LumexModalContent>
+        </LumexModal>
+    }
+</div>
