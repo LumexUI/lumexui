@@ -1,0 +1,12 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@using S = ModalSlots;
+
+<LumexComponent As="@As"
+                Class="@Modal.GetStyles( nameof( S.Footer ), Class )"
+                Style="@Style"
+                data-slot="footer"
+                @attributes="@AdditionalAttributes">
+    @ChildContent
+</LumexComponent>

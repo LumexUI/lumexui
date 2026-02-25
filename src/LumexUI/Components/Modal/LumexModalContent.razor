@@ -1,0 +1,27 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@using S = ModalSlots;
+
+<dialog id="@Modal.Id"
+        class="@Modal.GetStyles( nameof( S.Base ), Class )"
+        data-slot="base"
+        @ref="@_ref"
+        @attributes="@AdditionalAttributes">
+    @if( Modal.ShowCloseButton )
+    {
+        <button role="button"
+                type="button"
+                command="close"
+                commandfor="@Modal.Id"
+                tabindex="0"
+                aria-label="Close"
+                data-slot="close-button"
+                class="@Modal.GetStyles( nameof( S.CloseButton ) )"
+                @onclick="@Modal.CloseAsync">
+            <XIcon Size="16" />
+        </button>
+    }
+
+    @ChildContent?.Invoke( Modal )
+</dialog>
