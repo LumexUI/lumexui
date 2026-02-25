@@ -1,0 +1,129 @@
+@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public ModalTests()
+    {
+        Services.AddSingleton<TwMerge>();
+
+        var module = JSInterop.SetupModule( "./_content/LumexUI/js/components/modal.js" );
+        module.SetupVoid( "modal.initialize", _ => true );
+        module.SetupVoid( "modal.open", _ => true );
+        module.SetupVoid( "modal.close", _ => true );
+        module.SetupVoid( "modal.destroy", _ => true );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<text>
+                <LumexModal>
+                    <LumexModalTrigger>Open Modal</LumexModalTrigger>
+                    <LumexModalContent>
+                        <LumexModalHeader>Header</LumexModalHeader>
+                        <LumexModalBody>Body</LumexModalBody>
+                        <LumexModalFooter>Footer</LumexModalFooter>
+                    </LumexModalContent>
+                </LumexModal>
+            </text>
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldOpenAndCloseOnTriggerAndCloseButtonClick()
+    {
+        var cut = Render(
+            @<text>
+                <LumexModal>
+                    <LumexModalTrigger>Open Modal</LumexModalTrigger>
+                    <LumexModalContent>
+                        <LumexModalBody>Body</LumexModalBody>
+                    </LumexModalContent>
+                </LumexModal>
+            </text>
+        );
+
+        var modal = cut.FindComponent<LumexModal>();
+
+        var trigger = cut.FindBySlot( "trigger" );
+        trigger?.Click();
+
+        modal.Instance.Open.Should().BeTrue();
+
+        var closeButton = cut.FindBySlot( "close-button" );
+        closeButton?.Click();
+
+        modal.Instance.Open.Should().BeFalse();
+    }
+
+    [Fact]
+    public void ShouldCloseOnOutsideClick()
+    {
+        var cut = Render(
+            @<text>
+                <LumexModal Open="@true">
+                    <LumexModalTrigger>Open Modal</LumexModalTrigger>
+                    <LumexModalContent>
+                        <LumexModalBody>Body</LumexModalBody>
+                    </LumexModalContent>
+                </LumexModal>
+            </text>
+        );
+
+        var modal = cut.FindComponent<LumexModal>();
+        var content = cut.FindComponent<LumexModalContent>();
+
+        // Simulate the JS close handler invoking the OnClose callback
+        content.Instance.OnClose();
+
+        modal.Instance.Open.Should().BeFalse();
+    }
+
+    [Fact]
+    public void ShouldInvokeOnCloseCallback()
+    {
+        var closed = false;
+        var cut = Render(
+            @<text>
+                <LumexModal Open="@true" OnClose="@(() => closed = true)">
+                    <LumexModalTrigger>Open Modal</LumexModalTrigger>
+                    <LumexModalContent>
+                        <LumexModalBody>Body</LumexModalBody>
+                    </LumexModalContent>
+                </LumexModal>
+            </text>
+        );
+
+        var closeButton = cut.FindBySlot( "close-button" );
+        closeButton?.Click();
+
+        closed.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldCloseViaCloseAsync()
+    {
+        var cut = Render(
+            @<text>
+                <LumexModal Open="@true">
+                    <LumexModalTrigger>Open Modal</LumexModalTrigger>
+                    <LumexModalContent>
+                        <LumexModalBody>Body</LumexModalBody>
+                        <LumexModalFooter>
+                            <LumexButton OnClick="@context.CloseAsync">Close</LumexButton>
+                        </LumexModalFooter>
+                    </LumexModalContent>
+                </LumexModal>
+            </text>
+        );
+
+        var closeBtn = cut.Find( "[data-slot=footer] button" );
+        closeBtn.Click();
+
+        var modal = cut.FindComponent<LumexModal>();
+        modal.Instance.Open.Should().BeFalse();
+    }
+}
