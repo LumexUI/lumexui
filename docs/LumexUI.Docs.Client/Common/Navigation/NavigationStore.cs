@@ -12,7 +12,7 @@ public class NavigationStore
 		new NavigationCategory( "Getting started" )
 			.Add( new( "Overview" ) )
 			.Add( new( "Installation" ) )
-			.Add( new( "llms.txt", PageStatus.New ) );
+			.Add( new( "llms.txt" ) );
 
 	private static NavigationCategory ThemingCategory =>
 		new NavigationCategory( "Theming" )
@@ -31,13 +31,13 @@ public class NavigationStore
 			.Add( new( nameof( LumexCheckbox ) ) )
 			.Add( new( nameof( LumexCheckboxGroup ) ) )
 			.Add( new( nameof( LumexChip ) ) )
-			.Add( new( nameof( LumexCode ), PageStatus.New ) )
+			.Add( new( nameof( LumexCode ) ) )
 			.Add( new( nameof( LumexCollapse ) ) )
 			.Add( new( nameof( LumexDataGrid<T> ) ) )
-			.Add( new( nameof( LumexDatebox<T> ), PageStatus.New ) )
+			.Add( new( nameof( LumexDatebox<T> ) ) )
 			.Add( new( nameof( LumexDivider ) ) )
 			.Add( new( nameof( LumexDropdown ) ) )
-			.Add( new( nameof( LumexKbd ), PageStatus.New ) )
+			.Add( new( nameof( LumexKbd ) ) )
 			.Add( new( nameof( LumexLink ) ) )
 			.Add( new( nameof( LumexListbox<T> ) ) )
 			.Add( new( nameof( LumexModal ), PageStatus.New ) )
@@ -51,9 +51,9 @@ public class NavigationStore
 			.Add( new( nameof( LumexSwitch ) ) )
 			.Add( new( nameof( LumexTabs ) ) )
 			.Add( new( nameof( LumexTextbox ) ) )
-			.Add( new( nameof( LumexToastProvider ), PageStatus.New ) )
+			.Add( new( nameof( LumexToastProvider ) ) )
 			.Add( new( nameof( LumexTooltip ) ) )
-			.Add( new( nameof( LumexUser ), PageStatus.New ) );
+			.Add( new( nameof( LumexUser ) ) );
 
 	private static NavigationCategory ComponentsApiCategory =>
 		new NavigationCategory( "Components API" )
