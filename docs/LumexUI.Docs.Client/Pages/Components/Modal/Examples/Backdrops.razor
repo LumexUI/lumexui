@@ -1,0 +1,32 @@
+<div class="flex flex-wrap gap-3">
+    @foreach( var backdrop in Enum.GetValues<Backdrop>() )
+    {
+        <LumexModal Backdrop="@backdrop">
+            <LumexModalTrigger Variant="@Variant.Flat">@backdrop</LumexModalTrigger>
+            <LumexModalContent>
+                <LumexModalHeader Class="flex-col gap-3">
+                    <div class="size-10 flex items-center justify-center bg-default-100 rounded-full">
+                        <RocketIcon Size="20" />
+                    </div>
+                    Backdrop: @backdrop.ToString()
+                </LumexModalHeader>
+                <LumexModalBody>
+                    <p>
+                        This modal uses the <code>@backdrop</code> backdrop variant. Compare the
+                        different visual effects: opaque provides full opacity, blur adds a backdrop
+                        filter, and transparent removes the background.
+                    </p>
+                </LumexModalBody>
+                <LumexModalFooter>
+                    <LumexButton FullWidth="@true"
+                                 Color="@ThemeColor.Primary"
+                                 Radius="@Radius.Full"
+                                 command="close"
+                                 commandfor="@context.Id">
+                        Continue
+                    </LumexButton>
+                </LumexModalFooter>
+            </LumexModalContent>
+        </LumexModal>
+    }
+</div>

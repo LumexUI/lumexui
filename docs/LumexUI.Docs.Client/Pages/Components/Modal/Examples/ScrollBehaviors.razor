@@ -1,0 +1,40 @@
+<div class="flex flex-wrap gap-3">
+    @foreach( var scrollBehavior in Enum.GetValues<ScrollBehavior>() )
+    {
+        <LumexModal ScrollBehavior="@scrollBehavior">
+            <LumexModalTrigger Variant="@Variant.Flat">@scrollBehavior</LumexModalTrigger>
+            <LumexModalContent>
+                <LumexModalHeader Class="flex-col gap-3">
+                    <div class="size-10 flex items-center justify-center bg-default-100 rounded-full">
+                        <RocketIcon Size="20" />
+                    </div>
+                    Welcome to LumexUI
+                </LumexModalHeader>
+                <LumexModalBody>
+                    <p class="text-small leading-5">
+                        Compare scroll behaviors - inside keeps content scrollable within the modal,
+                        outside allows page scrolling
+                    </p>
+
+                    @foreach( var i in Enumerable.Range( 1, 30 ) )
+                    {
+                        <p class="mb-3">
+                            Paragraph @(i + 1): Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Nullam pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
+                            hendrerit risus, sed porttitor quam.
+                        </p>
+                    }
+                </LumexModalBody>
+                <LumexModalFooter>
+                    <LumexButton FullWidth="@true"
+                                 Color="@ThemeColor.Primary"
+                                 Radius="@Radius.Full"
+                                 command="close"
+                                 commandfor="@context.Id">
+                        Continue
+                    </LumexButton>
+                </LumexModalFooter>
+            </LumexModalContent>
+        </LumexModal>
+    }
+</div>

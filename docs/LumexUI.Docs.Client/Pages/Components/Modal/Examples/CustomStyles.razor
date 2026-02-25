@@ -1,0 +1,39 @@
+<LumexModal Backdrop="@Backdrop.Opaque"
+            Radius="@Radius.Large"
+            Classes="@_classes">
+    <LumexModalTrigger Variant="@Variant.Flat">Open Modal</LumexModalTrigger>
+    <LumexModalContent>
+        <LumexModalHeader Class="flex-col gap-3">
+            <div class="size-10 flex items-center justify-center bg-[#292f46] rounded-full">
+                <RocketIcon Size="20" />
+            </div>
+            Custom styles
+        </LumexModalHeader>
+        <LumexModalBody>
+            <p>
+                This modal demonstrates how to customize the appearance of every slot
+                using the <code>Classes</code> parameter. The base, header, body, footer,
+                and close button styles have all been overridden with custom colors and borders.
+            </p>
+        </LumexModalBody>
+        <LumexModalFooter>
+            <LumexButton Color="@ThemeColor.Secondary"
+                         Variant="@Variant.Shadow"
+                         command="close"
+                         commandfor="@context.Id">
+                Continue
+            </LumexButton>
+        </LumexModalFooter>
+    </LumexModalContent>
+</LumexModal>
+
+@code {
+    private readonly ModalSlots _classes = new()
+    {
+        Base = "border-[#292f46] bg-[#19172c] dark:bg-[#19172c] text-[#a8b0d3] backdrop:bg-[#292f46]/50 backdrop:backdrop-opacity-40",
+        Header = "border-b border-[#292f46]",
+        Body = "py-6",
+        Footer = "border-t border-[#292f46]",
+        CloseButton = "hover:bg-white/5 active:bg-white/10",
+    };
+}

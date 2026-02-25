@@ -1,0 +1,36 @@
+<LumexModal>
+    <LumexModalTrigger Variant="@Variant.Flat">Open Modal</LumexModalTrigger>
+    <LumexModalContent>
+        <LumexModalHeader>Log In</LumexModalHeader>
+        <LumexModalBody>
+            <LumexTextbox Label="Email"
+                          Placeholder="Enter your email"
+                          Variant="@InputVariant.Outlined" />
+            <LumexTextbox Label="Password"
+                          Placeholder="Enter your password"
+                          Type="@InputType.Password"
+                          Variant="@InputVariant.Outlined" />
+            <div class="flex justify-between px-1 py-2">
+                <LumexCheckbox>Remember me</LumexCheckbox>
+                <LumexLink Href="/docs/components/modal#"
+                           Color="@ThemeColor.Primary"
+                           Class="text-small">
+                    Forgot password?
+                </LumexLink>
+            </div>
+        </LumexModalBody>
+        <LumexModalFooter>
+            <LumexButton Color="@ThemeColor.Danger"
+                         Variant="@Variant.Flat"
+                         command="close"
+                         commandfor="@context.Id">
+                Close
+            </LumexButton>
+            <LumexButton Color="@ThemeColor.Primary"
+                         command="close"
+                         commandfor="@context.Id">
+                Sign In
+            </LumexButton>
+        </LumexModalFooter>
+    </LumexModalContent>
+</LumexModal>

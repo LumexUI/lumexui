@@ -1,0 +1,26 @@
+﻿<LumexModal>
+    <LumexModalTrigger Variant="@Variant.Flat">Open Modal</LumexModalTrigger>
+    <LumexModalContent>
+        <LumexModalHeader Class="flex-col gap-3">
+            <div class="size-10 flex items-center justify-center bg-default-100 rounded-full">
+                <RocketIcon Size="20" />
+            </div>
+            Welcome to LumexUI
+        </LumexModalHeader>
+        <LumexModalBody>
+            <p>
+                A beautiful, fast, and modern Blazor UI library for building
+                customizable web applications with ease.
+            </p>
+        </LumexModalBody>
+        <LumexModalFooter>
+            <LumexButton FullWidth="@true"
+                         Color="@ThemeColor.Primary"
+                         Radius="@Radius.Full"
+                         command="close"
+                         commandfor="@context.Id">
+                Continue
+            </LumexButton>
+        </LumexModalFooter>
+    </LumexModalContent>
+</LumexModal>

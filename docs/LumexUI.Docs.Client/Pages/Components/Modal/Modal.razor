@@ -1,0 +1,165 @@
+@page "/docs/components/modal"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Modal.PreviewCodes
+
+<DocsCompositionSection Components="@_compositionComponents" />
+
+<DocsSection Title="Usage">
+    <p>
+        The modal is built on top of the native HTML <code>&lt;dialog&gt;</code> element.
+        This means you can use the <code>command="close"</code> and <code>commandfor</code>
+        attributes on any button element to close the modal declaratively.
+    </p>
+
+    <LumexAlert Radius="@Radius.Large" Class="my-6">
+        <DescriptionContent>
+            Note that these attributes require a <code>&lt;button&gt;</code> element to work, so use the
+            <code>LumexButton</code> component. Alternatively, you can call
+            <code>@@context.CloseAsync()</code> to close the modal programmatically.
+        </DescriptionContent>
+    </LumexAlert>
+
+    <Usage />
+</DocsSection>
+
+<DocsSection Title="Sizes">
+    <p>Use <code>Size</code> parameter to control the maximum width of the modal.</p>
+    <Sizes />
+</DocsSection>
+
+<DocsSection Title="Radius">
+    <p>Use <code>Radius</code> parameter to control the border radius of the modal.</p>
+    <Radii />
+</DocsSection>
+
+<DocsSection Title="Shadows">
+    <p>Use <code>Shadow</code> parameter to control the shadow depth of the modal.</p>
+    <Shadows />
+</DocsSection>
+
+<DocsSection Title="Backdrop">
+    <p>Use <code>Backdrop</code> parameter to change the backdrop style behind the modal.</p>
+    <Backdrops />
+</DocsSection>
+
+<DocsSection Title="Custom Backdrop">
+    <p>Use the <code>Class</code> parameter to apply a custom gradient backdrop to the modal.</p>
+    <CustomBackdrop />
+</DocsSection>
+
+<DocsSection Title="Placement">
+    <p>Use <code>Placement</code> parameter to control the position of the modal within the viewport.</p>
+    <Placement />
+
+    <LumexAlert Radius="@Radius.Large" Class="my-6">
+        <DescriptionContent>
+            The <code>Auto</code> placement positions the modal at the bottom on mobile screens
+            and at the center on larger screens.
+        </DescriptionContent>
+    </LumexAlert>
+</DocsSection>
+
+<DocsSection Title="Scroll behavior">
+    <p>Use <code>ScrollBehavior</code> parameter to control how the modal handles overflow content.</p>
+    <ScrollBehaviors />
+</DocsSection>
+
+<DocsSection Title="With form">
+    <p>The modal body can contain form elements such as inputs, checkboxes, and links.</p>
+    <Form />
+</DocsSection>
+
+<DocsSection Title="Close methods">
+    <p>
+        There are multiple ways to close the modal. Use <code>command="close"</code> with
+        <code>commandfor="@@context.Id"</code> for a declarative approach, or call
+        <code>@@context.CloseAsync()</code> for programmatic control.
+    </p>
+    <CloseMethods />
+</DocsSection>
+
+<DocsSection Title="Two-way data binding">
+    <p>
+        Use <code>@@bind-Open</code> directive or <code>Open</code> and <code>OpenChanged</code>
+        parameters to programmatically control the modal's open state.
+    </p>
+    <TwoWayDataBinding />
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Modal</h4>
+        <ul>
+            <li><code>Class</code>: The CSS class name that styles the base of the modal.</li>
+            <li><code>Classes</code>: The CSS class names for the modal slots that style entire modal.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+        new(nameof(LumexModal), "A component representing a modal dialog overlay."),
+        new(nameof(LumexModalTrigger), "A component representing the trigger that controls the modal display."),
+        new(nameof(LumexModalContent), "A component representing the content container of the modal."),
+        new(nameof(LumexModalHeader), "A component representing the header of the modal."),
+        new(nameof(LumexModalBody), "A component representing the body of the modal."),
+        new(nameof(LumexModalFooter), "A component representing the footer of the modal."),
+    };
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Composition"),
+        new("Usage", [
+            new("Sizes"),
+            new("Radius"),
+            new("Shadows"),
+            new("Backdrop"),
+            new("Custom Backdrop"),
+            new("Placement"),
+            new("Scroll behavior"),
+            new("With form"),
+            new("Close methods"),
+            new("Two-way data binding"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(ModalSlots.Base), "The base container of the modal dialog."),
+        new(nameof(ModalSlots.Header), "The header section of the modal."),
+        new(nameof(ModalSlots.Body), "The body section of the modal."),
+        new(nameof(ModalSlots.Footer), "The footer section of the modal."),
+        new(nameof(ModalSlots.CloseButton), "The close button element of the modal."),
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexModal),
+        nameof(LumexModalTrigger),
+        nameof(LumexModalContent),
+        nameof(LumexModalHeader),
+        nameof(LumexModalBody),
+        nameof(LumexModalFooter),
+        nameof(LumexButton)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Modal",
+            category: "Components",
+            description: "Modals display a dialog overlay that requires user attention or interaction.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Modal", isServer: false )
+        );
+    }
+}

@@ -1,0 +1,41 @@
+<div class="flex flex-wrap gap-3">
+    @foreach( var radius in _radii )
+    {
+        <LumexModal Radius="@radius">
+            <LumexModalTrigger Variant="@Variant.Flat">@radius</LumexModalTrigger>
+            <LumexModalContent>
+                <LumexModalHeader Class="flex-col gap-3">
+                    <div class="size-10 flex items-center justify-center bg-default-100 rounded-full">
+                        <RocketIcon Size="20" />
+                    </div>
+                    Radius: @radius.ToString()
+                </LumexModalHeader>
+                <LumexModalBody>
+                    <p>
+                        This modal uses the <code>@radius</code> radius variant. The border radius
+                        controls how rounded the corners of the modal appear, ranging from sharp
+                        edges to fully rounded corners.
+                    </p>
+                </LumexModalBody>
+                <LumexModalFooter>
+                    <LumexButton FullWidth="@true"
+                                 Color="@ThemeColor.Primary"
+                                 Radius="@Radius.Full"
+                                 command="close"
+                                 commandfor="@context.Id">
+                        Continue
+                    </LumexButton>
+                </LumexModalFooter>
+            </LumexModalContent>
+        </LumexModal>
+    }
+</div>
+
+@code {
+    private readonly Radius[] _radii = [
+        Radius.None,
+        Radius.Small,
+        Radius.Medium,
+        Radius.Large,
+    ];
+}
