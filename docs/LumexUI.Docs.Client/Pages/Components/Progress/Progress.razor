@@ -1,0 +1,98 @@
+@page "/docs/components/progress"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Progress.PreviewCodes
+
+<DocsSection Title="Usage">
+    <Usage />
+
+    <LumexAlert Radius="@Radius.Large" Class="my-6">
+        <DescriptionContent>
+            Note: Make sure to pass the <code>AreaLabel</code> prop when the <code>Label</code> prop is not provided. This is required for accessibility.
+        </DescriptionContent>
+    </LumexAlert>
+
+    <DocsSection Title="Sizes">
+        <p>Use the <code>Size</code> parameter to control the height of the progress bar.</p>
+        <Sizes />
+    </DocsSection>
+
+    <DocsSection Title="Colors">
+        <p>Use the <code>Color</code> parameter to set the color of the progress bar.</p>
+        <Colors />
+    </DocsSection>
+
+    <DocsSection Title="Indeterminate">
+        <p>
+            You can use the <code>IsIndeterminate</code> prop to display an indeterminate progress bar. This is useful when you don't know how long an operation will take.
+        </p>
+        <Indeterminate />
+    </DocsSection>
+
+    <DocsSection Title="With Label">
+        <p>
+            Use the <code>Label</code> parameter to display a custom label above the progress bar.
+        </p>
+        <Label />
+    </DocsSection>
+
+    <LumexAlert Radius="@Radius.Large" Class="my-6">
+        <DescriptionContent>
+            Note: If you pass the <code>Label</code> prop you don't need to pass <code>AreaLabel</code> prop anymore.
+        </DescriptionContent>
+    </LumexAlert>
+
+    <DocsSection Title="With Value">
+        <p>
+            Use the <code>ShowValueLabel</code> parameter to display the progress value/percentage.
+        </p>
+        <Value />
+    </DocsSection>
+
+</DocsSection>
+
+<DocsSection Title="Custom Styles">
+    <div>
+        <h4 class="font-semibold">ProgressBar</h4>
+        <ul>
+            <li><code>Class</code>: The CSS class names to style the progress bar track.</li>
+            <li><code>Classes</code>: The CSS class names to style the progress bar slots.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Sizes"),
+            new("Colors"),
+            new("Indeterminate"),
+            new("With Label"),
+            new("With Value"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexProgress)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Progress",
+            category: "Components",
+            description: "Progress display the progress of a task or operation, and can also be used as animated loading indicators.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps("Progress", isServer: false)
+        );
+    }
+}
