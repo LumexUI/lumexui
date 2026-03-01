@@ -237,6 +237,10 @@
         }
     }
 
+    /* Custom animation-play-state utilities */
+    --animation-play-state-running: running;
+    --animation-play-state-paused: paused;
+
     /* Override Defaults */
     --default-transition-duration: 250ms;
 }
@@ -247,6 +251,13 @@
 */
 @utility opacity-* {
     opacity: --value(--opacity-*);
+}
+
+/*
+    Custom animation-play-state utilities
+*/
+@utility animation-play-state-* {
+    animation-play-state: --value(--animation-play-state-*);
 }
 
 @utility scrollbar-hide {

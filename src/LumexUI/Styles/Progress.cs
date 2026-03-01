@@ -120,7 +120,7 @@ internal static class Progress
 				{
 					[bool.TrueString] = new SlotCollection
 					{
-						[nameof( ProgressSlots.Indicator )] = "!transition-none",
+						[nameof( ProgressSlots.Indicator )] = "animation-play-state-paused",
 					},
 				},
 

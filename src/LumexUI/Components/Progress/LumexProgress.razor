@@ -8,11 +8,11 @@
      data-indeterminate="@IsIndeterminate"
      data-disabled="@IsDisabled"
      role="progressbar"
-     aria-valuenow="@(IsIndeterminate ? null : ((int)ClampedValue).ToString())"
-     aria-valuemin="@((int)MinValue)"
-     aria-valuemax="@((int)MaxValue)"
+     aria-valuenow="@(IsIndeterminate ? null : ClampedValue.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))"
+     aria-valuemin="@MinValue.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
+     aria-valuemax="@MaxValue.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
      aria-label="@ComputedAriaLabel"
-     aria-valuetext="@ValueText"
+     aria-valuetext="@(IsIndeterminate ? (string.IsNullOrWhiteSpace(ValueLabel) ? "Loading" : ValueLabel) : ValueText)"
      @attributes="@AdditionalAttributes">
 
     @if( !string.IsNullOrEmpty( Label ) || ShowValueLabel )
