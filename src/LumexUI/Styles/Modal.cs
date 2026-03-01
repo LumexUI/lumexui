@@ -48,7 +48,9 @@ internal static class Modal
 					.Add( "backdrop:duration-150" )
 					.Add( "backdrop:transition-opacity" )
 					.Add( "starting:backdrop:opacity-0" )
-					.Add( "not-open:backdrop:opacity-0" ),
+					.Add( "not-open:backdrop:opacity-0" )
+					// compatibility (WebKit/Safari)
+					.Add( "not-open:not-supports-[overlay:auto]:duration-0" ),
 
 		[nameof( ModalSlots.Trigger )] = new ElementClass(),
 
