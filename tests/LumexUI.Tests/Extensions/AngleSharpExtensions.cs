@@ -31,4 +31,9 @@ internal static class AngleSharpExtensions
 			return null;
 		}
 	}
+
+	public static IEnumerable<IElement> FindAllBySlot( this IRenderedFragment fragment, string slot )
+	{
+		return fragment.FindAll( $"[data-slot={slot}]" );
+	}
 }
