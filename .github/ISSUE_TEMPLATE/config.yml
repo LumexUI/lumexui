@@ -1,6 +1,6 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
-  - name: Request Components
+  - name: Component Request
     url: https://github.com/LumexUI/lumexui/discussions/categories/component-requests
     about: 🧩 Suggest new components you'd like to see added to LumexUI.
   - name: Get Help
