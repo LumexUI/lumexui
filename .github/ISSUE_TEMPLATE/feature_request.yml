@@ -14,7 +14,6 @@ body:
     attributes:
       label: Feature request type
       options:
-        - New component
         - Enhance component
         - Other
     validations:
