@@ -10,6 +10,7 @@ namespace LumexUI.Infrastructure;
 /// Configures event handlers for the components.
 /// </summary>
 [EventHandler( "onclickoutside", typeof( EventArgs ), enableStopPropagation: true, enablePreventDefault: true )]
+[EventHandler( "ontransitionend", typeof( EventArgs ), enableStopPropagation: true, enablePreventDefault: true )]
 public static class EventHandlers
 {
 }

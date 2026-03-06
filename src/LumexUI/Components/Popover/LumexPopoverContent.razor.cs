@@ -19,6 +19,8 @@ public partial class LumexPopoverContent : LumexComponentBase
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 
+	[Parameter] public EventCallback OnTransitionEnd { get; set; }
+
 	[CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
 	private LumexPopover Popover => Context.Owner;
@@ -27,5 +29,13 @@ public partial class LumexPopoverContent : LumexComponentBase
 	protected override void OnInitialized()
 	{
 		ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverContent ) );
+	}
+
+	private async Task HandleTransitionEnd( EventArgs e )
+	{
+		Console.WriteLine("Transition end: {0}", Popover.State);
+
+		Popover.SetTransitionState();
+		await OnTransitionEnd.InvokeAsync();
 	}
 }
