@@ -1,0 +1,46 @@
+@namespace LumexUI
+@inherits LumexComponentBase
+
+@using S = ProgressSlots
+
+<div class="@GetStyles( nameof( S.Base ) )"
+     data-slot="base"
+     data-indeterminate="@Indeterminate"
+     data-disabled="@Disabled"
+     role="progressbar"
+     aria-valuenow="@GetAriaValueNow()"
+     aria-valuemin="@GetAriaValueMin()"
+     aria-valuemax="@GetAriaValueMax()"
+     aria-valuetext="@GetAriaValueText()"
+     @attributes="@AdditionalAttributes">
+
+    @if( !string.IsNullOrEmpty( Label ) || ShowValueLabel )
+    {
+        <div class="@GetStyles( nameof( S.LabelWrapper ) )"
+             data-slot="labelWrapper">
+            @if( !string.IsNullOrEmpty( Label ) )
+            {
+                <span class="@GetStyles( nameof( S.Label ) )"
+                      data-slot="label">
+                    @Label
+                </span>
+            }
+
+            @if( ShowValueLabel && !Indeterminate )
+            {
+                <span class="@GetStyles( nameof( S.Value ) )"
+                      data-slot="value">
+                    @ValueText
+                </span>
+            }
+        </div>
+    }
+
+    <div class="@GetStyles( nameof( S.Track ) )"
+         data-slot="track">
+        <div class="@GetStyles( nameof( S.Indicator ) )"
+             data-slot="indicator"
+             style="@GetIndicatorStyle()">
+        </div>
+    </div>
+</div>
