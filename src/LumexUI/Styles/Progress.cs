@@ -92,15 +92,15 @@ internal static class Progress
 					},
 					[nameof( Radius.Small )] = new SlotCollection
 					{
-						[nameof( ProgressSlots.Track )] = "rounded-sm",
+						[nameof( ProgressSlots.Track )] = "rounded-small",
 					},
 					[nameof( Radius.Medium )] = new SlotCollection
 					{
-						[nameof( ProgressSlots.Track )] = "rounded-md",
+						[nameof( ProgressSlots.Track )] = "rounded-medium",
 					},
 					[nameof( Radius.Large )] = new SlotCollection
 					{
-						[nameof( ProgressSlots.Track )] = "rounded-lg",
+						[nameof( ProgressSlots.Track )] = "rounded-large",
 					},
 					[nameof( Radius.Full )] = new SlotCollection
 					{
@@ -108,7 +108,7 @@ internal static class Progress
 					},
 				},
 
-				[nameof( LumexProgress.IsIndeterminate )] = new VariantValueCollection
+				[nameof( LumexProgress.Indeterminate )] = new VariantValueCollection
 				{
 					[bool.TrueString] = new SlotCollection
 					{
@@ -116,15 +116,7 @@ internal static class Progress
 					},
 				},
 
-				[nameof( LumexProgress.DisableAnimation )] = new VariantValueCollection
-				{
-					[bool.TrueString] = new SlotCollection
-					{
-						[nameof( ProgressSlots.Indicator )] = "animation-play-state-paused",
-					},
-				},
-
-				[nameof( LumexProgress.IsDisabled )] = new VariantValueCollection
+				[nameof( LumexProgress.Disabled )] = new VariantValueCollection
 				{
 					[bool.TrueString] = new SlotCollection
 					{
@@ -211,6 +203,17 @@ internal static class Progress
 					Classes = new SlotCollection()
 					{
 						[nameof( ProgressSlots.Indicator )] = ColorVariants.Solid[ThemeColor.Info]
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexProgress.Striped )] = bool.TrueString
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-stripe-gradient",
 					}
 				}
 			]

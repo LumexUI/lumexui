@@ -101,10 +101,10 @@ public class ProgressTests : TestContext
 	}
 
 	[Fact]
-	public void Progress_IsIndeterminate_ShouldSetIndicatorWidthTo100Percent()
+	public void Progress_Indeterminate_ShouldSetIndicatorWidthTo100Percent()
 	{
 		var cut = RenderComponent<LumexProgress>( p => p
-			.Add( p => p.IsIndeterminate, true )
+			.Add( p => p.Indeterminate, true )
 			.Add( p => p.Value, 50 )
 		);
 
@@ -115,10 +115,10 @@ public class ProgressTests : TestContext
 	}
 
 	[Fact]
-	public void Progress_IsIndeterminate_ShouldHaveAnimateProgressLoading()
+	public void Progress_Indeterminate_ShouldHaveAnimateProgressLoading()
 	{
 		var cut = RenderComponent<LumexProgress>( p => p
-			.Add( p => p.IsIndeterminate, true )
+			.Add( p => p.Indeterminate, true )
 		);
 
 		var indicator = cut.FindBySlot( "indicator" );
@@ -149,10 +149,10 @@ public class ProgressTests : TestContext
 	}
 
 	[Fact]
-	public void Progress_IsIndeterminate_ShouldNotShowValueLabel()
+	public void Progress_Indeterminate_ShouldNotShowValueLabel()
 	{
 		var cut = RenderComponent<LumexProgress>( p => p
-			.Add( p => p.IsIndeterminate, true )
+			.Add( p => p.Indeterminate, true )
 			.Add( p => p.ShowValueLabel, true )
 		);
 
@@ -266,10 +266,10 @@ public class ProgressTests : TestContext
 	}
 
 	[Fact]
-	public void Progress_IsIndeterminate_ShouldHaveNullAriaValuenow()
+	public void Progress_Indeterminate_ShouldHaveNullAriaValuenow()
 	{
 		var cut = RenderComponent<LumexProgress>( p => p
-			.Add( p => p.IsIndeterminate, true )
+			.Add( p => p.Indeterminate, true )
 		);
 
 		var base_ = cut.FindBySlot( "base" );

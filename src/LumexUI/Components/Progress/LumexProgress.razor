@@ -5,14 +5,13 @@
 
 <div class="@GetStyles( nameof( S.Base ) )"
      data-slot="base"
-     data-indeterminate="@IsIndeterminate"
-     data-disabled="@IsDisabled"
+     data-indeterminate="@Indeterminate"
+     data-disabled="@Disabled"
      role="progressbar"
-     aria-valuenow="@(IsIndeterminate ? null : ClampedValue.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))"
-     aria-valuemin="@MinValue.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
-     aria-valuemax="@MaxValue.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)"
-     aria-label="@ComputedAriaLabel"
-     aria-valuetext="@(IsIndeterminate ? (string.IsNullOrWhiteSpace(ValueLabel) ? "Loading" : ValueLabel) : ValueText)"
+     aria-valuenow="@GetAriaValueNow()"
+     aria-valuemin="@GetAriaValueMin()"
+     aria-valuemax="@GetAriaValueMax()"
+     aria-valuetext="@GetAriaValueText()"
      @attributes="@AdditionalAttributes">
 
     @if( !string.IsNullOrEmpty( Label ) || ShowValueLabel )
@@ -27,7 +26,7 @@
                 </span>
             }
 
-            @if( ShowValueLabel && !IsIndeterminate )
+            @if( ShowValueLabel && !Indeterminate )
             {
                 <span class="@GetStyles( nameof( S.Value ) )"
                       data-slot="value">
@@ -41,7 +40,7 @@
          data-slot="track">
         <div class="@GetStyles( nameof( S.Indicator ) )"
              data-slot="indicator"
-             style="width: @IndicatorWidth">
+             style="@GetIndicatorStyle()">
         </div>
     </div>
 </div>
