@@ -8,7 +8,7 @@
 
 @layer base {
     html {
-        @apply has-open:overflow-hidden has-open:[scrollbar-gutter:stable];
+        @apply has-[dialog[open]]:overflow-hidden has-[dialog[open]]:[scrollbar-gutter:stable];
     }
 
     body {
