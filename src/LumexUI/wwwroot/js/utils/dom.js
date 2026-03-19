@@ -22,17 +22,21 @@ export function waitForElement(selector) {
     });
 }
 
-export function portal(element, selector = undefined) {
+export function portal(element, destination = undefined) {
     if (!(element instanceof HTMLElement)) {
         throw new Error('The provided element is not a valid HTMLElement.');
     }
 
-    let destination = selector
-        ? document.querySelector(selector)
-        : document.body;
+    if (destination instanceof HTMLElement) {
+        // use it directly
+    } else if (typeof destination === 'string') {
+        destination = document.querySelector(destination);
+    } else {
+        destination = document.body;
+    }
 
     if (!destination) {
-        throw new Error(`No portal container with the given selector '${selector}' was found!`);
+        throw new Error('No portal destination was found.');
     }
 
     if (element.parentElement !== destination) {

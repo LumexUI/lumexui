@@ -1619,17 +1619,19 @@ function waitForElement(selector) {
     });
 }
 
-function portal(element, selector = undefined) {
+function portal(element, destination = undefined) {
     if (!(element instanceof HTMLElement)) {
         throw new Error('The provided element is not a valid HTMLElement.');
     }
 
-    let destination = selector
-        ? document.querySelector(selector)
-        : document.body;
+    if (destination instanceof HTMLElement) ; else if (typeof destination === 'string') {
+        destination = document.querySelector(destination);
+    } else {
+        destination = document.body;
+    }
 
     if (!destination) {
-        throw new Error(`No portal container with the given selector '${selector}' was found!`);
+        throw new Error('No portal destination was found.');
     }
 
     if (element.parentElement !== destination) {
@@ -1652,10 +1654,12 @@ async function initialize(id, options) {
         const arrowElement = popover.querySelector('[data-slot=arrow]');
         const ref = target.children.length === 1 ? target.firstElementChild : target;
 
-        portal(popover);
+        const closestDialog = popover.closest('dialog');
+
+        portal(popover, closestDialog);
 
         if (overlay) {
-            portal(overlay);
+            portal(overlay, closestDialog);
         }
 
         const {
