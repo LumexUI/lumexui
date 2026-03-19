@@ -27,10 +27,12 @@ async function initialize(id, options) {
         const arrowElement = popover.querySelector('[data-slot=arrow]');
         const ref = target.children.length === 1 ? target.firstElementChild : target;
 
-        portal(popover);
+        const closestDialog = popover.closest('dialog');
+
+        portal(popover, closestDialog);
 
         if (overlay) {
-            portal(overlay);
+            portal(overlay, closestDialog);
         }
 
         const {
