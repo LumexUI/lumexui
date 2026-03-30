@@ -34,6 +34,8 @@
 
             <div class="@Slots.Wrapper" data-slot="wrapper">
                 <table class="@Slots.Table" data-slot="table">
+                    @_renderColGroup
+
                     <thead class="@Slots.Thead" data-slot="thead">
                         <tr class="@Slots.Tr" data-slot="tr">
                             @_renderColumnHeaders
@@ -193,5 +195,15 @@
                 }
             </td>
         </tr>
+    }
+
+    private void RenderColGroup( RenderTreeBuilder __builder )
+    {
+        <colgroup>
+            @foreach(var column in _columns )
+            {
+                <col class="@column.Class" />
+            }
+        </colgroup>
     }
 }

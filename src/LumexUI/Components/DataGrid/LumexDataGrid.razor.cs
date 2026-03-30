@@ -199,6 +199,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable, IS
     private readonly List<LumexColumnBase<T>> _columns;
     private readonly Memoizer<Task> _refreshDataMemoizer;
     private readonly Memoizer<DataGridSlots> _slotsMemoizer;
+    private readonly RenderFragment _renderColGroup;
     private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderLoadingContent;
     private readonly RenderFragment _renderColumnHeaders;
@@ -223,6 +224,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable, IS
         _slotsMemoizer = new Memoizer<DataGridSlots>();
         _refreshDataMemoizer = new Memoizer<Task>();
 
+		_renderColGroup = RenderColGroup;
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
         _renderColumnHeaders = RenderColumnHeaders;
