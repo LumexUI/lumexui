@@ -182,6 +182,13 @@
     --animate-sway: sway 0.75s infinite;
     --animate-blink: blink 1.5s infinite both;
     --animate-fade-out: fade-out 1.2s infinite;
+    --animate-progress-loading: progress-loading 1.5s ease-in-out infinite;
+
+    /* Custom stripe gradient variables */
+    --stripe-angle: 45deg;
+    --stripe-color: currentColor;
+    --stripe-color-light: rgba(255, 255, 255, 0.15);
+    --stripe-width: 10px;
 
     @keyframes old-enter {
         0% {
@@ -231,6 +238,16 @@
         }
     }
 
+    @keyframes progress-loading {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(400%);
+        }
+    }
+
     /* Override Defaults */
     --default-transition-duration: 250ms;
 }
@@ -252,4 +269,19 @@
     &::-webkit-scrollbar {
         display: none;
     }
+}
+
+/*
+    Custom striped gradient utility for progress bars
+    Uses CSS variables: --stripe-color, --stripe-angle, --stripe-width
+    Set these variables inline to customize stripes
+*/
+@utility bg-stripe-gradient {
+    background: repeating-linear-gradient(
+        var(--stripe-angle, 45deg),
+        var(--stripe-color, currentColor),
+        var(--stripe-color, currentColor) var(--stripe-width, 10px),
+        var(--stripe-color-light, rgba(255, 255, 255, 0.15)) var(--stripe-width, 10px),
+        var(--stripe-color-light, rgba(255, 255, 255, 0.15)) calc(var(--stripe-width, 10px) * 2)
+    );
 }

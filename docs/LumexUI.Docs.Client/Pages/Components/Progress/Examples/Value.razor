@@ -1,0 +1,37 @@
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<div class="w-full flex flex-col gap-4">
+    <LumexProgress Value="@value" 
+                     Label="Downloading..." 
+                     ShowValueLabel="true"
+                     Color="@ThemeColor.Success"
+                     Size="@Size.Medium" />
+
+    <LumexProgress Value="@value"
+                      ShowValueLabel="true"
+                      Color="@ThemeColor.Success"
+                      Size="@Size.Medium" />
+</div>
+
+@code {
+    private double value = 0;
+    private Timer? timer;
+
+    protected override void OnInitialized()
+    {
+        timer = new Timer(_ => 
+        {
+            value = value >= 100 ? 0 : value + 10;
+            InvokeAsync(StateHasChanged);
+        }, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(500));
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (timer is not null)
+        {
+            await timer.DisposeAsync();
+        }
+    }
+}
