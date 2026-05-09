@@ -69,12 +69,21 @@ public partial class LumexLink : LumexComponentBase
 	{
 		get
 		{
-			var attributes = new Dictionary<string, object>()
-			{
-				["href"] = Href
-			};
+			var attributes = new Dictionary<string, object>();
 
-			if( External )
+			// Only add href if not disabled
+			if( !Disabled )
+			{
+				attributes["href"] = Href;
+			}
+			else
+			{
+				// For disabled links, add accessibility attributes
+				attributes["tabindex"] = "-1";
+				attributes["aria-disabled"] = "true";
+			}
+
+			if( External && !Disabled )
 			{
 				attributes["target"] = "_blank";
 				attributes["rel"] = "noopener noreferrer";
