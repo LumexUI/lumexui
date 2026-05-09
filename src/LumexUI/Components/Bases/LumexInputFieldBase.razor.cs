@@ -235,7 +235,18 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	/// <inheritdoc />
 	protected override async ValueTask SetValidationMessageAsync()
 	{
-		ValidationMessage = await _jsModule.InvokeAsync<string>( "input.getValidationMessage", ElementReference );
+		// An empty value on a non-required field is valid by definition. Skip the native
+		// validity probe so transient `badInput` (e.g. a partially-cleared date input that
+		// reports value="" but validity.badInput=true) doesn't surface as an error.
+		if( !Required && !HasValue )
+		{
+			ValidationMessage = null;
+		}
+		else
+		{
+			ValidationMessage = await _jsModule.InvokeAsync<string>( "input.getValidationMessage", ElementReference );
+		}
+
 		Invalid = !string.IsNullOrEmpty( ErrorMessage ) ||
 				  !string.IsNullOrEmpty( ValidationMessage );
 	}

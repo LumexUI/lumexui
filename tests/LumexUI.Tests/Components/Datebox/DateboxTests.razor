@@ -4,12 +4,14 @@
 @using Microsoft.AspNetCore.Components.Web
 
 @code {
+    private readonly JSRuntimeInvocationHandler<string> _validationMessageHandler;
+
     public DateboxTests()
     {
         Services.AddSingleton<TwMerge>();
 
         var module = JSInterop.SetupModule("./_content/LumexUI/js/components/input.js");
-        module.Setup<string>("input.getValidationMessage", _ => true);
+        _validationMessageHandler = module.Setup<string>("input.getValidationMessage", _ => true);
     }
 
     [Fact]
@@ -219,5 +221,25 @@
         input.Input(value.ToString("yyyy-MM-dd"));
 
         cut.Instance.Value.Should().BeNull(because: "No-op");
+    }
+
+    [Fact]
+    public void ShouldStayValidWhenClearedAndNotRequired()
+    {
+        // Browsers report `validity.badInput` (and a non-empty validationMessage) on a
+        // partially-cleared date input even though `value` reads as empty. The component
+        // must treat an empty value on a non-required field as valid regardless.
+        _validationMessageHandler.SetResult("Please enter a valid value.");
+
+        var value = DateTime.Today;
+        var cut = Render<LumexDatebox<DateTime?>>(
+            @<LumexDatebox TValue="DateTime?" Clearable="@true" Required="@false" Value="@value" />
+        );
+
+        var input = cut.Find("input");
+        input.Change("");
+
+        cut.Instance.Value.Should().BeNull();
+        cut.Find("[data-slot=base]").GetAttribute("data-invalid").Should().Be("false");
     }
 }
