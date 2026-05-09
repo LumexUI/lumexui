@@ -5,12 +5,8 @@
 const instances = new Map();
 
 function initialize(element, dotNetRef) {
-    // Only dismiss when both the pointerdown AND the click target the dialog
-    // itself (the ::backdrop pseudo-element bubbles to event.target === dialog).
-    // Coordinate-based checks misfire when a click bubbles up from inside the
-    // dialog with clientX/Y reported outside the dialog's bounding box — e.g.
-    // releasing a text-selection drag over the backdrop, or a native <select>
-    // dispatching a click whose coordinates sit outside the rect.
+    // A real backdrop press surfaces as event.target === dialog; requiring the
+    // same on pointerdown ignores clicks that originated inside the dialog.
     let pointerdownOnBackdrop = false;
 
     const pointerdownHandler = (event) => {
