@@ -32,16 +32,6 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>,
 	[Parameter] public string? Name { get; set; }
 
 	/// <summary>
-	/// Gets or sets the label for the radio group.
-	/// </summary>
-	[Parameter] public string? Label { get; set; }
-
-	/// <summary>
-	/// Gets or sets the description for the radio group.
-	/// </summary>
-	[Parameter] public string? Description { get; set; }
-
-	/// <summary>
 	/// Gets or sets the orientation of the radio group.
 	/// </summary>
 	/// <remarks>
@@ -65,14 +55,14 @@ public partial class LumexRadioGroup<TValue> : LumexInputBase<TValue>,
 	private protected override string? RootClass =>
 		TwMerge.Merge( RadioGroup.GetStyles( this ) );
 
-	private string? LabelClass =>
-		TwMerge.Merge( RadioGroup.GetLabelStyles( this ) );
-
 	private string? WrapperClass =>
 		TwMerge.Merge( RadioGroup.GetWrapperStyles( this ) );
 
-	private string? DescriptionClass =>
-		TwMerge.Merge( RadioGroup.GetDescriptionStyles( this ) );
+	private FieldSlots FieldClasses => new()
+	{
+		Label = TwMerge.Merge( RadioGroup.GetLabelStyles( this ) ),
+		Description = TwMerge.Merge( RadioGroup.GetDescriptionStyles( this ) )
+	};
 
 	private readonly string _defaultGroupName = Guid.NewGuid().ToString( "N" );
 
