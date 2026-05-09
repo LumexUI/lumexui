@@ -1,4 +1,5 @@
 ﻿@namespace LumexUI.Tests.Components
+@using LumexUI.Infrastructure
 @inherits TestContext
 
 @code {
@@ -99,7 +100,7 @@
                     </LumexDropdownMenu>
                 </LumexDropdown>
             </text>
-        );
+    );
 
         var trigger = cut.Find( "[data-popovertarget]" );
         trigger.Click();
@@ -133,7 +134,13 @@
         var menuItems = cut.FindAll( "li" );
         menuItems[0].Click();
 
-        var menu = cut.FindByTestId( "menu-test" );
+        var popover = cut.Find("[data-popover-wrapper]");
+        popover.TriggerEvent("onanimationend", new AnimationEventArgs
+        {
+            AnimationName = "animate-exit"
+        });
+
+        var menu = cut.FindByTestId("menu-test");
         menu.Should().BeNull();
     }
 
