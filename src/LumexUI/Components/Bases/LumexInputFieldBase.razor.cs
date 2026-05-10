@@ -104,7 +104,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	/// </summary>
 	[Parameter] public InputFieldSlots? Classes { get; set; }
 
-	[Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+	[Inject] protected IJSRuntime JSRuntime { get; set; } = default!;
 
 	/// <summary>
 	/// Gets or sets the validation error message of the input.
@@ -135,7 +135,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	private string? InnerWrapperClass =>
 		TwMerge.Merge( InputField.GetInnerWrapperStyles( this ) );
 
-	private string? InputClass =>
+	protected string? InputClass =>
 		TwMerge.Merge( InputField.GetInputStyles( this ) );
 
 	private string? ClearButtonClass =>
@@ -154,12 +154,13 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 		!string.IsNullOrEmpty( Description ) ||
 		!string.IsNullOrEmpty( ErrorMessage ) ||
 		!string.IsNullOrEmpty( ValidationMessage );
-	private bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
+	protected bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
 	private bool ClearButtonVisible => ( Clearable || OnCleared.HasDelegate ) && HasValue;
 
 	private readonly RenderFragment _renderMainWrapper;
 	private readonly RenderFragment _renderInputWrapper;
 	private readonly RenderFragment _renderHelperWrapper;
+	private readonly RenderFragment _renderInputElement;
 
 	private string _inputType = default!;
 	private IJSObjectReference _jsModule = default!;
@@ -172,6 +173,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 		_renderMainWrapper = RenderMainWrapper;
 		_renderInputWrapper = RenderInputWrapper;
 		_renderHelperWrapper = RenderHelperWrapper;
+		_renderInputElement = RenderInputElement;
 
 		As = "div";
 	}
