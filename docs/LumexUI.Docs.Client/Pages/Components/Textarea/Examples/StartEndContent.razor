@@ -1,0 +1,32 @@
+@using LumexUI.Shared.Icons
+
+<div class="grid gap-4">
+    <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+        <LumexTextarea Label="Note"
+                       Placeholder="Type a note..."
+                       LabelPlacement="@LabelPlacement.Outside"
+                       StartContent="@_pencilIcon" />
+
+        <LumexTextarea Label="Search"
+                       Placeholder="Type to search..."
+                       LabelPlacement="@LabelPlacement.Outside"
+                       StartContent="@_searchIcon" />
+    </div>
+
+    <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+        <LumexTextarea Label="Note"
+                       Placeholder="Type a note..."
+                       LabelPlacement="@LabelPlacement.Outside"
+                       EndContent="@_pencilIcon" />
+
+        <LumexTextarea Label="Search"
+                       Placeholder="Type to search..."
+                       LabelPlacement="@LabelPlacement.Outside"
+                       EndContent="@_searchIcon" />
+    </div>
+</div>
+
+@code {
+    private RenderFragment _searchIcon = @<SearchIcon Size="20" class="text-default-400 shrink-0 mt-2" />;
+    private RenderFragment _pencilIcon = @<MailIcon Size="20" class="text-default-400 shrink-0 mt-2" />;
+}

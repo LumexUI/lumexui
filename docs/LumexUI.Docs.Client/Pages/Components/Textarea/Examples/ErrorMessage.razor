@@ -1,0 +1,62 @@
+@using FluentValidation
+@using FluentValidation.Results
+
+<LumexTextarea Variant="@InputVariant.Underlined"
+               Label="Bio"
+               Required="@true"
+               ErrorMessage="@_userValidator.BioErrorMessage"
+               Invalid="@(!string.IsNullOrEmpty(_userValidator.BioErrorMessage))"
+               Color="@(!string.IsNullOrEmpty(_userValidator.BioErrorMessage) ? ThemeColor.Danger : ThemeColor.Success)"
+               Value="@_user.Bio"
+               ValueChanged="@OnBioChange"
+               Class="max-w-xs" />
+
+@code {
+    private User _user = new();
+    private UserValidator _userValidator = new();
+
+    protected override void OnInitialized()
+    {
+        _user.Bio = "Hi";
+        Validate();
+    }
+
+    private void OnBioChange( string value )
+    {
+        _user.Bio = value;
+        Validate();
+    }
+
+    private void Validate()
+    {
+        var result = _userValidator.Validate( _user );
+        if( !result.IsValid )
+        {
+            _userValidator.BioErrorMessage = result.Errors
+                .Where( failure => failure.PropertyName == nameof( User.Bio ) )
+                .Select( failure => failure.ErrorMessage )
+                .FirstOrDefault();
+        }
+        else
+        {
+            _userValidator.BioErrorMessage = null;
+        }
+    }
+
+    public class User
+    {
+        public string? Bio { get; set; }
+    }
+
+    public class UserValidator : AbstractValidator<User>
+    {
+        public string? BioErrorMessage { get; set; }
+
+        public UserValidator()
+        {
+            RuleFor( user => user.Bio )
+                .NotEmpty().WithMessage( "Bio is required" )
+                .MinimumLength( 10 ).WithMessage( "Please write at least 10 characters" );
+        }
+    }
+}

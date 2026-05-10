@@ -6,11 +6,11 @@ LumexUI is a Blazor component library built using [Tailwind CSS v4](https://tail
 
 **Key Features:**
 
-- Tailwind CSS–based — Built entirely with utility-first Tailwind CSS
-- Clean by default — Professional design out of the box
-- Highly customizable — Easy to adapt to any brand or style
-- Performance-focused — Optimized for speed and scalability
-- Conflict-free styling — Automatic Tailwind class conflict resolution via [TailwindMerge.NET](https://github.com/desmondinho/tailwind-merge-dotnet)
+- Tailwind CSSï¿½based ï¿½ Built entirely with utility-first Tailwind CSS
+- Clean by default ï¿½ Professional design out of the box
+- Highly customizable ï¿½ Easy to adapt to any brand or style
+- Performance-focused ï¿½ Optimized for speed and scalability
+- Conflict-free styling ï¿½ Automatic Tailwind class conflict resolution via [TailwindMerge.NET](https://github.com/desmondinho/tailwind-merge-dotnet)
 
 ## Documentation Index
 
@@ -43,6 +43,7 @@ LumexUI is a Blazor component library built using [Tailwind CSS v4](https://tail
 - [Spinner](https://lumexui.org/docs/components/spinner): Indicate loading states with a visual cue.
 - [Switch](https://lumexui.org/docs/components/switch): Allow to toggle between two states, typically used for enabling or disabling settings.
 - [Tabs](https://lumexui.org/docs/components/tabs): Explore and switch between different views.
+- [Textarea](https://lumexui.org/docs/components/textarea): Allow to input multi-line text data such as comments, bios, or descriptions.
 - [Textbox](https://lumexui.org/docs/components/textbox): Allow to input text data, making it essential for forms and data collection.
 - [Toast Provider](https://lumexui.org/docs/components/toast-provider): Display brief notifications that give feedback about an action or event.
 - [Tooltip](https://lumexui.org/docs/components/tooltip): Display a brief, informative message that appears when a user interacts with an element.

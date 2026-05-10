@@ -1,0 +1,16 @@
+<div class="w-full flex flex-col gap-6">
+    <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+        <LumexTextarea Label="Default (3-8 rows)"
+                       Placeholder="Type until the textarea grows..." />
+        <LumexTextarea Label="Custom range"
+                       MinRows="2"
+                       MaxRows="6"
+                       Placeholder="Grows between 2 and 6 rows..." />
+    </div>
+
+    <LumexTextarea Label="Autosize disabled"
+                   DisableAutosize="@true"
+                   MinRows="4"
+                   Placeholder="Locked at 4 rows; never grows."
+                   Class="max-w-xs" />
+</div>
