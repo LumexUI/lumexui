@@ -1,0 +1,215 @@
+@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@using Microsoft.AspNetCore.Components.Web
+@using TailwindMerge
+@using LumexUI.Common
+@using Microsoft.Extensions.DependencyInjection
+
+@code {
+    public TextareaTests()
+    {
+        Services.AddSingleton<TwMerge>();
+
+        var inputModule = JSInterop.SetupModule( "./_content/LumexUI/js/components/input.js" );
+        inputModule.Setup<string>( "input.getValidationMessage", _ => true );
+
+        var textareaModule = JSInterop.SetupModule( "./_content/LumexUI/js/components/textarea.js" );
+        textareaModule.SetupVoid( "textarea.initialize", _ => true );
+        textareaModule.SetupVoid( "textarea.update", _ => true );
+        textareaModule.SetupVoid( "textarea.destroy", _ => true );
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(@<LumexTextarea Label="Test" />);
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderTextareaElement()
+    {
+        var cut = Render(@<LumexTextarea Label="Test" />);
+
+        cut.Find( "textarea" ).Should().NotBeNull();
+        cut.FindAll( "input" ).Should().BeEmpty( because: "LumexTextarea renders <textarea>, not <input>." );
+    }
+
+    [Fact]
+    public void ShouldRenderValueAsTextareaContent()
+    {
+        var cut = Render(@<LumexTextarea Label="Test" Value="hello" />);
+
+        var textarea = cut.Find( "textarea" );
+        textarea.TextContent.Should().Be( "hello" );
+    }
+
+    [Fact]
+    public void ShouldRenderMainWrapperWhenLabelOutside()
+    {
+        var cut = Render(@<LumexTextarea Label="Test" LabelPlacement="@LabelPlacement.Outside" />);
+
+        cut.Find( "[data-slot=main-wrapper]" ).Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderHelperWrapperWhenDescriptionProvided()
+    {
+        var cut = Render(@<LumexTextarea Label="Test" Description="Test description" />);
+
+        cut.Find( "[data-slot=helper-wrapper]" ).Should().NotBeNull();
+        cut.Find( "[data-slot=description]" ).Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderErrorMessageWhenInvalid()
+    {
+        var cut = Render(@<LumexTextarea Label="Test" ErrorMessage="Test error message" Invalid="@true" />);
+
+        cut.Find( "[data-slot=error-message]" ).Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldHaveDisabledAttributeWhenDisabled()
+    {
+        var cut = Render(@<LumexTextarea Label="Test" Disabled="@true" />);
+
+        var textarea = cut.Find( "textarea" );
+
+        textarea.HasAttribute( "disabled" ).Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldHaveRowsAttributeMatchingMinRows()
+    {
+        var cut = Render(@<LumexTextarea Label="Test" MinRows="5" />);
+
+        var textarea = cut.Find( "textarea" );
+
+        textarea.GetAttribute( "rows" ).Should().Be( "5" );
+    }
+
+    [Fact]
+    public void ShouldRenderClearButtonWhenClearableAndHasValue()
+    {
+        var cut = Render(@<LumexTextarea Label="Test" Clearable="@true" Value="test" />);
+
+        var clearButton = cut.Find( "[role=button]" );
+
+        clearButton.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldClearValueOnClickWhenClearable()
+    {
+        var cut = Render<LumexTextarea>(
+            @<LumexTextarea Label="Test" Clearable="@true" Value="test" />);
+
+        var clearButton = cut.Find( "[role=button]" );
+        clearButton.Click();
+
+        cut.Instance.Value.Should().BeNullOrEmpty();
+    }
+
+    [Theory]
+    [InlineData( "Enter" )]
+    [InlineData( "Space" )]
+    public void ShouldClearValueOnlyWithEnterOrSpaceWhenClearable( string code )
+    {
+        var cut = Render<LumexTextarea>(
+            @<LumexTextarea Label="Test" Clearable="@true" Value="test" />);
+
+        var clearButton = cut.Find( "[role=button]" );
+
+        clearButton.KeyUp( new KeyboardEventArgs() { Code = "Esc" } );
+        cut.Instance.Value.Should().Be( "test" );
+
+        clearButton.KeyUp( new KeyboardEventArgs() { Code = code } );
+        cut.Instance.Value.Should().BeNullOrEmpty();
+    }
+
+    [Fact]
+    public void ShouldFocusInputOnInputWrapperClick()
+    {
+        var cut = Render(@<LumexTextarea Label="Test" />);
+
+        var baseWrapper = cut.Find( "[data-slot=base]" );
+        var inputWrapper = cut.Find( "[data-slot=input-wrapper]" );
+        inputWrapper.Click();
+
+        baseWrapper.GetAttribute( "data-focus" ).Should().Be( "true", because: "Internal `Focused` flag is true." );
+    }
+
+    [Theory]
+    [InlineData( true, false )]
+    [InlineData( false, true )]
+    public void ShouldNotFocusInputWhenDisabledOrReadonly( bool disabled, bool @readonly )
+    {
+        var cut = Render(@<LumexTextarea Label="Test" Disabled="@disabled" ReadOnly="@(@readonly)" />);
+
+        var baseWrapper = cut.Find( "[data-slot=base]" );
+        var inputWrapper = cut.Find( "[data-slot=input-wrapper]" );
+        inputWrapper.Click();
+
+        baseWrapper.GetAttribute( "data-focus" ).Should().Be( "false", because: "Internal `Focused` flag is false." );
+    }
+
+    [Fact]
+    public void ShouldChangeValueUsingInputEventWhenBehaviorOnInput()
+    {
+        var cut = Render<LumexTextarea>(
+            @<LumexTextarea Label="Test" Behavior="@InputBehavior.OnInput" />);
+
+        var textarea = cut.Find( "textarea" );
+
+        textarea.Input( "test 1" );
+        cut.Instance.Value.Should().Be( "test 1" );
+
+        textarea.Change( "test 2" );
+        cut.Instance.Value.Should().Be( "test 1" );
+    }
+
+    [Fact]
+    public void ShouldChangeValueUsingChangeEventWhenBehaviorOnChange()
+    {
+        var cut = Render<LumexTextarea>(
+            @<LumexTextarea Label="Test" Behavior="@InputBehavior.OnChange" />);
+
+        var textarea = cut.Find( "textarea" );
+
+        textarea.Change( "test 1" );
+        cut.Instance.Value.Should().Be( "test 1" );
+
+        textarea.Input( "test 2" );
+        cut.Instance.Value.Should().Be( "test 1" );
+    }
+
+    [Fact]
+    public async Task ShouldChangeValueAfterDebounceDelayWhenBehaviorOnInput()
+    {
+        var cut = Render<LumexTextarea>(
+            @<LumexTextarea Label="Test" Behavior="@InputBehavior.OnInput" DebounceDelay="200" />);
+
+        var textarea = cut.Find( "textarea" );
+        textarea.Input( "test" );
+
+        cut.Instance.Value.Should().BeNullOrEmpty( because: "Elapsed time (0ms) < 200ms." );
+
+        await Task.Delay( 100 );
+        cut.Instance.Value.Should().BeNullOrEmpty( because: "Elapsed time (100ms) < 200ms." );
+
+        await Task.Delay( 150 );
+        cut.WaitForAssertion( () => cut.Instance.Value.Should().Be( "test", because: "Elapsed time (250ms) > 200ms." ) );
+    }
+
+    [Fact]
+    public void ShouldThrowWithDebounceDelayAndOnChangeBehavior()
+    {
+        var action = () => Render(
+            @<LumexTextarea Label="Test" Behavior="@InputBehavior.OnChange" DebounceDelay="200" />);
+
+        action.Should().Throw<InvalidOperationException>();
+    }
+}
