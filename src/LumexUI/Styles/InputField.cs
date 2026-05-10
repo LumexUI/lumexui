@@ -121,6 +121,18 @@ internal static class InputField
 		.Add( "w-full" )
 		.ToString();
 
+	// Per-slot tweaks applied when the input renders as a multi-line textarea.
+	// Translated from HeroUI's `isMultiline: true` rules in input.ts.
+	private static ElementClass GetMultilineStyles( string slot )
+	{
+		return ElementClass.Empty()
+			.Add( "relative", when: slot is nameof( _label ) )
+			.Add( "h-auto! min-h-auto!", when: slot is nameof( _inputWrapper ) )
+			.Add( "items-start group-has-[label]:items-start", when: slot is nameof( _innerWrapper ) )
+			.Add( "resize-none transition-[height] duration-100 motion-reduce:transition-none", when: slot is nameof( _input ) )
+			.Add( "absolute top-2 end-2 z-10", when: slot is nameof( _clearButton ) );
+	}
+
 	private static ElementClass GetSizeStyles( Size size, string slot )
 	{
 		return size switch
@@ -509,6 +521,7 @@ internal static class InputField
 			.Add( ElementClass.Empty()
 				.Add( "group-data-[filled-focused=true]:text-default-600", when: input.LabelPlacement is LabelPlacement.Inside && input.Color is ThemeColor.Default )
 				.Add( "group-data-[filled-focused=true]:text-foreground", when: input.LabelPlacement is LabelPlacement.Outside && input.Color is ThemeColor.Default ) )
+			.Add( GetMultilineStyles( slot: nameof( _label ) ), when: input is LumexTextarea )
 			.Add( input.Classes?.Label )
 			.ToString();
 	}
@@ -537,6 +550,7 @@ internal static class InputField
 			.Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _inputWrapper ) ), when: input.LabelPlacement is LabelPlacement.Inside )
 			// Outlined & Size.Small
 			.Add( "py-1", when: input.Variant is InputVariant.Outlined && input.Size is Size.Small )
+			.Add( GetMultilineStyles( slot: nameof( _inputWrapper ) ), when: input is LumexTextarea )
 			.Add( input.Classes?.InputWrapper )
 			.ToString();
 	}
@@ -551,6 +565,7 @@ internal static class InputField
 			.Add( ElementClass.Empty()
 				.Add( "pb-0.5", when: input.Variant is InputVariant.Underlined && input.Size is Size.Small )
 				.Add( "pb-1.5", when: input.Variant is InputVariant.Underlined && ( input.Size is Size.Medium or Size.Large ) ) )
+			.Add( GetMultilineStyles( slot: nameof( _innerWrapper ) ), when: input is LumexTextarea )
 			.Add( input.Classes?.InnerWrapper )
 			.ToString();
 	}
@@ -565,6 +580,7 @@ internal static class InputField
 			.Add( GetClearableStyles( slot: nameof( _input ) ) )
 			.Add( GetInvalidStyles( slot: nameof( _input ) ), when: input.Invalid )
 			.Add( GetVariantInvalidStyles( input.Variant, slot: nameof( _input ) ), when: input.Invalid )
+			.Add( GetMultilineStyles( slot: nameof( _input ) ), when: input is LumexTextarea )
 			.Add( input.Classes?.Input )
 			.ToString();
 	}
@@ -575,6 +591,7 @@ internal static class InputField
 			.Add( _clearButton )
 			.Add( GetSizeStyles( input.Size, slot: nameof( _clearButton ) ) )
 			.Add( GetClearableStyles( slot: nameof( _clearButton ) ) )
+			.Add( GetMultilineStyles( slot: nameof( _clearButton ) ), when: input is LumexTextarea )
 			.Add( input.Classes?.ClearButton )
 			.ToString();
 	}

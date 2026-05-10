@@ -1,0 +1,29 @@
+@namespace LumexUI
+@inherits LumexDebouncedInputBase<string?>
+
+@{
+    base.BuildRenderTree( __builder );
+}
+
+@code {
+    /// <inheritdoc />
+    protected override void RenderInputElement( RenderTreeBuilder __builder )
+    {
+        <textarea class="@InputClass"
+                  rows="@MinRows"
+                  placeholder="@Placeholder"
+                  disabled="@Disabled"
+                  readonly="@ReadOnly"
+                  required="@Required"
+                  data-slot="input"
+                  data-filled="@Utils.GetDataAttributeValue( HasValue )"
+                  data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"
+                  data-has-end-content="@Utils.GetDataAttributeValue( EndContent is not null )"
+                  @ref="@ElementReference"
+                  @attributes="@AdditionalAttributes"
+                  @onchange="@OnChangeAsync"
+                  @oninput="@OnInputAsync"
+                  @onfocus="@OnFocusAsync"
+                  @onblur="@OnBlurAsync">@CurrentValueAsString</textarea>
+    }
+}

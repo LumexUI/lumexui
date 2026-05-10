@@ -9,7 +9,7 @@ using LumexUI.Common;
 namespace LumexUI;
 
 /// <summary>
-/// Represents the set of customizable slots for the <see cref="LumexTextbox"/> and <see cref="LumexNumbox{TValue}"/> components.
+/// Represents the set of customizable slots for the <see cref="LumexTextbox"/>, <see cref="LumexTextarea"/>, and <see cref="LumexNumbox{TValue}"/> components.
 /// </summary>
 [ExcludeFromCodeCoverage]
 public class InputFieldSlots : SlotBase
