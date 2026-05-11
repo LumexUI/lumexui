@@ -38,12 +38,12 @@
     }
 
     [Fact]
-    public void ShouldRenderValueAsTextareaContent()
+    public void ShouldRenderValueOnTextareaValueAttribute()
     {
         var cut = Render(@<LumexTextarea Label="Test" Value="hello" />);
 
         var textarea = cut.Find( "textarea" );
-        textarea.TextContent.Should().Be( "hello" );
+        textarea.GetAttribute( "value" ).Should().Be( "hello" );
     }
 
     [Fact]

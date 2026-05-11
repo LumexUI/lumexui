@@ -11,6 +11,7 @@
     {
         <textarea class="@InputClass"
                   rows="@MinRows"
+                  value="@CurrentValueAsString"
                   placeholder="@Placeholder"
                   disabled="@Disabled"
                   readonly="@ReadOnly"
@@ -24,6 +25,6 @@
                   @onchange="@OnChangeAsync"
                   @oninput="@OnInputAsync"
                   @onfocus="@OnFocusAsync"
-                  @onblur="@OnBlurAsync">@CurrentValueAsString</textarea>
+                  @onblur="@OnBlurAsync"></textarea>
     }
 }
