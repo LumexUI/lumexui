@@ -503,7 +503,9 @@ internal static class InputField
 			.Add( _disabled, when: input.Disabled )
 			.Add( _fullWidth, when: input.FullWidth )
 			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _base ) ) )
-			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _base ) ), when: input.LabelPlacement is LabelPlacement.Outside )
+			// HeroUI gates the outside-label spacing on `isMultiline: false` — for textarea the label is a flow element above the input,
+			// so no extra top-margin is needed to reserve floating-label space.
+			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _base ) ), when: input.LabelPlacement is LabelPlacement.Outside && input is not LumexTextarea )
 			.Add( input.Class )
 			.Add( input.Classes?.Base )
 			.ToString();
@@ -517,9 +519,11 @@ internal static class InputField
 			.Add( GetVariantFlatByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Flat )
 			.Add( GetVariantOutlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Outlined )
 			.Add( GetVariantUnderlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Underlined )
-			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _label ) ) )
+			// HeroUI's outside-label absolute-positioning bundle (`z-20 top-1/2 -translate-y-1/2 ...`) is gated on `isMultiline: false`.
+			// For textarea the multiline rule turns the label `relative`, so absolute positioning must not apply at all.
+			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _label ) ), when: !( input is LumexTextarea && input.LabelPlacement is LabelPlacement.Outside ) )
 			.Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Inside )
-			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Outside )
+			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Outside && input is not LumexTextarea )
 			.Add( GetInvalidStyles( slot: nameof( _label ) ), when: input.Invalid )
 			.Add( GetVariantInvalidStyles( input.Variant, slot: nameof( _label ) ), when: input.Invalid )
 			.Add( GetRequiredStyles( slot: nameof( _label ) ), when: input.Required )
