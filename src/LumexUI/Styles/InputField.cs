@@ -135,7 +135,7 @@ internal static class InputField
 			.Add( "py-2", when: slot is nameof( _inputWrapper ) && labelPlacement is LabelPlacement.Outside )
 			.Add( "pb-1.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Outside )
 			// labelPlacement=Inside + multiline
-			.Add( "cursor-text pb-0.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Inside )
+			.Add( "pb-0.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Inside )
 			.Add( "pt-0", when: slot is nameof( _input ) && labelPlacement is LabelPlacement.Inside );
 	}
 
@@ -519,12 +519,11 @@ internal static class InputField
 			.Add( GetVariantFlatByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Flat )
 			.Add( GetVariantOutlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Outlined )
 			.Add( GetVariantUnderlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Underlined )
-			// All placement-driven label styling (outside absolute bundle, inside `scale-[0.85]`,
-			// size-based translate-up) is designed for an absolutely-positioned floating label.
-			// Textarea forces the label to `relative` (HeroUI's isMultiline base rule), so none
-			// of those effects make visual sense; skip them and let GetMultilineStyles provide
-			// the textarea-only equivalents (cursor-text, pb-1.5 / pb-0.5).
-			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _label ) ), when: input is not LumexTextarea )
+			// Outside-label absolute-positioning bundle is HeroUI's `isMultiline: false` compound,
+			// so it must not apply to textarea (label is `relative` from the multiline base rule).
+			// Inside-label keeps `cursor-text` and the `scale-[0.85]` shrink on focus/fill — only
+			// the size-based translate-up is dropped (it shifts a relative-positioned label in place).
+			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _label ) ), when: !( input is LumexTextarea && input.LabelPlacement is LabelPlacement.Outside ) )
 			.Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Inside && input is not LumexTextarea )
 			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Outside && input is not LumexTextarea )
 			.Add( GetInvalidStyles( slot: nameof( _label ) ), when: input.Invalid )
