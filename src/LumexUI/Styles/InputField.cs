@@ -135,7 +135,7 @@ internal static class InputField
 			.Add( "py-2", when: slot is nameof( _inputWrapper ) && labelPlacement is LabelPlacement.Outside )
 			.Add( "pb-1.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Outside )
 			// labelPlacement=Inside + multiline
-			.Add( "pb-0.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Inside )
+			.Add( "cursor-text pb-0.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Inside )
 			.Add( "pt-0", when: slot is nameof( _input ) && labelPlacement is LabelPlacement.Inside );
 	}
 
@@ -424,9 +424,9 @@ internal static class InputField
 		return labelPlacement switch
 		{
 			LabelPlacement.Inside => ElementClass.Empty()
-				.Add( "flex-col items-start justify-center", when: slot is nameof( _inputWrapper ) )
+				.Add( "flex-col items-start justify-center gap-0", when: slot is nameof( _inputWrapper ) )
 				.Add( "group-has-[label]:items-end", when: slot is nameof( _innerWrapper ) )
-				.Add( "cursor-text group-data-[filled-focused=true]:scale-[0.85]", when: slot is nameof( _label ) ),
+				.Add( "cursor-text group-data-[filled-focused=true]:scale-85", when: slot is nameof( _label ) ),
 
 			LabelPlacement.Outside => ElementClass.Empty()
 				.Add( "justify-end", when: slot is nameof( _base ) )
@@ -519,10 +519,13 @@ internal static class InputField
 			.Add( GetVariantFlatByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Flat )
 			.Add( GetVariantOutlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Outlined )
 			.Add( GetVariantUnderlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Underlined )
-			// HeroUI's outside-label absolute-positioning bundle (`z-20 top-1/2 -translate-y-1/2 ...`) is gated on `isMultiline: false`.
-			// For textarea the multiline rule turns the label `relative`, so absolute positioning must not apply at all.
-			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _label ) ), when: !( input is LumexTextarea && input.LabelPlacement is LabelPlacement.Outside ) )
-			.Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Inside )
+			// All placement-driven label styling (outside absolute bundle, inside `scale-[0.85]`,
+			// size-based translate-up) is designed for an absolutely-positioned floating label.
+			// Textarea forces the label to `relative` (HeroUI's isMultiline base rule), so none
+			// of those effects make visual sense; skip them and let GetMultilineStyles provide
+			// the textarea-only equivalents (cursor-text, pb-1.5 / pb-0.5).
+			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _label ) ), when: input is not LumexTextarea )
+			.Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Inside && input is not LumexTextarea )
 			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Outside && input is not LumexTextarea )
 			.Add( GetInvalidStyles( slot: nameof( _label ) ), when: input.Invalid )
 			.Add( GetVariantInvalidStyles( input.Variant, slot: nameof( _label ) ), when: input.Invalid )
