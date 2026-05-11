@@ -1,30 +1,89 @@
 @namespace LumexUI
 @inherits LumexDebouncedInputBase<string?>
 
-@{
-    base.BuildRenderTree( __builder );
-}
+<LumexComponent As="@As"
+                Class="@RootClass"
+                Style="@RootStyle"
+                data-slot="base"
+                data-invalid="@Utils.GetDataAttributeValue( Invalid )"
+                data-disabled="@Utils.GetDataAttributeValue( Disabled )"
+                data-readonly="@Utils.GetDataAttributeValue( ReadOnly )"
+                data-required="@Utils.GetDataAttributeValue( Required )"
+                data-focus="@Utils.GetDataAttributeValue( Focused )"
+                data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )"
+                @onclick:stopPropagation="@true">
 
-@code {
-    /// <inheritdoc />
-    protected override void RenderInputElement( RenderTreeBuilder __builder )
+    @if( LabelPlacement is LabelPlacement.Outside && !string.IsNullOrEmpty( Label ) )
     {
-        <textarea class="@InputClass"
-                  rows="@MinRows"
-                  value="@CurrentValueAsString"
-                  placeholder="@Placeholder"
-                  disabled="@Disabled"
-                  readonly="@ReadOnly"
-                  required="@Required"
-                  data-slot="input"
-                  data-filled="@Utils.GetDataAttributeValue( HasValue )"
-                  data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"
-                  data-has-end-content="@Utils.GetDataAttributeValue( EndContent is not null )"
-                  @ref="@ElementReference"
-                  @attributes="@AdditionalAttributes"
-                  @onchange="@OnChangeAsync"
-                  @oninput="@OnInputAsync"
-                  @onfocus="@OnFocusAsync"
-                  @onblur="@OnBlurAsync"></textarea>
+        <label class="@LabelClass" data-slot="label">@Label</label>
     }
-}
+
+    <div class="@InputWrapperClass"
+         data-slot="input-wrapper"
+         @onclick="@FocusInputAsync">
+
+        @if( LabelPlacement is LabelPlacement.Inside && !string.IsNullOrEmpty( Label ) )
+        {
+            <label class="@LabelClass" data-slot="label">@Label</label>
+        }
+
+        <div class="@InnerWrapperClass" data-slot="inner-wrapper">
+            @StartContent
+            <textarea class="@InputClass"
+                      rows="@MinRows"
+                      value="@CurrentValueAsString"
+                      placeholder="@Placeholder"
+                      disabled="@Disabled"
+                      readonly="@ReadOnly"
+                      required="@Required"
+                      data-slot="input"
+                      data-filled="@Utils.GetDataAttributeValue( HasValue )"
+                      data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"
+                      data-has-end-content="@Utils.GetDataAttributeValue( EndContent is not null )"
+                      @ref="@ElementReference"
+                      @attributes="@AdditionalAttributes"
+                      @onchange="@OnChangeAsync"
+                      @oninput="@OnInputAsync"
+                      @onfocus="@OnFocusAsync"
+                      @onblur="@OnBlurAsync"></textarea>
+            @EndContent
+        </div>
+
+        @if( ClearButtonVisible )
+        {
+            <span role="button"
+                  class="@ClearButtonClass"
+                  tabindex="0"
+                  data-slot="clear-button"
+                  @onclick="@ClearAsync"
+                  @onkeyup="@ClearAsync">
+                <CircleXFilledIcon Size="1em" />
+            </span>
+        }
+    </div>
+
+    @if( HasHelper )
+    {
+        <div class="@HelperWrapperClass" data-slot="helper-wrapper">
+            @if( Invalid && (!string.IsNullOrEmpty( ErrorMessage ) || !string.IsNullOrEmpty( ValidationMessage )) )
+            {
+                <div class="@ErrorMessageClass" data-slot="error-message">
+                    @if( !string.IsNullOrEmpty( ErrorMessage ) )
+                    {
+                        @ErrorMessage
+                    }
+                    else
+                    {
+                        @ValidationMessage
+                    }
+                </div>
+            }
+            else if( !string.IsNullOrEmpty( Description ) )
+            {
+                <div class="@DescriptionClass" data-slot="description">
+                    @Description
+                </div>
+            }
+        </div>
+    }
+</LumexComponent>

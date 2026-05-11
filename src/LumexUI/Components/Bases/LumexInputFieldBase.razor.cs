@@ -123,39 +123,39 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	private protected override string? RootClass =>
 		TwMerge.Merge( InputField.GetStyles( this ) );
 
-	private string? LabelClass =>
+	protected string? LabelClass =>
 		TwMerge.Merge( InputField.GetLabelStyles( this ) );
 
 	private string? MainWrapperClass =>
 		TwMerge.Merge( InputField.GetMainWrapperStyles( this ) );
 
-	private string? InputWrapperClass =>
+	protected string? InputWrapperClass =>
 		TwMerge.Merge( InputField.GetInputWrapperStyles( this ) );
 
-	private string? InnerWrapperClass =>
+	protected string? InnerWrapperClass =>
 		TwMerge.Merge( InputField.GetInnerWrapperStyles( this ) );
 
 	protected string? InputClass =>
 		TwMerge.Merge( InputField.GetInputStyles( this ) );
 
-	private string? ClearButtonClass =>
+	protected string? ClearButtonClass =>
 		TwMerge.Merge( InputField.GetClearButtonStyles( this ) );
 
-	private string? HelperWrapperClass =>
+	protected string? HelperWrapperClass =>
 		TwMerge.Merge( InputField.GetHelperWrapperStyles( this ) );
 
-	private string? DescriptionClass =>
+	protected string? DescriptionClass =>
 		TwMerge.Merge( InputField.GetDescriptionStyles( this ) );
 
-	private string? ErrorMessageClass =>
+	protected string? ErrorMessageClass =>
 		TwMerge.Merge( InputField.GetErrorMessageStyles( this ) );
 
-	private bool HasHelper =>
+	protected bool HasHelper =>
 		!string.IsNullOrEmpty( Description ) ||
 		!string.IsNullOrEmpty( ErrorMessage ) ||
 		!string.IsNullOrEmpty( ValidationMessage );
 	protected bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
-	private bool ClearButtonVisible => ( Clearable || OnCleared.HasDelegate ) && HasValue;
+	protected bool ClearButtonVisible => ( Clearable || OnCleared.HasDelegate ) && HasValue;
 
 	private readonly RenderFragment _renderMainWrapper;
 	private readonly RenderFragment _renderInputWrapper;
@@ -262,7 +262,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 		_inputType = type;
 	}
 
-	private async Task FocusInputAsync()
+	protected async Task FocusInputAsync()
 	{
 		if( !Disabled && !ReadOnly )
 		{
@@ -270,12 +270,12 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 		}
 	}
 
-	private async Task ClearAsync( MouseEventArgs args )
+	protected async Task ClearAsync( MouseEventArgs args )
 	{
 		await ClearAsyncCore();
 	}
 
-	private async Task ClearAsync( KeyboardEventArgs args )
+	protected async Task ClearAsync( KeyboardEventArgs args )
 	{
 		if( args.Code is "Enter" or "Space" )
 		{

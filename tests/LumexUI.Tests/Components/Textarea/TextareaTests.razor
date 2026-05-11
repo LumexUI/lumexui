@@ -47,11 +47,17 @@
     }
 
     [Fact]
-    public void ShouldRenderMainWrapperWhenLabelOutside()
+    public void ShouldRenderLabelOutsideInputWrapperWhenLabelOutside()
     {
         var cut = Render(@<LumexTextarea Label="Test" LabelPlacement="@LabelPlacement.Outside" />);
 
-        cut.Find( "[data-slot=main-wrapper]" ).Should().NotBeNull();
+        // HeroUI parity: when the label is outside, it's a sibling of input-wrapper
+        // (inside base), not a child of input-wrapper. The textarea has no main-wrapper.
+        cut.FindAll( "[data-slot=main-wrapper]" ).Should().BeEmpty();
+
+        var baseEl = cut.Find( "[data-slot=base]" );
+        var labelEl = baseEl.QuerySelector( ":scope > [data-slot=label]" );
+        labelEl.Should().NotBeNull();
     }
 
     [Fact]
