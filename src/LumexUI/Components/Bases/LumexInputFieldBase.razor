@@ -49,7 +49,25 @@
                  data-slot="inner-wrapper"
                  data-has-clear-button="@Utils.GetDataAttributeValue( ClearButtonVisible )">
                 @StartContent
-                @_renderInputElement
+
+                <input type="@_inputType"
+                       class="@InputClass"
+                       value="@CurrentValueAsString"
+                       placeholder="@Placeholder"
+                       disabled="@Disabled"
+                       readonly="@ReadOnly"
+                       required="@Required"
+                       data-slot="input"
+                       data-filled="@Utils.GetDataAttributeValue( HasValue )"
+                       data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"
+                       data-has-end-content="@Utils.GetDataAttributeValue( EndContent is not null )"
+                       @ref="@ElementReference"
+                       @attributes="@AdditionalAttributes"
+                       @onchange="@OnChangeAsync"
+                       @oninput="@OnInputAsync"
+                       @onfocus="@OnFocusAsync"
+                       @onblur="@OnBlurAsync" />
+
                 @EndContent
 
                 @if( ClearButtonVisible )
@@ -65,31 +83,6 @@
                 }
             </div>
         </div>
-    }
-
-    /// <summary>
-    /// Renders the inner input element. Subclasses override this to swap the
-    /// element tag (e.g. <c>&lt;textarea&gt;</c> instead of <c>&lt;input&gt;</c>).
-    /// </summary>
-    protected virtual void RenderInputElement( RenderTreeBuilder __builder )
-    {
-        <input type="@_inputType"
-               class="@InputClass"
-               value="@CurrentValueAsString"
-               placeholder="@Placeholder"
-               disabled="@Disabled"
-               readonly="@ReadOnly"
-               required="@Required"
-               data-slot="input"
-               data-filled="@Utils.GetDataAttributeValue( HasValue )"
-               data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"
-               data-has-end-content="@Utils.GetDataAttributeValue( EndContent is not null )"
-               @ref="@ElementReference"
-               @attributes="@AdditionalAttributes"
-               @onchange="@OnChangeAsync"
-               @oninput="@OnInputAsync"
-               @onfocus="@OnFocusAsync"
-               @onblur="@OnBlurAsync" />
     }
 
     private void RenderHelperWrapper( RenderTreeBuilder __builder )

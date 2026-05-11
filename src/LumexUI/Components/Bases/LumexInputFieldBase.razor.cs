@@ -160,7 +160,6 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 	private readonly RenderFragment _renderMainWrapper;
 	private readonly RenderFragment _renderInputWrapper;
 	private readonly RenderFragment _renderHelperWrapper;
-	private readonly RenderFragment _renderInputElement;
 
 	private string _inputType = default!;
 	private IJSObjectReference _jsModule = default!;
@@ -173,7 +172,6 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexInputBase<TValu
 		_renderMainWrapper = RenderMainWrapper;
 		_renderInputWrapper = RenderInputWrapper;
 		_renderHelperWrapper = RenderHelperWrapper;
-		_renderInputElement = RenderInputElement;
 
 		As = "div";
 	}
