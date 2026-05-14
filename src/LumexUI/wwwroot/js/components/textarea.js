@@ -15,19 +15,12 @@ function readMetrics(element) {
 }
 
 function adjust(element, options) {
-    const { minRows, maxRows, disableAutosize } = options;
+    const { minRows, maxRows } = options;
     const { lineHeight, paddingY, borderY, isBorderBox } = readMetrics(element);
 
     const extra = isBorderBox ? paddingY + borderY : 0;
     const minHeight = lineHeight * minRows + extra;
     const maxHeight = lineHeight * maxRows + extra;
-
-    if (disableAutosize) {
-        element.style.height = `${minHeight}px`;
-        element.style.overflow = "hidden";
-        element.dataset.hasMultipleRows = "false";
-        return;
-    }
 
     // Reset to auto so scrollHeight reflects content, not the previous fitted height.
     element.style.height = "auto";
@@ -39,10 +32,17 @@ function adjust(element, options) {
     const next = Math.min(Math.max(contentHeight, minHeight), maxHeight);
     element.style.height = `${next}px`;
     element.style.overflow = next < maxHeight ? "hidden" : "";
-    element.dataset.hasMultipleRows = next > minHeight ? "true" : "false";
 }
 
 function initialize(element, options) {
+    // When autosize is disabled the user owns sizing — let the native resize handle
+    // and the `rows` attribute drive height. Attaching an input listener would just
+    // clobber any manual resize the user makes on the next keystroke.
+    if (options.disableAutosize) {
+        instances.set(element, { options });
+        return;
+    }
+
     const inputHandler = () => adjust(element, instances.get(element).options);
 
     instances.set(element, { options, inputHandler });
@@ -59,7 +59,10 @@ function update(element, options) {
     }
 
     instance.options = options;
-    adjust(element, options);
+
+    if (!options.disableAutosize) {
+        adjust(element, options);
+    }
 }
 
 function destroy(element) {
@@ -68,7 +71,9 @@ function destroy(element) {
         return;
     }
 
-    element.removeEventListener("input", instance.inputHandler);
+    if (instance.inputHandler) {
+        element.removeEventListener("input", instance.inputHandler);
+    }
     instances.delete(element);
 }
 

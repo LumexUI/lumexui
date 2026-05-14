@@ -40,6 +40,7 @@
                       data-filled="@Utils.GetDataAttributeValue( HasValue )"
                       data-has-start-content="@Utils.GetDataAttributeValue( StartContent is not null )"
                       data-has-end-content="@Utils.GetDataAttributeValue( EndContent is not null )"
+                      data-autosize-disabled="@Utils.GetDataAttributeValue( DisableAutosize )"
                       @ref="@ElementReference"
                       @attributes="@AdditionalAttributes"
                       @onchange="@OnChangeAsync"

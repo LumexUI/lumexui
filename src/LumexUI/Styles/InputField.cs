@@ -130,7 +130,7 @@ internal static class InputField
 			.Add( "relative", when: slot is nameof( _label ) )
 			.Add( "h-auto! min-h-auto!", when: slot is nameof( _inputWrapper ) )
 			.Add( "items-start group-has-[label]:items-start", when: slot is nameof( _innerWrapper ) )
-			.Add( "scrollbar-hide resize-none transition-[height] duration-100 motion-reduce:transition-none", when: slot is nameof( _input ) )
+			.Add( "scrollbar-hide data-[autosize-disabled=false]:resize-none data-[autosize-disabled=false]:transition-[height] data-[autosize-disabled=false]:duration-100 data-[autosize-disabled=false]:motion-reduce:transition-none", when: slot is nameof( _input ) )
 			.Add( "absolute top-2 end-2 z-10", when: slot is nameof( _clearButton ) )
 			// Neutralise the floating-label translate-up; on a `relative` textarea label it would
 			// just shove the label out of its flow position on focus / fill.
