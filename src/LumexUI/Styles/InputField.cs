@@ -30,6 +30,7 @@ internal static class InputField
 		.Add( "pointer-events-none" )
 		.Add( "subpixel-antialiased" )
 		.Add( "pe-2" )
+		.Add( "shrink-0" )
 		.Add( "max-w-full" )
 		.Add( "text-ellipsis" )
 		.Add( "overflow-hidden" )
