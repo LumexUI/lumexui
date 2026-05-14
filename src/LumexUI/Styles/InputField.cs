@@ -129,7 +129,7 @@ internal static class InputField
 			.Add( "relative", when: slot is nameof( _label ) )
 			.Add( "h-auto! min-h-auto!", when: slot is nameof( _inputWrapper ) )
 			.Add( "items-start group-has-[label]:items-start", when: slot is nameof( _innerWrapper ) )
-			.Add( "resize-none transition-[height] duration-100 motion-reduce:transition-none", when: slot is nameof( _input ) )
+			.Add( "scrollbar-hide resize-none transition-[height] duration-100 motion-reduce:transition-none", when: slot is nameof( _input ) )
 			.Add( "absolute top-2 end-2 z-10", when: slot is nameof( _clearButton ) )
 			// labelPlacement=Outside + multiline
 			.Add( "py-2", when: slot is nameof( _inputWrapper ) && labelPlacement is LabelPlacement.Outside )
