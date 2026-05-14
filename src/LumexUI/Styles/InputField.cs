@@ -131,9 +131,14 @@ internal static class InputField
 			.Add( "items-start group-has-[label]:items-start", when: slot is nameof( _innerWrapper ) )
 			.Add( "scrollbar-hide resize-none transition-[height] duration-100 motion-reduce:transition-none", when: slot is nameof( _input ) )
 			.Add( "absolute top-2 end-2 z-10", when: slot is nameof( _clearButton ) )
+			// Neutralise the floating-label translate-up; on a `relative` textarea label it would
+			// just shove the label out of its flow position on focus / fill.
+			.Add( "group-data-[filled-focused=true]:translate-y-0", when: slot is nameof( _label ) )
 			// labelPlacement=Outside + multiline
 			.Add( "py-2", when: slot is nameof( _inputWrapper ) && labelPlacement is LabelPlacement.Outside )
-			.Add( "pb-1.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Outside )
+			// `left-X` from the outside-by-size helper offsets an absolutely-positioned label;
+			// reset it so the textarea label flows under the parent's normal layout.
+			.Add( "left-auto pb-1.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Outside )
 			// labelPlacement=Inside + multiline
 			.Add( "pb-0.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Inside )
 			.Add( "pt-0", when: slot is nameof( _input ) && labelPlacement is LabelPlacement.Inside );
@@ -521,11 +526,12 @@ internal static class InputField
 			.Add( GetVariantUnderlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Underlined )
 			// Outside-label absolute-positioning bundle is HeroUI's `isMultiline: false` compound,
 			// so it must not apply to textarea (label is `relative` from the multiline base rule).
-			// Inside-label keeps `cursor-text` and the `scale-[0.85]` shrink on focus/fill — only
-			// the size-based translate-up is dropped (it shifts a relative-positioned label in place).
+			// Inside-label keeps `cursor-text` and the `scale-[0.85]` shrink on focus/fill. The
+			// size-based helpers still apply for the `text-X` rule; the floating-label translate
+			// (and outside `left-X`) is neutralised in GetMultilineStyles.
 			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _label ) ), when: !( input is LumexTextarea && input.LabelPlacement is LabelPlacement.Outside ) )
-			.Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Inside && input is not LumexTextarea )
-			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Outside && input is not LumexTextarea )
+			.Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Inside )
+			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Outside )
 			.Add( GetInvalidStyles( slot: nameof( _label ) ), when: input.Invalid )
 			.Add( GetVariantInvalidStyles( input.Variant, slot: nameof( _label ) ), when: input.Invalid )
 			.Add( GetRequiredStyles( slot: nameof( _label ) ), when: input.Required )
