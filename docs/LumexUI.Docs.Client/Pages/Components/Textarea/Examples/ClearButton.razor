@@ -1,0 +1,29 @@
+<div class="w-full">
+    <LumexTextarea Clearable="@true"
+                   Label="Bio"
+                   Placeholder="Tell us about yourself..."
+                   Value="@_value"
+                   Variant="@InputVariant.Outlined"
+                   OnCleared="@Notify"
+                   Class="max-w-xs" />
+</div>
+<p class="text-sm text-default-500">@_text</p>
+
+@code {
+    private string? _text;
+    private string? _value = "Loves Blazor and ships UIs in record time.";
+
+    private void Notify()
+    {
+        _value = null;
+
+        if( string.IsNullOrEmpty( _text ) )
+        {
+            _text = "Input is cleared!";
+        }
+        else
+        {
+            _text += " ..and again..";
+        }
+    }
+}

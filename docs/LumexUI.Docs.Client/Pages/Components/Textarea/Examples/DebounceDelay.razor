@@ -1,0 +1,17 @@
+<div class="w-full flex flex-col gap-2">
+    <LumexTextarea DebounceDelay="250"
+                   Behavior="@InputBehavior.OnInput"
+                   Label="Bio"
+                   Placeholder="Tell us about yourself..."
+                   Clearable="@true"
+                   Class="max-w-xs"
+                   @bind-Value="@_value" />
+
+    <p class="text-sm text-default-500">
+        Value: @_value
+    </p>
+</div>
+
+@code {
+    private string? _value;
+}

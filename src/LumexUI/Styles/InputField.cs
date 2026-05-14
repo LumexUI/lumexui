@@ -30,6 +30,7 @@ internal static class InputField
 		.Add( "pointer-events-none" )
 		.Add( "subpixel-antialiased" )
 		.Add( "pe-2" )
+		.Add( "shrink-0" )
 		.Add( "max-w-full" )
 		.Add( "text-ellipsis" )
 		.Add( "overflow-hidden" )
@@ -120,6 +121,29 @@ internal static class InputField
 	private readonly static string _fullWidth = ElementClass.Empty()
 		.Add( "w-full" )
 		.ToString();
+
+	// Per-slot tweaks applied when the input renders as a multi-line textarea.
+	// Translated from HeroUI's `isMultiline: true` rules in input.ts.
+	private static ElementClass GetMultilineStyles( LabelPlacement labelPlacement, string slot )
+	{
+		return ElementClass.Empty()
+			.Add( "relative", when: slot is nameof( _label ) )
+			.Add( "h-auto! min-h-auto!", when: slot is nameof( _inputWrapper ) )
+			.Add( "items-start group-has-[label]:items-start", when: slot is nameof( _innerWrapper ) )
+			.Add( "scrollbar-hide resize-none data-[autosize-disabled=false]:transition-[height] data-[autosize-disabled=false]:duration-100 data-[autosize-disabled=false]:motion-reduce:transition-none", when: slot is nameof( _input ) )
+			.Add( "absolute top-2 end-2 z-10", when: slot is nameof( _clearButton ) )
+			// Neutralise the floating-label translate-up; on a `relative` textarea label it would
+			// just shove the label out of its flow position on focus / fill.
+			.Add( "group-data-[filled-focused=true]:translate-y-0", when: slot is nameof( _label ) )
+			// labelPlacement=Outside + multiline
+			.Add( "py-2", when: slot is nameof( _inputWrapper ) && labelPlacement is LabelPlacement.Outside )
+			// `left-X` from the outside-by-size helper offsets an absolutely-positioned label;
+			// reset it so the textarea label flows under the parent's normal layout.
+			.Add( "left-auto pb-1.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Outside )
+			// labelPlacement=Inside + multiline
+			.Add( "pb-0.5", when: slot is nameof( _label ) && labelPlacement is LabelPlacement.Inside )
+			.Add( "pt-0", when: slot is nameof( _input ) && labelPlacement is LabelPlacement.Inside );
+	}
 
 	private static ElementClass GetSizeStyles( Size size, string slot )
 	{
@@ -406,9 +430,9 @@ internal static class InputField
 		return labelPlacement switch
 		{
 			LabelPlacement.Inside => ElementClass.Empty()
-				.Add( "flex-col items-start justify-center", when: slot is nameof( _inputWrapper ) )
+				.Add( "flex-col items-start justify-center gap-0", when: slot is nameof( _inputWrapper ) )
 				.Add( "group-has-[label]:items-end", when: slot is nameof( _innerWrapper ) )
-				.Add( "cursor-text group-data-[filled-focused=true]:scale-[0.85]", when: slot is nameof( _label ) ),
+				.Add( "cursor-text group-data-[filled-focused=true]:scale-85", when: slot is nameof( _label ) ),
 
 			LabelPlacement.Outside => ElementClass.Empty()
 				.Add( "justify-end", when: slot is nameof( _base ) )
@@ -485,7 +509,9 @@ internal static class InputField
 			.Add( _disabled, when: input.Disabled )
 			.Add( _fullWidth, when: input.FullWidth )
 			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _base ) ) )
-			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _base ) ), when: input.LabelPlacement is LabelPlacement.Outside )
+			// HeroUI gates the outside-label spacing on `isMultiline: false` — for textarea the label is a flow element above the input,
+			// so no extra top-margin is needed to reserve floating-label space.
+			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _base ) ), when: input.LabelPlacement is LabelPlacement.Outside && input is not LumexTextarea )
 			.Add( input.Class )
 			.Add( input.Classes?.Base )
 			.ToString();
@@ -499,7 +525,12 @@ internal static class InputField
 			.Add( GetVariantFlatByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Flat )
 			.Add( GetVariantOutlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Outlined )
 			.Add( GetVariantUnderlinedByColorStyles( input.Color, slot: nameof( _label ) ), when: input.Variant is InputVariant.Underlined )
-			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _label ) ) )
+			// Outside-label absolute-positioning bundle is HeroUI's `isMultiline: false` compound,
+			// so it must not apply to textarea (label is `relative` from the multiline base rule).
+			// Inside-label keeps `cursor-text` and the `scale-[0.85]` shrink on focus/fill. The
+			// size-based helpers still apply for the `text-X` rule; the floating-label translate
+			// (and outside `left-X`) is neutralised in GetMultilineStyles.
+			.Add( GetLabelPlacementStyles( input.LabelPlacement, slot: nameof( _label ) ), when: !( input is LumexTextarea && input.LabelPlacement is LabelPlacement.Outside ) )
 			.Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Inside )
 			.Add( GetLabelPlacementOutsideBySizeStyles( input.Size, slot: nameof( _label ) ), when: input.LabelPlacement is LabelPlacement.Outside )
 			.Add( GetInvalidStyles( slot: nameof( _label ) ), when: input.Invalid )
@@ -509,6 +540,7 @@ internal static class InputField
 			.Add( ElementClass.Empty()
 				.Add( "group-data-[filled-focused=true]:text-default-600", when: input.LabelPlacement is LabelPlacement.Inside && input.Color is ThemeColor.Default )
 				.Add( "group-data-[filled-focused=true]:text-foreground", when: input.LabelPlacement is LabelPlacement.Outside && input.Color is ThemeColor.Default ) )
+			.Add( GetMultilineStyles( input.LabelPlacement, slot: nameof( _label ) ), when: input is LumexTextarea )
 			.Add( input.Classes?.Label )
 			.ToString();
 	}
@@ -537,6 +569,7 @@ internal static class InputField
 			.Add( GetLabelPlacementInsideBySizeStyles( input.Size, slot: nameof( _inputWrapper ) ), when: input.LabelPlacement is LabelPlacement.Inside )
 			// Outlined & Size.Small
 			.Add( "py-1", when: input.Variant is InputVariant.Outlined && input.Size is Size.Small )
+			.Add( GetMultilineStyles( input.LabelPlacement, slot: nameof( _inputWrapper ) ), when: input is LumexTextarea )
 			.Add( input.Classes?.InputWrapper )
 			.ToString();
 	}
@@ -551,6 +584,7 @@ internal static class InputField
 			.Add( ElementClass.Empty()
 				.Add( "pb-0.5", when: input.Variant is InputVariant.Underlined && input.Size is Size.Small )
 				.Add( "pb-1.5", when: input.Variant is InputVariant.Underlined && ( input.Size is Size.Medium or Size.Large ) ) )
+			.Add( GetMultilineStyles( input.LabelPlacement, slot: nameof( _innerWrapper ) ), when: input is LumexTextarea )
 			.Add( input.Classes?.InnerWrapper )
 			.ToString();
 	}
@@ -565,6 +599,7 @@ internal static class InputField
 			.Add( GetClearableStyles( slot: nameof( _input ) ) )
 			.Add( GetInvalidStyles( slot: nameof( _input ) ), when: input.Invalid )
 			.Add( GetVariantInvalidStyles( input.Variant, slot: nameof( _input ) ), when: input.Invalid )
+			.Add( GetMultilineStyles( input.LabelPlacement, slot: nameof( _input ) ), when: input is LumexTextarea )
 			.Add( input.Classes?.Input )
 			.ToString();
 	}
@@ -575,6 +610,7 @@ internal static class InputField
 			.Add( _clearButton )
 			.Add( GetSizeStyles( input.Size, slot: nameof( _clearButton ) ) )
 			.Add( GetClearableStyles( slot: nameof( _clearButton ) ) )
+			.Add( GetMultilineStyles( input.LabelPlacement, slot: nameof( _clearButton ) ), when: input is LumexTextarea )
 			.Add( input.Classes?.ClearButton )
 			.ToString();
 	}

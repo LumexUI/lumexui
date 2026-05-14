@@ -1,0 +1,20 @@
+<div class="w-full grid grid-cols-1 gap-4">
+    @foreach( var variant in _variants )
+    {
+        <div>
+            <div class="w-full flex flex-wrap gap-4 md:flex-nowrap">
+                <LumexTextarea Variant="@variant" Label="Bio" />
+                <LumexTextarea Variant="@variant" Label="Bio" Placeholder="Tell us about yourself..." />
+            </div>
+            <small class="text-default-400 mt-1">@variant</small>
+        </div>
+    }
+</div>
+
+@code {
+    private InputVariant[] _variants = [
+        InputVariant.Flat,
+        InputVariant.Outlined,
+        InputVariant.Underlined
+    ];
+}
