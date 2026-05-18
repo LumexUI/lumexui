@@ -177,7 +177,7 @@
     --animate-sway: sway 0.75s infinite;
     --animate-blink: blink 1.5s infinite both;
     --animate-fade-out: fade-out 1.2s infinite;
-    --animate-progress-loading: progress-loading 1.5s ease-in-out infinite;
+    --animate-indeterminate-bar: indeterminate-bar 1.5s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite normal;
 
     /* Custom stripe gradient variables */
     --stripe-angle: 45deg;
@@ -233,13 +233,13 @@
         }
     }
 
-    @keyframes progress-loading {
+    @keyframes indeterminate-bar {
         0% {
-            transform: translateX(-100%);
+            transform: translateX(-50%) scaleX(0.2);
         }
 
         100% {
-            transform: translateX(400%);
+            transform: translateX(100%) scaleX(1);
         }
     }
 
