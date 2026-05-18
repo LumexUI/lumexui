@@ -8,10 +8,10 @@
      data-slot="base"
      data-disabled="@Disabled.ToAttributeValue()"
      data-indeterminate="@Indeterminate.ToAttributeValue()"
-     aria-valuenow="@GetAriaValueNow()"
-     aria-valuemin="@GetAriaValueMin()"
-     aria-valuemax="@GetAriaValueMax()"
-     aria-valuetext="@GetAriaValueText()"
+     aria-valuenow="@AriaValueNow"
+     aria-valuemin="@AriaValueMin"
+     aria-valuemax="@AriaValueMax"
+     aria-valuetext="@AriaValueText"
      aria-label="@( string.IsNullOrEmpty( Label ) ? null : Label )"
      @attributes="@AdditionalAttributes">
 
@@ -35,6 +35,6 @@
     }
 
     <div class="@GetStyles( nameof( S.Track ) )" data-slot="track">
-        <div class="@GetStyles( nameof( S.Indicator ) )" data-slot="indicator" style="@GetIndicatorStyle()" />
+        <div class="@GetStyles( nameof( S.Indicator ) )" data-slot="indicator" style="@IndicatorStyle" />
     </div>
 </div>

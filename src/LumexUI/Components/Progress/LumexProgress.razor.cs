@@ -6,9 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Common;
 using LumexUI.Utilities;
-using System.Globalization;
 
 using Microsoft.AspNetCore.Components;
+
+using static System.FormattableString;
 
 namespace LumexUI;
 
@@ -114,8 +115,14 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 	[Parameter] public ProgressSlots? Classes { get; set; }
 
 	private double ClampedValue => MaxValue > MinValue ? Math.Clamp( Value, MinValue, MaxValue ) : MinValue;
-	private double Percentage => MaxValue > MinValue ? ( ( ClampedValue - MinValue ) / ( MaxValue - MinValue ) ) * 100 : 0;
+	private double Percentage => MaxValue > MinValue ? ( ClampedValue - MinValue ) / ( MaxValue - MinValue ) * 100 : 0;
 	private string ValueText => !string.IsNullOrEmpty( ValueLabel ) ? ValueLabel : $"{Percentage:F0}%";
+
+	private string? AriaValueNow => Indeterminate ? null : Invariant( $"{ClampedValue:0.##}" );
+	private string AriaValueMin => Invariant( $"{MinValue:0.##}" );
+	private string AriaValueMax => Invariant( $"{MaxValue:0.##}" );
+	private string? AriaValueText => Indeterminate ? null : ValueText;
+	private string? IndicatorStyle => Indeterminate ? null : Invariant( $"transform: translateX(-{100 - Percentage:0.##}%)" );
 
 	private Dictionary<string, ComponentSlot> _slots = [];
 
@@ -137,57 +144,18 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 	[ExcludeFromCodeCoverage]
 	private string? GetStyles( string slot )
 	{
-		if( !_slots.TryGetValue( slot, out var styles ) )
-		{
-			throw new NotImplementedException();
-		}
-
-		return slot switch
-		{
-			nameof( ProgressSlots.Base ) => styles( Classes?.Base, Class ),
-			nameof( ProgressSlots.LabelWrapper ) => styles( Classes?.LabelWrapper ),
-			nameof( ProgressSlots.Label ) => styles( Classes?.Label ),
-			nameof( ProgressSlots.Value ) => styles( Classes?.Value ),
-			nameof( ProgressSlots.Track ) => styles( Classes?.Track ),
-			nameof( ProgressSlots.Indicator ) => styles( Classes?.Indicator ),
-			_ => throw new NotImplementedException()
-		};
-	}
-
-
-	private string? GetAriaValueNow()
-	{
-		if( Indeterminate )
-			return null;
-
-		return ClampedValue.ToString( "0.##", CultureInfo.InvariantCulture );
-	}
-
-	private string? GetAriaValueMin()
-	{
-		return MinValue.ToString( "0.##", CultureInfo.InvariantCulture );
-	}
-
-	private string? GetAriaValueMax()
-	{
-		return MaxValue.ToString( "0.##", CultureInfo.InvariantCulture );
-	}
-
-	private string? GetAriaValueText()
-	{
-		return Indeterminate ? null : ValueText;
-	}
-
-	private string? GetIndicatorStyle()
-	{
-		if( Indeterminate )
-		{
-			return null;
-		}
-
-		var offset = ( 100 - Percentage ).ToString( "0.##", CultureInfo.InvariantCulture );
-		return $"transform: translateX(-{offset}%)";
+		return !_slots.TryGetValue( slot, out var styles )
+			? throw new NotImplementedException()
+			: slot switch
+			{
+				nameof( ProgressSlots.Base ) => styles( Classes?.Base, Class ),
+				nameof( ProgressSlots.LabelWrapper ) => styles( Classes?.LabelWrapper ),
+				nameof( ProgressSlots.Label ) => styles( Classes?.Label ),
+				nameof( ProgressSlots.Value ) => styles( Classes?.Value ),
+				nameof( ProgressSlots.Track ) => styles( Classes?.Track ),
+				nameof( ProgressSlots.Indicator ) => styles( Classes?.Indicator ),
+				_ => throw new NotImplementedException()
+			};
 	}
 
 }
-
