@@ -175,7 +175,7 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 
 	private string? GetAriaValueText()
 	{
-		return Indeterminate ? ( string.IsNullOrWhiteSpace( ValueLabel ) ? "Loading" : ValueLabel ) : ValueText;
+		return Indeterminate ? null : ValueText;
 	}
 
 	private string GetTransformValue()
