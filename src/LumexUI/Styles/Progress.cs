@@ -102,6 +102,38 @@ internal static class Progress
 					},
 				},
 
+				[nameof( LumexProgress.Color )] = new VariantValueCollection
+				{
+					[nameof( ThemeColor.Default )] = new SlotCollection
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-default-400",
+					},
+					[nameof( ThemeColor.Primary )] = new SlotCollection
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-primary",
+					},
+					[nameof( ThemeColor.Secondary )] = new SlotCollection
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-secondary",
+					},
+					[nameof( ThemeColor.Success )] = new SlotCollection
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-success",
+					},
+					[nameof( ThemeColor.Warning )] = new SlotCollection
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-warning",
+					},
+					[nameof( ThemeColor.Danger )] = new SlotCollection
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-danger",
+					},
+					[nameof( ThemeColor.Info )] = new SlotCollection
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-info",
+					},
+				},
+
 				[nameof( LumexProgress.Indeterminate )] = new VariantValueCollection
 				{
 					[bool.TrueString] = new SlotCollection
@@ -121,84 +153,6 @@ internal static class Progress
 
 			CompoundVariants =
 			[
-				// Color variants for indicator
-				new CompoundVariant()
-				{
-					Conditions = new()
-					{
-						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Default )
-					},
-					Classes = new SlotCollection()
-					{
-						[nameof( ProgressSlots.Indicator )] = ColorVariants.Solid[ThemeColor.Default]
-					}
-				},
-				new CompoundVariant()
-				{
-					Conditions = new()
-					{
-						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Primary )
-					},
-					Classes = new SlotCollection()
-					{
-						[nameof( ProgressSlots.Indicator )] = ColorVariants.Solid[ThemeColor.Primary]
-					}
-				},
-				new CompoundVariant()
-				{
-					Conditions = new()
-					{
-						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Secondary )
-					},
-					Classes = new SlotCollection()
-					{
-						[nameof( ProgressSlots.Indicator )] = ColorVariants.Solid[ThemeColor.Secondary]
-					}
-				},
-				new CompoundVariant()
-				{
-					Conditions = new()
-					{
-						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Success )
-					},
-					Classes = new SlotCollection()
-					{
-						[nameof( ProgressSlots.Indicator )] = ColorVariants.Solid[ThemeColor.Success]
-					}
-				},
-				new CompoundVariant()
-				{
-					Conditions = new()
-					{
-						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Warning )
-					},
-					Classes = new SlotCollection()
-					{
-						[nameof( ProgressSlots.Indicator )] = ColorVariants.Solid[ThemeColor.Warning]
-					}
-				},
-				new CompoundVariant()
-				{
-					Conditions = new()
-					{
-						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Danger )
-					},
-					Classes = new SlotCollection()
-					{
-						[nameof( ProgressSlots.Indicator )] = ColorVariants.Solid[ThemeColor.Danger]
-					}
-				},
-				new CompoundVariant()
-				{
-					Conditions = new()
-					{
-						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Info )
-					},
-					Classes = new SlotCollection()
-					{
-						[nameof( ProgressSlots.Indicator )] = ColorVariants.Solid[ThemeColor.Info]
-					}
-				},
 				new CompoundVariant()
 				{
 					Conditions = new()
