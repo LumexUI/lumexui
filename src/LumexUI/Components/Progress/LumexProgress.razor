@@ -12,6 +12,7 @@
      aria-valuemin="@GetAriaValueMin()"
      aria-valuemax="@GetAriaValueMax()"
      aria-valuetext="@GetAriaValueText()"
+     aria-label="@( string.IsNullOrEmpty( Label ) ? null : Label )"
      @attributes="@AdditionalAttributes">
 
     @if( !string.IsNullOrEmpty( Label ) || ShowValueLabel )
