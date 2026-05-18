@@ -146,7 +146,7 @@ internal static class Progress
 				{
 					[bool.TrueString] = new SlotCollection
 					{
-						[nameof( ProgressSlots.Base )] = "opacity-50 cursor-not-allowed",
+						[nameof( ProgressSlots.Base )] = "opacity-disabled cursor-not-allowed",
 					},
 				},
 			},
