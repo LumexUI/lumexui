@@ -74,7 +74,7 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 	/// <remarks>
 	/// The default value is <see langword="false"/>. When <see langword="true"/>, the value label is shown.
 	/// </remarks>
-	[Parameter] public bool ShowValueLabel { get; set; } = true;
+	[Parameter] public bool ShowValueLabel { get; set; }
 
 	/// <summary>
 	/// Gets or sets a value indicating whether the progress bar is disabled.
