@@ -3,11 +3,11 @@
 
 @using S = ProgressSlots
 
-<div class="@GetStyles( nameof( S.Base ) )"
+<div role="progressbar"
+     class="@GetStyles( nameof( S.Base ) )"
      data-slot="base"
-     data-indeterminate="@Indeterminate.ToAttributeValue()"
      data-disabled="@Disabled.ToAttributeValue()"
-     role="progressbar"
+     data-indeterminate="@Indeterminate.ToAttributeValue()"
      aria-valuenow="@GetAriaValueNow()"
      aria-valuemin="@GetAriaValueMin()"
      aria-valuemax="@GetAriaValueMax()"
@@ -16,31 +16,24 @@
 
     @if( !string.IsNullOrEmpty( Label ) || ShowValueLabel )
     {
-        <div class="@GetStyles( nameof( S.LabelWrapper ) )"
-             data-slot="labelWrapper">
+        <div class="@GetStyles( nameof( S.LabelWrapper ) )" data-slot="labelWrapper">
             @if( !string.IsNullOrEmpty( Label ) )
             {
-                <span class="@GetStyles( nameof( S.Label ) )"
-                      data-slot="label">
+                <span class="@GetStyles( nameof( S.Label ) )" data-slot="label">
                     @Label
                 </span>
             }
 
             @if( ShowValueLabel && !Indeterminate )
             {
-                <span class="@GetStyles( nameof( S.Value ) )"
-                      data-slot="value">
+                <span class="@GetStyles( nameof( S.Value ) )" data-slot="value">
                     @ValueText
                 </span>
             }
         </div>
     }
 
-    <div class="@GetStyles( nameof( S.Track ) )"
-         data-slot="track">
-        <div class="@GetStyles( nameof( S.Indicator ) )"
-             data-slot="indicator"
-             style="@GetIndicatorStyle()">
-        </div>
+    <div class="@GetStyles( nameof( S.Track ) )" data-slot="track">
+        <div class="@GetStyles( nameof( S.Indicator ) )" data-slot="indicator" style="@GetIndicatorStyle()" />
     </div>
 </div>
