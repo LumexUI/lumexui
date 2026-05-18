@@ -116,7 +116,7 @@
     public void WhenIndeterminate_ShouldHaveAnimateIndeterminateBarClass()
     {
         var cut = Render(
-            @<LumexProgress Indeterminate />
+            @<LumexProgress Indeterminate="@true" />
         );
 
         cut.FindBySlot( "indicator" )!.ClassList.Should().Contain( "animate-indeterminate-bar" );
@@ -126,7 +126,7 @@
     public void WhenIndeterminate_ShouldHavePositioningClasses()
     {
         var cut = Render(
-            @<LumexProgress Indeterminate />
+            @<LumexProgress Indeterminate="@true" />
         );
 
         var indicator = cut.FindBySlot( "indicator" )!;
@@ -139,7 +139,7 @@
     public void WhenIndeterminate_ShouldOmitAriaValueNow()
     {
         var cut = Render(
-            @<LumexProgress Indeterminate />
+            @<LumexProgress Indeterminate="@true" />
         );
 
         cut.FindBySlot( "base" )!.HasAttribute( "aria-valuenow" ).Should().BeFalse();
@@ -149,7 +149,7 @@
     public void WhenIndeterminate_ShouldOmitAriaValueTextWithoutValueLabel()
     {
         var cut = Render(
-            @<LumexProgress Indeterminate />
+            @<LumexProgress Indeterminate="@true" />
         );
 
         cut.FindBySlot( "base" )!.HasAttribute( "aria-valuetext" ).Should().BeFalse();
@@ -159,7 +159,7 @@
     public void WhenIndeterminate_ShouldForwardValueLabelToAriaValueText()
     {
         var cut = Render(
-            @<LumexProgress Indeterminate ValueLabel="Uploading..." />
+            @<LumexProgress Indeterminate="@true" ValueLabel="Uploading..." />
         );
 
         cut.FindBySlot( "base" )!.GetAttribute( "aria-valuetext" ).Should().Be( "Uploading..." );
@@ -179,7 +179,7 @@
     public void WhenDisabled_ShouldEmitDataDisabledTrue()
     {
         var cut = Render(
-            @<LumexProgress Disabled />
+            @<LumexProgress Disabled="@true" />
         );
 
         cut.FindBySlot( "base" )!.GetAttribute( "data-disabled" ).Should().Be( "true" );
@@ -199,7 +199,7 @@
     public void WhenIndeterminate_ShouldEmitDataIndeterminateTrue()
     {
         var cut = Render(
-            @<LumexProgress Indeterminate />
+            @<LumexProgress Indeterminate="@true" />
         );
 
         cut.FindBySlot( "base" )!.GetAttribute( "data-indeterminate" ).Should().Be( "true" );
@@ -261,7 +261,7 @@
     public void ShouldRenderValueLabelWhenShowValueLabelIsTrue()
     {
         var cut = Render(
-            @<LumexProgress Value="50" ShowValueLabel />
+            @<LumexProgress Value="50" ShowValueLabel="@true" />
         );
 
         cut.FindBySlot( "value" ).Should().NotBeNull();
@@ -281,7 +281,7 @@
     public void WhenIndeterminate_ShouldRenderValueLabelInValueSlot()
     {
         var cut = Render(
-            @<LumexProgress Indeterminate ShowValueLabel ValueLabel="Uploading..." />
+            @<LumexProgress Indeterminate="@true" ShowValueLabel="@true" ValueLabel="Uploading..." />
         );
 
         cut.FindBySlot( "value" )!.TextContent.Should().Contain( "Uploading..." );
@@ -291,7 +291,7 @@
     public void ShouldRenderCustomValueLabel()
     {
         var cut = Render(
-            @<LumexProgress Value="50" ShowValueLabel ValueLabel="50/100" />
+            @<LumexProgress Value="50" ShowValueLabel="@true" ValueLabel="50/100" />
         );
 
         cut.FindBySlot( "value" )!.TextContent.Should().Contain( "50/100" );
