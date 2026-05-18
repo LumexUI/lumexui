@@ -157,13 +157,86 @@ internal static class Progress
 				{
 					Conditions = new()
 					{
-						[nameof( LumexProgress.Striped )] = bool.TrueString
+						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Default ),
+						[nameof( LumexProgress.Striped )] = bool.TrueString,
 					},
 					Classes = new SlotCollection()
 					{
-						[nameof( ProgressSlots.Indicator )] = "bg-stripe-gradient",
+						[nameof( ProgressSlots.Indicator )] = "bg-stripe-gradient-default bg-stripe-size",
 					}
-				}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Primary ),
+						[nameof( LumexProgress.Striped )] = bool.TrueString,
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-stripe-gradient-primary bg-stripe-size",
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Secondary ),
+						[nameof( LumexProgress.Striped )] = bool.TrueString,
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-stripe-gradient-secondary bg-stripe-size",
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Success ),
+						[nameof( LumexProgress.Striped )] = bool.TrueString,
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-stripe-gradient-success bg-stripe-size",
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Warning ),
+						[nameof( LumexProgress.Striped )] = bool.TrueString,
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-stripe-gradient-warning bg-stripe-size",
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Danger ),
+						[nameof( LumexProgress.Striped )] = bool.TrueString,
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-stripe-gradient-danger bg-stripe-size",
+					}
+				},
+				new CompoundVariant()
+				{
+					Conditions = new()
+					{
+						[nameof( LumexProgress.Color )] = nameof( ThemeColor.Info ),
+						[nameof( LumexProgress.Striped )] = bool.TrueString,
+					},
+					Classes = new SlotCollection()
+					{
+						[nameof( ProgressSlots.Indicator )] = "bg-stripe-gradient-info bg-stripe-size",
+					}
+				},
 			]
 		} );
 	}
