@@ -178,35 +178,15 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 		return Indeterminate ? null : ValueText;
 	}
 
-	private string GetTransformValue()
+	private string? GetIndicatorStyle()
 	{
-		var width = Indeterminate ? 100 : Percentage;
-		var transformWith = 100 - width;
-		return String.Format("-{0}{1}", ( transformWith ).ToString( "0.##", CultureInfo.InvariantCulture ) ,"%");
-	}
-
-	private string GetIndicatorStyle()
-	{
-		var transform = $"transform: translateX({GetTransformValue()})";
-
-		if( Striped )
+		if( Indeterminate )
 		{
-			var (color, lightColor) = Color switch
-			{
-				ThemeColor.Default => ("var(--color-default)", "var(--color-default-100)"),
-				ThemeColor.Primary => ("var(--color-primary)", "var(--color-primary-100)"),
-				ThemeColor.Secondary => ("var(--color-secondary)", "var(--color-secondary-100)"),
-				ThemeColor.Success => ("var(--color-success)", "var(--color-success-100)"),
-				ThemeColor.Warning => ("var(--color-warning)", "var(--color-warning-100)"),
-				ThemeColor.Danger => ("var(--color-danger)", "var(--color-danger-100)"),
-				ThemeColor.Info => ("var(--color-info)", "var(--color-info-100)"),
-				_ => ("currentColor", "rgba(255, 255, 255, 0.15)")
-			};
-
-			return $"{transform}; --stripe-color: {color}; --stripe-color-light: {lightColor};";
+			return null;
 		}
 
-		return transform;
+		var offset = ( 100 - Percentage ).ToString( "0.##", CultureInfo.InvariantCulture );
+		return $"transform: translateX(-{offset}%)";
 	}
 
 }
