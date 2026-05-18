@@ -138,7 +138,7 @@ internal static class Progress
 				{
 					[bool.TrueString] = new SlotCollection
 					{
-						[nameof( ProgressSlots.Indicator )] = "animate-progress-loading",
+						[nameof( ProgressSlots.Indicator )] = "absolute w-full origin-left animate-indeterminate-bar",
 					},
 				},
 
