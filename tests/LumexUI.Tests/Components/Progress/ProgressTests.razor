@@ -146,13 +146,23 @@
     }
 
     [Fact]
-    public void WhenIndeterminate_ShouldOmitAriaValueText()
+    public void WhenIndeterminate_ShouldOmitAriaValueTextWithoutValueLabel()
     {
         var cut = Render(
             @<LumexProgress Indeterminate />
         );
 
         cut.FindBySlot( "base" )!.HasAttribute( "aria-valuetext" ).Should().BeFalse();
+    }
+
+    [Fact]
+    public void WhenIndeterminate_ShouldForwardValueLabelToAriaValueText()
+    {
+        var cut = Render(
+            @<LumexProgress Indeterminate ValueLabel="Uploading..." />
+        );
+
+        cut.FindBySlot( "base" )!.GetAttribute( "aria-valuetext" ).Should().Be( "Uploading..." );
     }
 
     [Fact]
@@ -268,13 +278,13 @@
     }
 
     [Fact]
-    public void ShouldNotRenderValueLabelWhenIndeterminate()
+    public void WhenIndeterminate_ShouldRenderValueLabelInValueSlot()
     {
         var cut = Render(
-            @<LumexProgress Indeterminate ShowValueLabel />
+            @<LumexProgress Indeterminate ShowValueLabel ValueLabel="Uploading..." />
         );
 
-        cut.FindBySlot( "value" ).Should().BeNull();
+        cut.FindBySlot( "value" )!.TextContent.Should().Contain( "Uploading..." );
     }
 
     [Fact]

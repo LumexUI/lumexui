@@ -25,10 +25,10 @@
                 </span>
             }
 
-            @if( ShowValueLabel && !Indeterminate )
+            @if( ShowValueLabel )
             {
                 <span class="@GetStyles( nameof( S.Value ) )" data-slot="value">
-                    @ValueText
+                    @AriaValueText
                 </span>
             }
         </div>
