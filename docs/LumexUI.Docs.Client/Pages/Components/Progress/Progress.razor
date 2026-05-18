@@ -58,7 +58,7 @@
 
 </DocsSection>
 
-<DocsSection Title="Custom Styles">
+<DocsSlotsSection Slots="@_slots">
     <div>
         <h4 class="font-semibold">Progress</h4>
         <ul>
@@ -67,7 +67,7 @@
         </ul>
     </div>
     <CustomStyles />
-</DocsSection>
+</DocsSlotsSection>
 
 <DocsApiSection Components="@_apiComponents" />
 
@@ -86,6 +86,16 @@
         ]),
         new("Custom Styles"),
         new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new(nameof(ProgressSlots.Base), "The base container of the progress bar."),
+        new(nameof(ProgressSlots.LabelWrapper), "The wrapper for the label and value label."),
+        new(nameof(ProgressSlots.Label), "The label of the progress bar."),
+        new(nameof(ProgressSlots.Value), "The value label of the progress bar."),
+        new(nameof(ProgressSlots.Track), "The track (background) of the progress bar."),
+        new(nameof(ProgressSlots.Indicator), "The indicator (filled portion) of the progress bar."),
     };
 
     private readonly string[] _apiComponents = new string[]
