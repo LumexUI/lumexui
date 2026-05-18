@@ -132,9 +132,6 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 			[nameof( Striped )] = Striped.ToString(),
 			[nameof( Disabled )] = Disabled.ToString(),
 		} );
-
-		UpdateAdditionalAttributes();
-
 	}
 
 	[ExcludeFromCodeCoverage]
@@ -212,45 +209,5 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 		return transform;
 	}
 
-	private void UpdateAdditionalAttributes()
-	{
-		var hasAriaLabel = AdditionalAttributes is not null && AdditionalAttributes.ContainsKey( "aria-label" );
-		if( !hasAriaLabel )
-		{
-			if( ConvertToDictionary( AdditionalAttributes, out var additionalAttributes ) )
-			{
-				AdditionalAttributes = additionalAttributes;
-			}
-
-			additionalAttributes["aria-label"] = Label ?? ( Indeterminate ? "Loading" : "Progress" );
-		}
-	}
-
-	[ExcludeFromCodeCoverage]
-	private static bool ConvertToDictionary( IReadOnlyDictionary<string, object>? source, out Dictionary<string, object> result )
-	{
-		var newDictionaryCreated = true;
-
-		if( source is null )
-		{
-			result = [];
-		}
-		else if( source is Dictionary<string, object> currentDictionary )
-		{
-			result = currentDictionary;
-			newDictionaryCreated = false;
-		}
-		else
-		{
-			result = [];
-
-			foreach( var item in source )
-			{
-				result.Add( item.Key, item.Value );
-			}
-		}
-
-		return newDictionaryCreated;
-	}
 }
 
