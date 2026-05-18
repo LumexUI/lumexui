@@ -263,13 +263,13 @@
 @utility bg-stripe-gradient-* {
     background-image: linear-gradient(
         45deg,
-        --value(--color-*-200) 25%,
         --value(--color-*) 25%,
+        color-mix(in oklch, --value(--color-*), black 25%) 25%,
+        color-mix(in oklch, --value(--color-*), black 25%) 50%,
         --value(--color-*) 50%,
-        --value(--color-*-200) 50%,
-        --value(--color-*-200) 75%,
         --value(--color-*) 75%,
-        --value(--color-*)
+        color-mix(in oklch, --value(--color-*), black 25%) 75%,
+        color-mix(in oklch, --value(--color-*), black 25%)
     );
 }
 
