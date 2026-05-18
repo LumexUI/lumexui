@@ -5,8 +5,8 @@
 
 <div class="@GetStyles( nameof( S.Base ) )"
      data-slot="base"
-     data-indeterminate="@Indeterminate"
-     data-disabled="@Disabled"
+     data-indeterminate="@Indeterminate.ToAttributeValue()"
+     data-disabled="@Disabled.ToAttributeValue()"
      role="progressbar"
      aria-valuenow="@GetAriaValueNow()"
      aria-valuemin="@GetAriaValueMin()"
