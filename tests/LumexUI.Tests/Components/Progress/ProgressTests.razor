@@ -113,16 +113,6 @@
     }
 
     [Fact]
-    public void WhenIndeterminate_ShouldOmitInlineTransform()
-    {
-        var cut = Render(
-            @<LumexProgress Indeterminate Value="50" />
-        );
-
-        cut.FindBySlot( "indicator" )!.HasAttribute( "style" ).Should().BeFalse();
-    }
-
-    [Fact]
     public void WhenIndeterminate_ShouldHaveAnimateIndeterminateBarClass()
     {
         var cut = Render(

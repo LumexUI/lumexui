@@ -122,7 +122,7 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 	private string AriaValueMin => Invariant( $"{MinValue:0.##}" );
 	private string AriaValueMax => Invariant( $"{MaxValue:0.##}" );
 	private string? AriaValueText => Indeterminate ? null : ValueText;
-	private string? IndicatorStyle => Indeterminate ? null : Invariant( $"transform: translateX(-{100 - Percentage:0.##}%)" );
+	private string IndicatorStyle => Invariant( $"transform: translateX(-{100 - Percentage:0.##}%)" );
 
 	private Dictionary<string, ComponentSlot> _slots = [];
 
