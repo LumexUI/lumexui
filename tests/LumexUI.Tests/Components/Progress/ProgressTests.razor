@@ -228,6 +228,36 @@
     }
 
     [Fact]
+    public void ShouldUseLabelAsAriaLabel()
+    {
+        var cut = Render(
+            @<LumexProgress Value="50" Label="Downloading..." />
+        );
+
+        cut.FindBySlot( "base" )!.GetAttribute( "aria-label" ).Should().Be( "Downloading..." );
+    }
+
+    [Fact]
+    public void ShouldNotEmitAriaLabelWhenNeitherLabelNorAriaLabelProvided()
+    {
+        var cut = Render(
+            @<LumexProgress Value="50" />
+        );
+
+        cut.FindBySlot( "base" )!.HasAttribute( "aria-label" ).Should().BeFalse();
+    }
+
+    [Fact]
+    public void ShouldPreferSplatAriaLabelOverLabel()
+    {
+        var cut = Render(
+            @<LumexProgress Value="50" Label="Downloading..." aria-label="Custom" />
+        );
+
+        cut.FindBySlot( "base" )!.GetAttribute( "aria-label" ).Should().Be( "Custom" );
+    }
+
+    [Fact]
     public void ShouldRenderValueLabelWhenShowValueLabelIsTrue()
     {
         var cut = Render(
