@@ -118,6 +118,7 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 	private double Percentage => MaxValue > MinValue ? ( ClampedValue - MinValue ) / ( MaxValue - MinValue ) * 100 : 0;
 	private string ValueText => !string.IsNullOrEmpty( ValueLabel ) ? ValueLabel : $"{Percentage:F0}%";
 
+	private string? AriaLabel => string.IsNullOrEmpty( Label ) ? null : Label;
 	private string? AriaValueNow => Indeterminate ? null : Invariant( $"{ClampedValue}" );
 	private string AriaValueMin => Invariant( $"{MinValue}" );
 	private string AriaValueMax => Invariant( $"{MaxValue}" );
