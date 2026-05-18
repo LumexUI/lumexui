@@ -17,7 +17,7 @@
 
     @if( !string.IsNullOrEmpty( Label ) || ShowValueLabel )
     {
-        <div class="@GetStyles( nameof( S.LabelWrapper ) )" data-slot="labelWrapper">
+        <div class="@GetStyles( nameof( S.LabelWrapper ) )" data-slot="label-wrapper">
             @if( !string.IsNullOrEmpty( Label ) )
             {
                 <span class="@GetStyles( nameof( S.Label ) )" data-slot="label">

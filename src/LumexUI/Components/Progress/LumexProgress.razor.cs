@@ -48,24 +48,20 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 	/// Gets or sets the maximum value for the progress bar.
 	/// </summary>
 	/// <remarks>
-	/// The default value is 100. This determines the upper bound for the <see cref="Value"/> parameter.
+	/// The default value is 100.
 	/// </remarks>
 	[Parameter] public double MaxValue { get; set; } = 100;
 
 	/// <summary>
 	/// Gets or sets a value indicating whether the progress bar is in an indeterminate state.
 	/// </summary>
-	/// <remarks>
-	/// When <see langword="true"/>, the progress bar will display an animated loading indicator
-	/// instead of showing a specific progress value. This is useful when the duration of an operation is unknown.
-	/// </remarks>
 	[Parameter] public bool Indeterminate { get; set; }
 
 	/// <summary>
 	/// Gets or sets a value indicating whether to show the value label with the progress percentage.
 	/// </summary>
 	/// <remarks>
-	/// The default value is <see langword="false"/>. When <see langword="true"/>, the value label is shown.
+	/// The default value is <see langword="false"/>.
 	/// </remarks>
 	[Parameter] public bool ShowValueLabel { get; set; }
 
@@ -134,29 +130,31 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 		_slots = progressBar( new()
 		{
 			[nameof( Size )] = Size.ToString(),
-			[nameof( Radius )] = Radius.ToString(),
 			[nameof( Color )] = Color.ToString(),
-			[nameof( Indeterminate )] = Indeterminate.ToString(),
+			[nameof( Radius )] = Radius.ToString(),
 			[nameof( Striped )] = Striped.ToString(),
 			[nameof( Disabled )] = Disabled.ToString(),
+			[nameof( Indeterminate )] = Indeterminate.ToString(),
 		} );
 	}
 
 	[ExcludeFromCodeCoverage]
 	private string? GetStyles( string slot )
 	{
-		return !_slots.TryGetValue( slot, out var styles )
-			? throw new NotImplementedException()
-			: slot switch
-			{
-				nameof( ProgressSlots.Base ) => styles( Classes?.Base, Class ),
-				nameof( ProgressSlots.LabelWrapper ) => styles( Classes?.LabelWrapper ),
-				nameof( ProgressSlots.Label ) => styles( Classes?.Label ),
-				nameof( ProgressSlots.Value ) => styles( Classes?.Value ),
-				nameof( ProgressSlots.Track ) => styles( Classes?.Track ),
-				nameof( ProgressSlots.Indicator ) => styles( Classes?.Indicator ),
-				_ => throw new NotImplementedException()
-			};
-	}
+		if( !_slots.TryGetValue( slot, out var styles ) )
+		{
+			throw new NotImplementedException();
+		}
 
+		return slot switch
+		{
+			nameof( ProgressSlots.Base ) => styles( Classes?.Base, Class ),
+			nameof( ProgressSlots.LabelWrapper ) => styles( Classes?.LabelWrapper ),
+			nameof( ProgressSlots.Label ) => styles( Classes?.Label ),
+			nameof( ProgressSlots.Value ) => styles( Classes?.Value ),
+			nameof( ProgressSlots.Track ) => styles( Classes?.Track ),
+			nameof( ProgressSlots.Indicator ) => styles( Classes?.Indicator ),
+			_ => throw new NotImplementedException()
+		};
+	}
 }
