@@ -34,30 +34,19 @@ internal static class Progress
 					.Add( "flex" )
 					.Add( "justify-between" ),
 
-				[nameof( ProgressSlots.Label )] = new ElementClass()
-					.Add( "text-small" )
-					.Add( "font-medium" )
-					.Add( "text-foreground" ),
+				[nameof( ProgressSlots.Label )] = "",
 
-				[nameof( ProgressSlots.Value )] = new ElementClass()
-					.Add( "text-small" )
-					.Add( "font-medium" )
-					.Add( "text-foreground" ),
+				[nameof( ProgressSlots.Value )] = "",
 
 				[nameof( ProgressSlots.Track )] = new ElementClass()
+					.Add( "z-0" )
 					.Add( "relative" )
-					.Add( "w-full" )
+					.Add( "bg-default-300/50" )
 					.Add( "overflow-hidden" )
-					.Add( "rounded-full" )
-					.Add( "bg-default-200" )
-					.Add( "dark:bg-default-100" ),
+					.Add( "rtl:rotate-180" ),
 
 				[nameof( ProgressSlots.Indicator )] = new ElementClass()
-					.Add( "h-full" )
-					.Add( "rounded-full" )
-					.Add( "transition-all" )
-					.Add( "duration-500" )
-					.Add( "ease-in-out" ),
+					.Add( "h-full" ),
 			},
 
 			Variants = new VariantCollection
