@@ -56,20 +56,20 @@ internal static class Progress
 					[nameof( Size.Small )] = new SlotCollection
 					{
 						[nameof( ProgressSlots.Track )] = "h-1",
-						[nameof( ProgressSlots.Label )] = "text-tiny",
-						[nameof( ProgressSlots.Value )] = "text-tiny",
-					},
-					[nameof( Size.Medium )] = new SlotCollection
-					{
-						[nameof( ProgressSlots.Track )] = "h-2",
 						[nameof( ProgressSlots.Label )] = "text-small",
 						[nameof( ProgressSlots.Value )] = "text-small",
 					},
-					[nameof( Size.Large )] = new SlotCollection
+					[nameof( Size.Medium )] = new SlotCollection
 					{
 						[nameof( ProgressSlots.Track )] = "h-3",
 						[nameof( ProgressSlots.Label )] = "text-medium",
 						[nameof( ProgressSlots.Value )] = "text-medium",
+					},
+					[nameof( Size.Large )] = new SlotCollection
+					{
+						[nameof( ProgressSlots.Track )] = "h-5",
+						[nameof( ProgressSlots.Label )] = "text-large",
+						[nameof( ProgressSlots.Value )] = "text-large",
 					},
 				},
 
