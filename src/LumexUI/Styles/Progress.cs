@@ -46,7 +46,9 @@ internal static class Progress
 					.Add( "rtl:rotate-180" ),
 
 				[nameof( ProgressSlots.Indicator )] = new ElementClass()
-					.Add( "h-full" ),
+					.Add( "h-full" )
+					.Add( "transition-transform" )
+					.Add( "duration-500" ),
 			},
 
 			Variants = new VariantCollection
