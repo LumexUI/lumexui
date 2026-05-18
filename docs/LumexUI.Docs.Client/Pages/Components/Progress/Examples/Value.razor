@@ -1,29 +1,29 @@
-@implements IAsyncDisposable
+@implements IDisposable
 
-<LumexProgress Value="@value"
-               ShowValueLabel
-               Color="@ThemeColor.Success"
+<LumexProgress Value="@_value"
+               ShowValueLabel="@true"
                Size="@Size.Medium"
-               aria-label="Loading..." />
+               Color="@ThemeColor.Success"
+               aria-label="Downloading..." />
 
 @code {
-    private double value = 0;
-    private Timer? timer;
+    private double _value = 0;
+    private PeriodicTimer? _timer;
 
     protected override void OnInitialized()
     {
-        timer = new Timer( _ =>
-        {
-            value = value >= 100 ? 0 : value + 10;
-            InvokeAsync( StateHasChanged );
-        }, null, TimeSpan.Zero, TimeSpan.FromMilliseconds( 500 ) );
+        _timer = new PeriodicTimer( TimeSpan.FromMilliseconds( 500 ) );
+        _ = RunAsync( _timer );
     }
 
-    async ValueTask IAsyncDisposable.DisposeAsync()
+    private async Task RunAsync( PeriodicTimer t )
     {
-        if( timer is not null )
+        while( await t.WaitForNextTickAsync() )
         {
-            await timer.DisposeAsync();
+            _value = _value >= 100 ? 0 : _value + 10;
+            await InvokeAsync( StateHasChanged );
         }
     }
+
+    public void Dispose() => _timer?.Dispose();
 }
