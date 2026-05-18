@@ -21,7 +21,7 @@
         while( await t.WaitForNextTickAsync() )
         {
             _value = _value >= 100 ? 0 : _value + 10;
-            await InvokeAsync( StateHasChanged );
+            StateHasChanged();
         }
     }
 
