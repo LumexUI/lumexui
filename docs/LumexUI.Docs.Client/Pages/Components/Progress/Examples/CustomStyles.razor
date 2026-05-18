@@ -1,13 +1,13 @@
-<div class="w-full flex flex-col gap-8">
-    <div>
-        <LumexProgress Value="60" 
-                       Label="Rainbow Energy"
-                       ShowValueLabel="@true"
-                       Size="@Size.Large"
-                       Classes="@(new ProgressSlots { 
-                           Track = "bg-gradient-to-r from-red-100 via-green-100 to-blue-100", 
-                           Indicator = "bg-gradient-to-r from-violet-500 to-fuchsia-500"
-                       })">
-        </LumexProgress>
-    </div>
-</div>
+<LumexProgress Value="65"
+               Label="Lose weight"
+               ShowValueLabel="@true"
+               Size="@Size.Small"
+               Radius="@Radius.Small"
+               Classes="@(new ProgressSlots
+               {
+                   Base = "max-w-md",
+                   Track = "drop-shadow-md border border-default",
+                   Indicator = "bg-linear-to-r from-pink-500 to-yellow-500",
+                   Label = "tracking-wider font-medium text-default-600",
+                   Value = "text-foreground/60"
+               })" />
