@@ -78,22 +78,27 @@ internal static class Progress
 					[nameof( Radius.None )] = new SlotCollection
 					{
 						[nameof( ProgressSlots.Track )] = "rounded-none",
+						[nameof( ProgressSlots.Indicator )] = "rounded-none",
 					},
 					[nameof( Radius.Small )] = new SlotCollection
 					{
 						[nameof( ProgressSlots.Track )] = "rounded-small",
+						[nameof( ProgressSlots.Indicator )] = "rounded-small",
 					},
 					[nameof( Radius.Medium )] = new SlotCollection
 					{
 						[nameof( ProgressSlots.Track )] = "rounded-medium",
+						[nameof( ProgressSlots.Indicator )] = "rounded-medium",
 					},
 					[nameof( Radius.Large )] = new SlotCollection
 					{
 						[nameof( ProgressSlots.Track )] = "rounded-large",
+						[nameof( ProgressSlots.Indicator )] = "rounded-large",
 					},
 					[nameof( Radius.Full )] = new SlotCollection
 					{
 						[nameof( ProgressSlots.Track )] = "rounded-full",
+						[nameof( ProgressSlots.Indicator )] = "rounded-full",
 					},
 				},
 
