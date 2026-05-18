@@ -1,0 +1,343 @@
+@namespace LumexUI.Tests.Components
+@inherits TestContext
+
+@code {
+    public ProgressTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
+
+    [Fact]
+    public void ShouldRenderCorrectly()
+    {
+        var action = () => Render(
+            @<LumexProgress />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldRenderBaseTrackAndIndicatorSlots()
+    {
+        var cut = Render(
+            @<LumexProgress />
+        );
+
+        cut.FindBySlot( "base" ).Should().NotBeNull();
+        cut.FindBySlot( "track" ).Should().NotBeNull();
+        cut.FindBySlot( "indicator" ).Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldHaveProgressbarRole()
+    {
+        var cut = Render(
+            @<LumexProgress />
+        );
+
+        cut.FindBySlot( "base" )!.GetAttribute( "role" ).Should().Be( "progressbar" );
+    }
+
+    [Fact]
+    public void ShouldHaveAriaValueAttributes()
+    {
+        var cut = Render(
+            @<LumexProgress Value="50" MaxValue="100" />
+        );
+
+        var base_ = cut.FindBySlot( "base" );
+        base_!.GetAttribute( "aria-valuenow" ).Should().Be( "50" );
+        base_.GetAttribute( "aria-valuemin" ).Should().Be( "0" );
+        base_.GetAttribute( "aria-valuemax" ).Should().Be( "100" );
+    }
+
+    [Fact]
+    public void ShouldApplyTransformForValue()
+    {
+        var cut = Render(
+            @<LumexProgress Value="50" MaxValue="100" />
+        );
+
+        cut.FindBySlot( "indicator" )!
+            .GetAttribute( "style" )
+            .Should().Contain( "transform: translateX(-50%)" );
+    }
+
+    [Fact]
+    public void ShouldApplyTransformWithCustomMinAndMaxValue()
+    {
+        var cut = Render(
+            @<LumexProgress Value="75" MinValue="50" MaxValue="150" />
+        );
+
+        cut.FindBySlot( "indicator" )!
+            .GetAttribute( "style" )
+            .Should().Contain( "transform: translateX(-75%)" );
+    }
+
+    [Fact]
+    public void ShouldClampValueAboveMaxToOffsetZero()
+    {
+        var cut = Render(
+            @<LumexProgress Value="150" MaxValue="100" />
+        );
+
+        cut.FindBySlot( "indicator" )!
+            .GetAttribute( "style" )
+            .Should().Contain( "transform: translateX(-0%)" );
+    }
+
+    [Fact]
+    public void ShouldClampValueBelowMinToFullOffset()
+    {
+        var cut = Render(
+            @<LumexProgress Value="-10" MinValue="0" MaxValue="100" />
+        );
+
+        cut.FindBySlot( "indicator" )!
+            .GetAttribute( "style" )
+            .Should().Contain( "transform: translateX(-100%)" );
+    }
+
+    [Fact]
+    public void ShouldHandleZeroMaxValue()
+    {
+        var cut = Render(
+            @<LumexProgress Value="50" MaxValue="0" />
+        );
+
+        cut.FindBySlot( "indicator" )!
+            .GetAttribute( "style" )
+            .Should().Contain( "transform: translateX(-100%)" );
+    }
+
+    [Fact]
+    public void WhenIndeterminate_ShouldOmitInlineTransform()
+    {
+        var cut = Render(
+            @<LumexProgress Indeterminate Value="50" />
+        );
+
+        cut.FindBySlot( "indicator" )!.HasAttribute( "style" ).Should().BeFalse();
+    }
+
+    [Fact]
+    public void WhenIndeterminate_ShouldHaveAnimateIndeterminateBarClass()
+    {
+        var cut = Render(
+            @<LumexProgress Indeterminate />
+        );
+
+        cut.FindBySlot( "indicator" )!.ClassList.Should().Contain( "animate-indeterminate-bar" );
+    }
+
+    [Fact]
+    public void WhenIndeterminate_ShouldHavePositioningClasses()
+    {
+        var cut = Render(
+            @<LumexProgress Indeterminate />
+        );
+
+        var indicator = cut.FindBySlot( "indicator" )!;
+        indicator.ClassList.Should().Contain( "absolute" );
+        indicator.ClassList.Should().Contain( "w-full" );
+        indicator.ClassList.Should().Contain( "origin-left" );
+    }
+
+    [Fact]
+    public void WhenIndeterminate_ShouldOmitAriaValueNow()
+    {
+        var cut = Render(
+            @<LumexProgress Indeterminate />
+        );
+
+        cut.FindBySlot( "base" )!.HasAttribute( "aria-valuenow" ).Should().BeFalse();
+    }
+
+    [Fact]
+    public void WhenIndeterminate_ShouldOmitAriaValueText()
+    {
+        var cut = Render(
+            @<LumexProgress Indeterminate />
+        );
+
+        cut.FindBySlot( "base" )!.HasAttribute( "aria-valuetext" ).Should().BeFalse();
+    }
+
+    [Fact]
+    public void ShouldEmitDataDisabledFalseByDefault()
+    {
+        var cut = Render(
+            @<LumexProgress />
+        );
+
+        cut.FindBySlot( "base" )!.GetAttribute( "data-disabled" ).Should().Be( "false" );
+    }
+
+    [Fact]
+    public void WhenDisabled_ShouldEmitDataDisabledTrue()
+    {
+        var cut = Render(
+            @<LumexProgress Disabled />
+        );
+
+        cut.FindBySlot( "base" )!.GetAttribute( "data-disabled" ).Should().Be( "true" );
+    }
+
+    [Fact]
+    public void ShouldEmitDataIndeterminateFalseByDefault()
+    {
+        var cut = Render(
+            @<LumexProgress />
+        );
+
+        cut.FindBySlot( "base" )!.GetAttribute( "data-indeterminate" ).Should().Be( "false" );
+    }
+
+    [Fact]
+    public void WhenIndeterminate_ShouldEmitDataIndeterminateTrue()
+    {
+        var cut = Render(
+            @<LumexProgress Indeterminate />
+        );
+
+        cut.FindBySlot( "base" )!.GetAttribute( "data-indeterminate" ).Should().Be( "true" );
+    }
+
+    [Fact]
+    public void ShouldRenderLabelWhenLabelProvided()
+    {
+        var cut = Render(
+            @<LumexProgress Label="Downloading..." Value="50" />
+        );
+
+        var label = cut.FindBySlot( "label" );
+        label.Should().NotBeNull();
+        label!.TextContent.Should().Contain( "Downloading..." );
+    }
+
+    [Fact]
+    public void ShouldNotRenderLabelWhenLabelMissing()
+    {
+        var cut = Render(
+            @<LumexProgress Value="50" />
+        );
+
+        cut.FindBySlot( "label" ).Should().BeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderValueLabelWhenShowValueLabelIsTrue()
+    {
+        var cut = Render(
+            @<LumexProgress Value="50" ShowValueLabel />
+        );
+
+        cut.FindBySlot( "value" ).Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldNotRenderValueLabelByDefault()
+    {
+        var cut = Render(
+            @<LumexProgress Value="75" />
+        );
+
+        cut.FindBySlot( "value" ).Should().BeNull();
+    }
+
+    [Fact]
+    public void ShouldNotRenderValueLabelWhenIndeterminate()
+    {
+        var cut = Render(
+            @<LumexProgress Indeterminate ShowValueLabel />
+        );
+
+        cut.FindBySlot( "value" ).Should().BeNull();
+    }
+
+    [Fact]
+    public void ShouldRenderCustomValueLabel()
+    {
+        var cut = Render(
+            @<LumexProgress Value="50" ShowValueLabel ValueLabel="50/100" />
+        );
+
+        cut.FindBySlot( "value" )!.TextContent.Should().Contain( "50/100" );
+    }
+
+    [Theory]
+    [InlineData( ThemeColor.Default )]
+    [InlineData( ThemeColor.Primary )]
+    [InlineData( ThemeColor.Secondary )]
+    [InlineData( ThemeColor.Success )]
+    [InlineData( ThemeColor.Warning )]
+    [InlineData( ThemeColor.Danger )]
+    [InlineData( ThemeColor.Info )]
+    public void ShouldApplyColor( ThemeColor color )
+    {
+        var action = () => Render(
+            @<LumexProgress Color="@color" />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Theory]
+    [InlineData( Size.Small )]
+    [InlineData( Size.Medium )]
+    [InlineData( Size.Large )]
+    public void ShouldApplySize( Size size )
+    {
+        var action = () => Render(
+            @<LumexProgress Size="@size" />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Theory]
+    [InlineData( Radius.None )]
+    [InlineData( Radius.Small )]
+    [InlineData( Radius.Medium )]
+    [InlineData( Radius.Large )]
+    [InlineData( Radius.Full )]
+    public void ShouldApplyRadius( Radius radius )
+    {
+        var action = () => Render(
+            @<LumexProgress Radius="@radius" />
+        );
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
+    public void ShouldApplyCustomClass()
+    {
+        var cut = Render(
+            @<LumexProgress Class="custom-class" />
+        );
+
+        cut.FindBySlot( "base" )!.ClassList.Should().Contain( "custom-class" );
+    }
+
+    [Fact]
+    public void ShouldApplyCustomSlotClasses()
+    {
+        var slots = new ProgressSlots
+        {
+            Track = "custom-track",
+            Indicator = "custom-indicator",
+            Label = "custom-label",
+        };
+
+        var cut = Render(
+            @<LumexProgress Label="Testing..." Value="50" Classes="@slots" />
+        );
+
+        cut.FindBySlot( "track" )!.ClassList.Should().Contain( "custom-track" );
+        cut.FindBySlot( "indicator" )!.ClassList.Should().Contain( "custom-indicator" );
+        cut.FindBySlot( "label" )!.ClassList.Should().Contain( "custom-label" );
+    }
+}
