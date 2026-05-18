@@ -8,7 +8,8 @@
 
     <LumexAlert Radius="@Radius.Large" Class="my-6">
         <DescriptionContent>
-            Note: Make sure to pass the <code>aria-label</code> attribute when the <code>Label</code> prop is not provided. This is required for accessibility.
+            Make sure to pass the <code>aria-label</code> attribute when the <code>Label</code> prop is not provided.
+            This is required for accessibility.
         </DescriptionContent>
     </LumexAlert>
 
@@ -24,7 +25,8 @@
 
     <DocsSection Title="Indeterminate">
         <p>
-            You can use the <code>Indeterminate</code> prop to display an indeterminate progress bar. This is useful when you don't know how long an operation will take.
+            You can use the <code>Indeterminate</code> prop to display an indeterminate progress bar.
+            This is useful when you don't know how long an operation will take.
         </p>
         <Indeterminate />
     </DocsSection>
@@ -42,7 +44,7 @@
 
     <LumexAlert Radius="@Radius.Large" Class="my-6">
         <DescriptionContent>
-            Note: If you pass the <code>Label</code> prop you don't need to pass <code>aria-label</code> anymore.
+            If you pass the <code>Label</code> prop you don't need to pass <code>aria-label</code> anymore.
         </DescriptionContent>
     </LumexAlert>
 
@@ -77,6 +79,7 @@
             new("Sizes"),
             new("Colors"),
             new("Indeterminate"),
+            new("Striped"),
             new("With Label"),
             new("With Value"),
         ]),
@@ -96,7 +99,7 @@
             category: "Components",
             description: "Progress displays the progress of a task or operation, and can also be used as animated loading indicators.",
             headings: _headings,
-            linksProps: new ComponentLinksProps("Progress", isServer: false)
+            linksProps: new ComponentLinksProps( "Progress", isServer: false )
         );
     }
 }

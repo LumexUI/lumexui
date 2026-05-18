@@ -61,6 +61,15 @@ public static class ServiceCollectionExtensions
 					["opacity"] = new ClassGroup( "opacity", ["hover", "focus", "disabled", "divider"] ),
 					["leading"] = new ClassGroup( "leading", ["tiny", "small", "medium", "large"] ),
 					["font-size"] = new ClassGroup( "text", ["tiny", "small", "medium", "large"] ),
+					["bg-image"] = new ClassGroup( "bg", [
+						"stripe-gradient-default",
+						"stripe-gradient-primary",
+						"stripe-gradient-secondary",
+						"stripe-gradient-success",
+						"stripe-gradient-warning",
+						"stripe-gradient-danger",
+						"stripe-gradient-info"
+					] ),
 				}
 			} );
 		} );
