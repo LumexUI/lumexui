@@ -1,0 +1,29 @@
+@implements IDisposable
+
+<LumexProgress Value="@_value"
+               ShowValueLabel="@true"
+               Size="@Size.Medium"
+               Color="@ThemeColor.Success"
+               aria-label="Downloading..." />
+
+@code {
+    private double _value = 0;
+    private PeriodicTimer? _timer;
+
+    protected override void OnInitialized()
+    {
+        _timer = new PeriodicTimer( TimeSpan.FromMilliseconds( 500 ) );
+        _ = RunAsync( _timer );
+    }
+
+    private async Task RunAsync( PeriodicTimer t )
+    {
+        while( await t.WaitForNextTickAsync() )
+        {
+            _value = _value >= 100 ? 0 : _value + 10;
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose() => _timer?.Dispose();
+}

@@ -1,0 +1,17 @@
+<LumexProgress Value="65"
+               Label="Lose weight"
+               ShowValueLabel="@true"
+               Size="@Size.Small"
+               Radius="@Radius.Small"
+               Classes="@_classes" />
+
+@code {
+    private ProgressSlots _classes = new()
+    {
+        Base = "max-w-md",
+        Track = "drop-shadow-md border border-default",
+        Indicator = "bg-linear-to-r from-pink-500 to-yellow-500",
+        Label = "tracking-wider font-medium text-default-600",
+        Value = "text-foreground/60"
+    };
+}
