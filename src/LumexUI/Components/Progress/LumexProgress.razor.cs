@@ -23,14 +23,6 @@ public partial class LumexProgress : LumexComponentBase, ISlotComponent<Progress
 	[Parameter] public string? Label { get; set; }
 
 	/// <summary>
-	/// Gets or sets the ARIA label for accessibility. If not provided, defaults to the Label or "Progress"/"Loading".
-	/// </summary>
-	/// <remarks>
-	/// This is required for accessibility when the <see cref="Label"/> prop is not provided.
-	/// </remarks>
-	[Parameter] public string? AriaLabel { get; set; }
-
-	/// <summary>
 	/// Gets or sets custom content for the value label.
 	/// </summary>
 	[Parameter] public string? ValueLabel { get; set; }
