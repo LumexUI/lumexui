@@ -40,7 +40,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexKbd ) ) )
 			.Add( new( nameof( LumexLink ) ) )
 			.Add( new( nameof( LumexListbox<T> ) ) )
-			.Add( new( nameof( LumexModal ), PageStatus.New ) )
+			.Add( new( nameof( LumexModal ) ) )
 			.Add( new( nameof( LumexNavbar ) ) )
 			.Add( new( nameof( LumexNumbox<T> ) ) )
 			.Add( new( nameof( LumexPopover ) ) )
