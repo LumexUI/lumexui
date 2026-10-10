@@ -1,5 +1,4 @@
 ﻿@namespace LumexUI.Docs.Client.Components
-@inject NavigationManager NavigationManager
 
 <DocsSection Title="API">
     <p>
@@ -16,7 +15,7 @@
                            Radius="@Radius.Small"
                            Variant="@ChipVariant.Flat"
                            Class="not-prose bg-default-50 ring ring-default-900/10">
-                    <LumexLink Href="@($"{NavigationManager.BaseUri}docs/api/{componentPathSegment}")"
+                    <LumexLink Href="@($"docs/api/{componentPathSegment}")"
                                Class="font-mono text-orange-600 dark:text-orange-400">
                         @($"<{component} />")
                     </LumexLink>
